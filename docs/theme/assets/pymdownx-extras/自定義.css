@@ -2111,8 +2111,16 @@ body {
   }
 
   .md-sidebar--primary .md-nav__title[for] .md-nav__button.md-logo {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     flex: 0 0 auto !important;
     margin: 0 !important;
+    padding: 0 !important;
   }
 
   .md-sidebar--primary .md-nav__title[for] .md-nav__button.md-logo img {
