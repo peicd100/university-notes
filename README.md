@@ -40,11 +40,11 @@ conda install cuda -c nvidia -y
 
 ## 使用 git
 ```
-git clone https://github.com/peicd100/peicd100.github.io.git
+git clone https://github.com/peicd100/university-notes.git
 git init
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 git push -u origin main
 mkdocs gh-deploy
 
@@ -56,7 +56,7 @@ mkdocs gh-deploy
 ## 初始化
 ```
 git init
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 
 ```
 ## 推送到main
@@ -84,14 +84,26 @@ git remote -v
 ```
 ## 克隆儲存庫
 ```
-git clone https://github.com/peicd100/peicd100.github.io.git
+git clone https://github.com/peicd100/university-notes.git
 
 ```
 
-## 刪除環境
+## 刪除環境+安裝
 
 ```
+conda activate base
 conda env remove -n mkdocs -y
+
+
+conda create -n mkdocs python=3.11 -y
+activate mkdocs
+conda install pip -y 
+conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
+pip install -r requirements.txt
+conda install git -y
+
+
+
 ```
 
 

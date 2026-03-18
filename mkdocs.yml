@@ -1,8 +1,8 @@
 site_name: 'PEICD100'  # 網站名稱
 
 # ✅ MkDocs 只要設定 site_url，就會自動生成 /sitemap.xml（MkDocs 0.13+ 內建）：
-#    你目前已經能開 https://peicd100.github.io/sitemap.xml，代表 sitemap 生成正常。
-site_url: https://peicd100.github.io/  # 網站 URL，便於生成 sitemap 和 SEO 優化
+#    你目前已經能開 https://university-notes/sitemap.xml，代表 sitemap 生成正常。
+site_url: https://university-notes/  # 網站 URL，便於生成 sitemap 和 SEO 優化
 use_directory_urls: false  # 保持目前 .html URL 風格（避免既有連結失效）；想用 /path/ 風格可改 true
 
 theme:
