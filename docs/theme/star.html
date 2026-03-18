@@ -1,0 +1,320 @@
+<!-- 
+<script type="text/javascript">
+  window.MathJax = {
+      tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],  // 支持 $...$ 和 \(...\) 语法
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      },
+      options: {
+          processEscapes: true
+      }
+  };
+</script> -->
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- 背景图片 -->
+<div class="image-background"></div>
+
+<!-- 星空和流星效果的Canvas背景 -->
+<canvas id="starCanvas" style="z-index: -2; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+
+<!-- 粒子效果的Canvas背景，放置在星空和流星前面 -->
+<canvas id="particleCanvas" style="z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var tocContainer = document.querySelector('.custom-toc-container');
+  var contentInner = document.querySelector('.md-content__inner');
+
+  // 设置星空流星的 Canvas 尺寸
+  var starCanvas = document.getElementById('starCanvas');
+  var starCtx = starCanvas.getContext('2d');
+  function resizeStarCanvas() {
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+  }
+  resizeStarCanvas();
+  window.addEventListener('resize', resizeStarCanvas);
+
+  // 设置粒子效果的 Canvas 尺寸
+  var particleCanvas = document.getElementById('particleCanvas');
+  var particleCtx = particleCanvas.getContext('2d');
+  function resizeParticleCanvas() {
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
+  }
+  resizeParticleCanvas();
+  window.addEventListener('resize', resizeParticleCanvas);
+
+  // 星星类
+  class Star {
+    constructor() {
+      this.reset();  // 随机初始化星星的位置、大小和透明度
+    }
+
+    reset() {
+      this.x = Math.random() * starCanvas.width;
+      this.y = Math.random() * starCanvas.height;
+      this.originalSize = Math.random() * 2 + 1;
+      this.size = 0;
+      this.alpha = 0;
+      this.growthSpeed = 0.02;
+      this.shrinkSpeed = 0.01;
+      this.life = Math.random() * 200 + 100;
+    }
+
+    update() {
+      if (this.life > 100) {
+        this.size += this.growthSpeed;
+        this.alpha += this.growthSpeed;
+        if (this.size > this.originalSize) this.size = this.originalSize;
+        if (this.alpha > 1) this.alpha = 1;
+      } else {
+        this.size -= this.shrinkSpeed;
+        this.alpha -= this.shrinkSpeed;
+        if (this.size < 0) this.size = 0;
+        if (this.alpha < 0) this.alpha = 0;
+      }
+
+      this.life -= 1;
+      if (this.life <= 0) this.reset();
+    }
+
+    draw() {
+      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      starCtx.beginPath();
+      starCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      starCtx.closePath();
+      starCtx.fill();
+    }
+  }
+
+  // 流星类
+  class Meteor {
+    constructor(x = null, y = null) {
+      this.isCustom = (x !== null && y !== null); // 判斷是否是滑鼠生成的流星
+      this.reset(x, y);
+    }
+
+    reset(x = null, y = null) {
+      if (this.isCustom) {
+        this.x = x;
+        this.y = y;
+        this.size = this.originalSize; // 立即设为最大值
+        this.alpha = 1; // 立即设为最大透明度
+      } else {
+        this.x = Math.random() * starCanvas.width / 2;
+        this.y = Math.random() * starCanvas.height;
+        this.size = 0;
+        this.alpha = 0;
+      }
+      this.originalSize = Math.random() * 1 + 1;
+      this.growthSpeed = 0.03;
+      this.speedX = Math.random() * 8 + 4;
+      this.speedY = Math.random() * 4 + 2;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (!this.isCustom) { // 非滑鼠生成的流星才有增大過程
+        this.size += this.growthSpeed;
+        this.alpha += this.growthSpeed;
+        if (this.size > this.originalSize) this.size = this.originalSize;
+        if (this.alpha > 1) this.alpha = 1;
+        this.alpha -= 0.025;
+      } else {
+        // 滑鼠生成的流星更快消失
+        this.alpha -= 0.025; // 透明度更快減少
+      }
+
+      // 如果是滑鼠生成的流星且透明度為0，將其從數組中移除
+      if (this.isCustom && this.alpha <= 0) {
+        return true; // 返回true表示可以從數組中移除
+      }
+
+      if (!this.isCustom && this.isOutOfView()) {
+        this.reset(); // 非滑鼠生成的流星需要重新生成
+      }
+      return false; // 不移除流星
+    }
+
+    draw() {
+      starCtx.strokeStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      starCtx.lineWidth = this.size;
+      starCtx.beginPath();
+      starCtx.moveTo(this.x, this.y);
+      starCtx.lineTo(this.x - this.speedX * 5, this.y - this.speedY * 5);
+      starCtx.stroke();
+
+      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      this.drawStarShape(this.x, this.y, this.size, 5);
+    }
+
+    drawStarShape(cx, cy, outerRadius, spikes) {
+      let rot = Math.PI / 2 * 3;
+      let step = Math.PI / spikes;
+
+      starCtx.beginPath();
+      starCtx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        let x = cx + Math.cos(rot) * outerRadius;
+        let y = cy + Math.sin(rot) * outerRadius;
+        starCtx.lineTo(x, y);
+        rot += step;
+      }
+      starCtx.lineTo(cx, cy - outerRadius);
+      starCtx.closePath();
+      starCtx.fill();
+    }
+
+    isOutOfView() {
+      return this.x > starCanvas.width || this.y > starCanvas.height || this.alpha <= 0;
+    }
+  }
+
+  // 粒子类
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 3 - 1.5;
+      this.speedY = Math.random() * 3 - 1.5;
+      this.alpha = 1;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.size > 0.2) this.size -= 0.1;
+      this.alpha -= 0.02;  // 粒子逐渐消失
+    }
+
+    draw() {
+      particleCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      particleCtx.beginPath();
+      particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      particleCtx.closePath();
+      particleCtx.fill();
+    }
+  }
+
+  // 初始化粒子、星星、流星数组
+  let starsArray = [];
+  let meteorsArray = [];
+  let customMeteorsArray = [];
+  let particlesArray = [];
+  const maxMeteors = 1;
+
+  // 初始化星星
+  function initStars() {
+    starsArray = [];
+    for (let i = 0; i < 150; i++) {
+      starsArray.push(new Star());
+    }
+  }
+
+  // 生成更多流星
+  function createMeteor() {
+    if (meteorsArray.length < maxMeteors) {
+      meteorsArray.push(new Meteor());
+    }
+  }
+
+  // 生成粒子
+  function createParticle(event) {
+    const x = event.x;
+    const y = event.y;
+    for (let i = 0; i < 1; i++) {
+      particlesArray.push(new Particle(x, y));
+    }
+  }
+
+  // 生成滑鼠流星
+  function createCustomMeteor(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    const newMeteor = new Meteor(x, y);
+    newMeteor.speedX = Math.random() * 8 + 4;  // 設置滑鼠流星的速度
+    newMeteor.speedY = Math.random() * 4 + 2;
+    newMeteor.size = newMeteor.originalSize; // 立即設定最大大小
+    newMeteor.alpha = 1; // 立即設定最大透明度
+    customMeteorsArray.push(newMeteor);
+  }
+
+  // 更新并绘制星星、流星和粒子
+  function handleParticles() {
+    for (let i = 0; i < particlesArray.length; i++) {
+      particlesArray[i].update();
+      particlesArray[i].draw();
+      if (particlesArray[i].alpha <= 0) {
+        particlesArray.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
+  function handleStarsAndMeteors() {
+    for (let i = 0; i < starsArray.length; i++) {
+      starsArray[i].update();
+      starsArray[i].draw();
+    }
+
+    for (let i = 0; i < meteorsArray.length; i++) {
+      meteorsArray[i].update();
+      meteorsArray[i].draw();
+      if (meteorsArray[i].isOutOfView()) {
+        meteorsArray.splice(i, 1);
+        i--;
+      }
+    }
+
+    for (let i = 0; i < customMeteorsArray.length; i++) {
+      if (customMeteorsArray[i].update()) {
+        customMeteorsArray.splice(i, 1); // 移除透明度為0的滑鼠生成流星
+        i--;
+      } else {
+        customMeteorsArray[i].draw();
+      }
+    }
+  }
+
+  // 动画循环
+  function animate() {
+    starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    handleStarsAndMeteors();
+    handleParticles();
+    requestAnimationFrame(animate);
+  }
+
+  // 初始化并开始动画
+  initStars();
+  animate();
+
+  // 流星的生成频率增加
+  setInterval(createMeteor, 500);
+
+  // 监听鼠标事件生成粒子
+  window.addEventListener('mousemove', createParticle);
+
+  // // 监听鼠标点击生成额外流星
+  // window.addEventListener('click', createCustomMeteor);
+
+
+  // 处理图像大小调整的逻辑
+  document.querySelectorAll('img').forEach(function(img) {
+      const match = img.src.match(/=(\d+)%x$/);
+      if (match) {
+          const widthPercentage = match[1];
+          img.style.width = widthPercentage + '%';
+          img.style.height = 'auto';
+          img.src = img.src.replace(/=(\d+)%x$/, '');
+      }
+  });
+});
+</script>
