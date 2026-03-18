@@ -2081,41 +2081,152 @@ body {
 }
 
 /* ==========================================================================
-   34) Mobile drawer：可讀性 Hotfix + 標題文字右移
+   34) Mobile drawer + blog index：窄版可讀性 Hotfix
+   - 抽屜標題列：logo 與文字分開排，不再互相覆蓋
+   - 抽屜連結：手機版改成左色條，避免四角線段壓到文字
+   - Blog 首頁：窄版固定單欄，避免首頁標題被卡片裝飾擠壓
    ========================================================================== */
-
-/* ===== Hotfix: Mobile drawer title 可讀性（避免白字白底） ===== */
 @media (max-width: 59.999em) {
-
-  /* 抽屜(左側導覽)最上方那條「返回/標題列」通常是 .md-nav__title[for] */
-  .md-sidebar--primary .md-nav__title[for] {
-    background: rgb(0, 0, 0) !important;
-    color: var(--md-primary-fg-color) !important;
-
-    /* 把你自訂的透明/底線/全大寫等影響可讀性的先壓掉 */
-    /* text-transform: none !important; */
-    /* letter-spacing: normal !important; */
-    /* border: 0 !important; */
-    /* box-shadow: none !important; */
+  :root {
+    --peicd-sel-corner: 7px;
   }
-}
 
-/* ===== Mobile drawer：標題文字右移（只移文字，不動 icon） ===== */
-@media (max-width: 59.999em) {
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--secondary .md-sidebar__scrollwrap {
+    overflow-x: hidden !important;
+  }
+
   .md-sidebar--primary .md-nav__title[for] {
     display: flex !important;
     align-items: center !important;
+    gap: 0.75rem !important;
+    min-height: 4.25rem !important;
+    padding: 0.9rem 1rem !important;
+    background: rgb(0, 0, 0) !important;
+    color: var(--md-primary-fg-color) !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
   }
 
-  /* Material 的標題文字通常在 .md-ellipsis */
-  .md-sidebar--primary .md-nav__title[for] .md-ellipsis {
-    margin-left: 0.55rem !important;
-    /* 你要更右就加大 */
+  .md-sidebar--primary .md-nav__title[for] .md-nav__button.md-logo {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
   }
 
-  /* 若你的版本不是 .md-ellipsis，用 span 兜底 */
+  .md-sidebar--primary .md-nav__title[for] .md-nav__button.md-logo img {
+    display: block !important;
+    width: 2.3rem !important;
+    height: 2.3rem !important;
+    object-fit: cover !important;
+  }
+
+  .md-sidebar--primary .md-nav__title[for] .md-ellipsis,
   .md-sidebar--primary .md-nav__title[for]>span:last-child {
-    margin-left: 0.55rem !important;
+    margin-left: 0 !important;
+  }
+
+  .md-sidebar--primary .md-nav__list,
+  .md-sidebar--secondary .md-nav__list,
+  .md-sidebar--primary .md-nav__item,
+  .md-sidebar--secondary .md-nav__item,
+  .md-sidebar--primary .md-nav__link,
+  .md-sidebar--secondary .md-nav__link {
+    min-width: 0 !important;
+  }
+
+  .md-sidebar--primary .md-nav__link .md-ellipsis,
+  .md-sidebar--secondary .md-nav__link .md-ellipsis {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .md-sidebar--primary .md-nav__link.md-nav__container,
+  .md-sidebar--secondary .md-nav__link.md-nav__container,
+  .md-sidebar--primary label.md-nav__link,
+  .md-sidebar--secondary label.md-nav__link {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    min-height: 2.75rem !important;
+    padding: 0.6rem 0.9rem !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  .md-sidebar--primary .md-nav__link:not(.md-nav__container),
+  .md-sidebar--secondary .md-nav__link:not(.md-nav__container) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    min-height: 2.75rem !important;
+    padding: 0.6rem 0.9rem !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    background: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-inline-start: 2px solid transparent !important;
+  }
+
+  .md-sidebar--primary .md-nav__link:not(.md-nav__container):hover,
+  .md-sidebar--secondary .md-nav__link:not(.md-nav__container):hover {
+    color: var(--peicd-nav-text) !important;
+    background: rgba(80, 214, 255, 0.08) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-inline-start-color: var(--peicd-nav-hover-corner) !important;
+  }
+
+  .md-sidebar--primary .md-nav__link--active:not(.md-nav__container),
+  .md-sidebar--secondary .md-nav__link--active:not(.md-nav__container),
+  .md-sidebar--primary .md-nav__item--active>.md-nav__link:not(.md-nav__container),
+  .md-sidebar--secondary .md-nav__item--active>.md-nav__link:not(.md-nav__container) {
+    color: var(--peicd-nav-text) !important;
+    background: rgba(80, 214, 255, 0.12) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-inline-start-color: var(--peicd-nav-active-corner) !important;
+  }
+
+  .md-sidebar--primary .md-nav__link--active::before,
+  .md-sidebar--secondary .md-nav__link--active::before,
+  .md-sidebar--primary .md-nav__item--active>.md-nav__link::before,
+  .md-sidebar--secondary .md-nav__item--active>.md-nav__link::before,
+  .md-sidebar--primary .md-nav__link--active::after,
+  .md-sidebar--secondary .md-nav__link--active::after,
+  .md-sidebar--primary .md-nav__item--active>.md-nav__link::after,
+  .md-sidebar--secondary .md-nav__item--active>.md-nav__link::after {
+    content: none !important;
+  }
+}
+
+@media (max-width: 60em) {
+  @supports selector(:has(*)) {
+    .md-content__inner:has(> article.md-post--excerpt) {
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 1rem !important;
+    }
+
+    .md-content__inner:has(> article.md-post--excerpt)>header:first-child {
+      position: relative !important;
+      z-index: 1 !important;
+      margin-bottom: 0.75rem !important;
+    }
+  }
+
+  .md-post--excerpt,
+  [data-md-color-scheme="default"] .md-post--excerpt,
+  [data-md-color-scheme="light"] .md-post--excerpt {
+    padding: 1rem 1.1rem !important;
   }
 }
 
