@@ -1,0 +1,5965 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html">
+      
+      
+        <link rel="prev" href="Procedural%20style.html">
+      
+      
+        <link rel="next" href="system%20tasks.html">
+      
+      
+        
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../logo/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>常見資料型別 - PEICD100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+
+<!-- 
+<script type="text/javascript">
+  window.MathJax = {
+      tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],  // 支持 $...$ 和 \(...\) 语法
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      },
+      options: {
+          processEscapes: true
+      }
+  };
+</script> -->
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- 背景图片 -->
+<div class="image-background"></div>
+
+<!-- 星空和流星效果的Canvas背景 -->
+<canvas id="starCanvas" style="z-index: -2; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+
+<!-- 粒子效果的Canvas背景，放置在星空和流星前面 -->
+<canvas id="particleCanvas" style="z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var tocContainer = document.querySelector('.custom-toc-container');
+  var contentInner = document.querySelector('.md-content__inner');
+
+  // 设置星空流星的 Canvas 尺寸
+  var starCanvas = document.getElementById('starCanvas');
+  var starCtx = starCanvas.getContext('2d');
+  function resizeStarCanvas() {
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+  }
+  resizeStarCanvas();
+  window.addEventListener('resize', resizeStarCanvas);
+
+  // 设置粒子效果的 Canvas 尺寸
+  var particleCanvas = document.getElementById('particleCanvas');
+  var particleCtx = particleCanvas.getContext('2d');
+  function resizeParticleCanvas() {
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
+  }
+  resizeParticleCanvas();
+  window.addEventListener('resize', resizeParticleCanvas);
+
+  // 星星类
+  class Star {
+    constructor() {
+      this.reset();  // 随机初始化星星的位置、大小和透明度
+    }
+
+    reset() {
+      this.x = Math.random() * starCanvas.width;
+      this.y = Math.random() * starCanvas.height;
+      this.originalSize = Math.random() * 2 + 1;
+      this.size = 0;
+      this.alpha = 0;
+      this.growthSpeed = 0.02;
+      this.shrinkSpeed = 0.01;
+      this.life = Math.random() * 200 + 100;
+    }
+
+    update() {
+      if (this.life > 100) {
+        this.size += this.growthSpeed;
+        this.alpha += this.growthSpeed;
+        if (this.size > this.originalSize) this.size = this.originalSize;
+        if (this.alpha > 1) this.alpha = 1;
+      } else {
+        this.size -= this.shrinkSpeed;
+        this.alpha -= this.shrinkSpeed;
+        if (this.size < 0) this.size = 0;
+        if (this.alpha < 0) this.alpha = 0;
+      }
+
+      this.life -= 1;
+      if (this.life <= 0) this.reset();
+    }
+
+    draw() {
+      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      starCtx.beginPath();
+      starCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      starCtx.closePath();
+      starCtx.fill();
+    }
+  }
+
+  // 流星类
+  class Meteor {
+    constructor(x = null, y = null) {
+      this.isCustom = (x !== null && y !== null); // 判斷是否是滑鼠生成的流星
+      this.reset(x, y);
+    }
+
+    reset(x = null, y = null) {
+      if (this.isCustom) {
+        this.x = x;
+        this.y = y;
+        this.size = this.originalSize; // 立即设为最大值
+        this.alpha = 1; // 立即设为最大透明度
+      } else {
+        this.x = Math.random() * starCanvas.width / 2;
+        this.y = Math.random() * starCanvas.height;
+        this.size = 0;
+        this.alpha = 0;
+      }
+      this.originalSize = Math.random() * 1 + 1;
+      this.growthSpeed = 0.03;
+      this.speedX = Math.random() * 8 + 4;
+      this.speedY = Math.random() * 4 + 2;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (!this.isCustom) { // 非滑鼠生成的流星才有增大過程
+        this.size += this.growthSpeed;
+        this.alpha += this.growthSpeed;
+        if (this.size > this.originalSize) this.size = this.originalSize;
+        if (this.alpha > 1) this.alpha = 1;
+        this.alpha -= 0.025;
+      } else {
+        // 滑鼠生成的流星更快消失
+        this.alpha -= 0.025; // 透明度更快減少
+      }
+
+      // 如果是滑鼠生成的流星且透明度為0，將其從數組中移除
+      if (this.isCustom && this.alpha <= 0) {
+        return true; // 返回true表示可以從數組中移除
+      }
+
+      if (!this.isCustom && this.isOutOfView()) {
+        this.reset(); // 非滑鼠生成的流星需要重新生成
+      }
+      return false; // 不移除流星
+    }
+
+    draw() {
+      starCtx.strokeStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      starCtx.lineWidth = this.size;
+      starCtx.beginPath();
+      starCtx.moveTo(this.x, this.y);
+      starCtx.lineTo(this.x - this.speedX * 5, this.y - this.speedY * 5);
+      starCtx.stroke();
+
+      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      this.drawStarShape(this.x, this.y, this.size, 5);
+    }
+
+    drawStarShape(cx, cy, outerRadius, spikes) {
+      let rot = Math.PI / 2 * 3;
+      let step = Math.PI / spikes;
+
+      starCtx.beginPath();
+      starCtx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        let x = cx + Math.cos(rot) * outerRadius;
+        let y = cy + Math.sin(rot) * outerRadius;
+        starCtx.lineTo(x, y);
+        rot += step;
+      }
+      starCtx.lineTo(cx, cy - outerRadius);
+      starCtx.closePath();
+      starCtx.fill();
+    }
+
+    isOutOfView() {
+      return this.x > starCanvas.width || this.y > starCanvas.height || this.alpha <= 0;
+    }
+  }
+
+  // 粒子类
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 3 - 1.5;
+      this.speedY = Math.random() * 3 - 1.5;
+      this.alpha = 1;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.size > 0.2) this.size -= 0.1;
+      this.alpha -= 0.02;  // 粒子逐渐消失
+    }
+
+    draw() {
+      particleCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
+      particleCtx.beginPath();
+      particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      particleCtx.closePath();
+      particleCtx.fill();
+    }
+  }
+
+  // 初始化粒子、星星、流星数组
+  let starsArray = [];
+  let meteorsArray = [];
+  let customMeteorsArray = [];
+  let particlesArray = [];
+  const maxMeteors = 1;
+
+  // 初始化星星
+  function initStars() {
+    starsArray = [];
+    for (let i = 0; i < 150; i++) {
+      starsArray.push(new Star());
+    }
+  }
+
+  // 生成更多流星
+  function createMeteor() {
+    if (meteorsArray.length < maxMeteors) {
+      meteorsArray.push(new Meteor());
+    }
+  }
+
+  // 生成粒子
+  function createParticle(event) {
+    const x = event.x;
+    const y = event.y;
+    for (let i = 0; i < 1; i++) {
+      particlesArray.push(new Particle(x, y));
+    }
+  }
+
+  // 生成滑鼠流星
+  function createCustomMeteor(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    const newMeteor = new Meteor(x, y);
+    newMeteor.speedX = Math.random() * 8 + 4;  // 設置滑鼠流星的速度
+    newMeteor.speedY = Math.random() * 4 + 2;
+    newMeteor.size = newMeteor.originalSize; // 立即設定最大大小
+    newMeteor.alpha = 1; // 立即設定最大透明度
+    customMeteorsArray.push(newMeteor);
+  }
+
+  // 更新并绘制星星、流星和粒子
+  function handleParticles() {
+    for (let i = 0; i < particlesArray.length; i++) {
+      particlesArray[i].update();
+      particlesArray[i].draw();
+      if (particlesArray[i].alpha <= 0) {
+        particlesArray.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
+  function handleStarsAndMeteors() {
+    for (let i = 0; i < starsArray.length; i++) {
+      starsArray[i].update();
+      starsArray[i].draw();
+    }
+
+    for (let i = 0; i < meteorsArray.length; i++) {
+      meteorsArray[i].update();
+      meteorsArray[i].draw();
+      if (meteorsArray[i].isOutOfView()) {
+        meteorsArray.splice(i, 1);
+        i--;
+      }
+    }
+
+    for (let i = 0; i < customMeteorsArray.length; i++) {
+      if (customMeteorsArray[i].update()) {
+        customMeteorsArray.splice(i, 1); // 移除透明度為0的滑鼠生成流星
+        i--;
+      } else {
+        customMeteorsArray[i].draw();
+      }
+    }
+  }
+
+  // 动画循环
+  function animate() {
+    starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    handleStarsAndMeteors();
+    handleParticles();
+    requestAnimationFrame(animate);
+  }
+
+  // 初始化并开始动画
+  initStars();
+  animate();
+
+  // 流星的生成频率增加
+  setInterval(createMeteor, 500);
+
+  // 监听鼠标事件生成粒子
+  window.addEventListener('mousemove', createParticle);
+
+  // // 监听鼠标点击生成额外流星
+  // window.addEventListener('click', createCustomMeteor);
+
+
+  // 处理图像大小调整的逻辑
+  document.querySelectorAll('img').forEach(function(img) {
+      const match = img.src.match(/=(\d+)%x$/);
+      if (match) {
+          const widthPercentage = match[1];
+          img.style.width = widthPercentage + '%';
+          img.style.height = 'auto';
+          img.src = img.src.replace(/=(\d+)%x$/, '');
+      }
+  });
+});
+</script>
+
+<!-- google 朗讀和翻譯 -->
+<!--
+把整段放進你的 tts.md（snippets）即可
+
+本版新增：
+- Auto scroll 開關（是否自動捲動到正在讀的句子），在語音選單中設定並記住
+- 自動翻到下一頁後續讀（優先用 rel="next" / footer next link；找不到才嘗試模擬按 n；並加入「未換頁就清旗標」保護）
+其餘維持：Auto 連播、Rate/Gap、EN 全英語（en-*）、dracula 不動
+-->
+
+<style>
+/* =========================
+   句子 TTS：文字 + 按鈕（避免 st/nd 跑位）
+   ========================= */
+:root{
+  --tts-accent: var(--md-primary-fg-color, #7ad3ff);
+  --tts-accent-strong: var(--md-accent-fg-color, var(--tts-accent));
+  --tts-surface: var(--peicd-card, rgba(22, 28, 38, 0.96));
+  --tts-surface-strong: var(--peicd-surface-2, rgba(20, 25, 35, 0.98));
+  --tts-border: rgba(122, 211, 255, 0.32);
+  --tts-border-soft: rgba(255, 255, 255, 0.08);
+  --tts-muted: rgba(255, 255, 255, 0.6);
+  --tts-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+[data-md-color-scheme="default"],
+[data-md-color-scheme="light"]{
+  --tts-surface: #ffffff;
+  --tts-surface-strong: #ffffff;
+  --tts-border: rgba(0, 0, 0, 0.16);
+  --tts-border-soft: rgba(0, 0, 0, 0.08);
+  --tts-muted: rgba(0, 0, 0, 0.6);
+  --tts-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.tts-wrap{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tts{ display: inline; }
+
+/* =========================
+   通用播放按鈕（圖形）
+   ========================= */
+.tts-btn{
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tts-border-soft);
+  font: inherit;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  cursor: pointer;
+  line-height: 1;
+
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+
+  color: var(--md-primary-fg-color);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  touch-action: manipulation;
+}
+.tts-btn:hover{
+  color: var(--md-primary-fg-color);
+  background: rgba(122, 211, 255, 0.12);
+  border-color: var(--tts-border);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+.tts-btn[aria-pressed="true"]{
+  color: var(--md-primary-fg-color);
+  background: rgba(122, 211, 255, 0.16);
+  border-color: rgba(122, 211, 255, 0.5);
+  opacity: 0.95;
+}
+.tts-btn:focus-visible{
+  outline: 2px solid var(--tts-accent-strong);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* 播放：三角形 */
+.tts-btn[data-state="play"]::before{
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 9px 14px;
+  border-color: transparent transparent transparent currentColor;
+  transform: translateX(1px);
+}
+/* 停止：方塊 */
+.tts-btn[data-state="stop"]::before{
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  border-radius: 3px;
+}
+
+/* 手機按鈕加大 */
+@media (max-width: 600px){
+  .tts-btn{ width: 52px; height: 52px; }
+  .tts-btn[data-state="play"]::before{ border-width: 10px 0 10px 16px; }
+  .tts-btn[data-state="stop"]::before{ width: 18px; height: 18px; }
+}
+
+/* =========================
+   Header：塞進 .md-header__ellipsis 並靠右
+   ========================= */
+.md-header__ellipsis.tts-ellipsis-flex{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* 我們插入的 header 控制容器（你指定） */
+#tts-header-control{
+  margin-left: auto;
+  margin-right: -19px;
+  /* transform: translateY(-1px); */
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+/* =========================
+   Header 喇叭按鈕：無邊框、hover 不變色
+   ========================= */
+#tts-header-voice-toggle{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+
+  border: 0 !important;
+  background: transparent;
+  color: inherit;
+
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+#tts-header-voice-toggle:hover{
+  color: inherit !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+#tts-header-voice-toggle:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+#tts-header-voice-toggle svg{
+  width: 22px;
+  height: 22px;
+  display:block;
+  fill: currentColor !important;
+}
+
+/* 亮色模式：圈圈底色較深主題色、圖示白色 */
+[data-md-color-scheme="default"] #tts-header-voice-toggle,
+[data-md-color-scheme="light"]   #tts-header-voice-toggle{
+  background: transparent !important;
+  color: inherit !important;
+  border-color: transparent !important;
+}
+
+/* 黑暗模式（dracula）時，喇叭顏色 = 內文文字色 */
+[data-md-color-scheme="dracula"] #tts-header-voice-toggle{
+  background: transparent !important;
+  color: var(--md-default-fg-color, currentColor) !important;
+}
+
+/* =========================
+   Voice Panel（Portal 到 body）+ 自製 dropdown
+   ========================= */
+#tts-voice-panel-portal{
+  position: fixed;
+  z-index: 9998;
+  display: none;
+
+  min-width: min(520px, 92vw);
+  padding: 12px 14px;
+  border-radius: 16px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), var(--tts-surface);
+  border: 1px solid var(--tts-border-soft);
+  box-shadow: var(--tts-shadow);
+  backdrop-filter: blur(12px);
+
+  font-size: 1rem;
+  font-weight: normal;
+
+  max-width: calc(100vw - 16px);
+  box-sizing: border-box;
+
+  max-height: min(60vh, calc(100vh - 120px));
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+#tts-voice-panel-portal.open{
+  display: block;
+  animation: ttsPopIn .12s ease-out;
+}
+@keyframes ttsPopIn{
+  from{ transform: scale(.98); opacity: .0; }
+  to  { transform: scale(1); opacity: 1; }
+}
+
+.tts-vp-row{
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: start;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 6px 2px;
+}
+.tts-vp-row + .tts-vp-row{
+  border-top: 1px solid var(--tts-border-soft);
+  margin-top: 10px;
+  padding-top: 12px;
+}
+.tts-vp-row .lbl{
+  color: var(--tts-muted);
+  padding-top: 6px;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.6rem;
+}
+
+/* =========================
+   Auto（自動朗讀）按鈕：放在語言選擇左側
+   ========================= */
+#tts-autoread-toggle{
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  font: inherit;
+  line-height: 1;
+  user-select: none;
+}
+#tts-autoread-toggle:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+#tts-autoread-toggle .dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: .75;
+}
+#tts-autoread-toggle[data-mode="armed"]{
+  border-color: var(--md-accent-fg-color, rgba(255,255,255,.45));
+}
+#tts-autoread-toggle[data-mode="armed"] .dot{
+  opacity: 1;
+}
+#tts-autoread-toggle[data-mode="running"]{
+  border-color: var(--md-accent-fg-color, rgba(255,255,255,.55));
+}
+#tts-autoread-toggle[data-mode="running"] .dot{
+  opacity: 1;
+}
+#tts-autoread-hint{
+  padding-top: 4px;
+  font-size: 0.88rem;
+  opacity: .85;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* =========================
+   設定列（Rate / Gap / Auto scroll）
+   ========================= */
+.tts-kv{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.tts-kv input[type="range"]{
+  width: 100%;
+  accent-color: var(--md-primary-fg-color);
+}
+.tts-kv .val{
+  min-width: 74px;
+  text-align: right;
+  opacity: .85;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* Auto scroll toggle */
+.tts-toggle-btn{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+
+  text-align: left;
+}
+.tts-toggle-btn:hover{
+  border-color: var(--tts-border);
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-toggle-btn:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+.tts-toggle-btn .state{
+  opacity: .9;
+  user-select: none;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--tts-border-soft);
+}
+.tts-toggle-btn[data-on="true"] .state{
+  border-color: var(--tts-border);
+}
+
+/* =========================
+   Dropdown
+   ========================= */
+.tts-dd-btn{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+
+  text-align: left;
+}
+.tts-dd-btn:hover{
+  border-color: var(--tts-border);
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-dd-btn:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+.tts-dd-btn .chev{
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .85;
+  flex: 0 0 auto;
+}
+
+.tts-dd-list{
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--tts-border-soft);
+  background: var(--tts-surface-strong);
+  overflow: auto;
+
+  max-height: min(42vh, 320px);
+  display: none;
+}
+.tts-dd.open .tts-dd-list{ display: block; }
+
+.tts-dd-item{
+  padding: 10px 10px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.25;
+  border-bottom: 1px solid var(--tts-border-soft);
+}
+.tts-dd-item:last-child{ border-bottom: 0; }
+.tts-dd-item:hover{
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-dd-item.active{
+  background: rgba(122, 211, 255, 0.14);
+  outline: 1px solid rgba(122, 211, 255, 0.35);
+}
+
+/* dracula：更黑（暗色不動） */
+[data-md-color-scheme="dracula"] #tts-voice-panel-portal{
+  background: #1b1d24;
+  border-color: rgba(255,255,255,.18);
+}
+[data-md-color-scheme="dracula"] .tts-dd-list{
+  background: #13151b;
+  border-color: rgba(255,255,255,.18);
+}
+
+/* =========================
+   亮色模式：語音清單白底；只有 active 變暗
+   ========================= */
+[data-md-color-scheme="default"] #tts-voice-panel-portal,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal{
+  background: #fff;
+  border-color: rgba(0,0,0,.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  color: rgba(0,0,0,.87);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-vp-row .lbl,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-vp-row .lbl{
+  color: rgba(0,0,0,.72);
+}
+[data-md-color-scheme="default"] #tts-autoread-toggle,
+[data-md-color-scheme="light"]   #tts-autoread-toggle{
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-autoread-hint,
+[data-md-color-scheme="light"]   #tts-autoread-hint{
+  color: rgba(0,0,0,.72);
+}
+[data-md-color-scheme="default"] .tts-toggle-btn,
+[data-md-color-scheme="light"]   .tts-toggle-btn{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] .tts-toggle-btn .state,
+[data-md-color-scheme="light"]   .tts-toggle-btn .state{
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-btn,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-btn{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-list,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-list{
+  background: #fff;
+  border-color: rgba(0,0,0,.12);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item:hover,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item:hover{
+  background: rgba(0,0,0,.06);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item.active,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item.active{
+  background: rgba(0,0,0,.16);
+  outline: 1px solid rgba(0,0,0,.16);
+}
+
+/* =========================
+   反白浮動工具（播放 + 翻譯）
+   ========================= */
+#tts-selection-pop{
+  position: fixed;
+  z-index: 9999;
+  display: none;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), var(--tts-surface);
+  border: 1px solid var(--tts-border-soft);
+  box-shadow: var(--tts-shadow);
+  backdrop-filter: blur(12px);
+
+  align-items: center;
+  gap: 12px;
+  max-width: min(720px, 92vw);
+}
+#tts-selection-zh{
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--md-default-fg-color, #ddd);
+  word-break: break-word;
+  max-width: min(640px, 78vw);
+}
+#tts-selection-zh .muted{ opacity: .75; }
+</style>
+
+<script>
+(function () {
+  if (window.__TTS_TOOLKIT__ && typeof window.__TTS_TOOLKIT__.scheduleEnhance === "function") {
+    window.__TTS_TOOLKIT__.scheduleEnhance();
+    return;
+  }
+
+  /* =========================
+     你可以改的地方
+     ========================= */
+  const DEFAULT_LANG_EN = "en-US";
+  const DEFAULT_NAME_EN_INCLUDES = "Google US English";
+
+  const DEFAULT_LANG_ZH = "zh-TW";
+  const DEFAULT_NAME_ZH_INCLUDES = "Google";
+
+  const SELECTION_MAX_CHARS = 500;
+  const TRANSLATE_TO = "zh-TW";
+  const TRANSLATE_FROM = "en"; // 也可改 "auto"
+
+  const MAX_VOICES_RENDER = 2000;
+
+  const RATE_MIN = 0.1;
+  const RATE_MAX = 1.5;
+  const RATE_STEP = 0.05;
+
+  const GAP_MIN = 0;
+  const GAP_MAX = 2000;
+  const GAP_STEP = 50;
+
+  const DEFAULT_RATE = 1.0;
+  const DEFAULT_GAP_MS = 400;
+
+  // Auto scroll 預設開
+  const DEFAULT_AUTO_SCROLL = true;
+
+  // 同網域多站台時，避免和其他 GitHub Pages 專案共用同一組 localStorage key
+  const LS_NAMESPACE = "university-notes:";
+
+  // 自動翻到下一頁後續讀（用 localStorage 做跨頁續讀）
+  const LS_AUTO_RESUME = "ttsAutoResumeNextPageTs";
+  const AUTO_RESUME_TTL_MS = 5 * 60 * 1000; // 續讀旗標最長保留 5 分鐘，避免意外卡住
+  /* ========================= */
+
+  let currentBtn = null;
+  let activeUtterances = [];
+  let onSpeakDone = null;
+  const translateCache = new Map();
+
+  const LS_VOICE_EN = "ttsVoiceKeyEN";
+  const LS_VOICE_ZH = "ttsVoiceKeyZH";
+  let voiceKeyEN = safeGetLS(LS_VOICE_EN);
+  let voiceKeyZH = safeGetLS(LS_VOICE_ZH);
+
+  const LS_RATE = "ttsRate";
+  const LS_GAP  = "ttsAutoGapMs";
+
+  const LS_AUTO_SCROLL = "ttsAutoScroll";
+
+  let ttsRate = safeGetNumberLS(LS_RATE, DEFAULT_RATE);
+  let autoGapMs = safeGetNumberLS(LS_GAP, DEFAULT_GAP_MS);
+
+  let autoScrollEnabled = safeGetBoolLS(LS_AUTO_SCROLL, DEFAULT_AUTO_SCROLL);
+
+  let globalEventsBound = false;
+  let observer = null;
+  let observerTarget = null;
+  let scheduled = false;
+
+  /* =========================
+     Auto（自動朗讀）+ 跨頁
+     ========================= */
+  function getNextPageUrl(){
+    // MkDocs/Material 常見：head 裡有 <link rel="next" href="...">
+    const link = document.querySelector('link[rel="next"]');
+    if (link && link.href) return link.href;
+
+    // 有些主題會用 a[rel="next"]
+    const aRel = document.querySelector('a[rel="next"]');
+    if (aRel && aRel.href) return aRel.href;
+
+    // Material footer next
+    const footerNext = document.querySelector('.md-footer__link--next a');
+    if (footerNext && footerNext.href) return footerNext.href;
+
+    // pagination
+    const pagNext = document.querySelector('a.md-pagination__link--next');
+    if (pagNext && pagNext.href) return pagNext.href;
+
+    return null;
+  }
+
+  function markResumeOnNextPage(){
+    safeSetLS(LS_AUTO_RESUME, String(Date.now()));
+  }
+
+  function clearResumeFlag(){
+    safeRemoveLS(LS_AUTO_RESUME);
+  }
+
+  function gotoNextPageForAuto(){
+    const url = getNextPageUrl();
+    if (url){
+      markResumeOnNextPage();
+      window.location.assign(url);
+      return true;
+    }
+
+    // 找不到 next 連結時，最後才嘗試模擬按 n（你提到使用者按 n）
+    try{
+      markResumeOnNextPage();
+      const before = location.href;
+
+      const ev = new KeyboardEvent("keydown", { key: "n", code: "KeyN", bubbles: true });
+      document.dispatchEvent(ev);
+
+      // 若 800ms 內沒有換頁，視為失敗：清旗標並停止 auto
+      setTimeout(() => {
+        if (location.href === before) {
+          clearResumeFlag();
+          stopAuto();
+        }
+      }, 800);
+
+      return true;
+    } catch (_){
+      clearResumeFlag();
+      return false;
+    }
+  }
+
+  function resumeAutoIfRequested(){
+    const ts = safeGetNumberLS(LS_AUTO_RESUME, 0);
+    if (!ts) return;
+
+    // 避免舊旗標造成誤續讀
+    if (Date.now() - ts > AUTO_RESUME_TTL_MS){
+      clearResumeFlag();
+      return;
+    }
+
+    const root = getContentRoot();
+    const firstBtn = root && root.querySelector(".tts-wrap > button.tts-btn");
+
+    // 內容/按鈕還沒 attach 好：先別清旗標，等下一次 enhance 再試
+    if (!firstBtn) return;
+
+    // 成功抓到第一句：清旗標並開始連播
+    clearResumeFlag();
+    startAutoFrom(firstBtn);
+  }
+
+  let autoSelectMode = false;
+  let autoRunning = false;
+  let autoQueue = [];
+  let autoIndex = 0;
+
+  function clamp(n, a, b){
+    n = Number(n);
+    if (!isFinite(n)) return a;
+    return Math.min(b, Math.max(a, n));
+  }
+
+  function updateAutoUI(){
+    const btn = document.getElementById("tts-autoread-toggle");
+    const hint = document.getElementById("tts-autoread-hint");
+    if (!btn) return;
+
+    let mode = "off";
+    if (autoRunning) mode = "running";
+    else if (autoSelectMode) mode = "armed";
+
+    btn.setAttribute("data-mode", mode);
+
+    if (hint) {
+      if (autoRunning) hint.textContent = "Auto reading… (press Auto to stop)";
+      else if (autoSelectMode) hint.textContent = "Pick a sentence button to start";
+      else hint.textContent = "Auto (continuous)";
+    }
+  }
+
+  function stopAuto(){
+    autoSelectMode = false;
+    autoRunning = false;
+    autoQueue = [];
+    autoIndex = 0;
+    updateAutoUI();
+  }
+
+  function toggleAuto(){
+    if (autoRunning){
+      stop({ cancelAuto: true });
+      return;
+    }
+    autoSelectMode = !autoSelectMode;
+    updateAutoUI();
+  }
+
+  function getSentenceTextFromBtn(btn){
+    const wrap = btn && btn.closest(".tts-wrap");
+    if (!wrap) return "";
+    const textSpan = wrap.querySelector(".tts");
+    const t = (textSpan && (textSpan.getAttribute("data-tts") || textSpan.textContent || "")) || "";
+    return t.trim();
+  }
+
+  function buildAutoQueueFrom(startBtn){
+    const root = getContentRoot();
+    const btns = Array.from(root.querySelectorAll(".tts-wrap > button.tts-btn"));
+    const idx = btns.indexOf(startBtn);
+    if (idx < 0) return [];
+    const out = [];
+    for (let i = idx; i < btns.length; i++){
+      const b = btns[i];
+      const text = getSentenceTextFromBtn(b);
+      if (text) out.push({ btn: b, text });
+    }
+    return out;
+  }
+
+  function scrollToSentence(btn){
+    const wrap = btn && btn.closest(".tts-wrap");
+    if (!wrap) return;
+    try {
+      wrap.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    } catch (_) {
+      try { wrap.scrollIntoView(true); } catch (_) {}
+    }
+  }
+
+  function startAutoFrom(startBtn){
+    autoQueue = buildAutoQueueFrom(startBtn);
+    autoIndex = 0;
+
+    if (!autoQueue.length){
+      stopAuto();
+      return;
+    }
+
+    autoRunning = true;
+    autoSelectMode = false;
+    updateAutoUI();
+
+    playAutoCurrent();
+  }
+
+  function playAutoCurrent(){
+    if (!autoRunning) return;
+    const item = autoQueue[autoIndex];
+    if (!item){
+      stopAuto();
+      return;
+    }
+
+    // 依設定決定是否自動捲動
+    if (autoScrollEnabled) scrollToSentence(item.btn);
+
+    speakAuto(item.text, item.btn, { auto: true });
+  }
+
+  function advanceAuto(){
+    if (!autoRunning) return;
+    autoIndex += 1;
+
+    // 本頁播完：嘗試前往下一頁並續讀
+    if (autoIndex >= autoQueue.length){
+      // 先結束本頁 auto 狀態（避免重入）
+      autoRunning = false;
+      autoSelectMode = false;
+      updateAutoUI();
+
+      // 若有下一頁就導頁；沒有就結束
+      const ok = gotoNextPageForAuto();
+      if (!ok){
+        clearResumeFlag();
+        stopAuto();
+      }
+      return;
+    }
+
+    playAutoCurrent();
+  }
+
+  /* =========================
+     localStorage helpers
+     ========================= */
+  function getScopedLSKey(key){
+    return LS_NAMESPACE + key;
+  }
+
+  function safeGetRawLS(key){
+    try {
+      const scopedKey = getScopedLSKey(key);
+      const scopedVal = localStorage.getItem(scopedKey);
+      if (scopedVal !== null && scopedVal !== undefined) return scopedVal;
+
+      const legacyVal = localStorage.getItem(key);
+      if (legacyVal !== null && legacyVal !== undefined) {
+        localStorage.setItem(scopedKey, legacyVal);
+        localStorage.removeItem(key);
+        return legacyVal;
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  function safeRemoveLS(key){
+    try {
+      localStorage.removeItem(getScopedLSKey(key));
+      localStorage.removeItem(key);
+    } catch (_) {}
+  }
+
+  function safeGetLS(key){
+    return safeGetRawLS(key);
+  }
+  function safeSetLS(key, val){
+    try { localStorage.setItem(getScopedLSKey(key), val); } catch (_) {}
+  }
+  function safeGetNumberLS(key, def){
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    const n = Number(v);
+    return isFinite(n) ? n : def;
+  }
+  function safeGetBoolLS(key, def){
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    // "0"/"false" => false，其餘視為 true
+    const s = String(v).toLowerCase().trim();
+    if (s === "0" || s === "false" || s === "off") return false;
+    if (s === "1" || s === "true"  || s === "on")  return true;
+    return def;
+  }
+
+  function supported() {
+    return ("speechSynthesis" in window) && ("SpeechSynthesisUtterance" in window);
+  }
+
+  function warmVoices() {
+    try { speechSynthesis.getVoices(); } catch (_) {}
+  }
+  function getVoices() {
+    return speechSynthesis.getVoices() || [];
+  }
+
+  function voiceKey(v){
+    if (v && v.voiceURI) return "uri:" + v.voiceURI;
+    return "nl:" + (v.lang || "") + "||" + (v.name || "");
+  }
+  function findVoiceByKey(key){
+    if (!key) return null;
+    const voices = getVoices();
+    for (const v of voices) if (voiceKey(v) === key) return v;
+    return null;
+  }
+
+  function isZhLang(lang){
+    const l = (lang || "").toLowerCase();
+    return l.startsWith("zh");
+  }
+  function isEnLang(lang){
+    const l = (lang || "").toLowerCase();
+    return l.startsWith("en"); // 所有英語 en-*
+  }
+
+  function pickDefaultVoiceKey(voices, langNeedle, nameIncludes){
+    if (!voices.length) return null;
+
+    const needle = (nameIncludes || "").toLowerCase();
+    const langN = (langNeedle || "").toLowerCase();
+
+    let v = voices.find(x => (x.lang||"").toLowerCase() === langN && (x.name||"").toLowerCase().includes(needle));
+    if (v) return voiceKey(v);
+
+    v = voices.find(x => (x.name||"").toLowerCase().includes(needle));
+    if (v) return voiceKey(v);
+
+    v = voices.find(x => (x.lang||"").toLowerCase() === langN);
+    if (v) return voiceKey(v);
+
+    const prefix = langN.split("-")[0];
+    v = voices.find(x => (x.lang||"").toLowerCase().startsWith(prefix));
+    if (v) return voiceKey(v);
+
+    return voiceKey(voices[0]);
+  }
+
+  function ensureVoiceKeys(){
+    const voices = getVoices();
+    if (!voices.length) return;
+
+    if (!voiceKeyEN || !findVoiceByKey(voiceKeyEN)) {
+      voiceKeyEN =
+        pickDefaultVoiceKey(voices.filter(v => isEnLang(v.lang)), DEFAULT_LANG_EN, DEFAULT_NAME_EN_INCLUDES)
+        || pickDefaultVoiceKey(voices, DEFAULT_LANG_EN, DEFAULT_NAME_EN_INCLUDES);
+      if (voiceKeyEN) safeSetLS(LS_VOICE_EN, voiceKeyEN);
+    }
+
+    if (!voiceKeyZH || !findVoiceByKey(voiceKeyZH)) {
+      voiceKeyZH =
+        pickDefaultVoiceKey(voices.filter(v => isZhLang(v.lang)), DEFAULT_LANG_ZH, DEFAULT_NAME_ZH_INCLUDES)
+        || pickDefaultVoiceKey(voices, DEFAULT_LANG_ZH, DEFAULT_NAME_ZH_INCLUDES);
+      if (voiceKeyZH) safeSetLS(LS_VOICE_ZH, voiceKeyZH);
+    }
+  }
+
+  function getVoiceForLangTag(tag){
+    ensureVoiceKeys();
+    if (tag === "zh") return findVoiceByKey(voiceKeyZH) || null;
+    return findVoiceByKey(voiceKeyEN) || null;
+  }
+
+  // ✅ 修正：stop() 乾淨且可解析
+  function stop(opts) {
+    const o = opts || {};
+    const cancelAuto = (o.cancelAuto !== false);
+
+    try { speechSynthesis.cancel(); } catch (_) {}
+    activeUtterances = [];
+    onSpeakDone = null;
+
+    if (currentBtn) {
+      currentBtn.setAttribute("data-state", "play");
+      currentBtn.setAttribute("aria-pressed", "false");
+      currentBtn = null;
+    }
+
+    if (cancelAuto) {
+      clearResumeFlag();   // 使用者手動停止，就不要跨頁續讀
+      stopAuto();
+    }
+  }
+
+  function splitByLang(text){
+    const s = (text || "");
+    const out = [];
+    let buf = "";
+    let cur = null;
+
+    function flush(){
+      const t = buf.trim();
+      if (t) out.push({ lang: cur || "en", text: t });
+      buf = "";
+    }
+    function charType(ch){
+      if (/[\u4e00-\u9fff\u3400-\u4dbf]/.test(ch)) return "zh";
+      if (/[A-Za-z]/.test(ch)) return "en";
+      return "other";
+    }
+
+    for (let i=0;i<s.length;i++){
+      const ch = s[i];
+      const t = charType(ch);
+      const lang = (t === "other") ? (cur || "en") : t;
+
+      if (cur === null) cur = lang;
+      if (lang !== cur){
+        flush();
+        cur = lang;
+      }
+      buf += ch;
+    }
+    flush();
+    return out.length ? out : [{ lang: "en", text: s.trim() }];
+  }
+
+  function speakAuto(text, btn, opts){
+    if (!supported()) return;
+
+    const t = (text || "").trim();
+    if (!t) return;
+
+    const o = opts || {};
+    const isAuto = !!o.auto;
+
+    const pressed = btn.getAttribute("aria-pressed") === "true";
+    if (currentBtn === btn && pressed) {
+      stop({ cancelAuto: true });
+      return;
+    }
+
+    stop({ cancelAuto: !isAuto });
+
+    btn.setAttribute("data-state", "stop");
+    btn.setAttribute("aria-pressed", "true");
+    currentBtn = btn;
+
+    onSpeakDone = isAuto ? function(){
+      if (autoRunning) setTimeout(advanceAuto, clamp(autoGapMs, GAP_MIN, GAP_MAX));
+    } : null;
+
+    const segs = splitByLang(t);
+    activeUtterances = segs.map(seg => {
+      const u = new SpeechSynthesisUtterance(seg.text);
+
+      u.rate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+      u.pitch = 1.0;
+
+      const v = getVoiceForLangTag(seg.lang);
+      if (v) {
+        u.voice = v;
+        u.lang = v.lang || (seg.lang === "zh" ? DEFAULT_LANG_ZH : DEFAULT_LANG_EN);
+      } else {
+        u.lang = (seg.lang === "zh" ? DEFAULT_LANG_ZH : DEFAULT_LANG_EN);
+      }
+      return u;
+    });
+
+    playNext();
+  }
+
+  function playNext(){
+    if (!activeUtterances.length){
+      const cb = onSpeakDone;
+      onSpeakDone = null;
+
+      // 收尾：只重置按鈕，不清 auto（讓 auto 邏輯決定下一步）
+      stop({ cancelAuto: false });
+
+      if (typeof cb === "function") cb();
+      return;
+    }
+
+    const u = activeUtterances.shift();
+    u.onend = () => playNext();
+    u.onerror = () => stop({ cancelAuto: true });
+
+    warmVoices();
+    try { speechSynthesis.speak(u); } catch (_) { stop({ cancelAuto: true }); }
+  }
+
+  function attachSentenceButtons(root){
+    const scope = root || document;
+    scope.querySelectorAll(".tts").forEach(textSpan => {
+      let wrap = textSpan.closest(".tts-wrap");
+      if (!wrap) {
+        wrap = document.createElement("span");
+        wrap.className = "tts-wrap";
+        textSpan.parentNode.insertBefore(wrap, textSpan);
+        wrap.appendChild(textSpan);
+      }
+      if (wrap.querySelector(":scope > button.tts-btn")) return;
+
+      const pure = (textSpan.getAttribute("data-tts") || textSpan.textContent || "").trim();
+      textSpan.setAttribute("data-tts", pure);
+
+      const btn = document.createElement("button");
+      btn.className = "tts-btn";
+      btn.type = "button";
+      btn.setAttribute("data-state", "play");
+      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("aria-label", "Play/Stop");
+
+      btn.addEventListener("pointerdown", warmVoices, { passive: true });
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (autoSelectMode) {
+          startAutoFrom(btn);
+          return;
+        }
+        if (autoRunning) {
+          startAutoFrom(btn);
+          return;
+        }
+
+        speakAuto(textSpan.getAttribute("data-tts"), btn, { auto: false });
+      });
+
+      wrap.appendChild(btn);
+    });
+  }
+
+  function getHeaderEllipsis(){
+    return document.querySelector(".md-header__ellipsis");
+  }
+
+  function ensureHeaderControl(){
+    const ellipsis = getHeaderEllipsis();
+    if (!ellipsis) return false;
+
+    ellipsis.classList.add("tts-ellipsis-flex");
+    if (document.getElementById("tts-header-control")) return true;
+
+    const wrap = document.createElement("span");
+    wrap.id = "tts-header-control";
+
+    const toggle = document.createElement("button");
+    toggle.id = "tts-header-voice-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Choose voices");
+    toggle.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10v4c0 1.1.9 2 2 2h3l4 3V5L8 8H5c-1.1 0-2 .9-2 2zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/>
+      </svg>
+    `;
+
+    toggle.addEventListener("pointerdown", warmVoices, { passive: true });
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openOrToggleVoicePanel(toggle);
+    });
+
+    wrap.appendChild(toggle);
+    ellipsis.appendChild(wrap);
+
+    return true;
+  }
+
+  function makeAutoRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <button id="tts-autoread-toggle" type="button" aria-label="Auto reading">
+        <span class="dot"></span>
+      </button>
+      <div id="tts-autoread-hint">Auto (continuous)</div>
+    `;
+    return row;
+  }
+
+  function makeRateRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Rate</div>
+      <div class="tts-kv">
+        <input id="tts-rate" type="range" min="${RATE_MIN}" max="${RATE_MAX}" step="${RATE_STEP}" />
+        <span id="tts-rate-val" class="val"></span>
+      </div>
+    `;
+    return row;
+  }
+
+  function makeGapRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Gap</div>
+      <div class="tts-kv">
+        <input id="tts-gap" type="range" min="${GAP_MIN}" max="${GAP_MAX}" step="${GAP_STEP}" />
+        <span id="tts-gap-val" class="val"></span>
+      </div>
+    `;
+    return row;
+  }
+
+  function makeScrollRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Scroll</div>
+      <button id="tts-autoscroll-toggle" class="tts-toggle-btn" type="button" aria-label="Toggle auto scroll">
+        <span class="txt">Auto scroll</span>
+        <span id="tts-autoscroll-val" class="state"></span>
+      </button>
+    `;
+    return row;
+  }
+
+  function updateSettingsUI(){
+    ttsRate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+    autoGapMs = Math.round(clamp(autoGapMs, GAP_MIN, GAP_MAX));
+
+    const rateEl = document.getElementById("tts-rate");
+    const rateVal = document.getElementById("tts-rate-val");
+    if (rateEl) rateEl.value = String(ttsRate);
+    if (rateVal) rateVal.textContent = ttsRate.toFixed(2).replace(/\.00$/,"") + "x";
+
+    const gapEl = document.getElementById("tts-gap");
+    const gapVal = document.getElementById("tts-gap-val");
+    if (gapEl) gapEl.value = String(autoGapMs);
+    if (gapVal) gapVal.textContent = autoGapMs + "ms";
+
+    const scBtn = document.getElementById("tts-autoscroll-toggle");
+    const scVal = document.getElementById("tts-autoscroll-val");
+    if (scBtn) scBtn.setAttribute("data-on", autoScrollEnabled ? "true" : "false");
+    if (scVal) scVal.textContent = autoScrollEnabled ? "ON" : "OFF";
+  }
+
+  function bindSettingsControlsOnce(){
+    const rateEl = document.getElementById("tts-rate");
+    const gapEl  = document.getElementById("tts-gap");
+    const scBtn  = document.getElementById("tts-autoscroll-toggle");
+
+    if (rateEl && !rateEl.__tts_bound__){
+      rateEl.__tts_bound__ = true;
+      rateEl.addEventListener("input", () => {
+        ttsRate = clamp(Number(rateEl.value), RATE_MIN, RATE_MAX);
+        safeSetLS(LS_RATE, String(ttsRate));
+        updateSettingsUI();
+      });
+      rateEl.addEventListener("change", () => {
+        ttsRate = clamp(Number(rateEl.value), RATE_MIN, RATE_MAX);
+        safeSetLS(LS_RATE, String(ttsRate));
+        updateSettingsUI();
+      });
+    }
+
+    if (gapEl && !gapEl.__tts_bound__){
+      gapEl.__tts_bound__ = true;
+      gapEl.addEventListener("input", () => {
+        autoGapMs = Math.round(clamp(Number(gapEl.value), GAP_MIN, GAP_MAX));
+        safeSetLS(LS_GAP, String(autoGapMs));
+        updateSettingsUI();
+      });
+      gapEl.addEventListener("change", () => {
+        autoGapMs = Math.round(clamp(Number(gapEl.value), GAP_MIN, GAP_MAX));
+        safeSetLS(LS_GAP, String(autoGapMs));
+        updateSettingsUI();
+      });
+    }
+
+    if (scBtn && !scBtn.__tts_bound__){
+      scBtn.__tts_bound__ = true;
+      scBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        autoScrollEnabled = !autoScrollEnabled;
+        safeSetLS(LS_AUTO_SCROLL, autoScrollEnabled ? "1" : "0");
+        updateSettingsUI();
+      });
+    }
+  }
+
+  function ensureVoicePanelPortal(){
+    let panel = document.getElementById("tts-voice-panel-portal");
+    if (panel) {
+      if (!panel.querySelector("#tts-autoread-toggle")) {
+        panel.insertBefore(makeAutoRow(), panel.firstChild);
+      }
+
+      // 補 Rate/Gap/Scroll rows（固定在 Auto row 後面）
+      if (!panel.querySelector("#tts-rate") || !panel.querySelector("#tts-gap") || !panel.querySelector("#tts-autoscroll-toggle")) {
+        const autoBtn = panel.querySelector("#tts-autoread-toggle");
+        const autoRow = autoBtn ? autoBtn.closest(".tts-vp-row") : null;
+
+        const rateRow = panel.querySelector("#tts-rate") ? null : makeRateRow();
+        const gapRow  = panel.querySelector("#tts-gap") ? null : makeGapRow();
+        const scrRow  = panel.querySelector("#tts-autoscroll-toggle") ? null : makeScrollRow();
+
+        let anchor = autoRow;
+        if (anchor && rateRow) { anchor.insertAdjacentElement("afterend", rateRow); anchor = rateRow; }
+        if (anchor && gapRow)  { anchor.insertAdjacentElement("afterend", gapRow);  anchor = gapRow; }
+        if (anchor && scrRow)  { anchor.insertAdjacentElement("afterend", scrRow);  anchor = scrRow; }
+
+        if (!autoRow) {
+          if (scrRow) panel.insertBefore(scrRow, panel.firstChild);
+          if (gapRow) panel.insertBefore(gapRow, panel.firstChild);
+          if (rateRow) panel.insertBefore(rateRow, panel.firstChild);
+        }
+      }
+
+      const autoBtn = panel.querySelector("#tts-autoread-toggle");
+      if (autoBtn && !autoBtn.__tts_bound__) {
+        autoBtn.__tts_bound__ = true;
+        autoBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleAuto();
+        });
+      }
+
+      bindSettingsControlsOnce();
+      updateSettingsUI();
+      updateAutoUI();
+      return panel;
+    }
+
+    panel = document.createElement("div");
+    panel.id = "tts-voice-panel-portal";
+
+    panel.appendChild(makeAutoRow());
+    panel.appendChild(makeRateRow());
+    panel.appendChild(makeGapRow());
+    panel.appendChild(makeScrollRow());
+
+    panel.appendChild(makeDropdownRow("EN", "en"));
+    panel.appendChild(makeDropdownRow("ZH", "zh"));
+
+    document.body.appendChild(panel);
+
+    const autoBtn = panel.querySelector("#tts-autoread-toggle");
+    if (autoBtn) {
+      autoBtn.__tts_bound__ = true;
+      autoBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleAuto();
+      });
+    }
+
+    bindSettingsControlsOnce();
+    updateSettingsUI();
+    updateAutoUI();
+
+    return panel;
+  }
+
+  function makeDropdownRow(label, kind){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+
+    const lbl = document.createElement("div");
+    lbl.className = "lbl";
+    lbl.textContent = label;
+
+    const dd = document.createElement("div");
+    dd.className = "tts-dd";
+    dd.setAttribute("data-kind", kind);
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "tts-dd-btn";
+    btn.innerHTML = `<span class="txt">Loading…</span><span class="chev"></span>`;
+    btn.addEventListener("pointerdown", warmVoices, { passive: true });
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleDropdown(kind);
+    });
+
+    const list = document.createElement("div");
+    list.className = "tts-dd-list";
+
+    dd.appendChild(btn);
+    dd.appendChild(list);
+
+    row.appendChild(lbl);
+    row.appendChild(dd);
+    return row;
+  }
+
+  function closeAllDropdowns(){
+    document.querySelectorAll("#tts-voice-panel-portal .tts-dd.open").forEach(x => x.classList.remove("open"));
+  }
+
+  function toggleDropdown(kind){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+    const dd = panel.querySelector(`.tts-dd[data-kind="${kind}"]`);
+    if (!dd) return;
+
+    const isOpen = dd.classList.contains("open");
+    closeAllDropdowns();
+    if (!isOpen) dd.classList.add("open");
+  }
+
+  function voiceLabel(v){
+    return `${v.lang} — ${v.name}`;
+  }
+
+  function syncVoiceDropdowns(){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+
+    const voices = getVoices();
+    ensureVoiceKeys();
+
+    const ddEN = panel.querySelector('.tts-dd[data-kind="en"]');
+    const ddZH = panel.querySelector('.tts-dd[data-kind="zh"]');
+
+    if (ddEN) fillDropdown(ddEN, voices, "en", voiceKeyEN);
+    if (ddZH) fillDropdown(ddZH, voices, "zh", voiceKeyZH);
+  }
+
+  function fillDropdown(dd, voices, kind, selectedKey){
+    const btnTxt = dd.querySelector(".tts-dd-btn .txt");
+    const list = dd.querySelector(".tts-dd-list");
+    list.innerHTML = "";
+
+    let listVoices;
+    if (kind === "en") {
+      const allEn = voices.filter(v => isEnLang(v.lang));
+      listVoices = allEn.length ? allEn : voices;
+    } else {
+      const zh = voices.filter(v => isZhLang(v.lang));
+      listVoices = zh.length ? zh : voices;
+    }
+
+    // 讓 en-US / en-CA 靠前，但仍保留全部 en-*
+    if (kind === "en" && listVoices.length) {
+      const score = (v) => {
+        const l = (v.lang || "").toLowerCase();
+        if (l === "en-us") return 0;
+        if (l === "en-ca") return 1;
+        if (l.startsWith("en-")) return 2;
+        return 3;
+      };
+      listVoices = listVoices.slice().sort((a,b) => {
+        const sa = score(a), sb = score(b);
+        if (sa !== sb) return sa - sb;
+        return String(a.name||"").localeCompare(String(b.name||""));
+      });
+    }
+
+    const trimmed = listVoices.slice(0, MAX_VOICES_RENDER);
+
+    const exists = trimmed.some(v => voiceKey(v) === selectedKey) || listVoices.some(v => voiceKey(v) === selectedKey);
+    if (!exists) {
+      const fallbackKey =
+        (kind === "zh")
+          ? pickDefaultVoiceKey(listVoices, "zh-TW", DEFAULT_NAME_ZH_INCLUDES)
+          : pickDefaultVoiceKey(listVoices, "en-US", DEFAULT_NAME_EN_INCLUDES);
+
+      if (kind === "zh") { voiceKeyZH = fallbackKey; safeSetLS(LS_VOICE_ZH, voiceKeyZH); selectedKey = voiceKeyZH; }
+      else { voiceKeyEN = fallbackKey; safeSetLS(LS_VOICE_EN, voiceKeyEN); selectedKey = voiceKeyEN; }
+    }
+
+    const selectedVoice = findVoiceByKey(selectedKey) || listVoices[0] || null;
+    if (btnTxt) btnTxt.textContent = selectedVoice ? voiceLabel(selectedVoice) : "No voices";
+
+    if (!trimmed.length) {
+      const it = document.createElement("div");
+      it.className = "tts-dd-item";
+      it.textContent = "No voices";
+      list.appendChild(it);
+      return;
+    }
+
+    trimmed.forEach(v => {
+      const k = voiceKey(v);
+      const it = document.createElement("div");
+      it.className = "tts-dd-item" + (k === selectedKey ? " active" : "");
+      it.textContent = voiceLabel(v);
+
+      it.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (kind === "zh") { voiceKeyZH = k; safeSetLS(LS_VOICE_ZH, voiceKeyZH); }
+        else { voiceKeyEN = k; safeSetLS(LS_VOICE_EN, voiceKeyEN); }
+
+        syncVoiceDropdowns();
+        closeAllDropdowns();
+      });
+
+      list.appendChild(it);
+    });
+  }
+
+  function hideVoicePanel(){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+    panel.classList.remove("open");
+    panel.style.display = "none";
+    closeAllDropdowns();
+  }
+
+  function openOrToggleVoicePanel(anchorBtn){
+    const panel = ensureVoicePanelPortal();
+
+    if (panel.classList.contains("open")) {
+      hideVoicePanel();
+      return;
+    }
+
+    warmVoices();
+    ensureVoiceKeys();
+    syncVoiceDropdowns();
+    updateSettingsUI();
+    updateAutoUI();
+
+    panel.style.display = "block";
+    panel.classList.add("open");
+    closeAllDropdowns();
+
+    requestAnimationFrame(() => positionVoicePanel(anchorBtn, panel));
+  }
+
+  function positionVoicePanel(anchorBtn, panel){
+    if (!anchorBtn || !panel) return;
+
+    const margin = 8;
+    const gap = 8;
+    const r = anchorBtn.getBoundingClientRect();
+
+    const w = panel.offsetWidth || 360;
+    const h = panel.offsetHeight || 160;
+
+    let left = r.right - w;
+    let top  = r.bottom + gap;
+
+    if (left < margin) left = margin;
+    if (left + w > window.innerWidth - margin) left = window.innerWidth - margin - w;
+
+    if (top + h > window.innerHeight - margin) {
+      top = r.top - gap - h;
+    }
+    if (top < margin) top = margin;
+
+    panel.style.left = left + "px";
+    panel.style.top  = top + "px";
+  }
+
+  function ensureSelectionPop() {
+    let pop = document.getElementById("tts-selection-pop");
+    if (pop) return pop;
+
+    pop = document.createElement("div");
+    pop.id = "tts-selection-pop";
+
+    const btn = document.createElement("button");
+    btn.className = "tts-btn";
+    btn.type = "button";
+    btn.setAttribute("data-state", "play");
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Speak selection");
+
+    const zh = document.createElement("div");
+    zh.id = "tts-selection-zh";
+    zh.innerHTML = '<span class="muted">翻譯載入中…</span>';
+
+    btn.addEventListener("pointerdown", warmVoices, { passive: true });
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const text = getSelectionText();
+      if (!text) return;
+
+      stop({ cancelAuto: true });
+      speakAuto(text, btn, { auto: false });
+    });
+
+    pop.appendChild(btn);
+    pop.appendChild(zh);
+    document.body.appendChild(pop);
+    return pop;
+  }
+
+  function getSelectionPopEl() { return document.getElementById("tts-selection-pop"); }
+
+  function nodeInsidePop(node, pop) {
+    if (!node || !pop) return false;
+    const el = (node.nodeType === Node.TEXT_NODE) ? node.parentNode : node;
+    return !!(el && pop.contains(el));
+  }
+
+  function selectionTouchesPop() {
+    const pop = getSelectionPopEl();
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!pop || !sel || sel.rangeCount === 0) return false;
+    return nodeInsidePop(sel.anchorNode, pop) || nodeInsidePop(sel.focusNode, pop);
+  }
+
+  function hideSelectionPop() {
+    const pop = getSelectionPopEl();
+    if (pop) pop.style.display = "none";
+  }
+
+  function getSelectionText() {
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!sel || sel.rangeCount === 0) return "";
+    const text = (sel.toString() || "").trim();
+    if (!text || text.length > SELECTION_MAX_CHARS) return "";
+    return text;
+  }
+
+  function getSelectionRect() {
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!sel || sel.rangeCount === 0) return null;
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    if (!rect || (rect.width === 0 && rect.height === 0)) return null;
+    return rect;
+  }
+
+  async function translateToZh(text) {
+    const key = `${TRANSLATE_FROM}|${TRANSLATE_TO}|${text}`;
+    if (translateCache.has(key)) return translateCache.get(key);
+
+    const url =
+      "https://translate.googleapis.com/translate_a/single" +
+      `?client=gtx&sl=${encodeURIComponent(TRANSLATE_FROM)}` +
+      `&tl=${encodeURIComponent(TRANSLATE_TO)}` +
+      `&dt=t&q=${encodeURIComponent(text)}`;
+
+    try {
+      const res = await fetch(url, { method: "GET" });
+      if (!res.ok) throw new Error("http " + res.status);
+      const data = await res.json();
+      const translated = Array.isArray(data?.[0]) ? data[0].map(x => x?.[0] || "").join("") : "";
+      translateCache.set(key, translated);
+      return translated;
+    } catch (_) {
+      translateCache.set(key, "");
+      return "";
+    }
+  }
+
+  async function showSelectionPop() {
+    if (!supported()) return;
+    if (selectionTouchesPop()) return;
+
+    const text = getSelectionText();
+    if (!text) return;
+
+    const rect = getSelectionRect();
+    if (!rect) return;
+
+    const pop = ensureSelectionPop();
+    const zh = document.getElementById("tts-selection-zh");
+
+    pop.style.display = "flex";
+
+    const offset = 8;
+    const popW = pop.offsetWidth || 240;
+    const popH = pop.offsetHeight || 56;
+
+    let left = rect.left + rect.width / 2 - popW / 2;
+    let top  = rect.top - popH - offset;
+
+    left = Math.max(8, Math.min(left, window.innerWidth - popW - 8));
+    if (top < 8) top = rect.bottom + offset;
+
+    pop.style.left = `${left}px`;
+    pop.style.top  = `${top}px`;
+
+    if (zh) {
+      zh.innerHTML = '<span class="muted">翻譯載入中…</span>';
+      const translated = await translateToZh(text);
+      zh.textContent = translated ? translated : "（翻譯失敗或被阻擋）";
+    }
+  }
+
+  function bindGlobalEventsOnce(){
+    if (globalEventsBound) return;
+    globalEventsBound = true;
+
+    document.addEventListener("mouseup", (e) => {
+      const pop = getSelectionPopEl();
+      if (pop && e.target && pop.contains(e.target)) return;
+      setTimeout(showSelectionPop, 0);
+    });
+
+    document.addEventListener("keyup", () => {
+      const pop = getSelectionPopEl();
+      if (pop && document.activeElement && pop.contains(document.activeElement)) return;
+      setTimeout(showSelectionPop, 0);
+    });
+
+    document.addEventListener("mousedown", (e) => {
+      const t = e.target;
+
+      const panel = document.getElementById("tts-voice-panel-portal");
+      const toggle = document.getElementById("tts-header-voice-toggle");
+      if (panel && panel.classList.contains("open")) {
+        const insidePanel = panel.contains(t);
+        const insideToggle = toggle && toggle.contains(t);
+        if (!insidePanel && !insideToggle) hideVoicePanel();
+        if (insidePanel && !t.closest(".tts-dd")) closeAllDropdowns();
+      }
+
+      const pop = getSelectionPopEl();
+      if (pop && t && !pop.contains(t)) hideSelectionPop();
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      hideSelectionPop();
+      const panel = document.getElementById("tts-voice-panel-portal");
+      const toggle = document.getElementById("tts-header-voice-toggle");
+      if (panel && panel.classList.contains("open") && toggle) {
+        positionVoicePanel(toggle, panel);
+      }
+    });
+
+    window.addEventListener("scroll", hideSelectionPop, true);
+
+    if ("speechSynthesis" in window) {
+      speechSynthesis.onvoiceschanged = () => {
+        ensureVoiceKeys();
+        syncVoiceDropdowns();
+      };
+    }
+
+    if (window.document$ && typeof window.document$.subscribe === "function") {
+      window.document$.subscribe(() => scheduleEnhance(true));
+    }
+    document.addEventListener("navigation:complete", () => scheduleEnhance(true));
+  }
+
+  function getContentRoot(){
+    return document.querySelector(".md-content .md-content__inner")
+        || document.querySelector(".md-content")
+        || document.querySelector("main")
+        || document.body;
+  }
+
+  function enhanceOnce(){
+    if (!supported()) return;
+
+    const root = getContentRoot();
+    attachSentenceButtons(root);
+
+    ensureHeaderControl();
+    ensureVoicePanelPortal();
+    syncVoiceDropdowns();
+    updateSettingsUI();
+    updateAutoUI();
+
+    ensureSelectionPop();
+    resumeAutoIfRequested();
+  }
+
+  function enhanceWithRetry(tries){
+    enhanceOnce();
+
+    const ellipsis = getHeaderEllipsis();
+    const hasHeaderBtn = !!document.getElementById("tts-header-control");
+    const ready = !!ellipsis && hasHeaderBtn;
+
+    if (!ready && tries < 14) {
+      setTimeout(() => enhanceWithRetry(tries + 1), 120);
+    }
+  }
+
+  function scheduleEnhance(force){
+    if (scheduled && !force) return;
+    scheduled = true;
+
+    requestAnimationFrame(() => {
+      scheduled = false;
+      warmVoices();
+      ensureVoiceKeys();
+
+      // normalize persisted values
+      ttsRate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+      autoGapMs = Math.round(clamp(autoGapMs, GAP_MIN, GAP_MAX));
+      safeSetLS(LS_RATE, String(ttsRate));
+      safeSetLS(LS_GAP, String(autoGapMs));
+      safeSetLS(LS_AUTO_SCROLL, autoScrollEnabled ? "1" : "0");
+
+      enhanceWithRetry(0);
+      startObserver();
+    });
+  }
+
+  function startObserver(){
+    const target = getContentRoot();
+    if (!target) return;
+
+    if (observer && observerTarget === target) return;
+
+    if (observer) {
+      try { observer.disconnect(); } catch (_) {}
+      observer = null;
+      observerTarget = null;
+    }
+
+    observerTarget = target;
+    observer = new MutationObserver(() => scheduleEnhance(false));
+    observer.observe(target, { childList: true, subtree: true });
+  }
+
+  function init(){
+    if (!supported()) return;
+    bindGlobalEventsOnce();
+    warmVoices();
+    ensureVoiceKeys();
+    scheduleEnhance(true);
+    startObserver();
+  }
+
+  window.__TTS_TOOLKIT__ = {
+    scheduleEnhance: () => scheduleEnhance(true)
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>  
+
+
+
+<!-- <script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "WS267X19C5",
+        apiKey: "1d3e38f83811634b945a922d39d9b719",
+        indexName: "algolia",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未發現與 「${query}」相關内容",
+          "hits_stats": "找到${hits}條结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+
+   -->
+<!-- 
+
+ -->
+
+
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#一張先看懂的大圖" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            <!-- <a href="https://github.com/pei-yan-2147">Sponsorship</a>
+
+is now available!
+<span class="twemoji heart-throb">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.655 14.916zh-.002l-.006-.003-.018-.01a22 22 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22 22 0 0 1-3.433 2.414 7 7 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0"/></svg>
+</span> -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- 
+近期更新<a href="機器學習%28Machine%20Learning%29.html">人工智慧</a> -->
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cascadia Mono', monospace;
+        }
+
+        .key {
+            display: inline-block;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin: 0 2px;
+            font-size: 0.9em;
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    快捷鍵⮕
+    <span class="key">F</span>,
+    <span class="key">S</span>,
+    <span class="key">/</span>：開啟搜尋對話框；
+    <span class="key">P</span>,
+    <span class="key">,</span>：轉到上一頁；
+    <span class="key">N</span>,
+    <span class="key">.</span>：轉到下一頁
+</body>
+
+</html>
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://peicd100.github.io/university-notes/"
+      title="PEICD100"
+      class="md-header__button md-logo"
+      aria-label="PEICD100"
+    >
+      
+  <img src="../../logo/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PEICD100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              常見資料型別
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  首頁
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Verilog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  科大_數位邏輯設計實習
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  科技_計算機結構
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  資工_電腦輔助 VLSI 設計
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  電機_作業系統
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  機電_數位邏輯實驗
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
+      
+  <img src="../../logo/logo.png" alt="logo">
+
+    </a>
+    PEICD100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首頁
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2025.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/python.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    人工智慧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/%E6%BC%94%E7%AE%97%E6%B3%95%E7%AD%86%E8%A8%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    演算法筆記
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verilog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Verilog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    學習資源整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%9F%BA%E7%A4%8E%E8%AA%9E%E6%B3%95.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基礎語法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    module
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="primitive.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    primitive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="if.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    if
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Procedural%20style.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procedural style(程序式寫法)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常見資料型別
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常見資料型別
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一張先看懂的大圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一張先看懂的大圖
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#先講結論你平常寫-rtl-最常用的是誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講結論：你平常寫 RTL 最常用的是誰？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-wire-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. wire 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. wire 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-reg-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. reg 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. reg 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化理解_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見寫法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-integer-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. integer 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. integer 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#它跟-reg-310-差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它跟 reg [31:0] 差在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#為什麼需要同時有-wirereginteger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼需要同時有 wire、reg、integer？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼需要同時有 wire、reg、integer？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用-c-類比" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 C++ 類比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 wire？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 wire？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 reg？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 reg？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子-1組合邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子 1：組合邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子-2時序邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子 2：時序邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣記_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 integer？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 integer？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但不要濫用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但不要濫用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input--output-預設是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        input / output 預設是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="input / output 預設是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#那什麼時候寫-output-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那什麼時候寫 output reg？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一份很好背的選擇規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一份很好背的選擇規則
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一份很好背的選擇規則">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#規則-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常見誤解我直接幫你踩煞車" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見誤解，我直接幫你踩煞車
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常見誤解，我直接幫你踩煞車">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#誤解-1reg-就是-register暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 1：reg 就是 register(暫存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#誤解-2wire-不能接複雜邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 2：wire 不能接複雜邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#誤解-3integer-不能綜合" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 3：integer 不能綜合
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#除了上面三個還有哪些型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除了上面三個，還有哪些型別？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="除了上面三個，還有哪些型別？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-其他-net-型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 其他 net 型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-其他-variable-型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 其他 variable 型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-事件型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 事件型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#對-hdlbits-最實用的版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        對 HDLBits 最實用的版本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#最後幫你濃縮成一份超短版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最後幫你濃縮成一份超短版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最後幫你濃縮成一份超短版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        integer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#預設埠型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        預設埠型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一個小提醒實務上更好的寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一個小提醒：實務上更好的寫法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#你接下來最適合做的事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你接下來最適合做的事
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system%20tasks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    system tasks（系統任務）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="timescale.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    timescale
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    科大_數位邏輯設計實習
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    科大_數位邏輯設計實習
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教材
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/Vivado%20%E5%B0%88%E6%A1%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vivado 專案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    科技_計算機結構
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    科技_計算機結構
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SI 前綴表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%201.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教材
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/nmos%E3%80%81pmos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nmos、pmos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    電機_作業系統
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    電機_作業系統
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%201.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/windows%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/Linux%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/vim.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    子行程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    機電_數位邏輯實驗
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    機電_數位邏輯實驗
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/Quartus%20%E5%89%B5%E5%BB%BA%E5%B0%88%E6%A1%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quartus 創建專案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E8%B7%91%20tb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跑 tb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%81%B8%E8%85%B3%E4%BD%8D.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    選腳位
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E4%B8%8A%E5%82%B3%E9%9B%BB%E8%B7%AF%E6%9D%BF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    上傳電路板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一張先看懂的大圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一張先看懂的大圖
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#先講結論你平常寫-rtl-最常用的是誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講結論：你平常寫 RTL 最常用的是誰？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-wire-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. wire 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. wire 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-reg-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. reg 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. reg 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化理解_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見寫法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-integer-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. integer 是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. integer 是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#它跟-reg-310-差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        它跟 reg [31:0] 差在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最常見用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最常見用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#為什麼需要同時有-wirereginteger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼需要同時有 wire、reg、integer？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼需要同時有 wire、reg、integer？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用-c-類比" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 C++ 類比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 wire？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 wire？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 reg？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 reg？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子-1組合邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子 1：組合邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子-2時序邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子 2：時序邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣記_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#什麼時候用-integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候用 integer？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什麼時候用 integer？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用在這些情況_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用在這些情況
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#典型例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但不要濫用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但不要濫用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input--output-預設是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        input / output 預設是什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="input / output 預設是什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#那什麼時候寫-output-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那什麼時候寫 output reg？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一份很好背的選擇規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一份很好背的選擇規則
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一份很好背的選擇規則">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#規則-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#規則-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        規則 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常見誤解我直接幫你踩煞車" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見誤解，我直接幫你踩煞車
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常見誤解，我直接幫你踩煞車">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#誤解-1reg-就是-register暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 1：reg 就是 register(暫存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#誤解-2wire-不能接複雜邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 2：wire 不能接複雜邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#誤解-3integer-不能綜合" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        誤解 3：integer 不能綜合
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#除了上面三個還有哪些型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除了上面三個，還有哪些型別？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="除了上面三個，還有哪些型別？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-其他-net-型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 其他 net 型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-其他-variable-型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 其他 variable 型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-事件型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 事件型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#對-hdlbits-最實用的版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        對 HDLBits 最實用的版本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#最後幫你濃縮成一份超短版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最後幫你濃縮成一份超短版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最後幫你濃縮成一份超短版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wire
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        integer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#預設埠型別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        預設埠型別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#一個小提醒實務上更好的寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一個小提醒：實務上更好的寫法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#你接下來最適合做的事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你接下來最適合做的事
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+  <h1>常見資料型別</h1>
+
+<h3 id="一張先看懂的大圖">一張先看懂的大圖<a class="headerlink" href="#一張先看懂的大圖" title="Permanent link"></a></h3>
+<p><img alt="" src="data:image/png;base64,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" />  </p>
+<div class="highlight"><pre><span></span><code><span class="n">Verilog</span><span class="w"> </span><span class="err">常見資料型別可先分成兩大類：</span><span class="no">`net</span><span class="p">(</span><span class="err">網路型別</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">與</span><span class="w"> </span><span class="no">`variable</span><span class="p">(</span><span class="err">變數型別</span><span class="p">)</span><span class="err">`。</span><span class="no">`wire</span><span class="err">`</span><span class="w"> </span><span class="err">屬於</span><span class="w"> </span><span class="n">net</span><span class="err">；</span><span class="no">`reg</span><span class="err">`、</span><span class="no">`integer</span><span class="err">`、</span><span class="no">`time</span><span class="err">`、</span><span class="no">`real</span><span class="err">`</span><span class="w"> </span><span class="err">等屬於</span><span class="w"> </span><span class="n">variable</span><span class="err">。這個分類很重要，因為它直接決定「它像一條線，還是像一個會被程序改寫的變數」。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="先講結論你平常寫-rtl-最常用的是誰">先講結論：你平常寫 RTL 最常用的是誰？<a class="headerlink" href="#先講結論你平常寫-rtl-最常用的是誰" title="Permanent link"></a></h3>
+<p>在 Verilog RTL(日常可綜合電路) 裡，最常用的通常就是：</p>
+<ul>
+<li><code>wire</code>：拿來表示<strong>連線(connection)</strong>，常搭配 <code>assign</code>  </li>
+<li><code>reg</code>：拿來表示<strong>在 always / initial 裡被賦值的變數</strong>  </li>
+<li><code>integer</code>：常拿來當<strong>for 迴圈索引(loop index)</strong>、計數用暫時變數，不是拿來取代一般多位元訊號的第一選擇 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com">VerilogPro</a>)</li>
+</ul>
+<p>你可以先用一句話背：</p>
+<div class="highlight"><pre><span></span><code><span class="no">`assign</span><span class="err">`</span><span class="w"> </span><span class="err">左邊通常用</span><span class="w"> </span><span class="no">`wire</span><span class="err">`；</span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">左邊通常用</span><span class="w"> </span><span class="no">`reg</span><span class="err">`；</span><span class="no">`integer</span><span class="err">`</span><span class="w"> </span><span class="err">通常拿來做整數計數或迴圈索引。</span><span class="w"> </span><span class="p">([</span><span class="n">Electrical</span><span class="w"> </span><span class="n">Engineering</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">Exchange</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="1-wire-是什麼">1. <code>wire</code> 是什麼？<a class="headerlink" href="#1-wire-是什麼" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="no">`wire</span><span class="err">`</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="o">**</span><span class="n">net</span><span class="p">(</span><span class="err">網路型別</span><span class="p">)</span><span class="o">**</span><span class="err">，比較像硬體裡的「線」。它本身</span><span class="o">**</span><span class="err">不主動存值</span><span class="o">**</span><span class="err">，而是呈現目前驅動它</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="err">的結果。通常由</span><span class="w"> </span><span class="no">`assign</span><span class="err">`、模組輸出、或其他元件來驅動。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="生活化理解">生活化理解<a class="headerlink" href="#生活化理解" title="Permanent link"></a></h4>
+<p>你可以把 <code>wire</code> 想成「延長線」：</p>
+<ul>
+<li>插頭有電，它就有電  </li>
+<li>沒人驅動時，常看到的是高阻抗 <code>z</code>  </li>
+<li>它自己不是拿來「記住」資料的盒子 (<a href="https://logicmadness.com/verilog-net-types/?utm_source=chatgpt.com">logicmadness.com</a>)</li>
+</ul>
+<h4 id="最常見寫法">最常見寫法<a class="headerlink" href="#最常見寫法" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+
+<span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="err">這表示</span><span class="w"> </span><span class="no">`y</span><span class="err">`</span><span class="w"> </span><span class="err">持續等於</span><span class="w"> </span><span class="no">`a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="err">`。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="2-reg-是什麼">2. <code>reg</code> 是什麼？<a class="headerlink" href="#2-reg-是什麼" title="Permanent link"></a></h3>
+<p><code>reg</code> 是 <strong>variable(變數型別)</strong>。它的重點不是「它一定是暫存器(register)」，而是：</p>
+<div class="highlight"><pre><span></span><code><span class="err">它可以在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="no">`initial</span><span class="err">`</span><span class="w"> </span><span class="err">這種</span><span class="w"> </span><span class="n">procedural</span><span class="w"> </span><span class="n">block</span><span class="p">(</span><span class="err">程序區塊</span><span class="p">)</span><span class="w"> </span><span class="err">裡被賦值。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+
+<span class="err">這是初學者最常誤解的地方：</span><span class="w"> </span><span class="o">**</span><span class="no">`reg</span><span class="err">`</span><span class="w"> </span><span class="err">不等於硬體暫存器</span><span class="p">(</span><span class="n">register</span><span class="p">)</span><span class="o">**</span><span class="err">。它最後會被綜合成什麼，要看你怎麼寫。若寫在</span><span class="w"> </span><span class="no">`always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">可能是組合邏輯；若寫在</span><span class="w"> </span><span class="no">`always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">才常是</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="n">flip</span><span class="o">-</span><span class="n">flop</span><span class="p">(</span><span class="n">D</span><span class="w"> </span><span class="err">型正反器</span><span class="p">)</span><span class="err">。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="生活化理解_1">生活化理解<a class="headerlink" href="#生活化理解_1" title="Permanent link"></a></h4>
+<p>把 <code>reg</code> 想成白板上的數字：</p>
+<ul>
+<li>你在 <code>always</code> 裡寫了一次，它會保持那個值  </li>
+<li>直到下次你再改它  </li>
+<li>但「白板」不一定代表最後硬體一定是暫存器，還是要看更新條件 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com">VerilogPro</a>)</li>
+</ul>
+<h4 id="最常見寫法_1">最常見寫法<a class="headerlink" href="#最常見寫法_1" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="k">end</span>
+
+<span class="err">這裡</span><span class="w"> </span><span class="no">`y</span><span class="err">`</span><span class="w"> </span><span class="err">不是因為「要做暫存器」才用</span><span class="w"> </span><span class="no">`reg</span><span class="err">`，而是因為它在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">裡被賦值，所以語法上要是</span><span class="w"> </span><span class="no">`reg</span><span class="err">`。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="3-integer-是什麼">3. <code>integer</code> 是什麼？<a class="headerlink" href="#3-integer-是什麼" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="no">`integer</span><span class="err">`</span><span class="w"> </span><span class="err">也是</span><span class="w"> </span><span class="o">**</span><span class="n">variable</span><span class="p">(</span><span class="err">變數型別</span><span class="p">)</span><span class="o">**</span><span class="err">。在常見</span><span class="w"> </span><span class="n">Verilog</span><span class="w"> </span><span class="err">工具與現代標準實作下，通常把它視為</span><span class="w"> </span><span class="o">**</span><span class="mh">32</span><span class="o">-</span><span class="kt">bit</span><span class="w"> </span><span class="k">signed</span><span class="p">(</span><span class="mh">32</span><span class="w"> </span><span class="err">位元有號整數</span><span class="p">)</span><span class="o">**</span><span class="err">；社群與工具文件也普遍這樣使用。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/40009716/size-of-integers-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="它跟-reg-310-差在哪">它跟 <code>reg [31:0]</code> 差在哪？<a class="headerlink" href="#它跟-reg-310-差在哪" title="Permanent link"></a></h4>
+<p>兩者都能放數字，但語意不同：</p>
+<ul>
+<li><code>reg [31:0]</code>：你明確指定「這是一個 32-bit 向量」  </li>
+<li><code>integer</code>：你是在說「這是一個整數」，通常預設帶有 signed(有號) 整數語意，且寬度不是用位元切片來表達 (<a href="https://stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com">Stack Overflow</a>)</li>
+</ul>
+<h4 id="最常見用途">最常見用途<a class="headerlink" href="#最常見用途" title="Permanent link"></a></h4>
+<p><code>integer</code> 最常見於：</p>
+<ul>
+<li><code>for</code> 迴圈索引  </li>
+<li>測試平台(testbench) 計數  </li>
+<li>少量整數運算或暫存控制值 (<a href="https://nandland.com/for-loop-2/?utm_source=chatgpt.com">Nandland</a>)</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="k">end</span>
+
+<span class="err">這種用法很常見，而且</span><span class="w"> </span><span class="no">`for</span><span class="err">`</span><span class="w"> </span><span class="err">在可綜合條件下是能綜合的，重點是展開次數必須能在編譯時決定。</span><span class="p">([</span><span class="n">Electrical</span><span class="w"> </span><span class="n">Engineering</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">Exchange</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//electronics.stackexchange.com/questions/350078/question-about-synthesizable-for-loop-and-generate?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="為什麼需要同時有-wirereginteger">為什麼需要同時有 <code>wire</code>、<code>reg</code>、<code>integer</code>？<a class="headerlink" href="#為什麼需要同時有-wirereginteger" title="Permanent link"></a></h3>
+<p>因為 Verilog 不是一般軟體語言，它是 <strong>Hardware Description Language(硬體描述語言)</strong>。 硬體裡真的有兩種很不同的東西：</p>
+<ol>
+<li><strong>連線(connection)</strong>：像電路中的線，誰驅動它，它就反映誰  </li>
+<li><strong>程序中被賦值的變數(variable assigned procedurally)</strong>：像你在 <code>always</code> 裡一步一步算出來的結果 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com">VerilogPro</a>)</li>
+</ol>
+<p>所以 Verilog 才把型別拆成：</p>
+<ul>
+<li><code>wire</code> 這種「像線」的東西  </li>
+<li><code>reg</code> / <code>integer</code> 這種「像程序變數」的東西 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com">VerilogPro</a>)</li>
+</ul>
+<h4 id="用-c-類比">用 C++ 類比<a class="headerlink" href="#用-c-類比" title="Permanent link"></a></h4>
+<p>若硬比喻：</p>
+<ul>
+<li><code>wire</code> 比較像「函式輸出端一直即時連到某個表達式」  </li>
+<li><code>reg</code> 比較像「區塊中的變數」  </li>
+<li><code>integer</code> 比較像「你拿來跑迴圈的 <code>int i</code>」 (<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com">Electrical Engineering Stack Exchange</a>)</li>
+</ul>
+<hr />
+<h3 id="什麼時候用-wire">什麼時候用 <code>wire</code>？<a class="headerlink" href="#什麼時候用-wire" title="Permanent link"></a></h3>
+<h4 id="用在這些情況">用在這些情況<a class="headerlink" href="#用在這些情況" title="Permanent link"></a></h4>
+<ul>
+<li><code>assign</code> 左邊  </li>
+<li>接子模組(submodule) 的輸出  </li>
+<li>單純做訊號連接  </li>
+<li>不需要在 <code>always</code> / <code>initial</code> 中直接賦值 (<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com">Stack Overflow</a>)</li>
+</ul>
+<h4 id="典型例子">典型例子<a class="headerlink" href="#典型例子" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+
+<span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="你可以這樣記">你可以這樣記<a class="headerlink" href="#你可以這樣記" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">看到「這條訊號只是被接出來、被連過去、被持續驅動」，優先想到</span><span class="w"> </span><span class="no">`wire</span><span class="err">`。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="什麼時候用-reg">什麼時候用 <code>reg</code>？<a class="headerlink" href="#什麼時候用-reg" title="Permanent link"></a></h3>
+<h4 id="用在這些情況_1">用在這些情況<a class="headerlink" href="#用在這些情況_1" title="Permanent link"></a></h4>
+<ul>
+<li>你要在 <code>always</code> 裡對它賦值  </li>
+<li>組合邏輯 <code>always @(*)</code>  </li>
+<li>時序邏輯 <code>always @(posedge clk)</code> (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com">VerilogPro</a>)</li>
+</ul>
+<h4 id="典型例子-1組合邏輯">典型例子 1：組合邏輯<a class="headerlink" href="#典型例子-1組合邏輯" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="典型例子-2時序邏輯">典型例子 2：時序邏輯<a class="headerlink" href="#典型例子-2時序邏輯" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">q</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="你可以這樣記_1">你可以這樣記<a class="headerlink" href="#你可以這樣記_1" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">只要「左值」出現在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">裡，先優先想到</span><span class="w"> </span><span class="no">`reg</span><span class="err">`。這是</span><span class="w"> </span><span class="n">HDLBits</span><span class="w"> </span><span class="err">初期非常好用的判斷法。</span><span class="p">([</span><span class="n">Electrical</span><span class="w"> </span><span class="n">Engineering</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">Exchange</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="什麼時候用-integer">什麼時候用 <code>integer</code>？<a class="headerlink" href="#什麼時候用-integer" title="Permanent link"></a></h3>
+<h4 id="用在這些情況_2">用在這些情況<a class="headerlink" href="#用在這些情況_2" title="Permanent link"></a></h4>
+<ul>
+<li><code>for</code> 迴圈索引  </li>
+<li>testbench 中的整數計數  </li>
+<li>少量控制計數，不特別需要明確位元寬度時 (<a href="https://nandland.com/for-loop-2/?utm_source=chatgpt.com">Nandland</a>)</li>
+</ul>
+<h4 id="典型例子_1">典型例子<a class="headerlink" href="#典型例子_1" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="但不要濫用">但不要濫用<a class="headerlink" href="#但不要濫用" title="Permanent link"></a></h4>
+<p>在 RTL 裡，如果你要表示明確寬度的硬體訊號，通常還是更建議用：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="err">而不是什麼都寫成</span><span class="w"> </span><span class="no">`integer</span><span class="err">`。因為</span><span class="w"> </span><span class="no">`reg</span><span class="w"> </span><span class="p">[</span><span class="nl">N:</span><span class="mh">0</span><span class="p">]</span><span class="err">`</span><span class="w"> </span><span class="err">的位元寬度更清楚，也更符合你真的想合成出來的硬體。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="input--output-預設是什麼"><code>input</code> / <code>output</code> 預設是什麼？<a class="headerlink" href="#input--output-預設是什麼" title="Permanent link"></a></h3>
+<p>在 Verilog 裡：</p>
+<ul>
+<li><code>input</code> 預設是 <code>wire</code>  </li>
+<li><code>output</code> 預設也是 <code>wire</code>  </li>
+<li><code>inout</code> 也預設是 <code>wire</code> (<a href="https://stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com">Stack Overflow</a>)</li>
+</ul>
+<p>也就是說：</p>
+<div class="highlight"><pre><span></span><code>input a;
+
+output y;
+</code></pre></div>
+<p>等同於：</p>
+<div class="highlight"><pre><span></span><code><span class="k">input</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="那什麼時候寫-output-reg">那什麼時候寫 <code>output reg</code>？<a class="headerlink" href="#那什麼時候寫-output-reg" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">當</span><span class="w"> </span><span class="no">`output</span><span class="err">`</span><span class="w"> </span><span class="err">這個埠要在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">裡被賦值時，就常寫成</span><span class="w"> </span><span class="no">`output</span><span class="w"> </span><span class="kt">reg</span><span class="err">`。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/5360508/using-wire-or-reg-with-input-or-output?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span>
+
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="n">a</span><span class="p">,</span>
+
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="n">b</span><span class="p">,</span>
+
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">y</span>
+
+<span class="p">);</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+
+<span class="err">這裡</span><span class="w"> </span><span class="no">`y</span><span class="err">`</span><span class="w"> </span><span class="err">寫成</span><span class="w"> </span><span class="no">`reg</span><span class="err">`，是因為它在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">裡被指定，不是因為它一定會被綜合成「實體暫存器」。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/5360508/using-wire-or-reg-with-input-or-output?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="一份很好背的選擇規則">一份很好背的選擇規則<a class="headerlink" href="#一份很好背的選擇規則" title="Permanent link"></a></h3>
+<h4 id="規則-1">規則 1<a class="headerlink" href="#規則-1" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="no">`assign</span><span class="err">`</span><span class="w"> </span><span class="err">左邊</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="err">通常</span><span class="w"> </span><span class="no">`wire</span><span class="err">`。</span><span class="p">([</span><span class="n">Electrical</span><span class="w"> </span><span class="n">Engineering</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">Exchange</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="規則-2">規則 2<a class="headerlink" href="#規則-2" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">左邊</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="err">通常</span><span class="w"> </span><span class="no">`reg</span><span class="err">`。</span><span class="p">([</span><span class="n">Electrical</span><span class="w"> </span><span class="n">Engineering</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="n">Exchange</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="規則-3">規則 3<a class="headerlink" href="#規則-3" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="no">`for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="p">...)</span><span class="err">`</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="no">`i</span><span class="err">`</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="err">常用</span><span class="w"> </span><span class="no">`integer</span><span class="err">`。</span><span class="p">([</span><span class="n">Nandland</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//nandland.com/for-loop-2/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="規則-4">規則 4<a class="headerlink" href="#規則-4" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">要描述固定寬度的硬體資料路徑</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="err">，優先用</span><span class="w"> </span><span class="no">`wire</span><span class="w"> </span><span class="p">[</span><span class="nl">N:</span><span class="mh">0</span><span class="p">]</span><span class="err">`</span><span class="w"> </span><span class="err">或</span><span class="w"> </span><span class="no">`reg</span><span class="w"> </span><span class="p">[</span><span class="nl">N:</span><span class="mh">0</span><span class="p">]</span><span class="err">`，不要把</span><span class="w"> </span><span class="no">`integer</span><span class="err">`</span><span class="w"> </span><span class="err">當萬用替代品。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="常見誤解我直接幫你踩煞車">常見誤解，我直接幫你踩煞車<a class="headerlink" href="#常見誤解我直接幫你踩煞車" title="Permanent link"></a></h3>
+<h4 id="誤解-1reg-就是-register暫存器">誤解 1：<code>reg</code> 就是 register(暫存器)<a class="headerlink" href="#誤解-1reg-就是-register暫存器" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">❌</span><span class="w"> </span><span class="err">不對。</span><span class="w"> </span><span class="no">`reg</span><span class="err">`</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Verilog</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="err">型別；它可描述組合邏輯，也可描述時序邏輯。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="誤解-2wire-不能接複雜邏輯">誤解 2：<code>wire</code> 不能接複雜邏輯<a class="headerlink" href="#誤解-2wire-不能接複雜邏輯" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">❌</span><span class="w"> </span><span class="err">不對。</span><span class="w"> </span><span class="err">只要是連續指定</span><span class="w"> </span><span class="no">`assign</span><span class="err">`</span><span class="w"> </span><span class="err">或模組輸出驅動，它很常拿來接各種組合邏輯結果。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="誤解-3integer-不能綜合">誤解 3：<code>integer</code> 不能綜合<a class="headerlink" href="#誤解-3integer-不能綜合" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>❌ 不完全對。 它常用於可綜合的 `for` 迴圈索引；只是 RTL 資料路徑若想清楚控制位寬，通常不建議用它當一般訊號。([Electrical Engineering Stack Exchange](https://electronics.stackexchange.com/questions/350078/question-about-synthesizable-for-loop-and-generate?utm_source=chatgpt.com))
+</code></pre></div>
+<hr />
+<h3 id="除了上面三個還有哪些型別">除了上面三個，還有哪些型別？<a class="headerlink" href="#除了上面三個還有哪些型別" title="Permanent link"></a></h3>
+<p>若以<strong>傳統 Verilog</strong> 來看，除了 <code>wire</code>、<code>reg</code>、<code>integer</code>，常見還有：</p>
+<h4 id="1-其他-net-型別">1. 其他 net 型別<a class="headerlink" href="#1-其他-net-型別" title="Permanent link"></a></h4>
+<ul>
+<li><code>tri</code>  </li>
+<li><code>wand</code>  </li>
+<li><code>wor</code>  </li>
+<li><code>triand</code>  </li>
+<li><code>trior</code>  </li>
+<li><code>tri0</code>  </li>
+<li><code>tri1</code>  </li>
+<li><code>supply0</code>  </li>
+<li><code>supply1</code>  </li>
+<li><code>trireg</code> (<a href="https://www.chipverify.com/verilog/verilog-net-types?utm_source=chatgpt.com">ChipVerify</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>這些多半用在較特殊的網路解析、多驅動、上拉/下拉、儲存性網路建模。**RTL 初學和 HDLBits 前期幾乎用不到**，你先知道名字就夠了。([ChipVerify](https://www.chipverify.com/verilog/verilog-net-types?utm_source=chatgpt.com))
+</code></pre></div>
+<h4 id="2-其他-variable-型別">2. 其他 variable 型別<a class="headerlink" href="#2-其他-variable-型別" title="Permanent link"></a></h4>
+<ul>
+<li><code>time</code>  </li>
+<li><code>real</code>  </li>
+<li><code>realtime</code> (<a href="https://electrosofts.com/verilog/data_types?utm_source=chatgpt.com">ElectroSofts</a>)</li>
+</ul>
+<p>這些大多偏模擬(simulation)與 testbench 用途：</p>
+<ul>
+<li><code>time</code>：記模擬時間  </li>
+<li><code>real</code> / <code>realtime</code>：浮點數模擬，不是一般綜合 RTL 的主角 (<a href="https://electrosofts.com/verilog/data_types?utm_source=chatgpt.com">ElectroSofts</a>)</li>
+</ul>
+<h4 id="3-事件型別">3. 事件型別<a class="headerlink" href="#3-事件型別" title="Permanent link"></a></h4>
+<ul>
+<li><code>event</code> (<a href="https://www.theoctetinstitute.com/content/verilog/verilog-data-types/?utm_source=chatgpt.com">八位元學院</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>這更偏模擬控制流程，不是你做基本 RTL 時天天會碰到的東西。([八位元學院](https://www.theoctetinstitute.com/content/verilog/verilog-data-types/?utm_source=chatgpt.com))
+</code></pre></div>
+<hr />
+<h3 id="對-hdlbits-最實用的版本">對 HDLBits 最實用的版本<a class="headerlink" href="#對-hdlbits-最實用的版本" title="Permanent link"></a></h3>
+<p>如果你的目標是先把 HDLBits 做穩，我建議你先用這套簡化心法：</p>
+<ul>
+<li><strong>模組輸入 <code>input</code></strong>：先當 <code>wire</code>  </li>
+<li><strong>模組輸出 <code>output</code></strong>：預設 <code>wire</code>  </li>
+<li><strong>如果 <code>output</code> 要在 <code>always</code> 裡改</strong>：寫 <code>output reg</code>  </li>
+<li><strong>模組內中介連線</strong>：通常 <code>wire</code>  </li>
+<li><strong>在 <code>always</code> 裡被賦值的中介變數</strong>：通常 <code>reg</code>  </li>
+<li><strong>迴圈索引 <code>i</code></strong>：通常 <code>integer</code> (<a href="https://stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com">Stack Overflow</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="err">這套規則不是整個</span><span class="w"> </span><span class="n">Verilog</span><span class="w"> </span><span class="err">世界的全部，但對入門</span><span class="w"> </span><span class="n">RTL</span><span class="w"> </span><span class="err">很夠用，而且不容易踩大雷。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="最後幫你濃縮成一份超短版">最後幫你濃縮成一份超短版<a class="headerlink" href="#最後幫你濃縮成一份超短版" title="Permanent link"></a></h3>
+<h4 id="wire"><code>wire</code><a class="headerlink" href="#wire" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">像「線」，不自己存值；通常給</span><span class="w"> </span><span class="no">`assign</span><span class="err">`、模組連接用。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="reg"><code>reg</code><a class="headerlink" href="#reg" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="err">像「程序變數」；通常在</span><span class="w"> </span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="no">`initial</span><span class="err">`</span><span class="w"> </span><span class="err">裡賦值。不是看到</span><span class="w"> </span><span class="no">`reg</span><span class="err">`</span><span class="w"> </span><span class="err">就等於硬體暫存器。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h4 id="integer"><code>integer</code><a class="headerlink" href="#integer" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>整數型別，常見為 32-bit signed；最常拿來做 `for` 迴圈索引與整數計數。([Stack Overflow](https://stackoverflow.com/questions/40009716/size-of-integers-in-verilog?utm_source=chatgpt.com))
+</code></pre></div>
+<h4 id="預設埠型別">預設埠型別<a class="headerlink" href="#預設埠型別" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="no">`input</span><span class="o">/</span><span class="k">output</span><span class="o">/</span><span class="k">inout</span><span class="err">`</span><span class="w"> </span><span class="err">預設都是</span><span class="w"> </span><span class="no">`wire</span><span class="err">`。</span><span class="p">([</span><span class="n">Stack</span><span class="w"> </span><span class="n">Overflow</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<hr />
+<h3 id="一個小提醒實務上更好的寫法">一個小提醒：實務上更好的寫法<a class="headerlink" href="#一個小提醒實務上更好的寫法" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="err">雖然你現在是學</span><span class="w"> </span><span class="n">Verilog</span><span class="err">，但很多現代專案會改用</span><span class="w"> </span><span class="n">SystemVerilog</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="no">`logic</span><span class="err">`</span><span class="w"> </span><span class="err">來降低</span><span class="w"> </span><span class="no">`reg</span><span class="err">`</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="no">`wire</span><span class="err">`</span><span class="w"> </span><span class="err">名稱造成的誤解。不過在</span><span class="w"> </span><span class="n">HDLBits</span><span class="w"> </span><span class="err">與純</span><span class="w"> </span><span class="n">Verilog</span><span class="w"> </span><span class="err">題目裡，我們還是先把</span><span class="w"> </span><span class="no">`wire</span><span class="err">`、</span><span class="no">`reg</span><span class="err">`、</span><span class="no">`integer</span><span class="err">`</span><span class="w"> </span><span class="err">觀念練扎實最重要。</span><span class="p">([</span><span class="n">VerilogPro</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com))</span>
+</code></pre></div>
+<h3 id="你接下來最適合做的事">你接下來最適合做的事<a class="headerlink" href="#你接下來最適合做的事" title="Permanent link"></a></h3>
+<p>⭐ 先把這三句手背起來：<code>assign 左邊用 wire</code>、<code>always 左邊用 reg</code>、<code>for 的 i 常用 integer</code>。 ⭐ 然後你貼一題 HDLBits 題目或你的程式，我可以幫你逐行標註每個訊號為什麼要用 <code>wire</code> 或 <code>reg</code>。  </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="Procedural%20style.html"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Procedural style(程序式寫法)
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="system%20tasks.html"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              system tasks（系統任務）
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.top", "announce.dismiss", "content.tabs.link", "search.share", "content.code.copy", "content.code.annotations", "content.action.edit", "content.action.view", "content.tooltips"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/toc-fold.js"></script>
+      
+    
+  </body>
+</html>
