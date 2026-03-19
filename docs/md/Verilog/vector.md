@@ -1,50 +1,70 @@
-# vector
+## vector
 
-## 宣告
+### 宣告
 
 需要注意的是陣列大小在變數前面，不像 C++ 是在後面。
 
-type \[MSB:LSB\] vector\_name;  
-wire \[2:0\] v; // 名稱為 v 大小為 3bit 的 wire  
+```verilog
+type [MSB:LSB] vector_name;
+wire [2:0] v; // 名稱為 v 大小為 3bit 的 wire
+```
 MSB和LSB可以隨便定義數字，反正他就是一個範圍，然後由大到小或由小到大也完全隨意。  
 但一般來說是由大到小，因為要保留”第k位元”的性質(bit4 bit3 bit2 bit1 bit0)
 
-i.......j  
-^       ^  
-MSB     LSB    
+```text
+i.......j
+^       ^
+MSB     LSB
+```
 i和j可以隨意填，順序和反序都可以，但是之後就要用相同「方向」操作
 
 一次宣告多變數：  
-wire \[3:0\] a,b,c; //三個都是 \[3:0\];
+```verilog
+wire [3:0] a,b,c; //三個都是 [3:0];
+```
 
-### 進階
+#### 進階
 
 1\.  
-wire \[7:0\] w;  
+```verilog
+wire [7:0] w;
+```
 宣告了一個名為 w 的 8-bit 向量，它等價於 8 條彼此獨立的 wire。
 
 2\.  
-wire \[7:0\] w;  
+```verilog
+wire [7:0] w;
+```
 宣告一個 8-bit 的 wire w 。
 
 3\.  
-reg \[4:1\] x;  
+```verilog
+reg [4:1] x;
+```
 宣告一個 4-bit 的 reg x。
 
 4\.  
-output reg \[8:0\] y;  
+```verilog
+output reg [8:0] y;
+```
 宣告一個 9-bit 的 reg，同時它也是一個輸出埠。
 
 5\.  
-input wire \[3:-2\] z;  
+```verilog
+input wire [3:-2] z;
+```
 宣告一個 6-bit 的 wire 輸入 z，而且範圍可以包含負數索引。
 
 6\.  
-output \[3:0\] a;  
+```verilog
+output [3:0] a;
+```
 宣告一個 4-bit 的輸出 wire a。如果沒有另外寫，output 預設型別是 wire。
 
 7\.  
-wire \[0:7\] b;  
+```verilog
+wire [0:7] b;
+```
 宣告一個 8-bit 的 wire b，而且這裡 b\[0\] 是最高有效位元（MSB）。
 
 8\.  
@@ -58,36 +78,50 @@ wire \[0:7\] b;
 在 endianness 上保持一致是很重要的習慣，因為如果不同方向的 vector 混在一起 assign 或一起使用，很容易出現很奇怪的 bug。
 
 10\.  
-wire \[2:0\] a, c;  
+```verilog
+wire [2:0] a, c;
+```
 宣告兩個 3-bit vector：a 和 c。
 
 11\.  
-assign a \= 3'b101;   
+```verilog
+assign a = 3'b101;
+```
 把 a 設成二進位 101。  
-3'b101：\<size\>'\<base\>\<digits\>  
+```verilog
+3'b101：<size>'<base><digits>
+```
 size：這個常數要用幾個 bit 表示  
 '：分隔符號  
 base：進位制  
-	b=2進位  
-	d=10進位  
-	h=16進位  
+```
+	b=2進位
+	d=10進位
+	h=16進位
+```
 digits：實際的數字內容。
 
 12\.  
-assign c \= b; // c \= 001 \<-- bug  
+```verilog
+assign c = b; // c = 001 <-- bug
+```
 因為 b 只有 1-bit，所以 assign 到 c 時就變成只有那 1 bit 被用到，結果 c 會變成像 001 這種錯誤結果。這就是 bug。
 
 13\.  
 如果兩邊位寬不同，Verilog 會依情況做：  
 假設：  
-assign A \= B;  
+```verilog
+assign A = B;
+```
 如果 A 比 B 長：A 的高位(最左邊位元)補 0。  
 如果 A 比 B 短：B 的高位(最左邊位元)截掉。  
 ex.  
-assign \_\_\_\_ \= 01011; //A \= 1011  
-assign \_\_\_\_\_ \= 0110; //A \= 00110
+```verilog
+assign ____ = 01011; //A = 1011
+assign _____ = 0110; //A = 00110
+```
 
-## Unpacked vs. Packed Arrays
+### Unpacked vs. Packed Arrays
 
 寫在前面和後面的意義不同。  
 一般風格上常見：前面的是\[大:小\]，後面的用\[小:大\]。  
@@ -95,43 +129,51 @@ assign \_\_\_\_\_ \= 0110; //A \= 00110
 packed 常見 \[大:小\]  
 unpacked 常見 \[小:大\]
 
-### Packed(翻譯：打包的)
+#### Packed(翻譯：打包的)
 
-wire \[9:0\] v;  // v=0000000000  
-v \= \[  
- v\[9\] v\[8\] v\[7\] v\[6\] v\[5\] v\[4\] v\[3\] v\[2\] v\[1\] v\[0\]  
+```verilog
+wire [9:0] v;  // v=0000000000
+v = [
+ v[9] v[8] v[7] v[6] v[5] v[4] v[3] v[2] v[1] v[0]
+```
 \](示意)
 
-### Unpacked
+#### Unpacked
 
-wire v \[0:9\];  // v=\[0,0,0,0,0,0,0,0,0,0\]  
-v \= \[  
- v\[0\],  
- v\[1\],  
- v\[2\],  
- v\[3\],  
- v\[4\],  
- v\[5\],  
- v\[6\],  
- v\[7\],  
- v\[8\],  
- v\[9\]  
+```verilog
+wire v [0:9];  // v=[0,0,0,0,0,0,0,0,0,0]
+v = [
+ v[0],
+ v[1],
+ v[2],
+ v[3],
+ v[4],
+ v[5],
+ v[6],
+ v[7],
+ v[8],
+ v[9]
+```
 \](示意)
 
-### Packed+Unpacked(依照常見度排序)
+#### Packed+Unpacked(依照常見度排序)
 
 1\.  
-wire \[1:0\] v \[0:3\];		// v=\[00,00,00,00\]  
-					v=\[  
-  \[v\[0\]\[1\], v\[0\]\[0\]\],  
-  \[v\[1\]\[1\], v\[1\]\[0\]\],  
-  \[v\[2\]\[1\], v\[2\]\[0\]\],  
-  \[v\[3\]\[1\], v\[3\]\[0\]\]  
+```verilog
+wire [1:0] v [0:3];		// v=[00,00,00,00]
+					v=[
+  [v[0][1], v[0][0]],
+  [v[1][1], v[1][0]],
+  [v[2][1], v[2][0]],
+  [v[3][1], v[3][0]]
+```
 \](示意)
 
 2\.  
-wire \[1:0\] \[3:0\] v;		  
-// v \= \[v\[1\]\[3\] v\[1\]\[2\] v\[1\]\[1\] v\[1\]\[0\] v\[0\]\[3\] v\[0\]\[2\] v\[0\]\[1\] v\[0\]\[0\]\]    
+```verilog
+wire [1:0] [3:0] v;
+// v = [v[1][3] v[1][2] v[1][1] v[1][0] v[0][3] v[0][2] v[0][1] v[0][0]]
+```
 它和 wire \[7:0\] v; 總位元數相同都是 8 bits，但 wire \[1:0\]\[3:0\] v; 額外保留了 2 × 4-bit 的 packed 分組語意，因此可用 v\[i\]\[j\] 兩層索引。
 
 	※ 這種多維 packed 寫法是 SystemVerilog 觀念。
@@ -139,31 +181,41 @@ wire \[1:0\] \[3:0\] v;
 3-1.  
 這種二維 unpacked array 常用來表示二維資料，例如影像、座標格點、表格資料。
 
-wire v \[0:1\] \[0:3\];		// v=\[\[0,0,0,0\], \[0,0,0,0\]\]  
-v=\[   
-\[v\[0\]\[0\], v\[0\]\[1\], v\[0\]\[2\], v\[0\]\[3\]\],  
-\[v\[1\]\[0\], v\[1\]\[1\], v\[1\]\[2\], v\[1\]\[3\]\]    
+```verilog
+wire v [0:1] [0:3];		// v=[[0,0,0,0], [0,0,0,0]]
+v=[
+[v[0][0], v[0][1], v[0][2], v[0][3]],
+[v[1][0], v[1][1], v[1][2], v[1][3]]
+```
 \](示意)
 
-wire \[1:0\] v \[0:1\] \[0:3\];	// v=\[\[00,00,00,00\], \[00,00,00,00\]\]  
-   v=\[  
- \[  
+```verilog
+wire [1:0] v [0:1] [0:3];	// v=[[00,00,00,00], [00,00,00,00]]
+   v=[
+ [
+```
   {v\[0\]\[0\]\[1\], v\[0\]\[0\]\[0\]},  
   {v\[0\]\[1\]\[1\], v\[0\]\[1\]\[0\]},  
   {v\[0\]\[2\]\[1\], v\[0\]\[2\]\[0\]},  
-  {v\[0\]\[3\]\[1\], v\[0\]\[3\]\[0\]}  
- \],  
- \[  
+```
+  {v[0][3][1], v[0][3][0]}
+ ],
+ [
+```
   {v\[1\]\[0\]\[1\], v\[1\]\[0\]\[0\]},  
   {v\[1\]\[1\]\[1\], v\[1\]\[1\]\[0\]},  
   {v\[1\]\[2\]\[1\], v\[1\]\[2\]\[0\]},  
-  {v\[1\]\[3\]\[1\], v\[1\]\[3\]\[0\]}  
- \]  
+```
+  {v[1][3][1], v[1][3][0]}
+ ]
+```
 \](示意)
 
-## 呼叫
+### 呼叫
 
-當宣告 wire \[3\] \[4\] v \[1\] \[2\] ;  
+```verilog
+當宣告 wire [3] [4] v [1] [2] ;
+```
 呼叫時 v\[1\]\[2\]\[3\]\[4\]  
 呼叫有兩種型態  
 \[i\]：第i個  
@@ -172,89 +224,111 @@ wire \[1:0\] v \[0:1\] \[0:3\];	// v=\[\[00,00,00,00\], \[00,00,00,00\]\]
 
 在乎叫時，如果原本是\[0:3\]，不可呼叫\[2:0\]，方向必須相同。
 
-# 賦值 & 大括號使用
+## 賦值 & 大括號使用
 
 1.大括號傳遞
 
-input \[2:0\] a,  
-input \[2:0\] b,  
-output \[5:0\] out\_not  
-assign out\_not \= {\~b, \~a}; //a+b=out\_not，可以直接接上去。
+```verilog
+input [2:0] a,
+input [2:0] b,
+output [5:0] out_not
+assign out_not = {\~b, \~a}; //a+b=out_not，可以直接接上去。
 
-wire \[7:0\] D;  
-wire \[3:0\] A;  
-wire \[1:0\] B, C;  
-assign D \= {A, {B, C}}; //這樣也可以接，要”接”就是用大括號，切片才用中括號“\[\]”。
+wire [7:0] D;
+wire [3:0] A;
+wire [1:0] B, C;
+assign D = {A, {B, C}}; //這樣也可以接，要”接”就是用大括號，切片才用中括號“[]”。
+```
 
 不管怎麼括號，只要寬度(位寬)對、每個傳入都有接收的就是合理的。
 
-A \--- B  
-C \--- D  
+```
+A --- B
+C --- D
+```
 .     .  
 .     .  
 .     .  
 像上面有一一對到就好，如下：
 
-wire \[3:0\] a,b,c,d,e,f,g,h;  
-wire \[7:0\] A,B,C,D;  
-assign {A,B,C,D} \= {a,b,c,d,e,f,g,h};
+```verilog
+wire [3:0] a,b,c,d,e,f,g,h;
+wire [7:0] A,B,C,D;
+assign {A,B,C,D} = {a,b,c,d,e,f,g,h};
+```
 
 其實也可以像下面這樣寫  
-assign {A,{B},C,D} \= {a,b,{c},d,e,f,g,h};  
-assign {A,B,C,D} \= {a,b,{c,d,e},f,g,h};  
-assign {A,{B,{C}},D} \= {a,b,c,d,e,f,g,h};  
-assign {A,B,{C,D}} \= {a,b,c,d,e,f,g,h};
+```verilog
+assign {A,{B},C,D} = {a,b,{c},d,e,f,g,h};
+assign {A,B,C,D} = {a,b,{c,d,e},f,g,h};
+assign {A,{B,{C}},D} = {a,b,c,d,e,f,g,h};
+assign {A,B,{C,D}} = {a,b,c,d,e,f,g,h};
+```
 
 可以想像成四則運算的括號，你愛括幾個都可以，只要可以正常運算就好，就像是：  
-3\*2+10 \= ((3\*(2))+((10))) //亂括號，但是沒有邏輯錯誤
+```
+3*2+10 = ((3*(2))+((10))) //亂括號，但是沒有邏輯錯誤
+```
 
 2.用大括號替代 “assign \=”：
 
-wire a,b,c,d,e,f,g;  
-wire A,B,C,D,E,F,G;  
-wire ab,cd;  
-assign {A,B,C,D,E,F,G}={a,b,c,d,e,f,g};  
+```verilog
+wire a,b,c,d,e,f,g;
+wire A,B,C,D,E,F,G;
+wire ab,cd;
+assign {A,B,C,D,E,F,G}={a,b,c,d,e,f,g};
 assign {ab,cd}={a\&b,c\&d};
+```
 
 3.合併兩個1  
-module top\_module (  
-    input \[4:0\] a, b, c, d, e, f,  
-    output \[7:0\] w, x, y, z );//  
-    // assign { ... } \= { ... };  
-    assign {w,x,y,z}={a,b,c,d,e,f,1'b1,1'b1};  
+```verilog
+module top_module (
+    input [4:0] a, b, c, d, e, f,
+    output [7:0] w, x, y, z );//
+    // assign { ... } = { ... };
+    assign {w,x,y,z}={a,b,c,d,e,f,1'b1,1'b1};
 endmodule
+```
 
 其實可以替換成
 
-module top\_module (  
-    input  \[4:0\] a, b, c, d, e, f,  
-    output \[7:0\] w, x, y, z  
-);  
-    assign {w, x, y, z} \= {a, b, c, d, e, f, 2'b11};  
+```verilog
+module top_module (
+    input  [4:0] a, b, c, d, e, f,
+    output [7:0] w, x, y, z
+);
+    assign {w, x, y, z} = {a, b, c, d, e, f, 2'b11};
 endmodule
+```
 
 因為位寬相同
 
-## 重複次數
+### 重複次數
 
-{num{vector}}  
-最外面的大括號不能省略，如： z \= { {3{x}}  , y };
+```
+{num{vector}}
+最外面的大括號不能省略，如： z = { {3{x}}  , y };
+```
 
 num 重複次數，必須是常數，不可是變數，也就是說可以寫：{3{1’b1}}，不能寫{n{1’b1}}。  
+```
 vector 內容，可以是 “3’b100” 也可以是 {a,b,c};
+```
 
 範例：
 
-{5{1'b1}}   
-\= {1'b1,1'b1,1'b1,1'b1,1'b1}
+```verilog
+{5{1'b1}}
+= {1'b1,1'b1,1'b1,1'b1,1'b1}
 
-{2{a,b,c}}  
-\= {a,b,c,a,b,c}
+{2{a,b,c}}
+= {a,b,c,a,b,c}
 
-{3{2'b01}}  
-\= 12'b010101010101 //先開內層再開外層
+{3{2'b01}}
+= 12'b010101010101 //先開內層再開外層
+```
 
-## 重複次數範例： sign-extension(符號延伸)
+### 重複次數範例： sign-extension(符號延伸)
 
 把一個有號數從較小位寬擴成較大位寬時，左邊補上的新 bit 不是一律補 0，而是複製原本的最高位 MSB，也就是符號位，這樣數值正負才會保持不變。在二補數表示法裡，正數的最高位是 0，負數的最高位是 1，所以 sign-extension 本質上就是「把 sign bit 一直往左複製」。  
 	  
@@ -264,35 +338,39 @@ vector 內容，可以是 “3’b100” 也可以是 {a,b,c};
 
 把 in 延伸到和 output 一樣：
 
-module top\_module (  
-    input \[7:0\] in,  
-    output \[31:0\] out );  
-    assign out \= {{24{in\[7\]}}, in};  
-    // 重複 24 次 MSB  
+```verilog
+module top_module (
+    input [7:0] in,
+    output [31:0] out );
+    assign out = {{24{in[7]}}, in};
+    // 重複 24 次 MSB
 endmodule
+```
 
-## 圖案
+### 圖案
 
 在電路圖裡，一條線旁邊如果有斜線記號和數字，表示那是一條多位元的向量（也就是 bus / 匯流排），也就是 Packed 。  
 ![][image1]
 
-# 練習題
+## 練習題
 
-## 重複 \+ logical operators
+### 重複 \+ logical operators
 
 ![][image2]
 
-module top\_module (  
-    input a, b, c, d, e,  
-    output \[24:0\] out );//
+```verilog
+module top_module (
+    input a, b, c, d, e,
+    output [24:0] out );//
 
-    // The output is XNOR of two vectors created by   
-    // concatenating and replicating the five inputs.  
-    // assign out \= \~{ ... } ^ { ... };  
-      
-    assign out \= \~{{{5{a}},{5{b}},{5{c}},{5{d}},{5{e}}}}^{5{a,b,c,d,e}};
+    // The output is XNOR of two vectors created by
+    // concatenating and replicating the five inputs.
+    // assign out = \~{ ... } ^ { ... };
 
-endmodule  
+    assign out = \~{{{5{a}},{5{b}},{5{c}},{5{d}},{5{e}}}}^{5{a,b,c,d,e}};
+
+endmodule
+```
 
 
 [image1]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAAA/CAIAAAC3jNulAAAGcElEQVR4Xu2abUxTVxjHS1tEEMVYoh8k+yCuFo1ilAxRTJBE1KBCfFtMI2B0TBNFRwwvipqgU2KiU/GLxhDr1m2kKlnmujrJAkNWEmpUTKagEnWCiCIqChOQ7k+vuzmc3t5e3VHv2PnFmHvP87Tc+8tzznmOonEPUjQEe/fupcPvDA09MFjgQhnDhTKGC2UMF8oYLpQxXChjuFDGcKGM4UIZw4UyhgtlDBfKmEEr9PDhw/TQe2FwCr127Vp4eDg9+l5QtdCuri6r1ZqXl1dUVFRTU0OGLBbLhQsXyJFTp06dO3cOF42NjcuWLRs2bNhXHqqrq4uLi10uF5nc1NSE0IMHD8hBJqhX6M2bN6OiosaNG5eRkbFw4cIhQ4bk5+eLUZPJlJubS6S7ExIS0tPTcXHgwIHY2NigoKB0D2fOnElOTp4/fz6ZXFhYOHr06J6eHnKQCeoVCguzZ8/u7OwUbisqKgICAsrLy4VbGaEAJUlOeZvNptPp7t+/L45MmDAhOztbvGWISoViMuKBzp49Sw4mJiZiLgvXbyT05cuXBoNh//79wm1tbS2+/OrVq2ICQ1QqtKqqCg/U0NBADmZlZU2bNk24fiOhYOPGjdHR0cL1pk2bYmJiyChDVCoUWxAe6MaNG+Tg5s2bRSneQuPi4mSEXrx4EV9YV1fX29s7ZsyYI0eOkFGGqFQo9ne9Xm+328nBefPmpaamCtdTpkxZt24dGY2IiJAR6vZ8ZPv27egEsF89fvyYivrlyZMnSroClQoFSUlJmMVY/oRblJhWq8WWLdwuWrRo/PjxYjLU4wVEoZWVlbi9d++emADQJ02ePHnNmjUrVqwgxxWybdu2kJCQXbt20YGBqFdoW1sb2qapU6eiD127di36SvwtRrHdw++kSZNycnLgEZmzZs0Shb569QrzGuvDzp07T58+LQy2trYGBgZCClX4SsDDDB8+HI52795NxwYiIxTrWElJSXNzMznICv9CwdOnT9Gub9iwYevWrefPn6eiqFnYRMUdPHgQspBQVlYmRjGChRI9rMPhEAePHz+ODhTLqDiiEJQnBI0aNerZs2d0bCAyQgGKA82f0WjEG+Fg8hZP4gtFQlWC8vJ0+xMKtmzZghB2iKFDh2LapaSk4NSnZHWW578kFNWkUVaebgVC3R6nsCnkoGChFcsXVq2CggKn04n1iv6AAqSF4hj+s8ooLS0NDg7WeHY8OiYFKXT16tV0+B+WLl2KwzSZDAI94MfFx8fjAP3w4UNakG/6hfb29TQ//9PVUv3tH8cKndnmn5ISTpg+/sKgD9VSP+l/CNYEFK+wr1L9uCSaL2ty4r+LTCyNmmH96JNvIvAHFwtOxIw0jAxTDSNGjMBb4fUwQ+mYD0gpMp/CN+t0OjKZJMADjoV79uy5dOlSX18f7c+L/gqtuOtY8kN87Nf9QhNLTcfqXp+11UN+fj5ez2AwKFk9BUgvvtZQnBFwysD5gkzGTMd8x0q9atUqm82GHPpjsmjS7AvmlJpyKz9L+N6YUjbj96Zf6ZQPzaNHj0JDQ/GqKBM65hvSkaRQwaawgGIvwo6EUp0+fTqSL1++TGcrRmOrt3T2PM/8ZcmnP85p6rhLx1UAekaNpzw7OjromG/khQo2EYJEFGNaWhoabbTbVNpb0D/l2/9qy/vt866e1//iqSqwwwrl6S1FHhmh7e3tM2fOjIuLKyoqunLlChn69/QL7ehWujC9f4TyDA8Pf6PydMsKbWhoYFKMkkj3oerh+vXrZrN53759dMAfMkLfKWoX+tZwoYzhQhnDhUrz4sULnKaXL1+O40pycvLRo0e7u7vpJCm4UAngzmg0omGEkZMnT2ZmZqKFysjIoPOk4EKlaWxsJE/QBQUFOFyjkSRSpOFCFVFSUqLX63EYpQNecKH+wQowceLEuXPn0gEpuFCfuFyuHTt2LF68GMf5rKys1tZWOkMKLtQnDocDNk0mU1BQ0MqVK51OJ50hBRfqHxzA169fr9PpWlpa6JgXXKgisB2FhIQUFxfTAS+4UEXcunVLq9UeOnSIDnjBhUpw+/bt8vJy8b9z79y5Yzabg4OD6+vrByZKwIVKUFtbi40oLCwsOjo6MjISasaOHSv+WpU8XKg02IjsdrvFYrFarVVVVeLvrPmFC2UMF8oYLpQxXChjuFDGcKGM4UIZw4UyhgtlDBfKmA8l9G9V4i5slxruGgAAAABJRU5ErkJggg==>

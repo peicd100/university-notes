@@ -2,7 +2,9 @@
 
 `ps` 是 **picosecond(皮秒)**。 也就是：
 
-**1 ps \= 10⁻¹² 秒 \= 一兆分之一秒**。 ([NIST 技術系列出版物](https://nvlpubs.nist.gov/nistpubs/Legacy/TN/nbstechnicalnote695.pdf?utm_source=chatgpt.com))
+```
+**1 ps = 10⁻¹² 秒 = 一兆分之一秒**。 ([NIST 技術系列出版物](https://nvlpubs.nist.gov/nistpubs/Legacy/TN/nbstechnicalnote695.pdf?utm_source=chatgpt.com))
+```
 
 ---
 
@@ -16,7 +18,9 @@
 * `ns` \= nanosecond(奈秒) \= 10⁻⁹ 秒  
 * `ps` \= picosecond(皮秒) \= 10⁻¹² 秒
 
+```
 而且 `pico` 這個 SI 字首是正式的國際單位字首之一。 ([NIST](https://www.nist.gov/pml/owm/metric-si-prefixes?utm_source=chatgpt.com))
+```
 
 ---
 
@@ -29,13 +33,17 @@
 
 所以：
 
-**1ns \= 1000ps** 也就是說，**ps 比 ns 更小、更細 1000 倍**。 ([ChipVerify](https://www.chipverify.com/verilog/verilog-timescale?utm_source=chatgpt.com))
+```
+**1ns = 1000ps** 也就是說，**ps 比 ns 更小、更細 1000 倍**。 ([ChipVerify](https://www.chipverify.com/verilog/verilog-timescale?utm_source=chatgpt.com))
+```
 
 ---
 
 ### 放回 `timescale 1ns/1ps` 裡看
 
-\`timescale 1ns/1ps
+```
+`timescale 1ns/1ps
+```
 
 意思是：
 
@@ -44,7 +52,9 @@
 
 也就是：
 
+```
 我們平常用 ns 當延遲單位，但模擬器細到可以處理 ps。 ([ChipVerify](https://www.chipverify.com/verilog/verilog-timescale?utm_source=chatgpt.com))
+```
 
 ---
 

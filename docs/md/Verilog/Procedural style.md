@@ -1,4 +1,6 @@
+```
 GPT link ： [https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-verilog-hdlbits/c/69b7a014-4f34-83a2-9b5e-07cb003882a3](https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-verilog-hdlbits/c/69b7a014-4f34-83a2-9b5e-07cb003882a3)
+```
 
 # Procedural style(程序式寫法) 筆記
 
@@ -20,7 +22,9 @@ GPT link ： [https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-v
 
 先給你一句總定義：
 
+```verilog
 **procedural style(程序式寫法)** 是把程式寫在 **procedural block(程序區塊)** 裡，例如 `always`、`initial`，並在裡面用 `if / else if / else`、`case`、`for`、`=`、`<=`、`wait` 等程序式敘述。`always` 是 procedural block；裡面的 statements 會依程序語意執行。IEEE 1364-2005 也把 `if`、`case`、`loop_statement`、`wait`、`fork...join`、`disable` 等都列為 procedural statement。([ChipVerify](https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))
+```
 
 ---
 
@@ -35,7 +39,9 @@ GPT link ： [https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-v
 * `assign` 是 **continuous assignment(連續指定)**，比較像「直接寫一條公式」。  
 * `always / initial` 是 **procedural block**，比較像「進到一個區塊裡，用規則一步一步描述邏輯」。
 
+```verilog
 HDLBits 直接說過：`always @(*)` 的組合邏輯寫法，本質上可以和 `assign` 描述同一種電路，只是語法表達力不同。([ChipVerify](https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))
+```
 
 #### procedural style 不代表硬體真的像 CPU 跑程式
 
@@ -45,7 +51,9 @@ HDLBits 直接說過：`always @(*)` 的組合邏輯寫法，本質上可以和 
 * `case` 常對應 selector / decoder  
 * `for` 在可綜合 RTL 中常被展開成重複硬體
 
+```
 這是 Verilog 教學與綜合風格的核心觀念。([約克大學電子與計算機工程系](https://www.eecs.yorku.ca/course_archive/2011-12/W/4210/Verilog.pdf?utm_source=chatgpt.com))
+```
 
 ---
 
@@ -57,21 +65,27 @@ HDLBits 直接說過：`always @(*)` 的組合邏輯寫法，本質上可以和 
 
 #### 語法格式
 
-always @(event\_control)
+```verilog
+always @(event_control)
 
     statement;
+```
 
 或
 
-always @(event\_control) begin
+```verilog
+always @(event_control) begin
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
+```
 
     ...
 
+```
 end
+```
 
 #### 每個位置放什麼
 
@@ -79,34 +93,46 @@ end
 * `@(...)`：事件控制 event control / sensitivity list，決定何時觸發  
 * `statement`：可以是一句 procedural statement，也可以是 `begin...end` 包起來的多句
 
+```verilog
 IEEE 1364-2005 的 event control 形式包含 `@(*)`、`@(posedge clk)`、`@(negedge rstn)`、`@(a or b)` 等。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 常見資料型態
 
 * 在 `always` 裡被賦值的左值，傳統 Verilog 通常宣告成 **`reg`**  
 * 右值可以是 `wire`、`reg`、常數、比較結果、算式、函式回傳值
 
+```verilog
 關於 `wire/reg` 的基本區分，ChipVerify 的資料型態整理有明確說明。([ChipVerify](https://www.chipverify.com/verilog/verilog-data-types?utm_source=chatgpt.com))
+```
 
 #### 常見用途
 
 ##### 組合邏輯
 
-always @(\*) begin
+```verilog
+always @(*) begin
+```
 
     ...
 
+```
 end
+```
 
 ##### 時序邏輯
 
+```verilog
 always @(posedge clk) begin
+```
 
     ...
 
+```verilog
 end
 
 `always @(*)` 用於 combinational logic，`always @(posedge clk)` 用於 sequential logic / flip-flops。這是 HDLBits 與 ChipVerify 都明確強調的模板。([ChipVerify](https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))
+```
 
 #### 常用技巧
 
@@ -116,13 +142,14 @@ end
 
 #### 好看好用的寫法
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
-    out \= 8'b0;
+    out = 8'b0;
 
     if (en)
 
-        out \= data;
+        out = data;
 
 end
 
@@ -130,13 +157,14 @@ always @(posedge clk) begin
 
     if (reset)
 
-        q \<= 8'b0;
+        q <= 8'b0;
 
     else if (en)
 
-        q \<= d;
+        q <= d;
 
 end
+```
 
 #### 常見地雷
 
@@ -150,15 +178,19 @@ end
 
 #### 語法格式
 
+```
 begin
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
+```
 
     ...
 
+```
 end
+```
 
 #### 每個位置放什麼
 
@@ -166,7 +198,9 @@ end
 * 中間放多個 procedural statements  
 * `end`：結束區塊
 
+```
 IEEE 文法把它列為 `seq_block`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 常見資料型態
 
@@ -184,29 +218,33 @@ IEEE 文法把它列為 `seq_block`。([巴克內爾大學工程學院](https://
 
 #### 好看好用的寫法
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
     if (sel) begin
 
-        out   \= a;
+        out   = a;
 
-        valid \= 1'b1;
+        valid = 1'b1;
 
     end
 
     else begin
 
-        out   \= b;
+        out   = b;
 
-        valid \= 1'b0;
+        valid = 1'b0;
 
     end
 
 end
+```
 
 #### 常見地雷
 
+```
 沒加 `begin...end` 時，只有第一句屬於該分支，後面那句其實不在裡面。這是 Verilog 初學者最常踩的坑之一。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 ---
 
@@ -214,37 +252,47 @@ end
 
 #### 語法格式
 
-if (condition\_1)
+```
+if (condition_1)
 
-    statement\_1;
+    statement_1;
 
-else if (condition\_2)
+else if (condition_2)
 
-    statement\_2;
+    statement_2;
 
 else
 
-    statement\_default;
+    statement_default;
+```
 
 多句版本：
 
-if (condition\_1) begin
+```
+if (condition_1) begin
+```
 
     ...
 
+```
 end
 
-else if (condition\_2) begin
+else if (condition_2) begin
+```
 
     ...
 
+```
 end
 
 else begin
+```
 
     ...
 
+```
 end
+```
 
 #### 每個位置放什麼
 
@@ -273,41 +321,47 @@ end
 
 ##### 技巧 1：有優先權才用 `else if`
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
     if (req2)
 
-        grant \= 2'b10;
+        grant = 2'b10;
 
     else if (req1)
 
-        grant \= 2'b01;
+        grant = 2'b01;
 
     else
 
-        grant \= 2'b00;
+        grant = 2'b00;
 
 end
+```
 
 ##### 技巧 2：組合邏輯先給預設值
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
-    grant \= 2'b00;
+    grant = 2'b00;
 
     if (req2)
 
-        grant \= 2'b10;
+        grant = 2'b10;
 
     else if (req1)
 
-        grant \= 2'b01;
+        grant = 2'b01;
 
 end
+```
 
 ##### 技巧 3：固定值很多時改用 `case`
 
+```verilog
 如果條件都長得像 `sel == 2'b00`、`sel == 2'b01`，通常 `case` 更好讀。([ChipVerify](https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com))
+```
 
 #### 好看好用的寫法
 
@@ -328,50 +382,64 @@ Verilog 的 case 不像 C/C++ 那樣需要 break。
 
 #### 語法格式
 
+```
 case (expr)
 
-    item\_1: statement\_1;
+    item_1: statement_1;
 
-    item\_2: statement\_2;
+    item_2: statement_2;
+```
 
     ...
 
-    default: statement\_default;
+```
+    default: statement_default;
 
 endcase
+```
 
 多句版本：
 
+```
 case (expr)
 
-    item\_1: begin
+    item_1: begin
+```
 
         ...
 
+```
     end
+```
 
     default: begin
 
         ...
 
+```
     end
 
 endcase
+```
 
 多條件語法：
 
+```
 case (expr)
 
-    item\_1,item\_2: statement\_1;  // if(expr \== item\_1 || expr \== item\_2)
+    item_1,item_2: statement_1;  // if(expr == item_1 || expr == item_2)
 
-    item\_3,item\_4,item\_5: statement\_2;    
-// if(expr \== item\_3 || expr \== item\_4 || expr \== item\_5)
+    item_3,item_4,item_5: statement_2;
+// if(expr == item_3 || expr == item_4 || expr == item_5)
+```
 
     ...
 
-    default: statement\_default;
+```
+    default: statement_default;
 
 endcase
+```
 
 #### 每個位置放什麼
 
@@ -395,43 +463,47 @@ endcase
 
 ##### 技巧 1：固定值多選一時，優先 `case`
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
     case (sel)
 
-        2'b00: out \= in0;
+        2'b00: out = in0;
 
-        2'b01: out \= in1;
+        2'b01: out = in1;
 
-        2'b10: out \= in2;
+        2'b10: out = in2;
 
-        2'b11: out \= in3;
+        2'b11: out = in3;
 
-        default: out \= 8'b0;
+        default: out = 8'b0;
 
     endcase
 
 end
+```
 
 ##### 技巧 2：先給預設值，後 `case`
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
-    out \= 8'b0;
+    out = 8'b0;
 
     case (sel)
 
-        2'b00: out \= in0;
+        2'b00: out = in0;
 
-        2'b01: out \= in1;
+        2'b01: out = in1;
 
-        2'b10: out \= in2;
+        2'b10: out = in2;
 
-        2'b11: out \= in3;
+        2'b11: out = in3;
 
     endcase
 
 end
+```
 
 ##### 技巧 3：常數格式統一
 
@@ -454,19 +526,23 @@ end
 
 #### 語法格式
 
+```
 for (init; condition; step)
 
     statement;
+```
 
 或
 
+```
 for (init; condition; step) begin
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
 
 end
+```
 
 #### 每個位置放什麼
 
@@ -489,59 +565,67 @@ end
 
 #### 它在 RTL 的意思
 
+```
 在可綜合 RTL 裡，`for` 主要是**展開重複硬體**，不是像軟體那樣真的在晶片裡跑迴圈。這是 Nandland 對 synthesizable `for` 的核心說法。([Nandland](https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com))
+```
 
 #### 常用技巧
 
 ##### 技巧 1：上界用常數或 parameter
 
-parameter WIDTH \= 8;
+```verilog
+parameter WIDTH = 8;
 
 integer i;
 
-always @(\*) begin
+always @(*) begin
 
-    for (i=0; i\<WIDTH; i=i+1)
+    for (i=0; i<WIDTH; i=i+1)
 
-        y\[i\] \= a\[i\] & b\[i\];
+        y[i] = a[i] & b[i];
 
 end
+```
 
 ##### 技巧 2：body 多句就加 `begin...end`
 
+```verilog
 integer i;
 
-always @(\*) begin
+always @(*) begin
 
-    for (i=0; i\<8; i=i+1) begin
+    for (i=0; i<8; i=i+1) begin
 
-        y\[i\]     \= a\[i\] ^ b\[i\];
+        y[i]     = a[i] ^ b[i];
 
-        valid\[i\] \= en;
+        valid[i] = en;
 
     end
 
 end
+```
 
 ##### 技巧 3：只想讓前幾項有效時，用固定最大展開次數再加 `if`
 
+```verilog
 integer i;
 
-always @(\*) begin
+always @(*) begin
 
-    for (i=0; i\<8; i=i+1) begin
+    for (i=0; i<8; i=i+1) begin
 
-        if (i \< n)
+        if (i < n)
 
-            y\[i\] \= a\[i\];
+            y[i] = a[i];
 
         else
 
-            y\[i\] \= 1'b0;
+            y[i] = 1'b0;
 
     end
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -563,9 +647,11 @@ end
 
 #### 語法格式
 
-lhs \= rhs;    // blocking assignment
+```
+lhs = rhs;    // blocking assignment
 
-lhs \<= rhs;   // non-blocking assignment
+lhs <= rhs;   // non-blocking assignment
+```
 
 #### 每個位置放什麼
 
@@ -574,33 +660,41 @@ lhs \<= rhs;   // non-blocking assignment
 
 #### `=` 是什麼
 
+```
 `=` 是 **blocking assignment(阻塞賦值)**。 它的程序語意是：**這一行先完成，再往下執行下一行**。ChipVerify 將 blocking assignment 說明為 sequentially execute 的形式。([ChipVerify](https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com))
+```
 
 例子：
 
-always @(\*) begin
+```verilog
+always @(*) begin
 
-    x \= a;
+    x = a;
 
-    y \= x;
+    y = x;
 
 end
+```
 
 直覺上，`y` 看到的是**更新後的 `x`**。
 
 #### `<=` 是什麼
 
+```
 `<=` 是 **non-blocking assignment(非阻塞賦值)**。 它的程序語意是：**先記下 rhs 的結果，lhs 的更新排到目前時間步較後面一起生效**。ChipVerify 說它會 schedule assignment，而不是立刻阻止後續敘述。([ChipVerify](https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com))
+```
 
 例子：
 
+```verilog
 always @(posedge clk) begin
 
-    x \<= a;
+    x <= a;
 
-    y \<= x;
+    y <= x;
 
 end
+```
 
 直覺上，`y` 看到的是**舊的 `x`**，這符合兩顆串接 flip-flop 的硬體直覺。
 
@@ -641,21 +735,27 @@ HDLBits 與 ChipVerify 都強烈建議：
 
 #### 語法格式
 
+```verilog
 initial
 
     statement;
+```
 
 或
 
+```verilog
 initial begin
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
+```
 
     ...
 
+```
 end
+```
 
 #### 每個位置放什麼
 
@@ -672,7 +772,9 @@ end
 * 產生刺激 stimulus  
 * 搭配 `$display`、`$finish`
 
+```verilog
 ChipVerify 明確說 `initial` 在 time 0 執行一次，常用於 testbench，且通常不綜合成硬體。([ChipVerify](https://www.chipverify.com/verilog/verilog-initial-block?utm_source=chatgpt.com))
+```
 
 #### 常用技巧
 
@@ -681,17 +783,19 @@ ChipVerify 明確說 `initial` 在 time 0 執行一次，常用於 testbench，�
 
 #### 好看好用的寫法
 
+```verilog
 initial begin
 
-    clk \= 0;
+    clk = 0;
 
-    rst \= 1;
+    rst = 1;
 
-    a   \= 0;
+    a   = 0;
 
-    b   \= 0;
+    b   = 0;
 
 end
+```
 
 #### 常見地雷
 
@@ -704,11 +808,15 @@ end
 
 #### 語法格式
 
-\#10 a \= 1'b1;
+```verilog
+#10 a = 1'b1;
+```
 
 或
 
-\#5 statement;
+```
+#5 statement;
+```
 
 #### 每個位置放什麼
 
@@ -727,15 +835,17 @@ delay 數值通常是整數常數；後面的賦值左值仍通常是 `reg`。
 
 #### 常用技巧
 
+```verilog
 initial begin
 
-    a \= 0;
+    a = 0;
 
-    \#10 a \= 1;
+    #10 a = 1;
 
-    \#10 a \= 0;
+    #10 a = 0;
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -752,7 +862,9 @@ end
 
 #### 語法格式
 
+```
 $display("format string", arg1, arg2, ...);
+```
 
 #### 每個位置放什麼
 
@@ -771,19 +883,23 @@ $display("format string", arg1, arg2, ...);
 
 #### 常用技巧
 
+```verilog
 initial begin
 
     $display("simulation start");
 
 end
+```
 
 或
 
+```verilog
 always @(posedge clk) begin
 
     $display("q=%b", q);
 
 end
+```
 
 #### 常見地雷
 
@@ -796,9 +912,11 @@ end
 
 #### 語法格式
 
+```
 $finish;
 
 $stop;
+```
 
 #### 每個位置放什麼
 
@@ -809,15 +927,19 @@ $stop;
 * `$finish`：結束模擬  
 * `$stop`：暫停模擬，像 breakpoint
 
+```
 ChipVerify 對 `$stop/$finish` 有明確說明。([ChipVerify](https://www.chipverify.com/verilog/verilog-stop-finish?utm_source=chatgpt.com))
+```
 
 #### 常用技巧
 
+```verilog
 initial begin
 
-    \#100 $finish;
+    #100 $finish;
 
 end
+```
 
 #### 常見地雷
 
@@ -836,26 +958,32 @@ end
 
 #### 語法格式
 
+```
 repeat (count)
 
     statement;
+```
 
 或
 
+```
 repeat (count) begin
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
 
 end
+```
 
 #### 每個位置放什麼
 
 * `count`：重複次數  
 * `statement`：要被重複的 procedural statement
 
+```
 IEEE 將 `repeat` 列在 loop statement 中。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 常見資料型態
 
@@ -870,13 +998,15 @@ IEEE 將 `repeat` 列在 loop statement 中。([巴克內爾大學工程學院](
 
 #### 常用技巧
 
+```verilog
 initial begin
 
     repeat (4) @(posedge clk);
 
-    done \= 1'b1;
+    done = 1'b1;
 
 end
+```
 
 這比手寫四次 `@(posedge clk)` 乾淨很多。
 
@@ -895,24 +1025,32 @@ end
 
 #### 語法格式
 
+```
 while (condition)
 
     statement;
+```
 
 或
 
+```
 while (condition) begin
+```
 
     ...
 
+```
 end
+```
 
 #### 每個位置放什麼
 
 * `condition`：迴圈持續條件  
 * `statement`：被重複執行的 procedural statement
 
+```
 IEEE 將 `while` 也列在 loop statement 中。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 常見資料型態
 
@@ -927,13 +1065,15 @@ IEEE 將 `while` 也列在 loop statement 中。([巴克內爾大學工程學院
 
 #### 常用技巧
 
+```verilog
 initial begin
 
-    while (\!done)
+    while (!done)
 
         @(posedge clk);
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -952,19 +1092,25 @@ end
 
 #### 語法格式
 
+```
 forever
 
     statement;
+```
 
 或
 
+```
 forever begin
+```
 
     ...
 
+```
 end
 
 ChipVerify 對 forever 也提醒：若沒有 delay 或時間控制，會讓模擬卡住。([ChipVerify](https://www.chipverify.com/systemverilog/systemverilog-forever-loop?utm_source=chatgpt.com))
+```
 
 #### 每個位置放什麼
 
@@ -982,13 +1128,15 @@ ChipVerify 對 forever 也提醒：若沒有 delay 或時間控制，會讓模�
 
 #### 常用技巧
 
+```verilog
 initial begin
 
-    clk \= 0;
+    clk = 0;
 
-    forever \#5 clk \= \~clk;
+    forever #5 clk = \~clk;
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -1005,17 +1153,23 @@ end
 
 #### 語法格式
 
+```
 wait (condition) statement;
+```
 
 或
 
+```
 wait (condition) begin
+```
 
     ...
 
+```
 end
 
 IEEE 文法直接列出 `wait ( expression ) statement`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 每個位置放什麼
 
@@ -1034,6 +1188,7 @@ IEEE 文法直接列出 `wait ( expression ) statement`。([巴克內爾大學�
 
 #### 常用技巧
 
+```verilog
 initial begin
 
     wait (ready);
@@ -1041,6 +1196,7 @@ initial begin
     $display("ready seen");
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -1057,31 +1213,41 @@ end
 
 #### 語法格式
 
+```
 fork
 
-    statement\_1;
+    statement_1;
 
-    statement\_2;
+    statement_2;
+```
 
     ...
 
+```
 join
+```
 
 還有變體：
 
+```
 fork
+```
 
     ...
 
-join\_any
+```
+join_any
 
 fork
+```
 
     ...
 
-join\_none
+```
+join_none
 
 ChipVerify 的 block statements 頁面也有介紹 `fork...join` 與 `join_any/join_none`。([ChipVerify](https://www.chipverify.com/verilog/verilog-block-statements?utm_source=chatgpt.com))
+```
 
 #### 每個位置放什麼
 
@@ -1103,13 +1269,15 @@ ChipVerify 的 block statements 頁面也有介紹 `fork...join` 與 `join_any/j
 
 #### 常用技巧
 
+```
 fork
 
-    \#10 a \= 1;
+    #10 a = 1;
 
-    \#20 b \= 1;
+    #20 b = 1;
 
 join
+```
 
 #### 好看好用的寫法
 
@@ -1128,11 +1296,15 @@ join
 
 #### 語法格式
 
-disable block\_name;
+```
+disable block_name;
+```
 
 或用於 named block / task。
 
+```
 IEEE 文法把 `disable hierarchical_task_identifier`、`disable hierarchical_block_identifier` 列為合法 statement。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 每個位置放什麼
 
@@ -1150,6 +1322,7 @@ IEEE 文法把 `disable hierarchical_task_identifier`、`disable hierarchical_bl
 
 #### 常用技巧
 
+```
 begin : SEARCH
 
     if (found)
@@ -1157,6 +1330,7 @@ begin : SEARCH
         disable SEARCH;
 
 end
+```
 
 #### 好看好用的寫法
 
@@ -1173,23 +1347,29 @@ end
 
 #### 語法格式
 
+```
 casex (expr)
 
-    item\_1: statement\_1;
+    item_1: statement_1;
+```
 
     ...
 
+```
 endcase
 
 casez (expr)
 
-    item\_1: statement\_1;
+    item_1: statement_1;
+```
 
     ...
 
+```
 endcase
 
 IEEE 文法列出 `case_statement ::= case ... | casez ... | casex ...`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
+```
 
 #### 每個位置放什麼
 

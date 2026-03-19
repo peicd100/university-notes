@@ -1,4 +1,5 @@
 
+```bash
 dir
 cd
 cd..
@@ -7,6 +8,7 @@ cp
 ren
 type
 del
+```
 
 
 

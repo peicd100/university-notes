@@ -5,6 +5,7 @@
     sidebar: "peicd-toc-sidebar",
     head: "peicd-toc-head",
     headRow: "peicd-toc-head__row",
+    headRowTitleless: "peicd-toc-head__row--titleless",
     title: "peicd-toc-title",
     toolbar: "peicd-toc-toolbar",
     toolbarGroup: "peicd-toc-toolbar__group",
@@ -26,7 +27,6 @@
   };
 
   const MOBILE_MQ = "(max-width: 59.999em)";
-  const MANUAL_HOLD_MS = 1500;
   const AUTO_SCROLL_GUARD_MS = 360;
   const ACTIVATION_OFFSET = 28;
   const FOLLOW_TARGET_RATIO = 0.42;
@@ -199,7 +199,7 @@
 
   function followCurrent(entry) {
     if (!state?.scrollWrap || !entry) return;
-    if (state.manualUntil > now()) return;
+    if (state.sidebarManualLocked) return;
 
     const target = getVisibleLink(entry.link);
     if (!target) return;
@@ -233,10 +233,12 @@
 
   function holdManual() {
     if (!state) return;
+    state.sidebarManualLocked = true;
+  }
 
-    state.manualUntil = now() + MANUAL_HOLD_MS;
-    clearTimeout(state.manualTimer);
-    state.manualTimer = window.setTimeout(() => scheduleSync(true), MANUAL_HOLD_MS + 50);
+  function releaseManualHold() {
+    if (!state) return;
+    state.sidebarManualLocked = false;
   }
 
   function sync(force) {
@@ -245,11 +247,10 @@
     const entry = findCurrentEntry();
     const key = entry?.link?.getAttribute("href") ?? "";
     const changed = key !== state.activeKey;
-    const manualHold = !force && state.manualUntil > now();
 
     applyCurrent(entry);
 
-    if (state.mode === "auto" && (changed || force) && !manualHold) {
+    if (state.mode === "auto" && (changed || force)) {
       state.sidebar.classList.add(CLASS.syncing);
       collapseToCurrent(entry);
       applyCurrent(entry);
@@ -258,7 +259,7 @@
 
     state.activeKey = key;
     if (entry && (changed || force)) syncHash(entry);
-    if (!manualHold || force) followCurrent(entry);
+    if (state.mode === "auto") followCurrent(entry);
   }
 
   function createToolbarGroup(label) {
@@ -290,8 +291,9 @@
     const expandButton = createButton("展開", {
       onClick() {
         setMode("manual");
+        holdManual();
         state.nestedItems.forEach((item) => setExpanded(item, true));
-        scheduleSync(true);
+        scheduleSync(false);
       },
       title: "展開所有章節"
     });
@@ -299,8 +301,9 @@
     const collapseButton = createButton("收合", {
       onClick() {
         setMode("manual");
+        holdManual();
         state.nestedItems.forEach((item) => setExpanded(item, false));
-        scheduleSync(true);
+        scheduleSync(false);
       },
       title: "收合所有章節"
     });
@@ -311,6 +314,7 @@
       onClick() {
         if (state.mode === "auto") return;
         setMode("auto");
+        releaseManualHold();
         scheduleSync(true);
       },
       title: "只展開目前閱讀路徑"
@@ -322,7 +326,8 @@
       onClick() {
         if (state.mode === "manual") return;
         setMode("manual");
-        scheduleSync(true);
+        holdManual();
+        scheduleSync(false);
       },
       title: "保留你手動展開的狀態"
     });
@@ -350,7 +355,9 @@
 
     title.classList.add(CLASS.title);
     title.removeAttribute("for");
-    title.textContent = "本頁目錄";
+    title.textContent = "";
+    title.hidden = true;
+    title.setAttribute("aria-hidden", "true");
 
     const closeButton = document.createElement("button");
     closeButton.type = "button";
@@ -363,7 +370,7 @@
     head.className = CLASS.head;
 
     const row = document.createElement("div");
-    row.className = CLASS.headRow;
+    row.className = CLASS.headRow + " " + CLASS.headRowTitleless;
     row.append(title, closeButton);
 
     head.append(row, buildToolbar());
@@ -396,7 +403,7 @@
         setMode("manual");
         setExpanded(item, item.classList.contains(CLASS.collapsed));
         holdManual();
-        scheduleSync(true);
+        scheduleSync(false);
       });
 
       link.insertAdjacentElement("afterend", toggle);
@@ -512,12 +519,20 @@
         scheduleSync(true);
       }, 120);
     };
-    const onHashChange = () => scheduleSync(true);
+    const onHashChange = () => {
+      releaseManualHold();
+      scheduleSync(true);
+    };
+    const onWindowScroll = () => {
+      releaseManualHold();
+      scheduleSync();
+    };
     const onKeyDown = (event) => {
       if (event.key === "Escape" && state?.sidebar?.classList.contains(CLASS.mobileVisible)) setMobileOpen(false);
     };
 
     listen(window, "resize", onResize, { passive: true });
+    listen(window, "scroll", onWindowScroll, { passive: true });
     listen(window, "hashchange", onHashChange);
     listen(document, "keydown", onKeyDown);
     state.cleanups.push(() => clearTimeout(state.resizeTimer));
@@ -531,11 +546,6 @@
       if (typeof mql.removeEventListener === "function") mql.removeEventListener("change", onMediaChange);
       else if (typeof mql.removeListener === "function") mql.removeListener(onMediaChange);
     });
-
-    if (!("IntersectionObserver" in window)) {
-      const onScroll = () => scheduleSync();
-      listen(window, "scroll", onScroll, { passive: true });
-    }
   }
 
   function resetSidebar(sidebar) {
@@ -568,7 +578,6 @@
         /* noop */
       }
     });
-    clearTimeout(state.manualTimer);
     clearTimeout(state.resizeTimer);
     if (state.mobileButton) state.mobileButton.remove();
     if (state.mobileScrim) state.mobileScrim.remove();
@@ -599,9 +608,8 @@
       observer: null,
       mode: "auto",
       activeKey: "",
-      manualUntil: 0,
+      sidebarManualLocked: false,
       autoScrollUntil: 0,
-      manualTimer: 0,
       resizeTimer: 0,
       syncRaf: 0,
       forceSync: false,
