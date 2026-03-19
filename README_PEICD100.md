@@ -92,3 +92,5 @@ git clone https://github.com/peicd100/university-notes.git
 - 本機隱藏啟動流程：先 `mkdocs build --clean`，再用 `tools\project_launcher.py` 開啟本機靜態站。
 - 2026-03-19：已修正手機窄版側欄圖片/文字遮擋與首頁卡片干擾問題。
 - 2026-03-19：已修正手機抽屜標題列 `logo icon` 絕對定位導致的站名字樣遮擋問題。
+- 2026-03-19：已將 `docs/md/114-2/電機_作業系統/ch2.md` 的所有 Markdown 標題整體下移一級。
+- 2026-03-19：已修正 GitHub Pages 首頁跳錯站的問題，並同步修正 `site_url`、`robots.txt` 與 TTS localStorage 命名空間。

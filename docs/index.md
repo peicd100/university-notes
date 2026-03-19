@@ -14,8 +14,8 @@ h1 { display: none; }
 
 聯絡我：peicd100@gmail.com
 
-<!-- 跳轉到 blog -->
-<head>
-    <meta http-equiv="refresh" content="0; url=/blog/index.html">
-    <title>Redirecting...</title>
-</head>
+<script>
+  window.location.replace(new URL("blog/index.html", window.location.href).toString());
+</script>
+
+如果沒有自動跳轉，請點這裡：<a href="blog/index.html">前往首頁</a>
