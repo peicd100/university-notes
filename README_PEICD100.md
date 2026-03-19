@@ -131,3 +131,4 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-19：已在 `mkdocs.yml` 補上 `pymdownx.superfences` 的 `mermaid` custom fence，並讓它沿用站內既有的 `diagram` Mermaid loader；現在可直接使用 ` ```mermaid ` fenced code block 渲染 Mermaid 圖表。
 - 2026-03-19：已將 `docs/md/114-2/科技_計算機結構/ch 2.md` 內所有 fenced code block 標記移除，整頁不再套程式碼框。
 - 2026-03-19：已將右側 TOC 四個控制按鈕縮小，並把工具列改成單行排列，避免 `展開 / 收合 / 自動 / 手動` 再排成兩行。
+- 2026-03-19：已將深色模式右側 TOC 改成與左欄同系統的深色背景，並把左側抽屜的手機版修正提前套用到 `76.25em` 以下的中寬桌機，避免這種寬度下左欄還保留桌機排版細節。
