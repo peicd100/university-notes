@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://university-notes/index.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/index.html">
       
       
       
@@ -920,6 +920,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // Auto scroll 預設開
   const DEFAULT_AUTO_SCROLL = true;
 
+  // 同網域多站台時，避免和其他 GitHub Pages 專案共用同一組 localStorage key
+  const LS_NAMESPACE = "university-notes:";
+
   // 自動翻到下一頁後續讀（用 localStorage 做跨頁續讀）
   const LS_AUTO_RESUME = "ttsAutoResumeNextPageTs";
   const AUTO_RESUME_TTL_MS = 5 * 60 * 1000; // 續讀旗標最長保留 5 分鐘，避免意外卡住
@@ -1167,38 +1170,53 @@ document.addEventListener("DOMContentLoaded", function() {
   /* =========================
      localStorage helpers
      ========================= */
+  function getScopedLSKey(key){
+    return LS_NAMESPACE + key;
+  }
+
+  function safeGetRawLS(key){
+    try {
+      const scopedKey = getScopedLSKey(key);
+      const scopedVal = localStorage.getItem(scopedKey);
+      if (scopedVal !== null && scopedVal !== undefined) return scopedVal;
+
+      const legacyVal = localStorage.getItem(key);
+      if (legacyVal !== null && legacyVal !== undefined) {
+        localStorage.setItem(scopedKey, legacyVal);
+        localStorage.removeItem(key);
+        return legacyVal;
+      }
+    } catch (_) {}
+    return null;
+  }
+
   function safeRemoveLS(key){
-    try { localStorage.removeItem(key); } catch (_) {}
+    try {
+      localStorage.removeItem(getScopedLSKey(key));
+      localStorage.removeItem(key);
+    } catch (_) {}
   }
 
   function safeGetLS(key){
-    try { return localStorage.getItem(key) || null; } catch (_) { return null; }
+    return safeGetRawLS(key);
   }
   function safeSetLS(key, val){
-    try { localStorage.setItem(key, val); } catch (_) {}
+    try { localStorage.setItem(getScopedLSKey(key), val); } catch (_) {}
   }
   function safeGetNumberLS(key, def){
-    try {
-      const v = localStorage.getItem(key);
-      if (v === null || v === undefined) return def;
-      const n = Number(v);
-      return isFinite(n) ? n : def;
-    } catch (_) {
-      return def;
-    }
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    const n = Number(v);
+    return isFinite(n) ? n : def;
   }
   function safeGetBoolLS(key, def){
-    try {
-      const v = localStorage.getItem(key);
-      if (v === null || v === undefined) return def;
-      // "0"/"false" => false，其餘視為 true
-      const s = String(v).toLowerCase().trim();
-      if (s === "0" || s === "false" || s === "off") return false;
-      if (s === "1" || s === "true"  || s === "on")  return true;
-      return def;
-    } catch (_) {
-      return def;
-    }
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    // "0"/"false" => false，其餘視為 true
+    const s = String(v).toLowerCase().trim();
+    if (s === "0" || s === "false" || s === "off") return false;
+    if (s === "1" || s === "true"  || s === "on")  return true;
+    return def;
   }
 
   function supported() {
@@ -2294,7 +2312,7 @@ is now available!
     aria-label="header.title"
   >
     <a
-      href="https://university-notes/"
+      href="https://peicd100.github.io/university-notes/"
       title="PEICD100"
       class="md-header__button md-logo"
       aria-label="PEICD100"
@@ -3128,11 +3146,11 @@ h1 { display: none; }
 
 <h1 id="歡迎來到peicd100的網頁">歡迎來到PEICD100的網頁<a class="headerlink" href="#歡迎來到peicd100的網頁" title="Permanent link"></a></h1>
 <p>聯絡我：<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<!-- 跳轉到 blog -->
-<p><head><br />
-    <meta http-equiv="refresh" content="0; url=/blog/index.html"><br />
-    <title>Redirecting&hellip;</title><br />
-</head></p>
+<script>
+  window.location.replace(new URL("blog/index.html", window.location.href).toString());
+</script>
+
+<p>如果沒有自動跳轉，請點這裡：<a href="blog/index.html">前往首頁</a></p>
 
 
 

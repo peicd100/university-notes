@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://university-notes/sitemap.xml
+Sitemap: https://peicd100.github.io/university-notes/sitemap.xml
