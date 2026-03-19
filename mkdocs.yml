@@ -23,13 +23,13 @@ theme:
     # - navigation.sections
     - navigation.tabs  # 啟用標籤式導航
     - navigation.top  # 當使用者向下捲動後開始再次向上捲動時，可以顯示返回頂部按鈕。
-    - navigation.tracking
+    # - navigation.tracking  # 目前網址 fragment 改由自訂 toc-fold.js 與 current 同步，避免和自訂 scrollspy 雙來源衝突
     - announce.dismiss  # 添加通知的關閉功能
 
     # ❌ 這個不是 Material 的 features 選項，放在這裡反而容易誤會：
     # - sitemap  # (sitemap 由 MkDocs 依 site_url 自動生成)
 
-    - toc.follow  # 目錄自動跟隨滾動
+    # - toc.follow  # 右側 TOC 目前改由自訂 toc-fold.js 控制跟隨/手動滾動保護，避免與內建自動捲動衝突
              # - toc.integrate #啟用目錄的導覽整合後，它始終呈現為左側導覽側邊欄的一部分////////////////////////////////////////////////////////////////////////////////////////////////////////
     - content.tabs.link  # 允許內容中的標籤鏈接
     - search.share  # 啟用搜索結果共享功能
@@ -104,6 +104,7 @@ extra_javascript:
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js  # Mermaid 圖表支持
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # MathJax 支持數學公式
   - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
+  - assets/pymdownx-extras/toc-fold.js  # 右側 TOC 可摺疊 / 展開控制
 
 # Markdown 擴展設置
 markdown_extensions:
@@ -263,10 +264,43 @@ nav:  # 自定義網站的導航結構
 
   # - 'blog': blog/index.md
   # - '首頁': index.md
+  
+  
+  - 'Verilog':
+      - '學習資源整理': 'md/Verilog/學習資源整理.md'
+      - '基礎語法': 'md/Verilog/基礎語法.md'
+      - 'vector': 'md/Verilog/vector.md'
+      - 'module': 'md/Verilog/module.md'
+      - 'primitive': 'md/Verilog/primitive.md'
+      - 'if': 'md/Verilog/if.md'
+      - 'Procedural style(程序式寫法)': 'md/Verilog/Procedural style.md'
+      - '常見資料型別': 'md/Verilog/常見資料型別.md'
+      - 'system tasks（系統任務）': 'md/Verilog/system tasks.md'
+      - 'timescale': 'md/Verilog/timescale.md'
 
 
   - '科大_數位邏輯設計實習':
-      - '首頁': 'md\114-2\科大_數位邏輯設計實習\home.md'
+      - '教材': 'md\114-2\科大_數位邏輯設計實習\教材.md'
+      - 'Vivado 專案': 'md\114-2\科大_數位邏輯設計實習\Vivado 專案.md'
       
+
+  - '科技_計算機結構':
+      - 'SI 前綴表': 'md/114-2/科技_計算機結構/SI 前綴表.md'
+      - 'ch 1': 'md/114-2/科技_計算機結構/ch 1.md'
+      - 'ch 2': 'md/114-2/科技_計算機結構/ch 2.md'
+  - '資工_電腦輔助 VLSI 設計':
+      - '教材': 'md/114-2/資工_電腦輔助 VLSI 設計/教材.md'
+      - 'nmos、pmos': 'md/114-2/資工_電腦輔助 VLSI 設計/nmos、pmos.md'
   - '電機_作業系統':
-      - 'ch2': 'md\114-2\電機_作業系統\ch2.md'
+      - '首頁': 'md/114-2/電機_作業系統/首頁.md'
+      - 'ch 1': 'md/114-2/電機_作業系統/ch 1.md'
+      - 'windows CLI 指令': 'md/114-2/電機_作業系統/windows CLI 指令.md'
+      - 'Linux CLI 指令': 'md/114-2/電機_作業系統/Linux CLI 指令.md'
+      - 'vim': 'md/114-2/電機_作業系統/vim.md'
+      - '子行程': 'md/114-2/電機_作業系統/子行程.md'
+  - '機電_數位邏輯實驗':
+      - '首頁': 'md/114-2/機電_數位邏輯實驗/首頁.md'
+      - 'Quartus 創建專案': 'md/114-2/機電_數位邏輯實驗/Quartus 創建專案.md'
+      - '跑 tb': 'md/114-2/機電_數位邏輯實驗/跑 tb.md'
+      - '選腳位': 'md/114-2/機電_數位邏輯實驗/選腳位.md'
+      - '上傳電路板': 'md/114-2/機電_數位邏輯實驗/上傳電路板.md'
