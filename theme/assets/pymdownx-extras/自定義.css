@@ -1266,8 +1266,8 @@ body {
    - 相容結構：p/figure 直屬 img，或 a > img
    - 即使前後有 <br>，只要 img 仍是 p/figure 的直屬子元素，就會生效
    -------------------------------------------------------------------------- */
-.md-typeset :is(p, figure)>img:not(.twemoji),
-.md-typeset :is(p, figure)>a>img:not(.twemoji) {
+article.md-content__inner.md-typeset img:not(.twemoji),
+.md-content__inner.md-typeset img:not(.twemoji) {
   /* 基礎排版：居中、等比例 */
   display: block !important;
   max-width: 100% !important;
@@ -1335,9 +1335,14 @@ body {
   will-change: transform;
 }
 
+article.md-content__inner.md-typeset img.peicd-zoomable-image:not(.twemoji),
+.md-content__inner.md-typeset img.peicd-zoomable-image:not(.twemoji) {
+  cursor: zoom-in !important;
+}
+
 /* hover：浮起、背光增強、角落線段「微放大」以貼近 code block 的 ::before scale 感 */
-.md-typeset :is(p, figure)>img:not(.twemoji):hover,
-.md-typeset :is(p, figure)>a>img:not(.twemoji):hover {
+article.md-content__inner.md-typeset img:not(.twemoji):hover,
+.md-content__inner.md-typeset img:not(.twemoji):hover {
   transform: translateY(-2px) !important;
 
   box-shadow:
@@ -1357,6 +1362,183 @@ body {
     calc(var(--peicd-sel-corner) + 1px) var(--peicd-sel-line),
     var(--peicd-sel-line) calc(var(--peicd-sel-corner) + 1px),
     100% 100% !important;
+}
+
+html.peicd-image-viewer-open,
+html.peicd-image-viewer-open body {
+  overflow: hidden;
+}
+
+.peicd-image-viewer {
+  background: rgba(248, 250, 252, 0.64);
+  border: 0;
+  height: 100dvh;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  padding: 0;
+  width: 100vw;
+}
+
+.peicd-image-viewer::backdrop {
+  background: rgba(248, 250, 252, 0.64);
+  backdrop-filter: blur(2px);
+}
+
+.peicd-image-viewer__shell {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.peicd-image-viewer__stage {
+  align-items: center;
+  cursor: zoom-out;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5.4rem 2.2rem 5.8rem;
+  width: 100%;
+}
+
+.peicd-image-viewer__img {
+  border: 0;
+  box-shadow: 0 1.6rem 4rem rgba(12, 18, 30, 0.16);
+  cursor: zoom-in;
+  display: block;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  touch-action: none;
+  transform-origin: center center;
+  user-select: none;
+  will-change: transform;
+}
+
+.peicd-image-viewer__img.is-draggable {
+  cursor: grab;
+}
+
+.peicd-image-viewer__img.is-dragging {
+  cursor: grabbing;
+}
+
+.peicd-image-viewer__close {
+  align-items: center;
+  appearance: none;
+  background: rgba(33, 37, 41, 0.76);
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 2rem;
+  height: 2.8rem;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: 1.2rem;
+  top: 0.95rem;
+  width: 2.8rem;
+  z-index: 2;
+}
+
+.peicd-image-viewer__toolbar {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(41, 104, 130, 0.12);
+  border-radius: 0.95rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  box-shadow: 0 1rem 2.2rem rgba(12, 18, 30, 0.12);
+  display: inline-flex;
+  gap: 0.1rem;
+  left: 50%;
+  padding: 0.2rem;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.peicd-image-viewer__tool {
+  align-items: center;
+  appearance: none;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0.8rem !important;
+  box-shadow: none !important;
+  color: rgba(20, 45, 58, 0.92) !important;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  height: 2.45rem;
+  justify-content: center;
+  min-width: 2.45rem;
+  padding: 0 0.82rem;
+  text-decoration: none !important;
+}
+
+.peicd-image-viewer__tool:hover,
+.peicd-image-viewer__tool:focus-visible {
+  background: rgba(114, 227, 253, 0.12) !important;
+  color: rgba(11, 35, 48, 0.98) !important;
+  outline: none;
+}
+
+.peicd-image-viewer__zoom-value {
+  font-size: 0.92rem;
+  min-width: 4.7rem;
+}
+
+.peicd-image-viewer__source {
+  font-size: 1rem;
+}
+
+[data-md-color-scheme="slate"] .peicd-image-viewer,
+[data-md-color-scheme="dracula"] .peicd-image-viewer {
+  background: rgba(9, 12, 18, 0.72);
+}
+
+[data-md-color-scheme="slate"] .peicd-image-viewer::backdrop,
+[data-md-color-scheme="dracula"] .peicd-image-viewer::backdrop {
+  background: rgba(9, 12, 18, 0.72);
+}
+
+[data-md-color-scheme="slate"] .peicd-image-viewer__toolbar,
+[data-md-color-scheme="dracula"] .peicd-image-viewer__toolbar {
+  background: rgba(17, 24, 36, 0.92);
+  border-color: rgba(114, 227, 253, 0.16);
+  box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.32);
+}
+
+[data-md-color-scheme="slate"] .peicd-image-viewer__tool,
+[data-md-color-scheme="dracula"] .peicd-image-viewer__tool {
+  color: rgba(232, 241, 247, 0.92) !important;
+}
+
+[data-md-color-scheme="slate"] .peicd-image-viewer__tool:hover,
+[data-md-color-scheme="slate"] .peicd-image-viewer__tool:focus-visible,
+[data-md-color-scheme="dracula"] .peicd-image-viewer__tool:hover,
+[data-md-color-scheme="dracula"] .peicd-image-viewer__tool:focus-visible {
+  background: rgba(114, 227, 253, 0.12) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 59.999em) {
+  .peicd-image-viewer__stage {
+    padding: 4.3rem 0.8rem 5.2rem;
+  }
+
+  .peicd-image-viewer__close {
+    right: 0.8rem;
+    top: 0.72rem;
+  }
+
+  .peicd-image-viewer__toolbar {
+    bottom: max(0.78rem, env(safe-area-inset-bottom));
+  }
 }
 
 /* --------------------------------------------------------------------------
