@@ -126,3 +126,8 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-19：已依照提供圖片新增 `機電_數位邏輯實驗` 導覽順序為 `首頁 -> Quartus 創建專案 -> 跑 tb -> 選腳位 -> 上傳電路板`。
 - 2026-03-19：已整理 `docs/md` 的 Markdown 格式：只有原本同檔內含多個 H1 的檔案，才將頁內標題依原有相對層級整體下移一級；並將假表格包 code 與裸露程式碼改成 fenced code block；真正的資料表則保留表格格式。
 - 2026-03-19：已新增 HackMD 風格的文章圖片放大檢視功能，支援點擊開啟、滾輪與按鈕縮放、底部百分比顯示、放大後拖曳平移、雙擊切換縮放、背景點擊與 `Esc` 關閉，並相容 Material instant navigation。
+- 2026-03-19：已補 Mermaid 初始化覆寫，將 flowchart `htmlLabels` 啟用，讓 ` ```mermaid ` 區塊中的節點文字可使用 `<br>` 正常換行渲染。
+- 2026-03-19：已補 Mermaid 首次載入渲染修正，避免頁面初次開啟時只剩 `pre.diagram` 原始碼未轉成 SVG，並支援 Material instant navigation 與主題切換後重繪。
+- 2026-03-19：已在 `mkdocs.yml` 補上 `pymdownx.superfences` 的 `mermaid` custom fence，並讓它沿用站內既有的 `diagram` Mermaid loader；現在可直接使用 ` ```mermaid ` fenced code block 渲染 Mermaid 圖表。
+- 2026-03-19：已將 `docs/md/114-2/科技_計算機結構/ch 2.md` 內所有 fenced code block 標記移除，整頁不再套程式碼框。
+- 2026-03-19：已將右側 TOC 四個控制按鈕縮小，並把工具列改成單行排列，避免 `展開 / 收合 / 自動 / 手動` 再排成兩行。

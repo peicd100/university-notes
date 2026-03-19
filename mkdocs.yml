@@ -103,7 +103,9 @@ extra_css:
 extra_javascript:
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js  # Mermaid 圖表支持
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # MathJax 支持數學公式
+  - assets/pymdownx-extras/mermaid-config-override.js  # Mermaid flowchart 啟用 htmlLabels，支援節點內 <br>
   - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
+  - assets/pymdownx-extras/mermaid-render-fix.js  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
   - assets/pymdownx-extras/toc-fold.js  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
 
@@ -136,6 +138,9 @@ markdown_extensions:
   - pymdownx.superfences:  # 增強的程式碼塊擴展
       preserve_tabs: true  # 保持原始的縮排格式
       custom_fences:  # 自定義的 fenced blocks
+        - name: mermaid  # Mermaid fenced code block 支援（沿用既有 diagram loader）
+          class: diagram
+          format: !!python/name:pymdownx.superfences.fence_code_format
         - name: diagram  # Mermaid 圖表支持
           class: diagram
           format: !!python/name:pymdownx.superfences.fence_code_format
