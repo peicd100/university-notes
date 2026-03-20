@@ -574,3 +574,191 @@ valgrind --leak-check=full ./a.out
 
 ![alt text](<images/ch 3/image-1.png>)
 
+#### 這張圖在講什麼？
+
+這張投影片是在專講 **Text Section(程式碼區／文字區／text segment)**。
+核心意思只有一句：
+
+**Text section 就是放「可執行機器指令(machine instructions)」的地方。**
+教材直接寫它包含程式的 **executable code(可執行程式碼)**，也就是處理器可以直接執行的指令序列。
+
+---
+
+#### 一句話先懂
+
+你可以把整個程式想成一本食譜：
+
+* **text section** = 食譜上的「步驟」
+* **data section** = 食材的固定資料
+* **stack / heap** = 做菜過程中臨時拿來放東西的工作區
+
+所以 **text section 不是拿來放變數值的**，而是拿來放「CPU 要做哪些動作」。
+
+---
+
+#### 逐點翻譯＋講解
+
+投影片的五點其實可以拆成下面這樣：
+
+##### 1. contains the executable code
+
+意思是：
+
+**這裡放的是程式真正要執行的程式碼。**
+不是原始碼 `.c`、`.cpp` 那種人看的文字，而是編譯後的 **machine instructions(機器指令)**。
+
+例如你寫：
+
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+CPU 不會直接看懂這段 C 程式。
+編譯器會把它翻成機器指令，最後那些指令就會進到 **text section**。這點也符合一般 object file / executable 的 code segment 定義。([Oracle Docs][1])
+
+---
+
+##### 2. stores the machine instructions
+
+這句是在強調：
+
+**text section 放的是 CPU 可以直接跑的低階指令。**
+也就是像 `load`、`add`、`jump`、`call` 這類最終處理器理解的內容，而不是單純「程式文字」。教材原文就是這樣寫的。
+
+這也是為什麼在作業系統課講 process layout 時，會把 **text** 跟 **data / stack / heap** 分開看：
+因為它們用途根本不同。
+
+---
+
+##### 3. specifies the sequence of operations
+
+這句是在說：
+
+**text section 裡的指令，決定了程式執行的流程。**
+例如先做加法、再呼叫函式、再判斷 if、再跳到某個位址繼續跑，這些「執行步驟順序」都是靠 text section 裡的指令定義的。
+
+你可以把它記成：
+
+> **text section = 行為規則**
+>
+> **data / stack / heap = 被操作的資料**
+
+---
+
+##### 4. usually read-only
+
+這句非常重要。
+
+教材說 **text section 通常是 read-only(唯讀)**。
+這樣設計的好處有兩個：
+
+第一，**保護程式碼不被意外改壞**。
+如果程式跑一跑可以隨便把自己的指令覆寫掉，那非常容易壞掉，安全性也很差。
+
+第二，**比較容易共享(shared)**。
+因為既然不會改，作業系統就可以讓多個正在執行的相同程式，共用同一份 code pages，而不用每個 process 都複製一份。教材也直接寫「shared among multiple instances of the same program」。
+ELF / linker 文件也把 text segment 描述成 **read-only executable loadable segment**。([Oracle Docs][1])
+
+但這裡有一個精確但書：
+投影片寫的是 **usually read-only**，不是「永遠絕對」。在某些特殊情況，像 JIT(即時編譯) 或 `mprotect` 改頁面權限，確實可以讓某些區域變成可執行甚至可修改；只是那不是你現在這張基礎投影片的主軸。([Oracle Docs][2])
+
+---
+
+##### 5. mapped into memory from the program's executable file
+
+這句很多同學第一次看會卡住，我幫你翻成白話：
+
+**程式執行時，作業系統會把可執行檔(executable file)裡面屬於 code 的那一部分，對映(mapped)到這個 process 的記憶體空間。** 
+
+也就是說，不是你一按執行，系統就「手抄一份原始碼到 RAM」；
+而是 loader / OS 依照 executable 格式，把對應的 segment 載入或映射到 process 的虛擬位址空間。Program loading 文件也說明了系統會把檔案中的 segment 對應到 process image 的 virtual memory segment。([Oracle Docs][3])
+
+這和你們後面第 9 章的 **memory-mapped file(記憶體映射檔案)** 觀念其實有呼應：
+「把檔案內容對映到虛擬記憶體」本來就是 OS 很核心的技巧，教材後面也有講。
+
+---
+
+#### 為什麼 text section 常常可以被多個 process 共用？
+
+因為它通常是**唯讀**。
+如果你今天同時開了 3 個 `/bin/ls`，它們的 **code** 大致相同，OS 沒必要浪費記憶體複製 3 份完全一樣的機器指令。唯讀頁面很適合共享，這也是教材說它可被 multiple instances 共用的原因。
+Linker 文件也提到 text segment 的共享性與唯讀屬性密切相關。([Oracle Docs][4])
+
+不過要注意：
+
+* **共享的是 code / read-only 部分**
+* **不是每個 process 的全部記憶體都共享**
+
+像 stack、很多 writable data，通常還是各自獨立。這也是你前面學到 process 彼此有自己 address space 的原因。
+
+---
+
+#### text section 和其他區塊怎麼比？
+
+##### text section
+
+* 放 **machine instructions(機器指令)**
+* 通常 **read-only**
+* 常可被相同程式的多個實例共享 
+
+##### data section
+
+* 放 initialized **global / static variables**
+* 通常可寫入(writable) 
+
+##### stack
+
+* 放 **local variables、function parameters、return addresses**
+* 函式呼叫時自動管理 
+
+##### heap
+
+* 放 `malloc/free`、`new/delete` 那種動態配置資料
+* 存活期可跨函式呼叫 
+
+---
+
+```mermaid
+flowchart TB
+    A["Process 記憶體"] --> B["Text Section<br>可執行機器指令<br>通常唯讀"]
+    A --> C["Data Section<br>global / static"]
+    A --> D["Stack<br>local variable / parameter / return address"]
+    A --> E["Heap<br>malloc / new 動態配置"]
+```
+
+---
+
+#### 最容易考的觀念
+
+##### Q1：text section 裡放的是不是 C 原始碼？
+
+不是。
+放的是編譯後的 **machine instructions(機器指令)**。
+
+##### Q2：text section 為什麼常是唯讀？
+
+為了**保護程式碼**、也為了讓相同程式的多個實例能**共享同一份 code**。
+
+##### Q3：text section 是不是變數區？
+
+不是。
+變數通常在 **data / stack / heap**，不是 text。
+
+##### Q4：text section 從哪裡來？
+
+通常是從 **program’s executable file(可執行檔)** 映射進 process 的記憶體空間。
+
+---
+
+#### 你可以直接這樣背
+
+**Text section = executable code = machine instructions = 通常 read-only = 可由多個相同程式實例共享 = 來自 executable file 的映射。**
+
+如果你要，我下一則可以直接幫你接著講 **Data section / BSS / Text section 三者差異**，這個很容易一起考。
+
+[1]: https://docs.oracle.com/cd/E23824_01/html/819-0690/gjpww.html?utm_source=chatgpt.com "Predefined Segments - Linker and Libraries Guide"
+[2]: https://docs.oracle.com/cd/E26505_01/html/E26506/gjpky.html?utm_source=chatgpt.com "Mapfile Directives - Linker and Libraries Guide"
+[3]: https://docs.oracle.com/cd/E19957-01/806-0641/chapter6-34713/index.html?utm_source=chatgpt.com "Program Loading (Processor-Specific) (Linker and Libraries Guide)"
+[4]: https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcobl6/index.html?utm_source=chatgpt.com "Performance Considerations (Linker and Libraries Guide)"
