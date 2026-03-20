@@ -108,6 +108,10 @@ extra_javascript:
   - assets/pymdownx-extras/mermaid-render-fix.js  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
   - assets/pymdownx-extras/toc-fold.js  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
+  - assets/pymdownx-extras/source-jump.js  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
+
+hooks:
+  - tools/source_jump_hook.py
 
 # Markdown 擴展設置
 markdown_extensions:

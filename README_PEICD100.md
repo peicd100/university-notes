@@ -21,6 +21,8 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 vbs_bat\university notes.vbs
 ```
 
+補充：選字後右鍵的「開啟原文檔案」功能只會在 `mkdocs serve` 預覽時啟用；若只是開靜態 `site/` 內容，因為沒有本機查詢 API，所以不會提供這個定位功能。
+
 ## 打包指令
 先依序測試 debug 版，再打包 noconsole 版：
 ```bat
@@ -129,6 +131,9 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-19：已補 Mermaid 初始化覆寫，將 flowchart `htmlLabels` 啟用，讓 ` ```mermaid ` 區塊中的節點文字可使用 `<br>` 正常換行渲染。
 - 2026-03-19：已補 Mermaid 首次載入渲染修正，避免頁面初次開啟時只剩 `pre.diagram` 原始碼未轉成 SVG，並支援 Material instant navigation 與主題切換後重繪。
 - 2026-03-19：已在 `mkdocs.yml` 補上 `pymdownx.superfences` 的 `mermaid` custom fence，並讓它沿用站內既有的 `diagram` Mermaid loader；現在可直接使用 ` ```mermaid ` fenced code block 渲染 Mermaid 圖表。
+- 2026-03-20：已新增本機預覽專用的「選字後右鍵跳到原文位置」功能；在 `mkdocs serve` 下，右鍵選單可依目前頁面與選取內容反查對應 `.md` 檔案與行列，並直接用 VS Code 開啟。
+- 2026-03-20：已修正右鍵原文定位的 endpoint 組法，改成跟隨 MkDocs Material 的站台 base path，不再把請求錯誤送到目前頁面的子目錄（如 `md/Verilog/__peicd/...`）。
+- 2026-03-20：已把右鍵功能改成由本機後端直接呼叫 VS Code CLI `--reuse-window --goto` 開檔，不再依賴瀏覽器處理 `vscode://` 協定；在 VS Code 內建瀏覽頁面時會更穩。
 - 2026-03-19：已將 `docs/md/114-2/科技_計算機結構/ch 2.md` 內所有 fenced code block 標記移除，整頁不再套程式碼框。
 - 2026-03-19：已將右側 TOC 四個控制按鈕縮小，並把工具列改成單行排列，避免 `展開 / 收合 / 自動 / 手動` 再排成兩行。
 - 2026-03-19：已將深色模式右側 TOC 改成與左欄同系統的深色背景，並把左側抽屜的手機版修正提前套用到 `76.25em` 以下的中寬桌機，避免這種寬度下左欄還保留桌機排版細節。
