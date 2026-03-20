@@ -2232,7 +2232,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div data-md-component="skip">
       
         
-        <a href="#procedural-style程序式寫法-筆記" class="md-skip">
+        <a href="#procedural-style程序式寫法-筆記完整版" class="md-skip">
           Skip to content
         </a>
       
@@ -2796,6 +2796,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -2856,6 +2858,36 @@ is now available!
     
   
     mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/%E6%B8%AC%E8%A9%A6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    測試
   
 
     
@@ -3142,8 +3174,6 @@ is now available!
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -3186,8 +3216,6 @@ is now available!
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -3196,10 +3224,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#最重要的一件事" class="md-nav__link">
+  <a href="#procedural-style程序式寫法-筆記完整版" class="md-nav__link">
     <span class="md-ellipsis">
       
-        最重要的一件事
+        Procedural style(程序式寫法) 筆記・完整版
       
     </span>
   </a>
@@ -6099,8 +6127,6 @@ is now available!
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -6109,10 +6135,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#最重要的一件事" class="md-nav__link">
+  <a href="#procedural-style程序式寫法-筆記完整版" class="md-nav__link">
     <span class="md-ellipsis">
       
-        最重要的一件事
+        Procedural style(程序式寫法) 筆記・完整版
       
     </span>
   </a>
@@ -8048,572 +8074,436 @@ is now available!
 
 
 
-<div class="highlight"><pre><span></span><code>GPT link ： [https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-verilog-hdlbits/c/69b7a014-4f34-83a2-9b5e-07cb003882a3](https://chatgpt.com/g/g-p-69ad8f226adc8191af1b76cd653135d1-peicd-verilog-hdlbits/c/69b7a014-4f34-83a2-9b5e-07cb003882a3)
-</code></pre></div>
-<h1 id="procedural-style程序式寫法-筆記">Procedural style(程序式寫法) 筆記<a class="headerlink" href="#procedural-style程序式寫法-筆記" title="Permanent link"></a></h1>
+  <h1>Procedural style(程序式寫法)</h1>
+
+<h3 id="procedural-style程序式寫法-筆記完整版">Procedural style(程序式寫法) 筆記・完整版<a class="headerlink" href="#procedural-style程序式寫法-筆記完整版" title="Permanent link"></a></h3>
 <p>這版把三個層級都用<strong>同一個粒度</strong>寫完：</p>
 <ol>
-<li><strong>RTL 常用</strong>  </li>
-<li><strong>模擬常用</strong>  </li>
+<li><strong>RTL 常用</strong></li>
+<li><strong>模擬常用</strong></li>
 <li><strong>知道就好</strong></li>
 </ol>
 <p>每個語法都包含：</p>
 <ul>
-<li>語法格式  </li>
-<li>每個位置放什麼  </li>
-<li>常見資料型態  </li>
-<li>用途  </li>
-<li>常用技巧  </li>
-<li>好看好用的寫法  </li>
+<li>語法格式</li>
+<li>每個位置放什麼</li>
+<li>常見資料型態</li>
+<li>用途</li>
+<li>常用技巧</li>
+<li>好看好用的寫法</li>
 <li>常見地雷</li>
 </ul>
 <p>先給你一句總定義：</p>
-<div class="highlight"><pre><span></span><code><span class="o">**</span><span class="n">procedural</span><span class="w"> </span><span class="n">style</span><span class="p">(</span><span class="err">程序式寫法</span><span class="p">)</span><span class="o">**</span><span class="w"> </span><span class="err">是把程式寫在</span><span class="w"> </span><span class="o">**</span><span class="n">procedural</span><span class="w"> </span><span class="n">block</span><span class="p">(</span><span class="err">程序區塊</span><span class="p">)</span><span class="o">**</span><span class="w"> </span><span class="err">裡，例如</span><span class="w"> </span><span class="no">`always</span><span class="err">`、</span><span class="no">`initial</span><span class="err">`，並在裡面用</span><span class="w"> </span><span class="no">`if</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">else</span><span class="err">`、</span><span class="no">`case</span><span class="err">`、</span><span class="no">`for</span><span class="err">`、`</span><span class="o">=</span><span class="err">`、`</span><span class="o">&lt;=</span><span class="err">`、</span><span class="no">`wait</span><span class="err">`</span><span class="w"> </span><span class="err">等程序式敘述。</span><span class="no">`always</span><span class="err">`</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">procedural</span><span class="w"> </span><span class="n">block</span><span class="err">；裡面的</span><span class="w"> </span><span class="n">statements</span><span class="w"> </span><span class="err">會依程序語意執行。</span><span class="n">IEEE</span><span class="w"> </span><span class="mh">1364</span><span class="o">-</span><span class="mh">2005</span><span class="w"> </span><span class="err">也把</span><span class="w"> </span><span class="no">`if</span><span class="err">`、</span><span class="no">`case</span><span class="err">`、</span><span class="no">`loop_statement</span><span class="err">`、</span><span class="no">`wait</span><span class="err">`、</span><span class="no">`fork</span><span class="p">...</span><span class="k">join</span><span class="err">`、</span><span class="no">`disable</span><span class="err">`</span><span class="w"> </span><span class="err">等都列為</span><span class="w"> </span><span class="n">procedural</span><span class="w"> </span><span class="n">statement</span><span class="err">。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p><strong>procedural style(程序式寫法)</strong> 是把程式寫在 <strong>procedural block(程序區塊)</strong> 裡，例如 <code>always</code>、<code>initial</code>，並在裡面用 <code>if / else if / else</code>、<code>case</code>、<code>for</code>、<code>=</code>、<code>&lt;=</code>、<code>wait</code> 等程序式敘述。<code>always</code> 是 procedural block；裡面的 statements 會依程序語意執行。IEEE 1364-2005 也把 <code>if</code>、<code>case</code>、<code>loop_statement</code>、<code>wait</code>、<code>fork...join</code>、<code>disable</code> 等都列為 procedural statement。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com" title="Verilog always Block">ChipVerify</a>)</p>
 <hr />
-<h2 id="最重要的一件事">最重要的一件事<a class="headerlink" href="#最重要的一件事" title="Permanent link"></a></h2>
-<p>左值通常放 reg</p>
-<h2 id="先建立總觀念">先建立總觀念<a class="headerlink" href="#先建立總觀念" title="Permanent link"></a></h2>
+<h3 id="先建立總觀念">先建立總觀念<a class="headerlink" href="#先建立總觀念" title="Permanent link"></a></h3>
 <h4 id="procedural-style-跟-assign-的差別">procedural style 跟 <code>assign</code> 的差別<a class="headerlink" href="#procedural-style-跟-assign-的差別" title="Permanent link"></a></h4>
 <ul>
-<li><code>assign</code> 是 <strong>continuous assignment(連續指定)</strong>，比較像「直接寫一條公式」。  </li>
+<li><code>assign</code> 是 <strong>continuous assignment(連續指定)</strong>，比較像「直接寫一條公式」。</li>
 <li><code>always / initial</code> 是 <strong>procedural block</strong>，比較像「進到一個區塊裡，用規則一步一步描述邏輯」。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">HDLBits</span><span class="w"> </span><span class="err">直接說過：</span><span class="no">`always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">的組合邏輯寫法，本質上可以和</span><span class="w"> </span><span class="no">`assign</span><span class="err">`</span><span class="w"> </span><span class="err">描述同一種電路，只是語法表達力不同。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p>HDLBits 直接說過：<code>always @(*)</code> 的組合邏輯寫法，本質上可以和 <code>assign</code> 描述同一種電路，只是語法表達力不同。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com" title="Verilog always Block">ChipVerify</a>)</p>
 <h4 id="procedural-style-不代表硬體真的像-cpu-跑程式">procedural style 不代表硬體真的像 CPU 跑程式<a class="headerlink" href="#procedural-style-不代表硬體真的像-cpu-跑程式" title="Permanent link"></a></h4>
 <p>語法看起來像 C/C++，但綜合後仍是固定硬體。像：</p>
 <ul>
-<li><code>if</code> 常對應 mux(多工器)  </li>
-<li><code>case</code> 常對應 selector / decoder  </li>
+<li><code>if</code> 常對應 mux(多工器)</li>
+<li><code>case</code> 常對應 selector / decoder</li>
 <li><code>for</code> 在可綜合 RTL 中常被展開成重複硬體</li>
 </ul>
-<div class="highlight"><pre><span></span><code>這是 Verilog 教學與綜合風格的核心觀念。([約克大學電子與計算機工程系](https://www.eecs.yorku.ca/course_archive/2011-12/W/4210/Verilog.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>這是 Verilog 教學與綜合風格的核心觀念。(<a href="https://www.eecs.yorku.ca/course_archive/2011-12/W/4210/Verilog.pdf?utm_source=chatgpt.com" title="Chapter 2 Using Hardware Description Language Verilog">約克大學電子與計算機工程系</a>)</p>
 <hr />
 <h2 id="一rtl-常用">一、RTL 常用<a class="headerlink" href="#一rtl-常用" title="Permanent link"></a></h2>
 <hr />
 <h3 id="1-always">1. <code>always</code><a class="headerlink" href="#1-always" title="Permanent link"></a></h3>
 <h4 id="語法格式">語法格式<a class="headerlink" href="#語法格式" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">event_control</span><span class="p">)</span>
-
 <span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">event_control</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼">每個位置放什麼<a class="headerlink" href="#每個位置放什麼" title="Permanent link"></a></h4>
 <ul>
-<li><code>always</code>：宣告一個反覆可觸發的程序區塊  </li>
-<li><code>@(...)</code>：事件控制 event control / sensitivity list，決定何時觸發  </li>
+<li><code>always</code>：宣告一個反覆可觸發的程序區塊</li>
+<li><code>@(...)</code>：事件控制 event control / sensitivity list，決定何時觸發</li>
 <li><code>statement</code>：可以是一句 procedural statement，也可以是 <code>begin...end</code> 包起來的多句</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">IEEE</span><span class="w"> </span><span class="mh">1364</span><span class="o">-</span><span class="mh">2005</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="err">形式包含</span><span class="w"> </span><span class="err">`</span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="err">`、`</span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="err">`、`</span><span class="p">@(</span><span class="k">negedge</span><span class="w"> </span><span class="n">rstn</span><span class="p">)</span><span class="err">`、`</span><span class="p">@(</span><span class="n">a</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">等。</span><span class="p">([</span><span class="err">巴克內爾大學工程學院</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p>IEEE 1364-2005 的 event control 形式包含 <code>@(*)</code>、<code>@(posedge clk)</code>、<code>@(negedge rstn)</code>、<code>@(a or b)</code> 等。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="常見資料型態">常見資料型態<a class="headerlink" href="#常見資料型態" title="Permanent link"></a></h4>
 <ul>
-<li>在 <code>always</code> 裡被賦值的左值，傳統 Verilog 通常宣告成 <strong><code>reg</code></strong>  </li>
+<li>在 <code>always</code> 裡被賦值的左值，傳統 Verilog 通常宣告成 <code>reg</code></li>
 <li>右值可以是 <code>wire</code>、<code>reg</code>、常數、比較結果、算式、函式回傳值</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="err">關於</span><span class="w"> </span><span class="no">`wire</span><span class="o">/</span><span class="kt">reg</span><span class="err">`</span><span class="w"> </span><span class="err">的基本區分，</span><span class="n">ChipVerify</span><span class="w"> </span><span class="err">的資料型態整理有明確說明。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-data-types?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p>關於 <code>wire/reg</code> 的基本區分，ChipVerify 的資料型態整理有明確說明。(<a href="https://www.chipverify.com/verilog/verilog-data-types?utm_source=chatgpt.com" title="Verilog Data Types">ChipVerify</a>)</p>
 <h4 id="常見用途">常見用途<a class="headerlink" href="#常見用途" title="Permanent link"></a></h4>
 <h5 id="組合邏輯">組合邏輯<a class="headerlink" href="#組合邏輯" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h5 id="時序邏輯">時序邏輯<a class="headerlink" href="#時序邏輯" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">end</span>
-
-<span class="no">`always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">用於</span><span class="w"> </span><span class="n">combinational</span><span class="w"> </span><span class="kt">logic</span><span class="err">，</span><span class="no">`always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="err">`</span><span class="w"> </span><span class="err">用於</span><span class="w"> </span><span class="n">sequential</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">flip</span><span class="o">-</span><span class="n">flops</span><span class="err">。這是</span><span class="w"> </span><span class="n">HDLBits</span><span class="w"> </span><span class="err">與</span><span class="w"> </span><span class="n">ChipVerify</span><span class="w"> </span><span class="err">都明確強調的模板。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p><code>always @(*)</code> 用於 combinational logic，<code>always @(posedge clk)</code> 用於 sequential logic / flip-flops。這是 HDLBits 與 ChipVerify 都明確強調的模板。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com" title="Verilog always Block">ChipVerify</a>)</p>
 <h4 id="常用技巧">常用技巧<a class="headerlink" href="#常用技巧" title="Permanent link"></a></h4>
 <ul>
-<li><strong>組合邏輯</strong>：先給 default assignment，再用 <code>if</code> / <code>case</code> 覆蓋  </li>
-<li><strong>時序邏輯</strong>：先寫 reset，再寫 enable，再寫正常資料流  </li>
+<li><strong>組合邏輯</strong>：先給 default assignment，再用 <code>if</code> / <code>case</code> 覆蓋</li>
+<li><strong>時序邏輯</strong>：先寫 reset，再寫 enable，再寫正常資料流</li>
 <li>一個 <code>always</code> block 只做一件事，例如只算 <code>next_state</code> 或只存 <code>state</code></li>
 </ul>
 <h4 id="好看好用的寫法">好看好用的寫法<a class="headerlink" href="#好看好用的寫法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
-
 <span class="k">end</span>
-
-<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h4>
 <ul>
-<li><code>always</code> 沒有 event control，也沒有 delay，模擬會卡成 zero-delay infinite loop。ChipVerify 明確提醒這種寫法會讓 simulation hang。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com">ChipVerify</a>)  </li>
-<li>把組合邏輯和時序邏輯混在同一個 block，會讓可讀性很差  </li>
-<li>在 clocked block 裡大量用 <code>=</code>，或在 combinational block 裡大量用 <code>&lt;=</code>，容易製造模擬/綜合理解混亂。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li><code>always</code> 沒有 event control，也沒有 delay，模擬會卡成 zero-delay infinite loop。ChipVerify 明確提醒這種寫法會讓 simulation hang。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com" title="Verilog always Block">ChipVerify</a>)</li>
+<li>把組合邏輯和時序邏輯混在同一個 block，會讓可讀性很差</li>
+<li>在 clocked block 裡大量用 <code>=</code>，或在 combinational block 裡大量用 <code>&lt;=</code>，容易製造模擬/綜合理解混亂。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com" title="Verilog Quick Refresher">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h3 id="2-begin--end">2. <code>begin ... end</code><a class="headerlink" href="#2-begin--end" title="Permanent link"></a></h3>
 <h4 id="語法格式_1">語法格式<a class="headerlink" href="#語法格式_1" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>begin
-
-    statement_1;
-
-    statement_2;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<div class="highlight"><pre><span></span><code><span class="k">begin</span>
+<span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_1">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_1" title="Permanent link"></a></h4>
 <ul>
-<li><code>begin</code>：開始一個 sequential block  </li>
-<li>中間放多個 procedural statements  </li>
+<li><code>begin</code>：開始一個 sequential block</li>
+<li>中間放多個 procedural statements</li>
 <li><code>end</code>：結束區塊</li>
 </ul>
-<div class="highlight"><pre><span></span><code>IEEE 文法把它列為 `seq_block`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 文法把它列為 <code>seq_block</code>。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="常見資料型態_1">常見資料型態<a class="headerlink" href="#常見資料型態_1" title="Permanent link"></a></h4>
 <p>區塊裡可放各種 procedural statements；資料型態依各 statement 規則決定，例如賦值左值通常是 <code>reg</code>。</p>
 <h4 id="常見用途_1">常見用途<a class="headerlink" href="#常見用途_1" title="Permanent link"></a></h4>
 <ul>
-<li><code>if/else</code> 分支裡放多句  </li>
-<li><code>case</code> 某個 item 裡放多句  </li>
+<li><code>if/else</code> 分支裡放多句</li>
+<li><code>case</code> 某個 item 裡放多句</li>
 <li><code>for</code> 迴圈 body 裡放多句</li>
 </ul>
 <h4 id="常用技巧_1">常用技巧<a class="headerlink" href="#常用技巧_1" title="Permanent link"></a></h4>
 <p>只要你覺得「這個分支未來可能多長一行」，就先加 <code>begin...end</code>。</p>
 <h4 id="好看好用的寫法_1">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_1" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-
 <span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">end</span>
-
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-
 <span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">end</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="常見地雷_1">常見地雷<a class="headerlink" href="#常見地雷_1" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>沒加 `begin...end` 時，只有第一句屬於該分支，後面那句其實不在裡面。這是 Verilog 初學者最常踩的坑之一。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>沒加 <code>begin...end</code> 時，只有第一句屬於該分支，後面那句其實不在裡面。這是 Verilog 初學者最常踩的坑之一。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <hr />
 <h3 id="3-if--else-if--else">3. <code>if / else if / else</code><a class="headerlink" href="#3-if--else-if--else" title="Permanent link"></a></h3>
 <h4 id="語法格式_2">語法格式<a class="headerlink" href="#語法格式_2" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>if (condition_1)
-
-    statement_1;
-
-else if (condition_2)
-
-    statement_2;
-
-else
-
-    statement_default;
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition_1</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition_2</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">statement_default</span><span class="p">;</span>
 </code></pre></div>
 <p>多句版本：</p>
-<div class="highlight"><pre><span></span><code>if (condition_1) begin
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
-
-else if (condition_2) begin
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
-
-else begin
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition_1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">condition_2</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
+<span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_2">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_2" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code>：放 expression，最後會被判斷成 true/false  </li>
+<li><code>condition</code>：放 expression，最後會被判斷成 true/false</li>
 <li><code>statement</code>：一個 procedural statement，或 <code>begin...end</code></li>
 </ul>
 <h4 id="常見資料型態_2">常見資料型態<a class="headerlink" href="#常見資料型態_2" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code> 常是 <code>wire/reg</code> 或比較運算結果  </li>
-<li>被指定的左值通常是 <code>reg</code>  </li>
+<li><code>condition</code> 常是 <code>wire/reg</code> 或比較運算結果</li>
+<li>被指定的左值通常是 <code>reg</code></li>
 <li>右值可為 <code>wire/reg/constant/expression</code></li>
 </ul>
 <h4 id="常見用途_2">常見用途<a class="headerlink" href="#常見用途_2" title="Permanent link"></a></h4>
 <ul>
-<li>2-to-1 mux  </li>
-<li>priority logic(優先邏輯)  </li>
-<li>reset / enable 控制  </li>
+<li>2-to-1 mux</li>
+<li>priority logic(優先邏輯)</li>
+<li>reset / enable 控制</li>
 <li>範圍判斷</li>
 </ul>
 <h4 id="它對應什麼硬體">它對應什麼硬體<a class="headerlink" href="#它對應什麼硬體" title="Permanent link"></a></h4>
 <ul>
-<li>在 <code>always @(*)</code> 裡，常綜合成 mux 或 priority logic  </li>
+<li>在 <code>always @(*)</code> 裡，常綜合成 mux 或 priority logic</li>
 <li>在 <code>always @(posedge clk)</code> 裡，常綜合成帶 reset / enable 的 flip-flop 結構</li>
 </ul>
 <h4 id="常用技巧_2">常用技巧<a class="headerlink" href="#常用技巧_2" title="Permanent link"></a></h4>
 <h5 id="技巧-1有優先權才用-else-if">技巧 1：有優先權才用 <code>else if</code><a class="headerlink" href="#技巧-1有優先權才用-else-if" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">req2</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">req1</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">else</span>
-
 <span class="w">        </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-2組合邏輯先給預設值">技巧 2：組合邏輯先給預設值<a class="headerlink" href="#技巧-2組合邏輯先給預設值" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">req2</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">req1</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">grant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-3固定值很多時改用-case">技巧 3：固定值很多時改用 <code>case</code><a class="headerlink" href="#技巧-3固定值很多時改用-case" title="Permanent link"></a></h5>
-<div class="highlight"><pre><span></span><code><span class="err">如果條件都長得像</span><span class="w"> </span><span class="no">`sel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="err">`、</span><span class="no">`sel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="err">`，通常</span><span class="w"> </span><span class="no">`case</span><span class="err">`</span><span class="w"> </span><span class="err">更好讀。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p>如果條件都長得像 <code>sel == 2'b00</code>、<code>sel == 2'b01</code>，通常 <code>case</code> 更好讀。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com" title="Verilog Quick Refresher">ChipVerify</a>)</p>
 <h4 id="好看好用的寫法_2">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_2" title="Permanent link"></a></h4>
 <ul>
-<li><code>if / else if / else</code> 垂直對齊  </li>
-<li>條件由高優先到低優先排序  </li>
+<li><code>if / else if / else</code> 垂直對齊</li>
+<li>條件由高優先到低優先排序</li>
 <li>分支多行就加 <code>begin...end</code></li>
 </ul>
 <h4 id="常見地雷_2">常見地雷<a class="headerlink" href="#常見地雷_2" title="Permanent link"></a></h4>
 <ul>
-<li>Verilog <strong>沒有 <code>elif</code></strong>，只有 <code>else if</code>  </li>
-<li>在組合邏輯裡漏掉 <code>else</code> 或預設值，可能推導出 latch。Nandland 明確提醒不完整賦值會造成 latch。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com">Nandland</a>)</li>
+<li>Verilog <strong>沒有 <code>elif</code></strong>，只有 <code>else if</code></li>
+<li>在組合邏輯裡漏掉 <code>else</code> 或預設值，可能推導出 latch。Nandland 明確提醒不完整賦值會造成 latch。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com" title="sitemap.xml">Nandland</a>)</li>
 </ul>
 <hr />
 <h3 id="4-case">4. <code>case</code><a class="headerlink" href="#4-case" title="Permanent link"></a></h3>
-<p>Verilog 的 case 不像 C/C++ 那樣需要 break。</p>
 <h4 id="語法格式_3">語法格式<a class="headerlink" href="#語法格式_3" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>case (expr)
-
-    item_1: statement_1;
-
-    item_2: statement_2;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    default: statement_default;
-
-endcase
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="w">    </span><span class="nl">item_1:</span><span class="w"> </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="nl">item_2:</span><span class="w"> </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">statement_default</span><span class="p">;</span>
+<span class="k">endcase</span>
 </code></pre></div>
 <p>多句版本：</p>
-<div class="highlight"><pre><span></span><code>case (expr)
-
-    item_1: begin
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    ...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    end
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>default: begin
-
-    ...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    end
-
-endcase
-</code></pre></div>
-<p>多條件語法：</p>
-<div class="highlight"><pre><span></span><code>case (expr)
-
-    item_1,item_2: statement_1;  // if(expr == item_1 || expr == item_2)
-
-    item_3,item_4,item_5: statement_2;
-// if(expr == item_3 || expr == item_4 || expr == item_5)
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>    default: statement_default;
-
-endcase
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="w">    </span><span class="nl">item_1:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">endcase</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_3">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_3" title="Permanent link"></a></h4>
 <ul>
-<li><code>expr</code>：被比較的 expression，例如 <code>sel</code>、<code>state</code>  </li>
-<li><code>item_n</code>：常數或常數樣式  </li>
+<li><code>expr</code>：被比較的 expression，例如 <code>sel</code>、<code>state</code></li>
+<li><code>item_n</code>：常數或常數樣式</li>
 <li><code>statement_n</code>：一個 statement 或 <code>begin...end</code></li>
 </ul>
 <h4 id="常見資料型態_3">常見資料型態<a class="headerlink" href="#常見資料型態_3" title="Permanent link"></a></h4>
 <ul>
-<li><code>expr</code> 常是 scalar 或 vector  </li>
-<li><code>item_n</code> 常寫成對應寬度的常數，如 <code>2'b00</code>  </li>
+<li><code>expr</code> 常是 scalar 或 vector</li>
+<li><code>item_n</code> 常寫成對應寬度的常數，如 <code>2'b00</code></li>
 <li>左值通常是 <code>reg</code></li>
 </ul>
 <h4 id="常見用途_3">常見用途<a class="headerlink" href="#常見用途_3" title="Permanent link"></a></h4>
 <ul>
-<li>多工器 mux  </li>
-<li>decoder  </li>
+<li>多工器 mux</li>
+<li>decoder</li>
 <li>FSM 狀態分支</li>
 </ul>
 <h4 id="常用技巧_3">常用技巧<a class="headerlink" href="#常用技巧_3" title="Permanent link"></a></h4>
 <h5 id="技巧-1固定值多選一時優先-case">技巧 1：固定值多選一時，優先 <code>case</code><a class="headerlink" href="#技巧-1固定值多選一時優先-case" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in0</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in1</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in2</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in3</span><span class="p">;</span>
-
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">endcase</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-2先給預設值後-case">技巧 2：先給預設值，後 <code>case</code><a class="headerlink" href="#技巧-2先給預設值後-case" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in0</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in1</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in2</span><span class="p">;</span>
-
 <span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in3</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">endcase</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-3常數格式統一">技巧 3：常數格式統一<a class="headerlink" href="#技巧-3常數格式統一" title="Permanent link"></a></h5>
 <p>都寫 <code>2'b00</code>、<code>2'b01</code>，不要混著寫 <code>0</code>、<code>1</code>、<code>2'b10</code>。</p>
 <h4 id="好看好用的寫法_3">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_3" title="Permanent link"></a></h4>
 <ul>
-<li><code>case (expr)</code> 自己一行  </li>
-<li>所有 item 冒號對齊  </li>
+<li><code>case (expr)</code> 自己一行</li>
+<li>所有 item 冒號對齊</li>
 <li>分支很多時按數值順序或邏輯順序排列</li>
 </ul>
 <h4 id="常見地雷_3">常見地雷<a class="headerlink" href="#常見地雷_3" title="Permanent link"></a></h4>
 <ul>
-<li>漏 <code>default</code> 或漏預設值，組合邏輯仍可能做出 latch。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com">Nandland</a>)  </li>
+<li>漏 <code>default</code> 或漏預設值，組合邏輯仍可能做出 latch。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com" title="sitemap.xml">Nandland</a>)</li>
 <li>case item 內有多句卻忘了 <code>begin...end</code></li>
 </ul>
 <hr />
 <h3 id="5-for">5. <code>for</code><a class="headerlink" href="#5-for" title="Permanent link"></a></h3>
 <h4 id="語法格式_4">語法格式<a class="headerlink" href="#語法格式_4" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>for (init; condition; step)
-
-    statement;
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">;</span><span class="w"> </span><span class="n">condition</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>for (init; condition; step) begin
-
-    statement_1;
-
-    statement_2;
-
-end
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">;</span><span class="w"> </span><span class="n">condition</span><span class="p">;</span><span class="w"> </span><span class="n">step</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_4">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_4" title="Permanent link"></a></h4>
 <ul>
-<li><code>init</code>：初始化，例如 <code>i = 0</code>  </li>
-<li><code>condition</code>：結束條件，例如 <code>i &lt; 8</code>  </li>
-<li><code>step</code>：每輪更新，例如 <code>i = i + 1</code>  </li>
+<li><code>init</code>：初始化，例如 <code>i = 0</code></li>
+<li><code>condition</code>：結束條件，例如 <code>i &lt; 8</code></li>
+<li><code>step</code>：每輪更新，例如 <code>i = i + 1</code></li>
 <li><code>statement</code>：一個 procedural statement，或 <code>begin...end</code></li>
 </ul>
 <h4 id="常見資料型態_4">常見資料型態<a class="headerlink" href="#常見資料型態_4" title="Permanent link"></a></h4>
 <ul>
-<li>loop variable 通常宣告成 <code>integer i;</code>  </li>
-<li>向量索引常見 <code>y[i]</code>、<code>a[i]</code>  </li>
+<li>loop variable 通常宣告成 <code>integer i;</code></li>
+<li>向量索引常見 <code>y[i]</code>、<code>a[i]</code></li>
 <li>左值通常是 <code>reg</code></li>
 </ul>
 <h4 id="常見用途_4">常見用途<a class="headerlink" href="#常見用途_4" title="Permanent link"></a></h4>
 <ul>
-<li>bit-slice 重複邏輯  </li>
-<li>批次指定向量  </li>
+<li>bit-slice 重複邏輯</li>
+<li>批次指定向量</li>
 <li>規則性結構展開</li>
 </ul>
 <h4 id="它在-rtl-的意思">它在 RTL 的意思<a class="headerlink" href="#它在-rtl-的意思" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>在可綜合 RTL 裡，`for` 主要是**展開重複硬體**，不是像軟體那樣真的在晶片裡跑迴圈。這是 Nandland 對 synthesizable `for` 的核心說法。([Nandland](https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com))
-</code></pre></div>
+<p>在可綜合 RTL 裡，<code>for</code> 主要是<strong>展開重複硬體</strong>，不是像軟體那樣真的在晶片裡跑迴圈。這是 Nandland 對 synthesizable <code>for</code> 的核心說法。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com" title="sitemap.xml">Nandland</a>)</p>
 <h4 id="常用技巧_4">常用技巧<a class="headerlink" href="#常用技巧_4" title="Permanent link"></a></h4>
 <h5 id="技巧-1上界用常數或-parameter">技巧 1：上界用常數或 parameter<a class="headerlink" href="#技巧-1上界用常數或-parameter" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">parameter</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span>
-
 <span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
 <span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">WIDTH</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
-
 <span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-2body-多句就加-beginend">技巧 2：body 多句就加 <code>begin...end</code><a class="headerlink" href="#技巧-2body-多句就加-beginend" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
 <span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mh">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-
 <span class="w">        </span><span class="n">valid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">en</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">end</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h5 id="技巧-3只想讓前幾項有效時用固定最大展開次數再加-if">技巧 3：只想讓前幾項有效時，用固定最大展開次數再加 <code>if</code><a class="headerlink" href="#技巧-3只想讓前幾項有效時用固定最大展開次數再加-if" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
 <span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mh">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
-
 <span class="w">            </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-
 <span class="w">        </span><span class="k">else</span>
-
 <span class="w">            </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="k">end</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_4">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_4" title="Permanent link"></a></h4>
 <ul>
-<li>loop variable 用 <code>i</code>, <code>j</code>  </li>
-<li><code>integer i;</code> 放在模組前段固定位置  </li>
+<li>loop variable 用 <code>i</code>, <code>j</code></li>
+<li><code>integer i;</code> 放在模組前段固定位置</li>
 <li><code>i=0; i&lt;WIDTH; i=i+1</code> 格式一致</li>
 </ul>
 <h4 id="常見地雷_4">常見地雷<a class="headerlink" href="#常見地雷_4" title="Permanent link"></a></h4>
 <ul>
-<li>上界若依賴執行時才知道的值，綜合不一定穩  </li>
-<li>忘了 <code>begin...end</code>，只有第一句在 loop 裡  </li>
-<li>用 <code>for</code> 時忘了它描述的是空間上的重複硬體，不是時間上的重複執行。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com">Nandland</a>)</li>
+<li>上界若依賴執行時才知道的值，綜合不一定穩</li>
+<li>忘了 <code>begin...end</code>，只有第一句在 loop 裡</li>
+<li>用 <code>for</code> 時忘了它描述的是空間上的重複硬體，不是時間上的重複執行。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com" title="sitemap.xml">Nandland</a>)</li>
 </ul>
 <hr />
 <h3 id="6--與-">6. <code>=</code> 與 <code>&lt;=</code><a class="headerlink" href="#6--與-" title="Permanent link"></a></h3>
 <p>這一段是 procedural style 最重要的核心。</p>
 <h4 id="語法格式_5">語法格式<a class="headerlink" href="#語法格式_5" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>lhs = rhs;    // blocking assignment
-
-lhs &lt;= rhs;   // non-blocking assignment
+<div class="highlight"><pre><span></span><code><span class="n">lhs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rhs</span><span class="p">;</span><span class="w">    </span><span class="c1">// blocking assignment</span>
+<span class="n">lhs</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">rhs</span><span class="p">;</span><span class="w">   </span><span class="c1">// non-blocking assignment</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_5">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_5" title="Permanent link"></a></h4>
 <ul>
-<li><code>lhs</code>：left-hand side，通常是 <code>reg</code>、bit-select、part-select 等可被程序式指定的目標  </li>
+<li><code>lhs</code>：left-hand side，通常是 <code>reg</code>、bit-select、part-select 等可被程序式指定的目標</li>
 <li><code>rhs</code>：right-hand side，可以是常數、訊號、運算式、比較結果等</li>
 </ul>
 <h4 id="-是什麼"><code>=</code> 是什麼<a class="headerlink" href="#-是什麼" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>`=` 是 **blocking assignment(阻塞賦值)**。 它的程序語意是：**這一行先完成，再往下執行下一行**。ChipVerify 將 blocking assignment 說明為 sequentially execute 的形式。([ChipVerify](https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com))
-</code></pre></div>
+<p><code>=</code> 是 <strong>blocking assignment(阻塞賦值)</strong>。<br />
+它的程序語意是：<strong>這一行先完成，再往下執行下一行</strong>。ChipVerify 將 blocking assignment 說明為 sequentially execute 的形式。(<a href="https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com" title="Verilog Interview Questions Set 3">ChipVerify</a>)</p>
 <p>例子：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <p>直覺上，<code>y</code> 看到的是<strong>更新後的 <code>x</code></strong>。</p>
 <h4 id="-是什麼_1"><code>&lt;=</code> 是什麼<a class="headerlink" href="#-是什麼_1" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>`&lt;=` 是 **non-blocking assignment(非阻塞賦值)**。 它的程序語意是：**先記下 rhs 的結果，lhs 的更新排到目前時間步較後面一起生效**。ChipVerify 說它會 schedule assignment，而不是立刻阻止後續敘述。([ChipVerify](https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com))
-</code></pre></div>
+<p><code>&lt;=</code> 是 <strong>non-blocking assignment(非阻塞賦值)</strong>。<br />
+它的程序語意是：<strong>先記下 rhs 的結果，lhs 的更新排到目前時間步較後面一起生效</strong>。ChipVerify 說它會 schedule assignment，而不是立刻阻止後續敘述。(<a href="https://www.chipverify.com/verilog/verilog-interview-questions-set-3?utm_source=chatgpt.com" title="Verilog Interview Questions Set 3">ChipVerify</a>)</p>
 <p>例子：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <p>直覺上，<code>y</code> 看到的是<strong>舊的 <code>x</code></strong>，這符合兩顆串接 flip-flop 的硬體直覺。</p>
 <h4 id="差異總結">差異總結<a class="headerlink" href="#差異總結" title="Permanent link"></a></h4>
 <h5 id="差異-1後續敘述看到的是新值還是舊值">差異 1：後續敘述看到的是新值還是舊值<a class="headerlink" href="#差異-1後續敘述看到的是新值還是舊值" title="Permanent link"></a></h5>
 <ul>
-<li><code>=</code>：後面通常看到新值  </li>
+<li><code>=</code>：後面通常看到新值</li>
 <li><code>&lt;=</code>：後面通常仍看到舊值</li>
 </ul>
 <h5 id="差異-2最常對應的硬體風格">差異 2：最常對應的硬體風格<a class="headerlink" href="#差異-2最常對應的硬體風格" title="Permanent link"></a></h5>
 <ul>
-<li><code>=</code>：常用於組合邏輯  </li>
+<li><code>=</code>：常用於組合邏輯</li>
 <li><code>&lt;=</code>：常用於時序邏輯</li>
 </ul>
 <h5 id="差異-3實務規則">差異 3：實務規則<a class="headerlink" href="#差異-3實務規則" title="Permanent link"></a></h5>
 <p>HDLBits 與 ChipVerify 都強烈建議：</p>
 <ul>
-<li><code>always @(*)</code> 用 <code>=</code>  </li>
-<li><code>always @(posedge clk)</code> 用 <code>&lt;=</code>  </li>
-<li>不要在同一個 always block 混用 <code>=</code> 和 <code>&lt;=</code>。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li><code>always @(*)</code> 用 <code>=</code></li>
+<li><code>always @(posedge clk)</code> 用 <code>&lt;=</code></li>
+<li>不要在同一個 always block 混用 <code>=</code> 和 <code>&lt;=</code>。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com" title="Verilog Quick Refresher">ChipVerify</a>)</li>
 </ul>
 <h4 id="常見地雷_5">常見地雷<a class="headerlink" href="#常見地雷_5" title="Permanent link"></a></h4>
 <ul>
-<li>clocked block 裡主要用 <code>=</code>  </li>
-<li>combinational block 裡主要用 <code>&lt;=</code>  </li>
-<li>同一個 block 混用兩者  </li>
-<li>沒搞清楚 <code>&lt;=</code> 是「先排程後更新」，導致腦中模擬錯誤。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li>clocked block 裡主要用 <code>=</code></li>
+<li>combinational block 裡主要用 <code>&lt;=</code></li>
+<li>同一個 block 混用兩者</li>
+<li>沒搞清楚 <code>&lt;=</code> 是「先排程後更新」，導致腦中模擬錯誤。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com" title="Verilog Quick Refresher">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h2 id="二模擬常用">二、模擬常用<a class="headerlink" href="#二模擬常用" title="Permanent link"></a></h2>
@@ -8621,57 +8511,46 @@ lhs &lt;= rhs;   // non-blocking assignment
 <h3 id="7-initial">7. <code>initial</code><a class="headerlink" href="#7-initial" title="Permanent link"></a></h3>
 <h4 id="語法格式_6">語法格式<a class="headerlink" href="#語法格式_6" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span>
-
 <span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_6">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_6" title="Permanent link"></a></h4>
 <ul>
-<li><code>initial</code>：表示這個 block 在模擬開始時執行一次  </li>
+<li><code>initial</code>：表示這個 block 在模擬開始時執行一次</li>
 <li>內容可放賦值、delay、wait、system task 等</li>
 </ul>
 <h4 id="常見資料型態_5">常見資料型態<a class="headerlink" href="#常見資料型態_5" title="Permanent link"></a></h4>
 <p>和 <code>always</code> 一樣，程序式賦值左值通常是 <code>reg</code>。</p>
 <h4 id="常見用途_5">常見用途<a class="headerlink" href="#常見用途_5" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 初始化  </li>
-<li>產生刺激 stimulus  </li>
+<li>testbench 初始化</li>
+<li>產生刺激 stimulus</li>
 <li>搭配 <code>$display</code>、<code>$finish</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="n">ChipVerify</span><span class="w"> </span><span class="err">明確說</span><span class="w"> </span><span class="no">`initial</span><span class="err">`</span><span class="w"> </span><span class="err">在</span><span class="w"> </span><span class="kt">time</span><span class="w"> </span><span class="mh">0</span><span class="w"> </span><span class="err">執行一次，常用於</span><span class="w"> </span><span class="n">testbench</span><span class="err">，且通常不綜合成硬體。</span><span class="p">([</span><span class="n">ChipVerify</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//www.chipverify.com/verilog/verilog-initial-block?utm_source=chatgpt.com))</span>
-</code></pre></div>
+<p>ChipVerify 明確說 <code>initial</code> 在 time 0 執行一次，常用於 testbench，且通常不綜合成硬體。(<a href="https://www.chipverify.com/verilog/verilog-initial-block?utm_source=chatgpt.com" title="Verilog initial Block">ChipVerify</a>)</p>
 <h4 id="常用技巧_5">常用技巧<a class="headerlink" href="#常用技巧_5" title="Permanent link"></a></h4>
 <ul>
-<li>把「初始化」和「刺激流程」分成不同 <code>initial</code> block  </li>
+<li>把「初始化」和「刺激流程」分成不同 <code>initial</code> block</li>
 <li>用 <code>initial begin ... end</code> 搭配 <code>#delay</code></li>
 </ul>
 <h4 id="好看好用的寫法_5">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_5" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">a</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="n">b</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="常見地雷_6">常見地雷<a class="headerlink" href="#常見地雷_6" title="Permanent link"></a></h4>
 <ul>
-<li>把 <code>initial</code> 當成一般 RTL 主邏輯寫法  </li>
-<li>忘記它通常是 simulation-only。(<a href="https://www.chipverify.com/verilog/verilog-initial-block?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li>把 <code>initial</code> 當成一般 RTL 主邏輯寫法</li>
+<li>忘記它通常是 simulation-only。(<a href="https://www.chipverify.com/verilog/verilog-initial-block?utm_source=chatgpt.com" title="Verilog initial Block">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h3 id="8-delay">8. <code>#delay</code><a class="headerlink" href="#8-delay" title="Permanent link"></a></h3>
@@ -8679,102 +8558,90 @@ lhs &lt;= rhs;   // non-blocking assignment
 <div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>#5 statement;
+<div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">5</span><span class="w"> </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_7">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_7" title="Permanent link"></a></h4>
 <ul>
-<li><code>#10</code>：延遲 10 個 simulation time units  </li>
+<li><code>#10</code>：延遲 10 個 simulation time units</li>
 <li>後面接一個 procedural statement</li>
 </ul>
 <h4 id="常見資料型態_6">常見資料型態<a class="headerlink" href="#常見資料型態_6" title="Permanent link"></a></h4>
 <p>delay 數值通常是整數常數；後面的賦值左值仍通常是 <code>reg</code>。</p>
 <h4 id="常見用途_6">常見用途<a class="headerlink" href="#常見用途_6" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 產生時序刺激  </li>
-<li>產生 clock  </li>
+<li>testbench 產生時序刺激</li>
+<li>產生 clock</li>
 <li>控制觀察時間點</li>
 </ul>
 <h4 id="常用技巧_6">常用技巧<a class="headerlink" href="#常用技巧_6" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
 <span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
-
 <span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_6">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_6" title="Permanent link"></a></h4>
 <p>每個時刻動作分行寫，不要把太多 <code>#delay</code> 擠成一行。</p>
 <h4 id="常見地雷_7">常見地雷<a class="headerlink" href="#常見地雷_7" title="Permanent link"></a></h4>
 <ul>
-<li>誤以為 <code>#delay</code> 會變成實體硬體延遲  </li>
-<li>在 synthesizable RTL 中濫用 delay。ChipVerify 與 always block 教學都提醒延遲主要是模擬概念。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li>誤以為 <code>#delay</code> 會變成實體硬體延遲</li>
+<li>在 synthesizable RTL 中濫用 delay。ChipVerify 與 always block 教學都提醒延遲主要是模擬概念。(<a href="https://www.chipverify.com/verilog/verilog-always-block?utm_source=chatgpt.com" title="Verilog always Block">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h3 id="9-display">9. <code>$display</code><a class="headerlink" href="#9-display" title="Permanent link"></a></h3>
 <h4 id="語法格式_8">語法格式<a class="headerlink" href="#語法格式_8" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>$display(&quot;format string&quot;, arg1, arg2, ...);
+<div class="highlight"><pre><span></span><code><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;format string&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="n">arg2</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_8">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_8" title="Permanent link"></a></h4>
 <ul>
-<li>第一個參數是格式字串  </li>
+<li>第一個參數是格式字串</li>
 <li>後面可放想印出的訊號或數值</li>
 </ul>
 <h4 id="常見資料型態_7">常見資料型態<a class="headerlink" href="#常見資料型態_7" title="Permanent link"></a></h4>
 <p>可印 <code>reg</code>、<code>wire</code>、整數、表達式。</p>
 <h4 id="常見用途_7">常見用途<a class="headerlink" href="#常見用途_7" title="Permanent link"></a></h4>
 <ul>
-<li>除錯  </li>
-<li>看關鍵時間點的訊號值  </li>
+<li>除錯</li>
+<li>看關鍵時間點的訊號值</li>
 <li>testbench 紀錄</li>
 </ul>
 <h4 id="常用技巧_7">常用技巧<a class="headerlink" href="#常用技巧_7" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;simulation start&quot;</span><span class="p">);</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <p>或</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;q=%b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">);</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="常見地雷_8">常見地雷<a class="headerlink" href="#常見地雷_8" title="Permanent link"></a></h4>
 <ul>
-<li>印太多內容，log 爆炸  </li>
+<li>印太多內容，log 爆炸</li>
 <li>忘記 <code>$display</code> 不會綜合成硬體</li>
 </ul>
 <hr />
 <h3 id="10-finish--stop">10. <code>$finish</code> / <code>$stop</code><a class="headerlink" href="#10-finish--stop" title="Permanent link"></a></h3>
 <h4 id="語法格式_9">語法格式<a class="headerlink" href="#語法格式_9" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>$finish;
-
-$stop;
+<div class="highlight"><pre><span></span><code><span class="nb">$finish</span><span class="p">;</span>
+<span class="nb">$stop</span><span class="p">;</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_9">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_9" title="Permanent link"></a></h4>
 <p>都是 system task，通常直接單獨一行。</p>
 <h4 id="常見用途_8">常見用途<a class="headerlink" href="#常見用途_8" title="Permanent link"></a></h4>
 <ul>
-<li><code>$finish</code>：結束模擬  </li>
+<li><code>$finish</code>：結束模擬</li>
 <li><code>$stop</code>：暫停模擬，像 breakpoint</li>
 </ul>
-<div class="highlight"><pre><span></span><code>ChipVerify 對 `$stop/$finish` 有明確說明。([ChipVerify](https://www.chipverify.com/verilog/verilog-stop-finish?utm_source=chatgpt.com))
-</code></pre></div>
+<p>ChipVerify 對 <code>$stop/$finish</code> 有明確說明。(<a href="https://www.chipverify.com/verilog/verilog-stop-finish?utm_source=chatgpt.com" title="Verilog $stop $finish">ChipVerify</a>)</p>
 <h4 id="常用技巧_8">常用技巧<a class="headerlink" href="#常用技巧_8" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="p">#</span><span class="mh">100</span><span class="w"> </span><span class="nb">$finish</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="常見地雷_9">常見地雷<a class="headerlink" href="#常見地雷_9" title="Permanent link"></a></h4>
 <ul>
-<li>忘了在 testbench 結尾停模擬，導致 simulation 一直跑  </li>
+<li>忘了在 testbench 結尾停模擬，導致 simulation 一直跑</li>
 <li>把 <code>$stop</code> 當 RTL 功能的一部分思考</li>
 </ul>
 <hr />
@@ -8783,44 +8650,36 @@ $stop;
 <hr />
 <h3 id="11-repeat">11. <code>repeat</code><a class="headerlink" href="#11-repeat" title="Permanent link"></a></h3>
 <h4 id="語法格式_10">語法格式<a class="headerlink" href="#語法格式_10" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>repeat (count)
-
-    statement;
+<div class="highlight"><pre><span></span><code><span class="k">repeat</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>repeat (count) begin
-
-    statement_1;
-
-    statement_2;
-
-end
+<div class="highlight"><pre><span></span><code><span class="k">repeat</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_10">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_10" title="Permanent link"></a></h4>
 <ul>
-<li><code>count</code>：重複次數  </li>
+<li><code>count</code>：重複次數</li>
 <li><code>statement</code>：要被重複的 procedural statement</li>
 </ul>
-<div class="highlight"><pre><span></span><code>IEEE 將 `repeat` 列在 loop statement 中。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 將 <code>repeat</code> 列在 loop statement 中。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="常見資料型態_8">常見資料型態<a class="headerlink" href="#常見資料型態_8" title="Permanent link"></a></h4>
 <ul>
-<li><code>count</code> 通常是整數或整數表達式  </li>
+<li><code>count</code> 通常是整數或整數表達式</li>
 <li>內部賦值左值仍通常是 <code>reg</code></li>
 </ul>
 <h4 id="常見用途_9">常見用途<a class="headerlink" href="#常見用途_9" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 等固定次數事件  </li>
-<li>重複若干輪刺激  </li>
+<li>testbench 等固定次數事件</li>
+<li>重複若干輪刺激</li>
 <li>等幾個 clock</li>
 </ul>
 <h4 id="常用技巧_9">常用技巧<a class="headerlink" href="#常用技巧_9" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">repeat</span><span class="w"> </span><span class="p">(</span><span class="mh">4</span><span class="p">)</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">);</span>
-
 <span class="w">    </span><span class="n">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <p>這比手寫四次 <code>@(posedge clk)</code> 乾淨很多。</p>
@@ -8828,330 +8687,288 @@ end
 <p><code>repeat (N)</code> 的 <code>N</code> 最好寫成有意義的常數或 parameter，別亂塞魔法數字。</p>
 <h4 id="常見地雷_10">常見地雷<a class="headerlink" href="#常見地雷_10" title="Permanent link"></a></h4>
 <ul>
-<li>把 <code>repeat</code> 想成可綜合 RTL 主力  </li>
+<li>把 <code>repeat</code> 想成可綜合 RTL 主力</li>
 <li>忘記 <code>count</code> 若很複雜，閱讀性會變差</li>
 </ul>
 <hr />
 <h3 id="12-while">12. <code>while</code><a class="headerlink" href="#12-while" title="Permanent link"></a></h3>
 <h4 id="語法格式_11">語法格式<a class="headerlink" href="#語法格式_11" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>while (condition)
-
-    statement;
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>while (condition) begin
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="每個位置放什麼_11">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_11" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code>：迴圈持續條件  </li>
+<li><code>condition</code>：迴圈持續條件</li>
 <li><code>statement</code>：被重複執行的 procedural statement</li>
 </ul>
-<div class="highlight"><pre><span></span><code>IEEE 將 `while` 也列在 loop statement 中。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 將 <code>while</code> 也列在 loop statement 中。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="常見資料型態_9">常見資料型態<a class="headerlink" href="#常見資料型態_9" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code> 為邏輯表達式  </li>
+<li><code>condition</code> 為邏輯表達式</li>
 <li>內部賦值左值通常仍是 <code>reg</code></li>
 </ul>
 <h4 id="常見用途_10">常見用途<a class="headerlink" href="#常見用途_10" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 等待某條件變化  </li>
-<li>行為模型  </li>
+<li>testbench 等待某條件變化</li>
+<li>行為模型</li>
 <li>少量流程控制</li>
 </ul>
 <h4 id="常用技巧_10">常用技巧<a class="headerlink" href="#常用技巧_10" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">done</span><span class="p">)</span>
-
 <span class="w">        </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">);</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_8">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_8" title="Permanent link"></a></h4>
 <ul>
-<li>確保 condition 會改變，避免無窮迴圈  </li>
+<li>確保 condition 會改變，避免無窮迴圈</li>
 <li>body 若多句就加 <code>begin...end</code></li>
 </ul>
 <h4 id="常見地雷_11">常見地雷<a class="headerlink" href="#常見地雷_11" title="Permanent link"></a></h4>
 <ul>
-<li>在可綜合 RTL 中濫用 <code>while</code>  </li>
-<li>忘了讓 condition 最終變成 false，模擬會卡住  </li>
-<li>跟 <code>for</code> 不同，<code>while</code> 的迭代次數通常不夠靜態明確，因此不如 <code>for</code> 適合 synthesis。這是 Nandland 等教學常提醒的點。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com">Nandland</a>)</li>
+<li>在可綜合 RTL 中濫用 <code>while</code></li>
+<li>忘了讓 condition 最終變成 false，模擬會卡住</li>
+<li>跟 <code>for</code> 不同，<code>while</code> 的迭代次數通常不夠靜態明確，因此不如 <code>for</code> 適合 synthesis。這是 Nandland 等教學常提醒的點。(<a href="https://www.nandland.com/sitemap.xml?utm_source=chatgpt.com" title="sitemap.xml">Nandland</a>)</li>
 </ul>
 <hr />
 <h3 id="13-forever">13. <code>forever</code><a class="headerlink" href="#13-forever" title="Permanent link"></a></h3>
 <h4 id="語法格式_12">語法格式<a class="headerlink" href="#語法格式_12" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>forever
-
-    statement;
+<div class="highlight"><pre><span></span><code><span class="k">forever</span>
+<span class="w">    </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>forever begin
+<div class="highlight"><pre><span></span><code><span class="k">forever</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
-
-ChipVerify 對 forever 也提醒：若沒有 delay 或時間控制，會讓模擬卡住。([ChipVerify](https://www.chipverify.com/systemverilog/systemverilog-forever-loop?utm_source=chatgpt.com))
-</code></pre></div>
+<p>ChipVerify 對 forever 也提醒：若沒有 delay 或時間控制，會讓模擬卡住。(<a href="https://www.chipverify.com/systemverilog/systemverilog-forever-loop?utm_source=chatgpt.com" title="SystemVerilog forever loop">ChipVerify</a>)</p>
 <h4 id="每個位置放什麼_12">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_12" title="Permanent link"></a></h4>
 <ul>
-<li><code>forever</code>：表示無窮迴圈  </li>
+<li><code>forever</code>：表示無窮迴圈</li>
 <li>後面接一個 statement 或 block</li>
 </ul>
 <h4 id="常見資料型態_10">常見資料型態<a class="headerlink" href="#常見資料型態_10" title="Permanent link"></a></h4>
 <p>和一般 procedural statement 相同。</p>
 <h4 id="常見用途_11">常見用途<a class="headerlink" href="#常見用途_11" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 產生 clock  </li>
+<li>testbench 產生 clock</li>
 <li>永久監控流程</li>
 </ul>
 <h4 id="常用技巧_11">常用技巧<a class="headerlink" href="#常用技巧_11" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">forever</span><span class="w"> </span><span class="p">#</span><span class="mh">5</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">\~clk;</span>
-
+<span class="w">    </span><span class="k">forever</span><span class="w"> </span><span class="p">#</span><span class="mh">5</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clk</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_9">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_9" title="Permanent link"></a></h4>
 <p>把 clock generator 單獨放一個 <code>initial</code> block，不要混進其他刺激流程。</p>
 <h4 id="常見地雷_12">常見地雷<a class="headerlink" href="#常見地雷_12" title="Permanent link"></a></h4>
 <ul>
-<li><code>forever</code> 沒有 delay / event control，simulation 直接掛住  </li>
-<li>拿它當一般 RTL 主邏輯寫法。(<a href="https://www.chipverify.com/systemverilog/systemverilog-forever-loop?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li><code>forever</code> 沒有 delay / event control，simulation 直接掛住</li>
+<li>拿它當一般 RTL 主邏輯寫法。(<a href="https://www.chipverify.com/systemverilog/systemverilog-forever-loop?utm_source=chatgpt.com" title="SystemVerilog forever loop">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h3 id="14-wait">14. <code>wait</code><a class="headerlink" href="#14-wait" title="Permanent link"></a></h3>
 <h4 id="語法格式_13">語法格式<a class="headerlink" href="#語法格式_13" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>wait (condition) statement;
+<div class="highlight"><pre><span></span><code><span class="k">wait</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"> </span><span class="n">statement</span><span class="p">;</span>
 </code></pre></div>
 <p>或</p>
-<div class="highlight"><pre><span></span><code>wait (condition) begin
+<div class="highlight"><pre><span></span><code><span class="k">wait</span><span class="w"> </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>end
-
-IEEE 文法直接列出 `wait ( expression ) statement`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 文法直接列出 <code>wait ( expression ) statement</code>。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="每個位置放什麼_13">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_13" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code>：等待成立的條件  </li>
+<li><code>condition</code>：等待成立的條件</li>
 <li><code>statement</code>：條件成立後執行的動作</li>
 </ul>
 <h4 id="常見資料型態_11">常見資料型態<a class="headerlink" href="#常見資料型態_11" title="Permanent link"></a></h4>
 <ul>
-<li><code>condition</code> 為邏輯表達式  </li>
+<li><code>condition</code> 為邏輯表達式</li>
 <li>內部賦值左值通常仍是 <code>reg</code></li>
 </ul>
 <h4 id="常見用途_12">常見用途<a class="headerlink" href="#常見用途_12" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 等待 ready / valid / done  </li>
+<li>testbench 等待 ready / valid / done</li>
 <li>行為模型同步</li>
 </ul>
 <h4 id="常用技巧_12">常用技巧<a class="headerlink" href="#常用技巧_12" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-
 <span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="p">(</span><span class="n">ready</span><span class="p">);</span>
-
 <span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;ready seen&quot;</span><span class="p">);</span>
-
 <span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_10">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_10" title="Permanent link"></a></h4>
 <p>對握手訊號很有幫助，例如 <code>wait(valid &amp;&amp; ready)</code>。</p>
 <h4 id="常見地雷_13">常見地雷<a class="headerlink" href="#常見地雷_13" title="Permanent link"></a></h4>
 <ul>
-<li>若 condition 永遠不成立，模擬會一直卡在那裡  </li>
+<li>若 condition 永遠不成立，模擬會一直卡在那裡</li>
 <li>在 RTL 設計初學階段過度依賴 <code>wait</code>，容易把 testbench 思維帶進設計本體</li>
 </ul>
 <hr />
 <h3 id="15-fork--join">15. <code>fork ... join</code><a class="headerlink" href="#15-fork--join" title="Permanent link"></a></h3>
 <h4 id="語法格式_14">語法格式<a class="headerlink" href="#語法格式_14" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>fork
-
-    statement_1;
-
-    statement_2;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>join
+<div class="highlight"><pre><span></span><code><span class="k">fork</span>
+<span class="w">    </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statement_2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">join</span>
 </code></pre></div>
 <p>還有變體：</p>
-<div class="highlight"><pre><span></span><code>fork
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>join_any
+<div class="highlight"><pre><span></span><code><span class="k">fork</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="n">join_any</span>
 
-fork
+<span class="k">fork</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="n">join_none</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>join_none
-
-ChipVerify 的 block statements 頁面也有介紹 `fork...join` 與 `join_any/join_none`。([ChipVerify](https://www.chipverify.com/verilog/verilog-block-statements?utm_source=chatgpt.com))
-</code></pre></div>
+<p>ChipVerify 的 block statements 頁面也有介紹 <code>fork...join</code> 與 <code>join_any/join_none</code>。(<a href="https://www.chipverify.com/verilog/verilog-block-statements?utm_source=chatgpt.com" title="Verilog Block statements">ChipVerify</a>)</p>
 <h4 id="每個位置放什麼_14">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_14" title="Permanent link"></a></h4>
 <ul>
-<li><code>fork</code>：開始平行 block  </li>
-<li>中間是多條平行執行的程序  </li>
-<li><code>join</code>：等全部完成才往下走  </li>
-<li><code>join_any</code>：任一完成即可往下走  </li>
+<li><code>fork</code>：開始平行 block</li>
+<li>中間是多條平行執行的程序</li>
+<li><code>join</code>：等全部完成才往下走</li>
+<li><code>join_any</code>：任一完成即可往下走</li>
 <li><code>join_none</code>：立刻往下走，不等子程序結束</li>
 </ul>
 <h4 id="常見資料型態_12">常見資料型態<a class="headerlink" href="#常見資料型態_12" title="Permanent link"></a></h4>
 <p>區塊內可放一般 procedural statements。</p>
 <h4 id="常見用途_13">常見用途<a class="headerlink" href="#常見用途_13" title="Permanent link"></a></h4>
 <ul>
-<li>testbench 做平行刺激  </li>
-<li>同時監看多個事件  </li>
+<li>testbench 做平行刺激</li>
+<li>同時監看多個事件</li>
 <li>較進階模擬流程</li>
 </ul>
 <h4 id="常用技巧_13">常用技巧<a class="headerlink" href="#常用技巧_13" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>fork
-
-    #10 a = 1;
-
-    #20 b = 1;
-
-join
+<div class="highlight"><pre><span></span><code><span class="k">fork</span>
+<span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">#</span><span class="mh">20</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="k">join</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_11">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_11" title="Permanent link"></a></h4>
 <ul>
-<li>每條平行流程各自獨立一行  </li>
+<li>每條平行流程各自獨立一行</li>
 <li>複雜時加註解，說明哪條在做什麼</li>
 </ul>
 <h4 id="常見地雷_14">常見地雷<a class="headerlink" href="#常見地雷_14" title="Permanent link"></a></h4>
 <ul>
-<li>不清楚 <code>join / join_any / join_none</code> 差異  </li>
-<li>在 RTL 初學時就硬用，讓邏輯理解複雜化  </li>
-<li>把平行模擬語意誤當作一般同步硬體語意。ChipVerify 也建議只在真需要時用 <code>join</code> 類機制。(<a href="https://www.chipverify.com/verilog/verilog-block-statements?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li>不清楚 <code>join / join_any / join_none</code> 差異</li>
+<li>在 RTL 初學時就硬用，讓邏輯理解複雜化</li>
+<li>把平行模擬語意誤當作一般同步硬體語意。ChipVerify 也建議只在真需要時用 <code>join</code> 類機制。(<a href="https://www.chipverify.com/verilog/verilog-block-statements?utm_source=chatgpt.com" title="Verilog Block statements">ChipVerify</a>)</li>
 </ul>
 <hr />
 <h3 id="16-disable">16. <code>disable</code><a class="headerlink" href="#16-disable" title="Permanent link"></a></h3>
 <h4 id="語法格式_15">語法格式<a class="headerlink" href="#語法格式_15" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>disable block_name;
+<div class="highlight"><pre><span></span><code><span class="k">disable</span><span class="w"> </span><span class="n">block_name</span><span class="p">;</span>
 </code></pre></div>
 <p>或用於 named block / task。</p>
-<div class="highlight"><pre><span></span><code>IEEE 文法把 `disable hierarchical_task_identifier`、`disable hierarchical_block_identifier` 列為合法 statement。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 文法把 <code>disable hierarchical_task_identifier</code>、<code>disable hierarchical_block_identifier</code> 列為合法 statement。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="每個位置放什麼_15">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_15" title="Permanent link"></a></h4>
 <ul>
-<li><code>disable</code>：關鍵字  </li>
+<li><code>disable</code>：關鍵字</li>
 <li>後面是要被跳出的 block 名稱或 task 名稱</li>
 </ul>
 <h4 id="常見資料型態_13">常見資料型態<a class="headerlink" href="#常見資料型態_13" title="Permanent link"></a></h4>
 <p>不牽涉特別資料型態，重點在 block/task 命名。</p>
 <h4 id="常見用途_14">常見用途<a class="headerlink" href="#常見用途_14" title="Permanent link"></a></h4>
 <ul>
-<li>提前跳出 named block  </li>
+<li>提前跳出 named block</li>
 <li>中止某段程序流程</li>
 </ul>
 <h4 id="常用技巧_14">常用技巧<a class="headerlink" href="#常用技巧_14" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>begin : SEARCH
-
-    if (found)
-
-        disable SEARCH;
-
-end
+<div class="highlight"><pre><span></span><code><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SEARCH</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found</span><span class="p">)</span>
+<span class="w">        </span><span class="k">disable</span><span class="w"> </span><span class="n">SEARCH</span><span class="p">;</span>
+<span class="k">end</span>
 </code></pre></div>
 <h4 id="好看好用的寫法_12">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_12" title="Permanent link"></a></h4>
 <p>只有在你真的需要中止某個命名區塊時才用，並且 block 名稱要有意義。</p>
 <h4 id="常見地雷_15">常見地雷<a class="headerlink" href="#常見地雷_15" title="Permanent link"></a></h4>
 <ul>
-<li>初學者很少需要它，硬用只會增加閱讀負擔  </li>
+<li>初學者很少需要它，硬用只會增加閱讀負擔</li>
 <li>若 block 命名混亂，<code>disable</code> 會非常難追</li>
 </ul>
 <hr />
 <h3 id="17-casex--casez">17. <code>casex / casez</code><a class="headerlink" href="#17-casex--casez" title="Permanent link"></a></h3>
 <h4 id="語法格式_16">語法格式<a class="headerlink" href="#語法格式_16" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code>casex (expr)
-
-    item_1: statement_1;
+<div class="highlight"><pre><span></span><code><span class="k">casex</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="w">    </span><span class="nl">item_1:</span><span class="w"> </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">endcase</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="w">    </span><span class="nl">item_1:</span><span class="w"> </span><span class="n">statement_1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">endcase</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>endcase
-
-casez (expr)
-
-    item_1: statement_1;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>...
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>endcase
-
-IEEE 文法列出 `case_statement ::= case ... | casez ... | casex ...`。([巴克內爾大學工程學院](https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com))
-</code></pre></div>
+<p>IEEE 文法列出 <code>case_statement ::= case ... | casez ... | casex ...</code>。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</p>
 <h4 id="每個位置放什麼_16">每個位置放什麼<a class="headerlink" href="#每個位置放什麼_16" title="Permanent link"></a></h4>
 <p>和普通 <code>case</code> 類似，只是比較規則不同。</p>
 <h4 id="常見資料型態_14">常見資料型態<a class="headerlink" href="#常見資料型態_14" title="Permanent link"></a></h4>
 <ul>
-<li><code>expr</code> 常是向量  </li>
+<li><code>expr</code> 常是向量</li>
 <li><code>item_n</code> 可能含 <code>x</code> 或 <code>z</code> 樣式</li>
 </ul>
 <h4 id="常見用途_15">常見用途<a class="headerlink" href="#常見用途_15" title="Permanent link"></a></h4>
 <ul>
-<li>pattern matching  </li>
+<li>pattern matching</li>
 <li>某些 don't-care 比對</li>
 </ul>
 <h4 id="常用技巧_15">常用技巧<a class="headerlink" href="#常用技巧_15" title="Permanent link"></a></h4>
 <p>如果只是普通固定值分支，先用普通 <code>case</code>；只有你真的理解 <code>x/z</code> 的語意時，再考慮 <code>casez/casex</code>。</p>
 <h4 id="好看好用的寫法_13">好看好用的寫法<a class="headerlink" href="#好看好用的寫法_13" title="Permanent link"></a></h4>
 <ul>
-<li>先把普通 <code>case</code> 學穩  </li>
+<li>先把普通 <code>case</code> 學穩</li>
 <li>若使用 <code>casez/casex</code>，在註解中明確說明 don't-care 意圖</li>
 </ul>
 <h4 id="常見地雷_16">常見地雷<a class="headerlink" href="#常見地雷_16" title="Permanent link"></a></h4>
 <ul>
-<li>初學者很容易把模擬中的 <code>x/z</code> 和設計意圖混在一起  </li>
-<li><code>casex</code> 特別容易因為 <code>x</code> 匹配太寬鬆而造成除錯困難，所以很多實務風格會偏向避免濫用。這也是業界常見風格提醒。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com">巴克內爾大學工程學院</a>)</li>
+<li>初學者很容易把模擬中的 <code>x/z</code> 和設計意圖混在一起</li>
+<li><code>casex</code> 特別容易因為 <code>x</code> 匹配太寬鬆而造成除錯困難，所以很多實務風格會偏向避免濫用。這也是業界常見風格提醒。(<a href="https://www.eg.bucknell.edu/~csci320/2016-fall/wp-content/uploads/2015/08/verilog-std-1364-2005.pdf?utm_source=chatgpt.com" title="IEEE Standard for Verilog Hardware Description Language">巴克內爾大學工程學院</a>)</li>
 </ul>
 <hr />
 <h2 id="最後整理成速記版">最後整理成速記版<a class="headerlink" href="#最後整理成速記版" title="Permanent link"></a></h2>
 <h3 id="rtl-常用">RTL 常用<a class="headerlink" href="#rtl-常用" title="Permanent link"></a></h3>
 <ul>
-<li><code>always @(*)</code>  </li>
-<li><code>always @(posedge clk)</code>  </li>
-<li><code>begin...end</code>  </li>
-<li><code>if / else if / else</code>  </li>
-<li><code>case</code>  </li>
-<li><code>for</code>  </li>
+<li><code>always @(*)</code></li>
+<li><code>always @(posedge clk)</code></li>
+<li><code>begin...end</code></li>
+<li><code>if / else if / else</code></li>
+<li><code>case</code></li>
+<li><code>for</code></li>
 <li><code>=</code> / <code>&lt;=</code></li>
 </ul>
 <h3 id="模擬常用">模擬常用<a class="headerlink" href="#模擬常用" title="Permanent link"></a></h3>
 <ul>
-<li><code>initial</code>  </li>
-<li><code>#delay</code>  </li>
-<li><code>$display</code>  </li>
+<li><code>initial</code></li>
+<li><code>#delay</code></li>
+<li><code>$display</code></li>
 <li><code>$finish / $stop</code></li>
 </ul>
 <h3 id="知道就好">知道就好<a class="headerlink" href="#知道就好" title="Permanent link"></a></h3>
 <ul>
-<li><code>repeat</code>  </li>
-<li><code>while</code>  </li>
-<li><code>forever</code>  </li>
-<li><code>wait</code>  </li>
-<li><code>fork...join</code>  </li>
-<li><code>disable</code>  </li>
+<li><code>repeat</code></li>
+<li><code>while</code></li>
+<li><code>forever</code></li>
+<li><code>wait</code></li>
+<li><code>fork...join</code></li>
+<li><code>disable</code></li>
 <li><code>casex / casez</code></li>
 </ul>
 <h3 id="最重要的-3-句話">最重要的 3 句話<a class="headerlink" href="#最重要的-3-句話" title="Permanent link"></a></h3>
 <ol>
-<li><strong>組合邏輯</strong>：<code>always @(*)</code> + <code>=</code>  </li>
-<li><strong>時序邏輯</strong>：<code>always @(posedge clk)</code> + <code>&lt;=</code>  </li>
-<li><strong>知道就好那區</strong> 多半偏 testbench、模擬控制或進階語法，不是你現在 HDLBits 基礎 RTL 的主力工具。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com">ChipVerify</a>)</li>
+<li><strong>組合邏輯</strong>：<code>always @(*)</code> + <code>=</code></li>
+<li><strong>時序邏輯</strong>：<code>always @(posedge clk)</code> + <code>&lt;=</code></li>
+<li><strong>知道就好那區</strong> 多半偏 testbench、模擬控制或進階語法，不是你現在 HDLBits 基礎 RTL 的主力工具。(<a href="https://www.chipverify.com/verilog/verilog-quick-refresher?utm_source=chatgpt.com" title="Verilog Quick Refresher">ChipVerify</a>)</li>
 </ol>
+<p>⭐ 下一步我建議直接把這份再壓成「表格版速查表」，左欄放語法、右欄放用途、常配資料型態、最常見地雷，會更適合你複習。</p>
 
 
 
@@ -9273,11 +9090,17 @@ IEEE 文法列出 `case_statement ::= case ... | casez ... | casex ...`。([巴�
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../assets/pymdownx-extras/mermaid-config-override.js"></script>
+      
         <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js"></script>
       
         <script src="../../assets/pymdownx-extras/toc-fold.js"></script>
       
         <script src="../../assets/pymdownx-extras/image-zoom.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/source-jump.js"></script>
       
     
   </body>
