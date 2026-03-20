@@ -762,3 +762,76 @@ flowchart TB
 [2]: https://docs.oracle.com/cd/E26505_01/html/E26506/gjpky.html?utm_source=chatgpt.com "Mapfile Directives - Linker and Libraries Guide"
 [3]: https://docs.oracle.com/cd/E19957-01/806-0641/chapter6-34713/index.html?utm_source=chatgpt.com "Program Loading (Processor-Specific) (Linker and Libraries Guide)"
 [4]: https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcobl6/index.html?utm_source=chatgpt.com "Performance Considerations (Linker and Libraries Guide)"
+
+
+## 映射是啥
+
+### 什麼叫「映射」？
+
+最生活化的比喻：
+
+你有一本很厚的書放在圖書館（檔案在磁碟）。
+你桌上有一份索引卡（虛擬位址空間）。
+映射不是把整本書先影印到你桌上，而是先在索引卡寫：
+
+桌上第 A 區 → 書的第 1 章
+
+桌上第 B 區 → 書的第 2 章
+
+之後你真的翻到 A 區時，館員才把那幾頁送來。
+這就是「先建立對應，再按需載入」的感覺。
+
+
+### 為什麼要用「映射」，不要每次都整份複製？
+
+因為映射有幾個很大的好處：
+
+1. 省時間
+
+不必一開始就把整個檔案都搬進 RAM。很多程式碼頁面可能根本不會執行到。官方文件明講，很多 pages 可能永遠不會被 referenced，所以延後實體讀取能提升效能。
+
+2. 省記憶體
+
+相同程式的 read-only text pages 可以共享。這也是教材說 text section 常可被多個相同程式實例共享的原因。
+
+3. 權限清楚
+
+mmap() 可以指定 PROT_READ、PROT_WRITE、PROT_EXEC，所以 code 頁通常可執行但不可改，data 頁通常可讀寫。
+
+
+### mmap() 的「映射」跟「複製」差在哪？
+
+這裡最容易誤解，我直接對比：
+
+複製(copy)
+
+你真的把檔案內容讀出來，放進一塊新記憶體裡。
+之後那塊記憶體和原檔案可以完全脫鉤。
+
+映射(map)
+
+你建立「這段虛擬位址對應到那個檔案 offset」的關係。
+Linux mmap(2) 手冊明講：file mapping 的內容，是由檔案中某個 offset 開始的 length bytes 來初始化。
+
+所以映射比較像：
+
+- 不是先整份搬家
+- 是先建立地址翻譯規則
+- 真正碰到頁面時再處理
+
+
+### 再問一個你現在很該懂的問題：text section 是「被載入」還是「被映射」？
+
+兩個都可以講，但精確度不同。
+
+課堂口語講法：
+text section 被載入到記憶體
+
+更精確的 OS / VM 講法：
+text section 常是從 executable file 映射到 process 的虛擬位址空間中，再由 demand paging 視需要把頁面帶進 RAM。
+
+所以你看到教材寫 mapped into memory from the executable file，就是在用比較精確的講法。
+
+
+
+
