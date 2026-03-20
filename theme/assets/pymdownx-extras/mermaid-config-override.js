@@ -8,7 +8,10 @@
     const current = root[name] || (root[name] = {});
     const flowchart = current.flowchart || (current.flowchart = {});
 
+    root.htmlLabels = true;
+    current.htmlLabels = true;
     flowchart.htmlLabels = true;
+    if (current.useMaxWidth === undefined) current.useMaxWidth = false;
     if (flowchart.useMaxWidth === undefined) flowchart.useMaxWidth = false;
   }
 

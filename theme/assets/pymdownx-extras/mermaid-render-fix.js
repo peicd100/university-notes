@@ -3,6 +3,7 @@
 
   const HOST_CLASS = "peicd-mermaid-host";
   const PRE_SELECTOR = "pre.diagram";
+  const UPDATE_EVENT = "peicd:mermaid-updated";
   let renderToken = 0;
   let observerBound = false;
 
@@ -35,6 +36,27 @@
     return (code?.textContent || pre.textContent || "").trim();
   }
 
+  function decorateHost(host) {
+    host.classList.add("peicd-zoomable-mermaid");
+    host.setAttribute("role", "button");
+    host.setAttribute("tabindex", "0");
+    host.setAttribute("aria-label", "點擊放大 Mermaid 圖表");
+
+    const svg = host.querySelector("svg");
+    if (!svg) return;
+
+    svg.classList.add("peicd-mermaid-svg");
+    svg.setAttribute("focusable", "false");
+    svg.setAttribute("aria-hidden", "true");
+    if (!svg.getAttribute("preserveAspectRatio")) {
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    }
+  }
+
+  function notifyMermaidUpdated() {
+    window.dispatchEvent(new CustomEvent(UPDATE_EVENT));
+  }
+
   async function renderPre(pre, index, token) {
     const source = extractDiagramText(pre);
     if (!source) return;
@@ -48,6 +70,7 @@
       if (token !== renderToken) return;
 
       host.innerHTML = result.svg;
+      decorateHost(host);
       result.bindFunctions?.(host);
       if (pre.isConnected) pre.remove();
     } catch (error) {
@@ -66,6 +89,7 @@
     if (!pres.length && !hosts.length) return;
 
     window.mermaid.initialize(getMermaidConfig());
+    let didRender = false;
 
     if (force) {
       for (let index = 0; index < hosts.length; index += 1) {
@@ -76,17 +100,27 @@
           const result = await window.mermaid.render("peicd_mermaid_rerender_" + index + "_" + Date.now(), source);
           if (token !== renderToken) return;
           host.innerHTML = result.svg;
+          decorateHost(host);
           result.bindFunctions?.(host);
+          didRender = true;
         } catch (error) {
           console.error("Mermaid rerender failed", error);
         }
       }
 
-      if (!pres.length) return;
+      if (!pres.length) {
+        if (didRender) notifyMermaidUpdated();
+        return;
+      }
     }
 
     for (let index = 0; index < pres.length; index += 1) {
       await renderPre(pres[index], index, token);
+      didRender = true;
+    }
+
+    if (didRender) {
+      notifyMermaidUpdated();
     }
   }
 

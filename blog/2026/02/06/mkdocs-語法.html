@@ -8,11 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/blog/2024/02/06/%E6%B8%AC%E8%A9%A6.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/blog/2026/02/06/mkdocs-%E8%AA%9E%E6%B3%95.html">
       
       
+        <link rel="prev" href="%E6%B8%AC%E8%A9%A6.html">
       
-        <link rel="next" href="mkdocs-%E8%AA%9E%E6%B3%95.html">
       
       
         
@@ -26,7 +26,7 @@
     
     
       
-        <title>測試 - PEICD100</title>
+        <title>mkdocs 語法 - PEICD100</title>
       
     
     
@@ -47,328 +47,6 @@
     
 <script src="../../../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
 <script src="../../../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
-
-
-<!-- 
-<script type="text/javascript">
-  window.MathJax = {
-      tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],  // 支持 $...$ 和 \(...\) 语法
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      },
-      options: {
-          processEscapes: true
-      }
-  };
-</script> -->
-
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<!-- 背景图片 -->
-<div class="image-background"></div>
-
-<!-- 星空和流星效果的Canvas背景 -->
-<canvas id="starCanvas" style="z-index: -2; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-
-<!-- 粒子效果的Canvas背景，放置在星空和流星前面 -->
-<canvas id="particleCanvas" style="z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var tocContainer = document.querySelector('.custom-toc-container');
-  var contentInner = document.querySelector('.md-content__inner');
-
-  // 设置星空流星的 Canvas 尺寸
-  var starCanvas = document.getElementById('starCanvas');
-  var starCtx = starCanvas.getContext('2d');
-  function resizeStarCanvas() {
-    starCanvas.width = window.innerWidth;
-    starCanvas.height = window.innerHeight;
-  }
-  resizeStarCanvas();
-  window.addEventListener('resize', resizeStarCanvas);
-
-  // 设置粒子效果的 Canvas 尺寸
-  var particleCanvas = document.getElementById('particleCanvas');
-  var particleCtx = particleCanvas.getContext('2d');
-  function resizeParticleCanvas() {
-    particleCanvas.width = window.innerWidth;
-    particleCanvas.height = window.innerHeight;
-  }
-  resizeParticleCanvas();
-  window.addEventListener('resize', resizeParticleCanvas);
-
-  // 星星类
-  class Star {
-    constructor() {
-      this.reset();  // 随机初始化星星的位置、大小和透明度
-    }
-
-    reset() {
-      this.x = Math.random() * starCanvas.width;
-      this.y = Math.random() * starCanvas.height;
-      this.originalSize = Math.random() * 2 + 1;
-      this.size = 0;
-      this.alpha = 0;
-      this.growthSpeed = 0.02;
-      this.shrinkSpeed = 0.01;
-      this.life = Math.random() * 200 + 100;
-    }
-
-    update() {
-      if (this.life > 100) {
-        this.size += this.growthSpeed;
-        this.alpha += this.growthSpeed;
-        if (this.size > this.originalSize) this.size = this.originalSize;
-        if (this.alpha > 1) this.alpha = 1;
-      } else {
-        this.size -= this.shrinkSpeed;
-        this.alpha -= this.shrinkSpeed;
-        if (this.size < 0) this.size = 0;
-        if (this.alpha < 0) this.alpha = 0;
-      }
-
-      this.life -= 1;
-      if (this.life <= 0) this.reset();
-    }
-
-    draw() {
-      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
-      starCtx.beginPath();
-      starCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      starCtx.closePath();
-      starCtx.fill();
-    }
-  }
-
-  // 流星类
-  class Meteor {
-    constructor(x = null, y = null) {
-      this.isCustom = (x !== null && y !== null); // 判斷是否是滑鼠生成的流星
-      this.reset(x, y);
-    }
-
-    reset(x = null, y = null) {
-      if (this.isCustom) {
-        this.x = x;
-        this.y = y;
-        this.size = this.originalSize; // 立即设为最大值
-        this.alpha = 1; // 立即设为最大透明度
-      } else {
-        this.x = Math.random() * starCanvas.width / 2;
-        this.y = Math.random() * starCanvas.height;
-        this.size = 0;
-        this.alpha = 0;
-      }
-      this.originalSize = Math.random() * 1 + 1;
-      this.growthSpeed = 0.03;
-      this.speedX = Math.random() * 8 + 4;
-      this.speedY = Math.random() * 4 + 2;
-    }
-
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-
-      if (!this.isCustom) { // 非滑鼠生成的流星才有增大過程
-        this.size += this.growthSpeed;
-        this.alpha += this.growthSpeed;
-        if (this.size > this.originalSize) this.size = this.originalSize;
-        if (this.alpha > 1) this.alpha = 1;
-        this.alpha -= 0.025;
-      } else {
-        // 滑鼠生成的流星更快消失
-        this.alpha -= 0.025; // 透明度更快減少
-      }
-
-      // 如果是滑鼠生成的流星且透明度為0，將其從數組中移除
-      if (this.isCustom && this.alpha <= 0) {
-        return true; // 返回true表示可以從數組中移除
-      }
-
-      if (!this.isCustom && this.isOutOfView()) {
-        this.reset(); // 非滑鼠生成的流星需要重新生成
-      }
-      return false; // 不移除流星
-    }
-
-    draw() {
-      starCtx.strokeStyle = `rgba(242, 187, 255, ${this.alpha})`;
-      starCtx.lineWidth = this.size;
-      starCtx.beginPath();
-      starCtx.moveTo(this.x, this.y);
-      starCtx.lineTo(this.x - this.speedX * 5, this.y - this.speedY * 5);
-      starCtx.stroke();
-
-      starCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
-      this.drawStarShape(this.x, this.y, this.size, 5);
-    }
-
-    drawStarShape(cx, cy, outerRadius, spikes) {
-      let rot = Math.PI / 2 * 3;
-      let step = Math.PI / spikes;
-
-      starCtx.beginPath();
-      starCtx.moveTo(cx, cy - outerRadius);
-      for (let i = 0; i < spikes; i++) {
-        let x = cx + Math.cos(rot) * outerRadius;
-        let y = cy + Math.sin(rot) * outerRadius;
-        starCtx.lineTo(x, y);
-        rot += step;
-      }
-      starCtx.lineTo(cx, cy - outerRadius);
-      starCtx.closePath();
-      starCtx.fill();
-    }
-
-    isOutOfView() {
-      return this.x > starCanvas.width || this.y > starCanvas.height || this.alpha <= 0;
-    }
-  }
-
-  // 粒子类
-  class Particle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 3 - 1.5;
-      this.speedY = Math.random() * 3 - 1.5;
-      this.alpha = 1;
-    }
-
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.size > 0.2) this.size -= 0.1;
-      this.alpha -= 0.02;  // 粒子逐渐消失
-    }
-
-    draw() {
-      particleCtx.fillStyle = `rgba(242, 187, 255, ${this.alpha})`;
-      particleCtx.beginPath();
-      particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      particleCtx.closePath();
-      particleCtx.fill();
-    }
-  }
-
-  // 初始化粒子、星星、流星数组
-  let starsArray = [];
-  let meteorsArray = [];
-  let customMeteorsArray = [];
-  let particlesArray = [];
-  const maxMeteors = 1;
-
-  // 初始化星星
-  function initStars() {
-    starsArray = [];
-    for (let i = 0; i < 150; i++) {
-      starsArray.push(new Star());
-    }
-  }
-
-  // 生成更多流星
-  function createMeteor() {
-    if (meteorsArray.length < maxMeteors) {
-      meteorsArray.push(new Meteor());
-    }
-  }
-
-  // 生成粒子
-  function createParticle(event) {
-    const x = event.x;
-    const y = event.y;
-    for (let i = 0; i < 1; i++) {
-      particlesArray.push(new Particle(x, y));
-    }
-  }
-
-  // 生成滑鼠流星
-  function createCustomMeteor(event) {
-    const x = event.clientX;
-    const y = event.clientY;
-    const newMeteor = new Meteor(x, y);
-    newMeteor.speedX = Math.random() * 8 + 4;  // 設置滑鼠流星的速度
-    newMeteor.speedY = Math.random() * 4 + 2;
-    newMeteor.size = newMeteor.originalSize; // 立即設定最大大小
-    newMeteor.alpha = 1; // 立即設定最大透明度
-    customMeteorsArray.push(newMeteor);
-  }
-
-  // 更新并绘制星星、流星和粒子
-  function handleParticles() {
-    for (let i = 0; i < particlesArray.length; i++) {
-      particlesArray[i].update();
-      particlesArray[i].draw();
-      if (particlesArray[i].alpha <= 0) {
-        particlesArray.splice(i, 1);
-        i--;
-      }
-    }
-  }
-
-  function handleStarsAndMeteors() {
-    for (let i = 0; i < starsArray.length; i++) {
-      starsArray[i].update();
-      starsArray[i].draw();
-    }
-
-    for (let i = 0; i < meteorsArray.length; i++) {
-      meteorsArray[i].update();
-      meteorsArray[i].draw();
-      if (meteorsArray[i].isOutOfView()) {
-        meteorsArray.splice(i, 1);
-        i--;
-      }
-    }
-
-    for (let i = 0; i < customMeteorsArray.length; i++) {
-      if (customMeteorsArray[i].update()) {
-        customMeteorsArray.splice(i, 1); // 移除透明度為0的滑鼠生成流星
-        i--;
-      } else {
-        customMeteorsArray[i].draw();
-      }
-    }
-  }
-
-  // 动画循环
-  function animate() {
-    starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-    particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-    handleStarsAndMeteors();
-    handleParticles();
-    requestAnimationFrame(animate);
-  }
-
-  // 初始化并开始动画
-  initStars();
-  animate();
-
-  // 流星的生成频率增加
-  setInterval(createMeteor, 500);
-
-  // 监听鼠标事件生成粒子
-  window.addEventListener('mousemove', createParticle);
-
-  // // 监听鼠标点击生成额外流星
-  // window.addEventListener('click', createCustomMeteor);
-
-
-  // 处理图像大小调整的逻辑
-  document.querySelectorAll('img').forEach(function(img) {
-      const match = img.src.match(/=(\d+)%x$/);
-      if (match) {
-          const widthPercentage = match[1];
-          img.style.width = widthPercentage + '%';
-          img.style.height = 'auto';
-          img.src = img.src.replace(/=(\d+)%x$/, '');
-      }
-  });
-});
-</script>
 
 <!-- google 朗讀和翻譯 -->
 <!--
@@ -2230,7 +1908,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div data-md-component="skip">
       
         
-        <a href="#測試" class="md-skip">
+        <a href="#mkdocs-語法" class="md-skip">
           Skip to content
         </a>
       
@@ -2336,7 +2014,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              測試
+              mkdocs 語法
             
           </span>
         </div>
@@ -2510,13 +2188,35 @@ is now available!
     
     
       <li class="md-tabs__item">
-        <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-tabs__link">
+        <a href="../../../../md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
           
   
   
     
   
-  科技_計算機結構
+  電機_作業系統
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../md/114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  機電_數位邏輯實驗
 
         </a>
       </li>
@@ -2554,35 +2254,13 @@ is now available!
     
     
       <li class="md-tabs__item">
-        <a href="../../../../md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+        <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-tabs__link">
           
   
   
     
   
-  電機_作業系統
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../md/114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
-          
-  
-  
-    
-  
-  機電_數位邏輯實驗
+  科技_計算機結構
 
         </a>
       </li>
@@ -2761,14 +2439,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="../../../archive/2024.html" class="md-nav__link">
+      <a href="../../../archive/2026.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2024
+    2026
   
 
     
@@ -3414,6 +3092,14 @@ is now available!
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3435,7 +3121,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    科技_計算機結構
+    電機_作業系統
   
 
     
@@ -3448,280 +3134,6 @@ is now available!
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    科技_計算機結構
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SI 前綴表
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%201.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ch 1
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ch 2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    資工_電腦輔助 VLSI 設計
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    資工_電腦輔助 VLSI 設計
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../md/114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    教材
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../md/114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/nmos%E3%80%81pmos.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    nmos、pmos
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    電機_作業系統
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3774,6 +3186,34 @@ is now available!
     
   
     ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%203.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 3
   
 
     
@@ -3938,10 +3378,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -3959,8 +3399,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4145,6 +3585,274 @@ is now available!
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教材
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/nmos%E3%80%81pmos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nmos、pmos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    科技_計算機結構
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    科技_計算機結構
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SI 前綴表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%201.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -4174,10 +3882,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#題目-1相對效能relative-performance相對效能" class="md-nav__link">
+  <a href="#支持折疊程式碼塊" class="md-nav__link">
     <span class="md-ellipsis">
       
-        題目 1：相對效能(Relative Performance，相對效能)
+        支持折疊程式碼塊
       
     </span>
   </a>
@@ -4185,41 +3893,13 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#題目-2使用效能計算式performance-equation效能計算式" class="md-nav__link">
+  <a href="#引用框" class="md-nav__link">
     <span class="md-ellipsis">
       
-        題目 2：使用效能計算式(Performance Equation，效能計算式)
+        引用框
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="題目 2：使用效能計算式(Performance Equation，效能計算式)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#計算-a-的-cpu-時間" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        計算 A 的 CPU 時間
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#計算-b-的-cpu-時間" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        計算 B 的 CPU 時間
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -4279,7 +3959,7 @@ is now available!
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2024-02-06 00:00:00+00:00" class="md-ellipsis">February 6, 2024</time>
+                        <time datetime="2026-02-06 00:00:00+00:00" class="md-ellipsis">February 6, 2026</time>
                       </div>
                     </li>
                     
@@ -4290,7 +3970,7 @@ is now available!
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../category/%E6%B8%AC%E8%A9%A6.html">測試</a></span>
+                              <a href="../../../category/mkdocs.html">mkdocs</a></span>
                         </div>
                       </li>
                     
@@ -4325,233 +4005,39 @@ is now available!
 
 
 
-<h1 id="測試">測試<a class="headerlink" href="#測試" title="Permanent link"></a></h1>
+<h1 id="mkdocs-語法">mkdocs 語法<a class="headerlink" href="#mkdocs-語法" title="Permanent link"></a></h1>
 <!-- more -->
 
-<p>可以，以下我把你剛剛那幾張投影片中的<strong>例題</strong>，整理成「<strong>題目</strong>＋<strong>解答</strong>」版本，方便你之後直接複習或抄筆記。</p>
-<p>這些題目的核心都建立在同一組公式上：</p>
-<ul>
-<li><strong>CPU Time = Instruction Count × CPI × Clock Cycle Time</strong></li>
-<li><strong>CPU Time = Clock Cycles / Clock Rate</strong></li>
-<li><strong>Performance ∝ 1 / Execution Time</strong></li>
-</ul>
-<p>這些都是經典的計算機結構效能公式。(<a href="https://people.eecs.berkeley.edu/~pattrsn/61CS99/lectures/lec23-perf.pdf?utm_source=chatgpt.com" title="CS61C Performance Lecture 23">EECS Berkeley</a>)</p>
-<hr />
-<h3 id="題目-1相對效能relative-performance相對效能">題目 1：相對效能(Relative Performance，相對效能)<a class="headerlink" href="#題目-1相對效能relative-performance相對效能" title="Permanent link"></a></h3>
-<p><strong>題目：</strong><br />
-如果計算機 A 執行一個程式需時 <strong>10 秒</strong>，而計算機 B 執行相同程式需時 <strong>15 秒</strong>，則 <strong>A 比 B 快幾倍</strong>？</p>
-<p><strong>解答：</strong></p>
-<p>相對效能公式：</p>
-<pre class="arithmatex">\[
-\frac{Performance_A}{Performance_B}=\frac{Execution\ Time_B}{Execution\ Time_A}
-\]</pre>
-<p>代入數值：</p>
-<p>[<br />
-\frac{Performance_A}{Performance_B}=\frac{15}{10}=1.5<br />
-]</p>
-<p><strong>答案：A 比 B 快 1.5 倍。</strong></p>
-<hr />
-<h3 id="題目-2使用效能計算式performance-equation效能計算式">題目 2：使用效能計算式(Performance Equation，效能計算式)<a class="headerlink" href="#題目-2使用效能計算式performance-equation效能計算式" title="Permanent link"></a></h3>
-<p><strong>題目：</strong><br />
-假設我們有對於同一個 ISA(instruction set architecture，指令集架構) 的兩種實作方式。</p>
-<ul>
-<li>計算機 A 的 <strong>clock cycle time(時脈週期)</strong> 為 <strong>250 ps</strong></li>
-<li>計算機 A 對某程式的 <strong>CPI</strong> 為 <strong>2.0</strong></li>
-<li>計算機 B 的 <strong>clock cycle time</strong> 為 <strong>500 ps</strong></li>
-<li>計算機 B 對同一程式的 <strong>CPI</strong> 為 <strong>1.2</strong></li>
-</ul>
-<p>問：<strong>哪一台計算機較快？快多少？</strong></p>
-<p><strong>解答：</strong></p>
-<p>設該程式的 <strong>instruction count(指令數)</strong> 為 (I)</p>
-<p>CPU 時間公式：</p>
-<p>[<br />
-CPU Time = Instruction Count \times CPI \times Clock Cycle Time<br />
-]</p>
-<h4 id="計算-a-的-cpu-時間">計算 A 的 CPU 時間<a class="headerlink" href="#計算-a-的-cpu-時間" title="Permanent link"></a></h4>
-<p>[<br />
-CPU Time_A = I \times 2.0 \times 250ps = 500I ps<br />
-]</p>
-<h4 id="計算-b-的-cpu-時間">計算 B 的 CPU 時間<a class="headerlink" href="#計算-b-的-cpu-時間" title="Permanent link"></a></h4>
-<p>[<br />
-CPU Time_B = I \times 1.2 \times 500ps = 600I ps<br />
-]</p>
-<p>因為：</p>
-<p>[<br />
-500I ps &lt; 600I ps<br />
-]</p>
-<p>所以 <strong>A 比 B 快</strong>。</p>
-<p>快多少倍：</p>
-<p>[<br />
-\frac{Performance_A}{Performance_B}<br />
-===================================</p>
-<h1 id="fracexecution-time_bexecution-time_a">\frac{Execution Time_B}{Execution Time_A}<a class="headerlink" href="#fracexecution-time_bexecution-time_a" title="Permanent link"></a></h1>
-<h1 id="frac600i500i">\frac{600I}{500I}<a class="headerlink" href="#frac600i500i" title="Permanent link"></a></h1>
-<p>1.2<br />
-]</p>
-<p><strong>答案：計算機 A 較快，且 A 是 B 的 1.2 倍快。</strong></p>
-<hr />
-<h3 id="題目-3改善效能improving-performance改善效能">題目 3：改善效能(Improving Performance，改善效能)<a class="headerlink" href="#題目-3改善效能improving-performance改善效能" title="Permanent link"></a></h3>
-<p><strong>題目：</strong><br />
-某程式在計算機 A 上執行需時 <strong>10 秒</strong>，其 <strong>clock rate(時脈速度)</strong> 為 <strong>2 GHz</strong>。<br />
-現在要設計另一台計算機 B，希望它可以在 <strong>6 秒</strong> 內執行相同程式。</p>
-<p>已知因為設計改變，B 執行該程式時需要 <strong>A 的 1.2 倍 clock cycles(時脈數)</strong>。</p>
-<p>問：<strong>計算機 B 的目標 clock rate 應該是多少？</strong></p>
-<p><strong>解答：</strong></p>
-<p>先算 A 的總時脈數：</p>
-<p>[<br />
-CPU Time_A = \frac{Clock Cycles_A}{Clock Rate_A}<br />
-]</p>
-<p>代入：</p>
-<p>[<br />
-10 = \frac{Clock Cycles_A}{2 \times 10^9}<br />
-]</p>
-<p>所以：</p>
-<p>[<br />
-Clock Cycles_A = 10 \times 2 \times 10^9 = 20 \times 10^9<br />
-]</p>
-<p>B 需要 1.2 倍時脈數，所以：</p>
-<p>[<br />
-Clock Cycles_B = 1.2 \times 20 \times 10^9 = 24 \times 10^9<br />
-]</p>
-<p>又因為 B 要在 6 秒內完成：</p>
-<p>[<br />
-6 = \frac{24 \times 10^9}{Clock Rate_B}<br />
-]</p>
-<p>所以：</p>
-<p>[<br />
-Clock Rate_B = \frac{24 \times 10^9}{6} = 4 \times 10^9<br />
-]</p>
-<p><strong>答案：計算機 B 的目標時脈速度為 4 GHz。</strong></p>
-<hr />
-<h3 id="題目-4比較程式碼片斷comparing-code-segments比較程式碼片段">題目 4：比較程式碼片斷(Comparing Code Segments，比較程式碼片段)<a class="headerlink" href="#題目-4比較程式碼片斷comparing-code-segments比較程式碼片段" title="Permanent link"></a></h3>
-<p><strong>題目：</strong><br />
-某硬體設計提供三種指令類別，其 <strong>CPI</strong> 如下：</p>
-<table>
-<thead>
-<tr>
-<th>指令類別</th>
-<th style="text-align: right;">A</th>
-<th style="text-align: right;">B</th>
-<th style="text-align: right;">C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CPI</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-</tbody>
-</table>
-<p>現在有兩種程式碼序列，其各類指令數如下：</p>
-<table>
-<thead>
-<tr>
-<th>程式碼序列</th>
-<th style="text-align: right;">A</th>
-<th style="text-align: right;">B</th>
-<th style="text-align: right;">C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>2</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
-<p>問：</p>
-<ol>
-<li>哪一個程式碼序列執行<strong>較多條指令</strong>？</li>
-<li>哪一個程式碼序列<strong>較快</strong>？</li>
-<li>各序列的 <strong>CPI</strong> 為何？</li>
-</ol>
-<p><strong>解答：</strong></p>
-<h4 id="第-1-問比較指令總數">第 1 問：比較指令總數<a class="headerlink" href="#第-1-問比較指令總數" title="Permanent link"></a></h4>
-<p>序列 1：</p>
-<p>[<br />
-2+1+2=5<br />
-]</p>
-<p>序列 2：</p>
-<p>[<br />
-4+1+1=6<br />
-]</p>
-<p><strong>答案：序列 2 執行較多條指令。</strong></p>
-<hr />
-<h4 id="第-2-問計算總-clock-cycles">第 2 問：計算總 clock cycles<a class="headerlink" href="#第-2-問計算總-clock-cycles" title="Permanent link"></a></h4>
-<p>公式：</p>
-<p>[<br />
-Clock Cycles = \sum (CPI_i \times Instruction Count_i)<br />
-]</p>
-<h4 id="序列-1">序列 1<a class="headerlink" href="#序列-1" title="Permanent link"></a></h4>
-<p>[<br />
-Clock Cycles_1=(2\times1)+(1\times2)+(2\times3)<br />
-]</p>
-<p>[<br />
-=2+2+6=10<br />
-]</p>
-<h4 id="序列-2">序列 2<a class="headerlink" href="#序列-2" title="Permanent link"></a></h4>
-<p>[<br />
-Clock Cycles_2=(4\times1)+(1\times2)+(1\times3)<br />
-]</p>
-<p>[<br />
-=4+2+3=9<br />
-]</p>
-<p>因為 <strong>9 &lt; 10</strong>，所以：</p>
-<p><strong>答案：序列 2 較快。</strong></p>
-<hr />
-<h4 id="第-3-問計算-cpi">第 3 問：計算 CPI<a class="headerlink" href="#第-3-問計算-cpi" title="Permanent link"></a></h4>
-<p>CPI 公式：</p>
-<p>[<br />
-CPI = \frac{Clock Cycles}{Instruction Count}<br />
-]</p>
-<h4 id="序列-1_1">序列 1<a class="headerlink" href="#序列-1_1" title="Permanent link"></a></h4>
-<p>[<br />
-CPI_1 = \frac{10}{5}=2.0<br />
-]</p>
-<h4 id="序列-2_1">序列 2<a class="headerlink" href="#序列-2_1" title="Permanent link"></a></h4>
-<p>[<br />
-CPI_2 = \frac{9}{6}=1.5<br />
-]</p>
-<p><strong>答案：</strong></p>
-<ul>
-<li>序列 1 的 CPI = <strong>2.0</strong></li>
-<li>序列 2 的 CPI = <strong>1.5</strong></li>
-</ul>
-<hr />
-<h3 id="幫你整理成超短版重點">幫你整理成超短版重點<a class="headerlink" href="#幫你整理成超短版重點" title="Permanent link"></a></h3>
-<h4 id="這幾題其實都在考同一件事">這幾題其實都在考同一件事<a class="headerlink" href="#這幾題其實都在考同一件事" title="Permanent link"></a></h4>
-<ol>
-<li><strong>效能和時間成反比</strong></li>
-<li><strong>CPU Time 不只看 clock rate</strong></li>
-<li><strong>還要一起看 instruction count、CPI、clock cycle time</strong></li>
-<li><strong>指令比較多，不一定比較慢</strong></li>
-<li><strong>CPI 比較低，也不一定就一定比較快</strong></li>
-</ol>
-<hr />
-<h3 id="你最該背的公式">你最該背的公式<a class="headerlink" href="#你最該背的公式" title="Permanent link"></a></h3>
-<pre class="arithmatex">\[
-CPU\ Time = Instruction\ Count \times CPI \times Clock\ Cycle\ Time
-\]</pre>
-<pre class="arithmatex">\[
-CPU\ Time = \frac{Clock\ Cycles}{Clock\ Rate}
-\]</pre>
-<pre class="arithmatex">\[
-\frac{Performance_X}{Performance_Y}
-===================================
-\frac{Execution\ Time_Y}{Execution\ Time_X}
-\]</pre>
-<p>這些公式正是 Berkeley 架構課中整理 CPU 效能時的標準寫法。(<a href="https://people.eecs.berkeley.edu/~pattrsn/61CS99/lectures/lec23-perf.pdf?utm_source=chatgpt.com" title="CS61C Performance Lecture 23">EECS Berkeley</a>)</p>
-<p>如果你要，我下一則可以直接幫你整理成 <strong>「可直接手抄到筆記本上的精簡版」</strong>。</p>
+<h2 id="支持折疊程式碼塊">支持折疊程式碼塊<a class="headerlink" href="#支持折疊程式碼塊" title="Permanent link"></a></h2>
+<div class="highlight"><span class="filename">程式塊</span><pre><span></span><code>/// collapse-code  
+```cpp
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+```
+///
+</code></pre></div>
+<div class="result">
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="c1">//...//</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="code-footer"><label class="expand" for="__collapse0" tabindex="0" title="expand"></label><label class="collapse" for="__collapse0" tabindex="0" title="collapse"></label></div>
+</div>
+</div>
+<h2 id="引用框">引用框<a class="headerlink" href="#引用框" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>/// html | div.i
+
+
+///
+</code></pre></div>
+<div class="result">
+<p>背景</p>
+<div class="i">
+<p>背景</p>
+</div>
+</div>
 
 
 
@@ -4596,24 +4082,24 @@ CPU\ Time = \frac{Clock\ Cycles}{Clock\ Rate}
       aria-label="footer.title"
     >
       
-      
         <a
-          href="mkdocs-%E8%AA%9E%E6%B3%95.html"
-          class="md-footer__link md-footer__link--next"
-          rel="next"
+          href="%E6%B8%AC%E8%A9%A6.html"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
         >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Next
+                Previous
               </span>
-              mkdocs 語法
+              測試
             </div>
           </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-          </div>
         </a>
+      
       
     </nav>
   
@@ -4664,9 +4150,15 @@ CPU\ Time = \frac{Clock\ Cycles}{Clock\ Rate}
       
         <script src="../../../../assets/pymdownx-extras/mermaid-render-fix.js"></script>
       
+        <script src="../../../../assets/pymdownx-extras/mermaid-zoom.js"></script>
+      
         <script src="../../../../assets/pymdownx-extras/toc-fold.js"></script>
       
         <script src="../../../../assets/pymdownx-extras/image-zoom.js"></script>
+      
+        <script src="../../../../assets/pymdownx-extras/folder-path-bar.js"></script>
+      
+        <script src="../../../../assets/pymdownx-extras/legacy-image-width.js"></script>
       
         <script src="../../../../assets/pymdownx-extras/source-jump.js"></script>
       
