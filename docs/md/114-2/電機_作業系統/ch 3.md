@@ -764,9 +764,9 @@ flowchart TB
 [4]: https://docs.oracle.com/cd/E19683-01/816-1386/6m7qcobl6/index.html?utm_source=chatgpt.com "Performance Considerations (Linker and Libraries Guide)"
 
 
-## 映射是啥
+### 映射是啥
 
-### 什麼叫「映射」？
+#### 什麼叫「映射」？
 
 最生活化的比喻：
 
@@ -782,7 +782,7 @@ flowchart TB
 這就是「先建立對應，再按需載入」的感覺。
 
 
-### 為什麼要用「映射」，不要每次都整份複製？
+#### 為什麼要用「映射」，不要每次都整份複製？
 
 因為映射有幾個很大的好處：
 
@@ -799,7 +799,7 @@ flowchart TB
 mmap() 可以指定 PROT_READ、PROT_WRITE、PROT_EXEC，所以 code 頁通常可執行但不可改，data 頁通常可讀寫。
 
 
-### mmap() 的「映射」跟「複製」差在哪？
+#### mmap() 的「映射」跟「複製」差在哪？
 
 這裡最容易誤解，我直接對比：
 
@@ -820,7 +820,7 @@ Linux mmap(2) 手冊明講：file mapping 的內容，是由檔案中某個 offs
 - 真正碰到頁面時再處理
 
 
-### 再問一個你現在很該懂的問題：text section 是「被載入」還是「被映射」？
+#### 再問一個你現在很該懂的問題：text section 是「被載入」還是「被映射」？
 
 兩個都可以講，但精確度不同。
 
