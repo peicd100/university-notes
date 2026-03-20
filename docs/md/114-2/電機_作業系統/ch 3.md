@@ -1,9 +1,6 @@
 
 ## 3.1.1 行程(Process)
-
-![alt text](<images/ch 3/image.png>)
-
-
+![alt text](../../../images/image-9.png)
 ### 講解
 
 #### 這張投影片在回答什麼
@@ -196,6 +193,8 @@ void f() {
 #### 你可以這樣一句話背起來
 
 **Process = text + data + heap + stack + CPU 執行狀態(PC、registers)**。
+
+其中，CPU 執行狀態(PC、registers)是放在CPU中。
 
 ---
 
@@ -571,9 +570,7 @@ valgrind --leak-check=full ./a.out
 
 
 ## Text Section(程式碼區／文字區／text segment)
-
-![alt text](<images/ch 3/image-1.png>)
-
+![alt text](../../../images/image-10.png)
 #### 這張圖在講什麼？
 
 這張投影片是在專講 **Text Section(程式碼區／文字區／text segment)**。
@@ -788,7 +785,7 @@ flowchart TB
 
 1. 省時間
 
-不必一開始就把整個檔案都搬進 RAM。很多程式碼頁面可能根本不會執行到。官方文件明講，很多 pages 可能永遠不會被 referenced，所以延後實體讀取能提升效能。
+不必一開始就把整個檔案都搬進 RAM (也就是說這些 text + data + heap + stack是在 RAM 中)。很多程式碼頁面可能根本不會執行到。官方文件明講，很多 pages 可能永遠不會被 referenced，所以延後實體讀取能提升效能。
 
 2. 省記憶體
 
@@ -838,9 +835,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 ## Data Section(資料區 / data segment)
 
 
-![alt text](<images/ch 3/image-2.png>)
-
-
+![alt text](../../../images/image-11.png)
 #### 這張圖在講什麼？
 
 這張投影片是在講 **Data Section(資料區 / data segment)**。
@@ -1110,8 +1105,7 @@ void f() {
 
 ## Stack memory(堆疊記憶體)
 
-![alt text](<images/ch 3/image-3.png>)
-
+![alt text](../../../images/image-12.png)
 ### 講解
 #### 這張投影片在講什麼
 
@@ -1497,8 +1491,7 @@ void recur() {
 
 ## Heap memory(堆積記憶體)
 
-![alt text](<images/ch 3/image-4.png>)
-
+![alt text](../../../images/image-13.png)
 ### 講解
 
 #### 這張投影片在講什麼
@@ -1712,3 +1705,7 @@ C 常是 `malloc/free`，C++ 常是 `new/delete`；實務上也常由容器與 s
 [3]: https://man7.org/linux/man-pages/man3/malloc.3.html "https://man7.org/linux/man-pages/man3/malloc.3.html"
 [4]: https://en.cppreference.com/w/cpp/memory/new.html "https://en.cppreference.com/w/cpp/memory/new.html"
 [5]: https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html "https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html"
+
+
+看到：p.9
+file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(peicd100@gmail.com)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%95%99%E6%9D%90/chapter%203_20240318.pdf
