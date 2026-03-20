@@ -1,6 +1,5 @@
-```
 GPT網址：[https://chatgpt.com/g/g-p-699ff24150388191ac556d3fa6f1be24-peicd-zuo-ye-xi-tong/c/699ffead-7304-83a6-b141-80e1e6d22bf8](https://chatgpt.com/g/g-p-699ff24150388191ac556d3fa6f1be24-peicd-zuo-ye-xi-tong/c/699ffead-7304-83a6-b141-80e1e6d22bf8)
-```
+
 
 ## 什麼是作業系統?
 
