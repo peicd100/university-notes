@@ -89,6 +89,8 @@ git clone https://github.com/peicd100/university-notes.git
 
 ## 使用者要求
 - 此資料夾已明確視為專案，後續持續維護 `README_PEICD100.md`、`.gitignore`、`專案規格書.md`。
+- 任何選取有關的東西，都要用四個角選取敵人的風格，不要用圓角膠囊式高亮。
+- 主題色都用 `cyan`。
 - 此專案使用 `mkdocs` conda 環境。
 - Python 專案需要維護 `vbs_bat\university notes.vbs` 與 `vbs_bat\run.bat`，按 `.vbs` 可直接啟動專案。
 - 本機隱藏啟動流程：先 `mkdocs build --clean`，再用 `tools\project_launcher.py` 開啟本機靜態站。
@@ -139,6 +141,9 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-20：已將內容區 `h1~h6` 改為明確由大到小的字級階梯：`h1=2rem`、`h2=1.7rem`、`h3=1.4rem`、`h4=1.2rem`、`h5=1.05rem`、`h6=1rem`。
 - 2026-03-20：已完全移除 `main.html` 對 `star.html` 的引用，並刪除 `docs/theme/star.html`；原本星空背景、流星與滑鼠粒子互動已取消。
 - 2026-03-20：為了避免直接拔掉 `star.html` 後連帶丟失舊圖片百分比語法支援，已將那段相容邏輯獨立到 `assets/pymdownx-extras/legacy-image-width.js`，改由 `mkdocs.yml` 的 `extra_javascript` 載入。
+- 2026-03-20：已新增 H1 上方的檔案總管式路徑列，樣式類似 `./電機_作業系統/ch 1`；第一段使用目前頂部分頁，第二段使用目前左側欄頁面清單，兩段都可用下拉選單切換。
+- 2026-03-20：已將 H1 上方路徑列改為純文字外觀，移除圓形／膠囊背景；目前項目、展開中項目與下拉選單當前項目皆改用左右側欄相同的四角選取高亮。
+- 2026-03-20：已將路徑列的未選取文字改回一般淡色，並把目前選取與下拉選單當前項目的文字統一改成主題色 `cyan`。
 - 2026-03-20：已依 Mermaid 官方較新的設定方式，補上 root-level `htmlLabels`；同時保留原本 flowchart 層設定，兼顧現有版本相容性。
 - 2026-03-20：已將 `docs/md/114-2/電機_作業系統/ch 3.md` 內所有 Markdown 標題整體下移一級（`h1 -> h2`、`h2 -> h3`，依此類推）。
 - 2026-03-20：已新增本機預覽專用的「選字後右鍵跳到原文位置」功能；在 `mkdocs serve` 下，右鍵選單可依目前頁面與選取內容反查對應 `.md` 檔案與行列，並直接用 VS Code 開啟。

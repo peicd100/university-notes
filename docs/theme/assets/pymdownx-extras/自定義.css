@@ -482,7 +482,270 @@ body {
 }
 
 /* ==========================================================================
-   14) 連結底線：用 background-image 做「可動畫的底線」
+   14) 資料夾階層路徑列（檔案總管風格）
+   ========================================================================== */
+
+.peicd-folder-pathbar {
+  align-items: center;
+  color: var(--md-default-fg-color--light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 0.9rem;
+  overflow: visible;
+  position: relative;
+  z-index: 8;
+}
+
+.peicd-folder-pathbar__prefix,
+.peicd-folder-pathbar__separator {
+  color: var(--md-default-fg-color--lighter);
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
+.peicd-folder-pathbar__item {
+  position: relative;
+}
+
+.peicd-folder-pathbar__toggle {
+  align-items: center;
+  appearance: none;
+  background: none;
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 0.42rem;
+  line-height: 1;
+  padding: 0.38rem 0.52rem;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.peicd-folder-pathbar__toggle:hover,
+.peicd-folder-pathbar__toggle:focus-visible,
+.peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
+.peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+  color: var(--md-primary-fg-color);
+  outline: none;
+}
+
+.peicd-folder-pathbar__toggle:hover,
+.peicd-folder-pathbar__toggle:focus-visible,
+.peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle {
+  box-shadow: 0 0 0.9rem rgba(122, 211, 255, 0.14);
+  background-image:
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0) !important;
+  background-repeat: no-repeat !important;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom !important;
+  background-size:
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner) !important;
+}
+
+.peicd-folder-pathbar__label {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.peicd-folder-pathbar__caret {
+  color: var(--md-default-fg-color--lighter);
+  font-size: 0.8rem;
+  transform: translateY(-0.02rem);
+}
+
+.peicd-folder-pathbar__menu {
+  background: rgba(17, 24, 36, 0.96);
+  border: 1px solid rgba(122, 211, 255, 0.18);
+  border-radius: 0.9rem;
+  box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.32);
+  display: none;
+  left: 0;
+  margin-top: 0.45rem;
+  max-height: min(18rem, 55vh);
+  min-width: 12rem;
+  overflow: auto;
+  padding: 0.32rem;
+  position: absolute;
+  top: 100%;
+  z-index: 30;
+}
+
+.peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__menu {
+  display: block;
+}
+
+.peicd-folder-pathbar__option {
+  background: none !important;
+  background-image: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  color: var(--md-default-fg-color--lighter) !important;
+  display: block;
+  font-size: 0.92rem;
+  padding: 0.58rem 0.72rem;
+  text-decoration: none !important;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.peicd-folder-pathbar__option:hover,
+.peicd-folder-pathbar__option:focus-visible {
+  color: var(--md-primary-fg-color) !important;
+  outline: none;
+  box-shadow: 0 0 0.7rem var(--peicd-nav-hover-glow) !important;
+  background-image:
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0),
+    linear-gradient(var(--peicd-nav-hover-corner) 0 0) !important;
+  background-repeat: no-repeat !important;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom !important;
+  background-size:
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner) !important;
+}
+
+.peicd-folder-pathbar__option--current {
+  color: var(--md-primary-fg-color) !important;
+  font-weight: 700;
+  box-shadow: 0 0 1.1rem var(--peicd-nav-active-glow) !important;
+  background-image:
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0),
+    linear-gradient(var(--peicd-nav-active-corner) 0 0) !important;
+  background-repeat: no-repeat !important;
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom !important;
+  background-size:
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner),
+    var(--peicd-sel-corner) var(--peicd-sel-line),
+    var(--peicd-sel-line) var(--peicd-sel-corner) !important;
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__toggle {
+  background: none;
+  border-color: transparent;
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__toggle:hover,
+[data-md-color-scheme="default"] .peicd-folder-pathbar__toggle:focus-visible,
+[data-md-color-scheme="default"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="default"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__toggle:hover,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__toggle:focus-visible,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+  color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__menu,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__menu {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(19, 73, 97, 0.14);
+  box-shadow: 0 1rem 2rem rgba(19, 73, 97, 0.12);
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__option,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__option {
+  color: var(--md-default-fg-color--lighter) !important;
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__option:hover,
+[data-md-color-scheme="default"] .peicd-folder-pathbar__option:focus-visible,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__option:hover,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__option:focus-visible {
+  color: var(--md-primary-fg-color) !important;
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__option--current,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__option--current {
+  color: var(--md-primary-fg-color) !important;
+}
+
+.peicd-folder-pathbar--hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@media (max-width: 59.999em) {
+  .peicd-folder-pathbar {
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .peicd-folder-pathbar--hidden {
+    display: none;
+  }
+
+  .peicd-folder-pathbar__toggle {
+    max-width: min(100%, 78vw);
+    padding: 0.4rem 0.65rem;
+  }
+
+  .peicd-folder-pathbar__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .peicd-folder-pathbar__menu {
+    max-width: min(18rem, calc(100vw - 2rem));
+    min-width: min(12rem, calc(100vw - 2rem));
+  }
+}
+
+/* ==========================================================================
+   15) 連結底線：用 background-image 做「可動畫的底線」
    ========================================================================== */
 
 .md-typeset a {
