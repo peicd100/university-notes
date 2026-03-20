@@ -1106,3 +1106,609 @@ void f() {
 [1]: https://docs.oracle.com/cd/E19683-01/817-1974/817-1974.pdf?utm_source=chatgpt.com "Linker and Libraries Guide"
 [2]: https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter7-1.html?utm_source=chatgpt.com "Special Sections - Linker and Libraries Guide"
 [3]: https://docs.oracle.com/cd/E19641-01/802-1955/802-1955.pdf?utm_source=chatgpt.com "Linker and Libraries Guide"
+
+
+## Stack memory(堆疊記憶體)
+
+![alt text](<images/ch 3/image-3.png>)
+
+### 講解
+#### 這張投影片在講什麼
+
+這張是在專講 **Stack memory(堆疊記憶體)**。
+它想傳達的核心是：
+
+**Stack 是專門服務「函式呼叫(function call)」的一塊記憶體區域。**
+裡面通常放：
+
+* **local variables(區域變數)**
+* **function parameters(函式參數)**
+* **return address(返回位址)**
+* 其他和呼叫流程有關的資料
+
+這也和你們教材前面整理的一致。 
+
+---
+
+#### 先用最白話方式理解
+
+你可以把 stack 想成一疊托盤。
+
+* 呼叫一個函式，就像**再疊上一個新托盤**
+* 函式裡的區域變數、參數，就放在那個托盤上
+* 函式結束，就把最上面那個托盤拿掉
+
+所以它是 **LIFO(Last-In, First-Out，後進先出)**。
+教材這張投影片也直接這樣寫。
+
+---
+
+#### 1. 為什麼函式呼叫會用 stack？
+
+因為函式呼叫天然就很適合「後進先出」。
+
+例如：
+
+```c
+void C() { }
+void B() { C(); }
+void A() { B(); }
+
+int main() { A(); }
+```
+
+執行順序是：
+
+* `main()` 呼叫 `A()`
+* `A()` 呼叫 `B()`
+* `B()` 呼叫 `C()`
+
+那返回時一定是反過來：
+
+* `C()` 先回去 `B()`
+* `B()` 再回去 `A()`
+* `A()` 再回去 `main()`
+
+這就是標準的後進先出。
+所以用 stack 來管理函式呼叫，非常自然。教材也把 stack 定義成用於 function calls 與 local variables 的區域。
+
+---
+
+#### 2. stack 裡面到底放什麼？
+
+你現在先記這四種最重要：
+
+##### local variables(區域變數)
+
+例如：
+
+```c
+void f() {
+    int x = 10;
+    int arr[100];
+}
+```
+
+這裡的 `x` 和 `arr`，在課堂簡化模型裡都屬於 stack 上的資料。教材也是這樣教。
+
+##### function parameters(函式參數)
+
+例如：
+
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+`a`、`b` 是這次呼叫 `add()` 所需要的資料，通常和這次呼叫的 stack frame 一起管理。教材也列出 function parameters。
+
+##### return address(返回位址)
+
+函式跑完後，CPU 要知道「回哪一行繼續執行」。
+這個位置資訊就是 **return address**。教材也明講 stack 會存 return addresses。
+
+##### 其他 function-related data
+
+例如某些暫存器保存值、對齊資訊、呼叫慣例需要的額外空間。這些細節會依 **calling convention(呼叫慣例)** 和架構不同而變。這屬於更底層的 ABI 細節。
+
+---
+
+#### 3. 什麼是 stack frame(堆疊框架)？
+
+雖然你這張投影片沒直接寫這個詞，但它是理解 stack 最關鍵的概念之一。
+
+每呼叫一次函式，通常就會建立一個 **stack frame(堆疊框架)**。
+你可以把它想成：
+
+> 這一次函式呼叫專屬的小工作區
+
+裡面常放：
+
+* 這次呼叫的參數
+* 區域變數
+* 返回位址
+* 一些暫存資訊
+
+所以 `main -> A -> B -> C` 時，stack 上常像這樣：
+
+```mermaid
+flowchart TB
+    A["stack top<br>C 的 frame"] --> B["B 的 frame"]
+    B --> C["A 的 frame"]
+    C --> D["main 的 frame"]
+```
+
+`C()` 結束時，最上面的 frame 先被移掉。
+這就是 LIFO。
+
+---
+
+#### 4. 為什麼 stack 常被說「自動管理」？
+
+因為和 heap 不同，stack 通常不需要你手動 `free()` 或 `delete()`。
+
+教材寫的是：
+
+> stack 的配置與釋放是由 compiler 或 runtime system 自動處理。
+
+白話就是：
+
+* 進入函式：系統幫你騰出一塊 stack 空間
+* 離開函式：系統自動把那塊空間回收
+
+所以像這樣：
+
+```c
+void f() {
+    int x = 5;
+}
+```
+
+`x` 不需要你自己回收。
+`f()` 結束，`x` 對應的 stack 空間就自動失效了。
+
+這也是為什麼 **返回 local variable 位址** 會出事。教材後面也特別把這列成常見記憶體錯誤。
+
+---
+
+#### 5. 為什麼 stack 通常比較快？
+
+因為 stack 的管理方式很規律：
+
+* 只要移動 **stack pointer(堆疊指標)**
+* 幾乎不需要像 heap 那樣找零散可用區塊
+* 不太會有 heap 那種 **fragmentation(碎裂)** 問題
+
+教材也直接比較過：
+
+* stack 是連續記憶體
+* 自動配置 / 釋放
+* access time 較快
+* main issue 比較偏向空間不足，而不是碎裂 
+
+所以你可以把它記成：
+
+> **stack 快，是因為規則單純。**
+> **heap 彈性大，但管理成本高。**
+
+---
+
+#### 6. 這張投影片哪裡要小心？有一點講得太簡化
+
+投影片有一句：
+
+> Stack memory is limited in size and fixed at compile time.
+
+這句拿來教初學者方向上還可以，但**精確來說太粗略**。
+
+更正確的說法是：
+
+* **stack 通常有大小限制**
+* 但這個限制往往是由 **作業系統 / 執行環境 / 執行檔設定 / thread attributes** 決定
+* 不應該直接背成「一定在 compile time(編譯期) 固定」
+
+在 Linux/NPTL 下，新 thread 的預設 stack size 會受到 **RLIMIT_STACK** 影響，也可以用 `pthread_attr_setstacksize()` 顯式設定；man page 也明講 **thread 的 stack size 是在 thread 建立時固定**，不是單純「編譯時固定」。([man7.org][1])
+
+所以這裡你可以這樣修正背法：
+
+* **教材簡化背法**：stack 較小、有限、通常比 heap 小
+* **精確背法**：stack 大小通常受 OS / thread 建立設定限制，不是單靠編譯器決定 ([man7.org][1])
+
+---
+
+#### 7. local variable 一定「保證」在 stack 嗎？
+
+在你這門課的簡化模型裡，先記：
+
+* **local variable → stack**
+
+這樣做題通常沒問題。教材也是這樣教。
+
+但更精確地說，C/C++ 語言標準講的是 **automatic storage duration(自動儲存期)**：
+區域變數在進入區塊時建立、離開時銷毀；至於底層實作是不是一定放在 stack，語言標準不直接強制。cppreference 也是這樣整理。([CPP參考][2])
+
+所以考試通常答：
+
+* **課堂講法**：local variable 在 stack
+* **語言精確講法**：多半是 automatic storage duration，stack 是常見實作
+
+---
+
+#### 8. 為什麼 stack 容易 overflow(溢位)？
+
+教材後面有直接點出兩個常見原因：
+
+* **函式呼叫太深**，例如 recursion(遞迴) 太深
+* **區域變數太大**，例如在函式裡宣告很大的陣列 
+
+例如：
+
+```c
+void f() {
+    int a[10000000];
+}
+```
+
+這種就很容易把 stack 撐爆。
+
+再例如：
+
+```c
+void recur() {
+    recur();
+}
+```
+
+沒有停止條件的遞迴，stack frame 會一直疊上去，也很容易 stack overflow。
+
+---
+
+#### 9. stack 和 heap 最重要的比較
+
+##### stack
+
+* 給函式呼叫用
+* 自動配置 / 回收
+* 後進先出
+* 通常較快
+* 空間通常較小
+* 容易出現 stack overflow  
+
+##### heap
+
+* 給動態配置用
+* `malloc/free`、`new/delete`
+* 彈性大
+* 管理成本較高
+* 容易 memory leak / fragmentation  
+
+---
+
+```mermaid
+flowchart TB
+    A["函式被呼叫"] --> B["建立一個 stack frame"]
+    B --> C["放參數、區域變數、返回位址"]
+    C --> D["函式執行完畢"]
+    D --> E["frame 自動移除"]
+```
+
+---
+
+#### 10. 多執行緒時還要再補一個觀念
+
+到了 thread(執行緒) 那章，這件事很重要：
+
+**每個 thread 通常都有自己的 stack。**
+教材在 pthread 那章也直接寫了：每個 pthread 都需要自己的 stack 來存 local variables 和 function call information；如果 thread 太多、stack 太大，會消耗很多記憶體，甚至造成 stack overflow。
+
+所以：
+
+* 同一個 process 的多個 thread 常會共享 code / heap / global data
+* 但**各自有自己的 stack**
+
+這點你之後學 race condition、thread-local 行為時會非常重要。
+
+---
+
+#### 這張投影片最容易考的重點
+
+##### 第一個重點
+
+**stack 用來管理 function calls。**
+所以 local variables、parameters、return addresses 常在這裡。
+
+##### 第二個重點
+
+**stack 是 LIFO。**
+最後進去的那層函式，最先返回。
+
+##### 第三個重點
+
+**stack 是自動管理。**
+不像 heap 要自己 `free/delete`。
+
+##### 第四個重點
+
+**stack 通常較快，但比較小。**
+而且容易因深遞迴或大區域變數而 overflow。 ([man7.org][1])
+
+##### 第五個重點
+
+投影片的「fixed at compile time」要保留但別背死；更精確是**受執行環境與 thread 建立設定影響**。([man7.org][1])
+
+---
+
+#### 一句話總結
+
+**Stack memory 是用來支撐函式呼叫的自動管理記憶體區；它以 LIFO 方式運作，通常存放區域變數、參數與返回位址，速度快但空間有限，也因此特別怕深遞迴和大區域陣列。**  ([man7.org][1])
+
+下一張如果你貼 **Heap memory**，我們就可以把兩者完整對照起來。
+
+[1]: https://man7.org/linux/man-pages/man3/pthread_create.3.html?utm_source=chatgpt.com "pthread_create(3) - Linux manual page"
+[2]: https://cppreference.com/book/storage_durations.html?utm_source=chatgpt.com "storage durations - cppreference.com"
+
+#### main 也算是一種函數對不對，然後就算函數沒有新增任何變數(裡面的運算都用全域變數)，也會增加記憶體對不對
+對，**`main` 也算函數(function)**。  
+在 C 裡，`main` 是程式在 **hosted environment(有作業系統的執行環境)** 下的指定起點；C++ 也一樣把 `main` 視為全域命名空間中的那個特殊函數。[en.cppreference.com+1](https://en.cppreference.com/w/c/language/main_function.html?utm_source=chatgpt.com)
+
+
+#### 第一個問題：`main` 算不算函數？
+
+✅ 算。  
+只是它是**很特殊的函數**：
+
+- 程式不是從你自己手寫的其他函數開始，而是從 `main` 開始進入你的使用者程式邏輯
+    
+- 在 C/C++ 裡，`main` 都有特別規定的型態與行為[en.cppreference.com+1](https://en.cppreference.com/w/c/language/main_function.html?utm_source=chatgpt.com)
+    
+
+你可以先把它想成：
+
+> `main` 就是「第一個被執行的使用者函數」。
+
+---
+
+#### 第二個問題：函數就算沒有新增任何區域變數，也會增加記憶體嗎？
+
+✅ 一般來說，**會有一些額外成本**。  
+因為函數呼叫不只是在跑程式碼，通常還要處理和呼叫流程有關的資料，例如：
+
+- **return address(返回位址)**
+    
+- 可能需要保存的 **registers(暫存器)**
+    
+- 參數傳遞需要的空間
+    
+- 可能的 **stack frame(堆疊框架)** 管理資訊
+    
+
+所以即使函數裡**沒有宣告任何 local variable(區域變數)**，也不代表它是「零記憶體成本」。
+
+```c
+void recur() {  
+    recur();  
+}
+```
+
+這個例子很關鍵。  
+就算你**完全沒有宣告區域變數**，只要每次呼叫都要保留「回來的位置」和呼叫狀態，遞迴還是會一層一層疊上去，最後可能 **stack overflow(堆疊溢位)**。
+
+
+## Heap memory(堆積記憶體)
+
+![alt text](<images/ch 3/image-4.png>)
+
+### 講解
+
+#### 這張投影片在講什麼
+
+這張是在講 **Heap memory(堆積記憶體)**。
+最核心一句話：
+
+**Heap 是給「執行期間動態配置(dynamic allocation)」用的記憶體區。**
+
+也就是說，當你在程式跑到一半，才決定「我現在需要一塊空間」，這時常用的就是 heap。
+在 C 裡常見是 `malloc()/free()`；在 C++ 裡常見是 `new/delete`。cppreference 將這類物件稱為 **dynamic storage duration(動態儲存期)** 物件；Linux 的 `malloc(3)` 也直接寫到 `malloc()` 通常從 heap 配置記憶體。([en.cppreference.com][1])
+
+---
+
+#### 先用白話理解
+
+你可以把 heap 想成：
+
+> 程式執行時，去倉庫臨時租空間。
+
+跟 stack 不同，heap 不是「函式結束就自動回收」那種。
+它比較像：
+
+* 你要多少，執行時才去申請
+* 你要用多久，自己決定
+* 用完要記得還回去，不然就會變成 **memory leak(記憶體洩漏)** ([en.cppreference.com][2])
+
+---
+
+#### 1. 為什麼需要 heap？
+
+因為有些資料：
+
+* **大小執行前不知道**
+* **要活得比單一函式更久**
+* **可能很大，不適合放 stack**
+
+例如：
+
+* linked list(鏈結串列)
+* tree(樹)
+* dynamic array(動態陣列)
+* 執行時才決定大小的 buffer(緩衝區)
+
+這也是投影片最後一點在講的重點。
+從語言角度看，這些通常屬於 **dynamic storage duration**。([en.cppreference.com][1])
+
+---
+
+#### 2. `malloc/free`、`new/delete` 在做什麼？
+
+##### C 的 `malloc/free`
+
+```c
+int *p = malloc(10 * sizeof(int));
+free(p);
+```
+
+`malloc()` 會配置一塊未初始化的儲存空間並回傳指標；
+`free()` 則釋放先前配置的空間。Linux `malloc(3)` 與 cppreference 都是這樣定義的。([man7.org][3])
+
+##### C++ 的 `new/delete`
+
+```cpp
+int* p = new int(42);
+delete p;
+```
+
+`new` 建立的是 **dynamic storage duration** 物件；
+`delete` 會銷毀該物件並呼叫對應的 deallocation。cppreference 也是這樣描述。([en.cppreference.com][4])
+
+---
+
+#### 3. 為什麼說 heap 適合「超過單一函式生命週期」的資料？
+
+看這個例子：
+
+```c
+int* make_array(int n) {
+    int *p = malloc(n * sizeof(int));
+    return p;
+}
+```
+
+這裡 `p` 這個指標變數本身是 **local variable(區域變數)**，通常在 stack。
+但 `malloc()` 配出來的那塊空間在 heap，所以即使 `make_array()` 結束，那塊 heap 記憶體仍然存在，呼叫者還可以繼續使用它。這就是動態配置最典型的用途。([man7.org][3])
+
+這也順便再提醒一次：
+
+> **指標變數在哪裡**
+> 跟
+> **指標指向的資料在哪裡**
+> 是兩件不同的事。
+
+---
+
+#### 4. 為什麼 heap 比 stack 更彈性？
+
+因為 stack 的使用模式很固定，主要服務函式呼叫；
+heap 則是「你要幾塊、要多大、要活多久」都可以執行時決定。
+
+Linux `malloc(3)` 提到，`malloc()` 通常會調整 heap 大小；而在 glibc 裡，較大的配置甚至可能改用 `mmap()` 來做，不一定全都來自傳統意義上的單一 heap 區。這也說明了：**教材裡的 heap 圖是教學模型，實際 allocator 實作會更複雜。** ([man7.org][3])
+
+所以你可以這樣背：
+
+* **課堂簡化講法**：動態配置資料在 heap
+* **精確系統講法**：動態配置通常由 allocator 管理，底層可能透過 heap 擴張、`mmap()` 等方式取得記憶體 ([man7.org][3])
+
+---
+
+#### 5. 為什麼 heap 容易出問題？
+
+這張投影片提到兩個大坑，很重要：
+
+##### memory leak(記憶體洩漏)
+
+你申請了 heap 空間，但之後沒有正確釋放，或者把原本唯一能指向它的指標弄丟了。
+cppreference 的 `new` 頁面直接舉了這種例子：指標丟失後，物件變成 unreachable(不可達)，就無法釋放，形成 memory leak。([en.cppreference.com][2])
+
+##### fragmentation(碎裂)
+
+heap 反覆配置與釋放後，可用空間可能被切成很多零碎小塊。
+這不像 stack 那樣只要移動一下 stack pointer 就好，heap allocator 需要管理零散區塊，因此通常成本更高。`malloc_trim(3)` 與 `malloc(3)` 都反映了 glibc allocator 需要處理 heap 回收與管理的複雜性。([man7.org][5])
+
+---
+
+#### 6. heap 一定比 stack 大嗎？
+
+這張投影片說 heap 通常比 stack 大，方向上沒問題，但不要背成「絕對永遠如此」。
+
+更精確地說：
+
+* **stack** 往往有較明確的大小限制
+* **heap** 通常較彈性，能隨需求成長
+* 但最終仍受 process 位址空間、OS 限制、allocator 行為影響
+
+所以課堂上記成「heap 通常比 stack 大、比較不受單一函式呼叫模式限制」是合理的，但在真實系統裡它不是一條數學定律。`malloc(3)` 也說明了配置行為會受實作與系統限制影響。([man7.org][3])
+
+---
+
+#### 7. heap 跟 stack 最關鍵的差別
+
+```mermaid
+flowchart TB
+    A["記憶體用途"] --> B["Stack<br>函式呼叫用<br>自動管理<br>通常較快"]
+    A --> C["Heap<br>動態配置用<br>手動或物件管理<br>較彈性"]
+```
+
+##### stack
+
+* 放 local variables、parameters、return address
+* 函式結束通常自動回收
+* 配置 / 釋放規律，通常較快
+
+##### heap
+
+* 放動態配置資料
+* 要 `free/delete`，或交給容器 / 智慧指標管理
+* 較彈性，但容易 leak、碎裂、管理複雜 ([en.cppreference.com][1])
+
+---
+
+#### 8. C++ 實務上不要把「heap = 一定自己手寫 new/delete」背太死
+
+這點很重要。
+在現代 C++ 裡，雖然底層很多東西仍然用到 dynamic allocation，但實務上常建議：
+
+* 動態陣列優先用 `std::vector`
+* 單一擁有權物件優先用 `std::unique_ptr`
+* 少直接裸寫 `new/delete`
+
+原因很簡單：
+這樣更不容易 memory leak，也更容易在例外情況下正確回收。cppreference 在 `new` 的 leak 說明後，也提到常把 `new` 結果放進 smart pointer。([en.cppreference.com][2])
+
+如果你是在你自己的 Win11 + Python/C++ 學習環境做實驗，這種做法也比較可靠。
+
+---
+
+#### 9. 最容易考的觀念
+
+##### heap 放什麼？
+
+放 **執行時動態配置** 的資料。([en.cppreference.com][1])
+
+##### 為什麼用 heap？
+
+因為資料大小或存活時間要到執行時才知道，或要跨函式存在。([en.cppreference.com][4])
+
+##### 誰管理 heap？
+
+C 常是 `malloc/free`，C++ 常是 `new/delete`；實務上也常由容器與 smart pointer 代管。([man7.org][3])
+
+##### heap 的風險？
+
+最典型是 **memory leak** 與 **fragmentation**。([en.cppreference.com][2])
+
+##### heap 一定是單一連續區塊嗎？
+
+教材圖上會畫成一塊往上長的區域，但真實 allocator 可能透過 `sbrk()` 與 `mmap()` 等不同方式取得記憶體，所以那張圖是**概念圖**。([man7.org][3])
+
+---
+
+#### 一句話總結
+
+**Heap memory 是程式執行期間用來做動態配置的記憶體區；它比 stack 更彈性，適合存活期較長或大小執行時才知道的資料，但因為管理較複雜，也更容易出現 memory leak 與 fragmentation。** ([en.cppreference.com][1])
+
+下一步最適合的是，我幫你做一張 **Text / Data / BSS / Stack / Heap 總整理表**，把前面所有概念一次串起來。
+
+[1]: https://en.cppreference.com/book/storage_durations "https://en.cppreference.com/book/storage_durations"
+[2]: https://en.cppreference.com/w/cpp/language/new.html "https://en.cppreference.com/w/cpp/language/new.html"
+[3]: https://man7.org/linux/man-pages/man3/malloc.3.html "https://man7.org/linux/man-pages/man3/malloc.3.html"
+[4]: https://en.cppreference.com/w/cpp/memory/new.html "https://en.cppreference.com/w/cpp/memory/new.html"
+[5]: https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html "https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html"
