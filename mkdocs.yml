@@ -106,6 +106,7 @@ extra_javascript:
   - assets/pymdownx-extras/mermaid-config-override.js  # Mermaid flowchart 啟用 htmlLabels，支援節點內 <br>
   - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
   - assets/pymdownx-extras/mermaid-render-fix.js  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
+  - assets/pymdownx-extras/mermaid-zoom.js  # Mermaid 圖卡化與放大檢視
   - assets/pymdownx-extras/toc-fold.js  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
   - assets/pymdownx-extras/source-jump.js  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）

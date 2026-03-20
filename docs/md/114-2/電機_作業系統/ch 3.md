@@ -3,7 +3,10 @@
 
 ![alt text](<images/ch 3/image.png>)
 
-### 這張投影片在回答什麼
+
+### 講解
+
+#### 這張投影片在回答什麼
 
 這張圖在回答一個很核心的問題：
 
@@ -14,7 +17,7 @@
 
 ---
 
-### 先看右邊那張記憶體圖
+#### 先看右邊那張記憶體圖
 
 右圖是在畫一個 process 的**典型記憶體配置(memory layout)**：
 
@@ -34,9 +37,9 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 
 ---
 
-### 四個區塊各自在做什麼
+#### 四個區塊各自在做什麼
 
-#### 1. text section(程式碼區／本文區)
+##### 1. text section(程式碼區／本文區)
 
 這裡放的是**可執行的機器指令(machine instructions)**，也就是 CPU 真正要跑的程式內容。教材說 text section 就是 executable code，通常是唯讀(read-only)，而且同一支程式的多個執行個體有時可以共享這一段。
 
@@ -50,7 +53,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 
 ---
 
-#### 2. data section(資料區)
+##### 2. data section(資料區)
 
 這裡主要放：
 
@@ -79,7 +82,7 @@ static int s = 20;
 
 ---
 
-#### 3. heap(堆積／堆區)
+##### 3. heap(堆積／堆區)
 
 這裡放的是**動態配置(dynamic allocation)**的記憶體。
 像 C 的 `malloc()`、C++ 的 `new` 申請出來的空間，通常就在 heap。教材也明確這樣寫。
@@ -98,7 +101,7 @@ static int s = 20;
 
 ---
 
-#### 4. stack(堆疊區)
+##### 4. stack(堆疊區)
 
 這裡放的是函式呼叫過程中的暫時資料，例如：
 
@@ -126,7 +129,7 @@ void f() {
 
 ---
 
-### 為什麼 heap 跟 stack 要往相反方向長？
+#### 為什麼 heap 跟 stack 要往相反方向長？
 
 因為這樣可以**最大化利用中間那塊空間**。
 
@@ -139,9 +142,9 @@ void f() {
 
 ---
 
-### 這張圖最容易考的重點
+#### 這張圖最容易考的重點
 
-#### 第一個重點：行程不只是程式碼
+##### 第一個重點：行程不只是程式碼
 
 行程還包含：
 
@@ -157,7 +160,7 @@ void f() {
 
 ---
 
-#### 第二個重點：哪種變數放哪裡
+##### 第二個重點：哪種變數放哪裡
 
 你可以這樣記：
 
@@ -170,7 +173,7 @@ void f() {
 
 ---
 
-#### 第三個重點：stack 與 heap 的差別
+##### 第三個重點：stack 與 heap 的差別
 
 最簡單的對照：
 
@@ -190,13 +193,13 @@ void f() {
 
 ---
 
-### 你可以這樣一句話背起來
+#### 你可以這樣一句話背起來
 
 **Process = text + data + heap + stack + CPU 執行狀態(PC、registers)**。
 
 ---
 
-### 我幫你整理成一張小圖
+#### 我幫你整理成一張小圖
 
 ```mermaid
 flowchart TB
@@ -210,7 +213,7 @@ flowchart TB
 
 ---
 
-### 再補一個你之後很常連到的觀念
+#### 再補一個你之後很常連到的觀念
 
 到了多執行緒(multithread)時，常見情況是：
 
@@ -221,7 +224,7 @@ flowchart TB
 
 ---
 
-### 一句話總結
+#### 一句話總結
 
 這張投影片的核心是在告訴你：
 
@@ -230,3 +233,338 @@ flowchart TB
 若你要，我下一則可以直接幫你做一份「text / data / bss / heap / stack 一次分清楚」的超好背表格。
 
 [1]: https://www.intel.com/content/www/us/en/docs/programmable/743810/24-1/placement-of-the-heap-and-stack.html?utm_source=chatgpt.com "6.13.3. Placement of the Heap and Stack"
+
+
+
+### 請講解、比較、舉例"global / static、local variable、malloc/new"
+
+#### 先給你一個總圖
+
+最容易背的方式不是先背「在 stack 還是 heap」，而是先背 **storage duration(儲存期)**：
+
+```mermaid
+flowchart TB
+    A["變數/記憶體怎麼分？"] --> B["global / static<br>static storage duration<br>程式開始到結束都存在"]
+    A --> C["local variable<br>automatic storage duration<br>進入區塊建立，離開區塊消失"]
+    A --> D["malloc / new<br>dynamic storage duration<br>程式執行時手動/動態建立"]
+```
+
+更精確地說，C/C++ 標準主要談的是 **automatic / static / dynamic storage duration(自動／靜態／動態儲存期)**；而「stack(堆疊) / heap(堆積)」是非常常見的實作模型。你的課內教材也是用 data section、stack、heap 來教，這樣考試最好記，但寫程式時要知道那是常見實作，不是語言標準逐字保證。 ([cppreference.com][1])
+
+#### 1. global / static 是什麼？
+
+這一類的共同點是：**活得很久**。
+它們通常有 **static storage duration(靜態儲存期)**，也就是程式開始時就存在，到程式結束才消失。教材也把 **initialized global and static variables(已初始化的全域與靜態變數)** 放在 **data section(data segment，資料區段)**，未初始化的通常在 **BSS**。 ([cppreference.com][1])
+
+先看最普通的 **global variable(全域變數)**：
+
+```c
+int g = 10;   // global variable
+```
+
+這個 `g` 寫在所有函式外面，整個程式都能用，生命週期是整個程式。社群上最常見的說法是：**global 也是 static duration，只是它的可見範圍比較大**。([cppreference.com][1])
+
+再看 **static**，它最容易讓人混亂，因為它有兩種常見用法。
+
+第一種是 **file-scope static(檔案層級的 static)**：
+
+```c
+static int secret = 99;
+```
+
+這個也是活到程式結束，但它只在**這個 `.c` 檔案內可見**，也就是 **internal linkage(內部連結)**。你可以把它想成「公司公告欄」和「部門內部便條紙」的差別：
+普通 global 像公司公告欄，別的檔案可用 `extern` 看到；
+file-scope static 像部門內部便條紙，只有本檔案看得到。([Cppreference][2])
+
+第二種是 **static local variable(靜態區域變數)**：
+
+```c
+void f(void) {
+    static int count = 0;
+    count++;
+    printf("%d\n", count);
+}
+```
+
+這個 `count` 很特別：
+它的 **scope(作用域)** 只在 `f()` 裡，所以「看起來像 local」；
+但它的 **lifetime(生命週期)** 卻是整個程式，所以每次呼叫 `f()` 時，它都會保留上一次的值。教材也直接用這個例子說明，並指出這類會放在 data segment。 ([Cppreference][3])
+
+所以一句話整理：
+
+**global / static 的核心不是「在哪宣告」，而是它們通常有 static storage duration(靜態儲存期)。**
+只是普通 global 可見範圍大，`static` 會改變它的可見性，或讓函式內變數變成「值會保留」。([cppreference.com][1])
+
+---
+
+#### 2. local variable 是什麼？
+
+**local variable(區域變數)** 是你在函式或區塊裡直接宣告、而且沒有加 `static` 的變數。
+這類通常有 **automatic storage duration(自動儲存期)**：進入那個區塊時建立，離開就消失。cppreference 對 C 的說法很明確：所有函式參數和 non-static 的 block-scope objects 都屬於 automatic storage duration。教材則用比較直觀的說法：這類通常放在 **stack memory**，用來存 local variables、function parameters、return addresses。([cppreference.net][4]) 
+
+例如：
+
+```c
+void f(void) {
+    int x = 5;
+    int a[100];
+}
+```
+
+這裡的 `x` 和 `a` 都是 local variable。
+你前一題問的「local variable 包不包括陣列」，答案就是：**包括，只要它是函式內直接宣告、又不是 `static`**。教材也直接寫到 stack 用來放 local variables。 ([cppreference.net][4])
+
+但這裡有一個非常值得你現在就建立的精確觀念：
+
+**local ≠ 一定在 stack**。
+在課堂和實作裡，我們通常先記成「local 通常在 stack」完全沒問題；但更嚴格地說，語言標準保證的是它有 automatic storage duration，不是逐字保證一定在某種實體區域。社群上也常有人特別提醒這個 distinction(區分)。([cppreference.net][4])
+
+---
+
+#### 3. malloc / new 是什麼？
+
+這一類的共同點是：**執行到那行程式時，才動態要一塊記憶體**。
+它們對應的是 **dynamic storage duration(動態儲存期)**。教材把這塊記憶體叫做 **heap memory**，並指出它適合那些要超過單次函式呼叫還繼續存在的資料。 ([cppreference.com][1])
+
+##### malloc(動態配置，C 常見)
+
+```c
+int *p = malloc(10 * sizeof(int));
+```
+
+`malloc()` 會配置一塊大小為 `10 * sizeof(int)` 的記憶體，回傳指標。Linux man page 明確說這塊記憶體 **不會初始化(not initialized)**，所以你配置完最好自己填值；而且用完要 `free(p)`。([man7.org][5])
+
+```c
+int *p = malloc(10 * sizeof(int));
+if (p == NULL) {
+    /* allocation failed */
+}
+for (int i = 0; i < 10; i++) p[i] = 0;
+free(p);
+```
+
+你可以把 `malloc` 想成：
+不是在家裡櫃子裡拿一個抽屜，而是臨時去倉庫租一塊空地。你要自己記得租多少、怎麼用、什麼時候歸還。([man7.org][5])
+
+##### new(C++ 常見)
+
+```cpp
+int* p = new int[10];
+delete[] p;
+```
+
+C++ 的 **new-expression** 是建立 **dynamic storage duration** 物件或物件陣列的標準方式。cppreference 明講，`new-expression` 會取得儲存空間並建立 object / array of objects；配對要用 `delete` 或 `delete[]`。一般情況下，配置失敗會以 `std::bad_alloc` 回報，而不是回傳 `NULL`。([Cppreference][6])
+
+所以：
+
+* `malloc`：偏 C 風格，拿到的是一塊原始記憶體(raw storage)，預設不初始化。([man7.org][5])
+* `new`：偏 C++ 風格，建立的是物件(object)或物件陣列，並有對應的 `delete` / `delete[]`。([Cppreference][6])
+
+---
+
+#### 4. 三者最核心的比較
+
+##### A. 活多久？
+
+* **global / static**：從程式開始活到程式結束。([cppreference.com][1])
+* **local variable**：進入區塊建立，離開區塊消失。([cppreference.net][4])
+* **malloc / new**：你配置後一直存在，直到 `free` / `delete` / `delete[]`。([man7.org][5])
+
+##### B. 誰幫你回收？
+
+* **global / static**：不用你手動回收，程式結束才消失。([cppreference.com][1])
+* **local variable**：離開函式或區塊，自動回收。([cppreference.net][4])
+* **malloc / new**：通常要你自己回收，不然容易 **memory leak(記憶體洩漏)**。教材與 Linux 手冊都提醒 heap 類錯誤常跟釋放不正確有關。 ([man7.org][7])
+
+##### C. 常見放哪裡？
+
+* **global / static**：通常在 data / bss。 ([Stack Overflow][8])
+* **local variable**：通常在 stack。 ([cppreference.net][4])
+* **malloc / new**：通常在 heap。 ([man7.org][5])
+
+##### D. 最常犯的錯
+
+* **global / static**：共享狀態太多，程式邏輯容易亂，尤其多執行緒下更危險。教材也提到 shared-memory programming 要小心同步。
+* **local variable**：把它的位址回傳出去，函式結束後就變成無效位址。教材直接把這列成常見記憶體錯誤。
+* **malloc / new**：忘記釋放、重複釋放、越界寫入、`malloc/free` 與 `new/delete` 配錯。Valgrind 的 Memcheck 也特別會抓這些配對和非法存取問題。([man7.org][7])
+
+---
+
+#### 5. 一次看懂的例子
+
+##### 例子一：global / static / local 同時出現
+
+```c
+#include <stdio.h>
+
+int g = 10;          // global
+static int sg = 20;  // file-scope static
+
+void f(void) {
+    int x = 1;            // local variable
+    static int cnt = 0;   // static local variable
+    cnt++;
+    printf("x=%d, cnt=%d\n", x, cnt);
+}
+
+int main(void) {
+    f();
+    f();
+    printf("g=%d, sg=%d\n", g, sg);
+}
+```
+
+執行重點是：
+
+* `x` 每次進 `f()` 都重新建立，所以每次都是 `1`。
+* `cnt` 只初始化一次，之後會保留，所以輸出會是 `1`、`2`、`3` 這樣累加。
+* `g` 和 `sg` 也是整個程式期間都存在。教材和 cppreference 對這三種行為的描述是一致的。 ([cppreference.com][1])
+
+##### 例子二：malloc
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(void) {
+    int n = 5;
+    int *a = malloc(n * sizeof(int));
+    if (a == NULL) return 1;
+
+    for (int i = 0; i < n; i++) a[i] = i * 10;
+
+    for (int i = 0; i < n; i++) printf("%d ", a[i]);
+
+    free(a);
+    return 0;
+}
+```
+
+這裡 `a` 這個指標變數本身是 **local variable**，通常在 stack；
+但 `a` 指到的那塊陣列記憶體是 **dynamic storage**，通常在 heap。這正是很多初學者第一次會混淆的地方。([cppreference.net][4])
+
+##### 例子三：new
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int* a = new int[5];
+    for (int i = 0; i < 5; i++) a[i] = i * 100;
+
+    for (int i = 0; i < 5; i++) cout << a[i] << " ";
+
+    delete[] a;
+}
+```
+
+這和 `malloc` 的概念很像：
+`a` 是 local variable；
+`new int[5]` 建出的陣列是動態儲存期；
+配對釋放必須用 `delete[]`，不能用 `free()`。Valgrind 文件和 GCC/編譯器文件都提醒 mismatched deallocation 會出問題。([Cppreference][6])
+
+---
+
+#### 6. 社群上最常搞混的點
+
+##### 混淆 1：static local 算不算 local？
+
+**看哪個面向。**
+
+* 以 **scope(作用域)** 來說，它是 local，因為只能在那個函式裡用。([Stack Overflow][9])
+* 以 **storage duration(儲存期)** 來說，它不是 automatic，而是 static。([cppreference.com][1])
+
+所以你如果考試回答：
+
+> static local variable「作用域是 local，但生命週期是整個程式」
+
+這句很漂亮，也很精確。([Stack Overflow][9])
+
+##### 混淆 2：指標是 local，指到的資料也一定是 local 嗎？
+
+**不一定。**
+
+```c
+void f() {
+    int *p = malloc(sizeof(int));
+}
+```
+
+`p` 是 local variable；
+但 `*p` 所在的那塊記憶體是 heap/dynamic storage。
+這就像你手上拿著一張倉庫租約：租約紙在你手上，但貨物在倉庫。([cppreference.net][4])
+
+##### 混淆 3：global 跟 static 哪個比較「大」？
+
+如果是指**可見範圍**：
+
+* 普通 global 比較大，可跨檔案。([Stack Overflow][10])
+* file-scope static 比較小，只限本檔案。([Stack Overflow][10])
+
+如果是指**活多久**：
+
+* 兩者通常都活到程式結束。([cppreference.com][1])
+
+---
+
+#### 7. 你可以這樣背，最不容易錯
+
+我建議你背這三句：
+
+1. **global / static：活整個程式。** ([cppreference.com][1])
+2. **local variable：活一個區塊或一次函式呼叫。** ([cppreference.net][4])
+3. **malloc / new：活到你把它 free / delete 為止。** ([man7.org][5])
+
+再補一個超常考的例外句：
+
+> **static local：看起來在函式裡，但不會跟著函式結束而消失。**  ([Cppreference][3])
+
+---
+
+#### 8. 如果你要自己在 Ubuntu VM 驗證，最可靠的方法
+
+你這種題目，光背還不夠，**自己跑一次最穩**。
+在你的 Ubuntu VM 上，C/C++ 記憶體錯誤最實用的兩套工具是：
+
+* **AddressSanitizer(位址消毒器, ASan)**：GCC 官方文件說它能抓 out-of-bounds(越界) 與 use-after-free(釋放後再用) 這類錯誤。([GCC][11])
+* **Valgrind Memcheck**：官方文件會攔截 `malloc/new/new[]/free/delete/delete[]`，用來抓記憶體錯誤與錯誤配對。([Valgrind][12])
+
+你之後寫作業時，C 可以這樣編：
+
+```bash
+gcc -g -O0 -fsanitize=address your_file.c -o a.out
+./a.out
+```
+
+或用 Valgrind：
+
+```bash
+gcc -g -O0 your_file.c -o a.out
+valgrind --leak-check=full ./a.out
+```
+
+這比只靠肉眼看 code 可靠很多，尤其在 `malloc/new` 題目上。([GCC][11])
+
+---
+
+#### 最後幫你濃縮成一句話
+
+**global / static**：像「固定放在家裡的家具」，一直都在。
+**local variable**：像「借你這次上課用的白板筆」，下課就收走。
+**malloc / new**：像「你臨時租的倉庫空間」，不用時要自己退租。([cppreference.com][1])
+
+下一則我可以直接幫你整理成「宣告方式 → 放哪裡 → 活多久 → 誰釋放 → 常見錯誤」的超好背考前表。
+
+[1]: https://cppreference.com/book/storage_durations.html?utm_source=chatgpt.com "storage durations - cppreference.com"
+[2]: https://en.cppreference.com/w/c/language/storage_duration.html?utm_source=chatgpt.com "Storage-class specifiers - cppreference.com"
+[3]: https://en.cppreference.com/w/c/language/static_storage_duration.html?utm_source=chatgpt.com "Static storage duration - cppreference.com"
+[4]: https://cppreference.net/c/language/storage_duration.html?utm_source=chatgpt.com "Storage-class specifiers - cppreference.net"
+[5]: https://man7.org/linux/man-pages/man3/malloc.3.html?utm_source=chatgpt.com "malloc(3) - Linux manual page"
+[6]: https://www.en.cppreference.com/w/cpp/memory/new.html?utm_source=chatgpt.com "Low level memory management - cppreference.com"
+[7]: https://man7.org/linux/man-pages/man3/free.3.html?utm_source=chatgpt.com "malloc(3) - Linux manual page"
+[8]: https://stackoverflow.com/questions/44359953/are-global-variables-in-c-stored-on-the-stack-heap-or-neither-of-them?utm_source=chatgpt.com "Are global variables in C++ stored on the stack, heap or neither of them? - Stack Overflow"
+[9]: https://stackoverflow.com/questions/15134916/is-it-correct-to-call-a-static-variable-local?utm_source=chatgpt.com "c - Is it correct to call a static variable local? - Stack Overflow"
+[10]: https://stackoverflow.com/questions/51329671/difference-between-static-global-variable-and-non-static-global-variable-in-c?utm_source=chatgpt.com "Difference between static global variable and non-static global variable in C - Stack Overflow"
+[11]: https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html?utm_source=chatgpt.com "Instrumentation Options (Using the GNU Compiler Collection (GCC))"
+[12]: https://valgrind.org/docs/manual/mc-manual.html/?utm_source=chatgpt.com "Valgrind"

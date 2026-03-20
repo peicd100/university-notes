@@ -131,6 +131,12 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-19：已補 Mermaid 初始化覆寫，將 flowchart `htmlLabels` 啟用，讓 ` ```mermaid ` 區塊中的節點文字可使用 `<br>` 正常換行渲染。
 - 2026-03-19：已補 Mermaid 首次載入渲染修正，避免頁面初次開啟時只剩 `pre.diagram` 原始碼未轉成 SVG，並支援 Material instant navigation 與主題切換後重繪。
 - 2026-03-19：已在 `mkdocs.yml` 補上 `pymdownx.superfences` 的 `mermaid` custom fence，並讓它沿用站內既有的 `diagram` Mermaid loader；現在可直接使用 ` ```mermaid ` fenced code block 渲染 Mermaid 圖表。
+- 2026-03-20：已將 Mermaid 圖表做成和圖片相近的置中圖卡樣式，加入邊框、陰影、hover 浮起與可橫向捲動的保護，避免大圖表在窄版被硬擠壞。
+- 2026-03-20：已新增 Mermaid 專用放大檢視，支援點擊開啟、滑鼠滾輪縮放、按鈕縮放、拖曳平移、雙擊切換縮放與 `Esc` 關閉，並相容 Material instant navigation。
+- 2026-03-20：已補 Mermaid 放大檢視的背景點擊退出；現在點圖外的遮罩區塊也會直接關閉 viewer，操作和站內圖片放大一致。
+- 2026-03-20：已修正 Mermaid `htmlLabels` 在部分節點內文被切掉的問題；目前對 Mermaid label 專用 `foreignObject > div` 固定較穩的行高，避免吃到頁面全域 line-height 後超出節點框高。
+- 2026-03-20：已依 Mermaid 官方較新的設定方式，補上 root-level `htmlLabels`；同時保留原本 flowchart 層設定，兼顧現有版本相容性。
+- 2026-03-20：已將 `docs/md/114-2/電機_作業系統/ch 3.md` 內所有 Markdown 標題整體下移一級（`h1 -> h2`、`h2 -> h3`，依此類推）。
 - 2026-03-20：已新增本機預覽專用的「選字後右鍵跳到原文位置」功能；在 `mkdocs serve` 下，右鍵選單可依目前頁面與選取內容反查對應 `.md` 檔案與行列，並直接用 VS Code 開啟。
 - 2026-03-20：已修正右鍵原文定位的 endpoint 組法，改成跟隨 MkDocs Material 的站台 base path，不再把請求錯誤送到目前頁面的子目錄（如 `md/Verilog/__peicd/...`）。
 - 2026-03-20：已把右鍵功能改成由本機後端直接呼叫 VS Code CLI `--reuse-window --goto` 開檔，不再依賴瀏覽器處理 `vscode://` 協定；在 VS Code 內建瀏覽頁面時會更穩。

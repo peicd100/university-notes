@@ -19,6 +19,7 @@ ENV/
 # 測試與工具快取
 .cache/
 .playwright-cli/
+playwright-report/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -29,6 +30,7 @@ ENV/
 .coverage
 .coverage.*
 htmlcov/
+test-results/
 
 # MkDocs 產生物
 site/
