@@ -135,6 +135,8 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-20：已新增 Mermaid 專用放大檢視，支援點擊開啟、滑鼠滾輪縮放、按鈕縮放、拖曳平移、雙擊切換縮放與 `Esc` 關閉，並相容 Material instant navigation。
 - 2026-03-20：已補 Mermaid 放大檢視的背景點擊退出；現在點圖外的遮罩區塊也會直接關閉 viewer，操作和站內圖片放大一致。
 - 2026-03-20：已修正 Mermaid `htmlLabels` 在部分節點內文被切掉的問題；目前對 Mermaid label 專用 `foreignObject > div` 固定較穩的行高，避免吃到頁面全域 line-height 後超出節點框高。
+- 2026-03-20：已在 `自定義.css` 明確覆寫內容區 `h5/h6` 字級，將 `h5` 調為 `1.05rem`、`h6` 調為 `1rem`，避免 `h5` 比內文字還小。
+- 2026-03-20：已將內容區 `h1~h6` 改為明確由大到小的字級階梯：`h1=2rem`、`h2=1.7rem`、`h3=1.4rem`、`h4=1.2rem`、`h5=1.05rem`、`h6=1rem`。
 - 2026-03-20：已依 Mermaid 官方較新的設定方式，補上 root-level `htmlLabels`；同時保留原本 flowchart 層設定，兼顧現有版本相容性。
 - 2026-03-20：已將 `docs/md/114-2/電機_作業系統/ch 3.md` 內所有 Markdown 標題整體下移一級（`h1 -> h2`、`h2 -> h3`，依此類推）。
 - 2026-03-20：已新增本機預覽專用的「選字後右鍵跳到原文位置」功能；在 `mkdocs serve` 下，右鍵選單可依目前頁面與選取內容反查對應 `.md` 檔案與行列，並直接用 VS Code 開啟。

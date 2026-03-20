@@ -457,6 +457,30 @@ body {
   letter-spacing: 0.02em;
 }
 
+.md-typeset h1 {
+  font-size: 2rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.7rem;
+}
+
+.md-typeset h3 {
+  font-size: 1.4rem;
+}
+
+.md-typeset h4 {
+  font-size: 1.2rem;
+}
+
+.md-typeset h5 {
+  font-size: 1.05rem;
+}
+
+.md-typeset h6 {
+  font-size: 1rem;
+}
+
 /* ==========================================================================
    14) 連結底線：用 background-image 做「可動畫的底線」
    ========================================================================== */

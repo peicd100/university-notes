@@ -568,3 +568,9 @@ valgrind --leak-check=full ./a.out
 [10]: https://stackoverflow.com/questions/51329671/difference-between-static-global-variable-and-non-static-global-variable-in-c?utm_source=chatgpt.com "Difference between static global variable and non-static global variable in C - Stack Overflow"
 [11]: https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html?utm_source=chatgpt.com "Instrumentation Options (Using the GNU Compiler Collection (GCC))"
 [12]: https://valgrind.org/docs/manual/mc-manual.html/?utm_source=chatgpt.com "Valgrind"
+
+
+## Text Section(程式碼區／文字區／text segment)
+
+![alt text](<images/ch 3/image-1.png>)
+
