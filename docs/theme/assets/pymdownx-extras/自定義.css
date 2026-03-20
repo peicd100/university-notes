@@ -725,8 +725,7 @@ body {
 
 @media (max-width: 59.999em) {
   .peicd-folder-pathbar {
-    gap: 0.35rem;
-    margin-bottom: 0.75rem;
+    display: none;
   }
 
   .peicd-folder-pathbar--hidden {
