@@ -528,8 +528,7 @@ body {
 
 .peicd-folder-pathbar__toggle:hover,
 .peicd-folder-pathbar__toggle:focus-visible,
-.peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
-.peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+.peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle {
   color: var(--md-primary-fg-color);
   outline: none;
 }
@@ -562,6 +561,10 @@ body {
     var(--peicd-sel-line) var(--peicd-sel-corner),
     var(--peicd-sel-corner) var(--peicd-sel-line),
     var(--peicd-sel-line) var(--peicd-sel-corner) !important;
+}
+
+.peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+  color: var(--md-default-fg-color--lighter) !important;
 }
 
 .peicd-folder-pathbar__label {
@@ -601,7 +604,7 @@ body {
   background-image: none !important;
   border-radius: 0;
   box-shadow: none !important;
-  color: var(--md-default-fg-color--lighter) !important;
+  color: var(--md-default-fg-color--light) !important;
   display: block;
   font-size: 0.92rem;
   padding: 0.58rem 0.72rem;
@@ -679,12 +682,15 @@ body {
 [data-md-color-scheme="default"] .peicd-folder-pathbar__toggle:hover,
 [data-md-color-scheme="default"] .peicd-folder-pathbar__toggle:focus-visible,
 [data-md-color-scheme="default"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
-[data-md-color-scheme="default"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle,
 [data-md-color-scheme="light"] .peicd-folder-pathbar__toggle:hover,
 [data-md-color-scheme="light"] .peicd-folder-pathbar__toggle:focus-visible,
-[data-md-color-scheme="light"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
-[data-md-color-scheme="light"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+[data-md-color-scheme="light"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle {
   color: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="default"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="light"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle {
+  color: var(--md-default-fg-color--lighter) !important;
 }
 
 [data-md-color-scheme="default"] .peicd-folder-pathbar__menu,
@@ -696,7 +702,7 @@ body {
 
 [data-md-color-scheme="default"] .peicd-folder-pathbar__option,
 [data-md-color-scheme="light"] .peicd-folder-pathbar__option {
-  color: var(--md-default-fg-color--lighter) !important;
+  color: var(--md-default-fg-color--light) !important;
 }
 
 [data-md-color-scheme="default"] .peicd-folder-pathbar__option:hover,
