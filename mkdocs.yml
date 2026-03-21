@@ -272,52 +272,75 @@ markdown_extensions:
 # ======================================================
 not_in_nav: /index.md #忽略index.md
 
-not_in_nav: /index.md #忽略index.md
-
 nav:
   - '首頁':
       - 'blog/index.md'
 
   - 'Verilog':
+      - 'md/Verilog/首頁.md'
       - 'md/Verilog/學習資源整理.md'
-      - 'md/Verilog/不同種接線風格.md'
-      - 'md/Verilog/基礎語法.md'
-      - 'vector': 'md/Verilog/vector.md'
-      - 'module': 'md/Verilog/module.md'
-      - 'primitive': 'md/Verilog/primitive.md'
-      - 'if': 'md/Verilog/if.md'
-      - 'Procedural style(程序式寫法)': 'md/Verilog/Procedural style.md'
-      - '常見資料型別': 'md/Verilog/常見資料型別.md'
-      - 'system tasks（系統任務）': 'md/Verilog/system tasks.md'
-      - 'timescale': 'md/Verilog/timescale.md'
+      - '觀念':
+        - 'md/Verilog/不同種接線風格.md'
+        - 'md/Verilog/MSB、LSB.md'
+        - 'md/Verilog/電路框架.md'
+        
+        
+      - '語法':
+        
+      
+        - 'md/Verilog/數值.md'
+        - 'md/Verilog/timescale.md'
+        
+        
+      - '資料結構':
+        - 'md/Verilog/vector.md'
+      
+      - '結構':
+        - 'md/Verilog/選擇結構.md'
+      
+      
+      
+      - '電路':
+        - 'md/Verilog/防止變成 latch.md'
+        
+        - 'md/Verilog/priority encoder.md'
+        
+      - '尚未整理':
+        - 'md/Verilog/Procedural style.md'
+        - 'md/Verilog/常見資料型別.md'
+        - 'md/Verilog/system tasks.md'
+        - 'md/Verilog/運算子.md'
+      
+      
+      
 
   - '科大_數位邏輯設計實習':
-      - '教材': 'md/114-2/科大_數位邏輯設計實習/教材.md'
-      - 'Vivado 專案': 'md/114-2/科大_數位邏輯設計實習/Vivado 專案.md'
+      - 'md/114-2/科大_數位邏輯設計實習/教材.md'
+      - 'md/114-2/科大_數位邏輯設計實習/Vivado 專案.md'
 
   - '電機_作業系統':
-      - '首頁': 'md/114-2/電機_作業系統/首頁.md'
-      - 'ch 1': 'md/114-2/電機_作業系統/ch 1.md'
-      - 'ch 3': 'md/114-2/電機_作業系統/ch 3.md'
-      - 'windows CLI 指令': 'md/114-2/電機_作業系統/windows CLI 指令.md'
-      - 'Linux CLI 指令': 'md/114-2/電機_作業系統/Linux CLI 指令.md'
-      - 'vim': 'md/114-2/電機_作業系統/vim.md'
-      - '子行程': 'md/114-2/電機_作業系統/子行程.md'
+      - 'md/114-2/電機_作業系統/首頁.md'
+      - 'md/114-2/電機_作業系統/ch 1.md'
+      - 'md/114-2/電機_作業系統/ch 3.md'
+      - 'md/114-2/電機_作業系統/windows CLI 指令.md'
+      - 'md/114-2/電機_作業系統/Linux CLI 指令.md'
+      - 'md/114-2/電機_作業系統/vim.md'
+      - 'md/114-2/電機_作業系統/子行程.md'
 
   - '機電_數位邏輯實驗':
-      - '首頁': 'md/114-2/機電_數位邏輯實驗/首頁.md'
-      - '安裝 usb': 'md/114-2/機電_數位邏輯實驗/安裝 usb.md'
-      - 'Quartus 創建專案': 'md/114-2/機電_數位邏輯實驗/Quartus 創建專案.md'
-      - '跑 tb': 'md/114-2/機電_數位邏輯實驗/跑 tb.md'
-      - '選腳位': 'md/114-2/機電_數位邏輯實驗/選腳位.md'
-      - '上傳電路板': 'md/114-2/機電_數位邏輯實驗/上傳電路板.md'
+      - 'md/114-2/機電_數位邏輯實驗/首頁.md'
+      - 'md/114-2/機電_數位邏輯實驗/安裝 usb.md'
+      - 'md/114-2/機電_數位邏輯實驗/Quartus 創建專案.md'
+      - 'md/114-2/機電_數位邏輯實驗/跑 tb.md'
+      - 'md/114-2/機電_數位邏輯實驗/選腳位.md'
+      - 'md/114-2/機電_數位邏輯實驗/上傳電路板.md'
 
   - '資工_電腦輔助 VLSI 設計':
-      - '教材': 'md/114-2/資工_電腦輔助 VLSI 設計/教材.md'
-      - 'nmos、pmos': 'md/114-2/資工_電腦輔助 VLSI 設計/nmos、pmos.md'
+      - 'md/114-2/資工_電腦輔助 VLSI 設計/教材.md'
+      - 'md/114-2/資工_電腦輔助 VLSI 設計/nmos、pmos.md'
 
   - '科技_計算機結構':
-      - 'SI 前綴表': 'md/114-2/科技_計算機結構/SI 前綴表.md'
-      - 'ch 1': 'md/114-2/科技_計算機結構/ch 1.md'
-      - 'ch 2': 'md/114-2/科技_計算機結構/ch 2.md'
+      - 'md/114-2/科技_計算機結構/SI 前綴表.md'
+      - 'md/114-2/科技_計算機結構/ch 1.md'
+      - 'md/114-2/科技_計算機結構/ch 2.md'
       
