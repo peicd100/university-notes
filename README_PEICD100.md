@@ -156,3 +156,4 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-19：已將深色模式右側 TOC 改成與左欄同系統的深色背景，並把左側抽屜的手機版修正提前套用到 `76.25em` 以下的中寬桌機，避免這種寬度下左欄還保留桌機排版細節。
 - 2026-03-21：已將 `docs/md/Verilog/vector.md` 重寫為 Quick Reference，整理成宣告、索引/切片、位寬規則、`{}` 串接與重複、packed/unpacked、常見地雷等速查段落，並補上哪些術語屬於 SystemVerilog 的註記。
 - 2026-03-21：已將 `docs/md/Verilog/priority encoder.md` 重寫為 Quick Reference，補上 LSB/MSB 優先方向說明、`casez` 寫法、`valid` 觀念與常見地雷，並修正原本文字描述與範例方向不一致的問題。
+- 2026-03-21：已將 `docs/md/Verilog/運算子.md` 重寫為 Quick Reference，重新整理 bitwise/logical/reduction/比較/shift/位寬規則與 signedness，並修正原本對位寬與運算分類較容易誤解的敘述。

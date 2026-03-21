@@ -286,10 +286,9 @@ nav:
         
         
       - '語法':
-        
-      
         - 'md/Verilog/數值.md'
         - 'md/Verilog/timescale.md'
+        - 'md/Verilog/運算子.md'
         
         
       - '資料結構':
@@ -308,7 +307,6 @@ nav:
         - 'md/Verilog/Procedural style.md'
         - 'md/Verilog/常見資料型別.md'
         - 'md/Verilog/system tasks.md'
-        - 'md/Verilog/運算子.md'
       
       
       
