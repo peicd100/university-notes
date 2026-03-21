@@ -3,4 +3,4 @@ C:\altera\13.0sp1\quartus\drivers
 ```
 
 
-![alt text](../../../images/image-2.png)
+![alt text](<images/安裝 usb-1.png>)

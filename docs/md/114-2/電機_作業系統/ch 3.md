@@ -1,6 +1,6 @@
 
 ## 3.1.1 行程(Process)
-![alt text](../../../images/image-9.png)
+![alt text](<images/ch 3.png>)
 ### 講解
 
 #### 這張投影片在回答什麼
@@ -570,7 +570,7 @@ valgrind --leak-check=full ./a.out
 
 
 ## Text Section(程式碼區／文字區／text segment)
-![alt text](../../../images/image-10.png)
+![alt text](<images/ch 3-1.png>)
 #### 這張圖在講什麼？
 
 這張投影片是在專講 **Text Section(程式碼區／文字區／text segment)**。
@@ -835,7 +835,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 ## Data Section(資料區 / data segment)
 
 
-![alt text](../../../images/image-11.png)
+![alt text](<images/ch 3-2.png>)
 #### 這張圖在講什麼？
 
 這張投影片是在講 **Data Section(資料區 / data segment)**。
@@ -1105,7 +1105,7 @@ void f() {
 
 ## Stack memory(堆疊記憶體)
 
-![alt text](../../../images/image-12.png)
+![alt text](<images/ch 3-3.png>)
 ### 講解
 #### 這張投影片在講什麼
 
@@ -1491,7 +1491,7 @@ void recur() {
 
 ## Heap memory(堆積記憶體)
 
-![alt text](../../../images/image-13.png)
+![alt text](<images/ch 3-4.png>)
 ### 講解
 
 #### 這張投影片在講什麼
