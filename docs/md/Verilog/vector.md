@@ -342,14 +342,16 @@ endmodule
 ### 圖案
 
 在電路圖裡，一條線旁邊如果有斜線記號和數字，表示那是一條多位元的向量（也就是 bus / 匯流排），也就是 Packed 。  
-![][image1]
+![alt text](images/vector.png)
 
 ## 練習題
 
 ### 重複 \+ logical operators
 
-![][image2]
 
+
+
+![alt text](images/vector-1.png)
 ```verilog
 module top_module (
     input a, b, c, d, e,
