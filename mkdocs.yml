@@ -276,7 +276,7 @@ nav:
   - '首頁':
       - 'blog/index.md'
 
-  - 'Verilog':
+  - 'Verilog Quick Reference':
       - 'md/Verilog/首頁.md'
       - 'md/Verilog/學習資源整理.md'
       - '觀念':
@@ -302,7 +302,6 @@ nav:
       
       - '電路':
         - 'md/Verilog/防止變成 latch.md'
-        
         - 'md/Verilog/priority encoder.md'
         
       - '尚未整理':
