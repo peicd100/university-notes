@@ -1,103 +1,84 @@
-# system tasks（系統任務）
+# 模擬控制與 System Tasks
 
-可以，我幫你整理成**最適合寫在筆記 / 實驗報告**的短版。
+## 一句話先懂
 
----
+`timescale`、`#delay` 與大多數 system tasks 都偏向模擬用途。  
+它們很重要，但和可綜合 RTL 主邏輯不是同一層事情。
 
-## $display
+## 核心規則
 
-**一句話介紹：** 在執行到該行時，**立即印出一次**指定內容，並自動換行。  
-**範例：**
+- ``timescale` 是 compiler directive，不是 `always` 裡的敘述。
+- ``timescale 1ns/1ps` 代表時間單位是 `1ns`，模擬精度是 `1ps`。
+- `#delay` 是模擬延遲，常見於 testbench。
+- `$display`：立刻印一次。
+- `$monitor`：參數任一值改變時，自動印出最新值。
+- `$time`：取得目前模擬時間。
+- `$finish`：結束模擬。
+- `$stop`：暫停模擬，常用於除錯。
+
+## 常用模板或例子
+
+### ``timescale`
+
+```verilog
+`timescale 1ns/1ps
+```
+
+- `#1` 代表 `1ns`
+- 模擬器能分辨到 `1ps`
+
+### `#delay`
 
 ```verilog
 initial begin
+    a = 1'b0;
+    #10 a = 1'b1;
+end
+```
 
-    a = 0; b = 1;
+- 常用來安排 testbench 刺激時序。
 
+### `$display`
+
+```verilog
+initial begin
+    a = 1'b0;
+    b = 1'b1;
     $display("a=%b b=%b", a, b);
-
 end
 ```
 
-**可能輸出：**
-
-```
-a=0 b=1
-```
-
----
-
-## $monitor
-
-**一句話介紹：** 先設定一個監看器，之後只要參數中的**任一值改變**，就會**自動印出一行最新結果**。
-
-**範例：**
+### `$monitor`
 
 ```verilog
 initial begin
-
     $monitor("time=%0t a=%b b=%b", $time, a, b);
-
-    a = 0; b = 0;
-
-    #10 a = 1;
-
-    #10 b = 1;
-
 end
 ```
 
-**可能輸出：**
-
-```
-time=0 a=0 b=0
-
-time=10 a=1 b=0
-
-time=20 a=1 b=1
-```
-
----
-
-## $finish
-
-**一句話介紹：** 在執行到該行時，**正式結束整個模擬**。  
-**範例：**
+### `$finish` / `$stop`
 
 ```verilog
 initial begin
-
-    a = 0; b = 0;
-
-    #10 a = 1;
-
-    #10 $finish;
-
+    #100 $finish;
 end
 ```
 
-**效果：** 模擬會在指定時間點結束，不再繼續跑。
+```verilog
+initial begin
+    if (error)
+        $stop;
+end
+```
 
----
+## 常見地雷
 
-## 你可以直接這樣記
+- 把 `#delay` 當成一般可綜合 RTL 主力。
+- 忘記 ``timescale` 會影響你看到的 `#1` 到底代表多長。
+- 以為 `$display` 會一直更新，它其實只在執行到那一行時印一次。
+- 忘記在 testbench 結束時加 `$finish`，讓模擬一直跑下去。
 
-$display  \-\> 到這一行時印一次
+## 相關主題
 
-$monitor  \-\> 之後有變化就自動印
-
-$finish   \-\> 結束模擬
-
----
-
-## 跟這堂課的關係
-
-這三個都是 **testbench（測試平台）** 最基本的工具：
-
-* `$display`：看某一刻的值  
-* `$monitor`：持續追蹤變化  
-* `$finish`：測完收尾
-
-也就是說，它們不是在「做硬體功能」，而是在幫我們**驗證硬體有沒有寫對**。這就是你這門課從「寫電路」走到「驗證電路」最核心的一步。
-
-如果你要，我可以下一則再幫你整理成 **表格版**，更適合直接抄進實驗記錄。  
+- [always、initial 與事件控制](always、initial 與事件控制.md)
+- [迴圈與程序控制](迴圈與程序控制.md)

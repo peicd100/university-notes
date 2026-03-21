@@ -277,36 +277,22 @@ nav:
       - 'blog/index.md'
 
   - 'Verilog Quick Reference':
-      - 'md/Verilog/首頁.md'
-      - 'md/Verilog/學習資源整理.md'
-      - '觀念':
-        - 'md/Verilog/不同種接線風格.md'
-        - 'md/Verilog/MSB、LSB.md'
-        - 'md/Verilog/電路框架.md'
-        
-        
-      - '語法':
-        - 'md/Verilog/數值.md'
-        - 'md/Verilog/timescale.md'
-        - 'md/Verilog/運算子.md'
-        
-        
-      - '資料結構':
-        - 'md/Verilog/vector.md'
-      
-      - '結構':
-        - 'md/Verilog/選擇結構.md'
-      
-      
-      
-      - '電路':
-        - 'md/Verilog/防止變成 latch.md'
-        - 'md/Verilog/priority encoder.md'
-        
-      - '尚未整理':
-        - 'md/Verilog/Procedural style.md'
-        - 'md/Verilog/常見資料型別.md'
-        - 'md/Verilog/system tasks.md'
+      - '首頁': 'md/Verilog/首頁.md'
+      - '學習資源': 'md/Verilog/學習資源整理.md'
+      - '基礎語法':
+        - '模組與建模方式': 'md/Verilog/模組與建模方式.md'
+        - '常見資料型別': 'md/Verilog/常見資料型別.md'
+        - 'Vector、MSB 與 LSB': 'md/Verilog/vector.md'
+        - '數值與 Literal': 'md/Verilog/數值.md'
+        - '運算子': 'md/Verilog/運算子.md'
+      - '程序式寫法':
+        - 'always、initial 與事件控制': 'md/Verilog/always、initial 與事件控制.md'
+        - 'blocking 與 non-blocking': 'md/Verilog/blocking 與 non-blocking.md'
+        - '選擇結構': 'md/Verilog/選擇結構.md'
+        - '迴圈與程序控制': 'md/Verilog/迴圈與程序控制.md'
+      - '模擬與常見電路':
+        - '模擬控制與 System Tasks': 'md/Verilog/system tasks.md'
+        - 'Priority Encoder': 'md/Verilog/priority encoder.md'
       
       
       
