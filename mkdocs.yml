@@ -270,19 +270,16 @@ markdown_extensions:
 # ======================================================
 # 自定義網站的導航結構
 # ======================================================
-not_in_nav: /index.md
+not_in_nav: /index.md #忽略index.md
 
 nav:  # 自定義網站的導航結構
   - '首頁':
       - 'blog/index.md'
-
-  # - 'blog': blog/index.md
-  # - '首頁': index.md
-  
-  
+      
   - 'Verilog':
-      - '學習資源整理': 'md/Verilog/學習資源整理.md'
-      - '基礎語法': 'md/Verilog/基礎語法.md'
+      - 'md/Verilog/學習資源整理.md'
+      - 'md/Verilog/不同種接線風格.md'
+      - 'md/Verilog/基礎語法.md'
       - 'vector': 'md/Verilog/vector.md'
       - 'module': 'md/Verilog/module.md'
       - 'primitive': 'md/Verilog/primitive.md'

@@ -3,11 +3,14 @@
 ## 預覽
 ```
 activate mkdocs
-mkdocs serve --dirty --livereload
+mkdocs serve --dirty 
 
 ```
-mkdocs serve
+```
+activate mkdocs
+mkdocs serve 
 
+```
 ## 每次寫完
 ```
 activate mkdocs
