@@ -81,7 +81,7 @@ plugins:
       password_button: True       #解鎖按鈕
       password_button_text: '解鎖' #解鎖按鈕
       # global_password: '88888888'               # 啟用全域密碼
-      search_index: 'dynamically'  # 建置時加密索引；使用者解密頁面後才能搜到(但好像沒有真的觸發)
+      # search_index: 'dynamically'  # 建置時加密索引；使用者解密頁面後才能搜到(但好像沒有真的觸發)
 
 
 
@@ -270,6 +270,7 @@ markdown_extensions:
 # ======================================================
 # 自定義網站的導航結構
 # ======================================================
+not_in_nav: /index.md
 
 nav:  # 自定義網站的導航結構
   - '首頁':

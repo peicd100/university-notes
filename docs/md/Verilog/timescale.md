@@ -52,9 +52,9 @@
 
 也就是：
 
-```
+
 我們平常用 ns 當延遲單位，但模擬器細到可以處理 ps。 ([ChipVerify](https://www.chipverify.com/verilog/verilog-timescale?utm_source=chatgpt.com))
-```
+
 
 ---
 
