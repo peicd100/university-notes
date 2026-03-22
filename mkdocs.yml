@@ -276,7 +276,7 @@ nav:
   - '首頁':
       - 'blog/index.md'
 
-  - 'Verilog Quick Reference':
+  - 'Verilog':
       - '首頁': 'md/Verilog/首頁.md'
       - '學習資源': 'md/Verilog/學習資源整理.md'
       - '基礎語法':
@@ -302,7 +302,7 @@ nav:
       - 'md/114-2/科大_數位邏輯設計實習/Vivado 專案.md'
       
   - '臺大_系統晶片驗證':
-      - '臺大_系統晶片驗證': 'https://peicd100.github.io/university-notes/'
+      - '臺大_系統晶片驗證': 'https://peicd100.github.io/SoCV-Learning-Notes/'
 
   - '電機_作業系統':
       - 'md/114-2/電機_作業系統/首頁.md'
