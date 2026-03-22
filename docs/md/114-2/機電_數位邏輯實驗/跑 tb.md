@@ -3,12 +3,13 @@
 ![][image1]  
 
 
+
 ```
 C:\altera\13.1\modelsim_ase\win32aloem\
 ```
-
-
-
+如果有問題，跳出錯誤，就檢查最後面是否有加上'\'：
+`C:\altera\13.1\modelsim_ase\win32aloem`改成
+`C:\altera\13.1\modelsim_ase\win32aloem\`
 ![][image2]
 
 ## 選擇 tb 檔案
@@ -24,7 +25,11 @@ C:\altera\13.1\modelsim_ase\win32aloem\
 ![][image9]  
 ![][image10]
 
-名稱要一樣  
+名稱要一樣，不用加上.v，要記得加上前面的tb_！！！！！
+名稱要一樣，不用加上.v，要記得加上前面的tb_！！！！！
+名稱要一樣，不用加上.v，要記得加上前面的tb_！！！！！
+名稱要一樣，不用加上.v，要記得加上前面的tb_！！！！！
+名稱要一樣，不用加上.v，要記得加上前面的tb_！！！！！
 ![][image11]
 
 全部按下 ok ，關閉。
