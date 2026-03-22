@@ -109,7 +109,33 @@
     return link;
   }
 
-  function createSegment(option, options) {
+  function createMobileSelect(option, options, ariaLabel) {
+    const wrapper = document.createElement("div");
+    wrapper.className = BAR_CLASS + "__mobile-group";
+
+    const select = document.createElement("select");
+    select.className = BAR_CLASS + "__mobile-select";
+    select.setAttribute("aria-label", ariaLabel);
+
+    options.forEach((entry) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = entry.href;
+      optionElement.textContent = entry.label;
+      optionElement.selected = Boolean(entry.current);
+      select.appendChild(optionElement);
+    });
+
+    select.value = option.href;
+    select.addEventListener("change", () => {
+      if (!select.value) return;
+      window.location.href = select.value;
+    });
+
+    wrapper.appendChild(select);
+    return wrapper;
+  }
+
+  function createSegment(option, options, ariaLabel) {
     const item = document.createElement("div");
     item.className = BAR_CLASS + "__item";
     if (option.current) item.classList.add(BAR_CLASS + "__item--current");
@@ -139,6 +165,7 @@
 
     item.appendChild(button);
     item.appendChild(menu);
+    item.appendChild(createMobileSelect(option, options, ariaLabel));
     return item;
   }
 
@@ -172,7 +199,7 @@
       label: normalizeLabel(sectionLink.textContent),
       href: sectionLink.href,
       current: true
-    }, sectionOptions));
+    }, sectionOptions, "切換章節路徑"));
 
     const slash = document.createElement("span");
     slash.className = BAR_CLASS + "__separator";
@@ -183,7 +210,7 @@
       label: normalizeLabel(pageLink.textContent),
       href: pageLink.href,
       current: true
-    }, pageOptions));
+    }, pageOptions, "切換頁面路徑"));
 
     title.parentNode.insertBefore(bar, title);
   }

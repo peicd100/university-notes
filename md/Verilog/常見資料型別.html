@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html">
       
       
-        <link rel="prev" href="Procedural%20style.html">
+        <link rel="prev" href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html">
       
       
-        <link rel="next" href="system%20tasks.html">
+        <link rel="next" href="vector.html">
       
       
         
@@ -1885,7 +1885,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260320-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260322-2">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1910,7 +1910,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#一張先看懂的大圖" class="md-skip">
+        <a href="#常見資料型別" class="md-skip">
           Skip to content
         </a>
       
@@ -2146,13 +2146,13 @@ is now available!
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-tabs__link">
+        <a href="%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
           
   
   
     
   
-  Verilog
+  Verilog Quick Reference
 
         </a>
       </li>
@@ -2175,6 +2175,28 @@ is now available!
     
   
   科大_數位邏輯設計實習
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://peicd100.github.io/university-notes/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  臺大_系統晶片驗證
 
         </a>
       </li>
@@ -2615,16 +2637,6 @@ is now available!
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -2649,7 +2661,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    Verilog
+    Verilog Quick Reference
   
 
     
@@ -2665,11 +2677,39 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
             
   
-    Verilog
+    Verilog Quick Reference
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2685,7 +2725,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    學習資源整理
+    學習資源
   
 
     
@@ -2703,11 +2743,39 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="%E5%9F%BA%E7%A4%8E%E8%AA%9E%E6%B3%95.html" class="md-nav__link">
+  
+    
+    
+      
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -2721,11 +2789,19 @@ is now available!
   
   
 
-      </a>
-    </li>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基礎語法
   
 
-              
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -2734,126 +2810,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="vector.html" class="md-nav__link">
+      <a href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    vector
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="module.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    module
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="primitive.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    primitive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="if.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    if
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Procedural%20style.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Procedural style(程序式寫法)
+    模組與建模方式
   
 
     
@@ -2879,6 +2843,8 @@ is now available!
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+      
+        
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
@@ -2922,6 +2888,8 @@ is now available!
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2930,10 +2898,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#一張先看懂的大圖" class="md-nav__link">
+  <a href="#一句話先懂" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一張先看懂的大圖
+        一句話先懂
       
     </span>
   </a>
@@ -2941,10 +2909,10 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#先講結論你平常寫-rtl-最常用的是誰" class="md-nav__link">
+  <a href="#核心規則" class="md-nav__link">
     <span class="md-ellipsis">
       
-        先講結論：你平常寫 RTL 最常用的是誰？
+        核心規則
       
     </span>
   </a>
@@ -2952,521 +2920,15 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-wire-是什麼" class="md-nav__link">
+  <a href="#常用模板或例子" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. wire 是什麼？
+        常用模板或例子
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. wire 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#生活化理解" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        生活化理解
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見寫法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見寫法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-reg-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. reg 是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. reg 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#生活化理解_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        生活化理解
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見寫法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見寫法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-integer-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. integer 是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. integer 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#它跟-reg-310-差在哪" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        它跟 reg [31:0] 差在哪？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見用途" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見用途
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#為什麼需要同時有-wirereginteger" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為什麼需要同時有 wire、reg、integer？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="為什麼需要同時有 wire、reg、integer？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用-c-類比" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用 C++ 類比
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-wire" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 wire？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 wire？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#你可以這樣記" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        你可以這樣記
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-reg" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 reg？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 reg？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子-1組合邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子 1：組合邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子-2時序邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子 2：時序邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#你可以這樣記_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        你可以這樣記
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-integer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 integer？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 integer？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#但不要濫用" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        但不要濫用
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input--output-預設是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        input / output 預設是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="input / output 預設是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#那什麼時候寫-output-reg" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        那什麼時候寫 output reg？
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#一份很好背的選擇規則" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一份很好背的選擇規則
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一份很好背的選擇規則">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#規則-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 1
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 2
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 3
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 4
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常見誤解我直接幫你踩煞車" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常見誤解，我直接幫你踩煞車
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常見誤解，我直接幫你踩煞車">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#誤解-1reg-就是-register暫存器" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 1：reg 就是 register(暫存器)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#誤解-2wire-不能接複雜邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 2：wire 不能接複雜邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#誤解-3integer-不能綜合" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 3：integer 不能綜合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#除了上面三個還有哪些型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        除了上面三個，還有哪些型別？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="除了上面三個，還有哪些型別？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-其他-net-型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 其他 net 型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-其他-variable-型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 其他 variable 型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-事件型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 事件型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#對-hdlbits-最實用的版本" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        對 HDLBits 最實用的版本
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#最後幫你濃縮成一份超短版" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最後幫你濃縮成一份超短版
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="最後幫你濃縮成一份超短版">
+    <nav class="md-nav" aria-label="常用模板或例子">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3503,10 +2965,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#預設埠型別" class="md-nav__link">
+  <a href="#port-宣告" class="md-nav__link">
     <span class="md-ellipsis">
       
-        預設埠型別
+        Port 宣告
       
     </span>
   </a>
@@ -3519,10 +2981,10 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#一個小提醒實務上更好的寫法" class="md-nav__link">
+  <a href="#快速判斷" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一個小提醒：實務上更好的寫法
+        快速判斷
       
     </span>
   </a>
@@ -3530,10 +2992,21 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#你接下來最適合做的事" class="md-nav__link">
+  <a href="#常見地雷" class="md-nav__link">
     <span class="md-ellipsis">
       
-        你接下來最適合做的事
+        常見地雷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#相關主題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關主題
       
     </span>
   </a>
@@ -3556,14 +3029,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="system%20tasks.html" class="md-nav__link">
+      <a href="vector.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    system tasks（系統任務）
+    Vector、MSB 與 LSB
   
 
     
@@ -3584,14 +3057,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="timescale.html" class="md-nav__link">
+      <a href="%E6%95%B8%E5%80%BC.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    timescale
+    數值與 Literal
   
 
     
@@ -3600,6 +3073,342 @@ is now available!
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%81%8B%E7%AE%97%E5%AD%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運算子
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    程序式寫法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    程序式寫法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="always%E3%80%81initial%20%E8%88%87%E4%BA%8B%E4%BB%B6%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    always、initial 與事件控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="blocking%20%E8%88%87%20non-blocking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blocking 與 non-blocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%81%B8%E6%93%87%E7%B5%90%E6%A7%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    選擇結構
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迴圈與程序控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬與常見電路
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模擬與常見電路
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system%20tasks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬控制與 System Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="priority%20encoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Encoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -3742,6 +3551,95 @@ is now available!
       
         
       
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    臺大_系統晶片驗證
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    臺大_系統晶片驗證
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://peicd100.github.io/university-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    臺大_系統晶片驗證
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
         
       
         
@@ -3765,10 +3663,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -3786,8 +3684,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3811,7 +3709,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    首頁
+    相關資訊
   
 
     
@@ -3839,7 +3737,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 1
+    Ch 1
   
 
     
@@ -3867,7 +3765,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 3
+    Ch 3
   
 
     
@@ -3951,7 +3849,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    vim
+    Vim
   
 
     
@@ -4032,10 +3930,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -4053,8 +3951,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4134,7 +4032,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    Quartus 創建專案
+    創建專案
   
 
     
@@ -4263,10 +4161,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -4284,8 +4182,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4309,7 +4207,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    教材
+    moodle
   
 
     
@@ -4337,7 +4235,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    nmos、pmos
+    Nmos、pmos
   
 
     
@@ -4384,10 +4282,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -4405,8 +4303,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4458,7 +4356,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 1
+    Ch 1
   
 
     
@@ -4486,7 +4384,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 2
+    Ch 2
   
 
     
@@ -4524,6 +4422,8 @@ is now available!
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -4532,10 +4432,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#一張先看懂的大圖" class="md-nav__link">
+  <a href="#一句話先懂" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一張先看懂的大圖
+        一句話先懂
       
     </span>
   </a>
@@ -4543,10 +4443,10 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#先講結論你平常寫-rtl-最常用的是誰" class="md-nav__link">
+  <a href="#核心規則" class="md-nav__link">
     <span class="md-ellipsis">
       
-        先講結論：你平常寫 RTL 最常用的是誰？
+        核心規則
       
     </span>
   </a>
@@ -4554,521 +4454,15 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-wire-是什麼" class="md-nav__link">
+  <a href="#常用模板或例子" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. wire 是什麼？
+        常用模板或例子
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. wire 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#生活化理解" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        生活化理解
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見寫法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見寫法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-reg-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. reg 是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. reg 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#生活化理解_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        生活化理解
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見寫法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見寫法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-integer-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. integer 是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. integer 是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#它跟-reg-310-差在哪" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        它跟 reg [31:0] 差在哪？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#最常見用途" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最常見用途
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#為什麼需要同時有-wirereginteger" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為什麼需要同時有 wire、reg、integer？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="為什麼需要同時有 wire、reg、integer？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用-c-類比" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用 C++ 類比
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-wire" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 wire？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 wire？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#你可以這樣記" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        你可以這樣記
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-reg" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 reg？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 reg？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子-1組合邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子 1：組合邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子-2時序邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子 2：時序邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#你可以這樣記_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        你可以這樣記
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#什麼時候用-integer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        什麼時候用 integer？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="什麼時候用 integer？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#用在這些情況_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        用在這些情況
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#典型例子_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        典型例子
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#但不要濫用" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        但不要濫用
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input--output-預設是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        input / output 預設是什麼？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="input / output 預設是什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#那什麼時候寫-output-reg" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        那什麼時候寫 output reg？
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#一份很好背的選擇規則" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一份很好背的選擇規則
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="一份很好背的選擇規則">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#規則-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 1
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 2
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 3
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#規則-4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        規則 4
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常見誤解我直接幫你踩煞車" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常見誤解，我直接幫你踩煞車
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常見誤解，我直接幫你踩煞車">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#誤解-1reg-就是-register暫存器" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 1：reg 就是 register(暫存器)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#誤解-2wire-不能接複雜邏輯" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 2：wire 不能接複雜邏輯
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#誤解-3integer-不能綜合" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        誤解 3：integer 不能綜合
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#除了上面三個還有哪些型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        除了上面三個，還有哪些型別？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="除了上面三個，還有哪些型別？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-其他-net-型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 其他 net 型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-其他-variable-型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 其他 variable 型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-事件型別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 事件型別
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#對-hdlbits-最實用的版本" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        對 HDLBits 最實用的版本
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#最後幫你濃縮成一份超短版" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        最後幫你濃縮成一份超短版
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="最後幫你濃縮成一份超短版">
+    <nav class="md-nav" aria-label="常用模板或例子">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5105,10 +4499,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#預設埠型別" class="md-nav__link">
+  <a href="#port-宣告" class="md-nav__link">
     <span class="md-ellipsis">
       
-        預設埠型別
+        Port 宣告
       
     </span>
   </a>
@@ -5121,10 +4515,10 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#一個小提醒實務上更好的寫法" class="md-nav__link">
+  <a href="#快速判斷" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一個小提醒：實務上更好的寫法
+        快速判斷
       
     </span>
   </a>
@@ -5132,10 +4526,21 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#你接下來最適合做的事" class="md-nav__link">
+  <a href="#常見地雷" class="md-nav__link">
     <span class="md-ellipsis">
       
-        你接下來最適合做的事
+        常見地雷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#相關主題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關主題
       
     </span>
   </a>
@@ -5160,285 +4565,90 @@ is now available!
 
 
 
-  <h1>常見資料型別</h1>
-
-<h3 id="一張先看懂的大圖">一張先看懂的大圖<a class="headerlink" href="#一張先看懂的大圖" title="Permanent link"></a></h3>
-<!-- ![alt text](images/常見資料型別/mermaid-diagram.png) -->
-
-<pre class="diagram"><code>flowchart TB
-    A["Verilog 資料型別"] --&gt; B["net(網路型別)&lt;br/&gt;代表「連線」"]
-    A --&gt; C["variable(變數型別)&lt;br/&gt;代表「可被程序區塊賦值的值」"]
-
-    B --&gt; B1["wire"]
-    B --&gt; B2["tri / wor / wand / trireg / tri0 / tri1 / supply0 / supply1"]
-
-    C --&gt; C1["reg"]
-    C --&gt; C2["integer"]
-    C --&gt; C3["time / real / realtime"]</code></pre>
-<p>Verilog 常見資料型別可先分成兩大類：<code>net(網路型別)</code> 與 <code>variable(變數型別)</code>。<code>wire</code> 屬於 net；<code>reg</code>、<code>integer</code>、<code>time</code>、<code>real</code> 等屬於 variable。這個分類很重要，因為它直接決定「它像一條線，還是像一個會被程序改寫的變數」。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<hr />
-<h3 id="先講結論你平常寫-rtl-最常用的是誰">先講結論：你平常寫 RTL 最常用的是誰？<a class="headerlink" href="#先講結論你平常寫-rtl-最常用的是誰" title="Permanent link"></a></h3>
-<p>在 Verilog RTL(日常可綜合電路) 裡，最常用的通常就是：</p>
+<h1 id="常見資料型別">常見資料型別<a class="headerlink" href="#常見資料型別" title="Permanent link"></a></h1>
+<h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
+<p>入門 Verilog 最常用到的型別先記三個就夠了：<br />
+<code>wire</code>、<code>reg</code>、<code>integer</code>。</p>
+<h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
 <ul>
-<li><code>wire</code>：拿來表示<strong>連線(connection)</strong>，常搭配 <code>assign</code></li>
-<li><code>reg</code>：拿來表示<strong>在 always / initial 裡被賦值的變數</strong></li>
-<li><code>integer</code>：常拿來當<strong>for 迴圈索引(loop index)</strong>、計數用暫時變數，不是拿來取代一般多位元訊號的第一選擇 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</li>
+<li><code>wire</code> 是 net，代表「被持續驅動的連線」。</li>
+<li><code>reg</code> 是 variable，代表「可在 <code>always</code> / <code>initial</code> 中被賦值的變數」。</li>
+<li><code>integer</code> 常用在 <code>for</code> 迴圈索引、計數或 testbench 暫存整數。</li>
+<li><code>reg</code> 不等於實體暫存器；它最後是不是 flip-flop、latch 或組合邏輯，要看寫法。</li>
+<li><code>output</code> 預設是 <code>wire</code>；如果它要在 <code>always</code> 裡被賦值，就要寫成 <code>output reg</code>。</li>
 </ul>
-<p>你可以先用一句話背：</p>
-<blockquote>
-<p><code>assign</code> 左邊通常用 <code>wire</code>；<code>always</code> 左邊通常用 <code>reg</code>；<code>integer</code> 通常拿來做整數計數或迴圈索引。 (<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com" title="Deciding data types of input and output ports in Verilog">Electrical Engineering Stack Exchange</a>)</p>
-</blockquote>
-<hr />
-<h3 id="1-wire-是什麼">1. <code>wire</code> 是什麼？<a class="headerlink" href="#1-wire-是什麼" title="Permanent link"></a></h3>
-<p><code>wire</code> 是 <strong>net(網路型別)</strong>，比較像硬體裡的「線」。它本身<strong>不主動存值</strong>，而是呈現目前驅動它(driver)的結果。通常由 <code>assign</code>、模組輸出、或其他元件來驅動。(<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</p>
-<h4 id="生活化理解">生活化理解<a class="headerlink" href="#生活化理解" title="Permanent link"></a></h4>
-<p>你可以把 <code>wire</code> 想成「延長線」：</p>
-<ul>
-<li>插頭有電，它就有電</li>
-<li>沒人驅動時，常看到的是高阻抗 <code>z</code></li>
-<li>它自己不是拿來「記住」資料的盒子 (<a href="https://logicmadness.com/verilog-net-types/?utm_source=chatgpt.com" title="Verilog Net Types | The Ultimate Guide">logicmadness.com</a>)</li>
-</ul>
-<h4 id="最常見寫法">最常見寫法<a class="headerlink" href="#最常見寫法" title="Permanent link"></a></h4>
+<h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
+<h3 id="wire"><code>wire</code><a class="headerlink" href="#wire" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
 <span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 </code></pre></div>
-<p>這表示 <code>y</code> 持續等於 <code>a &amp; b</code>。(<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</p>
-<hr />
-<h3 id="2-reg-是什麼">2. <code>reg</code> 是什麼？<a class="headerlink" href="#2-reg-是什麼" title="Permanent link"></a></h3>
-<p><code>reg</code> 是 <strong>variable(變數型別)</strong>。它的重點不是「它一定是暫存器(register)」，而是：</p>
-<blockquote>
-<p>它可以在 <code>always</code> / <code>initial</code> 這種 procedural block(程序區塊) 裡被賦值。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-</blockquote>
-<p>這是初學者最常誤解的地方：<br />
-<strong><code>reg</code> 不等於硬體暫存器(register)</strong>。它最後會被綜合成什麼，要看你怎麼寫。若寫在 <code>always @(*)</code> 可能是組合邏輯；若寫在 <code>always @(posedge clk)</code> 才常是 D flip-flop(D 型正反器)。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<h4 id="生活化理解_1">生活化理解<a class="headerlink" href="#生活化理解_1" title="Permanent link"></a></h4>
-<p>把 <code>reg</code> 想成白板上的數字：</p>
 <ul>
-<li>你在 <code>always</code> 裡寫了一次，它會保持那個值</li>
-<li>直到下次你再改它</li>
-<li>但「白板」不一定代表最後硬體一定是暫存器，還是要看更新條件 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</li>
+<li>適合 <code>assign</code> 左邊。</li>
+<li>也常用來接子模組輸出與中介連線。</li>
 </ul>
-<h4 id="最常見寫法_1">最常見寫法<a class="headerlink" href="#最常見寫法_1" title="Permanent link"></a></h4>
+<h3 id="reg"><code>reg</code><a class="headerlink" href="#reg" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+
 <span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>這裡 <code>y</code> 不是因為「要做暫存器」才用 <code>reg</code>，而是因為它在 <code>always</code> 裡被賦值，所以語法上要是 <code>reg</code>。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<hr />
-<h3 id="3-integer-是什麼">3. <code>integer</code> 是什麼？<a class="headerlink" href="#3-integer-是什麼" title="Permanent link"></a></h3>
-<p><code>integer</code> 也是 <strong>variable(變數型別)</strong>。在常見 Verilog 工具與現代標準實作下，通常把它視為 <strong>32-bit signed(32 位元有號整數)</strong>；社群與工具文件也普遍這樣使用。(<a href="https://stackoverflow.com/questions/40009716/size-of-integers-in-verilog?utm_source=chatgpt.com" title="Size of integers in verilog">Stack Overflow</a>)</p>
-<h4 id="它跟-reg-310-差在哪">它跟 <code>reg [31:0]</code> 差在哪？<a class="headerlink" href="#它跟-reg-310-差在哪" title="Permanent link"></a></h4>
-<p>兩者都能放數字，但語意不同：</p>
 <ul>
-<li><code>reg [31:0]</code>：你明確指定「這是一個 32-bit 向量」</li>
-<li><code>integer</code>：你是在說「這是一個整數」，通常預設帶有 signed(有號) 整數語意，且寬度不是用位元切片來表達 (<a href="https://stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com" title="What is the Difference Between the integer and reg ...">Stack Overflow</a>)</li>
+<li>適合程序式賦值。</li>
+<li>可用在組合 <code>always @(*)</code>，也可用在時序 <code>always @(posedge clk)</code>。</li>
 </ul>
-<h4 id="最常見用途">最常見用途<a class="headerlink" href="#最常見用途" title="Permanent link"></a></h4>
-<p><code>integer</code> 最常見於：</p>
-<ul>
-<li><code>for</code> 迴圈索引</li>
-<li>測試平台(testbench) 計數</li>
-<li>少量整數運算或暫存控制值 (<a href="https://nandland.com/for-loop-2/?utm_source=chatgpt.com" title="For Loop – VHDL and Verilog Example">Nandland</a>)</li>
-</ul>
-<p>例如：</p>
+<h3 id="integer"><code>integer</code><a class="headerlink" href="#integer" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
 <span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span>
 <span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>這種用法很常見，而且 <code>for</code> 在可綜合條件下是能綜合的，重點是展開次數必須能在編譯時決定。(<a href="https://electronics.stackexchange.com/questions/350078/question-about-synthesizable-for-loop-and-generate?utm_source=chatgpt.com" title="Question about Synthesizable For loop and Generate">Electrical Engineering Stack Exchange</a>)</p>
-<hr />
-<h3 id="為什麼需要同時有-wirereginteger">為什麼需要同時有 <code>wire</code>、<code>reg</code>、<code>integer</code>？<a class="headerlink" href="#為什麼需要同時有-wirereginteger" title="Permanent link"></a></h3>
-<p>因為 Verilog 不是一般軟體語言，它是 <strong>Hardware Description Language(硬體描述語言)</strong>。<br />
-硬體裡真的有兩種很不同的東西：</p>
-<ol>
-<li><strong>連線(connection)</strong>：像電路中的線，誰驅動它，它就反映誰</li>
-<li><strong>程序中被賦值的變數(variable assigned procedurally)</strong>：像你在 <code>always</code> 裡一步一步算出來的結果 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</li>
-</ol>
-<p>所以 Verilog 才把型別拆成：</p>
 <ul>
-<li><code>wire</code> 這種「像線」的東西</li>
-<li><code>reg</code> / <code>integer</code> 這種「像程序變數」的東西 (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</li>
+<li>常用在 loop index。</li>
+<li>不建議拿來當一般固定寬度資料路徑訊號。</li>
 </ul>
-<h4 id="用-c-類比">用 C++ 類比<a class="headerlink" href="#用-c-類比" title="Permanent link"></a></h4>
-<p>若硬比喻：</p>
-<ul>
-<li><code>wire</code> 比較像「函式輸出端一直即時連到某個表達式」</li>
-<li><code>reg</code> 比較像「區塊中的變數」</li>
-<li><code>integer</code> 比較像「你拿來跑迴圈的 <code>int i</code>」 (<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com" title="Deciding data types of input and output ports in Verilog">Electrical Engineering Stack Exchange</a>)</li>
-</ul>
-<hr />
-<h3 id="什麼時候用-wire">什麼時候用 <code>wire</code>？<a class="headerlink" href="#什麼時候用-wire" title="Permanent link"></a></h3>
-<h4 id="用在這些情況">用在這些情況<a class="headerlink" href="#用在這些情況" title="Permanent link"></a></h4>
-<ul>
-<li><code>assign</code> 左邊</li>
-<li>接子模組(submodule) 的輸出</li>
-<li>單純做訊號連接</li>
-<li>不需要在 <code>always</code> / <code>initial</code> 中直接賦值 (<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</li>
-</ul>
-<h4 id="典型例子">典型例子<a class="headerlink" href="#典型例子" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
-<span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
-</code></pre></div>
-<h4 id="你可以這樣記">你可以這樣記<a class="headerlink" href="#你可以這樣記" title="Permanent link"></a></h4>
-<p>看到「這條訊號只是被接出來、被連過去、被持續驅動」，優先想到 <code>wire</code>。(<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</p>
-<hr />
-<h3 id="什麼時候用-reg">什麼時候用 <code>reg</code>？<a class="headerlink" href="#什麼時候用-reg" title="Permanent link"></a></h3>
-<h4 id="用在這些情況_1">用在這些情況<a class="headerlink" href="#用在這些情況_1" title="Permanent link"></a></h4>
-<ul>
-<li>你要在 <code>always</code> 裡對它賦值</li>
-<li>組合邏輯 <code>always @(*)</code></li>
-<li>時序邏輯 <code>always @(posedge clk)</code> (<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</li>
-</ul>
-<h4 id="典型例子-1組合邏輯">典型例子 1：組合邏輯<a class="headerlink" href="#典型例子-1組合邏輯" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
-<h4 id="典型例子-2時序邏輯">典型例子 2：時序邏輯<a class="headerlink" href="#典型例子-2時序邏輯" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="n">q</span><span class="p">;</span>
-<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
-<h4 id="你可以這樣記_1">你可以這樣記<a class="headerlink" href="#你可以這樣記_1" title="Permanent link"></a></h4>
-<p>只要「左值」出現在 <code>always</code> 裡，先優先想到 <code>reg</code>。這是 HDLBits 初期非常好用的判斷法。(<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com" title="Deciding data types of input and output ports in Verilog">Electrical Engineering Stack Exchange</a>)</p>
-<hr />
-<h3 id="什麼時候用-integer">什麼時候用 <code>integer</code>？<a class="headerlink" href="#什麼時候用-integer" title="Permanent link"></a></h3>
-<h4 id="用在這些情況_2">用在這些情況<a class="headerlink" href="#用在這些情況_2" title="Permanent link"></a></h4>
-<ul>
-<li><code>for</code> 迴圈索引</li>
-<li>testbench 中的整數計數</li>
-<li>少量控制計數，不特別需要明確位元寬度時 (<a href="https://nandland.com/for-loop-2/?utm_source=chatgpt.com" title="For Loop – VHDL and Verilog Example">Nandland</a>)</li>
-</ul>
-<h4 id="典型例子_1">典型例子<a class="headerlink" href="#典型例子_1" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span>
-<span class="w">        </span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="k">end</span>
-</code></pre></div>
-<h4 id="但不要濫用">但不要濫用<a class="headerlink" href="#但不要濫用" title="Permanent link"></a></h4>
-<p>在 RTL 裡，如果你要表示明確寬度的硬體訊號，通常還是更建議用：</p>
-<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
-</code></pre></div>
-<p>而不是什麼都寫成 <code>integer</code>。因為 <code>reg [N:0]</code> 的位元寬度更清楚，也更符合你真的想合成出來的硬體。(<a href="https://stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com" title="What is the Difference Between the integer and reg ...">Stack Overflow</a>)</p>
-<hr />
-<h3 id="input--output-預設是什麼"><code>input</code> / <code>output</code> 預設是什麼？<a class="headerlink" href="#input--output-預設是什麼" title="Permanent link"></a></h3>
-<p>在 Verilog 裡：</p>
-<ul>
-<li><code>input</code> 預設是 <code>wire</code></li>
-<li><code>output</code> 預設也是 <code>wire</code></li>
-<li><code>inout</code> 也預設是 <code>wire</code> (<a href="https://stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com" title="What is the default data type of Verilog input port variables?">Stack Overflow</a>)</li>
-</ul>
-<p>也就是說：</p>
-<div class="highlight"><pre><span></span><code><span class="k">input</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="k">output</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-</code></pre></div>
-<p>等同於：</p>
-<div class="highlight"><pre><span></span><code><span class="k">input</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-</code></pre></div>
-<h4 id="那什麼時候寫-output-reg">那什麼時候寫 <code>output reg</code>？<a class="headerlink" href="#那什麼時候寫-output-reg" title="Permanent link"></a></h4>
-<p>當 <code>output</code> 這個埠要在 <code>always</code> 裡被賦值時，就常寫成 <code>output reg</code>。(<a href="https://stackoverflow.com/questions/5360508/using-wire-or-reg-with-input-or-output?utm_source=chatgpt.com" title="verilog - Using wire or reg with input or output">Stack Overflow</a>)</p>
-<p>例如：</p>
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span>
-<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="n">a</span><span class="p">,</span>
-<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="n">b</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">y</span>
+<h3 id="port-宣告">Port 宣告<a class="headerlink" href="#port-宣告" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="n">a</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data_in</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w">       </span><span class="n">y1</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y2</span><span class="p">,</span>
+<span class="w">    </span><span class="k">inout</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">bus</span>
 <span class="p">);</span>
-<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="k">end</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="n">y2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_in</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這裡 <code>y</code> 寫成 <code>reg</code>，是因為它在 <code>always</code> 裡被指定，不是因為它一定會被綜合成「實體暫存器」。(<a href="https://stackoverflow.com/questions/5360508/using-wire-or-reg-with-input-or-output?utm_source=chatgpt.com" title="verilog - Using wire or reg with input or output">Stack Overflow</a>)</p>
-<hr />
-<h3 id="一份很好背的選擇規則">一份很好背的選擇規則<a class="headerlink" href="#一份很好背的選擇規則" title="Permanent link"></a></h3>
-<h4 id="規則-1">規則 1<a class="headerlink" href="#規則-1" title="Permanent link"></a></h4>
-<p><code>assign</code> 左邊 → 通常 <code>wire</code>。(<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com" title="Deciding data types of input and output ports in Verilog">Electrical Engineering Stack Exchange</a>)</p>
-<h4 id="規則-2">規則 2<a class="headerlink" href="#規則-2" title="Permanent link"></a></h4>
-<p><code>always</code> 左邊 → 通常 <code>reg</code>。(<a href="https://electronics.stackexchange.com/questions/671829/deciding-data-types-of-input-and-output-ports-in-verilog?utm_source=chatgpt.com" title="Deciding data types of input and output ports in Verilog">Electrical Engineering Stack Exchange</a>)</p>
-<h4 id="規則-3">規則 3<a class="headerlink" href="#規則-3" title="Permanent link"></a></h4>
-<p><code>for (i=...)</code> 的 <code>i</code> → 常用 <code>integer</code>。(<a href="https://nandland.com/for-loop-2/?utm_source=chatgpt.com" title="For Loop – VHDL and Verilog Example">Nandland</a>)</p>
-<h4 id="規則-4">規則 4<a class="headerlink" href="#規則-4" title="Permanent link"></a></h4>
-<p>要描述固定寬度的硬體資料路徑(data path)，優先用 <code>wire [N:0]</code> 或 <code>reg [N:0]</code>，不要把 <code>integer</code> 當萬用替代品。(<a href="https://stackoverflow.com/questions/61312493/what-is-the-difference-between-the-integer-and-reg-variable-types-in-verilog?utm_source=chatgpt.com" title="What is the Difference Between the integer and reg ...">Stack Overflow</a>)</p>
-<hr />
-<h3 id="常見誤解我直接幫你踩煞車">常見誤解，我直接幫你踩煞車<a class="headerlink" href="#常見誤解我直接幫你踩煞車" title="Permanent link"></a></h3>
-<h4 id="誤解-1reg-就是-register暫存器">誤解 1：<code>reg</code> 就是 register(暫存器)<a class="headerlink" href="#誤解-1reg-就是-register暫存器" title="Permanent link"></a></h4>
-<p>❌ 不對。<br />
-<code>reg</code> 是 Verilog 的 variable 型別；它可描述組合邏輯，也可描述時序邏輯。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<h4 id="誤解-2wire-不能接複雜邏輯">誤解 2：<code>wire</code> 不能接複雜邏輯<a class="headerlink" href="#誤解-2wire-不能接複雜邏輯" title="Permanent link"></a></h4>
-<p>❌ 不對。<br />
-只要是連續指定 <code>assign</code> 或模組輸出驅動，它很常拿來接各種組合邏輯結果。(<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</p>
-<h4 id="誤解-3integer-不能綜合">誤解 3：<code>integer</code> 不能綜合<a class="headerlink" href="#誤解-3integer-不能綜合" title="Permanent link"></a></h4>
-<p>❌ 不完全對。<br />
-它常用於可綜合的 <code>for</code> 迴圈索引；只是 RTL 資料路徑若想清楚控制位寬，通常不建議用它當一般訊號。(<a href="https://electronics.stackexchange.com/questions/350078/question-about-synthesizable-for-loop-and-generate?utm_source=chatgpt.com" title="Question about Synthesizable For loop and Generate">Electrical Engineering Stack Exchange</a>)</p>
-<hr />
-<h3 id="除了上面三個還有哪些型別">除了上面三個，還有哪些型別？<a class="headerlink" href="#除了上面三個還有哪些型別" title="Permanent link"></a></h3>
-<p>若以<strong>傳統 Verilog</strong> 來看，除了 <code>wire</code>、<code>reg</code>、<code>integer</code>，常見還有：</p>
-<h4 id="1-其他-net-型別">1. 其他 net 型別<a class="headerlink" href="#1-其他-net-型別" title="Permanent link"></a></h4>
 <ul>
-<li><code>tri</code></li>
-<li><code>wand</code></li>
-<li><code>wor</code></li>
-<li><code>triand</code></li>
-<li><code>trior</code></li>
-<li><code>tri0</code></li>
-<li><code>tri1</code></li>
-<li><code>supply0</code></li>
-<li><code>supply1</code></li>
-<li><code>trireg</code> (<a href="https://www.chipverify.com/verilog/verilog-net-types?utm_source=chatgpt.com" title="Verilog Net Types">ChipVerify</a>)</li>
+<li><code>input</code> 預設可視為 <code>wire</code>。</li>
+<li><code>output</code> 若在 <code>always</code> 內被指定，要改成 <code>output reg</code>。</li>
+<li><code>inout</code> 常搭配 tri-state bus。</li>
 </ul>
-<p>這些多半用在較特殊的網路解析、多驅動、上拉/下拉、儲存性網路建模。<strong>RTL 初學和 HDLBits 前期幾乎用不到</strong>，你先知道名字就夠了。(<a href="https://www.chipverify.com/verilog/verilog-net-types?utm_source=chatgpt.com" title="Verilog Net Types">ChipVerify</a>)</p>
-<h4 id="2-其他-variable-型別">2. 其他 variable 型別<a class="headerlink" href="#2-其他-variable-型別" title="Permanent link"></a></h4>
+<h2 id="快速判斷">快速判斷<a class="headerlink" href="#快速判斷" title="Permanent link"></a></h2>
 <ul>
-<li><code>time</code></li>
-<li><code>real</code></li>
-<li><code>realtime</code> (<a href="https://electrosofts.com/verilog/data_types?utm_source=chatgpt.com" title="Verilog tutorial -data types">ElectroSofts</a>)</li>
+<li><code>assign</code> 左邊：先想 <code>wire</code></li>
+<li><code>always</code> / <code>initial</code> 左邊：先想 <code>reg</code></li>
+<li><code>for (i = ...)</code> 的 <code>i</code>：先想 <code>integer</code></li>
+<li>固定寬度資料：用 <code>wire [N:0]</code> 或 <code>reg [N:0]</code></li>
 </ul>
-<p>這些大多偏模擬(simulation)與 testbench 用途：</p>
+<h2 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h2>
 <ul>
-<li><code>time</code>：記模擬時間</li>
-<li><code>real</code> / <code>realtime</code>：浮點數模擬，不是一般綜合 RTL 的主角 (<a href="https://electrosofts.com/verilog/data_types?utm_source=chatgpt.com" title="Verilog tutorial -data types">ElectroSofts</a>)</li>
+<li>把 <code>output</code> 留成預設 <code>wire</code>，卻在 <code>always</code> 內對它賦值。</li>
+<li>認為 <code>reg</code> 一定綜合成 register。</li>
+<li>用 <code>integer</code> 去取代明確位寬的硬體訊號。</li>
+<li>把 <code>wire</code> 當成只能接很簡單的單 bit 訊號。</li>
 </ul>
-<h4 id="3-事件型別">3. 事件型別<a class="headerlink" href="#3-事件型別" title="Permanent link"></a></h4>
+<h2 id="相關主題">相關主題<a class="headerlink" href="#相關主題" title="Permanent link"></a></h2>
 <ul>
-<li><code>event</code> (<a href="https://www.theoctetinstitute.com/content/verilog/verilog-data-types/?utm_source=chatgpt.com" title="Data Types in Verilog">八位元學院</a>)</li>
+<li><a href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html">模組與建模方式</a></li>
+<li><a href="vector.html">Vector、MSB 與 LSB</a></li>
+<li><a href="%E6%95%B8%E5%80%BC.html">數值與 Literal</a></li>
 </ul>
-<p>這更偏模擬控制流程，不是你做基本 RTL 時天天會碰到的東西。(<a href="https://www.theoctetinstitute.com/content/verilog/verilog-data-types/?utm_source=chatgpt.com" title="Data Types in Verilog">八位元學院</a>)</p>
-<hr />
-<h3 id="對-hdlbits-最實用的版本">對 HDLBits 最實用的版本<a class="headerlink" href="#對-hdlbits-最實用的版本" title="Permanent link"></a></h3>
-<p>如果你的目標是先把 HDLBits 做穩，我建議你先用這套簡化心法：</p>
-<ul>
-<li><strong>模組輸入 <code>input</code></strong>：先當 <code>wire</code></li>
-<li><strong>模組輸出 <code>output</code></strong>：預設 <code>wire</code></li>
-<li><strong>如果 <code>output</code> 要在 <code>always</code> 裡改</strong>：寫 <code>output reg</code></li>
-<li><strong>模組內中介連線</strong>：通常 <code>wire</code></li>
-<li><strong>在 <code>always</code> 裡被賦值的中介變數</strong>：通常 <code>reg</code></li>
-<li><strong>迴圈索引 <code>i</code></strong>：通常 <code>integer</code> (<a href="https://stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com" title="What is the default data type of Verilog input port variables?">Stack Overflow</a>)</li>
-</ul>
-<p>這套規則不是整個 Verilog 世界的全部，但對入門 RTL 很夠用，而且不容易踩大雷。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<hr />
-<h3 id="最後幫你濃縮成一份超短版">最後幫你濃縮成一份超短版<a class="headerlink" href="#最後幫你濃縮成一份超短版" title="Permanent link"></a></h3>
-<h4 id="wire"><code>wire</code><a class="headerlink" href="#wire" title="Permanent link"></a></h4>
-<p>像「線」，不自己存值；通常給 <code>assign</code>、模組連接用。(<a href="https://stackoverflow.com/questions/33459048/what-is-the-difference-between-reg-and-wire-in-a-verilog-module?utm_source=chatgpt.com" title="What is the difference between reg and wire in a verilog ...">Stack Overflow</a>)</p>
-<h4 id="reg"><code>reg</code><a class="headerlink" href="#reg" title="Permanent link"></a></h4>
-<p>像「程序變數」；通常在 <code>always</code> / <code>initial</code> 裡賦值。不是看到 <code>reg</code> 就等於硬體暫存器。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<h4 id="integer"><code>integer</code><a class="headerlink" href="#integer" title="Permanent link"></a></h4>
-<p>整數型別，常見為 32-bit signed；最常拿來做 <code>for</code> 迴圈索引與整數計數。(<a href="https://stackoverflow.com/questions/40009716/size-of-integers-in-verilog?utm_source=chatgpt.com" title="Size of integers in verilog">Stack Overflow</a>)</p>
-<h4 id="預設埠型別">預設埠型別<a class="headerlink" href="#預設埠型別" title="Permanent link"></a></h4>
-<p><code>input/output/inout</code> 預設都是 <code>wire</code>。(<a href="https://stackoverflow.com/questions/71625202/what-is-the-default-data-type-of-verilog-input-port-variables?utm_source=chatgpt.com" title="What is the default data type of Verilog input port variables?">Stack Overflow</a>)</p>
-<hr />
-<h3 id="一個小提醒實務上更好的寫法">一個小提醒：實務上更好的寫法<a class="headerlink" href="#一個小提醒實務上更好的寫法" title="Permanent link"></a></h3>
-<p>雖然你現在是學 Verilog，但很多現代專案會改用 SystemVerilog 的 <code>logic</code> 來降低 <code>reg</code> / <code>wire</code> 名稱造成的誤解。不過在 HDLBits 與純 Verilog 題目裡，我們還是先把 <code>wire</code>、<code>reg</code>、<code>integer</code> 觀念練扎實最重要。(<a href="https://www.verilogpro.com/verilog-reg-verilog-wire-systemverilog-logic/?utm_source=chatgpt.com" title="Verilog reg, Verilog wire, SystemVerilog logic. What's the ...">VerilogPro</a>)</p>
-<h3 id="你接下來最適合做的事">你接下來最適合做的事<a class="headerlink" href="#你接下來最適合做的事" title="Permanent link"></a></h3>
-<p>⭐ 先把這三句手背起來：<code>assign 左邊用 wire</code>、<code>always 左邊用 reg</code>、<code>for 的 i 常用 integer</code>。<br />
-⭐ 然後你貼一題 HDLBits 題目或你的程式，我可以幫你逐行標註每個訊號為什麼要用 <code>wire</code> 或 <code>reg</code>。</p>
 
 
 
@@ -5481,7 +4691,7 @@ is now available!
     >
       
         <a
-          href="Procedural%20style.html"
+          href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -5493,14 +4703,14 @@ is now available!
               <span class="md-footer__direction">
                 Previous
               </span>
-              Procedural style(程序式寫法)
+              模組與建模方式
             </div>
           </div>
         </a>
       
       
         <a
-          href="system%20tasks.html"
+          href="vector.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -5509,7 +4719,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              system tasks（系統任務）
+              Vector、MSB 與 LSB
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -5572,7 +4782,7 @@ is now available!
       
         <script src="../../assets/pymdownx-extras/image-zoom.js"></script>
       
-        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-2"></script>
+        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-3"></script>
       
         <script src="../../assets/pymdownx-extras/legacy-image-width.js"></script>
       

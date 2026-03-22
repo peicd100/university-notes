@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/vector.html">
       
       
-        <link rel="prev" href="%E5%9F%BA%E7%A4%8E%E8%AA%9E%E6%B3%95.html">
+        <link rel="prev" href="%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html">
       
       
-        <link rel="next" href="module.html">
+        <link rel="next" href="%E6%95%B8%E5%80%BC.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>vector - PEICD100</title>
+        <title>Vector、MSB 與 LSB - PEICD100</title>
       
     
     
@@ -1885,7 +1885,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260320-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260322-2">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1910,7 +1910,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#vector" class="md-skip">
+        <a href="#vectormsb-與-lsb" class="md-skip">
           Skip to content
         </a>
       
@@ -2016,7 +2016,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              vector
+              Vector、MSB 與 LSB
             
           </span>
         </div>
@@ -2146,13 +2146,13 @@ is now available!
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-tabs__link">
+        <a href="%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
           
   
   
     
   
-  Verilog
+  Verilog Quick Reference
 
         </a>
       </li>
@@ -2175,6 +2175,28 @@ is now available!
     
   
   科大_數位邏輯設計實習
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://peicd100.github.io/university-notes/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  臺大_系統晶片驗證
 
         </a>
       </li>
@@ -2615,16 +2637,6 @@ is now available!
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -2649,7 +2661,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    Verilog
+    Verilog Quick Reference
   
 
     
@@ -2665,11 +2677,39 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
             
   
-    Verilog
+    Verilog Quick Reference
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2685,7 +2725,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    學習資源整理
+    學習資源
   
 
     
@@ -2703,11 +2743,39 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="%E5%9F%BA%E7%A4%8E%E8%AA%9E%E6%B3%95.html" class="md-nav__link">
+  
+    
+    
+      
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -2721,255 +2789,19 @@ is now available!
   
   
 
-      </a>
-    </li>
-  
-
-              
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
             
-              
-                
   
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    vector
+    基礎語法
   
 
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="vector.html" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    vector
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#vector" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        vector
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="vector">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#宣告" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        宣告
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="宣告">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#進階" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        進階
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unpacked-vs-packed-arrays" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unpacked vs. Packed Arrays
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Unpacked vs. Packed Arrays">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packed翻譯打包的" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Packed(翻譯：打包的)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unpacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unpacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packedunpacked依照常見度排序" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Packed+Unpacked(依照常見度排序)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#賦值--大括號使用" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        賦值 &amp; 大括號使用
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="賦值 &amp; 大括號使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#重複次數" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        重複次數
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#重複次數範例-sign-extension符號延伸" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        重複次數範例： sign-extension(符號延伸)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#圖案" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        圖案
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#練習題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        練習題
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="練習題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#重複--logical-operators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        重複 + logical operators
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -2978,98 +2810,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="module.html" class="md-nav__link">
+      <a href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    module
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="primitive.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    primitive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="if.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    if
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Procedural%20style.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Procedural style(程序式寫法)
+    模組與建模方式
   
 
     
@@ -3115,17 +2863,219 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="system%20tasks.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector、MSB 與 LSB
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="vector.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    system tasks（系統任務）
+    Vector、MSB 與 LSB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一句話先懂" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句話先懂
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#核心規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心規則
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常用模板或例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用模板或例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用模板或例子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#基本宣告" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本宣告
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bit-select-與-part-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bit-select 與 part-select
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#位寬延伸與截斷" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位寬延伸與截斷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#串接與-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        串接與 replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packed-與-unpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packed 與 unpacked
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#圖示" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        圖示
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常見地雷" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見地雷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#相關主題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關主題
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E6%95%B8%E5%80%BC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    數值與 Literal
   
 
     
@@ -3146,14 +3096,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="timescale.html" class="md-nav__link">
+      <a href="%E9%81%8B%E7%AE%97%E5%AD%90.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    timescale
+    運算子
   
 
     
@@ -3162,6 +3112,314 @@ is now available!
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    程序式寫法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    程序式寫法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="always%E3%80%81initial%20%E8%88%87%E4%BA%8B%E4%BB%B6%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    always、initial 與事件控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="blocking%20%E8%88%87%20non-blocking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blocking 與 non-blocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%81%B8%E6%93%87%E7%B5%90%E6%A7%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    選擇結構
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迴圈與程序控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬與常見電路
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模擬與常見電路
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="system%20tasks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬控制與 System Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="priority%20encoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Encoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -3304,6 +3562,95 @@ is now available!
       
         
       
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    臺大_系統晶片驗證
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    臺大_系統晶片驗證
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://peicd100.github.io/university-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    臺大_系統晶片驗證
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
         
       
         
@@ -3327,10 +3674,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -3348,8 +3695,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3373,7 +3720,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    首頁
+    相關資訊
   
 
     
@@ -3401,7 +3748,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 1
+    Ch 1
   
 
     
@@ -3429,7 +3776,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 3
+    Ch 3
   
 
     
@@ -3513,7 +3860,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    vim
+    Vim
   
 
     
@@ -3594,10 +3941,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -3615,8 +3962,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3696,7 +4043,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    Quartus 創建專案
+    創建專案
   
 
     
@@ -3825,10 +4172,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -3846,8 +4193,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3871,7 +4218,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    教材
+    moodle
   
 
     
@@ -3899,7 +4246,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    nmos、pmos
+    Nmos、pmos
   
 
     
@@ -3946,10 +4293,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -3967,8 +4314,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4020,7 +4367,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 1
+    Ch 1
   
 
     
@@ -4048,7 +4395,7 @@ is now available!
   <span class="md-ellipsis">
     
   
-    ch 2
+    Ch 2
   
 
     
@@ -4086,6 +4433,8 @@ is now available!
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -4094,117 +4443,44 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#vector" class="md-nav__link">
+  <a href="#一句話先懂" class="md-nav__link">
     <span class="md-ellipsis">
       
-        vector
+        一句話先懂
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="vector">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#宣告" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        宣告
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="宣告">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#進階" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        進階
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unpacked-vs-packed-arrays" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unpacked vs. Packed Arrays
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Unpacked vs. Packed Arrays">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packed翻譯打包的" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Packed(翻譯：打包的)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unpacked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unpacked
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packedunpacked依照常見度排序" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Packed+Unpacked(依照常見度排序)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#賦值--大括號使用" class="md-nav__link">
+  <a href="#核心規則" class="md-nav__link">
     <span class="md-ellipsis">
       
-        賦值 &amp; 大括號使用
+        核心規則
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="賦值 &amp; 大括號使用">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#常用模板或例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用模板或例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用模板或例子">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#重複次數" class="md-nav__link">
+  <a href="#基本宣告" class="md-nav__link">
     <span class="md-ellipsis">
       
-        重複次數
+        基本宣告
       
     </span>
   </a>
@@ -4212,10 +4488,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#重複次數範例-sign-extension符號延伸" class="md-nav__link">
+  <a href="#bit-select-與-part-select" class="md-nav__link">
     <span class="md-ellipsis">
       
-        重複次數範例： sign-extension(符號延伸)
+        bit-select 與 part-select
       
     </span>
   </a>
@@ -4223,10 +4499,32 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#圖案" class="md-nav__link">
+  <a href="#位寬延伸與截斷" class="md-nav__link">
     <span class="md-ellipsis">
       
-        圖案
+        位寬延伸與截斷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#串接與-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        串接與 replication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packed-與-unpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packed 與 unpacked
       
     </span>
   </a>
@@ -4239,30 +4537,35 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#練習題" class="md-nav__link">
+  <a href="#圖示" class="md-nav__link">
     <span class="md-ellipsis">
       
-        練習題
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="練習題">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#重複--logical-operators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        重複 + logical operators
+        圖示
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#常見地雷" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見地雷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#相關主題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        相關主題
+      
+    </span>
+  </a>
   
 </li>
       
@@ -4284,279 +4587,92 @@ is now available!
 
 
 
-  <h1>vector</h1>
-
-<h2 id="vector">vector<a class="headerlink" href="#vector" title="Permanent link"></a></h2>
-<h3 id="宣告">宣告<a class="headerlink" href="#宣告" title="Permanent link"></a></h3>
-<p>需要注意的是陣列大小在變數前面，不像 C++ 是在後面。</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="p">[</span><span class="nl">MSB:</span><span class="n">LSB</span><span class="p">]</span><span class="w"> </span><span class="n">vector_name</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="c1">// 名稱為 v 大小為 3bit 的 wire</span>
-</code></pre></div><br />
-MSB和LSB可以隨便定義數字，反正他就是一個範圍，然後由大到小或由小到大也完全隨意。<br />
-但一般來說是由大到小，因為要保留”第k位元”的性質(bit4 bit3 bit2 bit1 bit0)</p>
-<p><div class="highlight"><pre><span></span><code>i.......j
-^       ^
-MSB     LSB
-</code></pre></div><br />
-i和j可以隨意填，順序和反序都可以，但是之後就要用相同「方向」操作</p>
-<p>一次宣告多變數：<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">;</span><span class="w"> </span><span class="c1">//三個都是 [3:0];</span>
-</code></pre></div></p>
-<h4 id="進階">進階<a class="headerlink" href="#進階" title="Permanent link"></a></h4>
-<p>1.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
-</code></pre></div><br />
-宣告了一個名為 w 的 8-bit 向量，它等價於 8 條彼此獨立的 wire。</p>
-<p>2.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">w</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 8-bit 的 wire w 。</p>
-<p>3.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 4-bit 的 reg x。</p>
-<p>4.<br />
-<div class="highlight"><pre><span></span><code><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">8</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 9-bit 的 reg，同時它也是一個輸出埠。</p>
-<p>5.<br />
-<div class="highlight"><pre><span></span><code><span class="k">input</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:-</span><span class="mh">2</span><span class="p">]</span><span class="w"> </span><span class="n">z</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 6-bit 的 wire 輸入 z，而且範圍可以包含負數索引。</p>
-<p>6.<br />
-<div class="highlight"><pre><span></span><code><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 4-bit 的輸出 wire a。如果沒有另外寫，output 預設型別是 wire。</p>
-<p>7.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-</code></pre></div><br />
-宣告一個 8-bit 的 wire b，而且這裡 b[0] 是最高有效位元（MSB）。</p>
-<p>8.<br />
-一個 vector 的 endianness（也可比較口語地理解成「方向」），是指最低有效位元（LSB）到底是放在較小的索引，還是放在較大的索引。<br />
-如果 LSB 在較小索引，叫 little-endian，例如 [3:0]。<br />
-如果 LSB 在較大索引，叫 big-endian，例如 [0:3]。</p>
-<p>9.<br />
-在 Verilog 裡，一旦 vector 用某種方向宣告之後，之後就必須一直用同樣的方向來使用它。<br />
-例如，如果 vec 是用 wire [3:0] vec; 宣告的，那你之後寫成 vec[0:3] 是不合法的。<br />
-在 endianness 上保持一致是很重要的習慣，因為如果不同方向的 vector 混在一起 assign 或一起使用，很容易出現很奇怪的 bug。</p>
-<p>10.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-</code></pre></div><br />
-宣告兩個 3-bit vector：a 和 c。</p>
-<p>11.<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="mb">&#39;b101</span><span class="p">;</span>
-</code></pre></div><br />
-把 a 設成二進位 101。<br />
-<div class="highlight"><pre><span></span><code><span class="mh">3</span><span class="mb">&#39;b101</span><span class="err">：</span><span class="o">&lt;</span><span class="n">size</span><span class="o">&gt;</span><span class="p">&#39;</span><span class="o">&lt;</span><span class="n">base</span><span class="o">&gt;&lt;</span><span class="n">digits</span><span class="o">&gt;</span>
-</code></pre></div><br />
-size：這個常數要用幾個 bit 表示<br />
-'：分隔符號<br />
-base：進位制<br />
-    b=2進位<br />
-    d=10進位<br />
-    h=16進位</p>
-<p>digits：實際的數字內容。</p>
-<p>12.<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// c = 001 &lt;-- bug</span>
-</code></pre></div><br />
-因為 b 只有 1-bit，所以 assign 到 c 時就變成只有那 1 bit 被用到，結果 c 會變成像 001 這種錯誤結果。這就是 bug。</p>
-<p>13.<br />
-如果兩邊位寬不同，Verilog 會依情況做：<br />
-假設：<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
-</code></pre></div><br />
-如果 A 比 B 長：A 的高位(最左邊位元)補 0。<br />
-如果 A 比 B 短：B 的高位(最左邊位元)截掉。<br />
-ex.<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">____</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">01011</span><span class="p">;</span><span class="w"> </span><span class="c1">//A = 1011</span>
-<span class="k">assign</span><span class="w"> </span><span class="n">_____</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0110</span><span class="p">;</span><span class="w"> </span><span class="c1">//A = 00110</span>
-</code></pre></div></p>
-<h3 id="unpacked-vs-packed-arrays">Unpacked vs. Packed Arrays<a class="headerlink" href="#unpacked-vs-packed-arrays" title="Permanent link"></a></h3>
-<p>寫在前面和後面的意義不同。<br />
-一般風格上常見：前面的是[大:小]，後面的用[小:大]。<br />
-也就是：<br />
-packed 常見 [大:小]<br />
-unpacked 常見 [小:大]</p>
-<h4 id="packed翻譯打包的">Packed(翻譯：打包的)<a class="headerlink" href="#packed翻譯打包的" title="Permanent link"></a></h4>
-<p><div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">9</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w">  </span><span class="c1">// v=0000000000</span>
-<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">9</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">8</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">6</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">5</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">4</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">3</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">2</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span>
-<span class="p">]</span>
-</code></pre></div><br />
-(示意)</p>
-<h4 id="unpacked">Unpacked<a class="headerlink" href="#unpacked" title="Permanent link"></a></h4>
-<p><div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">9</span><span class="p">];</span><span class="w">  </span><span class="c1">// v=[0,0,0,0,0,0,0,0,0,0]</span>
-<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">4</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">5</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">6</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">7</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">8</span><span class="p">],</span>
-<span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">9</span><span class="p">]</span>
-<span class="p">]</span>
-</code></pre></div><br />
-(示意)</p>
-<h4 id="packedunpacked依照常見度排序">Packed+Unpacked(依照常見度排序)<a class="headerlink" href="#packedunpacked依照常見度排序" title="Permanent link"></a></h4>
-<p>1.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">3</span><span class="p">];</span><span class="w">		</span><span class="c1">// v=[00,00,00,00]</span>
-<span class="w">					</span><span class="n">v</span><span class="o">=</span><span class="p">[</span>
-<span class="w">  </span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">0</span><span class="p">]],</span>
-<span class="w">  </span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">0</span><span class="p">]],</span>
-<span class="w">  </span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">2</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">2</span><span class="p">][</span><span class="mh">0</span><span class="p">]],</span>
-<span class="w">  </span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">3</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">3</span><span class="p">][</span><span class="mh">0</span><span class="p">]]</span>
-<span class="p">]</span>
-</code></pre></div><br />
-(示意)</p>
-<p>2.<br />
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-<span class="c1">// v = [v[1][3] v[1][2] v[1][1] v[1][0] v[0][3] v[0][2] v[0][1] v[0][0]]</span>
-</code></pre></div><br />
-它和 wire [7:0] v; 總位元數相同都是 8 bits，但 wire [1:0][3:0] v; 額外保留了 2 × 4-bit 的 packed 分組語意，因此可用 v[i][j] 兩層索引。</p>
-<div class="highlight"><pre><span></span><code>※ 這種多維 packed 寫法是 SystemVerilog 觀念。
+<h1 id="vectormsb-與-lsb">Vector、MSB 與 LSB<a class="headerlink" href="#vectormsb-與-lsb" title="Permanent link"></a></h1>
+<h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
+<p>Vector 就是多 bit 訊號；宣告方向決定哪一端是 <code>MSB</code>、哪一端是 <code>LSB</code>，後續切片、串接與位寬規則都會跟著它走。</p>
+<h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
+<ul>
+<li>宣告格式是 <code>type [MSB:LSB] name;</code></li>
+<li><code>[7:0]</code> 和 <code>[0:7]</code> 都合法，只是方向不同。</li>
+<li><code>MSB</code> 是 most significant bit，代表高位。</li>
+<li><code>LSB</code> 是 least significant bit，代表低位。</li>
+<li>單一 bit 取值用 <code>vec[i]</code>，部分切片用 <code>vec[hi:lo]</code>。</li>
+<li>位寬不一致時，較寬端可能補位，較窄端可能截斷。</li>
+<li><code>{a, b}</code> 是串接，<code>{4{1'b0}}</code> 是 replication。</li>
+</ul>
+<h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
+<h3 id="基本宣告">基本宣告<a class="headerlink" href="#基本宣告" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">7</span><span class="p">]</span><span class="w"> </span><span class="n">reverse_bus</span><span class="p">;</span>
 </code></pre></div>
-<p>3-1.<br />
-這種二維 unpacked array 常用來表示二維資料，例如影像、座標格點、表格資料。</p>
-<p><div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">3</span><span class="p">];</span><span class="w">		</span><span class="c1">// v=[[0,0,0,0], [0,0,0,0]]</span>
-<span class="n">v</span><span class="o">=</span><span class="p">[</span>
-<span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">3</span><span class="p">]],</span>
-<span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">3</span><span class="p">]]</span>
-<span class="p">]</span>
-<span class="err">```</span><span class="p">(</span><span class="err">示意</span><span class="p">)</span>
+<ul>
+<li><code>wire [7:0] data;</code> 中，<code>data[7]</code> 是 MSB，<code>data[0]</code> 是 LSB。</li>
+<li><code>wire [0:7] reverse_bus;</code> 中，<code>reverse_bus[0]</code> 是 MSB。</li>
+</ul>
+<h3 id="bit-select-與-part-select">bit-select 與 part-select<a class="headerlink" href="#bit-select-與-part-select" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w">       </span><span class="n">msb</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">upper_nibble</span><span class="p">;</span>
 
-<span class="err">``</span><span class="no">`verilog</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">3</span><span class="p">];</span><span class="w">	</span><span class="c1">// v=[[00,00,00,00], [00,00,00,00]]</span>
-<span class="w">   </span><span class="n">v</span><span class="o">=</span><span class="p">[</span>
-<span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[0\]\[0\]\[1\],</span><span class="w"> </span><span class="n">v\[0\]\[0\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[0\]\[1\]\[1\],</span><span class="w"> </span><span class="n">v\[0\]\[1\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[0\]\[2\]\[1\],</span><span class="w"> </span><span class="n">v\[0\]\[2\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">3</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="mh">3</span><span class="p">][</span><span class="mh">0</span><span class="p">]}</span>
-<span class="w"> </span><span class="p">],</span>
-<span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[1\]\[0\]\[1\],</span><span class="w"> </span><span class="n">v\[1\]\[0\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[1\]\[1\]\[1\],</span><span class="w"> </span><span class="n">v\[1\]\[1\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v\[1\]\[2\]\[1\],</span><span class="w"> </span><span class="n">v\[1\]\[2\]\[0\]},</span><span class="w">  </span>
-<span class="w">  </span><span class="p">{</span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">3</span><span class="p">][</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mh">1</span><span class="p">][</span><span class="mh">3</span><span class="p">][</span><span class="mh">0</span><span class="p">]}</span>
-<span class="w"> </span><span class="p">]</span>
-<span class="p">]</span>
-<span class="err">```</span><span class="p">(</span><span class="err">示意</span><span class="p">)</span>
-
-<span class="p">###</span><span class="w"> </span><span class="err">呼叫</span>
-
-<span class="err">``</span><span class="no">`verilog</span>
-<span class="err">當宣告</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
-</code></pre></div><br />
-呼叫時 v[1][2][3][4]<br />
-呼叫有兩種型態<br />
-[i]：第i個<br />
-[i:j]：從第i到j<br />
-也就是先後面由左到右，再從前面由左到右。</p>
-<p>在乎叫時，如果原本是[0:3]，不可呼叫[2:0]，方向必須相同。</p>
-<h2 id="賦值--大括號使用">賦值 &amp; 大括號使用<a class="headerlink" href="#賦值--大括號使用" title="Permanent link"></a></h2>
-<p>1.大括號傳遞</p>
-<div class="highlight"><pre><span></span><code><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
-<span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
-<span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_not</span>
-<span class="k">assign</span><span class="w"> </span><span class="n">out_not</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">\~b,</span><span class="w"> </span><span class="n">\~a};</span><span class="w"> </span><span class="c1">//a+b=out_not，可以直接接上去。</span>
-
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
-<span class="k">assign</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">}};</span><span class="w"> </span><span class="c1">//這樣也可以接，要”接”就是用大括號，切片才用中括號“[]”。</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">msb</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mh">7</span><span class="p">];</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">upper_nibble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">];</span>
 </code></pre></div>
-<p>不管怎麼括號，只要寬度(位寬)對、每個傳入都有接收的就是合理的。</p>
-<p>A &mdash; B<br />
-C &mdash; D<br />
-.     .<br />
-.     .<br />
-.     .<br />
-像上面有一一對到就好，如下：</p>
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">;</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">};</span>
-</code></pre></div>
-<p>其實也可以像下面這樣寫<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,{</span><span class="n">B</span><span class="p">},</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,{</span><span class="n">c</span><span class="p">},</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">};</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,{</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">},</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">};</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,{</span><span class="n">B</span><span class="p">,{</span><span class="n">C</span><span class="p">}},</span><span class="n">D</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">};</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,{</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">}}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">};</span>
-</code></pre></div></p>
-<p>可以想像成四則運算的括號，你愛括幾個都可以，只要可以正常運算就好，就像是：<br />
-<div class="highlight"><pre><span></span><code>3*2+10 = ((3*(2))+((10))) //亂括號，但是沒有邏輯錯誤
-</code></pre></div></p>
-<p>2.用大括號替代 “assign =”：</p>
-<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">E</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">;</span>
-<span class="kt">wire</span><span class="w"> </span><span class="n">ab</span><span class="p">,</span><span class="n">cd</span><span class="p">;</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">E</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">}</span><span class="o">=</span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">};</span>
-<span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">ab</span><span class="p">,</span><span class="n">cd</span><span class="p">}</span><span class="o">=</span><span class="p">{</span><span class="n">a\&amp;b,c\&amp;d};</span>
-</code></pre></div>
-<p>3.合併兩個1<br />
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="p">);</span><span class="c1">//</span>
-<span class="w">    </span><span class="c1">// assign { ... } = { ... };</span>
-<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">}</span><span class="o">=</span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">};</span>
-<span class="k">endmodule</span>
-</code></pre></div></p>
-<p>其實可以替換成</p>
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span>
-<span class="p">);</span>
-<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">};</span>
-<span class="k">endmodule</span>
-</code></pre></div>
-<p>因為位寬相同</p>
-<h3 id="重複次數">重複次數<a class="headerlink" href="#重複次數" title="Permanent link"></a></h3>
-<p>{num{vector}}<br />
-最外面的大括號不能省略，如： z = { {3{x}}  , y };</p>
-<p>num 重複次數，必須是常數，不可是變數，也就是說可以寫：{3{1’b1}}，不能寫{n{1’b1}}。<br />
-vector 內容，可以是 “3’b100” 也可以是 {a,b,c};</p>
-<p>範例：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="mh">5</span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">}}</span>
-<span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">,</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">}</span>
+<ul>
+<li>切片方向要和原宣告方向一致。</li>
+<li>宣告成 <code>[7:0]</code> 的 vector，不要再寫成 <code>[0:7]</code> 的 part-select。</li>
+</ul>
+<h3 id="位寬延伸與截斷">位寬延伸與截斷<a class="headerlink" href="#位寬延伸與截斷" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
 
-<span class="p">{</span><span class="mh">2</span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">}}</span>
-<span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">}</span>
-
-<span class="p">{</span><span class="mh">3</span><span class="p">{</span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">}}</span>
-<span class="o">=</span><span class="w"> </span><span class="mh">12</span><span class="mb">&#39;b010101010101</span><span class="w"> </span><span class="c1">//先開內層再開外層</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="重複次數範例-sign-extension符號延伸">重複次數範例： sign-extension(符號延伸)<a class="headerlink" href="#重複次數範例-sign-extension符號延伸" title="Permanent link"></a></h3>
-<p>把一個有號數從較小位寬擴成較大位寬時，左邊補上的新 bit 不是一律補 0，而是複製原本的最高位 MSB，也就是符號位，這樣數值正負才會保持不變。在二補數表示法裡，正數的最高位是 0，負數的最高位是 1，所以 sign-extension 本質上就是「把 sign bit 一直往左複製」。  </p>
-<p>4'b0101 是 +5，sign-extension 後變成 8'b00000101</p>
-<p>4'b1101 是 -3，sign-extension 後變成 8'b11111101</p>
-<p>把 in 延伸到和 output 一樣：</p>
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="p">);</span>
-<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mh">24</span><span class="p">{</span><span class="n">in</span><span class="p">[</span><span class="mh">7</span><span class="p">]}},</span><span class="w"> </span><span class="n">in</span><span class="p">};</span>
-<span class="w">    </span><span class="c1">// 重複 24 次 MSB</span>
-<span class="k">endmodule</span>
+<ul>
+<li><code>b = a</code>：<code>a</code> 較窄，會延伸到 8 bit。</li>
+<li><code>c = b</code>：<code>b</code> 較寬，會截成 4 bit。</li>
+<li>如果你要明確控制符號延伸，請自己用串接寫清楚。</li>
+</ul>
+<h3 id="串接與-replication">串接與 replication<a class="headerlink" href="#串接與-replication" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out1</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out2</span><span class="p">;</span>
+
+<span class="k">assign</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">};</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">2</span><span class="p">{</span><span class="mh">4</span><span class="mb">&#39;b1010</span><span class="p">}};</span>
 </code></pre></div>
-<h3 id="圖案">圖案<a class="headerlink" href="#圖案" title="Permanent link"></a></h3>
-<p>在電路圖裡，一條線旁邊如果有斜線記號和數字，表示那是一條多位元的向量（也就是 bus / 匯流排），也就是 Packed 。<br />
-<img alt="" src="data:image/png;base64,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" /></p>
-<h2 id="練習題">練習題<a class="headerlink" href="#練習題" title="Permanent link"></a></h2>
-<h3 id="重複--logical-operators">重複 + logical operators<a class="headerlink" href="#重複--logical-operators" title="Permanent link"></a></h3>
-<p><img alt="" src="data:image/png;base64,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" /></p>
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">24</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="p">);</span><span class="c1">//</span>
-
-<span class="w">    </span><span class="c1">// The output is XNOR of two vectors created by</span>
-<span class="w">    </span><span class="c1">// concatenating and replicating the five inputs.</span>
-<span class="w">    </span><span class="c1">// assign out = \~{ ... } ^ { ... };</span>
-
-<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">\~{{{5{a}},{5{b}},{5{c}},{5{d}},{5{e}}}}^{5{a,b,c,d,e}};</span>
-
-<span class="k">endmodule</span>
+<ul>
+<li><code>{a, b}</code> 把兩段 vector 接在一起。</li>
+<li><code>{2{4'b1010}}</code> 代表重複兩次 <code>4'b1010</code>。</li>
+</ul>
+<h3 id="packed-與-unpacked">Packed 與 unpacked<a class="headerlink" href="#packed-與-unpacked" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">packed_vec</span><span class="p">;</span>
+<span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">mem</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">15</span><span class="p">];</span>
 </code></pre></div>
+<ul>
+<li><code>packed_vec</code> 是一條 8-bit 訊號。</li>
+<li><code>mem [0:15]</code> 是 16 個元素，每個元素是 8-bit。</li>
+<li>一般 Verilog 筆記最常碰到的是「packed vector + memory array」這種組合。</li>
+</ul>
+<h2 id="圖示">圖示<a class="headerlink" href="#圖示" title="Permanent link"></a></h2>
+<p><img alt="vector 宣告方向示意" src="images/vector.png" /></p>
+<p><img alt="vector 串接與切片示意" src="images/vector-1.png" /></p>
+<h2 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h2>
+<ul>
+<li>忘記宣告方向，結果把 MSB/LSB 理解反。</li>
+<li>原本宣告 <code>[7:0]</code>，後面卻寫成 <code>vec[0:3]</code> 這種反方向切片。</li>
+<li>以為位寬變寬一定會自動做你想要的 sign extension。</li>
+<li>把 packed vector 和 array/memory 的概念混在一起。</li>
+</ul>
+<h2 id="相關主題">相關主題<a class="headerlink" href="#相關主題" title="Permanent link"></a></h2>
+<ul>
+<li><a href="%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html">常見資料型別</a></li>
+<li><a href="%E6%95%B8%E5%80%BC.html">數值與 Literal</a></li>
+<li><a href="%E9%81%8B%E7%AE%97%E5%AD%90.html">運算子</a></li>
+</ul>
 
 
 
@@ -4599,7 +4715,7 @@ vector 內容，可以是 “3’b100” 也可以是 {a,b,c};</p>
     >
       
         <a
-          href="%E5%9F%BA%E7%A4%8E%E8%AA%9E%E6%B3%95.html"
+          href="%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -4611,14 +4727,14 @@ vector 內容，可以是 “3’b100” 也可以是 {a,b,c};</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              基礎語法
+              常見資料型別
             </div>
           </div>
         </a>
       
       
         <a
-          href="module.html"
+          href="%E6%95%B8%E5%80%BC.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -4627,7 +4743,7 @@ vector 內容，可以是 “3’b100” 也可以是 {a,b,c};</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              module
+              數值與 Literal
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -4690,7 +4806,7 @@ vector 內容，可以是 “3’b100” 也可以是 {a,b,c};</p>
       
         <script src="../../assets/pymdownx-extras/image-zoom.js"></script>
       
-        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-2"></script>
+        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-3"></script>
       
         <script src="../../assets/pymdownx-extras/legacy-image-width.js"></script>
       
