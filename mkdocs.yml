@@ -282,9 +282,10 @@ nav:
       - '基礎語法':
         - '模組與建模方式': 'md/Verilog/模組與建模方式.md'
         - '常見資料型別': 'md/Verilog/常見資料型別.md'
-        - 'Vector、MSB 與 LSB': 'md/Verilog/vector.md'
         - '數值與 Literal': 'md/Verilog/數值.md'
         - '運算子': 'md/Verilog/運算子.md'
+        - 'Vector、MSB 與 LSB': 'md/Verilog/vector.md'
+        -  'md/Verilog/Generate.md'
       - '程序式寫法':
         - 'always、initial 與事件控制': 'md/Verilog/always、initial 與事件控制.md'
         - 'blocking 與 non-blocking': 'md/Verilog/blocking 與 non-blocking.md'
@@ -293,6 +294,7 @@ nav:
       - '模擬與常見電路':
         - '模擬控制與 System Tasks': 'md/Verilog/system tasks.md'
         - 'Priority Encoder': 'md/Verilog/priority encoder.md'
+        - 'full adder': 'md/Verilog/full adder.md'
       
       
       
