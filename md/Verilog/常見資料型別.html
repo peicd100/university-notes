@@ -14,7 +14,7 @@
         <link rel="prev" href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html">
       
       
-        <link rel="next" href="vector.html">
+        <link rel="next" href="%E6%95%B8%E5%80%BC.html">
       
       
         
@@ -2738,6 +2738,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3007,34 +3009,6 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="vector.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Vector、MSB 與 LSB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="%E6%95%B8%E5%80%BC.html" class="md-nav__link">
         
   
@@ -3071,6 +3045,62 @@ is now available!
     
   
     運算子
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector、MSB 與 LSB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Generate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generate
   
 
     
@@ -3285,6 +3315,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3371,6 +3403,34 @@ is now available!
     
   
     Priority Encoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="full%20adder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    full adder
   
 
     
@@ -4498,6 +4558,10 @@ is now available!
 <li>常用在 loop index。</li>
 <li>不建議拿來當一般固定寬度資料路徑訊號。</li>
 </ul>
+<p>對 module 裡宣告的 <code>integer i;</code> 來說，不是「module 執行完就把 i 丟掉」。<br />
+更精確地說：<br />
+* <code>module</code> 不是像 C++ 函式那樣「呼叫一次、跑完、結束、釋放區域變數」的東西。<br />
+* 在 Verilog/SystemVerilog 裡，module 內宣告的變數通常是 <strong>static lifetime(靜態生命週期)</strong>，也就是它會在整個模擬期間都存在，不是每次 <code>always</code> 跑完就消失。</p>
 <h3 id="port-宣告">Port 宣告<a class="headerlink" href="#port-宣告" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="n">a</span><span class="p">,</span>
@@ -4599,7 +4663,7 @@ is now available!
       
       
         <a
-          href="vector.html"
+          href="%E6%95%B8%E5%80%BC.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -4608,7 +4672,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              Vector、MSB 與 LSB
+              數值與 Literal
             </div>
           </div>
           <div class="md-footer__button md-icon">
