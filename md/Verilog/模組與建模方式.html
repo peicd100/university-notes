@@ -2615,6 +2615,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3431,6 +3433,126 @@ is now available!
     
   
     full adder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    觀念/技巧
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    觀念/技巧
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防止變成 latch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    不會被刪除的變數
   
 
     
@@ -4538,7 +4660,117 @@ gate-level、dataflow、behavioral。實務 RTL 最常用的是 <code>module</co
 </code></pre></div>
 <ul>
 <li>直接用邏輯閘 primitive 描述連線。</li>
-<li>適合很小的示意例子，不適合大型 RTL 維護。</li>
+<li>
+<p>適合很小的示意例子，不適合大型 RTL 維護。</p>
+</li>
+<li>
+<p><strong>基本邏輯閘</strong></p>
+<ul>
+<li>
+<p><code>and</code></p>
+</li>
+<li>
+<p><code>nand</code></p>
+</li>
+<li>
+<p><code>or</code></p>
+</li>
+<li>
+<p><code>nor</code></p>
+</li>
+<li>
+<p><code>xor</code></p>
+</li>
+<li>
+<p><code>xnor</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>緩衝器 / 反相器</strong></p>
+<ul>
+<li>
+<p><code>buf</code></p>
+</li>
+<li>
+<p><code>not</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>三態閘 (tri-state gates)</strong></p>
+<ul>
+<li>
+<p><code>bufif0</code></p>
+</li>
+<li>
+<p><code>bufif1</code></p>
+</li>
+<li>
+<p><code>notif0</code></p>
+</li>
+<li>
+<p><code>notif1</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>MOS / CMOS 開關模型</strong></p>
+<ul>
+<li>
+<p><code>nmos</code></p>
+</li>
+<li>
+<p><code>pmos</code></p>
+</li>
+<li>
+<p><code>rnmos</code></p>
+</li>
+<li>
+<p><code>rpmos</code></p>
+</li>
+<li>
+<p><code>cmos</code></p>
+</li>
+<li>
+<p><code>rcmos</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>雙向傳輸開關</strong></p>
+<ul>
+<li>
+<p><code>tran</code></p>
+</li>
+<li>
+<p><code>rtran</code></p>
+</li>
+<li>
+<p><code>tranif0</code></p>
+</li>
+<li>
+<p><code>tranif1</code></p>
+</li>
+<li>
+<p><code>rtranif0</code></p>
+</li>
+<li>
+<p><code>rtranif1</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>拉高 / 拉低</strong></p>
+<ul>
+<li>
+<p><code>pullup</code></p>
+</li>
+<li>
+<p><code>pulldown</code> </p>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="2-dataflow-model">2. Dataflow model<a class="headerlink" href="#2-dataflow-model" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">dataflow_example</span><span class="w"> </span><span class="p">(</span>
