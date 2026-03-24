@@ -1909,6 +1909,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#進一步想" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -3414,6 +3419,24 @@ is now available!
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    順序相同的連續運算
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="%E9%A0%86%E5%BA%8F%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%A3%E7%BA%8C%E9%81%8B%E7%AE%97.html" class="md-nav__link md-nav__link--active">
         
   
@@ -3430,6 +3453,34 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#進一步想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        進一步想
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4364,6 +4415,25 @@ is now available!
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#進一步想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        進一步想
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4384,91 +4454,132 @@ is now available!
 
 <p>請看這題：<a href="https://hdlbits.01xz.net/wiki/Gatesv100">https://hdlbits.01xz.net/wiki/Gatesv100</a></p>
 <p>這題簡單來說就是</p>
-<p>out_both[i] = in[i] &amp; in[i+1];</p>
-<p>out_any[i] = in[i] | in[i-1];</p>
-<p>out_different[i] = in[i] != in[i+1];<br />
-&hellip;<br />
-out_different[99] = in[99]!= in[0];</p>
+<ol>
+<li>out_both[i] = in[i] &amp; in[i+1];</li>
+<li>out_any[i] = in[i] | in[i-1];</li>
+<li>out_different[i] = in[i] != in[i+1];<br />
+    &hellip;<br />
+    out_different[99] = in[99]!= in[0];</li>
+</ol>
 <p>要怎麼寫程式碼呢？</p>
 <p>有以下兩種寫法</p>
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><p>```v title = "第一種"<br />
-module top_module( <br />
-    input [99:0] in,<br />
-    output reg [98:0] out_both,<br />
-    output reg [99:1] out_any,<br />
-    output reg [99:0] out_different );<br />
-    integer i;</p>
-<div class="highlight"><pre><span></span><code>always @(*)begin
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
-    for(i=0;i&lt;=98;i=i+1)begin
-        out_both[i] = in[i] &amp; in[i+1];
-    end
+<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="k">begin</span>
 
-    for(i=1;i&lt;=99;i=i+1)begin
-        out_any[i] = in[i] | in[i-1];
-    end
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">98</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span>
+<span class="w">            </span><span class="n">out_both</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span>
 
-    for(i=0;i&lt;=98;i=i+1)begin
-        out_different[i] = in[i] != in[i+1];
-    end 
-    out_different[99] = in[99]!= in[0];
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">99</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span>
+<span class="w">            </span><span class="n">out_any</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span>
+
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">98</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span>
+<span class="w">            </span><span class="n">out_different</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span>
+<span class="w">        </span><span class="n">out_different</span><span class="p">[</span><span class="mh">99</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="p">]</span><span class="o">!=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
 
 
-end
+<span class="w">    </span><span class="k">end</span>
+<span class="k">endmodule</span>
 </code></pre></div>
-<p>endmodule<br />
-```<br />
-///</p>
-<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><p><code>v title = "第二種"
-module top_module( 
-    input [99:0] in,
-    output [98:0] out_both,
-    output [99:1] out_any,
-    output [99:0] out_different );
-    
-    genvar i;
-    generate
-        for(i=0;i&lt;=98;i=i+1)begin : g1
-            assign out_both[i] = in[i] &amp; in[i+1];
-        end
-        
-        for(i=1;i&lt;=99;i=i+1)begin : g2
-            assign out_any[i] = in[i] | in[i-1];
-        end 
-        
-        for(i=0;i&lt;=99;i=i+1)begin : g3
-            if(i==99) assign out_different[99] = in[99]!= in[0];
-            else assign out_different[i] = in[i] != in[i+1];
-        end 
-    endgenerate
-endmodule</code></p>
-</div>
 <div class="code-footer"><label class="expand" for="__collapse0" tabindex="0" title="expand"></label><label class="collapse" for="__collapse0" tabindex="0" title="collapse"></label></div>
-<p>```v title = "第三種"<br />
-module top_module( <br />
-    input [99:0] in,<br />
-    output [98:0] out_both,<br />
-    output [99:1] out_any,<br />
-    output [99:0] out_different );</p>
-<div class="highlight"><pre><span></span><code>assign out_both      = in[98:0] &amp; in[99:1];
-assign out_any       = in[99:1] | in[98:0];
-assign out_different = in ^ {in[0], in[99:1]};
+</div>
+<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">genvar</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="k">generate</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">98</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g1</span>
+<span class="w">            </span><span class="k">assign</span><span class="w"> </span><span class="n">out_both</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">99</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g2</span>
+<span class="w">            </span><span class="k">assign</span><span class="w"> </span><span class="n">out_any</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span>
+<span class="w">        </span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">99</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g3</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mh">99</span><span class="p">)</span><span class="w"> </span><span class="k">assign</span><span class="w"> </span><span class="n">out_different</span><span class="p">[</span><span class="mh">99</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="p">]</span><span class="o">!=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">assign</span><span class="w"> </span><span class="n">out_different</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span>
+<span class="w">    </span><span class="k">endgenerate</span>
+<span class="k">endmodule</span>
 </code></pre></div>
-<p>endmodule<br />
-<div class="highlight"><pre><span></span><code>哪一種比較簡單 ？
+<div class="code-footer"><label class="expand" for="__collapse1" tabindex="0" title="expand"></label><label class="collapse" for="__collapse1" tabindex="0" title="collapse"></label></div>
+</div>
+<div class="highlight"><span class="filename">第三種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="p">);</span>
 
-顯然是第三種比較方便。為何可以這樣寫呢？，因為等於的左右兩邊順序相同，其實
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_both</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_any</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">{</span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]};</span>
+
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>哪一種比較簡單 ？</p>
+<p>顯然是第三種比較方便。為何可以這樣寫呢？，因為等於的左右兩邊順序相同，其實<br />
+<div class="highlight"><pre><span></span><code>assign out_both      = in[98:0] &amp; in[99:1];
 </code></pre></div><br />
-assign out_both      = in[98:0] &amp; in[99:1];<br />
-<div class="highlight"><pre><span></span><code>就是
+就是<br />
+<div class="highlight"><pre><span></span><code>assign out_both [99:0]     = in[98:0] &amp; in[99:1];
 </code></pre></div><br />
-assign out_both [99:0]     = in[98:0] &amp; in[99:1];<br />
-```<br />
 所以全部都能對齊，然後 &amp; 是對於左右兩邊的每一個 bit 運算，便能夠答道題目要求。</p>
 <p>不過這有一個限制，就是 vector 的方向要一樣。</p>
 <p>這邊也可以看到一個重點：<code>^</code>可以當不等於。那問題來了，啥符號可以當等於？<br />
 就是 <code>~^</code> ，其實就是不等於的相反啦。</p>
-</div>
+<h2 id="進一步想">進一步想<a class="headerlink" href="#進一步想" title="Permanent link"></a></h2>
+<p>看以下兩格個程式碼：</p>
+<div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_both</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_any</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">{</span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]};</span>
+
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
+<span class="w">	</span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
+<span class="w">	</span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
+<span class="w">	</span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_different</span>
+<span class="p">);</span>
+
+<span class="w">	</span><span class="c1">// See gatesv for explanations.</span>
+<span class="w">	</span><span class="k">assign</span><span class="w"> </span><span class="n">out_both</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">	</span><span class="k">assign</span><span class="w"> </span><span class="n">out_any</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">;</span>
+<span class="w">	</span><span class="k">assign</span><span class="w"> </span><span class="n">out_different</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="p">{</span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]};</span>
+<span class="w">	</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>以上這兩種都是對的，但是為何第二種是對的呢？<br />
+我們以<code>out_both = in &amp; in[99:1];</code>來看。</p>
+<p>運算<code>out_both = in &amp; in[99:1];</code>時，會先運算<code>in &amp; in[99:1]</code>再丟給<code>out_both</code>。<br />
+1. 在運算<code>in &amp; in[99:1]</code>時，因為左邊是 100 位，右邊是 99 位，所以右邊的最高位要補 0，變成 <code>in &amp; {1'b0,in[99:1]}</code>。<br />
+2. 運算<code>out_both</code> = <code>in &amp; {1'b0,in[99:1]}</code>時，等於的左邊是 99 位，右邊是 100 位，所以右邊的最高位被截掉。<br />
+也就是說打從一開始 in 的 in[99] 就沒用到。如下：</p>
+<div class="highlight"><pre><span></span><code>out_both    :          in[98],in[97]....in[1],in[0]
+=
+in          :   in[99],in[98],in[97]....in[1],in[0]  //in[99]沒用到
+&amp;
+in[99:1]    :          in[99],in[98]....in[2],in[1]
+</code></pre></div>
+<p>不過沒事還是不要這樣用比較好，除非你要炫砲。</p>
 
 
 
