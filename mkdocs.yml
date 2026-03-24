@@ -295,6 +295,9 @@ nav:
         - '模擬控制與 System Tasks': 'md/Verilog/system tasks.md'
         - 'Priority Encoder': 'md/Verilog/priority encoder.md'
         - 'full adder': 'md/Verilog/full adder.md'
+      - '觀念/技巧':
+        - 'md\Verilog\防止變成 latch.md'
+        - 'md\Verilog\不會被刪除的變數.md'
       
       
       
