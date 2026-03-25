@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/adder.html">
       
       
-        <link rel="prev" href="full%20adder.html">
+        <link rel="prev" href="%E5%A4%9A%E5%B7%A5%E5%99%A8.html">
       
       
-        <link rel="next" href="%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html">
+        <link rel="next" href="%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>防止變成 latch - PEICD100</title>
+        <title>直接相加的 adder - PEICD100</title>
       
     
     
@@ -1910,7 +1910,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#組合邏輯電路變成-latch-的問題" class="md-skip">
+        <a href="#直接相加的-adder" class="md-skip">
           Skip to content
         </a>
       
@@ -2016,7 +2016,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              防止變成 latch
+              直接相加的 adder
             
           </span>
         </div>
@@ -3389,35 +3389,10 @@ is now available!
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    防止變成 latch
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html" class="md-nav__link">
         
   
   
@@ -3433,85 +3408,6 @@ is now available!
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#組合邏輯電路變成-latch-的問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        組合邏輯電路變成 latch 的問題
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#combinational-和-sequential-差在哪" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        combinational 和 sequential 差在哪？
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#為何在寫-ff-時-裡面要寫-posedge-clk-而不直接寫-clk-反正-always-不是只有在改變時才會啟動-是因為要阻止-1-0-的時候嗎-posedge-指的是-0-1-對不對" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為何在寫 FF 時，@() 裡面要寫 posedge clk 而不直接寫 clk ，反正 always 不是只有在改變時才會啟動 是因為要阻止 1->0 的時候嗎？ posedge 指的是 0->1 對不對
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="為何在寫 FF 時，@() 裡面要寫 posedge clk 而不直接寫 clk ，反正 always 不是只有在改變時才會啟動 是因為要阻止 1-&gt;0 的時候嗎？ posedge 指的是 0-&gt;1 對不對">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#先直接回答三個問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        先直接回答三個問題
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#-到是啥意思他會偵測誰的變化" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        @(*) 到是啥意思，他會偵測誰的變化
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3605,10 +3501,19 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="adder.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="adder.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3624,6 +3529,7 @@ is now available!
   
 
       </a>
+      
     </li>
   
 
@@ -4584,75 +4490,8 @@ is now available!
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#組合邏輯電路變成-latch-的問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        組合邏輯電路變成 latch 的問題
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#combinational-和-sequential-差在哪" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        combinational 和 sequential 差在哪？
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#為何在寫-ff-時-裡面要寫-posedge-clk-而不直接寫-clk-反正-always-不是只有在改變時才會啟動-是因為要阻止-1-0-的時候嗎-posedge-指的是-0-1-對不對" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為何在寫 FF 時，@() 裡面要寫 posedge clk 而不直接寫 clk ，反正 always 不是只有在改變時才會啟動 是因為要阻止 1->0 的時候嗎？ posedge 指的是 0->1 對不對
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="為何在寫 FF 時，@() 裡面要寫 posedge clk 而不直接寫 clk ，反正 always 不是只有在改變時才會啟動 是因為要阻止 1-&gt;0 的時候嗎？ posedge 指的是 0-&gt;1 對不對">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#先直接回答三個問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        先直接回答三個問題
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#-到是啥意思他會偵測誰的變化" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        @(*) 到是啥意思，他會偵測誰的變化
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -4670,48 +4509,55 @@ is now available!
 
 
 
-  <h1>防止變成 latch</h1>
+<h1 id="直接相加的-adder">直接相加的 adder<a class="headerlink" href="#直接相加的-adder" title="Permanent link"></a></h1>
+<p>題目：<a href="https://hdlbits.01xz.net/wiki/Exams/m2014_q4j">https://hdlbits.01xz.net/wiki/Exams/m2014_q4j</a></p>
+<p><img alt="alt text" src="images/adder.png" /></p>
+<p>這題會怎麼寫？</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="n">cout</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">genvar</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">full_adder</span><span class="w"> </span><span class="n">g1</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="n">cout</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">sum</span><span class="p">[</span><span class="mh">0</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">generate</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">3</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g</span>
+<span class="w">            </span><span class="n">full_adder</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">cout</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">],</span><span class="n">cout</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">sum</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">endgenerate</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cout</span><span class="p">[</span><span class="mh">3</span><span class="p">];</span>
 
-<h2 id="組合邏輯電路變成-latch-的問題">組合邏輯電路變成 latch 的問題<a class="headerlink" href="#組合邏輯電路變成-latch-的問題" title="Permanent link"></a></h2>
-<p>如果 laways 裡面寫 if 、 else 時，沒有寫清楚所有條件，就會根據上一次的值。</p>
-<p>例如：</p>
-<p>always @(*) begin<br />
-    if(a==1) b=1;<br />
-end</p>
-<p>上面程式碼沒有說 a==0 是多少，所以 a=0 時， b 就會根據上一次的數值。這個 always 方塊就會變成 latch。</p>
-<p>如果本來是要寫 latch 那就沒問題。</p>
-<p>但是如果目的是要寫 combinational 那就錯了。</p>
-<h2 id="combinational-和-sequential-差在哪">combinational 和 sequential 差在哪？<a class="headerlink" href="#combinational-和-sequential-差在哪" title="Permanent link"></a></h2>
-<p>Combinational logic（組合邏輯）：輸出只看「現在的輸入」</p>
-<p>Sequential logic（序向邏輯）：輸出除了看現在輸入，還會看「之前的狀態」</p>
-<p>組合邏輯像計算機：你現在按什麼，它現在就算什麼</p>
-<p>序向邏輯像計分板：它要記得前一秒的分數，所以一定有「記憶」</p>
-<h2 id="為何在寫-ff-時-裡面要寫-posedge-clk-而不直接寫-clk-反正-always-不是只有在改變時才會啟動-是因為要阻止-1-0-的時候嗎-posedge-指的是-0-1-對不對">為何在寫 FF 時，@() 裡面要寫 posedge clk 而不直接寫 clk ，反正 always 不是只有在改變時才會啟動 是因為要阻止 1-&gt;0 的時候嗎？ posedge 指的是 0-&gt;1 對不對<a class="headerlink" href="#為何在寫-ff-時-裡面要寫-posedge-clk-而不直接寫-clk-反正-always-不是只有在改變時才會啟動-是因為要阻止-1-0-的時候嗎-posedge-指的是-0-1-對不對" title="Permanent link"></a></h2>
-<h3 id="先直接回答三個問題"><strong>先直接回答三個問題</strong><a class="headerlink" href="#先直接回答三個問題" title="Permanent link"></a></h3>
-<ol>
-<li>posedge 指的是 0→1 嗎？<br />
-   對，posedge 是 positive edge（上升沿），也就是訊號從低到高的跳變。更精確地說，Verilog 的 edge control 會把 0/X/Z -&gt; 1 視為 posedge，把 1/X/Z -&gt; 0 視為 negedge。  </li>
-<li>為何寫 FF 時要用 @(posedge clk)，不直接寫 @(clk)？<br />
-   因為 FF（flip-flop）是邊緣觸發 edge-triggered 元件，只應該在某一個時脈邊緣更新。@(clk) 則代表 clock 只要有任何變化都會觸發，也就是 0→1 和 1→0 都會進 block，這不符合一般 D flip-flop 的語意。  </li>
-<li>是不是因為要阻止 1→0 的時候也觸發？<br />
-   是，但不只這樣。更本質地說，是要明確告訴工具：<br />
-   我要的是「在上升沿取樣」的 FF，而不是「clock 一變就反應」的其他東西。<br />
-   這樣綜合器才會推成標準的 edge-triggered flip-flop。</li>
-</ol>
-<h2 id="-到是啥意思他會偵測誰的變化">@(*) 到是啥意思，他會偵測誰的變化<a class="headerlink" href="#-到是啥意思他會偵測誰的變化" title="Permanent link"></a></h2>
-<p>這段裡，被讀到的訊號有兩個：</p>
-<ol>
-<li>cpu_overheated  </li>
-<li>shut_off_computer（右邊那個 shut_off_computer）</li>
-</ol>
-<p>所以從語意上理解，@(*) 會把它當成大致類似：<br />
-<div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="n">cpu_overheated</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">shut_off_computer</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="k">endmodule</span>
 
-<span class="w">   </span><span class="p">...</span>
 
-<span class="k">end</span>
+<span class="k">module</span><span class="w"> </span><span class="n">full_adder</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span><span class="n">sum</span>
+<span class="p">);</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="n">y</span><span class="o">^</span><span class="n">cin</span><span class="p">;</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">y</span><span class="o">&amp;</span><span class="n">cin</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">cin</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">	</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="p">,</span>
+<span class="w">	</span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span>
+<span class="p">);</span>
+<span class="w">	</span><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<p>第二種超快，為何可以這樣呢？</p>
+<p>這題：<br />
+<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
 </code></pre></div><br />
-因為 @* 會包含 block 中被讀取的訊號。Stack Overflow 上對 @* 的常見解釋也是：任何在 block 內被 read（讀取）的 signal，都應該被包含進 sensitivity list。</p>
+實際上你可以把它腦中展開成：<br />
+<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">};</span>
+</code></pre></div><br />
+因為 sum 是 5-bit，而 x、y 都是預設 unsigned(無號) 的 4-bit 向量，所以在這個 assignment context 裡，它們會先做 zero-extension(補 0 擴位) 成 5-bit，再做加法。也就是說，這行不是在做「4-bit 加法再塞進 5-bit」，而是直接做「5-bit 加法」。</p>
+<p>詳見：<a href="%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html#四則運算與邏輯運算的位寬">四則運算與邏輯運算的位寬</a></p>
 
 
 
@@ -4754,7 +4600,7 @@ end</p>
     >
       
         <a
-          href="full%20adder.html"
+          href="%E5%A4%9A%E5%B7%A5%E5%99%A8.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -4766,14 +4612,14 @@ end</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              full adder
+              多工器
             </div>
           </div>
         </a>
       
       
         <a
-          href="%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html"
+          href="%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -4782,7 +4628,7 @@ end</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              不會被刪除的變數
+              四則運算與邏輯運算的位寬
             </div>
           </div>
           <div class="md-footer__button md-icon">
