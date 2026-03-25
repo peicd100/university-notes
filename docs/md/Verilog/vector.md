@@ -41,6 +41,53 @@ assign upper_nibble = data[7:4];
 - 切片方向要和原宣告方向一致。
 - 宣告成 `[7:0]` 的 vector，不要再寫成 `[0:7]` 的 part-select。
 
+#### []內放變數
+
+以下是一個多工器。
+
+```v
+module top_module( 
+    input [1023:0] in,
+    input [7:0] sel,
+    output reg [3:0] out );
+	integer i;
+    always @(*)begin
+        out = in[sel];
+    end
+endmodule
+```
+
+看到上面程式碼，取單一位置時可以這樣做，但是要切片時就不行了，切片時有另外的方法，我們看到下一章。
+
+#### indexed part-select(索引式區段選取)
+
+它的用途就是：起點可以是變數，但取出的寬度必須是常數。
+
+看到代碼：
+```v
+module top_module( 
+    input [1023:0] in,
+    input [7:0] sel,
+    output reg [3:0] out );
+	integer i;
+    always @(*)begin
+        out = in[sel*4 +: 4];
+        //in[sel*4 +: 4] = { in[sel*4+3], in[sel*4+2], in[sel*4+1], in[sel*4] }
+    end
+endmodule
+```
+
+索引式切片有兩種：
+
+```v
+vector[base +: width]
+vector[base -: width]
+```
+
+base +: width：從 base 開始，往較高 bit 編號取 width 個 bit
+base -: width：從 base 開始，往較低 bit 編號取 width 個 bit。
+
+
 ### 位寬延伸與截斷
 
 ```verilog

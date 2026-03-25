@@ -3,10 +3,14 @@
 ## 預覽
 ```
 activate mkdocs_desk
-mkdocs serve --dirty --livereload
+mkdocs serve --dirty
 
 ```
+```
+activate mkdocs_desk
 mkdocs serve
+
+```
 
 ## 每次寫完
 ```
