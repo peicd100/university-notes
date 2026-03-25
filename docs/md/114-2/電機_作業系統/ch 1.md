@@ -184,9 +184,9 @@ I/O 設備就是 輸入/輸出設備（Input/Output devices），也常叫周邊
    \* 也看得懂陸運規格（匯流排/主機介面）  
    \* 有暫存倉（local buffer）  
    \* 貨到就通知總部（interrupt 通知 CPU）  
-```
+ 
 3. CPU/OS Driver
-```
+ 
    CPU 在執行 OS 的驅動程式：下命令、處理中斷、把資料搬來搬去。  
 4\. 主記憶體 RAM  
    程式真正要用的資料最後會放到 RAM（或從 RAM 拿出去）。
@@ -219,9 +219,9 @@ I/O 設備就是 輸入/輸出設備（Input/Output devices），也常叫周邊
 最右邊那條「把資料搬到 RAM（或交給上層）」表示：在非 DMA 模式下，CPU/driver 會用程式把資料從 local buffer 複製到主記憶體 RAM，然後上層程式才拿得到。  
 白話：把「控制器暫存區」裡的貨搬到「倉庫（RAM）」裡，應用程式才好用。
 
-```
+ 
 ---
-```
+ 
 
 這張圖最想讓你記住的三件事
 
@@ -241,9 +241,9 @@ I/O 設備就是 輸入/輸出設備（Input/Output devices），也常叫周邊
 \* 以及和你投影片句子怎麼對上  
   最後我會把 ISR（中斷服務程式）講得更細（它到底做什麼、為什麼要短、怎麼避免出事）。
 
-```
+ 
 ---
-```
+ 
 
 步驟 0：CPU 正常執行
 
@@ -255,9 +255,9 @@ CPU 在執行目前的指令流（可能是 Chrome 的 user mode 指令，也可
 生活比喻  
 你正在看書/做作業，照著頁面一行一行往下做。
 
-```
+ 
 ---
-```
+ 
 
 步驟 1：中斷發生（你剛剛改完整的那段）
 
@@ -272,9 +272,9 @@ CPU 在執行目前的指令流（可能是 Chrome 的 user mode 指令，也可
 生活比喻  
 門鈴響了（事件發生），你先確認是哪個門鈴（前門/後門/快遞/鄰居），這個「確認是哪一種」就像取得向量編號 i。
 
-```
+ 
 ---
-```
+ 
 
 步驟 2：保存被中斷指令位址（PC）與狀態
 
@@ -290,9 +290,9 @@ CPU 必須能「處理完回來繼續跑」，所以要保存返回點（PC/RIP�
 為什麼這一步超重要  
 沒有保存 PC，你處理完 ISR 就不知道回哪裡，程式直接亂掉。
 
-```
+ 
 ---
-```
+ 
 
 步驟 3：disable 傳入中斷（遮蔽可遮蔽中斷）
 
@@ -307,11 +307,11 @@ x86 上這件事常用 IF（Interrupt Flag）控制；CLI/STI 可清/設 IF；�
 或像你在過馬路指揮交通時，先短暫把某方向紅燈拉起來，避免車流互相衝突。
 
 重要更正  
-```
+ 
 disable 的通常是「可遮蔽硬體中斷（maskable interrupts）」；像某些緊急等級（NMI）或某些例外不一定受 IF 影響。
 
 ---
-```
+ 
 
 步驟 4：用向量編號 i 查中斷向量表（Interrupt Vector Table / IDT）
 
@@ -328,9 +328,9 @@ OSDev 也明確說 ISR 的呼叫協定不同、且需要由 CPU 透過向量表�
 \* 車禍 → 派救護車 B  
   每個事件類型對應到不同隊伍的出動入口。
 
-```
+ 
 ---
-```
+ 
 
 步驟 5：跳到 ISRi（進入 ISR，中斷服務程式）
 
@@ -342,9 +342,9 @@ CPU 把 PC 設為 ISRi 的入口位址，開始執行 ISR。這一步是「控�
 生活比喻  
 你把書放下，立刻去做那件「被叫去處理的事」。
 
-```
+ 
 ---
-```
+ 
 
 步驟 6：ISR/中斷服務程式做什麼（這裡我講細）
 
@@ -397,9 +397,9 @@ ISR 結尾不能用一般 ret，要用中斷返回指令（如 iret/iretq）把�
 生活比喻：  
 事情處理完，回到書桌，照書籤的位置繼續讀。
 
-```
+ 
 ---
-```
+ 
 
 步驟 7：恢復狀態/enable，回到原本程式
 
@@ -414,9 +414,9 @@ ISR 結尾不能用一般 ret，要用中斷返回指令（如 iret/iretq）把�
 生活比喻  
 把勿擾關掉，回到書桌，照書籤繼續讀。
 
-```
+ 
 ---
-```
+ 
 
 把整張圖用一個生活故事串起來
 
@@ -428,9 +428,9 @@ ISR 結尾不能用一般 ret，要用中斷返回指令（如 iret/iretq）把�
 去處理門口的事（ISR：看是快遞、簽收、把包裹放好、回覆收到）  
 回來解除靜音、照書籤繼續寫作業（restore/enable/return）
 
-```
+ 
 ---
-```
+ 
 
 你可以用這句話總結（考試很好用）
 
@@ -438,13 +438,13 @@ ISR 結尾不能用一般 ret，要用中斷返回指令（如 iret/iretq）把�
 
 ### 硬體 I/O 中斷 IRQ vs 軟體 trap/exception
 
-		![][image14]
+![][image14]
 
 下面把你列的兩大類事件（硬體 I/O 中斷 IRQ vs 軟體 trap/exception）用同一套框架講清楚：它們都是讓 CPU「暫停目前流程 → 進入對應 handler → 回來繼續」的事件，但差在 來源、時機（同步/非同步）、目的、以及典型例子。教材常用這個分類：外部事件（I/O、timer）→ 非同步 interrupts；執行指令造成或刻意觸發（system call、除以零、page fault）→ 同步 exceptions/traps/faults。 
 
-```
+ 
 ---
-```
+ 
 
 #### 1\) 硬體 I/O：鍵盤、網卡、磁碟控制器完成 → 發硬體中斷 IRQ
 
@@ -466,13 +466,13 @@ ISR 結尾不能用一般 ret，要用中斷返回指令（如 iret/iretq）把�
 \* 完成後控制器用中斷通知 CPU：「資料好了」  
   OS 再去收尾、喚醒等待讀檔的行程（例如你的播放器、Chrome）。這跟你前面投影片「I/O 完成用 interrupt 通知 CPU」完全對應。
 
-```
+ 
 ---
-```
+ 
 
 #### 2\) 軟體 trap/exception：system call、除以零、page fault
 
-			軟體中斷的主要目的是為了切換到 kernel mode。
+軟體中斷的主要目的是為了切換到 kernel mode。
 
 這一類共同點是 同步（synchronous）：一定跟「正在執行某一條指令」綁定——在相同程式狀態下，執行到那條指令就會發生。 
 
@@ -488,9 +488,9 @@ handler 做完後用中斷返回機制恢復狀態，回到原本被打斷的地
 
 OS 是 Operating System 的縮寫，中文是 作業系統。
 
-```
+ 
 ---
-```
+ 
 
 ##### 2.1 System call（系統呼叫）為什麼算 trap？
 
@@ -504,9 +504,9 @@ Chrome 想讀快取檔或送網路封包：
 \* 它呼叫 OS API → 進入 system call → kernel 幫它做  
   在 x86 上，歷史上 32-bit Linux 會用 \`INT 0x80\`（軟體中斷）觸發系統呼叫；64-bit 多用 \`SYSCALL\`。 
 
-```
+ 
 ---
-```
+ 
 
 ##### 2.2 除以零（divide by zero）屬於哪種？
 
@@ -516,9 +516,9 @@ Chrome 想讀快取檔或送網路封包：
 
 你在算數算到「10 ÷ 0」那一步就卡住，必須交給「規則/老師」處理：要嘛丟錯誤、要嘛終止程式（例如你看到的 crash/exception）。
 
-```
+ 
 ---
-```
+ 
 
 ##### 2.3 Page fault（缺頁）是什麼？為什麼很重要？
 
@@ -539,9 +539,9 @@ page fault 是一種由 MMU 觸發的例外：程式存取某個虛擬位址時�
 \* 合法缺頁：去倉庫把資料搬上桌，再繼續做事  
 \* 非法缺頁：你要的根本不是你的資料/位置不存在 → 被禁止或被趕出去
 
-```
+ 
 ---
-```
+ 
 
 #### 3\) 一張超精簡對照（幫你背）
 
@@ -569,9 +569,9 @@ registers（暫存器）：目前計算到一半的中間值、指標、狀態�
 
 實務上，這些狀態可能一部分由硬體自動存（例如 PC/旗標），其餘由 OS/ISR 的「入口程式」再補存到堆疊（stack）裡。
 
-```
+ 
 ---
-```
+ 
 
 2\) 確定發生哪種類型的中斷：Polling vs Vectored
 
@@ -603,9 +603,9 @@ registers（暫存器）：目前計算到一半的中間值、指標、狀態�
 
 你前面學過的 interrupt vector table（中斷向量表）就是向量中斷常見的落地形式：用編號 i 直接對到 ISRi 的入口位址。
 
-```
+ 
 ---
-```
+ 
 
 3\) ISR（Interrupt Service Routine）是什麼？
 
@@ -645,9 +645,9 @@ ISR 是軟體；ISA 是規格。ISR 之所以能被呼叫、能安全地回來�
 
    \* ISR 不能用一般 \`ret\` 回去，而是用 ISA 提供的「中斷/陷入返回指令」把 PC/狀態恢復。  
    \* 例：RISC-V 用 \`MRET/SRET\` 返回，並把 \`pc\` 設回 \`xepc\`。(\[riscv-specs.timhutt.co.uk\]\[2\])  
-```
+ 
    * 例：x86-64 用 `iretq` 類的中斷返回機制恢復指令位址/旗標等。([[docs.rs](http://docs.rs)][3])
-```
+ 
 
 ##### 3\. ISR 必須「依照 ISA 的規則」來寫
 
@@ -868,9 +868,9 @@ cache 的做法是：
 
   投影片把 SRAM/DRAM 用 ns（奈秒），磁碟用 ms（毫秒）。  
 * 1 ms \= 1,000,000 ns  
-```
+ 
   所以磁碟 5–20 ms 等級的延遲，其實是 5,000,000–20,000,000 ns，跟 DRAM 50–70 ns、SRAM 約 0.5–幾 ns 是「好幾個數量級」的差距。這也是很多教材會把磁碟延遲寫成 5,000,000–20,000,000 ns 的原因。([國立高雄大學資訊工程學系](https://www.csie.nuk.edu.tw/~kcf/course/ComputerOrganization/ComputerOrganization_Chapter7_Memory_color.pdf?utm_source=chatgpt.com))
-```
+ 
   ---
 
   ## **3\) SRAM（Static RAM）是什麼？為什麼快但貴？**
@@ -1064,16 +1064,16 @@ cache 的做法是：
       這就是 temporal locality（剛用過的很快又會用）和 spatial locality（用到某位置附近很快也會用到）在支撐。  
       網路上的定義也一致：cache 會儲存 frequently/recently used data & instructions 來降低平均存取時間。  
     
-```
+ 
   ----
-```
+ 
 
   ## **6\) cache 可以改善因為兩種元件之間的存取時間或傳輸速率差別所造成的性能差別是啥意思**
 
     
-```
+ 
   這句話的意思是：當兩個元件速度差很多（例如 CPU 很快、RAM 比較慢；RAM 快、SSD/HDD 很慢），如果每次都直接跟慢的那個互動，整體效能就會被拖垮。Cache 的作用就是在兩者中間放一個「更快的暫存層」，把「很可能很快又要用的資料」先留在快的地方，讓大多數存取都不用等慢元件，平均下來就快很多。([turn0search0](https://www.naukri.com/code360/library/memory-hierarchy))
-```
+ 
   ---
 
   ## **先把「兩種元件」對應出來**
@@ -1095,10 +1095,10 @@ cache 的做法是：
   有 cache 的世界：  
 * hit：資料在 cache → 幾個 CPU cycle 就拿到  
 * miss：cache 沒有 → 才去 RAM/更下層拿  
-```
+ 
   所以平均存取時間會被 hit 拉低。([turn0search3](https://legacy.cs.indiana.edu/classes/p573/notes/arch/08_memory.html))
   （那篇還給了公式：有效存取時間 = 命中率×cache時間 + 未命中率×主記憶體時間，命中率小小下降就會讓平均時間暴增。）([turn0search3](https://legacy.cs.indiana.edu/classes/p573/notes/arch/08_memory.html))
-```
+ 
   ---
 
   ## **「傳輸速率差別」是什麼？**
@@ -1121,9 +1121,9 @@ cache 的做法是：
 
   ## **一句話總結**
 
-```
+ 
   這句話在說：cache 透過保存最近/附近常用資料，讓多數存取命中快的那層，從而減少等待慢元件造成的延遲，也降低對慢通道（RAM/磁碟/匯流排）的依賴，使整體效能更接近「快的那個元件」而不是被「慢的那個元件」拖累。([turn0search1](https://www.tpointtech.com/cache-memory))
-```
+ 
 
 
 ## Caching(快取、緩存) 
@@ -1134,9 +1134,9 @@ cache 的做法是：
 
 * CPU ↔ RAM（RAM 比 CPU 慢很多）  
 * RAM ↔ SSD/HDD（磁碟比 RAM 慢好幾個數量級）  
-```
+ 
   cache 的做法是：把「使用中的資訊」先複製到比較快的地方，先查快的那層（命中 hit 就超快），沒有才去慢的那層（未命中 miss 就慢），並把資料帶上來。這個描述和一般 OS/架構教材一致：先查 cache，miss 才從下層取並放入 cache；替換策略如 LRU。 ([OCW UC3M](https://ocw.uc3m.es/pluginfile.php/3453/mod_page/content/13/topic5_lesson13.pdf?utm_source=chatgpt.com))
-```
+ 
   下面我用投影片每一點逐條白話＋例子解釋。  
   ---
 
@@ -1173,9 +1173,9 @@ cache 的做法是：
   為什麼會快？因為快取離使用者（CPU）更近、延遲更低。  
 * CPU cache hit：不用等 RAM  
 * RAM page cache hit：不用等 SSD/HDD  
-```
+ 
   你前面問過「hit 為何可以直接回資料」：因為 cache 本來就是「正確資料的副本」，程式只在乎值正確，不在乎來源層級。([en.wikipedia.org](https://en.wikipedia.org/wiki/CPU_cache?utm_source=chatgpt.com))
-```
+ 
   ---
 
   ## **5\) 「如果沒有，數據複製到快取並在那裡使用」**
@@ -1184,9 +1184,9 @@ cache 的做法是：
 1. 去慢的一層取資料  
 2. 把取到的資料放進快取  
 3. 再把資料交給 CPU/程式使用  
-```
+ 
    這段在 OS 的 page cache、硬體的 cache line fill 都是一樣的模式。([OCW UC3M](https://ocw.uc3m.es/pluginfile.php/3453/mod_page/content/13/topic5_lesson13.pdf?utm_source=chatgpt.com))
-```
+ 
    生活例子：  
    你去書櫃拿書，拿回來會先放桌上，因為你知道等等還會翻。  
    ---
@@ -1205,9 +1205,9 @@ cache 的做法是：
 * 放哪些資料進去（admission/placement）  
 * 滿了要丟掉誰（replacement/eviction）  
 * 寫入時要不要立刻寫回下層（write-through vs write-back）  
-```
+ 
   投影片下一點就點出其中兩個核心：大小與替換策略。([OCW UC3M](https://ocw.uc3m.es/pluginfile.php/3453/mod_page/content/13/topic5_lesson13.pdf?utm_source=chatgpt.com))
-```
+ 
   ---
 
   ## **8\) 「快取（緩存）記憶體大小和替換策略」**
@@ -1224,18 +1224,18 @@ cache 的做法是：
 * FIFO：先進先出  
 * LRU：最久沒用的先丟（假設近期用過的更可能再用）  
 * Random：隨機丟  
-```
+ 
   OS 課常用 LRU 舉例，因為它直接利用 temporal locality（時間局部性）。([印度科技大學邁達斯電腦科學與工程系](https://www.cse.iitm.ac.in/~prashla/cs3500/14pagefault.html?utm_source=chatgpt.com))
-```
+ 
   生活例子：  
   書桌放滿了新講義要放進來：你會先把最久沒翻的那份移走（LRU），而不是把正在用的丟掉。  
   ---
 
   ## **用一句話把「改善效能差別」說清楚**
 
-```
+ 
   兩個元件速度差太大時（CPU↔RAM、RAM↔disk），系統會用 cache 把最近/附近常用資料放在更快的地方，提高命中率，讓大多數存取不用等慢元件，平均效能就大幅提升。 ([Uplatz](https://uplatz.com/blog/an-in-depth-analysis-of-modern-caching-architectures-multi-level-hierarchies-and-invalidation-strategies/?utm_source=chatgpt.com))
-```
+ 
   ---
 
 ## Memory Hierarchy Levels（記憶體階層）
@@ -1532,9 +1532,9 @@ CPU 再處理一次
 #### [1\. DMA 是一種方式？還是裝置？](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/dma-programming-techniques)
 
 [DMA（Direct Memory Access，直接記憶體存取）是**一種資料傳輸方式/機制**，不是裝置本身。](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/dma-programming-techniques)  
-```
+ 
 [它的重點是：**繞過 CPU 的逐筆介入**，讓資料能直接在**裝置**和**主記憶體（RAM）**之間傳輸。Microsoft 直接把 DMA 定義成一種 **data transfer strategy**。](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/dma-programming-techniques)[Microsoft Learn+1](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/dma-programming-techniques?utm_source=chatgpt.com)
-```
+ 
 
 ---
 
@@ -1557,9 +1557,9 @@ CPU 再處理一次
       
   - 傳輸完成後通知 CPU
 
-```
+ 
 Microsoft 也寫得很清楚：driver 可以使用 DMA controller 直接傳輸資料。[Microsoft Learn+1](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/dma-programming-techniques?utm_source=chatgpt.com)
-```
+ 
 
 ---
 
@@ -1585,9 +1585,9 @@ DMA 要搬資料，必須**透過 bus**把資料在：
 - 裝置控制器 ↔ RAM
 
 之間傳輸。  
-```
+ 
 如果裝置支援 **bus mastering**，它可以暫時取得 bus 的控制權，自己直接對記憶體發起 DMA 傳輸，而不用 CPU 一筆一筆代勞。[維基百科+1](https://en.wikipedia.org/wiki/Bus_mastering?utm_source=chatgpt.com)
-```
+ 
 
 ##### 一句話總結
 
@@ -1643,9 +1643,9 @@ DMA 要搬資料，必須**透過 bus**把資料在：
 
 僅有一個一般處理器之系統
 
-```
+ 
 chapter 1_20240218
-```
+ 
 
 白話就是：
 
@@ -1675,9 +1675,9 @@ OS 仍然可以靠排程讓很多行程輪流跑，造成「看起來像同時�
     
 - 真正同時做多件事才叫 parallelism  
     
-```
+ 
   chapter 4_20240401
-```
+ 
 
 ### 2\) 什麼是多處理器系統
 
@@ -1831,15 +1831,15 @@ OS 仍然可以靠排程讓很多行程輪流跑，造成「看起來像同時�
 
 - **processor affinity**\<處理器親和性\>：盡量讓行程留在同一處理器上，以減少 cache miss、提升 locality  
     
-```
+ 
   chapter 6_20240505
-```
+ 
     
 - **load balancing**\<負載平衡\>：在 SMP 裡讓每顆處理器工作量儘量平均  
     
-```
+ 
   chapter 6_20240505
-```
+ 
 
 這代表 SMP 雖然強大，但 OS 設計會複雜很多。
 
@@ -1972,9 +1972,9 @@ job pool\<工作池\> 可以想成：
     
 - CPU：每次從記憶體裡挑一個來跑
 
-```
+ 
 Wikipedia 也把 job queue / job pool 類似地描述成由排班器維護、包含待執行 jobs 的資料結構。([wikipedia.org](https://en.wikipedia.org/wiki/Job_queue?utm_source=chatgpt.com))
-```
+ 
 
 ## 作業系統的操作
 
@@ -2050,11 +2050,11 @@ Wikipedia 也把 job queue / job pool 類似地描述成由排班器維護、包
 
 例如：
 
-```
+ 
 int x = 10 / 0;
 
 程式跑到這一行，CPU/OS 會發現這是非法或異常狀況，於是把控制權轉給錯誤處理流程。Intel 的例外表裡也把 **Divide Error** 列為預定義例外之一。([Intel](https://www.intel.cn/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-1-manual.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2097,9 +2097,9 @@ int x = 10 / 0;
 
 範例：
 
-```c
+ c
 #include <stdio.h> int main() {     int *p = NULL;     *p = 123;   // 對 NULL 指向的位置寫資料     return 0; }
-```
+ 
 
 發生了什麼？  
 `p` 根本沒有指到一塊你可用的記憶體，但你卻硬要寫進去。
@@ -2128,7 +2128,7 @@ int x = 10 / 0;
 
 ##### 例子 A：無限遞迴（infinite recursion）
 
-```c
+ c
 #include <stdio.h>
 
 void f(int n) {
@@ -2140,7 +2140,7 @@ int main() {
     f(1);
     return 0;
 }
-```
+ 
 
 ###### 發生了什麼？
 
@@ -2169,7 +2169,7 @@ int main() {
 
 ##### 例子 B：區域陣列開太大
 
-```c
+ c
 #include <stdio.h>
 
 void f() {
@@ -2182,7 +2182,7 @@ int main() {
     f();
     return 0;
 }
-```
+ 
 
 ###### 發生了什麼？
 
@@ -2221,12 +2221,12 @@ POSIX man page 和 GNU C 文件都說得很清楚：`main` 回傳的值會成為
 
 例如這種程式：
 
-```c
+ c
 int main() {
     printf("中間其實做錯一些邏輯\n");
     return 0;
 }
-```
+ 
 
 它還是回傳成功。 所以比較精確的說法不是「沒有錯誤發生」，而是：
 
@@ -2272,9 +2272,9 @@ int main() {
 
 **一位老師同時回答很多同學的問題，但不是一次回答完一個人才換下一個，而是每個人都先回一點點，再快速切去下一位。**
 
-```
+ 
 教材原文就是這個意思： CPU 會**頻繁切換**不同工作，讓使用者在自己的工作執行時仍能互動。 IBM 對 time-sharing 的歷史說明也很一致：它讓多個使用者共享同一台電腦，同時又讓每個人感覺自己像是獨占這台機器。([IBM](https://www.ibm.com/history/time-sharing?utm_source=chatgpt.com))
-```
+ 
 
 所以注意一個容易搞混的點：
 
@@ -2292,9 +2292,9 @@ int main() {
 * **multitasking（多任務）**：系統能處理多個工作  
 * **time-sharing（分時）**：達成多任務、而且讓互動體驗變好的方法
 
-```
+ 
 也就是說，這張投影片把兩個很接近的概念放在一起講。 IBM 的描述偏向「很多人共享同一台電腦」；教材這邊則把它延伸成「CPU 快速輪轉很多工作，讓互動式使用成為可能」。([IBM](https://www.ibm.com/history/time-sharing?utm_source=chatgpt.com))
-```
+ 
 
 你可以把它記成：
 
@@ -2362,9 +2362,9 @@ Chapter 5 也有更正式定義： **response time** 是從提出要求到**第�
 
 而且你這張投影片後面其實會一路接到 **Round Robin（RR，依序循環排班）**。 教材第 5 章也寫得很清楚：RR 特別適合分時系統，會給每個 process 一個 **time quantum（時間片）**，時間到了就先切走，放回 ready queue 尾端。典型 quantum 大約是 **10–100 ms**，這樣通常能兼顧互動回應與 context switch 成本。
 
-```
+ 
 社群討論也常講同一件事：RR 的設計目標之一就是改善 **interactive response**，但 quantum 太小會讓切換成本變高。([Stack Overflow](https://stackoverflow.com/questions/20726669/round-robin-a-special-case-as-two-processed-one-used-up-it-time-quantum-and-the?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2449,9 +2449,9 @@ Chapter 5 也有更正式定義： **response time** 是從提出要求到**第�
 
 **「為什麼使用者程式不能直接碰硬體、不能直接做所有事，而一定要透過作業系統？」**
 
-```
+ 
 答案就是：**因為電腦必須用「雙模式運作」(Dual-mode operation) 來保護系統。** 作業系統會把 CPU 的執行狀態分成 **使用者模式 (user mode)** 和 **核心模式 (kernel mode)**，藉此限制一般程式的權限，避免它亂動到整台機器。這也是課本在講的保護機制核心。投影片也明確寫到，系統啟動時先進入核心模式，之後執行使用者應用程式時切到使用者模式；每當發生例外、陷阱或中斷時，再切回核心模式。 ([codex.cs.yale.edu](https://codex.cs.yale.edu/avi/os-book/OSE2/study-guide/Study-Guide.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2462,9 +2462,9 @@ Chapter 5 也有更正式定義： **response time** 是從提出要求到**第�
 * **使用者模式**：像一般民眾，只能做被允許的事  
 * **核心模式**：像政府或管理員，有最高權限，可以碰硬體、改系統設定、處理中斷
 
-```asm
+ asm
 一般應用程式平常都跑在 **user mode**。 只有在它需要作業系統幫忙時，才會透過 **system call（系統呼叫）** 進到 **kernel mode**。 處理完後，再回到 **user mode** 繼續跑。 ([cseweb.ucsd.edu](https://cseweb.ucsd.edu/classes/sp25/cse120-a/hw/hw1-sol.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2478,9 +2478,9 @@ Chapter 5 也有更正式定義： **response time** 是從提出要求到**第�
 * 改 CPU 的保護設定  
 * 破壞其他程式甚至把整個系統弄掛
 
-```
+ 
 所以 CPU 會用一個 **mode bit（模式位元）** 或類似的硬體狀態，表示「現在是 user mode 還是 kernel mode」。 在 **user mode** 下，某些 **privileged instructions（特權指令）** 根本不能執行；如果硬要執行，就會觸發 trap/exception，交給 OS 處理。 ([cseweb.ucsd.edu](https://cseweb.ucsd.edu/classes/fa24/cse120-a/lectures/arch.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2490,9 +2490,9 @@ Chapter 5 也有更正式定義： **response time** 是從提出要求到**第�
 
 ![][image41]
 
-```asm
+ asm
 這和很多作業系統課程講的標準流程一致： **system call / exception / interrupt** 會讓控制權從使用者空間轉到核心；處理完後，再 return 回原本的使用者程式。([eng.utah.edu](https://www.eng.utah.edu/~cs5460/slides/Lecture03.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2536,9 +2536,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * 處理中斷  
 * 排程程序/執行緒
 
-```
+ 
 這正是 dual-mode operation 的目的：**保護 OS 與其他程式。**  ([codex.cs.yale.edu](https://codex.cs.yale.edu/avi/os-book/OSE2/study-guide/Study-Guide.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2554,9 +2554,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * 載入核心  
 * 建立保護機制
 
-```
+ 
 所以開機一定先在 **kernel mode**。之後 OS 準備好，才把 CPU 切到 **user mode** 去跑一般程式。 ([codex.cs.yale.edu](https://codex.cs.yale.edu/avi/os-book/OSE2/study-guide/Study-Guide.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2575,9 +2575,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * `open()`  
 * `fork()`
 
-```
+ 
 這通常是 **同步的**，因為是程式自己執行到這裡才發生。很多教材把這種切換稱為 **trap**。 ([cseweb.ucsd.edu](https://cseweb.ucsd.edu/classes/sp25/cse120-a/hw/hw1-sol.html?utm_source=chatgpt.com))
-```
+ 
 
 ##### B. exception（例外）
 
@@ -2588,9 +2588,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * 執行特權指令  
 * page fault（缺頁）
 
-```
+ 
 這也是同步的，因為和當前指令直接相關。([ee.usc.edu](https://ee.usc.edu/~redekopp/cs350/slides/Ch2_Part1_UserKernelMode.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ##### C. interrupt（中斷）
 
@@ -2600,9 +2600,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * 磁碟 I/O 做完了  
 * 計時器時間到了
 
-```
+ 
 這通常是 **非同步的**，因為不是你這條指令「自己」造成的，而是外部裝置在某個時間點打斷 CPU。 ([ee.usc.edu](https://ee.usc.edu/~redekopp/cs350/slides/Ch2_Part1_UserKernelMode.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2627,9 +2627,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 3. 跳到 system call handler  
 4. 做完再 return 回 user mode
 
-```
+ 
 這是受控、合法、設計好的進入方式。([cseweb.ucsd.edu](https://cseweb.ucsd.edu/classes/sp25/cse120-a/hw/hw1-sol.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2646,9 +2646,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * CPU 執行指令時會看這個狀態  
 * 若目前在 user mode，就禁止執行特權操作
 
-```
+ 
 重點不是 1 或 0 本身，而是： **CPU 內部有個狀態在區分目前權限。**  ([cseweb.ucsd.edu](https://cseweb.ucsd.edu/classes/fa24/cse120-a/lectures/arch.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2694,9 +2694,9 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * 由 OS 代替這個程式執行某些服務  
 * 做完再回來
 
-```
+ 
 例如你呼叫 `write()`，不是「你的程式消失，OS 另外開新程式」，而是你的程式透過 OS 幫你完成輸出。([eng.utah.edu](https://www.eng.utah.edu/~cs5460/slides/Lecture03.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2706,17 +2706,17 @@ OS 必須知道現在是誰在執行。 如果是使用者自己寫的程式，�
 * **interrupt**：外部裝置或計時器打斷  
 * **exception**：目前指令出錯或特殊事件
 
-```
+ 
 三者都可能造成 **user mode → kernel mode**，但原因不同。([ee.usc.edu](https://ee.usc.edu/~redekopp/cs350/slides/Ch2_Part1_UserKernelMode.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
 #### 3\. 回到 user mode 之後，程式通常是「接著跑」
 
-```
+ 
 OS 會先保存必要狀態，再處理事件，之後恢復狀態。 這就是為什麼投影片圖中有「由系統呼叫返回」那條箭頭。([eng.utah.edu](https://www.eng.utah.edu/~cs5460/slides/Lecture03.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2786,9 +2786,9 @@ OS 會先保存必要狀態，再處理事件，之後恢復狀態。 這就是�
 
 這就是投影片第一句在講的重點：**要保證作業系統永遠維持控制權，不能讓使用者程式一旦跑起來就永遠不還 CPU。**
 
-```
+ 
 很多作業系統教材都用同樣的說法：核心會先設定硬體 timer，等 timer 到期時產生 interrupt，把控制權交還給 kernel，這樣使用者程式就算在無窮迴路裡，也不能永久霸佔 CPU。([Berea College Faculty](https://faculty.berea.edu/faculty/pearcej/CSC325/ch2.htm?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2802,13 +2802,13 @@ OS 會先保存必要狀態，再處理事件，之後恢復狀態。 這就是�
 
 因為如果拿不回來，會出現這種情況：
 
-```
+ 
 while (1) {
 
 }
 
 這種 **infinite loop（無窮迴路）** 如果沒有外力打斷，它就會一直跑。 而在**可搶先式排程（preemptive scheduling）**裡，外力就是 **timer interrupt（計時器中斷）**。當 timer 到時，CPU 會被強制轉去跑核心的中斷處理程式，而不是繼續傻傻跑使用者程式。([MIT OpenCourseWare](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c17/c17s1/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2825,9 +2825,9 @@ while (1) {
 * **無窮迴路 ≠ 一定當機**  
 * 真正危險的是：**無窮迴路還一直占著 CPU，不讓 OS 重新排程**
 
-```
+ 
 如果有 timer，OS 就能定期把 CPU 搶回來，所以單一使用者程式的無窮迴路通常不會直接拖垮整個現代作業系統。MIT 與多份作業系統課程資料都把這件事明確描述成：timer 讓 kernel 可以 **preempt（搶先、中止目前執行）** 正在跑的 user process。([MIT OpenCourseWare](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c17/c17s1/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2842,9 +2842,9 @@ while (1) {
 * 硬體發出中斷  
 * CPU 轉去執行 OS 的 interrupt handler（中斷處理常式）
 
-```
+ 
 也就是說，**timer 是 OS 搶回控制權的硬體保險機制**。([bourbon.usc.edu](https://bourbon.usc.edu/cs350-m25/lectures/tentative/02_kernel.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2876,9 +2876,9 @@ while (1) {
 * 某些情況希望晚一點再中斷  
 * 比較有彈性，也更有效率
 
-```
+ 
 很多系統課程都提到 timer interval 由 kernel 設定，使用者程式不能隨便改，否則保護機制就失效了。([bourbon.usc.edu](https://bourbon.usc.edu/cs350-m25/lectures/tentative/02_kernel.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2925,9 +2925,9 @@ timer 每次中斷時，OS 先拿回控制權檢查一下：
 * 更新 accounting（記帳資訊）  
 * 處理 scheduler 的 time slice（時間片）
 
-```
+ 
 MIT 課程資料就提到，timer interrupt 進入 clock handler 後，scheduler 可能儲存目前程序狀態，選另一個程序繼續執行。([MIT OpenCourseWare](https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c17/c17s1/?utm_source=chatgpt.com))
-```
+ 
 
 #### B. 「當計數器值變成負值時，作業系統因為程式超過其時間限制而終止執行」
 
@@ -2984,9 +2984,9 @@ MIT 課程資料就提到，timer interrupt 進入 clock handler 後，scheduler
 
 OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一直霸佔 CPU」。
 
-```
+ 
 這點很多教材都強調：timer 的關鍵用途是 **regain control（重新取得控制權）**，而不是猜程式邏輯。([Columbia OS](https://columbia-os.github.io/2026-1/lect/lecture-2-introduction.pdf?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -2999,9 +2999,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 * 中斷一來，使用者程式就會被暫停  
 * kernel 重新掌控 CPU，再決定下一步
 
-```
+ 
 這種說法和課本投影片的概念是一致的。([Stack Overflow](https://stackoverflow.com/questions/67957746/why-doesnt-an-infite-loop-lock-an-os?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3058,9 +3058,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 4. OS 的 **scheduler（排程器）** 檢查 ready queue  
 5. 如果 B 也在等 CPU，OS 可能就改讓 B 跑
 
-```
+ 
 這就是 **preemptive scheduling（搶先式排程）**： A 就算沒有自願停下來，OS 也能把它打斷。這是現代多工作業系統的核心機制。([卡內基梅隆大學](https://www.andrew.cmu.edu/course/15-440-sp10/applications/ln/lecture7.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3074,9 +3074,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 * `sleep()`  
 * 等磁碟 I/O 完成
 
-```
+ 
 這時 A 不能繼續往下做，就會從 **running（執行中）** 變成 **waiting / blocked（等待中）**。 既然 A 在等，CPU 就不該閒著，所以 OS 會挑另一個 ready 的程式，像 B，來跑。這也是標準排程觸發條件之一。([卡內基梅隆大學](https://www.andrew.cmu.edu/course/15-440-sp10/applications/ln/lecture7.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3089,9 +3089,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 * OS 從 ready queue 挑下一個  
 * B 有機會上 CPU
 
-```
+ 
 這種不是「搶走」，而是 A 已經結束了。([卡內基梅隆大學](https://www.andrew.cmu.edu/course/15-440-sp10/applications/ln/lecture7.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3106,9 +3106,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 * 而且 B 優先權比較高  
 * OS 可能立刻搶走 A 的 CPU，改給 B
 
-```
+ 
 也就是說，不只是 timer 到期才會切； **某些排程政策下，只要更重要的工作出現，也會切。** ([GeeksforGeeks](https://www.geeksforgeeks.org/operating-systems/context-switch-in-operating-system/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3127,9 +3127,9 @@ OS 不需要先判斷「你是不是壞人」， 它只要保證「你不能一�
 * stack 指標  
 * 程式計數器 PC
 
-```
+ 
 OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，這叫 **context switch（情境切換／內容切換）**。([TechTarget](https://www.techtarget.com/whatis/definition/context-switch?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3338,9 +3338,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 你關閉 Chrome，OS 回收它的資源  
 * 有些背景服務也是 OS 自己建立的 system process
 
-```
+ 
 很多教材都把這列為 OS 的基本責任之一。O’Reilly 的《Operating System Concepts》內容摘要也列出：OS 要負責 user/system process 的建立、刪除、排程、同步、通信與死結處理。([O'Reilly](https://www.oreilly.com/library/view/operating-system-concepts/9780470128725/silb_9780470128725_oeb_p02_r1.html?utm_source=chatgpt.com))
-```
+ 
 
 #### 生活例子
 
@@ -3478,9 +3478,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 
 #### 社群上常見的誤解
 
-```
+ 
 社群上常有人把 deadlock 和 scheduling 混在一起，以為換個排程法就能避免死結；但 Stack Overflow 上對這類問題的回答很一致：**deadlock 的根源是資源鎖定與等待關係，不是單純的 CPU 排程順序。** 換句話說，FCFS 之類的排程法本身不保證不會 deadlock。([Stack Overflow](https://stackoverflow.com/questions/50126507/does-first-come-first-served-fcfs-scheduling-avoids-deadlock?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3555,9 +3555,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * **process（行程）**：像一間公司  
 * **thread（執行緒）**：像公司裡真正做事的人
 
-```
+ 
 一個 process 可以有多個 threads。教材也提到，現代作業系統通常支援一個 process 裡面有多個 thread。([O'Reilly](https://www.oreilly.com/library/view/operating-system-concepts/9780470128725/silb_9780470128725_oeb_p02_r1.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3586,9 +3586,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 
 先講結論：
 
-```
+ 
 **主記憶體管理（main memory management）**，就是作業系統負責管理 RAM 裡面的空間分配、回收、保護、搬移與位址對應，讓多個程式能安全而有效率地執行。程式若要真的跑起來，至少它要有一部分被載入主記憶體；而在現代作業系統裡，CPU 通常先產生的是 **logical address / virtual address（邏輯位址／虛擬位址）**，再由硬體與 OS 配合轉成 **physical address（實體位址）**，不會單純讓一般程式直接操作真正的實體位址。這點其實比投影片上的「絕對位址」說法更接近現代系統。([伊利諾伊大學芝加哥分校計算機科學系](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3614,9 +3614,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 資料（data）  
 * 執行時狀態（例如 stack、heap、變數）
 
-```
+ 
 而主記憶體，也就是 RAM，就是 CPU 工作時主要直接接觸的地方。教材對主記憶體的基本描述也是：**process 必須被載入 memory 才能執行**；若記憶體不夠，作業系統還會做 swapping（交換）或更進一步用 paging/virtual memory 來管理。([伊利諾伊大學芝加哥分校計算機科學系](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html?utm_source=chatgpt.com))
-```
+ 
 
 你可以用生活例子記：
 
@@ -3650,9 +3650,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 
 所以如果我們要勇敢校正這張投影片：
 
-```
+ 
 **把「一定要映對到絕對位址」理解成「最終一定要對應到可被記憶體硬體使用的位址」比較精確。** 在現代 OS 語境下，這通常會經過虛擬位址到實體位址的轉換，而不是使用者程式直接碰實體位址。([伊利諾伊大學芝加哥分校計算機科學系](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3668,9 +3668,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 它進來、執行、結束、離開  
 * 空出的位置再給下一個程式
 
-```
+ 
 這也是投影片最後一句「釋放出記憶體為可用狀態，載入下一個程式」的意思。若 RAM 不夠，OS 還可能把某些 process 換出到磁碟，再視需要換回。這就是 **swapping（交換）** 的基本概念。([伊利諾伊大學芝加哥分校計算機科學系](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3693,9 +3693,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 新程式載入時不會撞位址  
 * 結束時知道要回收哪一塊
 
-```
+ 
 這也是記憶體管理最基本的 bookkeeping（記帳／追蹤）工作。([GeeksforGeeks](https://www.geeksforgeeks.org/operating-system-requirements-of-memory-management-system/?utm_source=chatgpt.com))
-```
+ 
 
 #### 2\. 在記憶體空間可用時，決定載入的行程
 
@@ -3708,9 +3708,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 誰先被換出  
 * 哪一塊空間給誰
 
-```
+ 
 這和 multiprogramming（多元程式設計）直接相關：OS 希望 RAM 裡同時有足夠多的 process，讓 CPU 不容易閒著。([伊利諾伊大學芝加哥分校計算機科學系](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html?utm_source=chatgpt.com))
-```
+ 
 
 #### 3\. 在需要時，配置和回收記憶體空間
 
@@ -3722,9 +3722,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 * 建立資料結構時要分空間  
 * 程式結束或物件釋放時要回收
 
-```
+ 
 如果不回收，就會浪費 RAM；如果分配方式不好，還會產生 **fragmentation（碎裂）** 問題。尤其在連續配置模型裡，容易遇到 **external fragmentation（外部碎裂）**，也就是總空間明明夠，但零零散散，湊不出一塊連續大空間。([GeeksforGeeks](https://www.geeksforgeeks.org/memory-management-in-operating-system/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3745,9 +3745,9 @@ OS 會先把 A 的狀態存起來，再把 B 之前存好的狀態讀回來，�
 
 像 C 語言裡：
 
-```
+ 
 int a[1000];
-```
+ 
 
 這種大小先寫死，就很接近靜態配置的感覺。
 
@@ -3780,9 +3780,9 @@ int a[1000];
 * 分段 segmentation  
 * 虛擬記憶體 virtual memory
 
-```
+ 
 因為本質都在問： **記憶體空間到底要先固定，還是按需求動態處理？** ([GeeksforGeeks](https://www.geeksforgeeks.org/memory-management-in-operating-system/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3805,9 +3805,9 @@ int a[1000];
 * demand paging  
 * virtual memory
 
-```
+ 
 也就是： **不是整支程式永遠完整住在 RAM，而是需要的部分先進來，不需要的部分晚點再處理。** ([GeeksforGeeks](https://www.geeksforgeeks.org/operating-systems/what-is-demand-paging-in-operating-system/?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3817,9 +3817,9 @@ int a[1000];
 
 **「程式看到的位址，真的是 RAM 上的實體位址嗎？」**
 
-```
+ 
 主流回答很一致：**在現代作業系統裡，通常不是。** 程式通常操作的是虛擬位址；它可能暫時根本還沒有對應到 RAM 裡的某個實體頁框，直到發生 page fault 才被載入。這和課本上把流程簡化成「載入主記憶體、位址對應、存取」的畫法不同，但本質上是在講同一件事：**OS 必須管理地址與記憶體資源的關係。** ([Stack Overflow](https://stackoverflow.com/questions/4725004/what-does-the-memory-address-mean?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3890,9 +3890,9 @@ int a[1000];
 * heap（堆積）上的配置空間  
 * pointer（指標）裡存的位址值
 
-```
+ 
 Linux 核心文件寫得很明確：**每一次記憶體存取都使用 virtual address**，再由 page tables 把 virtual address 轉成 physical address。([Linux Kernel 文檔](https://docs.kernel.org/admin-guide/mm/concepts.html?utm_source=chatgpt.com))
-```
+ 
 
 所以更正確的說法是：
 
@@ -3908,9 +3908,9 @@ Linux 核心文件寫得很明確：**每一次記憶體存取都使用 virtual 
 
 **physical address（實體位址）是記憶體硬體最終要用來定位實體記憶體頁框（page frame）的位置。**
 
-```
+ 
 Linux 文件說 page tables 會把 **virtual addresses as seen by the CPU** 轉成 **physical addresses as seen on the external memory bus**。([Linux Kernel 文檔](https://docs.kernel.org/6.8/mm/page_tables.html?utm_source=chatgpt.com))
-```
+ 
 
 所以你可以把它理解成：
 
@@ -3932,11 +3932,11 @@ Linux 文件說 page tables 會把 **virtual addresses as seen by the CPU** 轉�
 * **swap / paging file（交換區／分頁檔）** 進出時  
 * 把髒頁（dirty page）寫回磁碟時
 
-```
+ 
 Windows 官方文件明確說，系統會在實體記憶體不足時，把部分頁面移到磁碟上的 paging file；而程式本身仍只操作自己的 virtual address space。([Microsoft Learn](https://learn.microsoft.com/ms-my/windows/win32/memory/virtual-address-space-and-physical-storage?utm_source=chatgpt.com))
 
 Stack Overflow 上常見的解釋也一致：某個 virtual page 不一定當下就在 RAM，它可能對應到記憶體映射檔案、page file，或暫時根本還沒載入；等程式真的碰到那頁時，才由 page fault 觸發 OS 去處理。([Stack Overflow](https://stackoverflow.com/questions/9006634/mapping-of-virtual-address-to-physical-address?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -3948,13 +3948,13 @@ Stack Overflow 上常見的解釋也一致：某個 virtual page 不一定當下
 
 例如你在程式裡有：
 
-```
+ 
 int x = 5;
 
 int *p = \&x;
 
 這裡 `p` 裡面存的那個位址，對使用者程式來說，通常就是某個 **virtual address**。 CPU 執行讀寫指令時，也會先用這種位址。([Linux Kernel 文檔](https://docs.kernel.org/admin-guide/mm/concepts.html?utm_source=chatgpt.com))
-```
+ 
 
 所以它不是只有「變數名稱」：
 
@@ -3968,9 +3968,9 @@ int *p = \&x;
 
 它是**硬體視角**的位址。
 
-```
+ 
 MMU（記憶體管理單元）會把 virtual address 轉成 physical address，最後 RAM 控制器依這個 physical address 找到真正的記憶體位置。([Linux Kernel 文檔](https://docs.kernel.org/6.8/mm/page_tables.html?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -4006,9 +4006,9 @@ MMU（記憶體管理單元）會把 virtual address 轉成 physical address，�
 
 * virtual → physical
 
-```
+ 
 這個轉換對應用程式通常是透明的。Windows 官方文件也明確說，應用程式只操作自己的 virtual address spaces，系統對 physical memory 的搬移是透明的。([Microsoft Learn](https://learn.microsoft.com/ms-my/windows/win32/memory/virtual-address-space-and-physical-storage?utm_source=chatgpt.com))
-```
+ 
 
 ---
 
@@ -4018,9 +4018,9 @@ MMU（記憶體管理單元）會把 virtual address 轉成 physical address，�
 
 #### 1\. 程式/檔案還沒進 RAM，要先載入
 
-```
+ 
 例如你打開一個 `.exe` 或讀一個 `.txt`。 OS 要先知道這個檔案在磁碟哪裡，才能把內容搬進 RAM。([Microsoft Learn](https://learn.microsoft.com/ms-my/windows/win32/memory/virtual-address-space-and-physical-storage?utm_source=chatgpt.com))
-```
+ 
 
 #### 2\. 發生 page fault
 
@@ -4033,15 +4033,15 @@ MMU（記憶體管理單元）會把 virtual address 轉成 physical address，�
 
 #### 3\. 系統把頁面換出到磁碟
 
-```
+ 
 RAM 不夠時，系統可能把某些頁面丟到 paging file / swap。 之後又要用到時，OS 必須知道那些頁在磁碟哪裡。([Microsoft Learn](https://learn.microsoft.com/ms-my/windows/win32/memory/virtual-address-space-and-physical-storage?utm_source=chatgpt.com))
-```
+ 
 
 #### 4\. memory-mapped file
 
-```
+ 
 程式看起來像在讀記憶體，但背後其實對應到磁碟檔案。 這時 virtual address 背後的來源就是檔案在磁碟上的內容。([Stack Overflow](https://stackoverflow.com/questions/9006634/mapping-of-virtual-address-to-physical-address?utm_source=chatgpt.com))
-```
+ 
 
 ---
 

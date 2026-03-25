@@ -1707,7 +1707,1350 @@ C 常是 `malloc/free`，C++ 常是 `new/delete`；實務上也常由容器與 s
 [5]: https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html "https://www.man7.org/linux/man-pages/man3/malloc_trim.3.html"
 
 
-看到：p.9
-file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(peicd100@gmail.com)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%95%99%E6%9D%90/chapter%203_20240318.pdf
 
-## 
+## 3.1.2 行程狀態
+
+![alt text](<images/ch 3-5.png>)
+
+已啟用教學模式
+### 講解
+
+#### 這張圖在回答什麼
+
+這張圖是在說明 **Process state(行程狀態)**：一個行程在作業系統裡，從被建立到結束，會在幾種狀態之間切換。你這張投影片採用的是最常見的 **five-state model(五狀態模型)**，也就是 **new、ready、running、waiting、terminated**。投影片上方文字也正是這樣列出五種狀態。 ([cs.cornell.edu][1])
+
+很多教材會把 **waiting(等待)** 也叫做 **blocked(阻塞)**。意思幾乎一樣：不是單純在等 CPU，而是在等某個事件發生，例如 I/O 完成、訊號到來、資源可用。([維基百科][2])
+
+#### 先用一張簡圖抓全貌
+
+```mermaid
+flowchart TB
+    N[new<br>新產生]
+    R[ready<br>就緒]
+    X[running<br>執行]
+    W[waiting<br>等待]
+    T[terminated<br>結束]
+
+    N -->|admitted| R
+    R -->|scheduler dispatch| X
+    X -->|interrupt| R
+    X -->|I/O or event wait| W
+    W -->|I/O or event completion| R
+    X -->|exit| T
+```
+
+#### 五個狀態各代表什麼
+
+**1. new(新產生)**
+行程剛被建立，還在「出生階段」。你可以把它想成「剛報到、資料還在建立」。在較完整的說法裡，new 表示它還沒正式進入可執行池，還在等被系統接納。 ([維基百科][2])
+
+**2. ready(就緒)**
+行程已經「準備好跑了」，缺的只是一件事：**CPU 還沒輪到它**。也就是說，它不是不能跑，而是現在 CPU 正在忙別人，所以它先排隊。這是最容易和 waiting 搞混的地方。 ([維基百科][2])
+
+**3. running(執行)**
+CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能有一個 running；多核心則可同時有多個 running，但每個核心同一時間仍只跑一個。 ([維基百科][2])
+
+**4. waiting(等待)**
+行程暫時不能往下做，因為它在等某個外部事件，例如磁碟 I/O 完成、鍵盤輸入、收到訊號、等某個子行程結束。重點是：**它不是在等 CPU，而是在等條件成立**。 ([維基百科][2])
+
+**5. terminated(結束)**
+行程執行完成，生命週期結束。基本五狀態圖通常畫成 running 直接走到 terminated。 ([維基百科][2])
+
+#### 圖上的每一條箭頭怎麼讀
+
+**new → ready：admitted**
+表示這個新建立的行程，被系統正式接納，可以進入排隊等待 CPU 的階段。你可以把 admitted 想成「拿到入場資格」。([維基百科][2])
+
+**ready → running：scheduler dispatch**
+表示 **scheduler(排班器)** 選中它，把 CPU 派給它執行。就像排隊的人，終於輪到你進櫃檯辦事。 ([Department of Computer Science][3])
+
+**running → ready：interrupt**
+表示它原本在跑，但被中斷或被搶先，於是先回到 ready，等下一次再被排到。這常見於 **preemptive scheduling(可搶先排班)**，例如時間片用完。你的課本投影片也有明寫：執行狀態轉成就緒狀態，例子就是中斷發生。 ([Department of Computer Science][4])
+
+**running → waiting：I/O or event wait**
+表示它跑到一半，發現自己必須等某件事，例如讀硬碟、等網路封包、等使用者輸入，所以先停下來去等。([維基百科][2])
+
+**waiting → ready：I/O or event completion**
+表示原本在等的事情發生了，例如 I/O 做完了，所以它重新變成「可以執行」的狀態。但注意，這時它是回到 **ready**，不是直接回 **running**，因為還是要等排班器分配 CPU。 ([Stack Overflow][5])
+
+**running → terminated：exit**
+表示程式正常結束，或被要求結束。([維基百科][2])
+
+#### 最容易考、也最容易混淆的兩組差別
+
+**new vs ready**
+
+* **new**：剛建立，還在建立／接納階段，還未進入 pool 。
+* **ready**：已經具備執行條件，只差 CPU。
+
+很多學生會把這兩個都看成「還沒開始跑」，但差別在於：**ready 已經可以隨時被 scheduler 選去跑，new 還沒到那一步。** 這也是社群討論最常問的點之一。([Stack Overflow][6])
+
+**ready vs waiting**
+
+* **ready**：萬事俱備，只欠 CPU。
+* **waiting**：不是欠 CPU，而是欠事件。
+
+生活化一點比喻：
+
+* ready 像你已經到銀行抽號碼，資料都備妥，只是在等叫號。
+* waiting 像你連資料都還沒拿到，正在等學校寄成績單，所以根本還不能去辦。([維基百科][2])
+
+#### 這張圖要怎麼背
+
+你可以用一句話背：
+
+**出生 new → 排隊 ready → 上 CPU running → 不是做完就是去等 waiting → 等完再回 ready → 最後 terminated。**  ([cs.cornell.edu][1])
+
+再抓三個關鍵轉移就很穩：
+
+1. **等 CPU**：ready
+2. **等事件**：waiting
+3. **被搶先**：running 回 ready，不是回 waiting。 ([Department of Computer Science][4])
+
+#### 補充：這張圖是基本版，不是完整版
+
+這張圖是教學上最經典的簡化版。更細的模型還會加入 **suspended / swapped-out states(暫停／換出狀態)**，也就是行程不只在等，還可能被換到外部儲存體。你現在這張圖先把核心觀念講清楚：CPU 排班與 I/O 等待如何讓行程在五種狀態中流動。([維基百科][2])
+
+#### 一句總結
+
+**這張圖的核心不是背名詞，而是分清楚「在等 CPU」和「在等事件」：前者是 ready，後者是 waiting。** 一旦這個觀念清楚，整張圖就會突然很好懂。 ([cs.uic.edu][7])
+
+下一張若你貼上來，我們可以接著對照 **五狀態模型** 和 **七狀態模型** 的差別。
+
+[1]: https://www.cs.cornell.edu/courses/cs4410/2015su/lectures/lec03-processes.html?utm_source=chatgpt.com "Processes (CS 4410, Summer 2015)"
+[2]: https://en.wikipedia.org/wiki/Process_state "Process state - Wikipedia"
+[3]: https://www.cs.jhu.edu/~yairamir/cs418/os2/tsld004.htm?utm_source=chatgpt.com "Process State Transition Diagram"
+[4]: https://www.cs.jhu.edu/~yairamir/cs418/os2/tsld005.htm?utm_source=chatgpt.com "Process State Transition Diagram"
+[5]: https://stackoverflow.com/questions/36229228 "Operation Systems: How process move from device' queue(waiting) to ready queue? - Stack Overflow"
+[6]: https://stackoverflow.com/questions/24999567/process-states-new-state-ready-state?utm_source=chatgpt.com "operating system - process states - new state & ready state - Stack Overflow"
+[7]: https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/3_Processes.html?utm_source=chatgpt.com "Operating Systems: Processes"
+
+## 3.1.3 行程控制表
+![alt text](<images/ch 3-8.png>)
+![alt text](<images/ch 3-9.png>)
+![alt text](<images/ch 3-10.png>)
+
+已啟用教學模式
+
+### 講解
+
+#### 這三張圖在回答什麼
+
+這三張其實是在講同一件事的前後兩面：
+
+1. **作業系統怎麼記住一個行程(Process)**
+   答案就是用 **PCB, Process Control Block(行程控制表)**。
+
+2. **作業系統怎麼把 CPU 從一個行程切到另一個行程**
+   答案就是先把目前行程的狀態存進它的 PCB，再把下一個行程的狀態從它的 PCB 載回來。這個動作叫 **context switch(內容轉換)**。 
+
+你可以把它想成：
+
+* **PCB** 像是每個行程的「個人資料夾」
+* **context switch** 像是「先把甲同學做到一半的考卷夾進資料夾，再把乙同學做到一半的考卷拿出來繼續寫」
+
+---
+
+#### 第一張圖：PCB(Process Control Block，行程控制表) 是什麼？
+
+每一個行程在作業系統裡，都有一份對應的 PCB。教材列出的核心內容包含：
+
+* **Process Identifier (PID，行程識別碼)**：像身分證字號，用來唯一辨識這個行程。
+* **Process State(行程狀態)**：例如 `new`、`ready`、`running`、`waiting`、`halted`。
+* **Program Counter (PC，程式計數器)**：記錄「下一條要執行的指令在哪裡」。
+* **CPU Registers(CPU 暫存器)**：像 accumulator(累加器)、index register(索引暫存器)、stack pointer(堆疊指標)、general-purpose register(一般用途暫存器) 等。教材特別強調：當中斷發生時，這些狀態資訊和 PC 都要先存起來，之後才能順利接著跑。
+
+這一張右邊那個小方塊圖，就是把 PCB 畫成一個表格，裡面放了：
+
+* process state
+* process number
+* program counter
+* registers
+* memory limits
+* list of open files
+* …（還有其他欄位）
+
+#### 為什麼一定要記錄 PC 與 registers？
+
+因為行程不只是「程式碼」而已，它還有「目前跑到哪裡、手上算到哪裡」。
+例如你在算：
+
+`a = b + c * d`
+
+算到一半被切走，CPU 裡可能已經暫存了某些中間結果。
+若不把這些 **registers(暫存器)** 和 **PC(下一條指令位置)** 存起來，之後切回來時就不知道：
+
+* 原本算到哪一步
+* 下一條該執行哪個 instruction(指令)
+* 堆疊(stack)在什麼位置
+
+那整個行程就接不回去了。
+
+---
+
+#### 第二張圖：PCB 裡還會放哪些東西？
+
+第二張圖是第一張的延伸版本，補充 PCB 其他重要欄位：
+
+* **Process Priority(行程優先權)**：包含 priority(優先順序)、scheduling queue(排班佇列)指標與其他排班參數。
+* **Memory Management Information(記憶體管理資訊)**：例如 base register(基底暫存器)、limit register(限制暫存器)、page table(分頁表)、segment table(區段表)。
+* **Pointer to the Parent Process(父行程指標)**：若有 parent process(父行程)，這裡會指到它的 PCB。
+* **Accounting Information(帳務/統計資訊)**：例如 CPU 使用量、實際時間使用量、時限、帳號、工作或行程號碼。
+* **Pointers to Open Files(開啟檔案指標)**：這個行程目前開了哪些檔案或 I/O devices(輸入輸出裝置)。
+* **Interprocess Communication Information(行程間通訊資訊)**：例如 message queue(訊息佇列)、communication channel(通訊通道) 等。
+
+#### 這些欄位各自是在幫誰？
+
+可以這樣記：
+
+* **排班器 scheduler** 主要看：priority、state、queue 指標
+* **記憶體管理 memory management** 主要看：base/limit、page table、segment table
+* **檔案系統 file system** 主要看：open files
+* **行程管理 process management** 主要看：PID、parent pointer、accounting info
+* **IPC(Interprocess Communication，行程間通訊)** 主要看：communication 資訊
+
+也就是說，PCB 不是只給 CPU 用，它是整個 OS(作業系統) 管理這個行程的總檔案。
+
+---
+
+#### 第三張圖：CPU switch from process to process 到底在畫什麼？
+
+這張圖是在畫 **P0** 和 **P1** 兩個行程，如何輪流使用 CPU。中間那條是 **operating system(作業系統)**。流程大致如下：
+
+1. 一開始 **process P0** 正在執行。
+2. 發生 **interrupt(中斷)** 或 **system call(系統呼叫)**，CPU 進入 OS。
+3. OS 把 P0 現在的狀態 **save state into PCB₀**。
+4. OS 決定換 P1 上來跑。
+5. OS 從 **PCB₁** 把 P1 之前存好的狀態 **reload state from PCB₁**。
+6. 然後 **P1** 開始執行。
+7. 之後再次發生 interrupt 或 system call。
+8. OS 再把 P1 狀態存回 **PCB₁**。
+9. 再從 **PCB₀** 載回 P0 狀態。
+10. P0 從上次停下的位置繼續執行。 
+
+這就是 **context switch(內容轉換)**。教材也明確說明：當中斷發生時，系統需要先儲存目前行程的 context(內容/狀態)，之後再還原；把 CPU 從一個行程轉到另一個行程時，要先存舊行程狀態，再載入新行程狀態。
+
+---
+
+#### 這張圖最容易看錯的地方：idle 不一定等於 waiting
+
+圖上在 P0、P1 旁邊有標 **idle**。
+這裡你要很小心，不要直接把它解讀成教材前面那個 **waiting state(等待狀態)**。
+
+這張圖裡的 **idle** 比較接近：
+
+> 「這個行程此刻沒有在 CPU 上執行」
+
+但它**不精確表示**它一定是在：
+
+* ready(就緒)
+* waiting(等待 I/O 或事件)
+* 或其他更細的狀態
+
+因為這張圖的重點是 **CPU ownership(誰拿到 CPU)**，不是完整狀態轉移圖。
+所以這張圖比較像在表達：
+
+* P0 現在沒跑，因為 CPU 給了 P1
+* P1 現在沒跑，因為 CPU 給了 P0
+
+而不是在嚴格分類它們是 ready 還是 waiting。
+
+這個地方很常考文字陷阱。
+
+---
+
+#### 把三張圖串起來，你就懂了
+
+整體邏輯其實很順：
+
+* 行程執行到一半，可能因為中斷或系統呼叫被打斷
+* OS 不能讓它的進度消失，所以要把當下狀態存到 **PCB**
+* 之後想讓另一個行程執行，就從那個行程自己的 **PCB** 把先前狀態載回來
+* 因此，**PCB 是 context switch 的基礎資料結構**。 
+
+---
+
+#### 用生活化例子記憶
+
+想像有兩個人共用一張書桌：
+
+* **P0** 在寫數學作業
+* **P1** 在寫英文作業
+* **CPU** 就是那張唯一的桌子
+* **OS** 是管理員
+* **PCB** 是每個人的資料夾
+
+當管理員說：「P0 先停，換 P1。」
+
+管理員會先做兩件事：
+
+1. 把 P0 的進度記下來
+
+   * 寫到第幾題
+   * 筆停在哪裡
+   * 草稿算到哪
+     這就是 **save state into PCB₀**
+
+2. 拿出 P1 上次的資料夾，照著上次停的位置接著做
+   這就是 **reload state from PCB₁**
+
+這樣來回切換，兩個人都能「接續上次進度」繼續做。
+
+---
+
+#### 一張圖記完整流程
+
+![alt text](<images/ch 3-11.png>)
+
+---
+
+#### 最容易考的觀念
+
+1. **PCB 是什麼？**
+   是 OS 用來保存某個行程所有管理資訊的資料結構。
+
+2. **為什麼要存 PC 與 registers？**
+   因為行程之後要從「中斷前的精確位置」接著執行。
+
+3. **context switch 做了什麼？**
+   存舊行程狀態，載入新行程狀態。
+
+4. **context switch 有沒有成本？**
+   有。教材說這是 **overhead(額外負擔)**，切換時系統沒有在做真正有用的工作。
+
+5. **圖中的 idle 能不能直接當 waiting？**
+   ❌ 不行。這張圖只是在表達「目前沒拿到 CPU」。
+
+---
+
+#### 你可以這樣背
+
+一句話版本：
+
+> **PCB 負責記住行程現在是誰、跑到哪、手上有哪些資源；context switch 就是把目前行程的狀態存進 PCB，再把下一個行程的狀態從 PCB 取出來。**  
+
+下一則我幫你把這三張直接整理成「考試作答版」，你可以拿來背誦。
+
+##  3.2 行程排班(Process Scheduling)
+
+![alt text](<images/ch 3-12.png>)
+
+已啟用教學模式
+### 講解
+
+#### 這張圖在回答什麼
+
+這張投影片其實在回答 3 個核心問題：
+
+1. **為什麼作業系統需要排班(scheduling)**
+2. **排班器(process scheduler)到底在做什麼**
+3. **為什麼在單一處理器(single processor)裡，多個行程(process)看起來像同時跑，但其實不是同時跑**
+
+你可以把這張圖當成前一張 **PCB(Process Control Block，行程控制表)** 與 **context switch(內容轉換)** 的下一步：
+前面在講「怎麼保存行程狀態」，這一張在講「那保存好之後，CPU 接下來要輪到誰」。
+
+---
+
+#### 第一行：什麼是 Process Scheduling(行程排班)
+
+投影片第一句在講：
+
+* **multiprogramming(多元程式規劃)** 的目標：讓 **CPU 盡量不要閒著**
+* **time sharing(分時)** 的目標：讓 **使用者感覺系統有反應、可以互動**
+
+教材原文就是這樣切的：
+multiprogramming 重點是「提高 CPU 使用率」；time sharing 重點是「CPU 在不同行程之間不斷切換，讓使用者能與執行中的程式互動」。 
+
+---
+
+#### multiprogramming(多元程式規劃) 到底是什麼意思？
+
+先講最容易懂的版本：
+
+> **記憶體裡先放多個行程，誰現在能跑，就先把 CPU 給誰，避免 CPU 發呆。**
+
+生活化例子：
+
+想像 CPU 是一位廚師，幾個行程是幾道菜。
+
+* 菜 A 正在等烤箱 → 不能立刻用廚師
+* 那廚師就先去做菜 B
+* 菜 B 切完在等洗菜 → 廚師又去做菜 C
+
+這樣做的重點不是「每道菜都很公平」，而是：
+
+> **不要讓廚師閒著**
+
+這就是 **CPU utilization(CPU 使用率)** 的核心精神。
+
+---
+
+#### time sharing / multitasking (分時) 又是什麼？
+
+這個概念比較像：
+
+> **把 CPU 時間切成很多很短的小片段，快速輪流分給不同的行程。**
+
+目的是讓使用者覺得：
+
+* 打字有回應
+* 滑視窗有反應
+* 指令打下去不用等很久
+
+也就是說，**multiprogramming** 比較在意「CPU 不要閒」，
+而 **time sharing** 比較在意「互動要順、反應要快」。 
+
+---
+
+#### 兩者差在哪裡？這裡最常考
+
+你可以直接這樣背：
+
+* **Multiprogramming**：重點是 **效率 efficiency**
+  讓 CPU 有事做，減少空轉。
+* **Time sharing**：重點是 **互動性 interactivity / response time(反應時間)**
+  讓每個使用者或行程都能很快得到回應。
+
+一句話版：
+
+> **multiprogramming 偏「不浪費 CPU」；time sharing 偏「讓人感覺順」。**
+
+你的投影片不是在說兩個完全沒關係的東西，
+而是在說：
+
+> **time sharing 可以看成是 multiprogramming 再往互動式系統延伸的一步。**
+
+我也順手對照了大學課程講義與社群常見問答，這個切法是很標準的；很多人也正是卡在「兩者都在輪流執行，那差別到底在哪」這個點。UCSB 的課程講義直接把實際 CPU 在行程間切換描述成「multiprogramming with time-sharing」，而社群常見解釋也會把 time sharing 視為 multiprogramming 在互動式環境中的延伸。([sites.cs.ucsb.edu][1])
+
+#### 結論
+Multiprogramming：不同事情輪流做。
+time sharing：每件事情只做一下下。
+
+---
+
+#### 第二行：process scheduler(行程排班程式) 在做什麼？
+
+投影片第二句的意思很直接：
+
+> **排班器(process scheduler) 的工作，就是幫 CPU 從「可執行的行程」裡挑一個出來跑。** 
+
+注意這裡的重點不是「執行行程」，而是：
+
+> **決定下一個是誰拿到 CPU**
+
+也就是說，scheduler(排班器)像一個裁判或櫃台叫號系統：
+
+* 誰現在 ready(就緒)
+* 誰正在等 I/O
+* 誰優先權高
+* 誰已經跑太久了
+
+它會根據規則選下一個。
+
+---
+
+#### 你可以把 scheduler 想成「發號碼牌的人」
+
+例如有三個行程：
+
+* P1：正在等磁碟 I/O
+* P2：ready，可以立刻跑
+* P3：ready，也可以跑
+
+此時 scheduler 不會選 P1，因為它還在等。
+它會在 P2、P3 之間挑一個。
+
+也就是：
+
+> **scheduler 只會從目前可執行的候選者中選。**
+
+---
+
+#### 第三行：單一處理器為什麼不能同時執行多個行程？
+
+這一行超重要。
+
+投影片在講：
+
+> **單一處理器(single processor) 系統，不可能同時有一個以上的行程真正執行。**
+> 如果有多個行程，其它的只能等 CPU 空出來。
+
+這句話的關鍵字是：
+
+* **同時 at the same time**
+* **單一處理器 single processor**
+
+意思是：
+
+* 一顆 CPU 核心同一個瞬間，只能執行一條指令流
+* 所以多個 process 在單核上，頂多只能 **輪流** 跑
+* 因為切換得很快，人看起來才像同時
+
+這跟你前面看到的 **context switch(內容轉換)** 正好接上：
+就是因為不能真的同時跑，所以 OS 才要不斷：
+
+1. 存下目前行程狀態
+2. 載入下一個行程狀態
+3. 讓 CPU 換人用
+
+---
+
+#### 最容易混淆的點：看起來同時，不代表真的同時
+
+例如你開著：
+
+* 瀏覽器
+* 音樂播放器
+* 編輯器
+* 終端機
+
+在單核心觀念下，並不是四個程式真的同時佔用同一顆 CPU。
+而是 OS 很快地做：
+
+* 跑一下瀏覽器
+* 切去音樂播放器
+* 再切去編輯器
+* 再切去終端機
+
+切得夠快時，人就會覺得「它們都在同時跑」。
+
+所以考試很愛考這句：
+
+> **concurrent(並行/交錯進行) 不等於 parallel(真正同時平行執行)。**
+
+在這張投影片的語境裡，你至少要先牢記：
+
+> **單一處理器下，多個 process 是交錯執行(interleaving)，不是同時執行。**
+
+---
+
+#### 這張圖和前一張 PCB / context switch 的關係
+
+你可以把它們串成這樣：
+
+* **PCB**：記錄每個行程現在的狀態
+* **Scheduler**：決定下一個要跑誰
+* **Context switch**：把 CPU 從 A 行程切到 B 行程
+
+也就是：
+
+```mermaid
+flowchart TB
+    A[多個 process 在系統中] --> B[部分 process 位於 ready queue<br>等待 CPU]
+    B --> C[Scheduler 選出下一個可執行 process]
+    C --> D[Dispatcher / Context switch<br>存舊狀態 載入新狀態]
+    D --> E[CPU 執行被選中的 process]
+    E --> F[時間片用完 / 發生中斷 / I-O 等待]
+    F --> B
+```
+
+這樣你就會知道，這張投影片不是孤立的，它是在補上：
+
+> **「PCB 幫你記住進度之後，接下來誰先跑？」**
+
+答案就是：**scheduler 決定。**
+
+---
+
+#### 這張投影片每一句，我幫你翻成白話
+
+##### 1. 多元程式規劃(multiprogramming)的目的
+
+白話：
+
+> 記憶體裡先放多個工作，哪個現在能跑就先跑，盡量別讓 CPU 閒著。
+
+##### 2. 分時(time sharing)的目的
+
+白話：
+
+> CPU 很快地在多個行程間輪流切換，讓使用者覺得每個程式都有在回應我。
+
+##### 3. 行程排班程式(process scheduler)的工作
+
+白話：
+
+> 決定「下一個誰用 CPU」。
+
+##### 4. 單一處理器無法同時跑多個行程
+
+白話：
+
+> 同一瞬間只能有一個人真的站在 CPU 上做事，其它人只能排隊。
+
+---
+
+#### 自問自答：最容易卡住的地方
+
+##### Q1：既然 multiprogramming 也是輪流跑，跟 time sharing 差在哪？
+
+A：
+差在**目標**。
+
+* multiprogramming：偏重 **讓 CPU 忙碌**
+* time sharing：偏重 **讓使用者感覺系統很快有回應**
+
+##### Q2：scheduler 是不是負責存暫存器(register)？
+
+A：
+不是它本身在做全部細節。
+它主要負責**選人**。
+真正切換時，會牽涉到 **dispatcher(分派程式)** 與 **context switch**。你後面學到 CPU scheduling 章節會再看到。教材也把 dispatcher 的工作列成切換 context、切到 user mode、跳回正確執行位置。
+
+##### Q3：單核電腦開很多程式，真的只有一個在跑？
+
+A：
+在「某個瞬間、某顆核心」的角度，是的。
+只是 OS 切得很快，所以你感覺像大家一起跑。
+
+---
+
+#### 最容易考的觀念
+
+1. **Process scheduling(行程排班)**
+   就是從可執行行程中，選一個給 CPU。
+
+2. **Multiprogramming 的目標**
+   提高 **CPU utilization(CPU 使用率)**。
+
+3. **Time sharing 的目標**
+   提高 **互動性** 與 **response(回應感)**。
+
+4. **單一處理器的事實**
+   同一時間不會真的有多個 process 同時執行。
+
+5. **為什麼會看起來像同時？**
+   因為快速切換，也就是 context switch。
+
+---
+
+#### 你可以這樣背這一頁
+
+> **行程排班(Process Scheduling) 的核心，是由 scheduler 從可執行行程中選出下一個使用 CPU 的行程。multiprogramming 著重提高 CPU 使用率，time sharing 著重互動與回應速度；在單一處理器中，多個行程不是同時執行，而是快速輪流執行。**
+
+#### 這頁的超短口訣
+
+> **多工為了不閒，分時為了好用，排班決定誰上 CPU。**
+
+下一張如果你貼 **ready queue / job queue / scheduler 類型**，我們可以直接無縫接著講。
+
+[1]: https://sites.cs.ucsb.edu/~chris/teaching/cs170/doc/cs170-03.pdf "cs170-03.ppt"
+
+
+
+## 3.2.1 排班佇列(scheduling queue)
+
+![alt text](<images/ch 3-13.png>)
+
+
+### 講解
+
+這張投影片在講的核心，其實只有一句話：
+
+**作業系統會把行程 (process) 依照目前「在等什麼」放進不同佇列 (queue) 裡，排班器 (scheduler) 再從適合的佇列挑行程出來跑。** 你的課本也明講：新進系統的行程先進 **工作佇列 (job queue)**，而已在主記憶體、且「只差 CPU 就能跑」的行程，會放在 **就緒佇列 (ready queue)**；這個 ready queue 常用 linked list 實作，前端會存第一個與最後一個 PCB 的指標。 ([Prexams][1])
+
+####  先直接看圖在畫什麼
+
+這張圖**真正畫出來的重點**是：
+
+* 上面那一排是 **ready queue**
+* 下面幾排是不同裝置的 **device queue / I/O queue**
+
+  * mag tape unit 0
+  * mag tape unit 1
+  * disk unit 0
+  * terminal unit 0
+* 每個藍灰色方塊像 `PCB7`、`PCB2`、`PCB3`，都是 **PCB (Process Control Block，行程控制表)** 節點
+* 左邊每個小框框的 `head / tail`，是該 queue 的表頭，指向 linked list 的開頭與結尾。這和課本文字說明一致。 ([Prexams][1])
+
+####  為什麼 ready queue 在最上面？
+
+因為 **ready queue 裡的行程是「已經在記憶體內，所有條件都差不多齊了，只差 CPU」**。
+所以 CPU scheduler 每次要決定下一個誰跑，就是從這裡挑。課本也寫得很明白：**short-term scheduler / CPU scheduler** 會選一個 ready queue 裡的 process，把 CPU 配給它。
+
+你可以把它想成醫院叫號：
+
+* **job queue**：今天所有掛號的人
+* **ready queue**：已經到診間外面坐好、等醫生叫號的人
+* **device queue**：去抽血室、X 光室、心電圖室排隊的人
+
+####  job queue、ready queue、device queue 三者差在哪？
+
+**1. job queue（工作佇列）**
+是「系統中的所有行程」的集合。投影片文字有寫，但圖裡沒有特別把它整個畫成一條獨立大佇列；圖比較聚焦在 ready queue 與各裝置 queue。 ([Prexams][1])
+
+**2. ready queue（就緒佇列）**
+行程已經在 RAM 裡，而且目前不等 I/O、不等事件，只是在等 CPU。
+
+**3. device queue / I/O queue（裝置佇列）**
+某行程如果發出 I/O 要求，例如要讀磁碟、等終端機、等磁帶，就先離開 CPU，去對應裝置的 queue 排隊。每個裝置通常有自己的 queue。 ([Prexams][1])
+
+####  圖上的箭頭代表什麼？
+
+箭頭不是資料流，而是 **linked list 指標**。
+
+例如 ready queue 那一列：
+
+* `head` 指向第一個 PCB
+* 第一個 PCB 再指向下一個 PCB
+* `tail` 會指到最後一個 PCB
+
+也就是說，**queue 裡面實際串起來的是 PCB，不是整個行程本體**。
+
+####  這裡的 PCB 是什麼？很容易考
+
+圖上每個 `PCB7`、`PCB2` 裡面畫了 `registers ...`，那只是示意。
+**PCB 不只是 registers**，它實際上還會記錄 PID、state、program counter、CPU registers、priority、memory management information、open files 等排班與管理資訊。
+
+這點超容易和「process 本身的記憶體內容」搞混：
+
+* **PCB**：是作業系統管理這個 process 的控制資料
+* **text / data / heap / stack**：是這個 process 自己的位址空間內容
+
+也就是說，**排在 queue 裡的是 PCB 節點，不是把整個 text/data/heap/stack 塞進 queue**。
+
+####  一個行程怎麼在這些 queue 之間移動？
+
+流程可以記成下面這張：
+
+```mermaid
+flowchart TB
+    A[新行程進入系統<br>job queue] --> B[被接納進主記憶體<br>ready queue]
+    B --> C[CPU scheduler 選中<br>running]
+    C -->|發出 I/O 要求| D[某個 device queue<br>例如 disk queue]
+    D -->|I/O 完成| B
+    C -->|時間片到 / 被中斷搶先| B
+    C -->|建立子行程後等待子行程| E[waiting queue]
+    E -->|事件完成| B
+    C -->|執行完畢| F[terminated]
+```
+
+這和教科書的文字一致：process 被分派執行後，可能發 I/O 要求進 I/O queue、可能等待子行程、也可能因中斷被移出 CPU 再回到 ready queue。 ([全球村大學][2])
+
+####  你這張圖最該抓住的 4 個考點
+
+**第一，queue 裡面串的是 PCB。**
+不是程式碼本體，也不是 text/data/stack/heap。
+
+**第二，ready queue 是「等 CPU」，device queue 是「等 I/O / 等裝置」。**
+等的東西不同，所以要分不同佇列。
+
+**第三，job queue 範圍最大，ready queue 是其中更接近執行的那群。**
+job queue 是進系統的所有行程；ready queue 是已在主記憶體、可執行但尚未拿到 CPU 的行程。 ([Prexams][1])
+
+**第四，CPU scheduler 主要是從 ready queue 挑人。**
+這就是排班的核心。
+
+####  我幫你順手糾正一個常見誤解
+
+很多人會把這張圖理解成：
+
+> 「所有行程都在 ready queue 裡，只是有些暫時跑去 I/O」
+
+這種講法不夠精確。更正確是：
+
+* 行程整個生命週期會在**不同排班佇列之間遷移**
+* 當它等待某個事件時，它**不屬於 ready queue**
+* 只有當它再次具備執行條件、只差 CPU 時，才回到 ready queue。
+
+####  一句話背法
+
+**Ready queue = 等 CPU**
+**Device queue = 等裝置 / 等 I/O**
+**PCB = OS 用來管理 process 的控制表，不是 process 的程式內容**
+
+你如果要，我們下一步可以直接把這張圖和 **new / ready / running / waiting / terminated 五狀態圖** 對起來，一次把「狀態」和「佇列」的關係整個串通。
+
+![alt text](<images/ch 3-14.png>)
+
+
+### 講解
+
+已啟用教學模式
+
+#### 這張圖在回答什麼
+
+這張圖是在畫 **一個行程(Process)** 拿到 CPU 之後，接下來可能往哪裡走。教材文字版已經直接寫出流程：新行程先進 **ready queue(就緒佇列)**，被選中並 **dispatched(分派)** 後拿到 CPU；之後可能發出 I/O 要求、產生子行程並等待，或被強制移出 CPU 再放回 ready queue。
+
+你可以先把整張圖想成：
+
+> **ready queue 是候位區，CPU 是服務台，右邊那些灰色框是「離開 CPU 的原因」，左邊再繞回來表示「之後有機會再回 ready queue 等待下一次執行」。**
+
+---
+
+#### 先看主幹：ready queue → CPU
+
+* **ready queue(就緒佇列)**：代表這些行程已經「準備好可以跑」，只是現在還沒拿到 CPU。教材也寫得很明白：位於主記憶體中、就緒等待執行的行程會保存在 ready queue。
+* **CPU**：代表目前這個行程正在 **running(執行)**。
+* **dispatched(分派)**：不是「程式自己跑起來」，而是 **scheduler(排班器)** 選中某個 ready process 後，交給 **dispatcher(分派程式)** 做交接，包含 **context switch(內容轉換)**、切回使用者模式、跳到正確位置繼續執行。
+
+這裡最容易考的一句是：
+
+> **ready 不等於 running。**
+> ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 CPU 上跑」。
+
+---
+
+#### 圖中第一條：I/O request → I/O queue → I/O
+
+這條是在講：
+
+1. 行程本來正在 CPU 上跑。
+2. 它突然需要做 **I/O operation(輸入輸出操作)**，例如讀磁碟、等鍵盤、等網路。
+3. 這時它不能繼續佔著 CPU 空等，所以會離開 CPU，進入 **I/O queue(裝置等待佇列)**。教材文字也寫了：行程可發出 I/O 要求，然後置於一個 I/O 佇列中。
+4. 等 I/O 完成後，它才會再回到 ready queue，之後重新等 CPU。大學課程筆記與社群常見解釋也都是這樣描述：I/O 完成通常由中斷處理把原本等待的行程喚醒，放回 ready queue。([cs.uic.edu][1])
+
+這裡你要分清楚兩件事：
+
+* **I/O queue**：在排隊等某個裝置或 I/O 完成
+* **ready queue**：I/O 已經好了，現在只是在等 CPU
+
+所以：
+
+> **等 I/O 的行程不是 ready，而是 waiting / blocked(等待/阻塞)。**  ([Stack Overflow][2])
+
+---
+
+#### 圖中第二條：time slice expired
+
+這條超重要，因為它就是 **preemptive scheduling(可搶先排班)** 的代表情況。
+
+* **time slice / time quantum(時間片/時間量)**：每個行程這次最多可以連續用 CPU 多久。
+* 如果時間到了但行程還沒做完，OS 會把 CPU 收回來，這叫 **preempted(被搶先/被剝奪 CPU)**。
+* 然後這個行程會被放回 **ready queue 的尾端**，等下一輪再執行。教材在 RR(Round Robin) 直接寫到：時間量結束時，行程會被 preempted 並加到 ready queue 的尾端。
+
+也就是說，這條線表示的不是「它做不到了」，而是：
+
+> **它其實還能跑，只是這一輪 CPU 使用額度用完了，所以先回 ready queue 排隊。**  ([操作系統][3])
+
+很多同學會把這條和 I/O 搞混。差別是：
+
+* **I/O request**：不能繼續跑，因為在等外部事件
+* **time slice expired**：其實還能跑，只是被排班器暫停，先讓別人跑
+
+---
+
+#### 圖中第三條：fork a child → child executes
+
+這條的意思是：
+
+* 目前執行中的行程呼叫 **fork()** 產生一個 **child process(子行程)**。
+* 這張投影片上方的文字說得更具體：
+  **「行程可產生出一個新的子行程並等待後者的結束。」**
+  所以這張圖的語境不是單純「生出 child 就各跑各的」，而是偏向「父行程建立 child，然後父行程等待 child 結束」這種教科書簡化情境。
+
+所以圖上的 **child executes** 比較像在表達：
+
+> **child 被建立後，也會進入系統排班，之後由 scheduler 選到它執行。**
+
+同時，父行程因為在等 child 完成，通常就不會繼續佔著 CPU。教材在後面也有寫：父行程有可能等待直到子行程結束。
+
+這一段你不用把圖看得太死。它是**示意圖**，重點是讓你知道：
+
+* running process 可以 **fork()**
+* 之後會牽涉到 parent / child 的排班與等待關係
+
+而不是要把所有細節箭頭都畫完整。
+
+---
+
+#### 圖中第四條：wait for an interrupt → interrupt occurs
+
+這條的核心意思是：
+
+* 行程正在等某個 **event(事件)** 發生
+* 這個事件到了，OS 透過 **interrupt(中斷)** 或相關喚醒機制讓它重新具備可執行條件
+* 之後它會回到 **ready queue**，等待再次被排上 CPU。 ([Stack Overflow][4])
+
+你可以把它想成：
+
+* 我不是不想跑
+* 我是「現在還不能跑」
+* 等到我等待的訊號來了，才重新變成 ready
+
+這和上面的 I/O 其實很像，只是 I/O 是特定的一種等待來源；**interrupt / event** 是比較一般化的說法。([Stack Overflow][2])
+
+---
+
+#### 這張圖最關鍵的二分法：ready vs waiting
+
+這頁最值得你背的是這個：
+
+* **ready(就緒)**：
+  已經具備執行條件，**只差 CPU**
+* **waiting / blocked(等待/阻塞)**：
+  **連 CPU 給你也沒用**，因為你還在等 I/O、等 child、等事件
+
+教材對 state 的定義也剛好就是這樣切：
+
+* ready：等待指定一個處理器
+* waiting：等待某件事件發生，例如 I/O 完成或收到信號。
+
+社群問答裡，這也是大家最常搞混的點之一。常見的解釋也是：
+**ready 是可以執行但未被排到；waiting 是目前根本不能執行。** ([Stack Overflow][2])
+
+---
+
+#### 把整張圖翻成白話
+
+你可以直接背成這樣：
+
+> 一個新行程先進 ready queue。
+> 被 scheduler 選到後，經過 dispatcher 分派到 CPU 執行。
+> 執行途中如果要做 I/O，就去 I/O queue 等；如果時間片到，就被移回 ready queue；如果 fork 出 child，可能會等待 child 完成；如果正在等某個事件或中斷，就等事件發生後再回 ready queue。 ([OMSCN Notes][5])
+
+---
+
+#### 你可以這樣看圖，不容易亂
+
+```mermaid
+flowchart TB
+    A[new process<br>新行程] --> B[ready queue<br>就緒佇列]
+    B --> C[dispatched<br>被分派]
+    C --> D[CPU / running<br>正在執行]
+
+    D --> E[I/O request<br>要求 I/O]
+    E --> F[I/O queue<br>等待裝置]
+    F --> G[I/O 完成 / interrupt<br>事件到達]
+    G --> B
+
+    D --> H[time slice expired<br>時間片到]
+    H --> B
+
+    D --> I[fork a child<br>建立子行程]
+    I --> J[child executes<br>子行程執行]
+    J --> B
+
+    D --> K[wait for an interrupt<br>等待事件/中斷]
+    K --> L[interrupt occurs<br>中斷發生]
+    L --> B
+```
+
+這張 mermaid 跟原圖不是逐像素重畫，而是把它的**邏輯骨架**整理出來。
+
+---
+
+#### 最容易考的觀念
+
+1. **ready queue 裡的行程不是在跑**，只是已經能跑。
+2. **dispatch** 是把被選中的 ready process 真正交給 CPU 去執行。
+3. **I/O request** 會讓行程進入 waiting，不再佔 CPU。
+4. **time slice expired** 代表被搶先，但行程仍是可執行的，所以回 ready queue。
+5. **fork a child** 這條在本投影片是簡化圖，重點是 child 會進入排班，而 parent 可能等待 child。
+6. **waiting 跟 ready 最大差別**：
+   waiting 是還在等事件；ready 是事件都好了，只差 CPU。 ([Stack Overflow][2])
+
+---
+
+#### 一句話總結這張圖
+
+> **這張圖是在畫：行程被 dispatch 到 CPU 後，可能因為 I/O、時間片到、建立子行程、或等待中斷而離開 CPU；等條件成熟後，再回 ready queue 等下一次執行。**  ([OMSCN Notes][5])
+
+下一則我可以直接幫你把這張圖整理成「考試作答版」或「ready / running / waiting 狀態轉移對照表」。
+
+[1]: https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/5_CPU_Scheduling?utm_source=chatgpt.com "Operating Systems: CPU Scheduling"
+[2]: https://stackoverflow.com/questions/29586950/basic-cpu-scheduling-waiting-to-ready?utm_source=chatgpt.com "operating system - basic CPU scheduling \"waiting to ready\" - Stack Overflow"
+[3]: https://os.cs.luc.edu/scheduling.html?utm_source=chatgpt.com "Process/Thread Scheduling | Operating Systems: updated 11 Jan 2024"
+[4]: https://stackoverflow.com/questions/36227241/operation-systems-how-process-move-from-device-queuewaiting-to-ready-queue?utm_source=chatgpt.com "Operation Systems: How process move from device' queue(waiting) to ready queue? - Stack Overflow"
+[5]: https://www.omscs-notes.com/operating-systems/scheduling/?utm_source=chatgpt.com "Scheduling - OMSCS Notes"
+
+
+## Schedulers
+
+![alt text](<images/ch 3-15.png>)
+
+
+### 講解
+
+已啟用教學模式
+
+#### 這張圖的核心在講什麼
+
+這張投影片其實分成上下兩半，但核心只有一句話：
+
+> **Long-term scheduler(長程排班器 / job scheduler)** 決定「哪些行程先被放進 ready queue(就緒佇列)」：誰放進 pool
+> **Short-term scheduler(短程排班器 / CPU scheduler)** 決定「ready queue 裡下一個誰拿到 CPU」：pool 中誰先執行
+> 而 long-term scheduler 還要顧整體搭配，避免系統裡全部都是 I/O-bound process 或全部都是 CPU-bound process。([cs.uic.edu][1])
+
+---
+
+#### 先用一張圖把整體關係看懂
+
+```mermaid
+flowchart TB
+    A[尚未進 ready queue 的工作] --> B[Long-term scheduler<br>決定誰先進場]
+    B --> C[ready queue<br>已可執行 只差 CPU]
+    C --> D[Short-term scheduler<br>決定下一個誰跑]
+    D --> E[CPU 執行]
+    E --> F[I/O wait / event wait<br>暫時不能跑]
+    F --> C
+```
+
+這張圖要你建立的不是某個公式，而是「兩層決策」的概念：
+**先決定哪些工作進系統，再決定此刻 CPU 給誰。**([cs.uic.edu][1])
+
+---
+
+#### Long-term scheduler(長程排班器) 是做什麼的？
+
+它也叫 **job scheduler(工作排班器)**。
+它的工作不是每幾毫秒決定一次 CPU 要給誰，而是比較高層地決定：
+
+* 哪些 process(行程) 先被帶進 **ready queue**
+* 系統同時要放多少工作進來
+* 進來的工作組合要不要平衡([cs.uic.edu][1])
+
+教科書式理解可以把它想成「活動入場管制」：
+
+* 外面很多人想進場
+* 場內不能一次塞太多
+* 也不能全部都是同一種類型的人
+
+所以它比較像 **控制進場名單**，不是現場每秒鐘發言順序的人。([cs.uic.edu][1])
+
+另外，長程排班器通常**執行頻率比較低**；課程講義常把它放在 batch system(批次系統) 或高負載系統的脈絡來講，因為它不需要像 short-term scheduler 那樣頻繁運作。([cs.uic.edu][1])
+
+---
+
+#### Short-term scheduler(短程排班器) 是做什麼的？
+
+它也叫 **CPU scheduler(CPU 排班器)**。
+它的工作很直接：
+
+> **從 ready queue 裡，挑一個現在就能跑的 process，然後把 CPU 分給它。**([cs.uic.edu][2])
+
+它運作得非常頻繁，因為只要出現這類情況，就可能需要它出手：
+
+* CPU 變空
+* 行程做 I/O 去了
+* 時間片(time slice / quantum)用完
+* 行程結束
+* 某個等待中的行程重新變 ready([cs.uic.edu][2])
+
+所以：
+
+* **Long-term scheduler**：決定誰先進 ready queue
+* **Short-term scheduler**：決定 ready queue 裡誰下一個跑
+
+這兩個很容易混，但考試最愛考這個分工。([cs.uic.edu][1])
+
+---
+
+#### 「controls the degree of multiprogramming」到底是什麼意思？
+
+這句是這頁最抽象、也最容易背不起來的地方。
+
+**degree of multiprogramming(多元程式程度)**，你可以先把它想成：
+
+> **系統裡同時放進來、一起競爭資源的工作量有多大。**
+
+所以投影片說 long-term scheduler 控制它，意思就是：
+
+> **long-term scheduler 在決定系統不要一次放太多或太少 process 進來。**([cs.uic.edu][1])
+
+生活化一點：
+
+* 放太少：CPU 可能常常閒著
+* 放太多：ready queue 很擠、記憶體壓力大、切換成本也變高
+
+因此它不是只在「有沒有工作」之間二選一，而是在做**整體負載控制**。([cs.uic.edu][1])
+
+---
+
+#### 為什麼 long-term scheduler 要管 I/O-bound 跟 CPU-bound 的比例？
+
+這就是投影片下半部的重點。
+
+教材模型會希望系統裡有一個**適當 mix(混合比例)** 的 I/O-bound 與 CPU-bound process，因為這樣 CPU 和 I/O device(輸入輸出裝置) 才比較不會互相閒置。UIC 的課程講義也直接寫到：有效率的排班系統會選擇好的 CPU-bound / I/O-bound process 組合。([cs.uic.edu][1])
+
+直覺上：
+
+* 如果幾乎全是 **I/O-bound process**，很多行程會一直去等磁碟、網路、鍵盤，CPU 反而可能常空著。
+* 如果幾乎全是 **CPU-bound process**，CPU 會一直很忙，但 I/O 裝置可能不太有事做，而且別的短工作容易被拖住。([cs.uic.edu][1])
+
+所以這頁不是單純在背定義，而是在告訴你：
+
+> **long-term scheduler 其實在做系統層級的「工作組合管理」。**([cs.uic.edu][1])
+
+---
+
+#### I/O-bound process 是什麼？
+
+**I/O-bound process(I/O 密集型行程)** 指的是：
+
+* 花比較多時間在 **I/O(input/output，輸入輸出)** 上
+* 花比較少時間在純計算上
+* 因此常見特徵是 **many short CPU bursts(很多次、但很短的 CPU burst)**([Baeldung on Kotlin][3])
+
+你可以把 **CPU burst** 想成：
+
+> 「這個行程連續佔用 CPU 做計算的那一小段時間」
+
+I/O-bound 的典型感覺就是：
+
+* 算一下
+* 等一下資料
+* 再算一下
+* 再等一下資料
+
+所以它不是一直黏在 CPU 上。([Baeldung on Kotlin][4])
+
+生活例子像：
+
+* 下載檔案
+* 讀寫大量檔案
+* 等資料庫回應
+* 網頁伺服器處理很多請求但常在等資料回來
+
+這類工作常不是「算很久」，而是「常常在等」。([Baeldung on Kotlin][3])
+
+---
+
+#### CPU-bound process 是什麼？
+
+**CPU-bound process(CPU 密集型行程)** 則相反：
+
+* 大部分時間都在做 computation(計算)
+* 比較少依賴 I/O
+* 常見特徵是 **few very long CPU bursts(次數較少，但每次 CPU burst 很長)**([Baeldung on Kotlin][3])
+
+也就是說，它一旦拿到 CPU，通常會持續算比較久。
+典型例子像：
+
+* 大量數值運算
+* 影片轉碼
+* 科學模擬
+* 大型編譯工作([Baeldung on Kotlin][3])
+
+---
+
+#### 這裡最容易搞混的地方
+
+##### 1. Long-term scheduler 不是在決定「下一個 CPU 給誰」
+
+不是。
+它是先做「誰可以進 ready queue」這種較高層的 admission(准入) 決策；真正從 ready queue 挑下一個上 CPU 的，是 short-term scheduler。([cs.uic.edu][1])
+
+##### 2. Short-term scheduler 跟 dispatcher(分派程式) 不完全一樣
+
+這是社群上很常混淆的點。
+**scheduler** 負責「決定選誰」；**dispatcher** 則負責真的把控制權交出去，例如 context switch(內容轉換)、切回 user mode(使用者模式)、跳到正確的 program counter 位置。這個區分在教材講義與社群問答裡都很一致。([cs.uic.edu][2])
+
+##### 3. I/O-bound 不是「比較弱」或「比較慢」
+
+不是。
+它只是表示瓶頸多半卡在 I/O，不是卡在 CPU。CPU-bound 則表示瓶頸多半在計算。這是在描述**資源瓶頸類型**，不是在給程式貼「好壞標籤」。([Baeldung on Kotlin][3])
+
+---
+
+#### 你可以這樣背這一頁
+
+> **Long-term scheduler 先決定哪些 process 進入 ready queue，並控制系統中的工作量與工作組合；Short-term scheduler 再從 ready queue 裡挑出下一個拿 CPU 的 process。I/O-bound process 有很多短 CPU bursts，CPU-bound process 則有較少但較長的 CPU bursts。** ([cs.uic.edu][1])
+
+---
+
+#### 考試作答版
+
+如果考題問你「說明 long-term scheduler、short-term scheduler，以及 I/O-bound / CPU-bound process 的差異」，你可以直接寫：
+
+> Long-term scheduler(job scheduler) 負責選擇哪些 process 被帶入 ready queue，因此它控制 degree of multiprogramming，並應維持 I/O-bound 與 CPU-bound process 的適當比例。Short-term scheduler(CPU scheduler) 則從 ready queue 中選出下一個要執行的 process 並分配 CPU。I/O-bound process 花較多時間在 I/O，具有 many short CPU bursts；CPU-bound process 花較多時間在 computation，具有 few long CPU bursts。([cs.uic.edu][1])
+
+下一張如果你貼的是 **medium-term scheduler(中程排班器 / swapper)**，我們就可以把三種 scheduler 一次串完整。
+
+[1]: https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/3_Processes.html "Operating Systems: Processes"
+[2]: https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/6_CPU_Scheduling.html "Operating Systems: CPU Scheduling"
+[3]: https://www.baeldung.com/cs/cpu-io-bound "Guide to the “Cpu-Bound” and “I/O Bound” Terms | Baeldung on Computer Science"
+[4]: https://www.baeldung.com/cs/cpu-io-burst-cycles "CPU and I/O Burst Cycles | Baeldung on Computer Science"
+
+
+## 3.2.2 排班程式
+
+
+
+![alt text](<images/ch 3-16.png>)
+
+### 講解
+
+已啟用教學模式。
+
+#### 這張圖在回答什麼？
+
+這張投影片在回答：
+
+**行程 (process) 在系統裡不是一直待在同一個地方，它會在不同佇列 (queue) 之間移動；而不同種類的排班程式 (scheduler) 會在不同時機決定它下一步去哪裡。**
+你的課程投影片直接寫到：行程在整個生命週期會在各種排班佇列間遷移，系統會由適當的 scheduler 來選取；其中 **中程排班程式 medium-term scheduler** 的核心工作，是把行程暫時從記憶體移開、降低對 CPU 的競爭，這個動作就叫 **swapping(置換)**。
+
+---
+
+#### 先抓整張圖的主軸
+
+你可以把圖看成 4 個區塊：
+
+1. **ready queue(就緒佇列)**
+   裡面放的是「已經在主記憶體裡，而且現在只差 CPU 就可以跑」的行程。短程排班程式 **short-term scheduler / CPU scheduler** 會從這裡挑一個去 CPU 執行。
+
+2. **CPU**
+   被選中的行程會到 CPU 上執行。
+
+3. **I/O waiting queues(I/O 等待佇列)**
+   如果執行中的行程發出 I/O 要求，例如讀磁碟、等鍵盤輸入，它就不能繼續占用 CPU，會先去 I/O waiting queues 等。I/O 完成後，再回到 ready queue。前一張投影片也寫得很清楚：行程執行中若發出 I/O 要求，就會進入 I/O queue；之後事件完成再回到 ready queue。
+
+4. **partially executed swapped-out processes(部分已執行、但被換出的行程)**
+   這些是「本來跑過一部分了，但暫時被移出主記憶體」的行程。
+
+   * **swap out**：從記憶體移到磁碟
+   * **swap in**：再從磁碟搬回記憶體，之後繼續執行
+     這整件事就是 **swapping(置換)**。
+
+---
+
+#### 用一句話看懂這張流程圖
+
+這張圖的邏輯其實是：
+
+* 行程先在 **ready queue**
+* 被選中後到 **CPU**
+* 若要等 I/O，就先去 **I/O waiting queues**
+* I/O 完成再回 **ready queue**
+* 如果系統覺得記憶體壓力大，或想降低目前同時在記憶體中競爭的行程數，就可能把某些行程 **swap out**
+* 等資源合適時，再 **swap in** 回來，繼續排班
+
+我把它整理成簡化版：
+
+```mermaid
+flowchart TB
+    A[ready queue<br>就緒佇列] --> B[CPU]
+    B -->|I/O request| C[I/O waiting queues<br>I/O 等待佇列]
+    C -->|I/O 完成| A
+    B -->|執行完成| D[end]
+    A -->|swap out| E[swapped-out processes<br>暫時換到 disk]
+    E -->|swap in| A
+```
+
+---
+
+#### 每個 scheduler(排班程式) 到底在做什麼？
+
+這裡最容易混的是三種 scheduler。
+
+**long-term scheduler(長程排班程式 / job scheduler)**
+決定哪些行程要被帶進 ready queue。投影片明寫：它控制 **degree of multiprogramming(多元程式規劃程度)**。
+
+**short-term scheduler(短程排班程式 / CPU scheduler)**
+這個最常出現。它從 ready queue 選一個行程，分配 CPU 給它。
+
+**medium-term scheduler(中程排班程式)**
+它不是在問「下一個誰用 CPU」，而是在問：
+
+> 現在主記憶體是不是擠太多行程了？
+> 要不要先把某些行程暫時搬出去，晚點再搬回來？
+
+所以它管理的是 **swapping(置換)**。課程投影片在行程排班與記憶體管理兩章都一致寫到：行程可暫時被 swapped out 到 backing store(後備儲存體)，之後再回來繼續執行，而這由 **mid-term scheduler** 負責。
+
+---
+
+#### 什麼叫 degree of multiprogramming(多元程式規劃程度)？
+
+這個名詞很抽象，我們把它講白一點：
+
+就是「**同一時間有多少個行程一起待在主記憶體裡，準備競爭 CPU 與其他資源**」。
+
+生活化例子：
+
+* 你房間只能舒服坐 5 個人
+* 現在硬塞了 12 個人
+* 每個人都想用桌子、電風扇、插座
+
+這時候如果先請幾個暫時出去，房間裡就比較不擠，剩下的人做事反而更順。
+
+在作業系統裡，**swap out** 某些行程，就像把房間裡一部分人先請出去；
+這樣主記憶體裡活躍的行程變少，系統壓力會下降。這正是投影片所說「減低多元程式規劃的程度」。
+
+---
+
+#### 這張圖最容易誤解的地方
+
+**誤解 1：medium-term scheduler 也是在選下一個 CPU 使用者。**
+不是。
+選「下一個誰上 CPU」的是 **short-term scheduler**。
+**medium-term scheduler** 管的是「要不要先把某些行程搬出記憶體」。
+
+**誤解 2：swap out 就等於結束。**
+不是。
+被 swap out 的行程只是**暫時離開主記憶體**，之後還可以 **swap in** 回來，從原本進度繼續執行。投影片原文就寫：store on disk, bring back in from disk to continue execution。
+
+**誤解 3：I/O waiting 和 swapped out 是同一件事。**
+不是。
+
+* **I/O waiting**：在等某個 I/O 事件完成
+* **swapped out**：因系統策略或記憶體壓力，被暫時移出主記憶體
+  兩者可能同時和「暫時不能跑」有關，但原因不同。
+
+---
+
+#### 你可以怎麼背
+
+我建議背成這三句：
+
+* **short-term scheduler**：從 **ready queue** 挑下一個用 CPU 的人。
+* **medium-term scheduler**：負責 **swapping**，把行程從 memory 搬到 disk，再搬回來。
+* **swapping 的目的**：降低 **degree of multiprogramming**，讓記憶體不要太擠。
+
+---
+
+#### 這張投影片和前一張 queue 圖要怎麼串起來？
+
+前一張是告訴你：
+
+* 有 **ready queue**
+* 有 **I/O device queue**
+* 行程會在它們之間移動
+
+這一張再往前一步補上：
+
+* 除了 long-term / short-term scheduler
+* 在 **time-sharing(分時系統)** 下，還可能有 **medium-term scheduler**
+* 它可以把某些行程暫時移出主記憶體，也就是 **swapping**。
+
+所以兩張圖合起來看，概念才完整：
+
+1. 行程在 queues 間流動
+2. scheduler 決定何時挑人
+3. medium-term scheduler 額外管理「要不要先搬出去」
+
+---
+
+#### 社群上最常卡住的點
+
+我也查了社群討論，很多人最容易卡在：
+
+> 「medium-term scheduler 是不是每次排 CPU 都會用到？」
+
+不是。
+Stack Overflow 上常見的回答是：它主要在**記憶體有限**、需要降低 multiprogramming 時才比較重要；若實體記憶體非常充足，它的重要性就會下降。社群也常順帶提到，現代系統很多時候更常看到的是 **paging(分頁)**，而不是傳統教材裡這種整個 process 為單位的 swapping。這是實務補充，你考試時還是要先以投影片定義為主。([Stack Overflow][1])
+
+---
+
+#### 這裡最容易考的觀念
+
+1. **誰從 ready queue 挑 process 給 CPU？**
+   是 **short-term scheduler / CPU scheduler**。
+
+2. **誰負責 swapping？**
+   是 **medium-term scheduler**。
+
+3. **swapping 的效果是什麼？**
+   暫時把行程移出主記憶體，降低 **degree of multiprogramming**。
+
+4. **swapped out 的行程會不會直接消失？**
+   不會，它之後可以 **swap in** 回來繼續執行。
+
+---
+
+#### 一句話總結
+
+**這張圖的重點不是排班演算法本身，而是：除了從 ready queue 挑人給 CPU 的 short-term scheduler 之外，系統還可能用 medium-term scheduler 做 swapping，把部分行程暫時搬出記憶體，等之後再搬回來繼續跑。**
+
+下一步我們可以直接把這張圖和 **new / ready / running / waiting / terminated 五狀態圖** 一起對照，這樣你會一次看懂「狀態」和「queue / scheduler」到底怎麼連起來。
+
+[1]: https://stackoverflow.com/questions/11148419/medium-term-scheduler?utm_source=chatgpt.com "operating system - Medium term scheduler - Stack Overflow"

@@ -285,7 +285,8 @@ nav:
         - '數值與 Literal': 'md/Verilog/數值.md'
         - '運算子': 'md/Verilog/運算子.md'
         - 'Vector、MSB 與 LSB': 'md/Verilog/vector.md'
-        -  'md/Verilog/Generate.md'
+        - 'md/Verilog/Generate.md'
+        - 'md/Verilog/四則運算.md'
       - '程序式寫法':
         - 'always、initial 與事件控制': 'md/Verilog/always、initial 與事件控制.md'
         - 'blocking 與 non-blocking': 'md/Verilog/blocking 與 non-blocking.md'
@@ -299,6 +300,9 @@ nav:
         - 'md\Verilog\防止變成 latch.md'
         - 'md\Verilog\不會被刪除的變數.md'
         - 'md\Verilog\順序相同的連續運算.md'
+        - 'md\Verilog\多工器.md'
+        - 'md\Verilog\adder.md'
+        - 'md\Verilog\四則運算與邏輯運算的位寬.md'
       
       
       
