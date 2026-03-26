@@ -3054,3 +3054,402 @@ Stack Overflow 上常見的回答是：它主要在**記憶體有限**、需要�
 下一步我們可以直接把這張圖和 **new / ready / running / waiting / terminated 五狀態圖** 一起對照，這樣你會一次看懂「狀態」和「queue / scheduler」到底怎麼連起來。
 
 [1]: https://stackoverflow.com/questions/11148419/medium-term-scheduler?utm_source=chatgpt.com "operating system - Medium term scheduler - Stack Overflow"
+
+
+## 3.3 行程的操作(Process Operations)
+
+
+### 講解
+
+已啟用教學模式
+
+#### 第 3.3 在講什麼
+
+**3.3 行程的操作(Process Operations)** 在回答兩件事：
+
+1. **行程怎麼被建立**
+2. **行程怎麼結束**
+
+教材原文先總結：系統中的行程可以並行執行，而且也要能動態地產生或刪除，所以作業系統必須提供**行程產生(process creation)**與**行程結束(process termination)** 的功能。
+
+---
+
+#### 先用一句話抓住整章
+
+你可以先背這句：
+
+> **3.3 就是在講：父行程(parent process) 可以生出子行程(child process)；子行程可能跟父行程一起跑，也可能讓父行程等它結束；最後行程用 exit() 結束，而父行程通常用 wait()/waitpid() 收屍(reap) 取得子行程的結束狀態。**  ([man7.org][1])
+
+---
+
+#### 3.3.1 行程的產生(Process Creation)
+
+教材先說，一個行程在執行期間，可以利用系統呼叫產生新行程；原本那個叫 **parent process(父行程)**，新產生的叫 **child process(子行程)**。而且 child 還可以再生 child，所以整體可以形成 **process tree(行程樹)**。每個行程都有自己的 **PID(Process Identifier，行程識別碼)**。
+
+你可以把它想成家譜：
+
+```mermaid
+flowchart TB
+    A[Parent process 父行程] --> B[Child process 子行程 1]
+    A --> C[Child process 子行程 2]
+    B --> D[Grandchild process 孫行程]
+```
+
+重點不是「樹很漂亮」，而是：
+
+> **OS 不是只有一個程式從頭跑到尾，而是執行中還能再產生新行程。** 
+
+---
+
+#### 父行程生出子行程後，接下來會怎樣
+
+教材列了兩種典型可能：
+
+* **父行程與子行程同時執行**
+* **父行程等待，直到子行程結束** 
+
+這裡的「同時」在單一 CPU 語境下，通常是指 **concurrently(並行/交錯進行)**，也就是由排班器快速切換，不一定代表真正硬體上的平行。這點要跟你前面 3.2 的排班觀念一起看。
+
+生活化一點：
+
+* **同時執行**：爸媽跟小孩一起各做各的事
+* **父行程等待**：爸媽先停下來，等小孩把任務做完再繼續
+
+---
+
+#### 父子行程的資源關係
+
+教材也列了三種可能性：
+
+* 父子共享所有資源
+* 子行程共享父行程的部分資源
+* 父子完全不共享資源 
+
+這段你不用把它背成死定義，比較好的理解是：
+
+> **child 並不是一定跟 parent 一模一樣，也不是一定完全獨立；資源共享可以有不同設計。** 
+
+---
+
+#### 記憶體空間(address space) 這裡最重要
+
+教材在 UNIX 例子裡講得很清楚：
+
+* `fork()` 用來建立新行程
+* 新行程一開始是原行程 **address space(位址空間)** 的一份複本
+* `exec` 會把目前行程的記憶體空間改成新的程式 
+
+官方 Linux man page 也一致：`fork()` 會建立 child process，父子在**不同的記憶體空間**中執行；`execve()` 成功後，會用新程式直接**取代目前行程的程式映像(image)**，重新初始化 stack、heap、data segments，而且 `execve()` 成功時**不會返回**。([man7.org][1])
+
+這裡有一個超常見誤解，我直接幫你拆掉：
+
+> **fork 會建立新的 process；exec 不會再多生一個 process。**
+> **exec 做的是「換腦袋」，不是「再生一個人」。**  ([man7.org][1])
+
+---
+
+#### fork() 到底在做什麼
+
+教材給的 `fork()` 重點是：
+
+* `#include <unistd.h>`
+* `pid_t fork(void);`
+* 回傳值有三種
+
+  * `-1`：失敗
+  * `0`：現在這段程式是在 **child**
+  * `> 0`：現在這段程式是在 **parent**，而且這個值是 **child 的 PID** 
+
+這是考試超愛考的地方。
+
+你可以這樣記：
+
+```c
+pid_t pid = fork();
+
+if (pid < 0) {
+    // fork 失敗
+} else if (pid == 0) {
+    // child 走這裡
+} else {
+    // parent 走這裡，pid 是 child 的 PID
+}
+```
+
+也就是說，**同一行 `fork()` 之後，程式分裂成兩條執行路徑**。 ([man7.org][1])
+
+---
+
+#### 為什麼教材常寫 fork() + exec()
+
+因為這是 UNIX / Linux 非常典型的流程：
+
+1. `fork()` 先生出 child
+2. child 在自己的路徑中呼叫 `exec(...)`
+3. child 的程式內容被新的程式取代
+4. parent 可以選擇 `wait()` 等 child，也可以不等 
+
+教材示範碼就是 child 去 `execlp("/bin/ls", "ls", NULL);`，parent 則 `wait(NULL);`，等 child 完成後再印出 `Child Complete`。
+
+所以你可以把 `fork + exec` 想成：
+
+> **先生一個孩子，再讓孩子去做另一份新工作。**
+
+不是：
+
+> **直接把爸爸變成另一個人。**
+
+---
+
+#### wait() 在幹嘛
+
+教材寫到：
+
+```c
+pid_t pid;
+int status;
+pid = wait(&status);
+```
+
+它的意思是：parent 等 child 結束，並取得 child 的結束資訊。
+
+官方 POSIX / Linux 文件也明確說明：
+
+* `wait()` / `waitpid()` 用來等待 child 狀態改變
+* 預設最常見的是等待 **child termination(子行程終止)**
+* 如果 child 已經結束，呼叫會立即返回
+* 如果 child 還沒結束，呼叫中的 thread 會被 block 住
+* `waitpid()` 比 `wait()` 更精確，因為可以指定要等哪個 child，還可搭配 `WNOHANG` 等選項 ([man7.org][2])
+
+這段的生活化版本：
+
+> **wait() 像父行程去櫃台領「孩子的成績單與結業通知」。**
+> 沒去領，就會留下後續問題。
+
+---
+
+#### 3.3.2 行程的結束(Process Termination)
+
+教材說，行程在執行完最後一個敘述，或使用 `exit()` 要求 OS 把自己刪除時，就會結束。結束後，它的資源會被 OS 回收，包括：
+
+* 實體記憶體
+* 虛擬記憶體
+* 開啟檔案
+* I/O 緩衝區 
+
+教材也補充，父行程有時也可以中止子行程，例如：
+
+* 子行程超過資源限制
+* 子行程的工作已不需要
+* 父行程結束後，系統不允許子行程繼續執行 
+
+---
+
+#### Zombie Process(僵屍行程) 是什麼
+
+這一段最容易混。
+
+教材的定義是：
+
+> **如果 child 已經結束，但 parent 沒有用 wait() 去取得它的狀態，process table 仍保留那筆 child 資訊，這個狀態就叫 zombie。** 
+
+Linux man page 也一致指出：一個 child 終止後，如果還沒有被 `wait` 類系統呼叫處理，它就會變成 **zombie**；kernel 只保留最小必要資訊，例如 PID、termination status、resource usage，直到 parent 後續來 wait。若 zombie 長期不被清掉，會佔用 process table 的槽位。([man7.org][3])
+
+所以你一定要記住：
+
+> **zombie 不是「還在跑」的行程。**
+> **它其實已經死了，只是戶籍還沒註銷。**  ([man7.org][3])
+
+這也是社群最常出現的誤解之一；高票解釋通常也都會強調 zombie 幾乎不吃 CPU，也不是活著的工作，而是還沒被 reaped 的結束紀錄。([Stack Overflow][4])
+
+---
+
+#### Orphan Process(孤兒行程) 是什麼
+
+教材說：
+
+> **如果 parent 還沒等 child 結束就自己先結束，而 child 還活著，這個 child 就叫 orphan process。**
+> 之後它很快會被 `init` 認養。
+
+POSIX / Linux 文件也說，如果 parent process 終止時仍有 children，這些 child 會被指派新的 parent process。Linux 文件則進一步說，會被 `init(1)` 或最近的 subreaper 收養。([man7.org][2])
+
+所以：
+
+* **orphan 是還活著的 child**
+* **zombie 是已經死掉、但尚未被 wait 的 child**  ([man7.org][3])
+
+這兩個不要搞反。
+
+---
+
+#### Zombie 跟 Orphan 最簡單的差別
+
+```mermaid
+flowchart TB
+    A[child 還在執行] --> B{parent 先死了嗎}
+    B -- 是 --> C[orphan process 孤兒行程<br>child 還活著]
+    B -- 否 --> D{child 先結束了嗎}
+    D -- 是且 parent 尚未 wait --> E[zombie process 僵屍行程<br>child 已死 但紀錄還在]
+    D -- 否 --> F[一般父子行程關係]
+```
+
+你可以背這句：
+
+> **orphan 看的是 parent 先死；zombie 看的是 child 先死但 parent 還沒收尾。**
+
+---
+
+#### 這章最容易考的 4 個陷阱
+
+#### 1. fork() 之後，父子變數會不會互相影響？
+
+教材 Quiz 1 的答案已經告訴你：`value` 在 parent 印出來仍然是 5，不會因 child 把它加 15 就變成 20，因為 parent 和 child 各自有自己的 copy。
+
+所以一般情況下：
+
+> **fork 後是各自的位址空間副本，不是共用一般變數。**  ([man7.org][1])
+
+#### 2. exec() 會不會建立新 process？
+
+**不會。**
+建立新 process 的是 `fork()`；`exec()` 是把目前 process 的記憶體映像換成新程式。 ([man7.org][5])
+
+#### 3. zombie 會不會一直吃 CPU？
+
+通常不會。
+它重點是 process table 裡那個還沒回收的紀錄，不是持續執行中的工作。([man7.org][3])
+
+#### 4. orphan 是不是壞事？
+
+不一定。
+它只是 parent 先結束、child 還活著；之後通常會被系統重新收養。 ([man7.org][2])
+
+---
+
+#### 我幫你整理成一張總表
+
+| 主題                 | 你要記的核心                    |
+| ------------------ | ------------------------- |
+| `fork()`           | 建立新 child process         |
+| `exec()`           | 用新程式取代目前 process image    |
+| `wait()/waitpid()` | parent 等 child 結束並取得狀態    |
+| `exit()`           | 行程主動結束                    |
+| zombie             | child 已死，但 parent 還沒 wait |
+| orphan             | parent 已死，但 child 還活著     |
+
+教材對這整組流程的描述，和 Linux / POSIX 手冊的行為是一致的。 ([man7.org][1])
+
+---
+
+#### 考試作答版
+
+如果老師問你「說明 3.3 行程的操作」，你可以直接寫：
+
+> **作業系統必須提供行程的產生與結束功能。行程在執行期間可透過系統呼叫產生新行程，原行程稱為 parent process，新行程稱為 child process，並可形成 process tree。父子行程可能同時執行，或由父行程等待子行程結束。UNIX 中常以 fork() 建立新行程，再以 exec() 載入新程式。行程結束時可呼叫 exit()，其資源由作業系統回收；父行程通常以 wait()/waitpid() 取得子行程的結束狀態。若 child 結束但 parent 未 wait，則 child 成為 zombie；若 parent 先結束而 child 尚未結束，則 child 成為 orphan。**  ([man7.org][1])
+
+---
+
+#### 超短口訣
+
+> **fork 生小孩，exec 換工作，wait 收結果，exit 結束；父不收屍是 zombie，父先死是 orphan。**
+
+#### 最後給你一個學這章的最好方法
+
+這章很適合在你的 Ubuntu VM 直接做小實驗，因為 **fork / exec / wait / ps** 這種主題，自己跑一次會比只看投影片穩很多。光靠背定義，最容易在 **fork 與 exec 的差別**、**zombie 與 orphan 的差別** 這兩個地方出錯。
+
+下一步我們可以直接進入手把手模式，先只做 2 個最重要的小實驗：
+**fork()+wait() 基本版**，以及 **zombie / orphan 觀察版**。
+
+[1]: https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com "fork(2) - Linux manual page"
+[2]: https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com "wait(3p) - Linux manual page"
+[3]: https://man7.org/linux/man-pages/man2/waitpid.2.html "wait(2) - Linux manual page"
+[4]: https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com "c - Zombie process vs Orphan process - Stack Overflow"
+[5]: https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com "execve(2) - Linux manual page"
+
+
+## child 有啥東東
+
+當 fork() 發生時，child 會得到 parent 在那一瞬間的整個位址空間(address space)內容副本。
+所以不只程式碼，變數當下的值也會一起帶過去。fork(2) 的 Linux manual 明確寫到：在 fork() 當下，父子兩邊的 memory space 內容相同，而且之後一方的寫入不會影響另一方。
+不只 global 變數，local 變數、heap 內容也會一起延續「當下狀態」
+這裡你可以把 fork() 想成：
+把 parent 在那一刻的執行現場整份複製給 child
+
+## child 從哪裡開始
+
+答案：子行程不是從 int main(){ 重新開始，也不是再去「執行一次 pid = fork();」；它是從 fork() 呼叫「返回之後」的狀態繼續往下跑
+
+fork() 會把呼叫它的那個行程複製出一個 child process。複製完成後，parent 和 child 都會從同一個程式位置繼續執行，也就是 fork() 這個函式呼叫結束之後的下一步
+
+## 如何一次有兩個直屬 child ？
+
+```c
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    pid_t pid;
+
+    pid = fork();
+    if (pid < 0) {
+        perror("fork");
+        exit(1);
+    }
+    if (pid == 0) {
+        printf("child 1: pid=%d, ppid=%d\n", getpid(), getppid());
+        _exit(0);
+    }
+
+    pid = fork();
+    if (pid < 0) {
+        perror("fork");
+        exit(1);
+    }
+    if (pid == 0) {
+        printf("child 2: pid=%d, ppid=%d\n", getpid(), getppid());
+        _exit(0);
+    }
+
+    wait(NULL); // 誰先結束就 wait 到誰
+    wait(NULL);
+
+    printf("parent: pid=%d\n", getpid());
+    return 0;
+}
+```
+
+1. 看到上面程式碼，要用 _exit(0); 來防止執行到第二個 pid = fork();。
+2. 兩個 wait(NULL); ，哪個 child 先回來就找誰。
+
+## 連續兩次 fork 會怎樣
+
+例如這樣：
+```c
+fork();
+fork();
+```
+最後會有 4 個 process，不是只有「1 父 + 2 子」：
+
+- 原始 parent
+- 第一個 child
+- 第二個 child（parent 在第二次 fork 生的）
+- 一個 grandchild（第一個 child 在第二次 fork 生的）
+
+```mermaid
+flowchart TB
+    P0["P0：原始 parent process"] --> F1["第一次 fork()"]
+    F1 --> P0a["P0：第一次 fork 後的 parent"]
+    F1 --> P1["P1：第一次 fork 產生的 child"]
+
+    P0a --> F2A["第二次 fork()（由 P0 執行）"]
+    P1 --> F2B["第二次 fork()（由 P1 執行）"]
+
+    F2A --> P0b["P0：原始 parent 繼續執行"]
+    F2A --> P2["P2：P0 在第二次 fork 產生的 child"]
+
+    F2B --> P1b["P1：第一次產生的 child 繼續執行"]
+    F2B --> P3["P3：P1 在第二次 fork 產生的 child"]
+```

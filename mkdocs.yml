@@ -302,7 +302,9 @@ nav:
         - 'md\Verilog\順序相同的連續運算.md'
         - 'md\Verilog\多工器.md'
         - 'md\Verilog\adder.md'
+        - 'md\Verilog\half_adder & full_adder.md'
         - 'md\Verilog\四則運算與邏輯運算的位寬.md'
+        - 'md\Verilog\overflow.md'
       
       
       
