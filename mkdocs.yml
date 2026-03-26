@@ -305,6 +305,7 @@ nav:
         - 'md\Verilog\half_adder & full_adder.md'
         - 'md\Verilog\四則運算與邏輯運算的位寬.md'
         - 'md\Verilog\overflow.md'
+        - 'md\Verilog\instance array(實例陣列).md'
       
       
       
