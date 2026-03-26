@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.html">
       
       
-        <link rel="prev" href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html">
+        <link rel="prev" href="overflow.html">
       
       
-        <link rel="next" href="%E9%A0%86%E5%BA%8F%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%A3%E7%BA%8C%E9%81%8B%E7%AE%97.html">
+        <link rel="next" href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>不會被刪除的變數 - PEICD100</title>
+        <title>Instance array(實例陣列) - PEICD100</title>
       
     
     
@@ -1910,7 +1910,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#結論" class="md-skip">
+        <a href="#語法講解" class="md-skip">
           Skip to content
         </a>
       
@@ -2016,7 +2016,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              不會被刪除的變數
+              Instance array(實例陣列)
             
           </span>
         </div>
@@ -3423,35 +3423,10 @@ is now available!
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    不會被刪除的變數
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html" class="md-nav__link">
         
   
   
@@ -3467,46 +3442,6 @@ is now available!
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#結論" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        結論
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        問題
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3684,10 +3619,35 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instance array(實例陣列)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3703,6 +3663,52 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#語法講解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        語法講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="語法講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#如果總寬度和切片寬度不一樣呢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如果總寬度和切片寬度不一樣呢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4643,24 +4649,30 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#結論" class="md-nav__link">
+  <a href="#語法講解" class="md-nav__link">
     <span class="md-ellipsis">
       
-        結論
+        語法講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="語法講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#如果總寬度和切片寬度不一樣呢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如果總寬度和切片寬度不一樣呢？
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        問題
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4682,29 +4694,149 @@ is now available!
 
 
 
-  <h1>不會被刪除的變數</h1>
+  <h1>Instance array(實例陣列)</h1>
 
-<h2 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h2>
-<p>變數要在 always 裡面初始化(等於0)。<br />
-變數如下：</p>
-<h2 id="問題">問題<a class="headerlink" href="#問題" title="Permanent link"></a></h2>
-<p>請看以下程式碼(<a href="https://hdlbits.01xz.net/wiki/Popcount3">題目網址</a>)。</p>
-<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
-<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="p">);</span>
-<span class="w">    </span>
-<span class="w">    </span><span class="k">integer</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"> </span>
-<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">2</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span>
-<span class="w">            </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-<span class="w">        </span><span class="k">end</span>
-<span class="w">        </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
-<span class="w">    </span><span class="k">end</span>
+<p>題目：<a href="https://hdlbits.01xz.net/wiki/Bcdadd4">https://hdlbits.01xz.net/wiki/Bcdadd4</a><br />
+<img alt="alt text" src="images/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.png" /></p>
+<p>有三種寫法</p>
+<ol>
+<li>直接寫</li>
+<li>generate</li>
+<li>instance array(實例陣列)</li>
+</ol>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span><span class="p">,</span><span class="w"> </span><span class="n">c3</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u0</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w">   </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w">   </span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cin</span><span class="w"> </span><span class="p">(</span><span class="n">cin</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cout</span><span class="p">(</span><span class="n">c1</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">sum</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">])</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u1</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w">   </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w">   </span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cin</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cout</span><span class="p">(</span><span class="n">c2</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">sum</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">])</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u2</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w">   </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w">   </span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cin</span><span class="w"> </span><span class="p">(</span><span class="n">c2</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cout</span><span class="p">(</span><span class="n">c3</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">sum</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">])</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u3</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w">   </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w">   </span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">]),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cin</span><span class="w"> </span><span class="p">(</span><span class="n">c3</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">cout</span><span class="p">(</span><span class="n">cout</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">sum</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">])</span>
+<span class="w">    </span><span class="p">);</span>
+
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這個電路目的是計算 in 有多少 bit 是 1 ，但是其實電路會有問題，會有 bug 。<br />
-因為第一次宣告 integer j=0; 時，他之後就不會再變成 0 了，因為 verilog 的變數不像是 C++ 出了函數之後就會被丟棄。也就是說會像是 C++ 的靜態(static)變數。</p>
-<p>所以在 always 中要用到時，等於左邊的 reg(output reg) 或是 integer 盡量都先初始化(等於0)，這樣也可以<a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html#組合邏輯電路變成-latch-的問題">防止變成 latch</a>。</p>
+<div class="code-footer"><label class="expand" for="__collapse0" tabindex="0" title="expand"></label><label class="collapse" for="__collapse0" tabindex="0" title="collapse"></label></div>
+</div>
+<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="w">    </span><span class="k">genvar</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">4</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">generate</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mh">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">gen_bcd</span>
+<span class="w">            </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                </span><span class="p">.</span><span class="n">a</span><span class="w">   </span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="o">+</span><span class="mh">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="p">]),</span>
+<span class="w">                </span><span class="p">.</span><span class="n">b</span><span class="w">   </span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="o">+</span><span class="mh">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="p">]),</span>
+<span class="w">                </span><span class="p">.</span><span class="n">cin</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+<span class="w">                </span><span class="p">.</span><span class="n">cout</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">]),</span>
+<span class="w">                </span><span class="p">.</span><span class="n">sum</span><span class="w"> </span><span class="p">(</span><span class="n">sum</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="o">+</span><span class="mh">3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="mh">4</span><span class="p">])</span>
+<span class="w">            </span><span class="p">);</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">endgenerate</span>
+
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="code-footer"><label class="expand" for="__collapse1" tabindex="0" title="expand"></label><label class="collapse" for="__collapse1" tabindex="0" title="collapse"></label></div>
+</div>
+<div class="collapse-code"><input checked="checked" id="__collapse2" name="__collapse2" type="checkbox" /><div class="highlight"><span class="filename">第三種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="n">a</span><span class="p">,</span>
+<span class="w">        </span><span class="n">b</span><span class="p">,</span>
+<span class="w">        </span><span class="n">c</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]},</span>
+<span class="w">        </span><span class="n">sum</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="code-footer"><label class="expand" for="__collapse2" tabindex="0" title="expand"></label><label class="collapse" for="__collapse2" tabindex="0" title="collapse"></label></div>
+</div>
+<p>第三種最方便<br />
+為何可以這樣寫呢？</p>
+<h2 id="語法講解">語法講解<a class="headerlink" href="#語法講解" title="Permanent link"></a></h2>
+<p>最基本語法</p>
+<p>語法長這樣：<br />
+<div class="highlight"><pre><span></span><code><span class="n">my_module</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">(...);</span>
+</code></pre></div><br />
+意思是建立 4 個 instance：<br />
+<div class="highlight"><pre><span></span><code><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span>
+</code></pre></div></p>
+<hr />
+<p>所以這種寫法：<br />
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
+
+<span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">a</span><span class="p">,</span>
+<span class="w">    </span><span class="n">b</span><span class="p">,</span>
+<span class="w">    </span><span class="n">c</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]},</span>
+<span class="w">    </span><span class="n">sum</span>
+<span class="p">);</span>
+</code></pre></div><br />
+本質上就是把下面 4 行壓縮成 1 行：<br />
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="c1">// [15:0]a    [15:0]b    [3:0]c {cout, c[3:1]} [15:0]sum</span>
+<span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u0</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w">    </span><span class="n">b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w">          </span><span class="n">c</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]);</span>
+<span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u1</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">],</span><span class="w">    </span><span class="n">b</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">],</span><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w">          </span><span class="n">c</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">]);</span>
+<span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u2</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">],</span><span class="w">   </span><span class="n">b</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">],</span><span class="w">   </span><span class="n">c</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w">          </span><span class="n">c</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">8</span><span class="p">]);</span>
+<span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u3</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">],</span><span class="w">  </span><span class="n">b</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">],</span><span class="w">  </span><span class="n">c</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w">          </span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">12</span><span class="p">]);</span>
+</code></pre></div></p>
+<p>他會從 LSB 開始切。</p>
+<h3 id="如果總寬度和切片寬度不一樣呢">如果總寬度和切片寬度不一樣呢？<a class="headerlink" href="#如果總寬度和切片寬度不一樣呢" title="Permanent link"></a></h3>
+<p>也就是說，實務上你可以直接記成：<br />
+<div class="highlight"><pre><span></span><code><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W</span><span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">廣播給每個</span><span class="w"> </span><span class="n">instance</span>
+<span class="mh">2</span><span class="p">)</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">W</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">自動切成</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="err">片</span>
+<span class="mh">3</span><span class="p">)</span><span class="w"> </span><span class="err">其他</span><span class="w">       </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">錯</span>
+</code></pre></div></p>
 
 
 
@@ -4747,7 +4879,7 @@ is now available!
     >
       
         <a
-          href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html"
+          href="overflow.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -4759,14 +4891,14 @@ is now available!
               <span class="md-footer__direction">
                 Previous
               </span>
-              防止變成 latch
+              判斷有號數的 Overflow
             </div>
           </div>
         </a>
       
       
         <a
-          href="%E9%A0%86%E5%BA%8F%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%A3%E7%BA%8C%E9%81%8B%E7%AE%97.html"
+          href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -4775,7 +4907,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              順序相同的連續運算
+              教材
             </div>
           </div>
           <div class="md-footer__button md-icon">
