@@ -165,3 +165,4 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-27：已修正 `docs/md/114-2/電機_作業系統/ch 3.md` 中一個 Mermaid flowchart 無法渲染的問題；作法是把含有括號與中英混排的節點標籤改成 Mermaid 官方較穩的雙引號字串寫法。
 - 2026-03-27：已修正 `/// collapse-code` 產生的展開/收合按鈕異常提示問題；作法是移除會觸發瀏覽器原生 tooltip 的 `title` 輸出，改用隱藏文字保留可存取名稱，並在 `自定義.css` 將 icon-only 按鈕改成固定尺寸與穩定定位，避免 `expand` 提示殘留與 `collapse` 跑到左上角。
 - 2026-03-27：已在 `docs/md/114-2/科技_計算機結構/SI 前綴表.md` 補上 `peta` 與 `pico` 兩列，並依臺灣法定度量衡單位使用指南採用中文前綴 `拍`、`皮`。
+- 2026-03-27：已將 `docs/md/Verilog/運算子.md` 的 reduction operators 區塊補完整，加入 `~&`、`~|`、`^~`、`~^`，並替每個 reduction operator 補上明確例子與結果說明。
