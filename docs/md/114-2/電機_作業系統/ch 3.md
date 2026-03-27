@@ -3367,7 +3367,7 @@ flowchart TB
 [5]: https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com "execve(2) - Linux manual page"
 
 
-## child 有啥東東
+### child 有啥東東
 
 當 fork() 發生時，child 會得到 parent 在那一瞬間的整個位址空間(address space)內容副本。
 所以不只程式碼，變數當下的值也會一起帶過去。fork(2) 的 Linux manual 明確寫到：在 fork() 當下，父子兩邊的 memory space 內容相同，而且之後一方的寫入不會影響另一方。
@@ -3375,13 +3375,13 @@ flowchart TB
 這裡你可以把 fork() 想成：
 把 parent 在那一刻的執行現場整份複製給 child
 
-## child 從哪裡開始
+### child 從哪裡開始
 
 答案：子行程不是從 int main(){ 重新開始，也不是再去「執行一次 pid = fork();」；它是從 fork() 呼叫「返回之後」的狀態繼續往下跑
 
 fork() 會把呼叫它的那個行程複製出一個 child process。複製完成後，parent 和 child 都會從同一個程式位置繼續執行，也就是 fork() 這個函式呼叫結束之後的下一步
 
-## 如何一次有兩個直屬 child ？
+### 如何一次有兩個直屬 child ？
 
 ```c
 #include <sys/types.h>
@@ -3424,7 +3424,7 @@ int main(void) {
 1. 看到上面程式碼，要用 _exit(0); 來防止執行到第二個 pid = fork();。
 2. 兩個 wait(NULL); ，哪個 child 先回來就找誰。
 
-## 連續兩次 fork 會怎樣
+### 連續兩次 fork 會怎樣
 
 例如這樣：
 ```c
@@ -3453,3 +3453,1190 @@ flowchart TB
     F2B --> P1b["P1：第一次產生的 child 繼續執行"]
     F2B --> P3["P3：P1 在第二次 fork 產生的 child"]
 ```
+
+
+## 3.4 行程間通訊
+
+![alt text](<images/ch 3-17.png>)
+
+已啟用教學模式
+
+### 講解
+#### 這張圖在回答什麼問題
+
+這張投影片在回答：
+
+**為什麼作業系統需要讓不同行程 process(行程)彼此合作，以及它們可以怎麼溝通？**
+
+也就是說，不是每個行程都各做各的。有時候它們必須交換資料、共享資源，甚至一起完成一件大工作。這就是 **Interprocess Communication, IPC(行程間通訊)** 的核心。圖中列出合作理由，下面兩張小圖則在對比兩種主要 IPC 方式：
+
+1. **message passing(訊息傳遞)**
+2. **shared memory(共享記憶體)**  
+
+---
+
+#### 先用直覺理解
+
+你可以把每個 process(行程)想成一個人在做事。
+
+如果兩個人要合作，有兩種常見方法：
+
+1. **傳紙條**
+   你寫一張紙條給我，我看完再回你。
+   這就是 **message passing(訊息傳遞)**。
+
+2. **共用白板**
+   我們兩個都可以看同一塊白板，也可以在上面寫東西。
+   這就是 **shared memory(共享記憶體)**。
+
+這張圖就是在說：
+
+* 左圖：像傳紙條，中間有系統幫忙轉交
+* 右圖：像共用白板，兩個行程直接看到同一塊資料區
+
+---
+
+#### 核心概念
+
+投影片上半部先講 **process cooperation(行程合作)** 的理由，有四個：
+
+1. **Information sharing(資訊共享)**
+   多個使用者或多個程式可能都要用同一份資料，例如公用檔案。
+
+2. **Computation speedup(加速運算)**
+   一個大工作拆成很多小工作，交給不同 process(行程) 平行做。
+
+3. **Modularity(模組化)**
+   系統拆成多個模組，每個模組由不同 process(行程) 負責。
+
+4. **Convenience(方便性)**
+   就算只有一個使用者，也可能同時做很多事。
+   例如一邊下載、一邊播放音樂、一邊編輯文件。 
+
+這四個理由可以簡單記成：
+
+**共享、加速、拆模組、方便多工**
+
+---
+
+#### 下方兩張圖在講什麼
+
+#### (a) 左圖：message passing(訊息傳遞)
+
+左邊那張圖中：
+
+* process A 在上面
+* process B 在上面
+* 中間有一塊 **message queue(訊息佇列)**
+* 最下面是 **kernel(核心)**
+
+意思是：
+
+* A 跟 B 不能直接碰彼此的資料
+* 它們要溝通時，要把資料丟進 **message queue**
+* 通常由 **kernel(核心)** 負責管理、轉送、同步
+
+這種方式的直覺是：
+
+> 你不能直接進我房間拿東西，你要先把訊息交給管理員，管理員再幫你轉交。
+
+##### 特點
+
+* 比較安全
+* 比較容易管理權限
+* process 彼此隔離比較好
+* 但通常會比 shared memory 慢，因為要經過 kernel 幫忙
+
+---
+
+#### (b) 右圖：shared memory(共享記憶體)
+
+右邊那張圖中：
+
+* process A 在上面
+* process B 在下面
+* 中間有一塊 **shared memory(共享記憶體)**
+* 最下面是 kernel
+
+意思是：
+
+* kernel 先建立一塊雙方都能存取的記憶體區域
+* 建好之後，A 和 B 可以直接讀寫那塊 shared memory
+* 不需要每次都透過 kernel 轉送資料
+
+這種方式的直覺是：
+
+> 管理員先給我們一塊共同白板，之後我們兩個自己在白板上寫資料。
+
+##### 特點
+
+* 通常速度比較快
+* 適合大量資料交換
+* 但比較危險，因為兩個 process 可能同時改同一塊資料
+* 所以常常要搭配 **synchronization(同步機制)**，例如 semaphore(號誌) 或 mutex(互斥鎖)
+
+---
+
+#### 關係 / 流程 / 因果
+
+```mermaid
+flowchart TB
+A[兩個 process 需要合作] --> B{要怎麼交換資料?}
+B --> C[message passing<br>透過 kernel 傳訊息]
+B --> D[shared memory<br>共用同一塊記憶體]
+C --> E[安全性較高<br>但通常較慢]
+D --> F[速度較快<br>但需要額外同步]
+```
+
+---
+
+#### 生活化例子
+
+#### 例子 1：聊天室伺服器
+
+* 每個 client request(客戶端請求) 可由不同 process 處理
+* 它們可能要把訊息交給另一個 process
+* 這時可以用 **message passing**
+
+像是：
+
+* A process 收到使用者訊息
+* 把訊息送給 B process 去存資料庫
+
+---
+
+#### 例子 2：瀏覽器 + 渲染器
+
+有些系統會拆成多個 process：
+
+* 一個負責 UI
+* 一個負責網路下載
+* 一個負責畫面渲染
+
+如果它們需要大量共享資料，例如畫面 buffer(緩衝區)，就可能用 **shared memory**
+
+---
+
+#### 例子 3：Producer-Consumer(生產者消費者)
+
+這章常見的經典題。
+
+* producer(生產者) 負責放資料
+* consumer(消費者) 負責拿資料
+
+如果它們共用同一個 buffer(緩衝區)，那通常就是 **shared memory**
+但這時就會遇到同步問題：
+
+* 不能同時亂寫
+* 不能讀到還沒寫好的資料
+* 不能 overflow(塞爆) 或 underflow(讀空)
+
+這也就是為什麼後面章節會接到 synchronization(同步)。
+
+---
+
+#### 為什麼會這樣
+
+因為 **process(行程)** 本質上是彼此隔離的。
+
+這種隔離有好處：
+
+* 一個 process 壞掉，不容易直接拖垮別人
+* 保護資料與記憶體安全
+
+但壞處是：
+
+* 如果要合作，就需要一套正式的溝通機制
+
+所以作業系統才提供 IPC 兩大方向：
+
+* **message passing**：讓大家透過 OS 幫忙傳遞
+* **shared memory**：讓大家共用資料區，但自己要小心同步
+
+---
+
+#### 最容易考 / 最容易混淆
+
+#### 1. cooperation(合作) 不是 thread 才有，process 也有
+
+很多人會以為只有 thread(執行緒) 才會合作。不是。
+
+process 也會合作，只是因為位址空間不同，合作通常需要 IPC。
+
+---
+
+#### 2. shared memory 不是「完全不用 kernel」
+
+這很容易搞錯。
+
+正確說法是：
+
+* **建立 shared memory 時，通常還是要 kernel 幫忙**
+* 但**建立完成後，資料交換本身可以直接在共享區做**
+* 所以它通常比 message passing 更快
+
+---
+
+#### 3. message passing 不等於一定很慢
+
+相對 shared memory 常常較慢，但它有優點：
+
+* 設計清楚
+* 邊界清楚
+* 安全性高
+* 分散式系統也很適合
+
+所以不是誰絕對比較好，而是看需求。
+
+---
+
+#### 4. shared memory 幾乎一定會連到 synchronization(同步)
+
+如果考題看到：
+
+* shared buffer
+* producer-consumer
+* multiple processes access same data
+
+那你就要立刻想到：
+
+**race condition(競爭情況)**
+以及需要
+**mutex / semaphore / monitor** 等同步機制。
+
+---
+
+#### 用這張圖來做考試記憶
+
+你可以這樣背：
+
+* **上半部：為什麼要合作**
+
+  * 共享資料
+  * 加速運算
+  * 模組化
+  * 方便性
+
+* **下半部：怎麼合作**
+
+  * 左邊：message passing = 傳紙條
+  * 右邊：shared memory = 共用白板
+
+這樣通常就不會混掉。
+
+---
+
+#### 小結
+
+這張圖的重點是：
+
+1. **process cooperation(行程合作)** 有四大理由：共享、加速、模組化、方便。
+2. 行程間通訊 **IPC(行程間通訊)** 主要有兩種典型方式：
+
+   * **message passing(訊息傳遞)**
+   * **shared memory(共享記憶體)**
+3. **message passing** 比較像透過管理員傳紙條，安全、清楚，但通常較慢。
+4. **shared memory** 比較像共用白板，快，但容易互相衝突，所以要搭配同步。 
+
+#### 你現在最該抓住的一句話
+
+**IPC 的本質，就是讓彼此隔離的 process 能安全地合作。**
+
+如果你要，我下一步可以直接接著幫你講這張圖下面最重要的考點：
+**message passing 和 shared memory 的比較表 + Producer-Consumer 為什麼會浪費一格空間。**
+
+
+## 3.4.2 訊息傳遞系統 Message Passing
+
+![alt text](<images/ch 3-18.png>)
+
+### 講解
+
+
+已啟用教學模式
+
+#### 這幾張圖在回答什麼問題
+
+這三張圖其實在回答同一個核心問題：
+
+**行程(Process)之間如果不能直接共用資料，還能怎麼互相合作？**
+
+答案就是用 **Message Passing(訊息傳遞)**。
+也就是說，不是兩邊一起摸同一塊記憶體，而是你送我一則訊息、我收你一則訊息，靠這種方式溝通與同步。這正是作業系統中另一大類的 IPC(Interprocess Communication，行程間通訊)方法。
+
+---
+
+#### 先講直覺：為什麼要有 Message Passing(訊息傳遞)
+
+你可以把它想成：
+
+* **Shared Memory(共享記憶體)**：像兩個人共用一塊白板，大家都能直接改上面的內容。
+* **Message Passing(訊息傳遞)**：像兩個人傳紙條，一方寫好送出去，另一方收到再看。
+
+白板方式速度常常比較快，但要很小心「同時改」造成混亂。
+傳紙條方式比較有秩序，因為每次都是「送」與「收」，比較容易控制誰先做什麼。
+
+所以投影片第一張才會說：
+
+* 訊息傳遞可以讓行程彼此**通訊(communication)**
+* 也可以達成**同步(synchronization)**
+* 而且**不需要共享同一個位址空間(address space)**
+
+這句話非常重要。
+
+---
+
+#### 核心概念 1：Message Passing 至少有兩個基本動作
+
+投影片第一張最重要的句子就是：
+
+* `send(message)`：送出訊息
+* `receive(message)`：接收訊息
+
+也就是說，Message Passing 的世界裡，最基本就這兩件事。
+
+你可以把它想成快遞系統：
+
+* 寄件人：`send`
+* 收件人：`receive`
+
+沒有 send，就沒東西送。
+沒有 receive，訊息也沒人拿。
+
+---
+
+#### 核心概念 2：兩個行程要互傳，必須先「連得上」
+
+第一張圖後半段說：
+
+如果兩個行程 `P` 和 `Q` 要互相聯繫，它們必須有一條 **communication link(通訊鏈結)**。
+
+這意思很像：
+
+* 兩個人要講電話，先要有電話線或網路
+* 兩個人要寄信，先要有郵局系統
+* 兩個程式要傳訊息，先要有 OS 提供的通道
+
+所以不是隨便一個 process 都能直接對任何 process 傳訊息，必須有某種機制把兩邊接起來。
+
+---
+
+#### 第二張圖：命名(Naming) 其實是在講「訊息到底寄給誰」
+
+這張圖在區分兩種方式：
+
+1. **Direct communication(直接通訊)**
+2. **Indirect communication(間接通訊)**
+
+這是很常考的分類。
+
+---
+
+#### 1. Direct communication(直接通訊)
+
+投影片寫法大意是：
+
+* `send(P, message)`：把訊息直接送給行程 `P`
+* `receive(Q, message)`：由行程 `Q` 接收訊息
+
+##### 直覺理解
+
+這像你直接寄信給某個人：
+
+* 收件人名字寫死
+* 你很清楚要傳給誰
+
+##### 特性
+
+* 傳送端和接收端彼此要知道對方身份
+* 耦合比較緊，因為雙方直接指定彼此
+
+##### 生活化例子
+
+你在 LINE 直接傳訊息給某個朋友。
+你不是把訊息丟到某個公開信箱，而是明確傳給「小明」。
+
+---
+
+#### 2. Indirect communication(間接通訊)
+
+投影片寫的是透過 **mailbox(信箱)**，也叫 **port(埠口)**。
+
+例如：
+
+* `send(A, message)`：把訊息送到信箱 `A`
+* `receive(A, message)`：從信箱 `A` 取出訊息
+
+##### 直覺理解
+
+這像你不是直接交給某個人，而是放進某個信箱。
+
+誰去信箱拿，就誰收到。
+
+##### 特性
+
+* 行程不一定要直接知道對方是誰
+* 兩邊只要知道同一個 mailbox 即可
+* 耦合比較鬆，設計上更彈性
+
+##### 生活化例子
+
+像公司內部的「客服信箱」：
+
+* 客戶把信寄到 `support@...`
+* 誰是實際處理的人，不重要
+* 只要有人從這個信箱把信取出即可
+
+---
+
+#### 這兩種怎麼記
+
+你可以這樣記：
+
+* **Direct**：我知道「你是誰」，我直接傳給你
+* **Indirect**：我只知道「信箱在哪」，我把東西放進去
+
+---
+
+#### 第三張圖：同步化(Synchronization) 在講 send / receive 會不會等
+
+這張圖很重要，因為很多人第一次看會搞混。
+
+它把訊息傳遞分成：
+
+* **blocking(等待式)**
+* **nonblocking(非等待式)**
+
+也可稱為：
+
+* **synchronous(同步式)**
+* **asynchronous(非同步式)**
+
+不過這裡你要注意一件事：
+
+在這份投影片的脈絡裡，**blocking ≈ synchronous**；**nonblocking ≈ asynchronous**。
+考試通常就是照老師投影片用法記，但在更廣泛系統領域中，這兩組詞有時不會被完全等號看待，所以這裡先以課堂版本理解。
+
+---
+
+#### 1. blocking send(等待傳送)
+
+投影片意思是：
+
+傳送者送出訊息後，要**等到接收者或信箱接收完成**，自己才繼續往下做。
+
+##### 生活化例子
+
+像你親手把文件交給對方，對方說「好，我收到了」，你才離開。
+
+##### 重點
+
+* sender 會卡住等一下
+* 確定訊息真的被接住後才繼續
+
+---
+
+#### 2. nonblocking send(非等待傳送)
+
+投影片意思是：
+
+傳送者把訊息送出去後，**立刻繼續做別的事**，不等對方現在有沒有處理完。
+
+##### 生活化例子
+
+像你把包裹交給超商寄件櫃台，丟了就走，不等收件人真的拿到。
+
+##### 重點
+
+* sender 不會卡住
+* 送完就繼續執行
+
+---
+
+#### 3. blocking receive(等待接收)
+
+投影片意思是：
+
+接收者如果現在還沒有有效訊息，就要**等到真的有訊息到來**。
+
+##### 生活化例子
+
+你站在門口等外送，外送沒來你就不能走。
+
+##### 重點
+
+* receiver 會卡住
+* 一直到有資料才繼續
+
+---
+
+#### 4. nonblocking receive(非等待接收)
+
+投影片意思是：
+
+接收者去看看有沒有訊息：
+
+* 有就拿到
+* 沒有也直接返回，不會一直等
+
+##### 生活化例子
+
+像你打開信箱看一下：
+
+* 有信就拿
+* 沒信就先去做別的事，晚點再看
+
+##### 重點
+
+* receiver 不會卡住
+* 可能拿到資料，也可能得到「目前沒有資料」
+
+---
+
+#### 四種組合怎麼看
+
+你可以整理成這樣：
+
+| 操作                  | 會不會等 | 意思            |
+| ------------------- | ---- | ------------- |
+| blocking send       | 會等   | 送的人等到訊息被接收    |
+| nonblocking send    | 不等   | 送出去就走         |
+| blocking receive    | 會等   | 收的人等到訊息出現     |
+| nonblocking receive | 不等   | 看一下，有就拿，沒有就回來 |
+
+---
+
+#### 關係 / 流程 / 因果
+
+我們把這三張圖串起來看，整體邏輯其實是：
+
+```mermaid
+flowchart TB
+A[兩個行程需要合作] --> B[建立 Message Passing 通道]
+B --> C[決定命名方式<br>Direct 或 Indirect]
+C --> D[用 send / receive 傳遞訊息]
+D --> E[決定同步方式<br>blocking 或 nonblocking]
+E --> F[影響行程是否等待<br>以及合作順序]
+```
+
+也就是：
+
+1. 先決定不用 shared memory，而改用 message passing
+2. 再決定訊息是直接送人，還是丟到 mailbox
+3. 再決定 send / receive 遇到對方沒準備好時要不要等
+4. 最後形成整個合作流程
+
+---
+
+#### 為什麼 Message Passing 也能做到同步？
+
+這點很關鍵。
+
+因為「等不等」本身就能控制先後順序。
+
+例如：
+
+* `P1` 先做某件事
+* 做完後 `send(msg)`
+* `P2` 先 `receive(msg)`
+* 因為 `receive` 是 blocking，所以 `P2` 會卡住
+* 直到 `P1` 真的送出訊息，`P2` 才能繼續
+
+這就等於：
+
+**P2 一定晚於 P1 的 send 之後才往下跑**
+
+所以訊息不只是資料傳遞工具，也能當作同步工具。
+
+---
+
+#### 一個非常好懂的小例子
+
+假設有兩個 process：
+
+* `Producer(生產者)`：做好資料後通知別人
+* `Consumer(消費者)`：等通知到了才開始拿資料
+
+做法可能像這樣：
+
+* Consumer 先呼叫 `receive()`
+* 如果是 blocking receive，就會先停住
+* Producer 完成工作後 `send("done")`
+* Consumer 收到 `"done"` 才開始下一步
+
+這就是最基本的「先做完再通知」。
+
+---
+
+#### 最容易考 / 最容易混淆
+
+這裡我直接幫你抓重點。
+
+##### 1. Message Passing 不等於只做通訊，也能做同步
+
+很多人只記得「傳訊息」，忘記它也能控制先後順序。
+
+##### 2. Direct communication 和 Indirect communication 差在「指定誰」
+
+* **Direct**：指定 process
+* **Indirect**：指定 mailbox / port
+
+##### 3. blocking / nonblocking 是在講「呼叫之後會不會停下來等」
+
+不是在講有沒有傳成功而已，而是在講**呼叫者會不會被卡住**
+
+##### 4. blocking receive 很常出現在同步需求
+
+因為它很好拿來做「等通知」
+
+##### 5. mailbox(port) 是間接通訊的核心
+
+這是第二張圖最該記住的字
+
+---
+
+#### 你可以這樣背整段
+
+我幫你濃縮成考前版：
+
+* **Message Passing**：行程不共享記憶體，也能靠 `send` / `receive` 溝通與同步
+* **Direct communication**：直接指定對方 process
+* **Indirect communication**：透過 mailbox(port) 傳訊息
+* **blocking**：呼叫後要等
+* **nonblocking**：呼叫後不等，立刻返回
+
+---
+
+#### 小結
+
+這三張圖其實就是在建立 Message Passing 的完整骨架：
+
+1. **它是什麼**：一種 IPC(行程間通訊)方法
+2. **怎麼送**：`send` / `receive`
+3. **送給誰**：direct 或 indirect
+4. **要不要等**：blocking 或 nonblocking
+
+如果你要，我下一步可以直接幫你把這三張整理成一份
+**「考試背誦版 + 容易混淆比較表」**，讓你可以 1 分鐘快速複習。
+
+
+## 4 多執行緒 - 概論
+
+![alt text](<images/ch 3-19.png>)![alt text](<images/ch 3-20.png>)![alt text](<images/ch 3-21.png>)![alt text](<images/ch 3-22.png>)![alt text](<images/ch 3-23.png>)
+
+已啟用教學模式
+
+#### 這幾張圖在回答什麼問題
+
+這一組其實是在回答一個很重要的主題：
+
+**為什麼我們需要 multithreading(多執行緒)？它有什麼好處？跟 process(行程)差在哪？放到 multicore(多核心) 上又會遇到什麼問題？**
+
+你可以把這幾張圖看成第 4 章的一條主線：
+
+```mermaid
+flowchart TB
+A[什麼是 Thread(執行緒)] --> B[為什麼要用多執行緒]
+B --> C[多執行緒的好處]
+C --> D[Process 與 Thread 的差別]
+D --> E[放到多核心後的挑戰]
+E --> F[延伸到 Concurrency 與 Parallelism]
+```
+
+---
+
+#### 先講直覺：Thread(執行緒) 到底是什麼
+
+最直覺的想法是：
+
+* **Process(行程)**：像一間工作室
+* **Thread(執行緒)**：像工作室裡的一位工作人員
+
+同一間工作室裡可以有很多人一起工作。
+他們共用同一個空間、工具、檔案，但每個人有自己的工作進度。
+
+你這張「4.1 概論」投影片就是在講這件事：
+
+* **Thread 是 CPU 使用的一個基本單位**
+* 一個 thread 會有自己的：
+
+  * thread ID
+  * program counter(程式計數器)
+  * register set(暫存器集合)
+  * stack(堆疊)
+
+而同一個 process 裡的多個 thread，會共享大部分 process 的資源。這和常見的 multithreading 定義一致：同一個 process 內的 threads 共享 address space(位址空間)、open files(開啟檔案) 等資源，但每個 thread 仍保有自己的 PC、registers、stack。([Oracle 文件][1])
+
+---
+
+#### 核心概念 1：單執行緒 vs 多執行緒
+
+你圖中的左邊是 **single-threaded process(單執行緒行程)**，右邊是 **multithreaded process(多執行緒行程)**。
+
+##### 單執行緒
+
+整個程式只有一條執行路線。
+就像只有一個人做事：
+
+* 要讀資料
+* 要計算
+* 要輸出
+* 要等 I/O
+
+全部都同一個人做。
+
+##### 多執行緒
+
+同一個 process 裡有多條執行路線。
+像同一個團隊中有多個人分工：
+
+* 一個負責 UI(使用者介面)
+* 一個負責網路下載
+* 一個負責背景計算
+
+這也是 Oracle 的 multithreading 說法：傳統 process 常只有一個 control flow(控制流)，而 multithreading 會把 process 分成多個彼此獨立前進的 execution threads(執行緒)。([Oracle 文件][2])
+
+---
+
+#### 4.1.1 動機：為什麼很多程式都做成多執行緒
+
+這張「動機」圖在講的是：
+
+**現代桌面應用程式，本來就很常同時做很多事，所以自然適合用 multithreading。**
+
+投影片舉的例子都很好：
+
+##### 例子 1：瀏覽器
+
+* 一個 thread 顯示畫面
+* 一個 thread 從網路抓資料
+
+這樣畫面才不會卡死。
+不然若只有單執行緒，抓資料一慢，整個畫面可能都凍住。
+
+##### 例子 2：文書處理器
+
+* 一個 thread 負責畫面更新
+* 一個 thread 負責讀鍵盤輸入
+* 一個 thread 在背景拼字檢查
+
+這就是「同一個應用程式裡，有很多可以同時進行的工作」。
+
+##### 例子 3：伺服器
+
+你的圖下面還畫了一個伺服器例子：
+
+1. client(客戶端)送 request(請求)
+2. server(伺服器)產生新的 thread 來服務
+3. server 本體繼續接其他 request
+
+這就是典型的 **thread-per-request(每個請求一個執行緒)** 想法。
+也就是說，不要讓主流程被單一客戶拖住。
+
+---
+
+#### 4.1.2 利益：多執行緒的四個主要好處
+
+這張圖很重要，常常會考整理題。
+
+---
+
+#### 1. Responsiveness(回應性)
+
+這是最容易懂的一個。
+
+意思是：
+
+即使程式某一部分被 block(阻塞) 住，其他部分還能繼續動，所以使用者會覺得系統比較「有反應」。
+
+##### 生活化例子
+
+你用瀏覽器下載大檔案時，頁面還是能滑、按鈕還是能按。
+這就是 responsiveness。
+
+Oracle 的 multithreading 文件也把 improving application responsiveness(提升應用回應性) 列為 multithreading 的重要好處之一。([Oracle 文件][3])
+
+---
+
+#### 2. Resource Sharing(資源分享)
+
+這張圖寫得很關鍵：
+
+**threads 屬於同一個 process，所以天然就比較容易共享記憶體與資源。**
+
+同一個 process 內的 threads 共享：
+
+* code
+* data
+* heap
+* files / open files
+
+但每個 thread 自己有：
+
+* stack
+* program counter
+* registers
+
+這也正是你那張英文圖在表達的重點，並且和官方文件一致。([Oracle 文件][1])
+
+##### 直覺理解
+
+同一間辦公室裡的員工，共用：
+
+* 檔案櫃
+* 影印機
+* 文件
+* 辦公室空間
+
+但每個人有自己的：
+
+* 桌面
+* 手邊工作狀態
+* 當前做事進度
+
+---
+
+#### 3. Economy(經濟性)
+
+這個字很多人第一次看會覺得抽象，其實意思很簡單：
+
+**建立 thread 的成本通常比建立 process 低，切換 thread 的成本通常也比較低。**
+
+因為 thread 不需要像 process 那樣重建一整套獨立資源空間。
+官方資料也明確提到 thread 有利於 using fewer system resources(使用較少系統資源)，以及 thread-based 架構能降低 resource consumption(資源消耗) 並讓 context switch(情境切換) 開銷較低。([Oracle 文件][4])
+
+##### 直覺理解
+
+* 開一家新公司 = 建立一個新 process
+* 在原公司多請一個員工 = 建立一個 thread
+
+通常後者便宜得多。
+
+---
+
+#### 4. Scalability(可擴展性)
+
+意思是：
+
+在 multiprocessor / multicore 系統上，多個 threads 可以分散到不同 CPU cores(核心) 上跑，所以比較容易把硬體能力吃滿。Oracle 文件也把 using multiprocessors efficiently(有效利用多處理器) 視為 multithreading 的重要利益。([Oracle 文件][3])
+
+##### 直覺理解
+
+如果你只有一條工作線，再多核心也很難同時忙起來。
+但如果你有很多 threads，就比較有機會把工作分給多個核心一起做。
+
+---
+
+#### 4.1.3 Process 和 Thread 的差別
+
+你那張英文圖超重要，因為它直接畫出最核心差異。
+
+---
+
+#### 先看 Process creation(建立行程)
+
+左邊圖是：
+
+* Process A 經過 `fork()`
+* 變成 Process A 與 Process B
+
+投影片要傳達的是：
+
+**新的 process 會有自己獨立的一套資源空間。**
+
+所以 Process A 和 Process B 不共享整份執行內容空間。
+至少在概念上，你應該先把它記成：
+
+* 各自有自己的 code / data / heap / stack 空間映像
+* 資源彼此獨立
+* 修改自己的資料，不會直接變成對方的資料
+
+這正符合一般作業系統對 process 的理解：不同 processes 彼此隔離，擁有各自獨立的 memory space。([GeeksforGeeks][5])
+
+---
+
+#### 再看 Thread creation(建立執行緒)
+
+右邊圖是：
+
+* Thread A 呼叫 `pthread_create()`
+* 產生 Thread B
+
+這時候 **Thread B 不會複製整個 process 資源**，它只需要建立自己那份執行狀態，尤其是自己的 **stack**。而 code、data、BSS、heap、files 這些仍和同 process 的其他 threads 共享。([Oracle 文件][1])
+
+---
+
+#### 這張圖最該背的表
+
+| 項目             | Process | Thread             |
+| -------------- | ------- | ------------------ |
+| 所屬             | 獨立執行單位  | process 內的一條執行路線   |
+| 位址空間           | 通常彼此獨立  | 同 process 內共享      |
+| code/data/heap | 不共享     | 共享                 |
+| stack          | 各自有自己的  | 每個 thread 自己一份     |
+| 建立成本           | 較高      | 較低                 |
+| 切換成本           | 較高      | 較低                 |
+| 溝通             | 常需 IPC  | 同 process 內可直接共享資料 |
+
+---
+
+#### 你一定要特別注意的一點
+
+很多初學者會誤會：
+
+> 「thread 就是比較小的 process」
+
+這句話只能拿來幫助入門，**不能當正式定義**。
+
+更精確地說：
+
+* process 是 **resource container(資源容器)**
+* thread 是 **execution unit(執行單位)**
+
+也就是：
+
+* process 比較像「裝資源的殼」
+* thread 比較像「真正跑指令的人」
+
+---
+
+#### 4.1.3 多核心程式的挑戰：不是多執行緒就一定變快
+
+這張圖非常重要，因為它是在打破一個常見迷思：
+
+> 「我把程式切成多 thread，就一定自動加速」
+> 這是 ❌
+
+真正情況是：
+多核心程式要變快，前提是你能把問題正確拆開，還要處理很多麻煩的同步與資料問題。
+
+投影片列出五大挑戰：
+
+---
+
+#### 1. Dividing activities(切割活動)
+
+問題是：
+
+**哪些工作可以拆開，同時做？**
+
+不是所有程式都能平行化。
+有些事情天生要先做 A 才能做 B，就很難拆。
+
+##### 生活化例子
+
+做報告時：
+
+* 查資料
+* 做投影片
+* 排版
+* 練報告
+
+有些能平行，但有些得等前一步完成。
+
+---
+
+#### 2. Balance(平衡)
+
+即使你拆成很多工作，也要分得平均。
+不然會變成：
+
+* 核心 1 很忙
+* 核心 2 很閒
+* 核心 3 沒事做
+
+這樣整體效率還是差。
+
+##### 直覺
+
+四個人搬貨，如果三個人只搬一箱，另一個人搬十箱，那不是有效平行。
+
+---
+
+#### 3. Data splitting(資料分割)
+
+不只工作要切，**資料也要切**。
+
+尤其在 data parallelism(資料平行) 裡，常見做法是把同一批資料切成多塊，交給不同核心做相同操作。這正是 data parallelism 的典型定義。([Oracle 文件][3])
+
+##### 例子
+
+你要處理一千萬筆資料：
+
+* 核心 1 算前 250 萬筆
+* 核心 2 算中間 250 萬筆
+* 核心 3 算後面 250 萬筆
+* 核心 4 算最後 250 萬筆
+
+---
+
+#### 4. Data dependency(資料相依)
+
+這是最關鍵也最容易出錯的點。
+
+如果任務 A 需要任務 B 的結果，或多個 threads 同時讀寫同一份資料，就會有 dependency(相依性) 問題。
+因為 threads 共享資料，一個 thread 改了 shared data(共享資料)，其他 threads 可能立刻看見，所以常常需要 mutex(互斥鎖) 等同步機制來保護資料一致性。([Oracle 文件][1])
+
+##### 生活化例子
+
+兩個人同時改同一份 Excel：
+
+* 一個改總價
+* 一個改數量
+
+如果沒有協調，結果就可能亂掉。
+
+---
+
+#### 5. Testing and debugging(測試與除錯)
+
+這也是老師很愛考的觀念。
+
+多執行緒 / 多核心程式常常比單執行緒難 debug，因為每次執行的 interleaving(交錯順序) 可能不同。某些 bug 可能今天出現、明天消失，這正是 concurrency 程式麻煩的地方。Oracle 的 multithreaded programming guide 也專門有 synchronization 與 compiling/debugging 章節，反映這類程式在除錯上的額外困難。([Oracle 文件][2])
+
+##### 典型問題
+
+* race condition(競爭條件)
+* deadlock(死結)
+* starvation(飢餓)
+* ordering bug(順序錯誤)
+
+---
+
+#### Concurrency(並行性) 和 Parallelism(平行性) 不一樣
+
+你最後那張英文圖有提到這組很常考的觀念。
+
+##### Parallelism(平行)
+
+**同一時間真的有多個工作一起執行。**
+
+通常需要多核心硬體支援。
+例如核心 1 與核心 2 同時各跑一個 thread。
+
+##### Concurrency(並行性)
+
+**不一定同一瞬間一起跑，但多個工作都有在推進(progress)。**
+
+在單核心也能做到。
+因為 scheduler(排程器) 可以快速切換，讓多個工作輪流前進。
+
+##### 最好懂的記法
+
+* **Parallelism**：真的同時做
+* **Concurrency**：看起來一起做，或至少都在往前推進
+
+---
+
+#### Data parallelism 與 Task parallelism
+
+這張英文圖也提到兩種平行方式：
+
+##### Data parallelism(資料平行)
+
+* 對**同一種操作**
+* 套在**不同資料塊**
+
+例子：
+把一張大圖切四塊，四個核心一起做模糊處理。
+
+##### Task parallelism(任務平行)
+
+* 不同 threads 做**不同種類的工作**
+
+例子：
+
+* 一個 thread 負責接收資料
+* 一個 thread 負責運算
+* 一個 thread 負責寫檔
+
+---
+
+#### 這幾張圖的整體因果關係
+
+```mermaid
+flowchart TB
+A[一個 Process] --> B[建立多個 Threads]
+B --> C[共享 code data heap files]
+B --> D[各自擁有 stack PC registers]
+C --> E[優點: 資源共享 建立較便宜 回應性更好]
+D --> F[可同時處理多工作]
+F --> G[若在 multicore 上可進一步平行化]
+G --> H[但會遇到切分 負載平衡 相依性 除錯等挑戰]
+```
+
+---
+
+#### 最容易考 / 最容易混淆
+
+這裡我直接幫你抓高頻考點。
+
+##### 1. Thread 不是完整的小 process
+
+比較正確的說法是：
+
+* process 是資源容器
+* thread 是執行單位
+
+##### 2. 同 process 的 threads 共享很多東西，但不是全部都共享
+
+**共享：**
+
+* code
+* data
+* heap
+* files
+
+**各自獨立：**
+
+* stack
+* program counter
+* registers
+
+##### 3. Responsiveness 跟 Scalability 不一樣
+
+* **Responsiveness**：對使用者比較不卡
+* **Scalability**：多核心時比較能放大效能
+
+##### 4. Concurrency 不等於 Parallelism
+
+* concurrency：多工作都在前進
+* parallelism：真的同時跑
+
+##### 5. 多核心程式最大難點常常不是「開 thread」，而是「正確同步」
+
+真正難的是：
+
+* 資料相依
+* race condition
+* 除錯困難
+
+---
+
+#### 小結
+
+你這組投影片其實是在建立一個很完整的多執行緒觀念：
+
+1. **Thread 是什麼**
+   是 process 裡的基本執行單位，每個 thread 有自己的 stack / PC / registers，共享 process 的多數資源。([Oracle 文件][1])
+
+2. **為什麼要用 multithreading**
+   因為現代應用程式常同時處理 UI、I/O、背景工作，multithreading 能改善 responsiveness 並更有效利用多處理器。([Oracle 文件][3])
+
+3. **它的好處是什麼**
+   Responsiveness、Resource Sharing、Economy、Scalability。([Oracle 文件][3])
+
+4. **它和 process 差在哪**
+   Process 通常彼此隔離；threads 在同一 process 內共享大部分資源，只各自保有自己的執行狀態。([GeeksforGeeks][5])
+
+5. **到了 multicore 為什麼反而更難**
+   因為你得處理切分、平衡、資料相依、同步、測試與除錯。([Oracle 文件][2])
+
+如果你要，我下一則可以直接幫你整理成一份
+**「4.1 考前背誦版」**，把每一頁濃縮成最容易考的問答題格式。
+
+[1]: https://docs.oracle.com/cd/E19120-01/open.solaris/816-5137/mtintro-95600/index.html "https://docs.oracle.com/cd/E19120-01/open.solaris/816-5137/mtintro-95600/index.html"
+[2]: https://docs.oracle.com/cd/E37838_01/html/E61057/mtintro-75924.html "https://docs.oracle.com/cd/E37838_01/html/E61057/mtintro-75924.html"
+[3]: https://docs.oracle.com/cd/E19683-01/806-6867/ "https://docs.oracle.com/cd/E19683-01/806-6867/"
+[4]: https://docs.oracle.com/cd/E19455-01/806-5257/index.html "https://docs.oracle.com/cd/E19455-01/806-5257/index.html"
+[5]: https://www.geeksforgeeks.org/thread-in-operating-system/ "https://www.geeksforgeeks.org/thread-in-operating-system/"
