@@ -61,21 +61,34 @@ class CollapseCode(Block):
         )
         return el
 
+    def _append_label(self, parent, kind, visible_text, fallback_text):
+        """Create expand/collapse label."""
+
+        label_class = kind if visible_text else f"{kind} icon-only"
+        label = etree.SubElement(
+            parent,
+            'label',
+            {
+                'for': f'__collapse{self.count}',
+                'class': label_class,
+                'tabindex': '0'
+            }
+        )
+
+        if visible_text:
+            label.text = visible_text
+        else:
+            sr = etree.SubElement(label, 'span', {'class': 'collapse-code__sr-only'})
+            sr.text = fallback_text
+
+        return label
+
     def on_end(self, block):
         """Convert non list items to details."""
 
         el = etree.SubElement(block, 'div', {'class': 'code-footer'})
-        attrs = {'for': f'__collapse{self.count}', 'class': 'expand', 'tabindex': '0'}
-        if self.expand_title:
-            attrs['title'] = self.expand_title
-        expand = etree.SubElement(el, 'label', attrs)
-        expand.text = self.expand
-
-        attrs = {'for': f'__collapse{self.count}', 'class': 'collapse', 'tabindex': '0'}
-        if self.collapse_title:
-            attrs['title'] = self.collapse_title
-        collapse = etree.SubElement(el, 'label', attrs)
-        collapse.text = self.collapse
+        self._append_label(el, 'expand', self.expand, self.expand_title or 'Expand')
+        self._append_label(el, 'collapse', self.collapse, self.collapse_title or 'Collapse')
 
 
 class CollapseCodeExtension(BlocksExtension):
