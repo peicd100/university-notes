@@ -2207,6 +2207,52 @@ html.peicd-image-viewer-open body {
   content: none !important;
 }
 
+.md-typeset .collapse-code .code-footer label.icon-only {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2rem !important;
+  min-width: 2rem !important;
+  height: 2rem !important;
+  margin: 0 0.2rem 0 0 !important;
+  padding: 0 !important;
+  vertical-align: top !important;
+}
+
+.md-typeset .collapse-code .code-footer label.icon-only::before {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  background-size: 1.15rem !important;
+}
+
+.md-typeset .collapse-code .code-footer .collapse-code__sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.md-typeset .collapse-code input:checked ~ .code-footer {
+  z-index: 210 !important;
+}
+
+.md-typeset .collapse-code input:checked ~ .code-footer label.icon-only.expand {
+  display: inline-flex !important;
+}
+
+.md-typeset .collapse-code input:checked ~ .code-footer label.icon-only.collapse,
+.md-typeset .collapse-code input:not(:checked) ~ .code-footer label.icon-only.expand {
+  display: none !important;
+}
+
 /* --------------------------------------------------------------------------
    E) Sidebar nav：只對「真正可點擊項目」顯示四角
    - 排除 .md-nav__container

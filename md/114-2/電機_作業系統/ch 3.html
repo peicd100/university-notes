@@ -14,7 +14,7 @@
         <link rel="prev" href="ch%201.html">
       
       
-        <link rel="next" href="windows%20CLI%20%E6%8C%87%E4%BB%A4.html">
+        <link rel="next" href="ch%204.html">
       
       
         
@@ -3891,6 +3891,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3952,6 +3954,118 @@ is now available!
     
   
     相關資訊
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="windows%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Linux%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vim.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    子行程
   
 
     
@@ -7302,12 +7416,7 @@ is now available!
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#child-有啥東東" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7317,8 +7426,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#child-從哪裡開始" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7328,8 +7437,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#如何一次有兩個直屬-child-" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7339,8 +7448,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#連續兩次-fork-會怎樣" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7348,6 +7457,804 @@ is now available!
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-行程間通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 行程間通訊
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 行程間通訊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這張圖在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這張圖在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先用直覺理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先用直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#下方兩張圖在講什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下方兩張圖在講什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-左圖message-passing訊息傳遞" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) 左圖：message passing(訊息傳遞)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(a) 左圖：message passing(訊息傳遞)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-右圖shared-memory共享記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) 右圖：shared memory(共享記憶體)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(b) 右圖：shared memory(共享記憶體)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特點_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-1聊天室伺服器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 1：聊天室伺服器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-2瀏覽器--渲染器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 2：瀏覽器 + 渲染器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-3producer-consumer生產者消費者" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 3：Producer-Consumer(生產者消費者)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-cooperation合作-不是-thread-才有process-也有" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cooperation(合作) 不是 thread 才有，process 也有
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-shared-memory-不是完全不用-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. shared memory 不是「完全不用 kernel」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-message-passing-不等於一定很慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. message passing 不等於一定很慢
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-shared-memory-幾乎一定會連到-synchronization同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. shared memory 幾乎一定會連到 synchronization(同步)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用這張圖來做考試記憶" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用這張圖來做考試記憶
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在最該抓住的一句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在最該抓住的一句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#342-訊息傳遞系統-message-passing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 訊息傳遞系統 Message Passing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4.2 訊息傳遞系統 Message Passing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這幾張圖在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這幾張圖在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺為什麼要有-message-passing訊息傳遞" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺：為什麼要有 Message Passing(訊息傳遞)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念-1message-passing-至少有兩個基本動作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 1：Message Passing 至少有兩個基本動作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念-2兩個行程要互傳必須先連得上" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 2：兩個行程要互傳，必須先「連得上」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二張圖命名naming-其實是在講訊息到底寄給誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二張圖：命名(Naming) 其實是在講「訊息到底寄給誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-direct-communication直接通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Direct communication(直接通訊)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Direct communication(直接通訊)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-indirect-communication間接通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Indirect communication(間接通訊)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Indirect communication(間接通訊)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺理解_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這兩種怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這兩種怎麼記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三張圖同步化synchronization-在講-send--receive-會不會等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三張圖：同步化(Synchronization) 在講 send / receive 會不會等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-blocking-send等待傳送" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. blocking send(等待傳送)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. blocking send(等待傳送)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-nonblocking-send非等待傳送" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. nonblocking send(非等待傳送)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. nonblocking send(非等待傳送)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-blocking-receive等待接收" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. blocking receive(等待接收)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. blocking receive(等待接收)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-nonblocking-receive非等待接收" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. nonblocking receive(非等待接收)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. nonblocking receive(非等待接收)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四種組合怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四種組合怎麼看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-message-passing-也能做到同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 Message Passing 也能做到同步？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一個非常好懂的小例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一個非常好懂的小例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最容易考 / 最容易混淆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-passing-不等於只做通訊也能做同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Message Passing 不等於只做通訊，也能做同步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-direct-communication-和-indirect-communication-差在指定誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Direct communication 和 Indirect communication 差在「指定誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-blocking--nonblocking-是在講呼叫之後會不會停下來等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. blocking / nonblocking 是在講「呼叫之後會不會停下來等」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-blocking-receive-很常出現在同步需求" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. blocking receive 很常出現在同步需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mailboxport-是間接通訊的核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. mailbox(port) 是間接通訊的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣背整段" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣背整段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7367,98 +8274,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="windows%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+      <a href="ch%204.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    windows CLI 指令
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Linux%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Linux CLI 指令
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="vim.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Vim
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    子行程
+    Ch 4
   
 
     
@@ -7852,6 +8675,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -7910,6 +8735,34 @@ is now available!
     
   
     SI 前綴表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%200.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 0
   
 
     
@@ -11257,12 +12110,7 @@ is now available!
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#child-有啥東東" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11272,8 +12120,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#child-從哪裡開始" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11283,8 +12131,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#如何一次有兩個直屬-child-" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11294,8 +12142,8 @@ is now available!
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#連續兩次-fork-會怎樣" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11303,6 +12151,804 @@ is now available!
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-行程間通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 行程間通訊
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 行程間通訊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這張圖在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這張圖在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先用直覺理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先用直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#下方兩張圖在講什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下方兩張圖在講什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-左圖message-passing訊息傳遞" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) 左圖：message passing(訊息傳遞)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(a) 左圖：message passing(訊息傳遞)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-右圖shared-memory共享記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) 右圖：shared memory(共享記憶體)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="(b) 右圖：shared memory(共享記憶體)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#特點_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-1聊天室伺服器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 1：聊天室伺服器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-2瀏覽器--渲染器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 2：瀏覽器 + 渲染器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-3producer-consumer生產者消費者" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 3：Producer-Consumer(生產者消費者)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-cooperation合作-不是-thread-才有process-也有" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. cooperation(合作) 不是 thread 才有，process 也有
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-shared-memory-不是完全不用-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. shared memory 不是「完全不用 kernel」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-message-passing-不等於一定很慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. message passing 不等於一定很慢
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-shared-memory-幾乎一定會連到-synchronization同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. shared memory 幾乎一定會連到 synchronization(同步)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用這張圖來做考試記憶" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用這張圖來做考試記憶
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在最該抓住的一句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在最該抓住的一句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#342-訊息傳遞系統-message-passing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.2 訊息傳遞系統 Message Passing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4.2 訊息傳遞系統 Message Passing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這幾張圖在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這幾張圖在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺為什麼要有-message-passing訊息傳遞" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺：為什麼要有 Message Passing(訊息傳遞)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念-1message-passing-至少有兩個基本動作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 1：Message Passing 至少有兩個基本動作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念-2兩個行程要互傳必須先連得上" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念 2：兩個行程要互傳，必須先「連得上」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二張圖命名naming-其實是在講訊息到底寄給誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二張圖：命名(Naming) 其實是在講「訊息到底寄給誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-direct-communication直接通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Direct communication(直接通訊)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Direct communication(直接通訊)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特性" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-indirect-communication間接通訊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Indirect communication(間接通訊)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Indirect communication(間接通訊)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺理解_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#特性_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這兩種怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這兩種怎麼記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三張圖同步化synchronization-在講-send--receive-會不會等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三張圖：同步化(Synchronization) 在講 send / receive 會不會等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-blocking-send等待傳送" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. blocking send(等待傳送)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. blocking send(等待傳送)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-nonblocking-send非等待傳送" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. nonblocking send(非等待傳送)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. nonblocking send(非等待傳送)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-blocking-receive等待接收" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. blocking receive(等待接收)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. blocking receive(等待接收)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-nonblocking-receive非等待接收" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. nonblocking receive(非等待接收)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. nonblocking receive(非等待接收)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#重點_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四種組合怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四種組合怎麼看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-message-passing-也能做到同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 Message Passing 也能做到同步？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一個非常好懂的小例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一個非常好懂的小例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最容易考 / 最容易混淆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-passing-不等於只做通訊也能做同步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Message Passing 不等於只做通訊，也能做同步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-direct-communication-和-indirect-communication-差在指定誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Direct communication 和 Indirect communication 差在「指定誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-blocking--nonblocking-是在講呼叫之後會不會停下來等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. blocking / nonblocking 是在講「呼叫之後會不會停下來等」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-blocking-receive-很常出現在同步需求" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. blocking receive 很常出現在同步需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mailboxport-是間接通訊的核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. mailbox(port) 是間接通訊的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣背整段" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣背整段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -13859,16 +15505,16 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <p>這章很適合在你的 Ubuntu VM 直接做小實驗，因為 <strong>fork / exec / wait / ps</strong> 這種主題，自己跑一次會比只看投影片穩很多。光靠背定義，最容易在 <strong>fork 與 exec 的差別</strong>、<strong>zombie 與 orphan 的差別</strong> 這兩個地方出錯。</p>
 <p>下一步我們可以直接進入手把手模式，先只做 2 個最重要的小實驗：<br />
 <strong>fork()+wait() 基本版</strong>，以及 <strong>zombie / orphan 觀察版</strong>。</p>
-<h2 id="child-有啥東東">child 有啥東東<a class="headerlink" href="#child-有啥東東" title="Permanent link"></a></h2>
+<h3 id="child-有啥東東">child 有啥東東<a class="headerlink" href="#child-有啥東東" title="Permanent link"></a></h3>
 <p>當 fork() 發生時，child 會得到 parent 在那一瞬間的整個位址空間(address space)內容副本。<br />
 所以不只程式碼，變數當下的值也會一起帶過去。fork(2) 的 Linux manual 明確寫到：在 fork() 當下，父子兩邊的 memory space 內容相同，而且之後一方的寫入不會影響另一方。<br />
 不只 global 變數，local 變數、heap 內容也會一起延續「當下狀態」<br />
 這裡你可以把 fork() 想成：<br />
 把 parent 在那一刻的執行現場整份複製給 child</p>
-<h2 id="child-從哪裡開始">child 從哪裡開始<a class="headerlink" href="#child-從哪裡開始" title="Permanent link"></a></h2>
+<h3 id="child-從哪裡開始">child 從哪裡開始<a class="headerlink" href="#child-從哪裡開始" title="Permanent link"></a></h3>
 <p>答案：子行程不是從 int main(){ 重新開始，也不是再去「執行一次 pid = fork();」；它是從 fork() 呼叫「返回之後」的狀態繼續往下跑</p>
 <p>fork() 會把呼叫它的那個行程複製出一個 child process。複製完成後，parent 和 child 都會從同一個程式位置繼續執行，也就是 fork() 這個函式呼叫結束之後的下一步</p>
-<h2 id="如何一次有兩個直屬-child-">如何一次有兩個直屬 child ？<a class="headerlink" href="#如何一次有兩個直屬-child-" title="Permanent link"></a></h2>
+<h3 id="如何一次有兩個直屬-child-">如何一次有兩個直屬 child ？<a class="headerlink" href="#如何一次有兩個直屬-child-" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
@@ -13909,7 +15555,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>看到上面程式碼，要用 _exit(0); 來防止執行到第二個 pid = fork();。</li>
 <li>兩個 wait(NULL); ，哪個 child 先回來就找誰。</li>
 </ol>
-<h2 id="連續兩次-fork-會怎樣">連續兩次 fork 會怎樣<a class="headerlink" href="#連續兩次-fork-會怎樣" title="Permanent link"></a></h2>
+<h3 id="連續兩次-fork-會怎樣">連續兩次 fork 會怎樣<a class="headerlink" href="#連續兩次-fork-會怎樣" title="Permanent link"></a></h3>
 <p>例如這樣：<br />
 <div class="highlight"><pre><span></span><code><span class="n">fork</span><span class="p">();</span>
 <span class="n">fork</span><span class="p">();</span>
@@ -13934,6 +15580,553 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 
     F2B --&gt; P1b["P1：第一次產生的 child 繼續執行"]
     F2B --&gt; P3["P3：P1 在第二次 fork 產生的 child"]</code></pre>
+<h2 id="34-行程間通訊">3.4 行程間通訊<a class="headerlink" href="#34-行程間通訊" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%203-17.png" /></p>
+<p>已啟用教學模式</p>
+<h3 id="講解_11">講解<a class="headerlink" href="#講解_11" title="Permanent link"></a></h3>
+<h4 id="這張圖在回答什麼問題">這張圖在回答什麼問題<a class="headerlink" href="#這張圖在回答什麼問題" title="Permanent link"></a></h4>
+<p>這張投影片在回答：</p>
+<p><strong>為什麼作業系統需要讓不同行程 process(行程)彼此合作，以及它們可以怎麼溝通？</strong></p>
+<p>也就是說，不是每個行程都各做各的。有時候它們必須交換資料、共享資源，甚至一起完成一件大工作。這就是 <strong>Interprocess Communication, IPC(行程間通訊)</strong> 的核心。圖中列出合作理由，下面兩張小圖則在對比兩種主要 IPC 方式：</p>
+<ol>
+<li><strong>message passing(訊息傳遞)</strong></li>
+<li><strong>shared memory(共享記憶體)</strong>  </li>
+</ol>
+<hr />
+<h4 id="先用直覺理解">先用直覺理解<a class="headerlink" href="#先用直覺理解" title="Permanent link"></a></h4>
+<p>你可以把每個 process(行程)想成一個人在做事。</p>
+<p>如果兩個人要合作，有兩種常見方法：</p>
+<ol>
+<li>
+<p><strong>傳紙條</strong><br />
+   你寫一張紙條給我，我看完再回你。<br />
+   這就是 <strong>message passing(訊息傳遞)</strong>。</p>
+</li>
+<li>
+<p><strong>共用白板</strong><br />
+   我們兩個都可以看同一塊白板，也可以在上面寫東西。<br />
+   這就是 <strong>shared memory(共享記憶體)</strong>。</p>
+</li>
+</ol>
+<p>這張圖就是在說：</p>
+<ul>
+<li>左圖：像傳紙條，中間有系統幫忙轉交</li>
+<li>右圖：像共用白板，兩個行程直接看到同一塊資料區</li>
+</ul>
+<hr />
+<h4 id="核心概念">核心概念<a class="headerlink" href="#核心概念" title="Permanent link"></a></h4>
+<p>投影片上半部先講 <strong>process cooperation(行程合作)</strong> 的理由，有四個：</p>
+<ol>
+<li>
+<p><strong>Information sharing(資訊共享)</strong><br />
+   多個使用者或多個程式可能都要用同一份資料，例如公用檔案。</p>
+</li>
+<li>
+<p><strong>Computation speedup(加速運算)</strong><br />
+   一個大工作拆成很多小工作，交給不同 process(行程) 平行做。</p>
+</li>
+<li>
+<p><strong>Modularity(模組化)</strong><br />
+   系統拆成多個模組，每個模組由不同 process(行程) 負責。</p>
+</li>
+<li>
+<p><strong>Convenience(方便性)</strong><br />
+   就算只有一個使用者，也可能同時做很多事。<br />
+   例如一邊下載、一邊播放音樂、一邊編輯文件。 </p>
+</li>
+</ol>
+<p>這四個理由可以簡單記成：</p>
+<p><strong>共享、加速、拆模組、方便多工</strong></p>
+<hr />
+<h4 id="下方兩張圖在講什麼">下方兩張圖在講什麼<a class="headerlink" href="#下方兩張圖在講什麼" title="Permanent link"></a></h4>
+<h4 id="a-左圖message-passing訊息傳遞">(a) 左圖：message passing(訊息傳遞)<a class="headerlink" href="#a-左圖message-passing訊息傳遞" title="Permanent link"></a></h4>
+<p>左邊那張圖中：</p>
+<ul>
+<li>process A 在上面</li>
+<li>process B 在上面</li>
+<li>中間有一塊 <strong>message queue(訊息佇列)</strong></li>
+<li>最下面是 <strong>kernel(核心)</strong></li>
+</ul>
+<p>意思是：</p>
+<ul>
+<li>A 跟 B 不能直接碰彼此的資料</li>
+<li>它們要溝通時，要把資料丟進 <strong>message queue</strong></li>
+<li>通常由 <strong>kernel(核心)</strong> 負責管理、轉送、同步</li>
+</ul>
+<p>這種方式的直覺是：</p>
+<blockquote>
+<p>你不能直接進我房間拿東西，你要先把訊息交給管理員，管理員再幫你轉交。</p>
+</blockquote>
+<h5 id="特點">特點<a class="headerlink" href="#特點" title="Permanent link"></a></h5>
+<ul>
+<li>比較安全</li>
+<li>比較容易管理權限</li>
+<li>process 彼此隔離比較好</li>
+<li>但通常會比 shared memory 慢，因為要經過 kernel 幫忙</li>
+</ul>
+<hr />
+<h4 id="b-右圖shared-memory共享記憶體">(b) 右圖：shared memory(共享記憶體)<a class="headerlink" href="#b-右圖shared-memory共享記憶體" title="Permanent link"></a></h4>
+<p>右邊那張圖中：</p>
+<ul>
+<li>process A 在上面</li>
+<li>process B 在下面</li>
+<li>中間有一塊 <strong>shared memory(共享記憶體)</strong></li>
+<li>最下面是 kernel</li>
+</ul>
+<p>意思是：</p>
+<ul>
+<li>kernel 先建立一塊雙方都能存取的記憶體區域</li>
+<li>建好之後，A 和 B 可以直接讀寫那塊 shared memory</li>
+<li>不需要每次都透過 kernel 轉送資料</li>
+</ul>
+<p>這種方式的直覺是：</p>
+<blockquote>
+<p>管理員先給我們一塊共同白板，之後我們兩個自己在白板上寫資料。</p>
+</blockquote>
+<h5 id="特點_1">特點<a class="headerlink" href="#特點_1" title="Permanent link"></a></h5>
+<ul>
+<li>通常速度比較快</li>
+<li>適合大量資料交換</li>
+<li>但比較危險，因為兩個 process 可能同時改同一塊資料</li>
+<li>所以常常要搭配 <strong>synchronization(同步機制)</strong>，例如 semaphore(號誌) 或 mutex(互斥鎖)</li>
+</ul>
+<hr />
+<h4 id="關係--流程--因果">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+A[兩個 process 需要合作] --&gt; B{要怎麼交換資料?}
+B --&gt; C[message passing&lt;br&gt;透過 kernel 傳訊息]
+B --&gt; D[shared memory&lt;br&gt;共用同一塊記憶體]
+C --&gt; E[安全性較高&lt;br&gt;但通常較慢]
+D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
+<hr />
+<h4 id="生活化例子">生活化例子<a class="headerlink" href="#生活化例子" title="Permanent link"></a></h4>
+<h4 id="例子-1聊天室伺服器">例子 1：聊天室伺服器<a class="headerlink" href="#例子-1聊天室伺服器" title="Permanent link"></a></h4>
+<ul>
+<li>每個 client request(客戶端請求) 可由不同 process 處理</li>
+<li>它們可能要把訊息交給另一個 process</li>
+<li>這時可以用 <strong>message passing</strong></li>
+</ul>
+<p>像是：</p>
+<ul>
+<li>A process 收到使用者訊息</li>
+<li>把訊息送給 B process 去存資料庫</li>
+</ul>
+<hr />
+<h4 id="例子-2瀏覽器--渲染器">例子 2：瀏覽器 + 渲染器<a class="headerlink" href="#例子-2瀏覽器--渲染器" title="Permanent link"></a></h4>
+<p>有些系統會拆成多個 process：</p>
+<ul>
+<li>一個負責 UI</li>
+<li>一個負責網路下載</li>
+<li>一個負責畫面渲染</li>
+</ul>
+<p>如果它們需要大量共享資料，例如畫面 buffer(緩衝區)，就可能用 <strong>shared memory</strong></p>
+<hr />
+<h4 id="例子-3producer-consumer生產者消費者">例子 3：Producer-Consumer(生產者消費者)<a class="headerlink" href="#例子-3producer-consumer生產者消費者" title="Permanent link"></a></h4>
+<p>這章常見的經典題。</p>
+<ul>
+<li>producer(生產者) 負責放資料</li>
+<li>consumer(消費者) 負責拿資料</li>
+</ul>
+<p>如果它們共用同一個 buffer(緩衝區)，那通常就是 <strong>shared memory</strong><br />
+但這時就會遇到同步問題：</p>
+<ul>
+<li>不能同時亂寫</li>
+<li>不能讀到還沒寫好的資料</li>
+<li>不能 overflow(塞爆) 或 underflow(讀空)</li>
+</ul>
+<p>這也就是為什麼後面章節會接到 synchronization(同步)。</p>
+<hr />
+<h4 id="為什麼會這樣">為什麼會這樣<a class="headerlink" href="#為什麼會這樣" title="Permanent link"></a></h4>
+<p>因為 <strong>process(行程)</strong> 本質上是彼此隔離的。</p>
+<p>這種隔離有好處：</p>
+<ul>
+<li>一個 process 壞掉，不容易直接拖垮別人</li>
+<li>保護資料與記憶體安全</li>
+</ul>
+<p>但壞處是：</p>
+<ul>
+<li>如果要合作，就需要一套正式的溝通機制</li>
+</ul>
+<p>所以作業系統才提供 IPC 兩大方向：</p>
+<ul>
+<li><strong>message passing</strong>：讓大家透過 OS 幫忙傳遞</li>
+<li><strong>shared memory</strong>：讓大家共用資料區，但自己要小心同步</li>
+</ul>
+<hr />
+<h4 id="最容易考--最容易混淆">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆" title="Permanent link"></a></h4>
+<h4 id="1-cooperation合作-不是-thread-才有process-也有">1. cooperation(合作) 不是 thread 才有，process 也有<a class="headerlink" href="#1-cooperation合作-不是-thread-才有process-也有" title="Permanent link"></a></h4>
+<p>很多人會以為只有 thread(執行緒) 才會合作。不是。</p>
+<p>process 也會合作，只是因為位址空間不同，合作通常需要 IPC。</p>
+<hr />
+<h4 id="2-shared-memory-不是完全不用-kernel">2. shared memory 不是「完全不用 kernel」<a class="headerlink" href="#2-shared-memory-不是完全不用-kernel" title="Permanent link"></a></h4>
+<p>這很容易搞錯。</p>
+<p>正確說法是：</p>
+<ul>
+<li><strong>建立 shared memory 時，通常還是要 kernel 幫忙</strong></li>
+<li>但<strong>建立完成後，資料交換本身可以直接在共享區做</strong></li>
+<li>所以它通常比 message passing 更快</li>
+</ul>
+<hr />
+<h4 id="3-message-passing-不等於一定很慢">3. message passing 不等於一定很慢<a class="headerlink" href="#3-message-passing-不等於一定很慢" title="Permanent link"></a></h4>
+<p>相對 shared memory 常常較慢，但它有優點：</p>
+<ul>
+<li>設計清楚</li>
+<li>邊界清楚</li>
+<li>安全性高</li>
+<li>分散式系統也很適合</li>
+</ul>
+<p>所以不是誰絕對比較好，而是看需求。</p>
+<hr />
+<h4 id="4-shared-memory-幾乎一定會連到-synchronization同步">4. shared memory 幾乎一定會連到 synchronization(同步)<a class="headerlink" href="#4-shared-memory-幾乎一定會連到-synchronization同步" title="Permanent link"></a></h4>
+<p>如果考題看到：</p>
+<ul>
+<li>shared buffer</li>
+<li>producer-consumer</li>
+<li>multiple processes access same data</li>
+</ul>
+<p>那你就要立刻想到：</p>
+<p><strong>race condition(競爭情況)</strong><br />
+以及需要<br />
+<strong>mutex / semaphore / monitor</strong> 等同步機制。</p>
+<hr />
+<h4 id="用這張圖來做考試記憶">用這張圖來做考試記憶<a class="headerlink" href="#用這張圖來做考試記憶" title="Permanent link"></a></h4>
+<p>你可以這樣背：</p>
+<ul>
+<li>
+<p><strong>上半部：為什麼要合作</strong></p>
+</li>
+<li>
+<p>共享資料</p>
+</li>
+<li>加速運算</li>
+<li>模組化</li>
+<li>
+<p>方便性</p>
+</li>
+<li>
+<p><strong>下半部：怎麼合作</strong></p>
+</li>
+<li>
+<p>左邊：message passing = 傳紙條</p>
+</li>
+<li>右邊：shared memory = 共用白板</li>
+</ul>
+<p>這樣通常就不會混掉。</p>
+<hr />
+<h4 id="小結">小結<a class="headerlink" href="#小結" title="Permanent link"></a></h4>
+<p>這張圖的重點是：</p>
+<ol>
+<li><strong>process cooperation(行程合作)</strong> 有四大理由：共享、加速、模組化、方便。</li>
+<li>
+<p>行程間通訊 <strong>IPC(行程間通訊)</strong> 主要有兩種典型方式：</p>
+</li>
+<li>
+<p><strong>message passing(訊息傳遞)</strong></p>
+</li>
+<li><strong>shared memory(共享記憶體)</strong></li>
+<li><strong>message passing</strong> 比較像透過管理員傳紙條，安全、清楚，但通常較慢。</li>
+<li><strong>shared memory</strong> 比較像共用白板，快，但容易互相衝突，所以要搭配同步。 </li>
+</ol>
+<h4 id="你現在最該抓住的一句話">你現在最該抓住的一句話<a class="headerlink" href="#你現在最該抓住的一句話" title="Permanent link"></a></h4>
+<p><strong>IPC 的本質，就是讓彼此隔離的 process 能安全地合作。</strong></p>
+<p>如果你要，我下一步可以直接接著幫你講這張圖下面最重要的考點：<br />
+<strong>message passing 和 shared memory 的比較表 + Producer-Consumer 為什麼會浪費一格空間。</strong></p>
+<h2 id="342-訊息傳遞系統-message-passing">3.4.2 訊息傳遞系統 Message Passing<a class="headerlink" href="#342-訊息傳遞系統-message-passing" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%203-18.png" /></p>
+<h3 id="講解_12">講解<a class="headerlink" href="#講解_12" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="這幾張圖在回答什麼問題">這幾張圖在回答什麼問題<a class="headerlink" href="#這幾張圖在回答什麼問題" title="Permanent link"></a></h4>
+<p>這三張圖其實在回答同一個核心問題：</p>
+<p><strong>行程(Process)之間如果不能直接共用資料，還能怎麼互相合作？</strong></p>
+<p>答案就是用 <strong>Message Passing(訊息傳遞)</strong>。<br />
+也就是說，不是兩邊一起摸同一塊記憶體，而是你送我一則訊息、我收你一則訊息，靠這種方式溝通與同步。這正是作業系統中另一大類的 IPC(Interprocess Communication，行程間通訊)方法。</p>
+<hr />
+<h4 id="先講直覺為什麼要有-message-passing訊息傳遞">先講直覺：為什麼要有 Message Passing(訊息傳遞)<a class="headerlink" href="#先講直覺為什麼要有-message-passing訊息傳遞" title="Permanent link"></a></h4>
+<p>你可以把它想成：</p>
+<ul>
+<li><strong>Shared Memory(共享記憶體)</strong>：像兩個人共用一塊白板，大家都能直接改上面的內容。</li>
+<li><strong>Message Passing(訊息傳遞)</strong>：像兩個人傳紙條，一方寫好送出去，另一方收到再看。</li>
+</ul>
+<p>白板方式速度常常比較快，但要很小心「同時改」造成混亂。<br />
+傳紙條方式比較有秩序，因為每次都是「送」與「收」，比較容易控制誰先做什麼。</p>
+<p>所以投影片第一張才會說：</p>
+<ul>
+<li>訊息傳遞可以讓行程彼此<strong>通訊(communication)</strong></li>
+<li>也可以達成<strong>同步(synchronization)</strong></li>
+<li>而且<strong>不需要共享同一個位址空間(address space)</strong></li>
+</ul>
+<p>這句話非常重要。</p>
+<hr />
+<h4 id="核心概念-1message-passing-至少有兩個基本動作">核心概念 1：Message Passing 至少有兩個基本動作<a class="headerlink" href="#核心概念-1message-passing-至少有兩個基本動作" title="Permanent link"></a></h4>
+<p>投影片第一張最重要的句子就是：</p>
+<ul>
+<li><code>send(message)</code>：送出訊息</li>
+<li><code>receive(message)</code>：接收訊息</li>
+</ul>
+<p>也就是說，Message Passing 的世界裡，最基本就這兩件事。</p>
+<p>你可以把它想成快遞系統：</p>
+<ul>
+<li>寄件人：<code>send</code></li>
+<li>收件人：<code>receive</code></li>
+</ul>
+<p>沒有 send，就沒東西送。<br />
+沒有 receive，訊息也沒人拿。</p>
+<hr />
+<h4 id="核心概念-2兩個行程要互傳必須先連得上">核心概念 2：兩個行程要互傳，必須先「連得上」<a class="headerlink" href="#核心概念-2兩個行程要互傳必須先連得上" title="Permanent link"></a></h4>
+<p>第一張圖後半段說：</p>
+<p>如果兩個行程 <code>P</code> 和 <code>Q</code> 要互相聯繫，它們必須有一條 <strong>communication link(通訊鏈結)</strong>。</p>
+<p>這意思很像：</p>
+<ul>
+<li>兩個人要講電話，先要有電話線或網路</li>
+<li>兩個人要寄信，先要有郵局系統</li>
+<li>兩個程式要傳訊息，先要有 OS 提供的通道</li>
+</ul>
+<p>所以不是隨便一個 process 都能直接對任何 process 傳訊息，必須有某種機制把兩邊接起來。</p>
+<hr />
+<h4 id="第二張圖命名naming-其實是在講訊息到底寄給誰">第二張圖：命名(Naming) 其實是在講「訊息到底寄給誰」<a class="headerlink" href="#第二張圖命名naming-其實是在講訊息到底寄給誰" title="Permanent link"></a></h4>
+<p>這張圖在區分兩種方式：</p>
+<ol>
+<li><strong>Direct communication(直接通訊)</strong></li>
+<li><strong>Indirect communication(間接通訊)</strong></li>
+</ol>
+<p>這是很常考的分類。</p>
+<hr />
+<h4 id="1-direct-communication直接通訊">1. Direct communication(直接通訊)<a class="headerlink" href="#1-direct-communication直接通訊" title="Permanent link"></a></h4>
+<p>投影片寫法大意是：</p>
+<ul>
+<li><code>send(P, message)</code>：把訊息直接送給行程 <code>P</code></li>
+<li><code>receive(Q, message)</code>：由行程 <code>Q</code> 接收訊息</li>
+</ul>
+<h5 id="直覺理解">直覺理解<a class="headerlink" href="#直覺理解" title="Permanent link"></a></h5>
+<p>這像你直接寄信給某個人：</p>
+<ul>
+<li>收件人名字寫死</li>
+<li>你很清楚要傳給誰</li>
+</ul>
+<h5 id="特性">特性<a class="headerlink" href="#特性" title="Permanent link"></a></h5>
+<ul>
+<li>傳送端和接收端彼此要知道對方身份</li>
+<li>耦合比較緊，因為雙方直接指定彼此</li>
+</ul>
+<h5 id="生活化例子_1">生活化例子<a class="headerlink" href="#生活化例子_1" title="Permanent link"></a></h5>
+<p>你在 LINE 直接傳訊息給某個朋友。<br />
+你不是把訊息丟到某個公開信箱，而是明確傳給「小明」。</p>
+<hr />
+<h4 id="2-indirect-communication間接通訊">2. Indirect communication(間接通訊)<a class="headerlink" href="#2-indirect-communication間接通訊" title="Permanent link"></a></h4>
+<p>投影片寫的是透過 <strong>mailbox(信箱)</strong>，也叫 <strong>port(埠口)</strong>。</p>
+<p>例如：</p>
+<ul>
+<li><code>send(A, message)</code>：把訊息送到信箱 <code>A</code></li>
+<li><code>receive(A, message)</code>：從信箱 <code>A</code> 取出訊息</li>
+</ul>
+<h5 id="直覺理解_1">直覺理解<a class="headerlink" href="#直覺理解_1" title="Permanent link"></a></h5>
+<p>這像你不是直接交給某個人，而是放進某個信箱。</p>
+<p>誰去信箱拿，就誰收到。</p>
+<h5 id="特性_1">特性<a class="headerlink" href="#特性_1" title="Permanent link"></a></h5>
+<ul>
+<li>行程不一定要直接知道對方是誰</li>
+<li>兩邊只要知道同一個 mailbox 即可</li>
+<li>耦合比較鬆，設計上更彈性</li>
+</ul>
+<h5 id="生活化例子_2">生活化例子<a class="headerlink" href="#生活化例子_2" title="Permanent link"></a></h5>
+<p>像公司內部的「客服信箱」：</p>
+<ul>
+<li>客戶把信寄到 <code>support@...</code></li>
+<li>誰是實際處理的人，不重要</li>
+<li>只要有人從這個信箱把信取出即可</li>
+</ul>
+<hr />
+<h4 id="這兩種怎麼記">這兩種怎麼記<a class="headerlink" href="#這兩種怎麼記" title="Permanent link"></a></h4>
+<p>你可以這樣記：</p>
+<ul>
+<li><strong>Direct</strong>：我知道「你是誰」，我直接傳給你</li>
+<li><strong>Indirect</strong>：我只知道「信箱在哪」，我把東西放進去</li>
+</ul>
+<hr />
+<h4 id="第三張圖同步化synchronization-在講-send--receive-會不會等">第三張圖：同步化(Synchronization) 在講 send / receive 會不會等<a class="headerlink" href="#第三張圖同步化synchronization-在講-send--receive-會不會等" title="Permanent link"></a></h4>
+<p>這張圖很重要，因為很多人第一次看會搞混。</p>
+<p>它把訊息傳遞分成：</p>
+<ul>
+<li><strong>blocking(等待式)</strong></li>
+<li><strong>nonblocking(非等待式)</strong></li>
+</ul>
+<p>也可稱為：</p>
+<ul>
+<li><strong>synchronous(同步式)</strong></li>
+<li><strong>asynchronous(非同步式)</strong></li>
+</ul>
+<p>不過這裡你要注意一件事：</p>
+<p>在這份投影片的脈絡裡，<strong>blocking ≈ synchronous</strong>；<strong>nonblocking ≈ asynchronous</strong>。<br />
+考試通常就是照老師投影片用法記，但在更廣泛系統領域中，這兩組詞有時不會被完全等號看待，所以這裡先以課堂版本理解。</p>
+<hr />
+<h4 id="1-blocking-send等待傳送">1. blocking send(等待傳送)<a class="headerlink" href="#1-blocking-send等待傳送" title="Permanent link"></a></h4>
+<p>投影片意思是：</p>
+<p>傳送者送出訊息後，要<strong>等到接收者或信箱接收完成</strong>，自己才繼續往下做。</p>
+<h5 id="生活化例子_3">生活化例子<a class="headerlink" href="#生活化例子_3" title="Permanent link"></a></h5>
+<p>像你親手把文件交給對方，對方說「好，我收到了」，你才離開。</p>
+<h5 id="重點">重點<a class="headerlink" href="#重點" title="Permanent link"></a></h5>
+<ul>
+<li>sender 會卡住等一下</li>
+<li>確定訊息真的被接住後才繼續</li>
+</ul>
+<hr />
+<h4 id="2-nonblocking-send非等待傳送">2. nonblocking send(非等待傳送)<a class="headerlink" href="#2-nonblocking-send非等待傳送" title="Permanent link"></a></h4>
+<p>投影片意思是：</p>
+<p>傳送者把訊息送出去後，<strong>立刻繼續做別的事</strong>，不等對方現在有沒有處理完。</p>
+<h5 id="生活化例子_4">生活化例子<a class="headerlink" href="#生活化例子_4" title="Permanent link"></a></h5>
+<p>像你把包裹交給超商寄件櫃台，丟了就走，不等收件人真的拿到。</p>
+<h5 id="重點_1">重點<a class="headerlink" href="#重點_1" title="Permanent link"></a></h5>
+<ul>
+<li>sender 不會卡住</li>
+<li>送完就繼續執行</li>
+</ul>
+<hr />
+<h4 id="3-blocking-receive等待接收">3. blocking receive(等待接收)<a class="headerlink" href="#3-blocking-receive等待接收" title="Permanent link"></a></h4>
+<p>投影片意思是：</p>
+<p>接收者如果現在還沒有有效訊息，就要<strong>等到真的有訊息到來</strong>。</p>
+<h5 id="生活化例子_5">生活化例子<a class="headerlink" href="#生活化例子_5" title="Permanent link"></a></h5>
+<p>你站在門口等外送，外送沒來你就不能走。</p>
+<h5 id="重點_2">重點<a class="headerlink" href="#重點_2" title="Permanent link"></a></h5>
+<ul>
+<li>receiver 會卡住</li>
+<li>一直到有資料才繼續</li>
+</ul>
+<hr />
+<h4 id="4-nonblocking-receive非等待接收">4. nonblocking receive(非等待接收)<a class="headerlink" href="#4-nonblocking-receive非等待接收" title="Permanent link"></a></h4>
+<p>投影片意思是：</p>
+<p>接收者去看看有沒有訊息：</p>
+<ul>
+<li>有就拿到</li>
+<li>沒有也直接返回，不會一直等</li>
+</ul>
+<h5 id="生活化例子_6">生活化例子<a class="headerlink" href="#生活化例子_6" title="Permanent link"></a></h5>
+<p>像你打開信箱看一下：</p>
+<ul>
+<li>有信就拿</li>
+<li>沒信就先去做別的事，晚點再看</li>
+</ul>
+<h5 id="重點_3">重點<a class="headerlink" href="#重點_3" title="Permanent link"></a></h5>
+<ul>
+<li>receiver 不會卡住</li>
+<li>可能拿到資料，也可能得到「目前沒有資料」</li>
+</ul>
+<hr />
+<h4 id="四種組合怎麼看">四種組合怎麼看<a class="headerlink" href="#四種組合怎麼看" title="Permanent link"></a></h4>
+<p>你可以整理成這樣：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>會不會等</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blocking send</td>
+<td>會等</td>
+<td>送的人等到訊息被接收</td>
+</tr>
+<tr>
+<td>nonblocking send</td>
+<td>不等</td>
+<td>送出去就走</td>
+</tr>
+<tr>
+<td>blocking receive</td>
+<td>會等</td>
+<td>收的人等到訊息出現</td>
+</tr>
+<tr>
+<td>nonblocking receive</td>
+<td>不等</td>
+<td>看一下，有就拿，沒有就回來</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="關係--流程--因果_1">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_1" title="Permanent link"></a></h4>
+<p>我們把這三張圖串起來看，整體邏輯其實是：</p>
+<pre class="diagram"><code>flowchart TB
+A[兩個行程需要合作] --&gt; B[建立 Message Passing 通道]
+B --&gt; C[決定命名方式&lt;br&gt;Direct 或 Indirect]
+C --&gt; D[用 send / receive 傳遞訊息]
+D --&gt; E[決定同步方式&lt;br&gt;blocking 或 nonblocking]
+E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
+<p>也就是：</p>
+<ol>
+<li>先決定不用 shared memory，而改用 message passing</li>
+<li>再決定訊息是直接送人，還是丟到 mailbox</li>
+<li>再決定 send / receive 遇到對方沒準備好時要不要等</li>
+<li>最後形成整個合作流程</li>
+</ol>
+<hr />
+<h4 id="為什麼-message-passing-也能做到同步">為什麼 Message Passing 也能做到同步？<a class="headerlink" href="#為什麼-message-passing-也能做到同步" title="Permanent link"></a></h4>
+<p>這點很關鍵。</p>
+<p>因為「等不等」本身就能控制先後順序。</p>
+<p>例如：</p>
+<ul>
+<li><code>P1</code> 先做某件事</li>
+<li>做完後 <code>send(msg)</code></li>
+<li><code>P2</code> 先 <code>receive(msg)</code></li>
+<li>因為 <code>receive</code> 是 blocking，所以 <code>P2</code> 會卡住</li>
+<li>直到 <code>P1</code> 真的送出訊息，<code>P2</code> 才能繼續</li>
+</ul>
+<p>這就等於：</p>
+<p><strong>P2 一定晚於 P1 的 send 之後才往下跑</strong></p>
+<p>所以訊息不只是資料傳遞工具，也能當作同步工具。</p>
+<hr />
+<h4 id="一個非常好懂的小例子">一個非常好懂的小例子<a class="headerlink" href="#一個非常好懂的小例子" title="Permanent link"></a></h4>
+<p>假設有兩個 process：</p>
+<ul>
+<li><code>Producer(生產者)</code>：做好資料後通知別人</li>
+<li><code>Consumer(消費者)</code>：等通知到了才開始拿資料</li>
+</ul>
+<p>做法可能像這樣：</p>
+<ul>
+<li>Consumer 先呼叫 <code>receive()</code></li>
+<li>如果是 blocking receive，就會先停住</li>
+<li>Producer 完成工作後 <code>send("done")</code></li>
+<li>Consumer 收到 <code>"done"</code> 才開始下一步</li>
+</ul>
+<p>這就是最基本的「先做完再通知」。</p>
+<hr />
+<h4 id="最容易考--最容易混淆_1">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_1" title="Permanent link"></a></h4>
+<p>這裡我直接幫你抓重點。</p>
+<h5 id="1-message-passing-不等於只做通訊也能做同步">1. Message Passing 不等於只做通訊，也能做同步<a class="headerlink" href="#1-message-passing-不等於只做通訊也能做同步" title="Permanent link"></a></h5>
+<p>很多人只記得「傳訊息」，忘記它也能控制先後順序。</p>
+<h5 id="2-direct-communication-和-indirect-communication-差在指定誰">2. Direct communication 和 Indirect communication 差在「指定誰」<a class="headerlink" href="#2-direct-communication-和-indirect-communication-差在指定誰" title="Permanent link"></a></h5>
+<ul>
+<li><strong>Direct</strong>：指定 process</li>
+<li><strong>Indirect</strong>：指定 mailbox / port</li>
+</ul>
+<h5 id="3-blocking--nonblocking-是在講呼叫之後會不會停下來等">3. blocking / nonblocking 是在講「呼叫之後會不會停下來等」<a class="headerlink" href="#3-blocking--nonblocking-是在講呼叫之後會不會停下來等" title="Permanent link"></a></h5>
+<p>不是在講有沒有傳成功而已，而是在講<strong>呼叫者會不會被卡住</strong></p>
+<h5 id="4-blocking-receive-很常出現在同步需求">4. blocking receive 很常出現在同步需求<a class="headerlink" href="#4-blocking-receive-很常出現在同步需求" title="Permanent link"></a></h5>
+<p>因為它很好拿來做「等通知」</p>
+<h5 id="5-mailboxport-是間接通訊的核心">5. mailbox(port) 是間接通訊的核心<a class="headerlink" href="#5-mailboxport-是間接通訊的核心" title="Permanent link"></a></h5>
+<p>這是第二張圖最該記住的字</p>
+<hr />
+<h4 id="你可以這樣背整段">你可以這樣背整段<a class="headerlink" href="#你可以這樣背整段" title="Permanent link"></a></h4>
+<p>我幫你濃縮成考前版：</p>
+<ul>
+<li><strong>Message Passing</strong>：行程不共享記憶體，也能靠 <code>send</code> / <code>receive</code> 溝通與同步</li>
+<li><strong>Direct communication</strong>：直接指定對方 process</li>
+<li><strong>Indirect communication</strong>：透過 mailbox(port) 傳訊息</li>
+<li><strong>blocking</strong>：呼叫後要等</li>
+<li><strong>nonblocking</strong>：呼叫後不等，立刻返回</li>
+</ul>
+<hr />
+<h4 id="小結_1">小結<a class="headerlink" href="#小結_1" title="Permanent link"></a></h4>
+<p>這三張圖其實就是在建立 Message Passing 的完整骨架：</p>
+<ol>
+<li><strong>它是什麼</strong>：一種 IPC(行程間通訊)方法</li>
+<li><strong>怎麼送</strong>：<code>send</code> / <code>receive</code></li>
+<li><strong>送給誰</strong>：direct 或 indirect</li>
+<li><strong>要不要等</strong>：blocking 或 nonblocking</li>
+</ol>
+<p>如果你要，我下一步可以直接幫你把這三張整理成一份<br />
+<strong>「考試背誦版 + 容易混淆比較表」</strong>，讓你可以 1 分鐘快速複習。</p>
 
 
 
@@ -13995,7 +16188,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
       
       
         <a
-          href="windows%20CLI%20%E6%8C%87%E4%BB%A4.html"
+          href="ch%204.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -14004,7 +16197,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
               <span class="md-footer__direction">
                 Next
               </span>
-              windows CLI 指令
+              Ch 4
             </div>
           </div>
           <div class="md-footer__button md-icon">
