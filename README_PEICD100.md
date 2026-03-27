@@ -164,3 +164,4 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-22：已再把窄版 `目錄` 控制改成 header 內的原生 icon 按鈕，直接插在 search 按鈕右邊；作法是讓 `toc-fold.js` 在 mobile 時把按鈕掛到 `.md-header`，並沿用 `md-header__button md-icon` 風格，同步補上 `aria-expanded` / `aria-controls` / `aria-label`，且在 search 展開時自動隱藏；本次也把 `自定義.css` 版本參數更新為 `20260322-2`，並再次確認 `.gitignore` 不需變更。
 - 2026-03-27：已修正 `docs/md/114-2/電機_作業系統/ch 3.md` 中一個 Mermaid flowchart 無法渲染的問題；作法是把含有括號與中英混排的節點標籤改成 Mermaid 官方較穩的雙引號字串寫法。
 - 2026-03-27：已修正 `/// collapse-code` 產生的展開/收合按鈕異常提示問題；作法是移除會觸發瀏覽器原生 tooltip 的 `title` 輸出，改用隱藏文字保留可存取名稱，並在 `自定義.css` 將 icon-only 按鈕改成固定尺寸與穩定定位，避免 `expand` 提示殘留與 `collapse` 跑到左上角。
+- 2026-03-27：已在 `docs/md/114-2/科技_計算機結構/SI 前綴表.md` 補上 `peta` 與 `pico` 兩列，並依臺灣法定度量衡單位使用指南採用中文前綴 `拍`、`皮`。
