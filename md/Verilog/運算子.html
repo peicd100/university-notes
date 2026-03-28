@@ -14,7 +14,7 @@
         <link rel="prev" href="%E6%95%B8%E5%80%BC.html">
       
       
-        <link rel="next" href="vector.html">
+        <link rel="next" href="%E9%81%8B%E7%AE%97%E5%AD%90%E5%84%AA%E5%85%88%E5%BA%A6.html">
       
       
         
@@ -2840,6 +2840,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3098,6 +3100,23 @@ is now available!
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Reduction operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nor--nand-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nor 、 nand ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3164,6 +3183,34 @@ is now available!
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E9%81%8B%E7%AE%97%E5%AD%90%E5%84%AA%E5%85%88%E5%BA%A6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運算子優先度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4974,6 +5021,23 @@ is now available!
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Reduction operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nor--nand-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nor 、 nand ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -5073,9 +5137,14 @@ bitwise vs logical、<code>==</code> vs <code>===</code>、運算式位寬 vs �
 <span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span>
 <span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span>
 <span class="n">a</span><span class="w"> </span><span class="o">~^</span><span class="w"> </span><span class="n">b</span>
+<span class="n">a</span><span class="w"> </span><span class="o">^~</span><span class="w"> </span><span class="n">b</span>
+<span class="o">~</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="o">~</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
 </code></pre></div>
 <ul>
 <li>逐 bit 計算。</li>
+<li>binary XNOR 可寫成 <code>a ~^ b</code> 或 <code>a ^~ b</code>。</li>
+<li>binary NAND / NOR 在標準 Verilog 寫成 <code>~(a &amp; b)</code>、<code>~(a | b)</code>，不是 <code>a ~&amp; b</code>、<code>a ~| b</code>。</li>
 <li>輸出寬度通常跟 operand 位寬對齊。</li>
 </ul>
 <h3 id="logical-operators">Logical operators<a class="headerlink" href="#logical-operators" title="Permanent link"></a></h3>
@@ -5088,15 +5157,121 @@ bitwise vs logical、<code>==</code> vs <code>===</code>、運算式位寬 vs �
 <li>結果永遠是 1 bit。</li>
 </ul>
 <h3 id="reduction-operators">Reduction operators<a class="headerlink" href="#reduction-operators" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="o">&amp;</span><span class="n">in</span>
-<span class="o">|</span><span class="n">in</span>
-<span class="o">^</span><span class="n">in</span>
+<div class="highlight"><pre><span></span><code><span class="o">&amp;</span><span class="n">in</span><span class="w">   </span><span class="c1">// reduction AND</span>
+<span class="o">~&amp;</span><span class="n">in</span><span class="w">  </span><span class="c1">// reduction NAND</span>
+<span class="o">|</span><span class="n">in</span><span class="w">   </span><span class="c1">// reduction OR</span>
+<span class="o">~|</span><span class="n">in</span><span class="w">  </span><span class="c1">// reduction NOR</span>
+<span class="o">^</span><span class="n">in</span><span class="w">   </span><span class="c1">// reduction XOR</span>
+<span class="o">^~</span><span class="n">in</span><span class="w">  </span><span class="c1">// reduction XNOR</span>
+<span class="o">~^</span><span class="n">in</span><span class="w">  </span><span class="c1">// reduction XNOR</span>
 </code></pre></div>
 <ul>
-<li><code>&amp;in</code>：全部 bit 都是 <code>1</code> 才會得到 <code>1</code></li>
-<li><code>|in</code>：只要有任一個 bit 是 <code>1</code> 就得到 <code>1</code></li>
-<li><code>^in</code>：常用來做 parity</li>
+<li>全部都是 unary reduction operator，會把整條 vector 壓成 <code>1 bit</code>。</li>
+<li>可以把它想成「把整條 bus 一路折疊運算到最後只剩 1 個 bit」。</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>寫法</th>
+<th>名稱</th>
+<th>例子</th>
+<th>結果說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;in</code></td>
+<td>reduction AND</td>
+<td><code>&amp;4'b1111</code></td>
+<td><code>1'b1</code>，全部 bit 都是 <code>1</code></td>
+</tr>
+<tr>
+<td><code>&amp;in</code></td>
+<td>reduction AND</td>
+<td><code>&amp;4'b1011</code></td>
+<td><code>1'b0</code>，只要有任一 bit 不是 <code>1</code></td>
+</tr>
+<tr>
+<td><code>~&amp;in</code></td>
+<td>reduction NAND</td>
+<td><code>~&amp;4'b1111</code></td>
+<td><code>1'b0</code>，是 <code>&amp;</code> 的反相</td>
+</tr>
+<tr>
+<td><code>~&amp;in</code></td>
+<td>reduction NAND</td>
+<td><code>~&amp;4'b1011</code></td>
+<td><code>1'b1</code></td>
+</tr>
+<tr>
+<td><code>|in</code></td>
+<td>reduction OR</td>
+<td><code>|4'b0000</code></td>
+<td><code>1'b0</code>，全部 bit 都是 <code>0</code></td>
+</tr>
+<tr>
+<td><code>|in</code></td>
+<td>reduction OR</td>
+<td><code>|4'b1011</code></td>
+<td><code>1'b1</code>，只要有任一 bit 是 <code>1</code></td>
+</tr>
+<tr>
+<td><code>~|in</code></td>
+<td>reduction NOR</td>
+<td><code>~|4'b0000</code></td>
+<td><code>1'b1</code>，是 <code>|</code> 的反相</td>
+</tr>
+<tr>
+<td><code>~|in</code></td>
+<td>reduction NOR</td>
+<td><code>~|4'b1011</code></td>
+<td><code>1'b0</code></td>
+</tr>
+<tr>
+<td><code>^in</code></td>
+<td>reduction XOR</td>
+<td><code>^4'b1011</code></td>
+<td><code>1'b1</code>，共有 3 個 <code>1</code>，odd parity</td>
+</tr>
+<tr>
+<td><code>^in</code></td>
+<td>reduction XOR</td>
+<td><code>^4'b1001</code></td>
+<td><code>1'b0</code>，共有 2 個 <code>1</code>，even parity</td>
+</tr>
+<tr>
+<td><code>^~in</code></td>
+<td>reduction XNOR</td>
+<td><code>^~4'b1011</code></td>
+<td><code>1'b0</code>，是 <code>^</code> 的反相</td>
+</tr>
+<tr>
+<td><code>~^in</code></td>
+<td>reduction XNOR</td>
+<td><code>~^4'b1001</code></td>
+<td><code>1'b1</code>，和 <code>^~</code> 同義</td>
+</tr>
+</tbody>
+</table>
+<p>整組一起看：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1111</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1011</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b0000</span><span class="p">;</span>
+<span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mb">&#39;b1001</span><span class="p">;</span>
+
+<span class="k">assign</span><span class="w"> </span><span class="n">r_and</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_nand</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">~&amp;</span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_or</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">b</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_nor</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">~|</span><span class="n">c</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_xor</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">^</span><span class="n">b</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_xnor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">^~</span><span class="n">b</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">r_xnor2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~^</span><span class="n">d</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1</span>
+</code></pre></div>
+<ul>
+<li><code>^~in</code> 和 <code>~^in</code> 在 Verilog 都表示 reduction XNOR。</li>
+</ul>
+<h4 id="nor--nand-">nor 、 nand ?<a class="headerlink" href="#nor--nand-" title="Permanent link"></a></h4>
+<p>實際上 ~&amp;B 和 ~|B 只是兩個一元運算分別運算而已，也就是先算 &amp;B 再算 ~(&amp;B)。</p>
 <h3 id="arithmetic--shift">Arithmetic / shift<a class="headerlink" href="#arithmetic--shift" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
 <span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span>
@@ -5231,7 +5406,7 @@ bitwise vs logical、<code>==</code> vs <code>===</code>、運算式位寬 vs �
       
       
         <a
-          href="vector.html"
+          href="%E9%81%8B%E7%AE%97%E5%AD%90%E5%84%AA%E5%85%88%E5%BA%A6.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -5240,7 +5415,7 @@ bitwise vs logical、<code>==</code> vs <code>===</code>、運算式位寬 vs �
               <span class="md-footer__direction">
                 Next
               </span>
-              Vector、MSB 與 LSB
+              運算子優先度
             </div>
           </div>
           <div class="md-footer__button md-icon">
