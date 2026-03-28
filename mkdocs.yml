@@ -284,6 +284,7 @@ nav:
         - '常見資料型別': 'md/Verilog/常見資料型別.md'
         - '數值與 Literal': 'md/Verilog/數值.md'
         - '運算子': 'md/Verilog/運算子.md'
+        - 'md/Verilog/運算子優先度.md'
         - 'Vector、MSB 與 LSB': 'md/Verilog/vector.md'
         - 'md/Verilog/Generate.md'
         - 'md/Verilog/四則運算.md'
