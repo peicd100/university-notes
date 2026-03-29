@@ -637,4 +637,2035 @@ sub d, a, e
 [2]: https://www.cs.cornell.edu/courses/cs3410/2012sp/lecture/12-risc-cisc-and-assemblers-i.pdf?utm_source=chatgpt.com "RISC, CISC, and Assemblers - Cornell: Computer Science"
 
 
+## 暫存器
+![alt text](<images/ch 2-2.png>)
+![alt text](<images/ch 2-3.png>)
+![alt text](<images/ch 2-4.png>)
+![alt text](<images/ch 2-5.png>)
+![alt text](<images/ch 2-6.png>)
+![alt text](<images/ch 2-7.png>)
+![alt text](<images/ch 2-9.png>)
 
+### 講解
+
+已啟用教學模式
+
+#### 這幾張圖在回答什麼問題
+
+這一串投影片其實是在回答同一件事：
+
+**CPU 為什麼這麼在意暫存器(Register)，以及當暫存器不夠、或放得不好時，會出什麼問題？**
+
+整體脈絡是這樣：
+
+```mermaid
+flowchart TB
+A[通用暫存器<br>很快、很少、很珍貴] --> B[暫存器規劃<br>先把資料放進哪個暫存器]
+B --> C[暫存器配置<br>Compiler(編譯器)決定誰住哪]
+C --> D[暫存器溢出<br>不夠放就搬去 Memory(記憶體)]
+C --> E[暫存器庫/Register File Bank<br>把暫存器分組方便平行存取]
+E --> F[暫存器衝突/Register Conflict<br>想同時用，但位置安排卡住]
+F --> G[重新分配、copy、stack/memory 暫存]
+```
+
+這個鏈條正是你貼的幾頁內容：通用暫存器、暫存器規劃、暫存器術語、暫存器庫、暫存器衝突與解決。
+
+---
+
+#### 先講直覺：把暫存器想成「CPU 手邊的小抽屜」
+
+生活化例子：
+
+你在桌上算數學題時，不會每寫一步都跑去樓下倉庫拿紙。
+
+你會把現在最常用的東西，先放在桌上。
+
+在電腦裡：
+
+* **Register(暫存器)** 像桌面小抽屜，超快，但很少
+* **Memory(記憶體)** 像書櫃，容量大，但比較慢
+* **Disk(磁碟)** 更像倉庫，更大但更慢
+
+所以 CPU 會盡量把「現在馬上要算的值」放進 Register(暫存器)。這也是投影片先介紹通用暫存器的原因：它是高速、暫時、數量不多的儲存位置。
+
+另外，MIPS 屬於典型的 **load-store architecture(載入/儲存架構)**，也就是算術運算大多在暫存器之間做，記憶體資料要先 `load` 進暫存器，算完再 `store` 回去；MIPS 也有 32 個 general-purpose registers(通用暫存器)。([維基百科][1])
+
+---
+
+#### 核心概念 1：通用暫存器是什麼
+
+>其實就是前面章節講到的「一般用途暫存器」
+
+投影片「通用暫存器」那頁重點是：
+
+* 它很快
+* 它是處理器的一部分
+* 它是暫時儲存裝置
+* 數量不大
+* 用來裝目前運算要用的值 
+
+正式一點說：
+
+**General-purpose register(通用暫存器)** 是 CPU 內部可被一般指令直接讀寫的高速儲存位置。
+
+為什麼重要？
+
+因為在 MIPS 這種 **register-register(暫存器對暫存器)** 風格裡，像 `add` 這類算術指令，來源和目的地通常都是 register，不是直接在 memory 上算。 ([維基百科][1])
+
+---
+
+#### 核心概念 2：暫存器規劃(Register Planning)
+
+投影片用一個最簡單的例子：
+
+`Z = X + Y`
+
+流程是：
+
+1. 把 `X` 載入某個暫存器
+2. 把 `Y` 載入另一個暫存器
+3. 相加
+4. 結果放到第三個暫存器
+5. 再把結果寫回 `Z` 
+
+這頁真正想講的是：
+
+**CPU 不會直接對變數名字 X、Y、Z 運算。它實際上只認得「哪個 register 裡面有值」。**
+
+所以「程式看起來是變數在運算」，但「硬體實際上是 register 在運算」。
+
+生活化說法就是：
+
+你嘴巴說「幫我算 X + Y」，
+但助教真正做的是：
+
+* 左手拿第 3 格抽屜的東西
+* 右手拿第 6 格抽屜的東西
+* 算完先放第 7 格抽屜
+
+---
+
+#### 核心概念 3：暫存器配置(Register Allocation) 與暫存器溢出(Register Spilling)
+
+投影片「暫存器術語」那頁講了兩個非常常考的詞：
+
+##### 1. Register Allocation(暫存器配置)
+
+就是：
+
+**決定哪個值要放到哪個 register。** 
+
+通常這件事主要由 Compiler(編譯器) 做。
+
+##### 2. Register Spilling(暫存器溢出/外溢)
+
+當 register 不夠用時，只好把原本在 register 裡的某些值暫時搬去 memory，等之後需要再載回來。投影片就是這樣定義的。
+
+GCC 的文件也說得很接近：當編譯器可用的 machine registers(硬體暫存器) 不夠時，會把某些值改放到 stack slot(堆疊空間) 或其他位置，這就是 spilling。([GCC][2])
+
+生活化例子：
+
+你桌上只有 3 個小抽屜，但現在要同時算 6 個中間結果。
+那就只能把暫時用不到的結果，先拿去旁邊櫃子放一下。
+這個「先搬出去」就是 spill。
+
+---
+
+#### 核心概念 4：暫存器庫(Register File / Register Bank)
+
+你貼的「暫存器庫」和「暫存器庫圖」兩頁，重點不是說突然多了一套新暫存器概念，而是在講：
+
+**暫存器可以再被硬體切成不同組，讓硬體同時從不同組拿資料。** 
+
+圖上左邊是暫存器庫 A，右邊是暫存器庫 B。
+圖的文字也明講：把 8 個暫存器分成兩個暫存器庫，處理器可以同時存取這兩個暫存器庫。
+
+這在直覺上很好懂：
+
+* 如果兩個加法輸入值分別放在 A、B 兩邊
+* ALU(算術邏輯單元) 就能同時抓到兩個值
+* 平行度更高，速度更好
+
+---
+
+#### 核心概念 5：暫存器衝突(Register Conflict) 到底是什麼
+
+這裡最容易混淆，我們要特別拆開。
+
+投影片說的重點是：
+
+* 在 RISC 這類 register-register 設計中，運算元必須先放進暫存器
+* 但你**無法保證每個指令的運算元都剛好來自不同暫存器庫**
+* 如果變數很多、暫存器有限，就會出現暫存器衝突
+
+##### 直覺版
+
+你有兩個抽屜櫃 A、B，
+老師規定做加法時要同時從 A 和 B 各拿一個值。
+
+但你現在偏偏把 `X` 和 `Y` 都塞在 A 裡，
+那這一拍就沒辦法很順地同時拿到兩個輸入。
+
+這就卡住了。
+
+##### 正式版
+
+這裡投影片的「Register Conflict(暫存器衝突)」其實混合了兩個很接近的概念：
+
+一個是 **register pressure(暫存器壓力)**
+也就是活躍變數太多，register 數量不夠。
+
+另一個比較像 **register bank conflict(暫存器庫衝突)**
+也就是硬體想平行讀多個 operand(運算元)，但它們被放到不利的 bank(庫) 裡。這點從投影片一直強調「不同暫存器庫」可以看出來。
+
+所以我幫你校正一下：
+
+* ✅ **這份投影片的脈絡下**，這樣講「暫存器衝突」是可以理解的
+* ❌ **但若放到更嚴格的 Computer Architecture(計算機結構) 術語**，它不完全等於我們常在 pipeline(管線) 裡講的 data hazard(資料冒險)
+
+這是很容易考混的地方。
+
+---
+
+#### 為什麼例子 `R ← X + Y`、`S ← Z - X`、`T ← Y + Z` 會出事
+
+投影片給的例子很重要。
+
+表面上只看到 3 條式子，但硬體角度會想：
+
+* `X`、`Y`、`Z` 現在各住哪裡？
+* 這三條指令執行時，哪些值需要同時活著？
+* 兩個來源 operand 能不能在同一拍被 ALU 順利讀出？
+
+如果：
+
+* 暫存器數量很少
+* 或者 register bank 分配得不好
+* 或者同時活躍的值太多
+
+就可能發生：
+
+* 有些值得先 spill 到記憶體
+* 要多插幾條 move/load/store
+* 執行變慢
+* 安排錯還可能導致結果錯誤或程式不順 
+
+---
+
+#### 為什麼會這樣
+
+根本原因只有一句：
+
+**因為快的資源很少。**
+
+Register 很快，但數量有限。
+Memory 很大，但比較慢。
+
+所以整個 Compiler + Hardware 的工作，就是在做一個折衷：
+
+* 盡量多把常用值留在 register
+* 但 register 不夠時要決定誰先出去
+* 還要考慮硬體是不是有 bank 分組、哪些指令需要哪些暫存器格式
+
+這也是為什麼教材前面一直強調 RISC 設計追求簡單、固定格式、register-to-register。 ([維基百科][1])
+
+---
+
+#### 解決方法：你貼的最後一張在說什麼
+
+投影片列了 3 大方向：
+
+##### 1. 編譯器或組譯器警告
+
+系統先提醒你：「這裡 register 配置可能有風險。」
+
+##### 2. 重新指定暫存器
+
+把不同變數改放到不同 register。
+
+##### 3. 插入 Move/Copy
+
+先把某個值複製到另一個 register，避開卡住的位置。
+
+##### 4. 用 Stack(堆疊) 或 Memory(記憶體) 暫存
+
+減輕 register 壓力。這其實就是 spilling 的實務做法。 ([GCC][2])
+
+---
+
+#### 最容易考 / 最容易混淆
+
+##### 容易混淆 1：暫存器溢出 ≠ 算術 overflow(溢位)
+
+* **Register spilling(暫存器溢出/外溢)**：register 不夠，值搬去 memory
+* **Arithmetic overflow(算術溢位)**：數值太大，位元表示不下
+
+這兩個中文都常被翻成「溢出」，很容易混。
+
+##### 容易混淆 2：暫存器衝突 ≠ pipeline data hazard
+
+這份投影片的「衝突」重點比較偏向：
+
+* register 不夠
+* register bank 分配不佳
+* operand 無法理想平行取出
+
+不是在講 `add` 後面馬上 `sub` 讀到舊值那種經典 RAW hazard。
+
+##### 容易混淆 3：暫存器庫 ≠ cache
+
+Register file(暫存器庫/暫存器集合) 是 CPU 內部的 register 組織方式。
+它不是 L1/L2 cache。
+
+---
+
+#### 小結
+
+你這幾張圖可以濃縮成一句話：
+
+**CPU 想快，就要盡量在 Register(暫存器) 裡算；但 Register 很少，所以必須做精細的配置。配置不好，就會發生暫存器壓力、暫存器庫衝突，於是只好重新分配、複製資料，或把資料暫時丟回 Stack/Memory。**
+
+---
+
+#### 我幫你再壓成超短版背誦口訣
+
+你可以背這個：
+
+> **暫存器很快但很少，先配置；不夠就 spill；有分庫時還要避衝突。**
+
+---
+
+#### 你現在最應該記住的 4 句
+
+1. **Register(暫存器)** 是 CPU 裡最快、最少的暫存空間。
+2. **Register Allocation(暫存器配置)** 是決定值要放哪個暫存器。
+3. **Register Spilling(暫存器外溢)** 是暫存器不夠時，把值暫時搬去記憶體。 ([GCC][2])
+4. **Register Conflict(這份投影片的用法)** 比較接近「暫存器壓力 + 暫存器庫分配衝突」，不是單純 pipeline hazard。
+
+下一步我建議我們直接把這幾頁內容，改寫成「考試版筆記 + 例題版」，你會更好背。
+
+[1]: https://en.wikipedia.org/wiki/MIPS_architecture?utm_source=chatgpt.com "MIPS architecture"
+[2]: https://gcc.gnu.org/news/spill.html?utm_source=chatgpt.com "Localized Register Spilling - GNU Project"
+
+## CISC and RISC summary
+
+
+
+![alt text](<images/ch 2-13.png>) ![alt text](<images/ch 2-14.png>) ![alt text](<images/ch 2-15.png>)
+
+### 講解
+
+已啟用教學模式
+
+#### 這三頁在回答什麼問題
+
+這三頁是在做一個收尾：
+
+**前面介紹了 instruction set(指令集) 的各種概念後，最後把處理器大方向分成 CISC 與 RISC，並告訴你它們各自偏好的設計哲學。**
+
+先講最重要結論：
+
+* 第 41、42 頁是在做 **CISC vs RISC 對照整理**
+* 第 43 頁是在給你 **非常簡化的分類口訣**
+* 但第 43 頁那句「RISC 每個指令都只要 1 個時脈週期」要小心，**拿來入門可以，拿來當絕對定義就太粗了**。IBM 與 Arm 的官方說明都把 RISC 描述成「較精簡、較規則、利於 pipeline(管線) 與 register(暫存器) 使用」；但並不是說現代所有 RISC 指令都永遠固定 1 cycle。社群討論也常特別提醒這點。([IBM][1])
+
+---
+
+#### 先講直覺
+
+你可以先把它想成兩種做事風格：
+
+* **CISC(Complex Instruction Set Computer)**：一條指令想包比較多事情
+* **RISC(Reduced Instruction Set Computer)**：把事情拆成比較簡單、比較規則的小步驟
+
+生活化例子：
+
+* CISC 像「一鍵完成」的多功能機器
+* RISC 像「每一步都簡單明確」的流水線工作台
+
+所以這不是單純在比誰高級，而是在比：
+
+**複雜度是放在 instruction(指令) 本身，還是放在 compiler(編譯器) 與規則化設計上。** IBM 對 RISC 的歷史說明，就是把它描述成用簡化指令換取更快執行；Arm 也把 RISC 描述成小而優化的指令集合。([IBM][1])
+
+---
+
+```mermaid
+flowchart TB
+A[CISC<br>指令較複雜] --> B[單條指令做比較多事]
+B --> C[常直接碰 memory operand]
+
+D[RISC<br>指令較精簡] --> E[指令格式較規則]
+E --> F[偏向 register-register]
+F --> G[記憶體存取拆成<br>LOAD / STORE]
+G --> H[更仰賴 compiler 排程與 register 配置]
+```
+
+---
+
+#### 第 41 頁：英文總表到底在說什麼
+
+這張表的核心你可以這樣讀。
+
+##### 1. Emphasis on hardware / Emphasis on software
+
+這不是說：
+
+* CISC 只有硬體
+* RISC 只有軟體
+
+真正意思是：
+
+* **CISC** 歷史上常把較多複雜度放進硬體解碼、控制邏輯，甚至 microcode(微碼)
+* **RISC** 則傾向把 ISA(Instruction Set Architecture，指令集架構) 設計得比較規則，讓 compiler 比較容易最佳化
+
+所以這句最好改背成：
+
+> **CISC 比較把複雜度做進硬體；RISC 比較把規則化設計交給編譯器去善用。**
+
+這和 IBM、Arm 的官方描述一致。([IBM][1])
+
+##### 2. Many transistors used for complex instructions / Spends more transistors on memory registers
+
+這一列投影片原文其實寫得不夠好，尤其 `memory registers` 這個說法不太自然。
+
+比較合理的理解是：
+
+* **CISC**：硬體資源更多放在支援複雜 instruction 與解碼
+* **RISC**：比較偏向規則執行結構、較多 registers、較簡單解碼與 pipeline
+
+Arm 官方甚至直接提到：因為 RISC 缺少複雜解碼邏輯，所以能放進更多 **general-purpose registers(通用暫存器)**。所以這一列不是在說 RISC 一定「總電晶體數更多」，而是在說 **資源配置方向不同**。([Arm][2])
+
+##### 3. Includes multi-clock complex operations / Single-clock, simple operations
+
+這一列是很典型的教科書口訣，但要加註腳。
+
+* **CISC**：常有較複雜、較重的指令
+* **RISC**：傾向簡單、規則、易 pipeline 的指令
+
+但你不能把它硬背成：
+
+* CISC 一定多時脈
+* RISC 一定每條都單時脈
+
+因為真正需要幾個 cycles，還會受 microarchitecture(微架構)、pipeline stall、cache miss 等影響。社群常見的糾正就是：**不是所有 RISC 指令都花一樣時間**。([IBM][1])
+
+##### 4. Memory-to-memory / Register-to-register
+
+這一列是最值得記的。
+
+* **CISC**：常允許 instruction 直接帶 memory operand(記憶體運算元)
+* **RISC**：偏向先 `LOAD` 到 register，再在 register 間運算，最後必要時 `STORE` 回去
+
+這就是你前面一直看到的 **load-store architecture(載入/儲存架構)**。RISC-V 官方文件就把 base ISA 分成 integer computational instructions、loads、stores、control-flow instructions，表示「運算」和「存取記憶體」是分開的。([RISC-V 文檔][3])
+
+##### 5. Small code sizes / Variable length of instruction vs large code sizes / Fix length of instruction
+
+這一列也是「大方向正確，但別背太死」。
+
+* x86 類 CISC 的確常是 **variable-length instruction(可變長指令)**；Intel 官方 XED 文件明寫 x86 指令可為 **1 到 15 bytes**。([Intel][4])
+* 經典 RISC 常強調 **fixed-length instruction(固定長度指令)**；RISC-V base ISA 官方也明寫是 **fixed-length 32-bit instructions**。([RISC-V 文檔][3])
+
+但要注意：
+
+* RISC-V 也支援 compressed extension(壓縮指令延伸)，會有 16-bit 指令
+* 所以「RISC 永遠固定長度」不是無條件真理，只是在基礎教材層次上很好用的口訣。([RISC-V 文檔][3])
+
+---
+
+#### 第 42 頁：中文表格其實是在幫你更好背
+
+這頁其實只是把第 41 頁改成比較適合考前複習的表。
+
+你可以直接背成這一版：
+
+| 項目    | CISC                 | RISC                |
+| ----- | -------------------- | ------------------- |
+| 設計哲學  | 複雜指令較多               | 簡單規則指令較多            |
+| 週期傾向  | 常見較重、較長              | 常見較簡單、利於 pipeline   |
+| 指令格式  | 常可變長                 | 基礎教材常記固定長           |
+| 資料運算  | 常可直接碰 memory operand | 偏 register-register |
+| 程式碼長度 | 常較短                  | 常較長                 |
+
+這個版本比原投影片更安全，因為它保留了趨勢，但沒有講得太死。官方文件和社群經驗都支持這種「看成趨勢，不看成鐵律」的讀法。([IBM][1])
+
+---
+
+#### 第 43 頁：這頁是考試口訣，但你要知道哪裡被簡化了
+
+第 43 頁大意是：
+
+* 指令很多、複雜、通常較耗時 → CISC
+* 指令較少、每個指令執行時間很短 → RISC
+
+這樣教在入門時很好，因為它把重點抓出來了。IBM 歷史頁面也確實說，RISC 的出發點就是精簡 instruction set，讓執行更快、更容易做 pipeline。([IBM][1])
+
+但你要知道它有兩個被簡化的地方：
+
+##### 簡化 1：RISC 不是「只要少數指令」就夠了
+
+RISC 真正重點不是單純「指令數量少」，而是：
+
+* 指令**規則化**
+* 功能**簡單化**
+* 適合 **register-oriented(以暫存器為中心)** 的設計
+* 記憶體操作與運算分開
+
+所以如果考試問你「RISC 的核心精神是什麼」，不要只答「指令少」，要答得更完整。([IBM][1])
+
+##### 簡化 2：RISC 不是所有指令都保證 1 個 clock
+
+這句最容易誤會。
+
+教科書常把 RISC 簡化成「single-clock simple operations」，是因為它想強調「簡單、規則、利 pipeline」。但實際上：
+
+* 現代 RISC CPU 仍可能遇到 stall
+* 某些指令本來就不會和最基本的整數加法同樣成本
+* cache miss、branch、浮點、SIMD 等都會影響實際延遲
+
+社群上這點是常見糾正：**RISC 不等於所有 instruction latency 完全一致**。([Computer Science Stack Exchange][5])
+
+---
+
+#### 為什麼你們課本這樣教，仍然是有價值的
+
+因為在大一大二這種入門階段，老師先要你抓到的是：
+
+* CISC：複雜指令、常直接碰 memory、指令編碼可較複雜
+* RISC：簡單規則、重 register、load/store 分離、較利 pipeline
+
+這個骨架先建立起來，你之後學：
+
+* pipeline(管線)
+* register allocation(暫存器配置)
+* load/store
+* fixed vs variable-length encoding(固定長與可變長編碼)
+
+才不會散掉。IBM、Arm、RISC-V 官方文件都可以拿來支撐這個骨架。([IBM][1])
+
+---
+
+#### 最容易考 / 最容易混淆
+
+##### 1. RISC 不等於「一定比較快」
+
+真正效能還跟微架構、快取、分支預測、編譯器品質有關，不是光看 RISC/CISC 四個字就能下結論。社群也常提醒：現代 CPU 的界線其實比教科書模糊。([Computer Science Stack Exchange][5])
+
+##### 2. CISC 不等於「可以完全 memory-to-memory 做所有事」
+
+比較精確的說法是：**CISC 常支援 memory operand**，不是說所有複雜操作都可以任意「記憶體對記憶體」完成。這點教材會簡化。([Intel][4])
+
+##### 3. RISC 不等於「永遠固定長度、永遠單時脈」
+
+RISC-V base ISA 確實是固定 32-bit，但擴充後可以有 16-bit 指令；而且 single-cycle 也只是入門口訣。([RISC-V 文檔][3])
+
+---
+
+#### 小結
+
+這三頁你可以濃縮成一句話：
+
+> **CISC 傾向把更多功能塞進單條指令；RISC 傾向把操作拆成簡單、規則、以 register 為中心的步驟，並用 load/store 分離記憶體存取。**
+
+而第 43 頁的定義，你考試可以先這樣寫，但心裡要知道它是**簡化版**，不是完整版。([IBM][1])
+
+---
+
+#### 考試版超短背法
+
+**CISC：指令較複雜、常可直接用 memory operand、可變長、程式較短**
+**RISC：指令較簡單規則、偏 register-register、load/store 分離、基礎教材常記固定長** ([Intel][4])
+
+---
+
+#### 你現在最該記住的 3 句
+
+1. **CISC 與 RISC 比的是設計哲學，不只是比誰指令多誰指令少。** ([IBM][1])
+2. **RISC 的核心是簡單規則、register-oriented、load/store 分離。** ([Arm][2])
+3. **「RISC 每條都 1 個 clock」是教學簡化，不是嚴格定義。** ([Computer Science Stack Exchange][5])
+
+下一張你貼上來，我們可以繼續照這個方式拆。
+
+[1]: https://www.ibm.com/history/risc?utm_source=chatgpt.com "RISC | IBM"
+[2]: https://www.arm.com/ja/glossary/risc?utm_source=chatgpt.com "What is RISC? – Arm®"
+[3]: https://docs.riscv.org/reference/isa/v20240411/unpriv/intro.html?utm_source=chatgpt.com "Introduction :: RISC-V Ratified Specifications Library"
+[4]: https://www.intel.com/content/www/us/en/developer/articles/tool/xed-x86-encoder-decoder-software-library.html?utm_source=chatgpt.com "Intel® X86 Encoder Decoder Software Library"
+[5]: https://cs.stackexchange.com/questions/48515/cisc-and-risc-synchronous-and-asynchronous?utm_source=chatgpt.com "computer architecture - CISC and RISC - synchronous and asynchronous - Computer Science Stack Exchange"
+
+### CISC 如何 memory to memory
+
+已啟用教學模式
+
+#### 這段在回答什麼問題
+
+你問的是：
+
+**CISC(複雜指令集) 所謂的 Memory-to-Memory(記憶體到記憶體) 到底是怎麼做的？**
+
+---
+
+#### 先直接回答
+
+可以先記這一句：
+
+> **CISC 的 Memory-to-Memory，不是說 CPU 完全不用暫存器，而是說 ISA(Instruction Set Architecture，指令集架構) 允許某些指令直接把記憶體當成運算或搬移的對象。**
+
+也就是說，在 **RISC** 裡常常要：
+
+1. 先 `LOAD` 從記憶體把資料載進 Register(暫存器)
+2. 在 Register 裡運算
+3. 再 `STORE` 回記憶體
+
+但在 **CISC** 裡，有些指令可以把這幾步「包成一條或少數幾條」來做。Oracle 的 x86 手冊就列出 string instructions(字串指令)；例如 `MOVS` 會把 `DS:[(E)SI]` 的資料直接搬到 `ES:[(E)DI]`，`CMPS` 則直接比較兩個記憶體位置的內容。([Oracle Docs][1])
+
+---
+
+#### 先講直覺
+
+把它想成兩種搬箱子方式。
+
+##### RISC 的做法
+
+像這樣：
+
+* 先把 A 倉庫的箱子搬到你手上
+* 再把 B 倉庫的箱子搬到你另一隻手
+* 你手上處理完
+* 再放回某個位置
+
+也就是 **Memory → Register → 運算 → Register/Memory**
+
+##### CISC 的做法
+
+比較像：
+
+* 指令直接說「把這邊記憶體的一段資料搬去那邊記憶體」
+* 或「直接比較兩塊記憶體內容」
+
+所以它在語意上比較接近：
+
+**Memory ↔ Memory**
+
+但這是 **ISA 層級的表達方式**，不代表硬體內部真的完全沒有經過暫存或內部資料通路。([Oracle Docs][1])
+
+---
+
+#### 核心概念
+
+**Memory-to-Memory** 的重點是：
+
+* 指令的 **source operand(來源運算元)** 可以在記憶體
+* 指令的 **destination operand(目的運算元)** 也可以在記憶體
+* 有時兩個都明寫
+* 有時一個或兩個是 **implicit operand(隱含運算元)**
+
+x86 的經典例子就是字串指令：
+
+* `MOVS`：把一個記憶體位置的資料搬到另一個記憶體位置
+* `CMPS`：直接比較兩個記憶體位置的資料
+* 而且 `REP` 前綴可以讓這個動作重複很多次，做整段區塊處理。([Oracle Docs][1])
+
+---
+
+#### 具體怎麼做：以 x86 的 `MOVS` 為例
+
+Oracle x86 手冊寫得很直接：
+
+* `MOVS` 的操作是把 `DS:[(E)SI]` 搬到 `ES:[(E)DI]`
+* 做完後，`SI` 和 `DI` 會自動遞增或遞減
+* 如果前面加 `REP`，就可以重複搬很多個 byte/word/long。([Oracle Docs][1])
+
+你可以把它理解成這個流程：
+
+```mermaid
+flowchart TB
+A[SI/ESI/RSI 指向來源記憶體] --> B[讀出來源資料]
+B --> C[寫入 DI/EDI/RDI 指向的目的記憶體]
+C --> D[SI 與 DI 自動移到下一格]
+D --> E[若有 REP<br>就繼續重複]
+```
+
+所以像：
+
+```asm
+rep movsb
+```
+
+意思很接近：
+
+> 把來源記憶體的一串 byte，一個一個搬到目的記憶體。([Oracle Docs][1])
+
+---
+
+#### 再看一個例子：`CMPS`
+
+`CMPS` 不是先把兩邊都載到通用暫存器再比較，而是直接比較：
+
+* `DS:[(E)SI]`
+* `ES:[(E)DI]`
+
+這兩個記憶體位置的內容，然後更新 flags(旗標)。Oracle 手冊就是這樣描述的。([Oracle Docs][2])
+
+也就是說，這條指令的語意本身就是：
+
+**memory vs memory compare**
+
+---
+
+#### 但這裡有一個非常重要的修正
+
+你投影片把 CISC 寫成 **Memory-to-Memory**，這在**教材簡化層級**可以接受；但如果你把它理解成：
+
+> **CISC 的一般算術都可以隨便寫成 `Memory[A] = Memory[B] + Memory[C]`**
+
+那就太粗了，這樣不精確。
+
+以 **x86** 為例，社群整理指出：
+
+* 一般 x86 指令通常 **最多只有一個 explicit memory operand(顯式記憶體運算元)**
+* 真正有兩個 memory operands 的情況非常少
+* 常見的例外多半是 **string instructions**，像 `movs`、`cmps`，而且至少有一個是 **implicit memory operand**。([Stack Overflow][3])
+
+所以更精準地講應該是：
+
+> **CISC 常支援直接對 memory operand 操作；某些指令甚至能呈現 memory-to-memory 的效果，但不是所有一般算術都能任意雙記憶體運算。** ([Stack Overflow][3])
+
+---
+
+#### 為什麼教材還是會寫成 Memory-to-Memory
+
+因為老師在這一頁是在抓大方向，不是在講 x86 編碼細節。
+
+它想對比的是：
+
+* **RISC**：大多數運算先進 Register，再運算
+* **CISC**：比較常允許 instruction 直接碰記憶體，甚至能有近似 memory-to-memory 的指令語意
+
+所以這一頁真正想讓你記的是：
+
+> **CISC 對記憶體操作比較直接；RISC 對記憶體操作比較嚴格，通常要走 load/store。**
+
+這樣背就對了。
+
+---
+
+#### 生活化例子
+
+假設你要把倉庫 A 的一排貨品搬到倉庫 B。
+
+##### RISC 思路
+
+像一個規定很嚴格的流程：
+
+* 先從 A 拿一件到手上
+* 手上處理
+* 再放到 B
+* 每一步都分開寫
+
+##### CISC 思路
+
+像直接下指令給搬運機：
+
+* 「把 A 那一排搬到 B」
+* 或「比較 A 那一排跟 B 那一排是不是一樣」
+
+這就是為什麼 CISC 常讓人覺得「單條指令做比較多事」。
+
+---
+
+#### 最容易混淆
+
+##### 1. Memory-to-Memory 不等於完全沒有暫存器
+
+不是。
+這是在講 **ISA 表面上允許的操作形式**，不是說 CPU 內部資料路徑完全不碰任何暫存結構。
+
+##### 2. CISC 不等於所有指令都能雙記憶體算術
+
+這個很重要。
+**x86 的一般整數指令大多不是任意雙記憶體運算**；真正雙記憶體情況很少，常見是字串指令或帶 implicit memory 的特例。([Stack Overflow][3])
+
+##### 3. RISC 也不是完全不能碰記憶體
+
+RISC 當然可以碰記憶體，只是通常要用獨立的 `LOAD/STORE` 指令，不把一般算術和記憶體存取混成同一種風格。
+
+---
+
+#### 小結
+
+你可以把答案濃縮成這一句：
+
+> **CISC 的 Memory-to-Memory，意思是某些指令可以直接以記憶體作來源與目的地來搬移、比較，甚至部分操作；典型例子是 x86 的 `MOVS`、`CMPS`。但在 x86 裡，這種真正雙記憶體形式並不普遍，所以教材這句話是概括化、簡化過的說法。** ([Oracle Docs][1])
+
+---
+
+#### 考試版一句話
+
+**CISC 的 Memory-to-Memory 是指指令可直接操作記憶體中的資料，不一定要先全部載入暫存器；但這是概括說法，實際如 x86 真正雙記憶體指令並不多。** ([Oracle Docs][1])
+
+你如果要，我下一則可以直接幫你畫出
+**RISC 的 `LOAD-ADD-STORE`**
+對比
+**CISC 的 `MOVS/CMPS`**
+的指令流程圖。
+
+[1]: https://docs.oracle.com/cd/E19620-01/805-4693/6j4emccqo/index.html "docs.oracle.com"
+[2]: https://docs.oracle.com/cd/E19620-01/805-4693/instructionset-59/index.html "docs.oracle.com"
+[3]: https://stackoverflow.com/questions/52573554/what-x86-instructions-take-two-or-more-memory-operands "assembly - What x86 instructions take two (or more) memory operands? - Stack Overflow"
+
+### 所以 CISC 比較沒有暫存器衝突的問題嗎
+
+
+已啟用教學模式
+
+#### 直接回答
+
+❌ **不能直接說「CISC 比較沒有暫存器衝突」**。
+✅ **比較精準的說法是：CISC 在某些情況下可以減輕「表面上的 register pressure(暫存器壓力)」，但不會消除暫存器衝突或暫存器配置問題。** RISC-V 的 base ISA 明確是 **load-store architecture(載入/儲存架構)**，只有 load/store 會碰記憶體，算術指令只在 registers 上運作；相對地，x86 類 CISC 的一般指令常允許其中一個運算元來自記憶體。([RISC-V 文檔][1])
+
+---
+
+#### 先講直覺
+
+把它想成：
+
+* **RISC**：做菜前，材料都要先拿到桌上
+* **CISC**：有些步驟可以直接去櫃子拿一樣材料來用，不用全部先搬到桌上
+
+所以在你這份投影片那種簡化模型裡，**CISC 確實比較不容易立刻出現「每個 operand(運算元) 都得先卡住一個 register」的壓力**。
+
+例如同樣做 `Z = X + Y`：
+
+RISC 風格常像這樣：
+
+```asm
+lw   t0, X
+lw   t1, Y
+add  t2, t0, t1
+sw   t2, Z
+```
+
+x86 這類 CISC 常可以寫成：
+
+```asm
+mov  eax, [X]
+add  eax, [Y]
+mov  [Z], eax
+```
+
+這裡的差別是：RISC 的 `add` 只吃 register；x86 的 `ADD` 可以有一個 memory operand。這會讓「同時需要多少顯性暫存器」變少一些。([RISC-V 文檔][1])
+
+---
+
+#### 但為什麼答案還是不是「比較沒有」？
+
+因為你要分成兩層看。
+
+##### 1. 以投影片那種入門定義來看
+
+如果「暫存器衝突」是指：
+
+> 運算前，很多資料都必須先塞進 register，導致 register 不夠
+
+那麼 **CISC 常常會比 RISC 輕一點**，因為它有些指令可以直接讀 memory operand，不必所有來源都先進 register。RISC-V 官方規格就明寫算術只在 CPU registers 上做；x86 的 `ADD` 也允許其中一個 operand 是 memory。([RISC-V 文檔][1])
+
+##### 2. 以比較正式的 compiler / architecture 觀點來看
+
+**CISC 一樣會有很明顯的 register pressure(暫存器壓力)**，而且有時候還不小。GCC 內部文件直接把 **i386** 這類機器稱為 **generally register-starved(暫存器偏吃緊)**；GCC 也特別提到 AMD x86-64 的一些 legacy x86 integer instructions(舊式 x86 整數指令) 會要求特定 registers。這代表編譯器在 x86/CISC 上，照樣要做 register allocation(暫存器配置)、spilling(外溢到 stack)、以及避開特定 register 限制。([GCC][2])
+
+---
+
+#### 這裡最容易誤會的一點
+
+很多人一看到教材寫：
+
+**CISC = memory-to-memory**
+
+就會以為：
+
+> 那 CISC 幾乎都不用 register 了
+
+這是不對的。
+
+x86 雖然有一些真正呈現 **memory-to-memory 效果** 的字串指令，像 `MOVS` 會把 `DS:[SI/ESI]` 複製到 `ES:[DI/EDI]`，`CMPS` 會直接比較兩個記憶體位置；但這類例子多半是**特殊或隱含 operand 的指令**。社群整理也指出，x86 沒有「兩個任意 explicit memory operands(顯式記憶體運算元)」的一般指令形式，常見的 memory-to-memory 例子通常至少有一個是 implicit operand(隱含運算元)。
+
+所以更精準地說：
+
+> **CISC 不是不用 register，而是比較常允許「register + memory」混合運算，或提供少數特殊的 memory-to-memory 指令。**
+
+---
+
+#### 生活化例子
+
+假設你桌上只有 2 個空位。
+
+##### RISC
+
+老師規定：
+
+* 兩個材料都要先放桌上
+* 才能開始算
+
+那你很容易桌面不夠用。
+
+##### CISC
+
+老師允許：
+
+* 一個材料放桌上
+* 另一個材料可以邊從櫃子拿邊用
+
+那桌面壓力就比較小。
+
+但是：
+
+* 你還是需要桌面
+* 有些工具還是只能放特定位置
+* 有些步驟還是得先把東西搬到桌上
+
+所以 **CISC 是「壓力可能較小」，不是「沒有壓力」**。
+
+---
+
+#### 最容易考 / 最容易混淆
+
+##### 1. 「CISC 比較少 register conflict」只能算半對
+
+如果老師是在講 **所有 operand 都要先進 register** 這種入門模型，那可以說 **相對較不容易**。
+但如果你是在講 **compiler 的 register allocation 問題**，那 x86/CISC 一樣很常遇到，而且 GCC 還直接把 i386 視為 register-starved。([GCC][2])
+
+##### 2. memory-to-memory 不等於一般算術都能直接雙記憶體
+
+x86 的一般 `ADD` 明確說 **two memory operands cannot be used in one instruction**。也就是說，你不能把它想成 `[Z] = [X] + [Y]` 這種任意雙記憶體加法隨便都能寫。([felixcloutier.com][3])
+
+##### 3. CISC 的壓力有時只是被「轉移」
+
+它可能把一部分壓力從「顯性 GPR 數量」轉成：
+
+* 特定 register 限制
+* instruction encoding(指令編碼) 限制
+* compiler spill/reload 成本
+  這些在 GCC 的內部說明都看得到。([GCC][4])
+
+---
+
+#### 小結
+
+你可以把正確答案背成這一句：
+
+> **CISC 不是比較沒有暫存器衝突，而是因為它常能直接使用 memory operand，所以在教材那種「所有資料都得先進 register」的模型下，暫存器壓力通常比純 register-register 的 RISC 輕一些；但在真正的編譯器與硬體實作中，CISC 一樣有 register allocation、spilling、特定寄存器限制等問題。** ([RISC-V 文檔][1])
+
+#### 一句超短版
+
+**CISC 不是沒衝突，而是比較常「少用一點顯性暫存器」，但衝突仍然存在。**
+
+下一步我們可以直接把
+**RISC 的 `load-load-add-store`**
+和
+**x86/CISC 的 `mov-add-mov`**
+逐行對照，你會更清楚。
+
+[1]: https://docs.riscv.org/reference/isa/unpriv/rv32.html?utm_source=chatgpt.com "Untitled :: RISC-V Ratified Specifications Library"
+[2]: https://gcc.gnu.org/onlinedocs/gccint/Register-Classes.html?utm_source=chatgpt.com "Register Classes (GNU Compiler Collection (GCC) Internals)"
+[3]: https://www.felixcloutier.com/x86/add?utm_source=chatgpt.com "ADD — Add"
+[4]: https://gcc.gnu.org/news/spill.html?utm_source=chatgpt.com "Localized Register Spilling - GNU Project"
+
+
+## 2.3 計算機硬體的運算元
+
+![alt text](<images/ch 2-16.png>) ![alt text](<images/ch 2-17.png>) ![alt text](<images/ch 2-18.png>) ![alt text](<images/ch 2-20.png>) ![alt text](<images/ch 2-21.png>) ![alt text](<images/ch 2-19.png>) ![alt text](<images/ch 2-22.png>)
+
+### 講解
+
+已啟用教學模式
+
+#### 這幾頁在回答什麼問題
+
+這一段其實在回答同一個核心問題：
+
+**MIPS(RISC) 為什麼這麼在意 Register(暫存器)，以及資料如果不在 Register 裡，要怎麼搬進來算。**
+
+```mermaid
+flowchart TB
+A[Arithmetic instruction<br>算術指令] --> B[Operand 必須先在 Register]
+B --> C[但 Register 數量有限]
+C --> D[Compiler 做 Register Allocation<br>暫存器配置]
+D --> E[簡單變數可放 Register]
+E --> F[Array / Structure 太大<br>放在 Memory]
+F --> G[用 lw / sw<br>在 Memory 與 Register 間搬資料]
+```
+
+MIPS32 的一般事實是：有 32 個 general-purpose registers(通用暫存器)，算術運算在整個 register 上進行，而且 load/store 的位移量是用 **bytes(位元組)** 表示。([MIPS Training][1])
+
+---
+
+#### 先講直覺
+
+你可以把：
+
+* **ALU(算術邏輯單元)** 想成「工作台」 (Arithmetic Logic Unit(算術邏輯單元))
+* **Register(暫存器)** 想成「工作台旁邊的小抽屜」
+* **Memory(記憶體)** 想成「外面的倉庫」
+
+MIPS 的規則是：
+
+> **要在工作台上算，材料要先放進旁邊的小抽屜。**
+
+也就是說，MIPS 的算術指令不是直接對記憶體做一般運算，而是先把資料放進 register，再做加減等運算；這正是典型的 load/store 風格。([MIPS Training][1])
+
+---
+
+#### 第 44 頁：為什麼投影片一直強調「運算元必須來自暫存器」
+
+這頁的重點是：
+
+1. 算術指令的 operand(運算元) 受限制
+2. 這些 operand 必須來自硬體內建、數量有限的 register
+3. 在 MIPS32 裡，register 大小是 **32 bits**
+4. 這個 32-bit 的自然資料單位叫做 **word(字組/字)**
+
+更正式地說，Patterson/Hennessy 直接指出：MIPS 算術指令的運算元必須從 **32 個 32-bit registers** 中取出，而且在 MIPS 中，register 的大小是 32 bits，因此 **word** 這個自然單位也對應到 32 bits。MIPS 官方訓練教材也寫明：MIPS32 有 32 個 GPRs，算術指令在整個 register 上操作。([studylib.net][2])
+
+所以你可以把這頁濃縮成一句話：
+
+> **MIPS 要算東西，先看 register，不先看 memory。**
+
+---
+
+#### 第 45 頁：為什麼偏偏是 32 個暫存器
+
+這頁不是在說「技術上只能做 32 個」，而是在說：
+
+**設計上常選 32，是一個速度與編碼格式的折衷。**
+
+Patterson/Hennessy 提到兩個關鍵理由：
+
+* **Smaller is faster(愈小愈快)**：register 太多，內部訊號要跑更遠，可能拉長 clock cycle time(時脈週期時間)
+* register 數量變多，也會吃掉 instruction format(指令格式) 更多 bit，讓編碼更難設計
+
+也就是說，不是「32 神奇」，而是「太多不划算」。([studylib.net][2])
+
+---
+
+#### 這頁還有一個很值得你順手修正的地方
+
+投影片把：
+
+* `$s0, $s1, ...` 說成對應 C/Java 變數
+* `$t0, $t1, ...` 說成編譯需要的暫時暫存器
+
+**入門這樣記可以。**
+
+但更正式的 ABI(Application Binary Interface) / calling convention(呼叫慣例) 說法是：
+
+* `$t0-$t9` 是 **temporary registers(暫時暫存器)**，函式呼叫後不保證保留
+* `$s0-$s8` 是 **saved registers(保存暫存器)**，被呼叫函式若要用，必須先保存再恢復
+
+所以投影片是「教學簡化版」，不是最完整的定義。([MIPS Training][3])
+
+---
+
+#### 第 46–47 頁：Compiler(編譯器) 怎麼把 C 式子翻成 MIPS
+
+題目是：
+
+```c
+f = (g + h) - (i + j);
+```
+
+投影片把變數先配置到：
+
+* `f -> $s0`
+* `g -> $s1`
+* `h -> $s2`
+* `i -> $s3`
+* `j -> $s4`
+
+然後編成：
+
+```asm
+add $t0, $s1, $s2
+add $t1, $s3, $s4
+sub $s0, $t0, $t1
+```
+
+直覺上就是：
+
+1. 先算 `g+h`，先放進暫時抽屜 `$t0`
+2. 再算 `i+j`，先放進暫時抽屜 `$t1`
+3. 最後做 `$t0 - $t1`，放回 `f` 對應的 `$s0`
+
+Patterson/Hennessy 也明確說：把程式變數關聯到 registers 是 compiler 的工作，並用同一個 `f=(g+h)-(i+j)` 例子說明。([studylib.net][2])
+
+---
+
+#### 這裡最重要的理解不是背指令，而是背流程
+
+你要抓到的是：
+
+**高階語言的變數名稱，最後都會被編譯器映射成某些 register 名稱。**
+
+所以 CPU 並不是在理解 `f、g、h` 這些字母。
+CPU 真正在處理的是：
+
+* 哪個值現在在 `$s1`
+* 哪個中間結果要暫放在 `$t0`
+* 最後結果要寫回哪個 register
+
+---
+
+#### 第 48 頁：為什麼還需要 Memory(記憶體)
+
+因為程式不只有簡單變數，還有：
+
+* array(陣列)
+* structure(結構)
+
+這些資料結構通常比 register 數量大得多，不可能整坨都塞進 32 個 registers。
+
+所以大原則就是：
+
+* **常算的、眼前要用的** → 放 register
+* **大量資料、結構化資料** → 放 memory
+
+Patterson/Hennessy 直接說：複雜資料結構比 register 數目多得多，因此它們保存在 memory；MIPS 因為算術只在 registers 上做，所以一定需要在 memory 和 registers 之間搬資料的 **data transfer instructions(資料轉移指令)**。([studylib.net][2])
+
+---
+
+#### 第 49 頁：這張圖很容易讓人誤會，我們要特別校正
+
+圖上寫：
+
+* 第三個資料元素位址為 2
+* `Memory[2] = 10`
+
+這張圖**是概念示意圖**，不是嚴格的真實 MIPS byte addressing(位元組定址) 圖。
+
+Patterson/Hennessy 其實在同一段文字裡就提醒了：
+
+* 若把 memory 想成一個大陣列，第三個元素位址可以示意成 2
+* **但如果元素是 word，這在真正的 MIPS 是不對的**
+* 因為 MIPS 使用 **byte addressing**
+* 一個 word 是 4 bytes，所以連續 word 的位址會差 4，而不是差 1
+
+也就是說：
+
+* 概念圖的第三個元素可寫成 `Memory[2]`
+* 但真正 MIPS 若是第三個 **word**，位址應該是 **8**，不是 2
+
+這點你一定要分清楚，因為它正好就是很多人會搞混的地方。([studylib.net][2])
+
+---
+
+#### 第 50 頁：`lw $t0, 32($s3)` 到底是什麼意思
+
+這一頁超重要，而且剛好對應你之前問過的問題。
+
+`lw $t0, 32($s3)` 的意思不是：
+
+* `$s3[32]`
+* 第 32 個元素
+
+而是：
+
+> **從位址 = `內容($s3) + 32` 的記憶體位置，載入一個 word 到 `$t0`**
+
+MIPS 官方教材寫得很清楚：
+
+* load/store 的 addressing mode(定址模式) 是 **base register + signed immediate offset**
+* **offset 值的單位是 bytes**
+* `lw` 會把一個 word 從 word-aligned address 載入 destination register。([MIPS Training][1])
+
+所以如果：
+
+* `$s3` 存的是陣列 `A` 的 base address(基底位址)
+* `A` 的元素型別是 `int` / word
+* 每個元素 4 bytes
+
+那麼：
+
+* `32($s3)` = 基底位址往後 **32 bytes**
+* `32 / 4 = 8`
+
+所以它剛好對應：
+
+```c
+A[8]
+```
+
+這就是為什麼教材後面會把 `lw $t0, 32($s3)` 解釋成抓 `A[8]`。([MIPS Training][1])
+
+---
+
+#### 用生活化例子再講一次 `lw`
+
+假設：
+
+* `$s3` 是書櫃起點
+* 每本書厚度固定 4 公分
+* 你要拿第 8 本書
+
+那你不會說「往後第 8 個 byte」，你會說：
+
+* 從起點往後 `8 × 4 = 32` bytes
+
+所以：
+
+```asm
+lw $t0, 32($s3)
+```
+
+直覺上就是：
+
+> **從陣列基底往後 32 bytes 的地方，把那個 word 載入 `$t0`。**
+
+---
+
+#### 這幾頁其實把前面所有內容串起來了
+
+你前面問過：
+
+* 通用暫存器是什麼
+* RISC 為什麼比較在意 register
+* CISC 與 RISC 的差別
+* CISC 跟 register conflict 的關係
+
+現在這幾頁就是把答案收斂成一條主線：
+
+1. **MIPS 的算術運算主要在 register 上做**
+2. **register 數量有限，所以 compiler 要精打細算**
+3. **大量資料放 memory，不夠時就要用 `lw/sw` 搬來搬去**
+4. **因此在 RISC/MIPS 裡，register allocation(暫存器配置) 特別重要**
+
+這也是為什麼我們前面一直說：
+RISC 不是「比較討厭記憶體」，而是 **把 memory access 和 arithmetic 分開管理**。([studylib.net][2])
+
+---
+
+#### 最容易考 / 最容易混淆
+
+1. **word 在這裡是 32 bits，不是 16 bits。** 在 MIPS32，register 與 word 都是 32 bits。([studylib.net][2])
+
+2. **`lw $t0, 32($s3)` 的 32 是 byte offset，不是陣列索引。** 所以若元素是 word，`32($s3)` 對應 `A[8]`。([MIPS Training][1])
+
+3. **第 49 頁的 `Memory[2]` 是示意圖，不是嚴格 MIPS word address。** 真正 MIPS 是 byte-addressed。([studylib.net][2])
+
+4. **`$s` 與 `$t` 不只是「變數用 / 暫時用」而已。** 更正式地是 saved vs temporary 的 calling convention 分工。([MIPS Training][3])
+
+---
+
+#### 小結
+
+把這 7 頁壓成一句話就是：
+
+> **MIPS 的算術要先在 Register 裡做；因為 Register 只有 32 個而且每個是 32-bit，所以 Compiler 必須做配置；當資料在 Memory 裡時，就用 `lw/sw` 透過 base+offset 的方式搬進來再算。** ([studylib.net][2])
+
+#### 超短背法
+
+* **算術先進 Register**
+* **Register 只有 32 個**
+* **Array 太大放 Memory**
+* **`lw/sw` 負責搬資料**
+* **`32($s3)` 是 byte offset，不是索引**
+
+下一步我們最適合直接接著講 `lw/sw + array` 的例題，因為這正好會把 `32($s3)`、`A[8]`、byte addressing 一次全部打通。
+
+[1]: https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf "Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx"
+[2]: https://studylib.net/doc/27618414/david-a.-patterson--john-l.-hennessy---computer-organizat... "Computer Organization and Design: Hardware/Software Interface"
+[3]: https://training.mips.com/basic_mips/PDF/Assemble_Language.pdf "Microsoft PowerPoint - 021 Assemble Language.pptx"
+
+## 硬體 ∕ 軟體介面
+
+![alt text](<images/ch 2-23.png>) ![alt text](<images/ch 2-24.png>) ![alt text](<images/ch 2-27.png>) ![alt text](<images/ch 2-28.png>) ![alt text](<images/ch 2-26.png>) ![alt text](<images/ch 2-25.png>) ![alt text](<images/ch 2-29.png>)
+
+### 講解
+
+已啟用教學模式
+
+#### 這幾頁在回答什麼問題
+
+這一段其實是在把前面的觀念收束成一條完整流程：
+
+> **高階語言的變數和陣列，最後怎麼被放到 Register(暫存器) 與 Memory(記憶體)；而 MIPS 又怎麼用 `lw` / `sw` 去搬資料。**
+
+```mermaid
+flowchart TB
+A[C / Java 變數與陣列] --> B[Compiler(編譯器) 分配位置]
+B --> C[簡單且常用的值<br>放 Register]
+B --> D[Array / Structure<br>放 Memory]
+D --> E[MIPS 用 byte addressing<br>以位元組定址]
+E --> F[word = 4 bytes<br>位址需 4-byte 對齊]
+F --> G[lw / sw 用 base + offset]
+G --> H[先 load 進 Register]
+H --> I[ALU 運算]
+I --> J[需要時再 store 回 Memory]
+```
+
+MIPS32 的一般規則是：有 32 個 general-purpose registers(通用暫存器)；word 是 32 bits；記憶體採 byte addressing(位元組定址)；word access 要對齊到 4-byte 邊界；`lw/sw` 的 offset 單位是 byte，不是陣列索引。([MIPS Training][1])
+
+---
+
+#### 先講直覺
+
+你可以把整件事想成：
+
+* **Register**：桌上小抽屜，快，但很少
+* **Memory**：外面大倉庫，慢，但很大
+* **Compiler**：幫你決定哪些東西放抽屜，哪些放倉庫
+* **`lw/sw`**：搬運工
+* **ALU**：工作台
+
+所以這幾頁不是各講各的，而是在講：
+
+> **MIPS 不能直接隨便在 memory 上做一般算術，所以資料要先搬到 register，算完再決定要不要搬回 memory。** ([MIPS Training][1])
+
+---
+
+#### 第 51 頁：硬體 / 軟體介面在講什麼
+
+這頁有三個關鍵。
+
+##### 1. 編譯器不只分配暫存器，也要分配記憶體位置
+
+投影片第一點是在說：
+
+* 一般變數可能被配置到 register
+* 陣列、結構這種大資料通常配置到 memory
+
+這很合理，因為 register 數量很少，但 array / structure 可能非常大。MIPS 的 load/store 設計就是建立在這件事上。([MIPS Training][1])
+
+##### 2. MIPS 是 byte addressing(位元組定址)
+
+這句非常重要。
+
+**byte addressing** 的意思是：
+記憶體的地址是以 **1 byte** 為最小編號單位，不是以 1 word 為單位。
+
+所以位址是：
+
+* 0
+* 1
+* 2
+* 3
+* 4
+* 5
+* ...
+
+不是：
+
+* 第 0 個 word
+* 第 1 個 word
+* 第 2 個 word
+
+MIPS 官方資料明確說明 word、halfword、doubleword 都是用 **byte addressing** 來存取。([MIPS Training][1])
+
+##### 3. word 要從 4 的倍數位址開始
+
+因為：
+
+* 1 word = 4 bytes
+* 所以 word access 必須對齊到 4-byte boundary
+
+也就是合法 word 位址通常是：
+
+* 0
+* 4
+* 8
+* 12
+* 16
+* ...
+
+這叫 **alignment restriction(對齊限制)**。MIPS 官方文件明講：word access 必須落在可被 4 整除的 byte boundary。([MIPS Training][1])
+
+---
+
+#### 第 52 頁：這張圖在修正你前面那張示意圖
+
+這頁圖的重點是：
+
+* 真正的 MIPS 記憶體位址不是 `0,1,2,3` 代表第幾個 word
+* 而是 `0,4,8,12` 這樣跳
+
+所以「第三個 word」的起始位址是 **8**，不是 2。
+
+因為：
+
+* 第 1 個 word 起始於 0
+* 第 2 個 word 起始於 4
+* 第 3 個 word 起始於 8
+
+這正是 byte addressing + word 對齊的直接結果。([studylib.net][2])
+
+---
+
+#### 第 53 頁：MSB / LSB 在講什麼
+
+這頁是在講 **bit significance(位元的重要性)**，不是在講記憶體位址。
+
+以 16-bit 數字來看：
+
+* 最左邊是 bit 15
+* 最右邊是 bit 0
+* bit 15 是 **MSB(Most Significant Bit，最高有效位元)**
+* bit 0 是 **LSB(Least Significant Bit，最低有效位元)**
+
+MIPS 官方文件也明講：**bit 0 永遠是 least-significant bit**。([studylib.net][2])
+
+##### 這裡最容易混淆
+
+很多人會把：
+
+* **MSB/LSB**
+* **big-endian / little-endian**
+
+混在一起。
+
+這兩件事其實不同：
+
+* **MSB / LSB**：在講「一個數字內部，哪個 bit 權重大」
+* **Endianness(端序)**：在講「多個 bytes 放進記憶體時，哪個 byte 先放低位址」
+
+所以：
+
+> **bit 15 是 MSB、bit 0 是 LSB，這件事本身不因 big-endian 或 little-endian 改變。** ([studylib.net][2])
+
+---
+
+#### 第 54 頁：big-endian / little-endian 在講什麼
+
+這頁在講的是：
+
+* 一個 32-bit word 有 4 個 bytes
+* 這 4 個 bytes 放進記憶體時，有兩種主要順序：
+
+  * **big-endian**：最高有效 byte 放在最低位址
+  * **little-endian**：最低有效 byte 放在最低位址
+
+這是端序的標準定義。([Intel][3])
+
+##### 這頁有一個你一定要修正的地方
+
+投影片寫：
+
+> **MIPS 屬於 big-endian 陣營**
+
+這句 **不夠精確，甚至可以說在一般化表述下是錯的**。
+
+更正確的說法是：
+
+> **MIPS 可以配置成 big-endian，也可以配置成 little-endian。**
+
+MIPS 官方文件明確寫到：bytes within larger CPU data formats **can be configured in either big-endian or little-endian order**。MIPS 訓練教材也直接寫：**MIPS cores can be set to run in big-endian or little-endian**。([studylib.net][2])
+
+所以這頁你要這樣理解：
+
+* 教材可能**用 big-endian 當示意**
+* 但 **MIPS 不是只能 big-endian**
+
+這個修正很重要。
+
+
+| 位置 | 1000 | 1001 | 1002 | 1003 |
+| ---- | ---: | ---: | ---: | ---: |
+| Big-endian(大端序) |   12 |   34 |   56 |   78 |
+| Little-endian(小端序) |   78 |   56 |   34 |   12 |
+
+
+---
+
+#### 第 55 頁：`g = h + A[8];` 怎麼翻成 MIPS
+
+投影片給的條件是：
+
+* `g` 在 `$s1`
+* `h` 在 `$s2`
+* 陣列 `A` 的 base address(基底位址) 在 `$s3`
+
+然後它寫：
+
+```asm
+lw  $t0, 32($s3)
+add $s1, $s2, $t0
+```
+
+##### 先講直覺
+
+這兩行在做：
+
+1. 先把 `A[8]` 從 memory 搬進 `$t0`
+2. 再把 `h` 和 `$t0` 相加，放進 `g`
+
+##### 為什麼是 `32($s3)` 不是 `8($s3)`？
+
+因為：
+
+* `A` 是 word array
+* 1 個 word = 4 bytes
+* `A[8]` 的位址 = base + `8 × 4` = base + 32
+
+所以：
+
+```asm id="h4t1x9"
+lw $t0, 32($s3)
+```
+
+意思就是：
+
+> 從位址 `內容($s3) + 32` 載入一個 word 到 `$t0`
+
+MIPS 官方教材明講：load/store 的 addressing mode 是 **register + signed immediate offset**，而且 **offset values are in bytes**。([MIPS Training][1])
+
+---
+
+#### 第 56 頁：`sw` 是什麼
+
+這頁是在講和 `lw` 相反的東西。
+
+* `lw` = **load word(載入字組)**
+* `sw` = **store word(儲存字組)**
+
+意思是把 register 裡的 32-bit 內容寫回 memory。MIPS 官方教材明確寫：store word 會把 source register 的內容存到 word-aligned address。([MIPS Training][1])
+
+例如：
+
+```asm id="r9ppzm"
+sw $t0, 48($s3)
+```
+
+表示：
+
+> 把 `$t0` 的內容，存到位址 `內容($s3) + 48` 的那個 word 位置。
+
+---
+
+#### 第 57 頁：`A[12] = h + A[8];` 怎麼翻
+
+投影片答案是：
+
+```asm id="4qy2cw"
+lw  $t0, 32($s3)
+add $t0, $s2, $t0
+sw  $t0, 48($s3)
+```
+
+這三行超值得你背，因為它把 **load → compute → store** 完整串起來了。
+
+##### 第一步
+
+```asm id="3ix0ch"
+lw $t0, 32($s3)
+```
+
+把 `A[8]` 載入 `$t0`
+
+##### 第二步
+
+```asm id="hizbjj"
+add $t0, $s2, $t0
+```
+
+算 `h + A[8]`
+
+##### 第三步
+
+```asm id="y0iugl"
+sw $t0, 48($s3)
+```
+
+把結果存回 `A[12]`
+
+##### 為什麼是 48？
+
+因為：
+
+* `A[12]`
+* 每個元素 4 bytes
+* `12 × 4 = 48`
+
+所以 `48($s3)` 對應的就是 `A[12]`。這完全符合 MIPS 的 base+offset 位址公式。([MIPS Training][1])
+
+---
+
+#### 你現在應該建立的真正公式
+
+如果 `A` 是 word array，base address 在 `$s3`，那麼：
+
+```text
+A[i] 的位址 = $s3 + 4*i
+```
+
+所以：
+
+* `A[8]` → `32($s3)`
+* `A[12]` → `48($s3)`
+
+這就是這幾頁所有例題背後的共同骨架。MIPS 的 word 對齊與 byte offset 規則正是這個公式的基礎。([MIPS Training][1])
+
+---
+
+#### 這幾頁最容易考 / 最容易混淆
+
+##### 1. `32($s3)` 不是第 32 個元素
+
+❌ 不是。
+✅ 它是 **base + 32 bytes**。如果元素是 word，才剛好對應 `A[8]`。([MIPS Training][1])
+
+##### 2. Endianness 不是 bit 左右顛倒
+
+❌ 不是 bit 順序變了。
+✅ 是 **byte 在記憶體中的排列順序** 變了。bit 0 還是 least-significant bit。([studylib.net][2])
+
+##### 3. 「MIPS 屬於 big-endian」不能死背
+
+❌ 不能當絕對真理。
+✅ 更精確是：**MIPS 可為 big-endian 或 little-endian。** ([studylib.net][2])
+
+##### 4. word 的位址不是 0、1、2、3…
+
+如果你在講 **真實 MIPS byte address**，word 的起始位址是 0、4、8、12…，不是把每個 word 自己再編成 0、1、2、3。([studylib.net][2])
+
+##### 5. `$s` 和 `$t` 不只是名字好看
+
+更正式地說：
+
+* `$t0-$t9` 是 **temporary registers**
+* `$s0-$s8` 是 **saved registers**
+
+這是 MIPS 慣例，不只是教材隨便命名。([MIPS Training][4])
+
+---
+
+#### 小結
+
+這 7 頁你可以濃縮成一句話：
+
+> **MIPS 用 byte addressing 管理 memory，word 是 4 bytes 且要 4-byte 對齊；陣列元素通常在 memory 中，編譯器再用 `lw/sw` 搭配 base+offset，把資料搬進 register 做運算，再視需要存回去。** ([MIPS Training][1])
+
+---
+
+#### 超短背法
+
+* **記憶體用 byte 定址**
+* **word = 4 bytes**
+* **word 位址要是 4 的倍數**
+* **`lw/sw` 的 offset 是 byte**
+* **`A[i]` 位址 = base + 4*i**
+* **MIPS 不是只支援 big-endian**
+
+---
+
+#### 你這段最該死記的兩條
+
+```asm id="mw50rn"
+lw $t0, 32($s3)   # A[8]
+sw $t0, 48($s3)   # A[12]
+```
+
+因為只要你記住：
+
+* `8 × 4 = 32`
+* `12 × 4 = 48`
+
+後面陣列題就會順很多。
+
+下一步最適合做的是，我直接帶你手算 3 題：
+`A[3]`、`A[i]`、`A[i+1]` 要怎麼翻成 MIPS。
+
+[1]: https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf "Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx"
+[2]: https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com "MIPS32 Architecture: A Programmer's Introduction"
+[3]: https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com "3.4.1. Endianness"
+[4]: https://training.mips.com/basic_mips/PDF/Assemble_Language.pdf?utm_source=chatgpt.com "Welcome to the MIPS Assemble language section of the MIPS Software Training"
+
+
+### 實際上這一格是4byte(32bit)嗎
+![alt text](<images/ch 2-32.png>)
+
+已啟用教學模式
+
+#### 直接答案
+
+✅ **就這張圖的畫法來說，你看到的每一橫格可以理解成 1 個 word，也就是 4 bytes = 32 bits。**
+因為旁邊標的位址是 **0、4、8、12**，每次都差 4，這正是 **word-aligned(字組對齊)** 的畫法；MIPS 的 `word` 是 4 bytes，而且 word 要放在 4-byte 邊界上。([MIPS Training][1])
+
+---
+
+#### 但要特別分清楚：圖上的一格 vs 真實記憶體定址
+
+這裡最容易搞混。
+
+**圖上的一格**
+
+* 是在用「**word 視角**」畫圖
+* 所以一格代表一個 32-bit word
+* 旁邊才會寫 0、4、8、12
+
+**真實 MIPS 記憶體**
+
+* 是 **byte-addressed(位元組定址)**
+* 也就是 **1 個位址對應 1 byte**
+* 所以在真實記憶體裡，0 和 4 中間其實還有 **1、2、3** 這三個 byte 位址，只是這張圖把它們省略了。MIPS 教材明確寫到，所有 offset 都是以 **bytes** 為單位，且 word/int 是 **4 bytes**、必須對齊到 **4-byte boundary**。([MIPS Training][1])
+
+---
+
+#### 你可以這樣理解這張圖
+
+這張圖比較像是在說：
+
+| 起始位址 | 這一格代表的資料大小         |
+| ---- | ------------------ |
+| 0    | 1 個 word = 4 bytes |
+| 4    | 1 個 word = 4 bytes |
+| 8    | 1 個 word = 4 bytes |
+| 12   | 1 個 word = 4 bytes |
+
+所以：
+
+* 位址 `0` 這格，是「從 byte 位址 0 開始的那個 word」
+* 位址 `4` 這格，是「從 byte 位址 4 開始的那個 word」
+* 位址 `8` 這格，是「從 byte 位址 8 開始的那個 word」
+
+這也符合 MIPS 的 `lw` 規則：**load word** 會從 **word-aligned address** 載入一個 word。([MIPS Training][1])
+
+---
+
+#### 生活化例子
+
+把記憶體想成一排小格子，每個小格子其實是 **1 byte**：
+
+```text
+位址: 0 1 2 3 4 5 6 7 8 9 10 11 ...
+```
+
+但這張投影片不是一格一格畫 byte，
+而是把每 **4 個 byte 打包成一組** 來畫：
+
+```text
+word 0: 位址 0~3
+word 1: 位址 4~7
+word 2: 位址 8~11
+word 3: 位址 12~15
+```
+
+所以你看到的「一格」，其實是這種打包後的 **word 格**。
+
+---
+
+#### 最容易混淆
+
+1. **圖上一格是 4 bytes**
+   ✅ 在這張圖裡是。
+
+2. **MIPS 一個位址也是 4 bytes**
+   ❌ 不是。MIPS 是 **byte-addressed**，一個位址是 1 byte。([MIPS Training][1])
+
+3. **0、4、8、12 是第幾格的編號**
+   ❌ 不只是編號。它們是 **word 的起始 byte 位址**。([MIPS Training][1])
+
+---
+
+#### 小結
+
+你可以直接記這句：
+
+> **這張圖裡的一格 = 1 個 word = 4 bytes = 32 bits；但真實 MIPS 記憶體仍然是以 1 byte 為位址單位，只是圖把中間的 byte 位址省略掉了。** ([MIPS Training][1])
+
+我可以下一則直接幫你把這張圖改畫成「byte 版」和「word 版」對照，這樣你會完全看懂。
+
+[1]: https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf "Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx"
+
+
+## 暫存器(Registers) Vs. 記憶體(Memory) 、 常數/立即運算元(Immediate Operands)
+
+
+![alt text](<images/ch 2-33.png>) ![alt text](<images/ch 2-34.png>) ![alt text](<images/ch 2-35.png>) ![alt text](<images/ch 2-36.png>)
+
+
+### 講解
+
+
+
+
+已啟用教學模式
+
+#### 這幾頁在回答什麼問題
+
+這一段是在回答：
+
+**如果程式裡常常要用常數，例如 `+4`、`-1`、`+100`，MIPS 要怎麼做比較快？**
+
+前面你學的是：
+
+* 資料通常先放在 Register(暫存器)
+* 不在 Register 的資料，要用 `lw` 從 Memory(記憶體) 載入
+* 再用 `add` 之類的指令運算
+
+但這樣遇到「常數」時會有點笨。
+因為常數如果很小、很常見，其實沒必要每次都先去記憶體拿。MIPS 的基本算術指令有三個運算元，而 **immediate instructions(立即數指令)** 會把其中一個來源暫存器，改成指令內建的 **16-bit immediate value(16 位立即數)**。此外，MIPS 有 32 個 General Purpose Registers，其中 **GPR0 / `$zero` 永遠讀作 0**。([MIPS Training][1])
+
+---
+
+#### 核心概念：Immediate Operand(立即運算元) 是什麼
+
+**Immediate Operand(立即運算元)** 就是：
+
+> **常數直接寫在指令裡，不另外放在某個暫存器，也不先從記憶體載入。**
+
+例如：
+
+```asm
+addi $s3, $s3, 4
+```
+
+這條的 `4` 就是 immediate。
+MIPS 官方教材直接說：**add immediate** 會取一個 **16-bit immediate value**，加到某個暫存器內容上，再把結果寫進目的暫存器。([MIPS Training][1])
+
+---
+
+#### 先講直覺
+
+把它想成做菜：
+
+* **普通做法**：還要先去櫃子拿一包「鹽 4 克」，拿來桌上，再加進去
+* **Immediate 做法**：食譜上直接寫「加 4 克」，你當場加
+
+所以 Immediate(立即數) 的重點就是：
+
+**把小常數直接塞進指令本身，省掉一次載入。**
+
+---
+
+```mermaid id="8aqh63"
+flowchart TB
+A[要把 4 加到 $s3] --> B[舊方法<br>先 lw 載入 4]
+A --> C[新方法<br>直接 addi ... , 4]
+B --> D[指令較多]
+C --> E[指令較少、較快]
+```
+
+---
+
+#### 第 59 頁：為什麼會需要常數 / 立即數
+
+投影片第一頁在講兩件事。
+
+第一，程式裡常常會出現常數。
+最典型例子就是：
+
+* 陣列索引加一
+* 指標往下一格
+* 計數器 `i = i + 1`
+* 地址位移 `+4`
+
+第二，**0 這個常數特別常用**，所以 MIPS 直接提供 `$zero` 這個硬體固定為 0 的暫存器，讓你不用再自己準備一個暫存器去裝 0。MIPS 官方教材明講：**GPR0 will always read 0**，而 immediate 指令則是用 **16-bit immediate value** 取代其中一個來源運算元。([MIPS Training][1])
+
+---
+
+#### 第 60 頁：為什麼這頁先教你「先從記憶體載入常數」
+
+這頁其實是在鋪陳一個對比。
+
+它先示範「沒有 immediate 指令」時，你會怎麼做：
+
+```asm
+lw  $t0, AddrConstant4($s1)
+add $s3, $s3, $t0
+```
+
+意思是：
+
+1. 先把記憶體中的常數 4 載入 `$t0`
+2. 再把 `$t0` 加到 `$s3`
+
+這種寫法不是錯，而是 **比較笨、比較舊的做法**。
+因為它多做了一次 `lw`。而 MIPS 的 load 指令本來就需要經過記憶體存取，而且官方教材也特別提醒：load 之後常會帶來至少一個 cycle 的延遲風險。([MIPS Training][1])
+
+---
+
+#### 第 61 頁：真正更好的方法是 `addi`
+
+這頁就是重點。
+
+MIPS 提供：
+
+* **`addi` = add immediate(加立即值)**
+
+所以把常數 4 加到 `$s3`，其實更直接的寫法是：
+
+```asm
+addi $s3, $s3, 4
+```
+
+這樣就不用：
+
+* 先把 4 放進記憶體
+* 再 `lw` 載進暫存器
+* 再 `add`
+
+MIPS 官方教材明說：**add immediate** 會把 **16-bit immediate value** 加到 register 上。它也明說：**沒有 subtract immediate**，要減法時，直接用 `addi` 搭配負數就行，例如 `addi $s2, $s1, -1`。([MIPS Training][1])
+
+---
+
+#### 為什麼沒有 `subi`
+
+這點很常考。
+
+MIPS 教材已經直接講了：
+
+> **沒有 subtract immediate；你可以用 add immediate 再給負數。**
+
+例如：
+
+```asm
+addi $s2, $s1, -1
+```
+
+這其實就是：
+
+```text
+$s2 = $s1 - 1
+```
+
+所以：
+
+* `addi ... , 4` = 加 4
+* `addi ... , -1` = 減 1
+
+這樣指令集比較簡潔。([MIPS Training][1])
+
+---
+
+#### 第 62 頁：`$zero` 到底有什麼用
+
+這頁在講 **The Constant Zero(常數 0)**。
+
+MIPS 的 `$zero` / `$0` 有一個非常重要的性質：
+
+> **它永遠是 0。**
+
+官方教材寫的是：**GPR0 will always read 0**。([MIPS Training][1])
+
+這代表你可以隨時拿它當來源，例如：
+
+```asm
+add $s2, $s1, $zero
+```
+
+這條其實等價於：
+
+```text
+$s2 = $s1 + 0
+```
+
+也就是把 `$s1` 複製到 `$s2`。
+所以投影片才會說，**register move(暫存器間搬移)** 可以看成「加上 0」。
+
+---
+
+#### 這裡我幫你校正一個細節
+
+投影片寫：
+
+* `$zero` 是常數 0
+* cannot be overwritten
+
+這個方向是對的。更精準地說：
+
+> **你可以把 `$zero` 放在目的位置，但寫入它的結果不會留下來；讀它永遠得到 0。**
+
+官方教材明確說的是 **GPR0 永遠讀作 0**。在 MIPS 官方架構手冊的引述中，也常把它描述成 **hard-wired to a value of zero**。([MIPS Training][1])
+
+所以你可以把它理解成：
+
+* 讀 `$zero`：一定是 0
+* 寫 `$zero`：等於白寫，最後它還是 0
+
+---
+
+#### 把這四頁串起來看
+
+這四頁真正的主線是：
+
+1. 常數很常見
+2. 如果每次都先從 Memory 載入常數，很浪費
+3. 所以 MIPS 提供 **Immediate Instructions(立即數指令)**，把常數直接塞進指令
+4. 而 **0** 太常見了，所以乾脆給你一個永遠是 0 的 `$zero`
+
+---
+
+#### 生活化例子
+
+假設你每天都要做這件事：
+
+* 讓計數器加 1
+* 讓位址加 4
+* 比較某值是不是 0
+
+如果沒有 immediate / `$zero`：
+
+* 你要先準備一個「1」
+* 再準備一個「4」
+* 再準備一個「0」
+* 全部都要放暫存器或記憶體
+
+這很麻煩。
+
+有了 immediate / `$zero`：
+
+* `addi $t0, $t0, 1`
+* `addi $s3, $s3, 4`
+* `beq  $s1, $zero, label`
+
+整個就乾淨很多。
+
+---
+
+#### 最容易考 / 最容易混淆
+
+##### 1. `addi` 的 4 不是來自記憶體
+
+❌ 不是先存在某個位址再載入。
+✅ 是 **直接編在指令裡的 immediate value**。([MIPS Training][1])
+
+##### 2. 第 60 頁的做法不是最佳解
+
+✅ 它是故意先示範「若沒有 immediate，你得多做一次 load」。
+真正更好的寫法是第 61 頁的 `addi`。
+
+##### 3. 沒有 `subi`
+
+✅ MIPS 基本教學裡直接用 `addi` 加負數取代。([MIPS Training][1])
+
+##### 4. `$zero` 不是「慣例上等於 0」
+
+❌ 不是只是大家約定。
+✅ 是硬體層面固定讀作 0。([MIPS Training][1])
+
+---
+
+#### 小結
+
+你可以把這段濃縮成一句話：
+
+> **Immediate Operand(立即運算元) 就是把常數直接寫進指令，避免多一次載入；而 `$zero` 則是 MIPS 內建的固定常數 0，用來讓常見操作更快、更省指令。** ([MIPS Training][1])
+
+---
+
+#### 超短背法
+
+* **`addi`：把常數直接加進暫存器**
+* **沒有 `subi`：減法用負的 immediate**
+* **`$zero`：永遠是 0**
+* **`add $d, $s, $zero`：等於 move**
+
+---
+
+#### 幫你直接整理成對照表
+
+| 情況              | 較笨的做法                                | 較好的做法                 |
+| --------------- | ------------------------------------ | --------------------- |
+| `$s3 = $s3 + 4` | `lw $t0, ...`<br>`add $s3, $s3, $t0` | `addi $s3, $s3, 4`    |
+| `$s2 = $s1 - 1` | 先準備常數 1 再減                           | `addi $s2, $s1, -1`   |
+| `$s2 = $s1`     | 想辦法做複製                               | `add $s2, $s1, $zero` |
+
+如果你要，我下一則可以直接幫你把 **`add`、`addi`、`lw`、`sw`** 四種格式畫成一張總表。
+
+[1]: https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf "Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx"

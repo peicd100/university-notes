@@ -150,6 +150,17 @@
     return document.getElementById(MENU_ID);
   }
 
+  function getCopyButton() {
+    var menu = getMenu();
+    return menu ? menu.querySelector('[data-role="copy"]') : null;
+  }
+
+  function setCopyVisible(isVisible) {
+    var button = getCopyButton();
+    if (!button) return;
+    button.hidden = !isVisible;
+  }
+
   function hideMenu() {
     var menu = getMenu();
     if (!menu) return;
@@ -165,6 +176,7 @@
     activeContext = context;
     updateStatus("");
     setJumpBusy(false);
+    setCopyVisible(!!(context && context.hasSelection && context.selection));
 
     menu.style.display = "block";
     menu.classList.add("is-open");
@@ -230,6 +242,10 @@
     return text;
   }
 
+  function getSelectionObject() {
+    return window.getSelection ? window.getSelection() : null;
+  }
+
   function closestElement(node) {
     if (!node) return null;
     return node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
@@ -248,8 +264,12 @@
     return !!(root && element && root.contains(element));
   }
 
-  function buildSelectionContext() {
-    var selection = window.getSelection ? window.getSelection() : null;
+  function getBlockText(block) {
+    return sanitizeText(block && (block.innerText || block.textContent || ""), MAX_CONTAINER_CHARS);
+  }
+
+  function buildSelectionContext(targetNode) {
+    var selection = getSelectionObject();
     if (!selection || selection.rangeCount === 0) return null;
 
     var range = selection.getRangeAt(0);
@@ -258,10 +278,11 @@
     var text = getSelectionText();
     if (!text) return null;
 
+    var clickedBlock = getClosestBlock(targetNode);
     var block = getClosestBlock(range.startContainer || selection.anchorNode);
-    if (!block) return null;
+    if (!block || !clickedBlock || block !== clickedBlock) return null;
 
-    var containerText = sanitizeText(block.innerText || block.textContent || "", MAX_CONTAINER_CHARS);
+    var containerText = getBlockText(block);
     var prefixText = "";
 
     try {
@@ -277,7 +298,24 @@
       page: window.location.pathname,
       selection: text,
       container: containerText,
-      prefix: prefixText
+      prefix: prefixText,
+      hasSelection: true
+    };
+  }
+
+  function buildBlockContext(targetNode) {
+    var block = getClosestBlock(targetNode);
+    if (!block) return null;
+
+    var containerText = getBlockText(block);
+    if (!containerText) return null;
+
+    return {
+      page: window.location.pathname,
+      selection: "",
+      container: containerText,
+      prefix: "",
+      hasSelection: false
     };
   }
 
@@ -382,7 +420,7 @@
 
     if (!(await probeEndpoint())) return;
 
-    var context = buildSelectionContext();
+    var context = buildSelectionContext(event.target) || buildBlockContext(event.target);
     if (!context) return;
 
     event.preventDefault();

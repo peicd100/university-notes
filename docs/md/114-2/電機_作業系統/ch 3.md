@@ -202,11 +202,11 @@ void f() {
 
 ```mermaid
 flowchart TB
-    A["高位址 max"] --> B["stack(堆疊)<br>函式參數、區域變數、返回位址<br>通常向下成長"]
+    A[高位址 max] --> B[stack(堆疊)<br>函式參數、區域變數、返回位址<br>通常向下成長]
     B --> C["未使用空間<br>給 stack / heap 擴張"]
-    C --> D["heap(堆積)<br>malloc / new 動態配置<br>通常向上成長"]
-    D --> E["data section(資料區)<br>global / static 變數"]
-    E --> F["text section(程式碼區)<br>可執行機器指令"]
+    C --> D[heap(堆積)<br>malloc / new 動態配置<br>通常向上成長]
+    D --> E[data section(資料區)<br>global / static 變數]
+    E --> F[text section(程式碼區)<br>可執行機器指令]
     F --> G["低位址 0"]
 ```
 
@@ -3440,12 +3440,12 @@ fork();
 
 ```mermaid
 flowchart TB
-    P0["P0：原始 parent process"] --> F1["第一次 fork()"]
+    P0[P0：原始 parent process] --> F1[第一次 fork()]
     F1 --> P0a["P0：第一次 fork 後的 parent"]
     F1 --> P1["P1：第一次 fork 產生的 child"]
 
-    P0a --> F2A["第二次 fork()（由 P0 執行）"]
-    P1 --> F2B["第二次 fork()（由 P1 執行）"]
+    P0a --> F2A[第二次 fork()（由 P0 執行）]
+    P1 --> F2B[第二次 fork()（由 P1 執行）]
 
     F2A --> P0b["P0：原始 parent 繼續執行"]
     F2A --> P2["P2：P0 在第二次 fork 產生的 child"]

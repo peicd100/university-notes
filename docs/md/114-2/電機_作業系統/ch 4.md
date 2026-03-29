@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TB
-A["什麼是 Thread(執行緒)"] --> B["為什麼要用多執行緒"]
+A[什麼是 Thread(執行緒)] --> B[為什麼要用多執行緒]
 B --> C["多執行緒的好處"]
 C --> D["Process 與 Thread 的差別"]
 D --> E["放到多核心後的挑戰"]

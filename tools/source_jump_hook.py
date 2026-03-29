@@ -96,11 +96,18 @@ def _handle_lookup_request(environ, start_response, server):
     prefix = params.get("prefix", [""])[0]
     action = params.get("action", ["lookup"])[0].strip().lower()
 
-    if not selection.strip():
+    if selection == "__probe__":
+        return _json_response(
+            start_response,
+            status="200 OK",
+            payload={"ok": True, "probe": True},
+        )
+
+    if not selection.strip() and not container.strip():
         return _json_response(
             start_response,
             status="400 Bad Request",
-            payload={"ok": False, "message": "selection is required"},
+            payload={"ok": False, "message": "selection or container is required"},
         )
 
     page_key = _normalize_page_key(page_param, getattr(server, "mount_path", "/"))
@@ -336,8 +343,24 @@ def _locate_selection(record: PageRecord, selection: str, container: str, prefix
     container_norm = _normalize_text(container)
     prefix_norm = _normalize_text(prefix)
 
+    if not selection_norm and not container_norm:
+        return {"ok": False, "message": "selection and container both became empty after normalization"}
+
     if not selection_norm:
-        return {"ok": False, "message": "selection became empty after normalization"}
+        if not record.blocks:
+            return {
+                "ok": False,
+                "message": "no indexed blocks available for container lookup",
+                "src_uri": record.src_uri,
+            }
+
+        best_block = max(record.blocks, key=lambda block: _container_only_score(block, container_norm))
+        if best_block.normalized_source_offsets:
+            source_offset = best_block.normalized_source_offsets[0]
+            line, column = _offset_to_line_column(record.line_starts, source_offset)
+        else:
+            line, column = best_block.start_line, 1
+        return _success_payload(record, line, column)
 
     candidates = [block for block in record.blocks if selection_norm in block.normalized_text]
     if not candidates:
@@ -396,6 +419,27 @@ def _block_score(block: BlockRecord, selection_norm: str, container_norm: str, p
         actual_index = _choose_match_index(block.normalized_text, selection_norm, prefix_norm)
         if actual_index >= 0:
             score += max(0, 1400 - abs(actual_index - desired_index) * 4)
+
+    score += max(0, 300 - (block.end_line - block.start_line))
+    score += max(0, 200 - block.start_line / 10)
+    return score
+
+
+def _container_only_score(block: BlockRecord, container_norm: str) -> float:
+    score = 0.0
+
+    if container_norm:
+        if block.normalized_text == container_norm:
+            score += 6000
+        elif container_norm in block.normalized_text:
+            score += 4200
+        elif block.normalized_text in container_norm:
+            score += 3200
+        else:
+            ratio = SequenceMatcher(None, block.normalized_text[:1500], container_norm[:1500]).ratio()
+            score += ratio * 2500
+
+        score -= abs(len(block.normalized_text) - len(container_norm)) / 5
 
     score += max(0, 300 - (block.end_line - block.start_line))
     score += max(0, 200 - block.start_line / 10)

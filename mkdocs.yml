@@ -104,6 +104,7 @@ extra_javascript:
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js  # Mermaid 圖表支持
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # MathJax 支持數學公式
   - assets/pymdownx-extras/mermaid-config-override.js  # Mermaid flowchart 啟用 htmlLabels，支援節點內 <br>
+  - assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1  # Mermaid 舊 flowchart 語法相容：方括號節點內未加引號的括號文字自動 fallback
   - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
   - assets/pymdownx-extras/mermaid-render-fix.js  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
   - assets/pymdownx-extras/mermaid-zoom.js  # Mermaid 圖卡化與放大檢視
@@ -114,6 +115,7 @@ extra_javascript:
   - assets/pymdownx-extras/source-jump.js  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
 
 hooks:
+  - tools/fence_id_cleanup_hook.py
   - tools/source_jump_hook.py
 
 # Markdown 擴展設置
@@ -307,6 +309,7 @@ nav:
         - 'md\Verilog\四則運算與邏輯運算的位寬.md'
         - 'md\Verilog\overflow.md'
         - 'md\Verilog\instance array(實例陣列).md'
+        - 'md\Verilog\同步重置、非同步重置.md'
       
       
       

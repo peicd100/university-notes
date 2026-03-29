@@ -21,7 +21,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 vbs_bat\university notes.vbs
 ```
 
-補充：選字後右鍵的「開啟原文檔案」功能只會在 `mkdocs serve` 預覽時啟用；若只是開靜態 `site/` 內容，因為沒有本機查詢 API，所以不會提供這個定位功能。
+補充：文章區右鍵的「開啟原文檔案」功能只會在 `mkdocs serve` 預覽時啟用；若有選字，右鍵選單會同時提供「複製」；若沒選字，也可直接依右鍵所在段落跳回原文。若只是開靜態 `site/` 內容，因為沒有本機查詢 API，所以不會提供這個定位功能。
 
 ## 打包指令
 先依序測試 debug 版，再打包 noconsole 版：
@@ -167,3 +167,8 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-27：已在 `docs/md/114-2/科技_計算機結構/SI 前綴表.md` 補上 `peta` 與 `pico` 兩列，並依臺灣法定度量衡單位使用指南採用中文前綴 `拍`、`皮`。
 - 2026-03-27：已將 `docs/md/Verilog/運算子.md` 的 reduction operators 區塊補完整，加入 `~&`、`~|`、`^~`、`~^`，並替每個 reduction operator 補上明確例子與結果說明。
 - 2026-03-27：已補強 `docs/md/Verilog/運算子.md` 的 bitwise operators 區塊，加入 binary NAND / NOR 的標準寫法 `~(a & b)`、`~(a | b)`，並補上 `a ^~ b` 與「`a ~& b` / `a ~| b` 不是標準二元寫法」的提醒。
+- 2026-03-29：已修正 `docs/md/114-2/科技_計算機結構/ch 2.md` 中一個 Mermaid flowchart 無法渲染的問題；作法是把含括號與中英混排的節點標籤全面改成 Mermaid 官方較穩的雙引號字串寫法。
+- 2026-03-29：已新增 `docs/theme/assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js`，在網站端替 Mermaid flowchart 補上舊語法相容 fallback；當單方括號節點標籤內含括號而導致 parser 失敗時，會自動改用雙引號 label 重試，因此可保留原本 `A[文字(說明)]` 的筆記寫法。
+- 2026-03-29：已把右鍵原文定位改成不必先選字；現在在 `mkdocs serve` 預覽時，直接對文章段落按右鍵也會跳出 `開啟原文檔案`，並以右鍵所在 block 反查原始 Markdown。若有選字，則仍優先用選字做較精準的定位，且保留 `複製` 選項。
+- 2026-03-29：已順手修正原文定位的 endpoint probe 回應；前端用 `selection=__probe__` 檢查本機 JSON endpoint 時，後端現在直接回 `200 OK` 的 probe payload，不再因為故意查不到內容而製造 404 console 噪音。
+- 2026-03-29：已新增 `tools/fence_id_cleanup_hook.py`，在 MkDocs `on_page_markdown` 階段自動清掉這種 bare fenced-code header 尾端的 `id="..."`，例如 ```` ```asm id="h4t1x9" ```` 會在渲染前被視為一般 ` ```asm `，因此不再因為尾端 id 破壞程式碼區塊渲染。
