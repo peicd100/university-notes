@@ -7288,6 +7288,842 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2-的補數twos-complement表示法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 的補數(two's complement)表示法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 的補數(two&#39;s complement)表示法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#給我一些例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        給我一些例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="給我一些例子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最好記的判斷規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最好記的判斷規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-1正數加正數結果變負數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 1：正數加正數，結果變負數
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-2負數加負數結果變正數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 2：負數加負數，結果變正數
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-3正負相加通常不會-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 3：正負相加，通常不會 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-4看起來有進位但其實沒有-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 4：看起來有進位，但其實沒有 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-5負數加負數但這次沒有-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 5：負數加負數，但這次沒有 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#我幫你整理成一個表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我幫你整理成一個表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼投影片說符號位元不正確時就-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼投影片說「符號位元不正確時就 overflow」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#下一步最適合做的事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下一步最適合做的事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mips-指令種類--misp-轉機器語言" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIPS 指令種類 、 MISP 轉機器語言
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MIPS 指令種類 、 MISP 轉機器語言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這幾頁在回答什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這幾頁在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-104-頁mips-為什麼分成-r--i--j-三種" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 104 頁：MIPS 為什麼分成 R / I / J 三種
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺為什麼不能全部都用同一種格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺：為什麼不能全部都用同一種格式？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-105-頁r-type-格式長什麼樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 105 頁：R-type 格式長什麼樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-105109110-頁每個欄位到底在幹嘛" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 105、109、110 頁：每個欄位到底在幹嘛
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 105、109、110 頁：每個欄位到底在幹嘛">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-op--opcode運作碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. op = opcode(運作碼)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. rs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. rt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-rd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. rd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-shamt--shift-amount位移量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. shamt = shift amount(位移量)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-funct--function-code功能碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. funct = function code(功能碼)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-rs--rt--rd-都是-5-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 rs / rt / rd 都是 5 bits？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-106-頁r-type-指令例子要怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 106 頁：R-type 指令例子要怎麼看
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 106 頁：R-type 指令例子要怎麼看">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一群算術" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一群：算術
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二群邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二群：邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三群比較--位移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三群：比較 / 位移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這一頁我幫你抓兩個很重要的錯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這一頁我幫你抓兩個很重要的錯
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="這一頁我幫你抓兩個很重要的錯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-1nor-不是異或" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 1：nor 不是「異或」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-2nor-那列的說明其實寫成了-slt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 2：nor 那列的說明其實寫成了 slt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-3sll--srl-不該叫迴圈左移--右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 3：sll / srl 不該叫「迴圈左移 / 右移」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-107108-頁什麼叫-machine-language機器語言" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 107–108 頁：什麼叫 machine language(機器語言)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-111113-頁add-t0-s1-s2-怎麼變成機器碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 111–113 頁：add $t0, $s1, $s2 怎麼變成機器碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1先判斷它是哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1：先判斷它是哪一型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2把暫存器名稱換成編號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2：把暫存器名稱換成編號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3填-r-type-欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3：填 R-type 欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4轉成二進位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4：轉成二進位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這一題真正的邏輯不是背答案而是背流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這一題真正的邏輯，不是背答案，而是背流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#我幫你再整理成一張表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我幫你再整理成一張表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#額外送你一個更進一步的結果十六進位表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        額外送你一個更進一步的結果：十六進位表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最容易考 / 最容易混淆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rsrtrd-不要背反" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. rs、rt、rd 不要背反
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-op0-不代表指令就是-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. op=0 不代表指令就是 add
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-shamt-不是每條-r-type-都有意義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. shamt 不是每條 R-type 都有意義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第-106-頁有內容錯誤" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第 106 頁有內容錯誤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第-113-頁把-immediate-寫成最大可到-216要小心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第 113 頁把 immediate 寫成「最大可到 2^16」要小心
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#超短背法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        超短背法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shamt-要放啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shamt 要放啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shamt 要放啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接答案_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#什麼時候不是-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候不是 0？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在這題最該怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在這題最該怎麼記
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="你現在這題最該怎麼記">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一般-r-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般 R-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift-類" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shift 類
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#套回你剛剛那題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        套回你剛剛那題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sll和srl的機器碼會長怎樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sll和srl的機器碼會長怎樣
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sll和srl的機器碼會長怎樣">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接答案_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-sll-的機器碼格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. sll 的機器碼格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-srl-的機器碼格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. srl 的機器碼格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-rs-要放-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 rs 要放 0？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-具體例子sll-t0-s1-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 具體例子：sll $t0, $s1, 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-具體例子srl-t0-s1-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 具體例子：srl $t0, $s1, 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣超短記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣超短記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9824,6 +10660,842 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2-的補數twos-complement表示法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 的補數(two's complement)表示法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 的補數(two&#39;s complement)表示法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#給我一些例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        給我一些例子
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="給我一些例子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最好記的判斷規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最好記的判斷規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-1正數加正數結果變負數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 1：正數加正數，結果變負數
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-2負數加負數結果變正數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 2：負數加負數，結果變正數
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-3正負相加通常不會-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 3：正負相加，通常不會 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-4看起來有進位但其實沒有-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 4：看起來有進位，但其實沒有 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#例子-5負數加負數但這次沒有-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子 5：負數加負數，但這次沒有 overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#我幫你整理成一個表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我幫你整理成一個表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼投影片說符號位元不正確時就-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼投影片說「符號位元不正確時就 overflow」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#下一步最適合做的事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        下一步最適合做的事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mips-指令種類--misp-轉機器語言" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIPS 指令種類 、 MISP 轉機器語言
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MIPS 指令種類 、 MISP 轉機器語言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這幾頁在回答什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這幾頁在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-104-頁mips-為什麼分成-r--i--j-三種" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 104 頁：MIPS 為什麼分成 R / I / J 三種
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺為什麼不能全部都用同一種格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺：為什麼不能全部都用同一種格式？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-105-頁r-type-格式長什麼樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 105 頁：R-type 格式長什麼樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-105109110-頁每個欄位到底在幹嘛" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 105、109、110 頁：每個欄位到底在幹嘛
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 105、109、110 頁：每個欄位到底在幹嘛">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-op--opcode運作碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. op = opcode(運作碼)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. rs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. rt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-rd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. rd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-shamt--shift-amount位移量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. shamt = shift amount(位移量)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-funct--function-code功能碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. funct = function code(功能碼)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-rs--rt--rd-都是-5-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 rs / rt / rd 都是 5 bits？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-106-頁r-type-指令例子要怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 106 頁：R-type 指令例子要怎麼看
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第 106 頁：R-type 指令例子要怎麼看">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一群算術" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一群：算術
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二群邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二群：邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三群比較--位移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三群：比較 / 位移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這一頁我幫你抓兩個很重要的錯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這一頁我幫你抓兩個很重要的錯
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="這一頁我幫你抓兩個很重要的錯">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-1nor-不是異或" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 1：nor 不是「異或」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-2nor-那列的說明其實寫成了-slt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 2：nor 那列的說明其實寫成了 slt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯誤-3sll--srl-不該叫迴圈左移--右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯誤 3：sll / srl 不該叫「迴圈左移 / 右移」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-107108-頁什麼叫-machine-language機器語言" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 107–108 頁：什麼叫 machine language(機器語言)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第-111113-頁add-t0-s1-s2-怎麼變成機器碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 111–113 頁：add $t0, $s1, $s2 怎麼變成機器碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1先判斷它是哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1：先判斷它是哪一型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2把暫存器名稱換成編號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2：把暫存器名稱換成編號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3填-r-type-欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3：填 R-type 欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4轉成二進位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4：轉成二進位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這一題真正的邏輯不是背答案而是背流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這一題真正的邏輯，不是背答案，而是背流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#我幫你再整理成一張表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我幫你再整理成一張表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#額外送你一個更進一步的結果十六進位表示" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        額外送你一個更進一步的結果：十六進位表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最容易考 / 最容易混淆">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rsrtrd-不要背反" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. rs、rt、rd 不要背反
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-op0-不代表指令就是-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. op=0 不代表指令就是 add
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-shamt-不是每條-r-type-都有意義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. shamt 不是每條 R-type 都有意義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第-106-頁有內容錯誤" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第 106 頁有內容錯誤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第-113-頁把-immediate-寫成最大可到-216要小心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第 113 頁把 immediate 寫成「最大可到 2^16」要小心
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#超短背法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        超短背法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shamt-要放啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shamt 要放啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shamt 要放啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接答案_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#什麼時候不是-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼時候不是 0？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在這題最該怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在這題最該怎麼記
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="你現在這題最該怎麼記">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#一般-r-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一般 R-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shift-類" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shift 類
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#套回你剛剛那題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        套回你剛剛那題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sll和srl的機器碼會長怎樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sll和srl的機器碼會長怎樣
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sll和srl的機器碼會長怎樣">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直接答案_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-sll-的機器碼格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. sll 的機器碼格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-srl-的機器碼格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. srl 的機器碼格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-rs-要放-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 rs 要放 0？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-具體例子sll-t0-s1-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 具體例子：sll $t0, $s1, 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-具體例子srl-t0-s1-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 具體例子：srl $t0, $s1, 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你可以這樣超短記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你可以這樣超短記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9910,7 +11582,7 @@ is now available!
 <li>RISC(Reduced Instruction Set Computer, 精簡指令集電腦) 風格鮮明</li>
 <li>很容易拿來理解指令格式、暫存器(register)、記憶體(memory)、分支(branch) 這些基礎概念</li>
 </ul>
-<p>MIPS 本身確實屬於 RISC 家族。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">維基百科</a>)</p>
+<p>MIPS 本身確實屬於 RISC 家族。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">維基百科</a>)</p>
 <hr />
 <h4 id="3-關係--流程--因果">3. 關係 / 流程 / 因果<a class="headerlink" href="#3-關係--流程--因果" title="Permanent link"></a></h4>
 <p>我把第 3～6 頁整理成下面這條邏輯鏈：</p>
@@ -10008,7 +11680,7 @@ stored-program concept 的突破在於：</p>
 <li>再讀下一條</li>
 </ol>
 <p>這就是現代電腦的基礎模式。<br />
-Britannica 與 Von Neumann architecture 的資料都指出，stored-program computer(內儲程式電腦) 的核心，就是把 instructions 與 data 一起存入可存取記憶體，讓同一台機器能透過載入不同程式完成不同任務。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">Encyclopedia Britannica</a>)</p>
+Britannica 與 Von Neumann architecture 的資料都指出，stored-program computer(內儲程式電腦) 的核心，就是把 instructions 與 data 一起存入可存取記憶體，讓同一台機器能透過載入不同程式完成不同任務。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">Encyclopedia Britannica</a>)</p>
 <p>生活化例子：</p>
 <ul>
 <li><strong>非內儲程式機器</strong>像一台只能做珍珠奶茶的機器</li>
@@ -10166,7 +11838,7 @@ Britannica 與 Von Neumann architecture 的資料都指出，stored-program comp
 <blockquote>
 <p>如果每條指令都長得很像，硬體就比較好設計。</p>
 </blockquote>
-<p>例如 MIPS 很多基本指令都維持固定風格，甚至整體 instruction format(指令格式) 也盡量固定成 32 bits，這能降低解碼(decoding) 的複雜度。Cornell 的課程資料也把這點列為 MIPS 的核心設計原則之一。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">cs.cornell.edu</a>)</p>
+<p>例如 MIPS 很多基本指令都維持固定風格，甚至整體 instruction format(指令格式) 也盡量固定成 32 bits，這能降低解碼(decoding) 的複雜度。Cornell 的課程資料也把這點列為 MIPS 的核心設計原則之一。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">cs.cornell.edu</a>)</p>
 <hr />
 <h4 id="關係--流程--因果">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果" title="Permanent link"></a></h4>
 <p>我們可以把這張圖的邏輯整理成下面這樣：</p>
@@ -10233,7 +11905,7 @@ G --&gt; H[速度較快 / 成本較低 / 較容易實作]</code></pre>
 <span class="nf">lw</span><span class="w">   </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">(</span><span class="no">$s3</span><span class="p">)</span>
 <span class="nf">j</span><span class="w">    </span><span class="mi">10000</span>
 </code></pre></div>
-<p>這些就不是單純的「三個變數」格式。MIPS 也有 R-type、I-type、J-type 三種主要格式。 (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">cs.cornell.edu</a>)</p>
+<p>這些就不是單純的「三個變數」格式。MIPS 也有 R-type、I-type、J-type 三種主要格式。 (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">cs.cornell.edu</a>)</p>
 <p>所以如果考試寫成：</p>
 <blockquote>
 <p>「所有 MIPS 指令都永遠使用三個變數」</p>
@@ -10384,7 +12056,7 @@ F --&gt; G[重新分配、copy、stack/memory 暫存]</code></pre>
 <p>通常這件事主要由 Compiler(編譯器) 做。</p>
 <h5 id="2-register-spilling暫存器溢出外溢">2. Register Spilling(暫存器溢出/外溢)<a class="headerlink" href="#2-register-spilling暫存器溢出外溢" title="Permanent link"></a></h5>
 <p>當 register 不夠用時，只好把原本在 register 裡的某些值暫時搬去 memory，等之後需要再載回來。投影片就是這樣定義的。</p>
-<p>GCC 的文件也說得很接近：當編譯器可用的 machine registers(硬體暫存器) 不夠時，會把某些值改放到 stack slot(堆疊空間) 或其他位置，這就是 spilling。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">GCC</a>)</p>
+<p>GCC 的文件也說得很接近：當編譯器可用的 machine registers(硬體暫存器) 不夠時，會把某些值改放到 stack slot(堆疊空間) 或其他位置，這就是 spilling。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">GCC</a>)</p>
 <p>生活化例子：</p>
 <p>你桌上只有 3 個小抽屜，但現在要同時算 6 個中間結果。<br />
 那就只能把暫時用不到的結果，先拿去旁邊櫃子放一下。<br />
@@ -10473,7 +12145,7 @@ Memory 很大，但比較慢。</p>
 <h5 id="3-插入-movecopy">3. 插入 Move/Copy<a class="headerlink" href="#3-插入-movecopy" title="Permanent link"></a></h5>
 <p>先把某個值複製到另一個 register，避開卡住的位置。</p>
 <h5 id="4-用-stack堆疊-或-memory記憶體-暫存">4. 用 Stack(堆疊) 或 Memory(記憶體) 暫存<a class="headerlink" href="#4-用-stack堆疊-或-memory記憶體-暫存" title="Permanent link"></a></h5>
-<p>減輕 register 壓力。這其實就是 spilling 的實務做法。 (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">GCC</a>)</p>
+<p>減輕 register 壓力。這其實就是 spilling 的實務做法。 (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">GCC</a>)</p>
 <hr />
 <h4 id="最容易考--最容易混淆_1">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_1" title="Permanent link"></a></h4>
 <h5 id="容易混淆-1暫存器溢出--算術-overflow溢位">容易混淆 1：暫存器溢出 ≠ 算術 overflow(溢位)<a class="headerlink" href="#容易混淆-1暫存器溢出--算術-overflow溢位" title="Permanent link"></a></h5>
@@ -10508,7 +12180,7 @@ Memory 很大，但比較慢。</p>
 <ol>
 <li><strong>Register(暫存器)</strong> 是 CPU 裡最快、最少的暫存空間。</li>
 <li><strong>Register Allocation(暫存器配置)</strong> 是決定值要放哪個暫存器。</li>
-<li><strong>Register Spilling(暫存器外溢)</strong> 是暫存器不夠時，把值暫時搬去記憶體。 (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">GCC</a>)</li>
+<li><strong>Register Spilling(暫存器外溢)</strong> 是暫存器不夠時，把值暫時搬去記憶體。 (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">GCC</a>)</li>
 <li><strong>Register Conflict(這份投影片的用法)</strong> 比較接近「暫存器壓力 + 暫存器庫分配衝突」，不是單純 pipeline hazard。</li>
 </ol>
 <p>下一步我建議我們直接把這幾頁內容，改寫成「考試版筆記 + 例題版」，你會更好背。</p>
@@ -10574,7 +12246,7 @@ G --&gt; H[更仰賴 compiler 排程與 register 配置]</code></pre>
 <li><strong>CISC</strong>：硬體資源更多放在支援複雜 instruction 與解碼</li>
 <li><strong>RISC</strong>：比較偏向規則執行結構、較多 registers、較簡單解碼與 pipeline</li>
 </ul>
-<p>Arm 官方甚至直接提到：因為 RISC 缺少複雜解碼邏輯，所以能放進更多 <strong>general-purpose registers(通用暫存器)</strong>。所以這一列不是在說 RISC 一定「總電晶體數更多」，而是在說 <strong>資源配置方向不同</strong>。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">Arm</a>)</p>
+<p>Arm 官方甚至直接提到：因為 RISC 缺少複雜解碼邏輯，所以能放進更多 <strong>general-purpose registers(通用暫存器)</strong>。所以這一列不是在說 RISC 一定「總電晶體數更多」，而是在說 <strong>資源配置方向不同</strong>。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Arm</a>)</p>
 <h5 id="3-includes-multi-clock-complex-operations--single-clock-simple-operations">3. Includes multi-clock complex operations / Single-clock, simple operations<a class="headerlink" href="#3-includes-multi-clock-complex-operations--single-clock-simple-operations" title="Permanent link"></a></h5>
 <p>這一列是很典型的教科書口訣，但要加註腳。</p>
 <ul>
@@ -10593,17 +12265,17 @@ G --&gt; H[更仰賴 compiler 排程與 register 配置]</code></pre>
 <li><strong>CISC</strong>：常允許 instruction 直接帶 memory operand(記憶體運算元)</li>
 <li><strong>RISC</strong>：偏向先 <code>LOAD</code> 到 register，再在 register 間運算，最後必要時 <code>STORE</code> 回去</li>
 </ul>
-<p>這就是你前面一直看到的 <strong>load-store architecture(載入/儲存架構)</strong>。RISC-V 官方文件就把 base ISA 分成 integer computational instructions、loads、stores、control-flow instructions，表示「運算」和「存取記憶體」是分開的。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">RISC-V 文檔</a>)</p>
+<p>這就是你前面一直看到的 <strong>load-store architecture(載入/儲存架構)</strong>。RISC-V 官方文件就把 base ISA 分成 integer computational instructions、loads、stores、control-flow instructions，表示「運算」和「存取記憶體」是分開的。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">RISC-V 文檔</a>)</p>
 <h5 id="5-small-code-sizes--variable-length-of-instruction-vs-large-code-sizes--fix-length-of-instruction">5. Small code sizes / Variable length of instruction vs large code sizes / Fix length of instruction<a class="headerlink" href="#5-small-code-sizes--variable-length-of-instruction-vs-large-code-sizes--fix-length-of-instruction" title="Permanent link"></a></h5>
 <p>這一列也是「大方向正確，但別背太死」。</p>
 <ul>
 <li>x86 類 CISC 的確常是 <strong>variable-length instruction(可變長指令)</strong>；Intel 官方 XED 文件明寫 x86 指令可為 <strong>1 到 15 bytes</strong>。(<a href="https://training.mips.com/basic_mips/PDF/Assemble_Language.pdf?utm_source=chatgpt.com" title="Welcome to the MIPS Assemble language section of the MIPS Software Training">Intel</a>)</li>
-<li>經典 RISC 常強調 <strong>fixed-length instruction(固定長度指令)</strong>；RISC-V base ISA 官方也明寫是 <strong>fixed-length 32-bit instructions</strong>。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">RISC-V 文檔</a>)</li>
+<li>經典 RISC 常強調 <strong>fixed-length instruction(固定長度指令)</strong>；RISC-V base ISA 官方也明寫是 <strong>fixed-length 32-bit instructions</strong>。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">RISC-V 文檔</a>)</li>
 </ul>
 <p>但要注意：</p>
 <ul>
 <li>RISC-V 也支援 compressed extension(壓縮指令延伸)，會有 16-bit 指令</li>
-<li>所以「RISC 永遠固定長度」不是無條件真理，只是在基礎教材層次上很好用的口訣。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">RISC-V 文檔</a>)</li>
+<li>所以「RISC 永遠固定長度」不是無條件真理，只是在基礎教材層次上很好用的口訣。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">RISC-V 文檔</a>)</li>
 </ul>
 <hr />
 <h4 id="第-42-頁中文表格其實是在幫你更好背">第 42 頁：中文表格其實是在幫你更好背<a class="headerlink" href="#第-42-頁中文表格其實是在幫你更好背" title="Permanent link"></a></h4>
@@ -10695,7 +12367,7 @@ G --&gt; H[更仰賴 compiler 排程與 register 配置]</code></pre>
 <h5 id="2-cisc-不等於可以完全-memory-to-memory-做所有事">2. CISC 不等於「可以完全 memory-to-memory 做所有事」<a class="headerlink" href="#2-cisc-不等於可以完全-memory-to-memory-做所有事" title="Permanent link"></a></h5>
 <p>比較精確的說法是：<strong>CISC 常支援 memory operand</strong>，不是說所有複雜操作都可以任意「記憶體對記憶體」完成。這點教材會簡化。(<a href="https://training.mips.com/basic_mips/PDF/Assemble_Language.pdf?utm_source=chatgpt.com" title="Welcome to the MIPS Assemble language section of the MIPS Software Training">Intel</a>)</p>
 <h5 id="3-risc-不等於永遠固定長度永遠單時脈">3. RISC 不等於「永遠固定長度、永遠單時脈」<a class="headerlink" href="#3-risc-不等於永遠固定長度永遠單時脈" title="Permanent link"></a></h5>
-<p>RISC-V base ISA 確實是固定 32-bit，但擴充後可以有 16-bit 指令；而且 single-cycle 也只是入門口訣。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">RISC-V 文檔</a>)</p>
+<p>RISC-V base ISA 確實是固定 32-bit，但擴充後可以有 16-bit 指令；而且 single-cycle 也只是入門口訣。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">RISC-V 文檔</a>)</p>
 <hr />
 <h4 id="小結_2">小結<a class="headerlink" href="#小結_2" title="Permanent link"></a></h4>
 <p>這三頁你可以濃縮成一句話：</p>
@@ -10711,7 +12383,7 @@ G --&gt; H[更仰賴 compiler 排程與 register 配置]</code></pre>
 <h4 id="你現在最該記住的-3-句">你現在最該記住的 3 句<a class="headerlink" href="#你現在最該記住的-3-句" title="Permanent link"></a></h4>
 <ol>
 <li><strong>CISC 與 RISC 比的是設計哲學，不只是比誰指令多誰指令少。</strong> (<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">IBM</a>)</li>
-<li><strong>RISC 的核心是簡單規則、register-oriented、load/store 分離。</strong> (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">Arm</a>)</li>
+<li><strong>RISC 的核心是簡單規則、register-oriented、load/store 分離。</strong> (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Arm</a>)</li>
 <li><strong>「RISC 每條都 1 個 clock」是教學簡化，不是嚴格定義。</strong> (<a href="https://cs.stackexchange.com/questions/48515/cisc-and-risc-synchronous-and-asynchronous?utm_source=chatgpt.com" title="computer architecture - CISC and RISC - synchronous and asynchronous - Computer Science Stack Exchange">Computer Science Stack Exchange</a>)</li>
 </ol>
 <p>下一張你貼上來，我們可以繼續照這個方式拆。</p>
@@ -10797,7 +12469,7 @@ D --&gt; E[若有 REP&lt;br&gt;就繼續重複]</code></pre>
 <li><code>DS:[(E)SI]</code></li>
 <li><code>ES:[(E)DI]</code></li>
 </ul>
-<p>這兩個記憶體位置的內容，然後更新 flags(旗標)。Oracle 手冊就是這樣描述的。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">Oracle Docs</a>)</p>
+<p>這兩個記憶體位置的內容，然後更新 flags(旗標)。Oracle 手冊就是這樣描述的。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Oracle Docs</a>)</p>
 <p>也就是說，這條指令的語意本身就是：</p>
 <p><strong>memory vs memory compare</strong></p>
 <hr />
@@ -10811,11 +12483,11 @@ D --&gt; E[若有 REP&lt;br&gt;就繼續重複]</code></pre>
 <ul>
 <li>一般 x86 指令通常 <strong>最多只有一個 explicit memory operand(顯式記憶體運算元)</strong></li>
 <li>真正有兩個 memory operands 的情況非常少</li>
-<li>常見的例外多半是 <strong>string instructions</strong>，像 <code>movs</code>、<code>cmps</code>，而且至少有一個是 <strong>implicit memory operand</strong>。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">Stack Overflow</a>)</li>
+<li>常見的例外多半是 <strong>string instructions</strong>，像 <code>movs</code>、<code>cmps</code>，而且至少有一個是 <strong>implicit memory operand</strong>。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">Stack Overflow</a>)</li>
 </ul>
 <p>所以更精準地講應該是：</p>
 <blockquote>
-<p><strong>CISC 常支援直接對 memory operand 操作；某些指令甚至能呈現 memory-to-memory 的效果，但不是所有一般算術都能任意雙記憶體運算。</strong> (<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">Stack Overflow</a>)</p>
+<p><strong>CISC 常支援直接對 memory operand 操作；某些指令甚至能呈現 memory-to-memory 的效果，但不是所有一般算術都能任意雙記憶體運算。</strong> (<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">Stack Overflow</a>)</p>
 </blockquote>
 <hr />
 <h4 id="為什麼教材還是會寫成-memory-to-memory">為什麼教材還是會寫成 Memory-to-Memory<a class="headerlink" href="#為什麼教材還是會寫成-memory-to-memory" title="Permanent link"></a></h4>
@@ -10855,7 +12527,7 @@ D --&gt; E[若有 REP&lt;br&gt;就繼續重複]</code></pre>
 這是在講 <strong>ISA 表面上允許的操作形式</strong>，不是說 CPU 內部資料路徑完全不碰任何暫存結構。</p>
 <h5 id="2-cisc-不等於所有指令都能雙記憶體算術">2. CISC 不等於所有指令都能雙記憶體算術<a class="headerlink" href="#2-cisc-不等於所有指令都能雙記憶體算術" title="Permanent link"></a></h5>
 <p>這個很重要。<br />
-<strong>x86 的一般整數指令大多不是任意雙記憶體運算</strong>；真正雙記憶體情況很少，常見是字串指令或帶 implicit memory 的特例。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">Stack Overflow</a>)</p>
+<strong>x86 的一般整數指令大多不是任意雙記憶體運算</strong>；真正雙記憶體情況很少，常見是字串指令或帶 implicit memory 的特例。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">Stack Overflow</a>)</p>
 <h5 id="3-risc-也不是完全不能碰記憶體">3. RISC 也不是完全不能碰記憶體<a class="headerlink" href="#3-risc-也不是完全不能碰記憶體" title="Permanent link"></a></h5>
 <p>RISC 當然可以碰記憶體，只是通常要用獨立的 <code>LOAD/STORE</code> 指令，不把一般算術和記憶體存取混成同一種風格。</p>
 <hr />
@@ -10908,7 +12580,7 @@ D --&gt; E[若有 REP&lt;br&gt;就繼續重複]</code></pre>
 </blockquote>
 <p>那麼 <strong>CISC 常常會比 RISC 輕一點</strong>，因為它有些指令可以直接讀 memory operand，不必所有來源都先進 register。RISC-V 官方規格就明寫算術只在 CPU registers 上做；x86 的 <code>ADD</code> 也允許其中一個 operand 是 memory。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">RISC-V 文檔</a>)</p>
 <h5 id="2-以比較正式的-compiler--architecture-觀點來看">2. 以比較正式的 compiler / architecture 觀點來看<a class="headerlink" href="#2-以比較正式的-compiler--architecture-觀點來看" title="Permanent link"></a></h5>
-<p><strong>CISC 一樣會有很明顯的 register pressure(暫存器壓力)</strong>，而且有時候還不小。GCC 內部文件直接把 <strong>i386</strong> 這類機器稱為 <strong>generally register-starved(暫存器偏吃緊)</strong>；GCC 也特別提到 AMD x86-64 的一些 legacy x86 integer instructions(舊式 x86 整數指令) 會要求特定 registers。這代表編譯器在 x86/CISC 上，照樣要做 register allocation(暫存器配置)、spilling(外溢到 stack)、以及避開特定 register 限制。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">GCC</a>)</p>
+<p><strong>CISC 一樣會有很明顯的 register pressure(暫存器壓力)</strong>，而且有時候還不小。GCC 內部文件直接把 <strong>i386</strong> 這類機器稱為 <strong>generally register-starved(暫存器偏吃緊)</strong>；GCC 也特別提到 AMD x86-64 的一些 legacy x86 integer instructions(舊式 x86 整數指令) 會要求特定 registers。這代表編譯器在 x86/CISC 上，照樣要做 register allocation(暫存器配置)、spilling(外溢到 stack)、以及避開特定 register 限制。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">GCC</a>)</p>
 <hr />
 <h4 id="這裡最容易誤會的一點">這裡最容易誤會的一點<a class="headerlink" href="#這裡最容易誤會的一點" title="Permanent link"></a></h4>
 <p>很多人一看到教材寫：</p>
@@ -10951,9 +12623,9 @@ D --&gt; E[若有 REP&lt;br&gt;就繼續重複]</code></pre>
 <h4 id="最容易考--最容易混淆_3">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_3" title="Permanent link"></a></h4>
 <h5 id="1-cisc-比較少-register-conflict只能算半對">1. 「CISC 比較少 register conflict」只能算半對<a class="headerlink" href="#1-cisc-比較少-register-conflict只能算半對" title="Permanent link"></a></h5>
 <p>如果老師是在講 <strong>所有 operand 都要先進 register</strong> 這種入門模型，那可以說 <strong>相對較不容易</strong>。<br />
-但如果你是在講 <strong>compiler 的 register allocation 問題</strong>，那 x86/CISC 一樣很常遇到，而且 GCC 還直接把 i386 視為 register-starved。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">GCC</a>)</p>
+但如果你是在講 <strong>compiler 的 register allocation 問題</strong>，那 x86/CISC 一樣很常遇到，而且 GCC 還直接把 i386 視為 register-starved。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">GCC</a>)</p>
 <h5 id="2-memory-to-memory-不等於一般算術都能直接雙記憶體">2. memory-to-memory 不等於一般算術都能直接雙記憶體<a class="headerlink" href="#2-memory-to-memory-不等於一般算術都能直接雙記憶體" title="Permanent link"></a></h5>
-<p>x86 的一般 <code>ADD</code> 明確說 <strong>two memory operands cannot be used in one instruction</strong>。也就是說，你不能把它想成 <code>[Z] = [X] + [Y]</code> 這種任意雙記憶體加法隨便都能寫。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">felixcloutier.com</a>)</p>
+<p>x86 的一般 <code>ADD</code> 明確說 <strong>two memory operands cannot be used in one instruction</strong>。也就是說，你不能把它想成 <code>[Z] = [X] + [Y]</code> 這種任意雙記憶體加法隨便都能寫。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">felixcloutier.com</a>)</p>
 <h5 id="3-cisc-的壓力有時只是被轉移">3. CISC 的壓力有時只是被「轉移」<a class="headerlink" href="#3-cisc-的壓力有時只是被轉移" title="Permanent link"></a></h5>
 <p>它可能把一部分壓力從「顯性 GPR 數量」轉成：</p>
 <ul>
@@ -11012,7 +12684,7 @@ F --&gt; G[用 lw / sw&lt;br&gt;在 Memory 與 Register 間搬資料]</code></pr
 <li>在 MIPS32 裡，register 大小是 <strong>32 bits</strong></li>
 <li>這個 32-bit 的自然資料單位叫做 <strong>word(字組/字)</strong></li>
 </ol>
-<p>更正式地說，Patterson/Hennessy 直接指出：MIPS 算術指令的運算元必須從 <strong>32 個 32-bit registers</strong> 中取出，而且在 MIPS 中，register 的大小是 32 bits，因此 <strong>word</strong> 這個自然單位也對應到 32 bits。MIPS 官方訓練教材也寫明：MIPS32 有 32 個 GPRs，算術指令在整個 register 上操作。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>更正式地說，Patterson/Hennessy 直接指出：MIPS 算術指令的運算元必須從 <strong>32 個 32-bit registers</strong> 中取出，而且在 MIPS 中，register 的大小是 32 bits，因此 <strong>word</strong> 這個自然單位也對應到 32 bits。MIPS 官方訓練教材也寫明：MIPS32 有 32 個 GPRs，算術指令在整個 register 上操作。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <p>所以你可以把這頁濃縮成一句話：</p>
 <blockquote>
 <p><strong>MIPS 要算東西，先看 register，不先看 memory。</strong></p>
@@ -11026,7 +12698,7 @@ F --&gt; G[用 lw / sw&lt;br&gt;在 Memory 與 Register 間搬資料]</code></pr
 <li><strong>Smaller is faster(愈小愈快)</strong>：register 太多，內部訊號要跑更遠，可能拉長 clock cycle time(時脈週期時間)</li>
 <li>register 數量變多，也會吃掉 instruction format(指令格式) 更多 bit，讓編碼更難設計</li>
 </ul>
-<p>也就是說，不是「32 神奇」，而是「太多不划算」。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>也就是說，不是「32 神奇」，而是「太多不划算」。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="這頁還有一個很值得你順手修正的地方">這頁還有一個很值得你順手修正的地方<a class="headerlink" href="#這頁還有一個很值得你順手修正的地方" title="Permanent link"></a></h4>
 <p>投影片把：</p>
@@ -11040,7 +12712,7 @@ F --&gt; G[用 lw / sw&lt;br&gt;在 Memory 與 Register 間搬資料]</code></pr
 <li><code>$t0-$t9</code> 是 <strong>temporary registers(暫時暫存器)</strong>，函式呼叫後不保證保留</li>
 <li><code>$s0-$s8</code> 是 <strong>saved registers(保存暫存器)</strong>，被呼叫函式若要用，必須先保存再恢復</li>
 </ul>
-<p>所以投影片是「教學簡化版」，不是最完整的定義。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">MIPS Training</a>)</p>
+<p>所以投影片是「教學簡化版」，不是最完整的定義。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">MIPS Training</a>)</p>
 <hr />
 <h4 id="第-4647-頁compiler編譯器-怎麼把-c-式子翻成-mips">第 46–47 頁：Compiler(編譯器) 怎麼把 C 式子翻成 MIPS<a class="headerlink" href="#第-4647-頁compiler編譯器-怎麼把-c-式子翻成-mips" title="Permanent link"></a></h4>
 <p>題目是：</p>
@@ -11065,7 +12737,7 @@ F --&gt; G[用 lw / sw&lt;br&gt;在 Memory 與 Register 間搬資料]</code></pr
 <li>再算 <code>i+j</code>，先放進暫時抽屜 <code>$t1</code></li>
 <li>最後做 <code>$t0 - $t1</code>，放回 <code>f</code> 對應的 <code>$s0</code></li>
 </ol>
-<p>Patterson/Hennessy 也明確說：把程式變數關聯到 registers 是 compiler 的工作，並用同一個 <code>f=(g+h)-(i+j)</code> 例子說明。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>Patterson/Hennessy 也明確說：把程式變數關聯到 registers 是 compiler 的工作，並用同一個 <code>f=(g+h)-(i+j)</code> 例子說明。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="這裡最重要的理解不是背指令而是背流程">這裡最重要的理解不是背指令，而是背流程<a class="headerlink" href="#這裡最重要的理解不是背指令而是背流程" title="Permanent link"></a></h4>
 <p>你要抓到的是：</p>
@@ -11090,7 +12762,7 @@ CPU 真正在處理的是：</p>
 <li><strong>常算的、眼前要用的</strong> → 放 register</li>
 <li><strong>大量資料、結構化資料</strong> → 放 memory</li>
 </ul>
-<p>Patterson/Hennessy 直接說：複雜資料結構比 register 數目多得多，因此它們保存在 memory；MIPS 因為算術只在 registers 上做，所以一定需要在 memory 和 registers 之間搬資料的 <strong>data transfer instructions(資料轉移指令)</strong>。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>Patterson/Hennessy 直接說：複雜資料結構比 register 數目多得多，因此它們保存在 memory；MIPS 因為算術只在 registers 上做，所以一定需要在 memory 和 registers 之間搬資料的 <strong>data transfer instructions(資料轉移指令)</strong>。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="第-49-頁這張圖很容易讓人誤會我們要特別校正">第 49 頁：這張圖很容易讓人誤會，我們要特別校正<a class="headerlink" href="#第-49-頁這張圖很容易讓人誤會我們要特別校正" title="Permanent link"></a></h4>
 <p>圖上寫：</p>
@@ -11111,7 +12783,7 @@ CPU 真正在處理的是：</p>
 <li>概念圖的第三個元素可寫成 <code>Memory[2]</code></li>
 <li>但真正 MIPS 若是第三個 <strong>word</strong>，位址應該是 <strong>8</strong>，不是 2</li>
 </ul>
-<p>這點你一定要分清楚，因為它正好就是很多人會搞混的地方。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>這點你一定要分清楚，因為它正好就是很多人會搞混的地方。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="第-50-頁lw-t0-32s3-到底是什麼意思">第 50 頁：<code>lw $t0, 32($s3)</code> 到底是什麼意思<a class="headerlink" href="#第-50-頁lw-t0-32s3-到底是什麼意思" title="Permanent link"></a></h4>
 <p>這一頁超重要，而且剛好對應你之前問過的問題。</p>
@@ -11181,28 +12853,28 @@ CPU 真正在處理的是：</p>
 <li><strong>因此在 RISC/MIPS 裡，register allocation(暫存器配置) 特別重要</strong></li>
 </ol>
 <p>這也是為什麼我們前面一直說：<br />
-RISC 不是「比較討厭記憶體」，而是 <strong>把 memory access 和 arithmetic 分開管理</strong>。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+RISC 不是「比較討厭記憶體」，而是 <strong>把 memory access 和 arithmetic 分開管理</strong>。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="最容易考--最容易混淆_4">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_4" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><strong>word 在這裡是 32 bits，不是 16 bits。</strong> 在 MIPS32，register 與 word 都是 32 bits。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p><strong>word 在這裡是 32 bits，不是 16 bits。</strong> 在 MIPS32，register 與 word 都是 32 bits。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 </li>
 <li>
 <p><strong><code>lw $t0, 32($s3)</code> 的 32 是 byte offset，不是陣列索引。</strong> 所以若元素是 word，<code>32($s3)</code> 對應 <code>A[8]</code>。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">MIPS Training</a>)</p>
 </li>
 <li>
-<p><strong>第 49 頁的 <code>Memory[2]</code> 是示意圖，不是嚴格 MIPS word address。</strong> 真正 MIPS 是 byte-addressed。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p><strong>第 49 頁的 <code>Memory[2]</code> 是示意圖，不是嚴格 MIPS word address。</strong> 真正 MIPS 是 byte-addressed。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 </li>
 <li>
-<p><strong><code>$s</code> 與 <code>$t</code> 不只是「變數用 / 暫時用」而已。</strong> 更正式地是 saved vs temporary 的 calling convention 分工。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">MIPS Training</a>)</p>
+<p><strong><code>$s</code> 與 <code>$t</code> 不只是「變數用 / 暫時用」而已。</strong> 更正式地是 saved vs temporary 的 calling convention 分工。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">MIPS Training</a>)</p>
 </li>
 </ol>
 <hr />
 <h4 id="小結_5">小結<a class="headerlink" href="#小結_5" title="Permanent link"></a></h4>
 <p>把這 7 頁壓成一句話就是：</p>
 <blockquote>
-<p><strong>MIPS 的算術要先在 Register 裡做；因為 Register 只有 32 個而且每個是 32-bit，所以 Compiler 必須做配置；當資料在 Memory 裡時，就用 <code>lw/sw</code> 透過 base+offset 的方式搬進來再算。</strong> (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p><strong>MIPS 的算術要先在 Register 裡做；因為 Register 只有 32 個而且每個是 32-bit，所以 Compiler 必須做配置；當資料在 Memory 裡時，就用 <code>lw/sw</code> 透過 base+offset 的方式搬進來再算。</strong> (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 </blockquote>
 <h4 id="超短背法">超短背法<a class="headerlink" href="#超短背法" title="Permanent link"></a></h4>
 <ul>
@@ -11308,7 +12980,7 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 <li>第 2 個 word 起始於 4</li>
 <li>第 3 個 word 起始於 8</li>
 </ul>
-<p>這正是 byte addressing + word 對齊的直接結果。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>這正是 byte addressing + word 對齊的直接結果。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <hr />
 <h4 id="第-53-頁msb--lsb-在講什麼">第 53 頁：MSB / LSB 在講什麼<a class="headerlink" href="#第-53-頁msb--lsb-在講什麼" title="Permanent link"></a></h4>
 <p>這頁是在講 <strong>bit significance(位元的重要性)</strong>，不是在講記憶體位址。</p>
@@ -11319,7 +12991,7 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 <li>bit 15 是 <strong>MSB(Most Significant Bit，最高有效位元)</strong></li>
 <li>bit 0 是 <strong>LSB(Least Significant Bit，最低有效位元)</strong></li>
 </ul>
-<p>MIPS 官方文件也明講：<strong>bit 0 永遠是 least-significant bit</strong>。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>MIPS 官方文件也明講：<strong>bit 0 永遠是 least-significant bit</strong>。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <h5 id="這裡最容易混淆">這裡最容易混淆<a class="headerlink" href="#這裡最容易混淆" title="Permanent link"></a></h5>
 <p>很多人會把：</p>
 <ul>
@@ -11334,7 +13006,7 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 </ul>
 <p>所以：</p>
 <blockquote>
-<p><strong>bit 15 是 MSB、bit 0 是 LSB，這件事本身不因 big-endian 或 little-endian 改變。</strong> (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p><strong>bit 15 是 MSB、bit 0 是 LSB，這件事本身不因 big-endian 或 little-endian 改變。</strong> (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 </blockquote>
 <hr />
 <h4 id="第-54-頁big-endian--little-endian-在講什麼">第 54 頁：big-endian / little-endian 在講什麼<a class="headerlink" href="#第-54-頁big-endian--little-endian-在講什麼" title="Permanent link"></a></h4>
@@ -11349,7 +13021,7 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 </li>
 <li><strong>little-endian</strong>：最低有效 byte 放在最低位址</li>
 </ul>
-<p>這是端序的標準定義。(<a href="https://www.intel.com/content/www/us/en/docs/programmable/683689/current/endianness.html?utm_source=chatgpt.com" title="3.4.1. Endianness">Intel</a>)</p>
+<p>這是端序的標準定義。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">Intel</a>)</p>
 <h5 id="這頁有一個你一定要修正的地方">這頁有一個你一定要修正的地方<a class="headerlink" href="#這頁有一個你一定要修正的地方" title="Permanent link"></a></h5>
 <p>投影片寫：</p>
 <blockquote>
@@ -11360,7 +13032,7 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 <blockquote>
 <p><strong>MIPS 可以配置成 big-endian，也可以配置成 little-endian。</strong></p>
 </blockquote>
-<p>MIPS 官方文件明確寫到：bytes within larger CPU data formats <strong>can be configured in either big-endian or little-endian order</strong>。MIPS 訓練教材也直接寫：<strong>MIPS cores can be set to run in big-endian or little-endian</strong>。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>MIPS 官方文件明確寫到：bytes within larger CPU data formats <strong>can be configured in either big-endian or little-endian order</strong>。MIPS 訓練教材也直接寫：<strong>MIPS cores can be set to run in big-endian or little-endian</strong>。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <p>所以這頁你要這樣理解：</p>
 <ul>
 <li>教材可能<strong>用 big-endian 當示意</strong></li>
@@ -11488,12 +13160,12 @@ I --&gt; J[需要時再 store 回 Memory]</code></pre>
 ✅ 它是 <strong>base + 32 bytes</strong>。如果元素是 word，才剛好對應 <code>A[8]</code>。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">MIPS Training</a>)</p>
 <h5 id="2-endianness-不是-bit-左右顛倒">2. Endianness 不是 bit 左右顛倒<a class="headerlink" href="#2-endianness-不是-bit-左右顛倒" title="Permanent link"></a></h5>
 <p>❌ 不是 bit 順序變了。<br />
-✅ 是 <strong>byte 在記憶體中的排列順序</strong> 變了。bit 0 還是 least-significant bit。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+✅ 是 <strong>byte 在記憶體中的排列順序</strong> 變了。bit 0 還是 least-significant bit。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <h5 id="3-mips-屬於-big-endian不能死背">3. 「MIPS 屬於 big-endian」不能死背<a class="headerlink" href="#3-mips-屬於-big-endian不能死背" title="Permanent link"></a></h5>
 <p>❌ 不能當絕對真理。<br />
-✅ 更精確是：<strong>MIPS 可為 big-endian 或 little-endian。</strong> (<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+✅ 更精確是：<strong>MIPS 可為 big-endian 或 little-endian。</strong> (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <h5 id="4-word-的位址不是-0123">4. word 的位址不是 0、1、2、3…<a class="headerlink" href="#4-word-的位址不是-0123" title="Permanent link"></a></h5>
-<p>如果你在講 <strong>真實 MIPS byte address</strong>，word 的起始位址是 0、4、8、12…，不是把每個 word 自己再編成 0、1、2、3。(<a href="https://studylib.net/doc/26277216/mips-architecture-for-programmers-volume-i-a-introduction...?utm_source=chatgpt.com" title="MIPS32 Architecture: A Programmer's Introduction">studylib.net</a>)</p>
+<p>如果你在講 <strong>真實 MIPS byte address</strong>，word 的起始位址是 0、4、8、12…，不是把每個 word 自己再編成 0、1、2、3。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">studylib.net</a>)</p>
 <h5 id="5-s-和-t-不只是名字好看">5. <code>$s</code> 和 <code>$t</code> 不只是名字好看<a class="headerlink" href="#5-s-和-t-不只是名字好看" title="Permanent link"></a></h5>
 <p>更正式地說：</p>
 <ul>
@@ -11847,6 +13519,821 @@ C --&gt; E[指令較少、較快]</code></pre>
 </tbody>
 </table>
 <p>如果你要，我下一則可以直接幫你把 <strong><code>add</code>、<code>addi</code>、<code>lw</code>、<code>sw</code></strong> 四種格式畫成一張總表。</p>
+<h2 id="2-的補數twos-complement表示法">2 的補數(two's complement)表示法<a class="headerlink" href="#2-的補數twos-complement表示法" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%202-37.png" /></p>
+<h3 id="給我一些例子">給我一些例子<a class="headerlink" href="#給我一些例子" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="先講直覺_7">先講直覺<a class="headerlink" href="#先講直覺_7" title="Permanent link"></a></h4>
+<p>在 <strong>4-bit two's complement(4 位元二補數)</strong> 裡，可表示的範圍是：</p>
+<ul>
+<li>最小：<code>1000 = -8</code></li>
+<li>最大：<code>0111 = +7</code></li>
+</ul>
+<p>也就是說，<strong>真正答案如果超出 <code>-8 ~ +7</code>，就一定會 overflow(溢位)</strong>。另外，two's complement 的加法本身和一般二進位加法一樣做即可。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</p>
+<hr />
+<h4 id="最好記的判斷規則">最好記的判斷規則<a class="headerlink" href="#最好記的判斷規則" title="Permanent link"></a></h4>
+<p>對加法來說，你可以先背這句：</p>
+<blockquote>
+<p><strong>兩個同號數相加，結果如果變成異號，就 overflow。</strong></p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>正 + 正，結果卻變負 → overflow</li>
+<li>負 + 負，結果卻變正 → overflow</li>
+<li>正 + 負 → 通常不會因為「符號規則」而 overflow</li>
+</ul>
+<p>這也是硬體裡常用的判斷方式。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">維基百科</a>)</p>
+<hr />
+<h4 id="例子-1正數加正數結果變負數">例子 1：正數加正數，結果變負數<a class="headerlink" href="#例子-1正數加正數結果變負數" title="Permanent link"></a></h4>
+<p>我們用 4-bit：</p>
+<div class="highlight"><pre><span></span><code>  0101   (+5)
++ 0011   (+3)
+------
+  1000
+</code></pre></div>
+<p>表面算出來是 <code>1000</code>，但在 4-bit two's complement 裡：</p>
+<ul>
+<li><code>1000 = -8</code></li>
+</ul>
+<p>所以電腦得到的是 <code>-8</code>，但真正數學答案應該是：</p>
+<ul>
+<li><code>5 + 3 = 8</code></li>
+</ul>
+<p>問題在於 <strong>+8 超出 4-bit 可表示的最大值 +7</strong>，所以這是 <strong>overflow</strong>。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</p>
+<hr />
+<h4 id="例子-2負數加負數結果變正數">例子 2：負數加負數，結果變正數<a class="headerlink" href="#例子-2負數加負數結果變正數" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>  1011   (-5)
++ 1010   (-6)
+------
+  0101
+</code></pre></div>
+<p>在 4-bit two's complement 裡：</p>
+<ul>
+<li><code>1011 = -5</code></li>
+<li><code>1010 = -6</code></li>
+<li><code>0101 = +5</code></li>
+</ul>
+<p>但真正數學答案是：</p>
+<ul>
+<li><code>-5 + -6 = -11</code></li>
+</ul>
+<p>而 4-bit 的最小值只有 <code>-8</code>，放不下 <code>-11</code>，所以發生 <strong>overflow</strong>。<br />
+這就是典型的：</p>
+<blockquote>
+<p><strong>負 + 負，結果卻變正</strong></p>
+</blockquote>
+<p>所以一定有問題。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</p>
+<hr />
+<h4 id="例子-3正負相加通常不會-overflow">例子 3：正負相加，通常不會 overflow<a class="headerlink" href="#例子-3正負相加通常不會-overflow" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>  0011   (+3)
++ 1101   (-3)
+------
+  0000
+</code></pre></div>
+<p>結果是 <code>0000 = 0</code>，這是正確的，沒有 overflow。</p>
+<p>這也剛好對應那個規則：</p>
+<ul>
+<li><strong>異號相加</strong>，通常不會因為符號位出錯而 overflow。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">維基百科</a>)</li>
+</ul>
+<hr />
+<h4 id="例子-4看起來有進位但其實沒有-overflow">例子 4：看起來有進位，但其實沒有 overflow<a class="headerlink" href="#例子-4看起來有進位但其實沒有-overflow" title="Permanent link"></a></h4>
+<p>這個超容易考。</p>
+<div class="highlight"><pre><span></span><code>  1111   (-1)
++ 0001   (+1)
+------
+1 0000
+</code></pre></div>
+<p>如果只保留 4 bit，結果是：</p>
+<div class="highlight"><pre><span></span><code>0000
+</code></pre></div>
+<p>也就是 <code>0</code>。</p>
+<p>這題有一個 <strong>carry out(最左邊多跑出去的進位)</strong>，但它<strong>不是</strong> signed overflow。<br />
+因為真正答案 <code>-1 + 1 = 0</code> 完全在範圍內。two's complement 加法本來就會把超出位數的最高位進位丟掉。(<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">維基百科</a>)</p>
+<hr />
+<h4 id="例子-5負數加負數但這次沒有-overflow">例子 5：負數加負數，但這次沒有 overflow<a class="headerlink" href="#例子-5負數加負數但這次沒有-overflow" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>  1011   (-5)
++ 1101   (-3)
+------
+  1000
+</code></pre></div>
+<p>結果 <code>1000 = -8</code>。</p>
+<p>真正答案：</p>
+<ul>
+<li><code>-5 + -3 = -8</code></li>
+</ul>
+<p>剛好還在 4-bit 範圍內，所以 <strong>沒有 overflow</strong>。<br />
+這題很重要，因為它告訴你：</p>
+<blockquote>
+<p><strong>不是看到負 + 負就一定 overflow，要看結果有沒有超出範圍。</strong>(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</p>
+</blockquote>
+<hr />
+<h4 id="我幫你整理成一個表">我幫你整理成一個表<a class="headerlink" href="#我幫你整理成一個表" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>運算</th>
+<th>4-bit 結果</th>
+<th style="text-align: right;">真正十進位答案</th>
+<th>有沒有 overflow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0101 + 0011</code></td>
+<td><code>1000</code></td>
+<td style="text-align: right;"><code>5 + 3 = 8</code></td>
+<td>✅ 有</td>
+</tr>
+<tr>
+<td><code>1011 + 1010</code></td>
+<td><code>0101</code></td>
+<td style="text-align: right;"><code>-5 + -6 = -11</code></td>
+<td>✅ 有</td>
+</tr>
+<tr>
+<td><code>0011 + 1101</code></td>
+<td><code>0000</code></td>
+<td style="text-align: right;"><code>3 + (-3) = 0</code></td>
+<td>❌ 沒有</td>
+</tr>
+<tr>
+<td><code>1111 + 0001</code></td>
+<td><code>0000</code></td>
+<td style="text-align: right;"><code>-1 + 1 = 0</code></td>
+<td>❌ 沒有</td>
+</tr>
+<tr>
+<td><code>1011 + 1101</code></td>
+<td><code>1000</code></td>
+<td style="text-align: right;"><code>-5 + -3 = -8</code></td>
+<td>❌ 沒有</td>
+</tr>
+</tbody>
+</table>
+<p>這個表的判斷，都是根據 4-bit two's complement 的表示範圍 <code>-8 ~ +7</code> 與加法規則來看的。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</p>
+<hr />
+<h4 id="為什麼投影片說符號位元不正確時就-overflow">為什麼投影片說「符號位元不正確時就 overflow」<a class="headerlink" href="#為什麼投影片說符號位元不正確時就-overflow" title="Permanent link"></a></h4>
+<p>你投影片那句話，其實可以翻成更好懂的版本：</p>
+<ul>
+<li>你原本期待一個 <strong>正數</strong></li>
+<li>結果最高位卻變成 <strong>1</strong>，看起來像負數</li>
+</ul>
+<p>或是：</p>
+<ul>
+<li>你原本期待一個 <strong>負數</strong></li>
+<li>結果最高位卻變成 <strong>0</strong>，看起來像正數</li>
+</ul>
+<p>這就是「<strong>符號延伸(sign extension) 應該長什麼樣，卻沒有長對</strong>」的意思。</p>
+<p>所以：</p>
+<ul>
+<li>正 + 正 → 結果若是負 → overflow</li>
+<li>負 + 負 → 結果若是正 → overflow</li>
+</ul>
+<hr />
+<h4 id="小結_9">小結<a class="headerlink" href="#小結_9" title="Permanent link"></a></h4>
+<p>你可以先死記這三句：</p>
+<ol>
+<li><strong>4-bit two's complement 範圍是 <code>-8 ~ +7</code>。</strong> (<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">康奈爾計算機科學系</a>)</li>
+<li><strong>同號相加，結果變異號，就是 overflow。</strong> (<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">維基百科</a>)</li>
+<li><strong>有 carry out 不一定 overflow。</strong> (<a href="https://en.wikipedia.org/wiki/Two%27s_complement?utm_source=chatgpt.com" title="Two's complement">維基百科</a>)</li>
+</ol>
+<h4 id="下一步最適合做的事">下一步最適合做的事<a class="headerlink" href="#下一步最適合做的事" title="Permanent link"></a></h4>
+<p>我可以直接再幫你畫成「逐位相加」版，把 carry 一格一格標出來，讓你看懂為什麼例子 1 和例子 4 一個有 overflow、一個沒有。</p>
+<h2 id="mips-指令種類--misp-轉機器語言">MIPS 指令種類 、 MISP 轉機器語言<a class="headerlink" href="#mips-指令種類--misp-轉機器語言" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%202-48.png" /> <img alt="alt text" src="images/ch%202-50.png" /> <img alt="alt text" src="images/ch%202-52.png" /> <img alt="alt text" src="images/ch%202-54.png" /> <img alt="alt text" src="images/ch%202-51.png" /> <img alt="alt text" src="images/ch%202-49.png" /> <img alt="alt text" src="images/ch%202-53.png" /> <img alt="alt text" src="images/ch%202-55.png" /> <img alt="alt text" src="images/ch%202-56.png" /> <img alt="alt text" src="images/ch%202-57.png" /></p>
+<p>已啟用教學模式</p>
+<h3 id="講解_7">講解<a class="headerlink" href="#講解_7" title="Permanent link"></a></h3>
+<h4 id="這幾頁在回答什麼問題_3">這幾頁在回答什麼問題<a class="headerlink" href="#這幾頁在回答什麼問題_3" title="Permanent link"></a></h4>
+<p>這一段其實在回答兩個核心問題：</p>
+<ol>
+<li><strong>MIPS 指令在硬體裡到底長什麼樣子？</strong></li>
+<li><strong>一條組合語言，怎麼變成 32-bit 的機器碼？</strong></li>
+</ol>
+<p>你貼的第 104–113 頁，主線是：</p>
+<ul>
+<li>先告訴你 MIPS 有 <strong>R / I / J</strong> 三種格式</li>
+<li>再聚焦講 <strong>R-type(Register 型)</strong></li>
+<li>最後示範把<br />
+<code>add $t0, $s1, $s2</code><br />
+  真的翻成機器指令。</li>
+</ul>
+<hr />
+<pre class="diagram"><code>flowchart TB
+A[組合語言&lt;br&gt;add $t0, $s1, $s2] --&gt; B[查暫存器編號&lt;br&gt;$s1=17, $s2=18, $t0=8]
+B --&gt; C[決定指令格式&lt;br&gt;R-type]
+C --&gt; D[填入欄位&lt;br&gt;op rs rt rd shamt funct]
+D --&gt; E[十進位欄位&lt;br&gt;0 17 18 8 0 32]
+E --&gt; F[二進位機器碼&lt;br&gt;000000 10001 10010 01000 00000 100000]</code></pre>
+<hr />
+<h4 id="第-104-頁mips-為什麼分成-r--i--j-三種">第 104 頁：MIPS 為什麼分成 R / I / J 三種<a class="headerlink" href="#第-104-頁mips-為什麼分成-r--i--j-三種" title="Permanent link"></a></h4>
+<p>這頁先給你大框架。</p>
+<p>MIPS 指令主要分成三類：</p>
+<ul>
+<li><strong>R-type(Register 型)</strong><br />
+  主要做「暫存器對暫存器」的運算</li>
+<li><strong>I-type(Immediate 型)</strong><br />
+  主要給「立即值、載入儲存、分支」這類指令</li>
+<li><strong>J-type(Jump 型)</strong><br />
+  主要給跳躍指令</li>
+</ul>
+<p>你可以先這樣直覺記：</p>
+<ul>
+<li><strong>R</strong>：重點在 register</li>
+<li><strong>I</strong>：重點在 immediate(常數)</li>
+<li><strong>J</strong>：重點在 jump address</li>
+</ul>
+<p>這一頁最重要不是背圖，而是先建立：</p>
+<blockquote>
+<p><strong>不同用途的指令，會有不同欄位配置。</strong></p>
+</blockquote>
+<hr />
+<h4 id="先講直覺為什麼不能全部都用同一種格式">先講直覺：為什麼不能全部都用同一種格式？<a class="headerlink" href="#先講直覺為什麼不能全部都用同一種格式" title="Permanent link"></a></h4>
+<p>因為不同指令需要的資訊不一樣。</p>
+<p>例如：</p>
+<ul>
+<li><code>add $t0, $s1, $s2</code><br />
+  需要兩個來源、一個目的地</li>
+<li><code>addi $t0, $s1, 4</code><br />
+  需要一個來源、一個目的地、再加一個常數</li>
+<li><code>j target</code><br />
+  幾乎只需要跳躍位址</li>
+</ul>
+<p>所以硬體設計者會想：</p>
+<blockquote>
+<p><strong>既然需求不同，那欄位就分成幾種固定樣板來裝。</strong></p>
+</blockquote>
+<p>這就是 instruction format(指令格式) 的概念。</p>
+<hr />
+<h4 id="第-105-頁r-type-格式長什麼樣">第 105 頁：R-type 格式長什麼樣<a class="headerlink" href="#第-105-頁r-type-格式長什麼樣" title="Permanent link"></a></h4>
+<p>R-type 欄位長這樣：</p>
+<div class="highlight"><pre><span></span><code>op | rs | rt | rd | shamt | funct
+6    5    5    5     5       6
+</code></pre></div>
+<p>總長度是：</p>
+<div class="highlight"><pre><span></span><code>6 + 5 + 5 + 5 + 5 + 6 = 32 bits
+</code></pre></div>
+<p>這也是投影片一直強調的：</p>
+<blockquote>
+<p><strong>所有 MIPS 指令固定都是 32 bits。</strong></p>
+</blockquote>
+<p>這是 RISC 很典型的設計哲學之一：格式規則、容易解碼。</p>
+<hr />
+<h4 id="第-105109110-頁每個欄位到底在幹嘛">第 105、109、110 頁：每個欄位到底在幹嘛<a class="headerlink" href="#第-105109110-頁每個欄位到底在幹嘛" title="Permanent link"></a></h4>
+<p>我們一個一個拆。</p>
+<h5 id="1-op--opcode運作碼">1. <code>op</code> = opcode(運作碼)<a class="headerlink" href="#1-op--opcode運作碼" title="Permanent link"></a></h5>
+<p>告訴 CPU：</p>
+<blockquote>
+<p><strong>這大概是哪一類操作。</strong></p>
+</blockquote>
+<p>在經典 MIPS 的 R-type 算術指令裡，<code>op</code> 常常是 <code>0</code>。<br />
+也就是說：</p>
+<ul>
+<li>光看 <code>op=0</code>，還不知道你是 add、sub、and、or</li>
+<li>要再看最後面的 <code>funct</code></li>
+</ul>
+<p>所以對 R-type 來說，你可以把它理解成：</p>
+<blockquote>
+<p><code>op</code> 先說「我是 R-type」，<br />
+<code>funct</code> 再說「我具體是哪一種 R-type」。</p>
+</blockquote>
+<h5 id="2-rs">2. <code>rs</code><a class="headerlink" href="#2-rs" title="Permanent link"></a></h5>
+<p>第一個來源暫存器</p>
+<h5 id="3-rt">3. <code>rt</code><a class="headerlink" href="#3-rt" title="Permanent link"></a></h5>
+<p>第二個來源暫存器</p>
+<h5 id="4-rd">4. <code>rd</code><a class="headerlink" href="#4-rd" title="Permanent link"></a></h5>
+<p>目的地暫存器，也就是結果要寫去哪裡</p>
+<h5 id="5-shamt--shift-amount位移量">5. <code>shamt</code> = shift amount(位移量)<a class="headerlink" href="#5-shamt--shift-amount位移量" title="Permanent link"></a></h5>
+<p>只在 shift 指令像 <code>sll</code>、<code>srl</code> 這種才真的有用。<br />
+如果不是 shift 指令，通常放 <code>0</code>。</p>
+<h5 id="6-funct--function-code功能碼">6. <code>funct</code> = function code(功能碼)<a class="headerlink" href="#6-funct--function-code功能碼" title="Permanent link"></a></h5>
+<p>在 <code>op=0</code> 的前提下，再進一步區分：</p>
+<ul>
+<li>add</li>
+<li>sub</li>
+<li>and</li>
+<li>or</li>
+<li>slt</li>
+<li>sll</li>
+<li>srl</li>
+<li>&hellip;</li>
+</ul>
+<p>所以你可以先把 R-type 想成：</p>
+<div class="highlight"><pre><span></span><code>op 負責大分類
+funct 負責細分類
+</code></pre></div>
+<hr />
+<h4 id="為什麼-rs--rt--rd-都是-5-bits">為什麼 <code>rs / rt / rd</code> 都是 5 bits？<a class="headerlink" href="#為什麼-rs--rt--rd-都是-5-bits" title="Permanent link"></a></h4>
+<p>因為 MIPS 有 <strong>32 個通用暫存器</strong>。</p>
+<p>而：</p>
+<div class="highlight"><pre><span></span><code>2^5 = 32
+</code></pre></div>
+<p>所以 5 bits 剛好能編號：</p>
+<ul>
+<li>0 ~ 31</li>
+</ul>
+<p>這就是第 105 頁說的重點。<br />
+也就是為什麼暫存器欄位統一都做成 5 bits。</p>
+<hr />
+<h4 id="第-106-頁r-type-指令例子要怎麼看">第 106 頁：R-type 指令例子要怎麼看<a class="headerlink" href="#第-106-頁r-type-指令例子要怎麼看" title="Permanent link"></a></h4>
+<p>投影片列了很多常見 R-type，例如：</p>
+<ul>
+<li><code>add</code></li>
+<li><code>sub</code></li>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>nor</code></li>
+<li><code>slt</code></li>
+<li><code>sltu</code></li>
+<li><code>sll</code></li>
+<li><code>srl</code></li>
+</ul>
+<p>你可以先分成三群記。</p>
+<h5 id="第一群算術">第一群：算術<a class="headerlink" href="#第一群算術" title="Permanent link"></a></h5>
+<ul>
+<li><code>add $d, $s, $t</code></li>
+<li><code>sub $d, $s, $t</code></li>
+</ul>
+<p>意思就是：</p>
+<div class="highlight"><pre><span></span><code>$d = $s op $t
+</code></pre></div>
+<h5 id="第二群邏輯">第二群：邏輯<a class="headerlink" href="#第二群邏輯" title="Permanent link"></a></h5>
+<ul>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>nor</code></li>
+</ul>
+<p>這些是 bitwise(逐位元) 運算。</p>
+<h5 id="第三群比較--位移">第三群：比較 / 位移<a class="headerlink" href="#第三群比較--位移" title="Permanent link"></a></h5>
+<ul>
+<li><code>slt</code> / <code>sltu</code></li>
+<li><code>sll</code> / <code>srl</code></li>
+</ul>
+<hr />
+<h4 id="這一頁我幫你抓兩個很重要的錯">這一頁我幫你抓兩個很重要的錯<a class="headerlink" href="#這一頁我幫你抓兩個很重要的錯" title="Permanent link"></a></h4>
+<p>這頁其實有幾個內容錯誤，你一定要修正。</p>
+<h5 id="錯誤-1nor-不是異或">錯誤 1：<code>nor</code> 不是「異或」<a class="headerlink" href="#錯誤-1nor-不是異或" title="Permanent link"></a></h5>
+<p>投影片把 <code>nor</code> 寫成「異或」，這是錯的。</p>
+<ul>
+<li><strong>XOR(異或)</strong> 是 <code>xor</code></li>
+<li><strong>NOR(非或)</strong> 是 <code>nor</code></li>
+</ul>
+<p><code>nor</code> 的真正意思是：</p>
+<div class="highlight"><pre><span></span><code>$d = ~($s | $t)
+</code></pre></div>
+<p>也就是先 OR，再整個反相。</p>
+<h5 id="錯誤-2nor-那列的說明其實寫成了-slt">錯誤 2：<code>nor</code> 那列的說明其實寫成了 <code>slt</code><a class="headerlink" href="#錯誤-2nor-那列的說明其實寫成了-slt" title="Permanent link"></a></h5>
+<p>投影片 <code>nor</code> 那行後面的說明：</p>
+<div class="highlight"><pre><span></span><code>if($2&lt;$3) $1=1 else $1=0
+</code></pre></div>
+<p>這其實是在描述 <strong>slt</strong>，不是 nor。</p>
+<h5 id="錯誤-3sll--srl-不該叫迴圈左移--右移">錯誤 3：<code>sll / srl</code> 不該叫「迴圈左移 / 右移」<a class="headerlink" href="#錯誤-3sll--srl-不該叫迴圈左移--右移" title="Permanent link"></a></h5>
+<p><code>sll</code> 是 <strong>logical shift left</strong><br />
+<code>srl</code> 是 <strong>logical shift right</strong></p>
+<p>它們是「邏輯位移」，不是 rotate(循環位移/迴圈位移)。</p>
+<p>所以這頁你應該修正成：</p>
+<ul>
+<li><code>nor</code> = 非或，不是異或</li>
+<li><code>sll/srl</code> = 邏輯位移，不是循環位移</li>
+</ul>
+<p>這個很值得你直接畫重點。</p>
+<hr />
+<h4 id="第-107108-頁什麼叫-machine-language機器語言">第 107–108 頁：什麼叫 machine language(機器語言)<a class="headerlink" href="#第-107108-頁什麼叫-machine-language機器語言" title="Permanent link"></a></h4>
+<p>這兩頁在講一件事：</p>
+<blockquote>
+<p><strong>組合語言只是給人類看的符號形式；真正進到 CPU 的，是一串數字位元。</strong></p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li>人類看：<code>add $t0, $s1, $s2</code></li>
+<li>CPU 看：<code>000000 10001 10010 01000 00000 100000</code></li>
+</ul>
+<p>投影片把這種二進位形式叫：</p>
+<ul>
+<li><strong>machine language instruction(機器語言指令)</strong></li>
+<li>一串這種指令叫 <strong>machine code(機器碼)</strong></li>
+</ul>
+<p>這概念很重要，因為之後你學 assembler(組譯器)、compiler(編譯器)、ISA 時，全都建立在這個抽象上。</p>
+<hr />
+<h4 id="第-111113-頁add-t0-s1-s2-怎麼變成機器碼">第 111–113 頁：<code>add $t0, $s1, $s2</code> 怎麼變成機器碼<a class="headerlink" href="#第-111113-頁add-t0-s1-s2-怎麼變成機器碼" title="Permanent link"></a></h4>
+<p>這是這幾頁最核心的例題。</p>
+<p>我們一步一步來。</p>
+<hr />
+<h4 id="step-1先判斷它是哪一型">Step 1：先判斷它是哪一型<a class="headerlink" href="#step-1先判斷它是哪一型" title="Permanent link"></a></h4>
+<p>指令是：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">add</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="no">$s1</span><span class="p">,</span><span class="w"> </span><span class="no">$s2</span>
+</code></pre></div>
+<p><code>add</code> 是標準的三暫存器運算：</p>
+<ul>
+<li>兩個來源</li>
+<li>一個目的</li>
+</ul>
+<p>所以它是 <strong>R-type</strong>。</p>
+<hr />
+<h4 id="step-2把暫存器名稱換成編號">Step 2：把暫存器名稱換成編號<a class="headerlink" href="#step-2把暫存器名稱換成編號" title="Permanent link"></a></h4>
+<p>MIPS 暫存器編號：</p>
+<ul>
+<li><code>$t0 = 8</code></li>
+<li><code>$s1 = 17</code></li>
+<li><code>$s2 = 18</code></li>
+</ul>
+<p>所以：</p>
+<ul>
+<li><code>rd = $t0 = 8</code></li>
+<li><code>rs = $s1 = 17</code></li>
+<li><code>rt = $s2 = 18</code></li>
+</ul>
+<p>投影片第 112 頁就是在做這一步。</p>
+<hr />
+<h4 id="step-3填-r-type-欄位">Step 3：填 R-type 欄位<a class="headerlink" href="#step-3填-r-type-欄位" title="Permanent link"></a></h4>
+<p>R-type 格式：</p>
+<div class="highlight"><pre><span></span><code>op rs rt rd shamt funct
+</code></pre></div>
+<p>對 <code>add</code> 來說：</p>
+<ul>
+<li><code>op = 0</code></li>
+<li><code>rs = 17</code></li>
+<li><code>rt = 18</code></li>
+<li><code>rd = 8</code></li>
+<li><code>shamt = 0</code></li>
+<li><code>funct = 32</code></li>
+</ul>
+<p>所以十進位欄位就是：</p>
+<div class="highlight"><pre><span></span><code>0   17   18   8   0   32
+</code></pre></div>
+<p>這就是第 112 頁的答案。</p>
+<hr />
+<h4 id="step-4轉成二進位">Step 4：轉成二進位<a class="headerlink" href="#step-4轉成二進位" title="Permanent link"></a></h4>
+<p>每個欄位依固定 bit 長度轉成二進位：</p>
+<ul>
+<li><code>op = 0</code> → 6 bits → <code>000000</code></li>
+<li><code>rs = 17</code> → 5 bits → <code>10001</code></li>
+<li><code>rt = 18</code> → 5 bits → <code>10010</code></li>
+<li><code>rd = 8</code> → 5 bits → <code>01000</code></li>
+<li><code>shamt = 0</code> → 5 bits → <code>00000</code></li>
+<li><code>funct = 32</code> → 6 bits → <code>100000</code></li>
+</ul>
+<p>組起來就是：</p>
+<div class="highlight"><pre><span></span><code>000000 10001 10010 01000 00000 100000
+</code></pre></div>
+<p>這就是第 113 頁的機器碼。</p>
+<hr />
+<h4 id="這一題真正的邏輯不是背答案而是背流程">這一題真正的邏輯，不是背答案，而是背流程<a class="headerlink" href="#這一題真正的邏輯不是背答案而是背流程" title="Permanent link"></a></h4>
+<p>你不要只背：</p>
+<div class="highlight"><pre><span></span><code>0 17 18 8 0 32
+</code></pre></div>
+<p>你要背的是：</p>
+<ol>
+<li>先看指令屬於哪一型</li>
+<li>再查每個暫存器的編號</li>
+<li>再照格式填欄位</li>
+<li>最後轉成二進位</li>
+</ol>
+<p>只要這個流程會了，之後你碰到：</p>
+<ul>
+<li><code>sub</code></li>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>slt</code></li>
+</ul>
+<p>都能自己編。</p>
+<hr />
+<h4 id="我幫你再整理成一張表">我幫你再整理成一張表<a class="headerlink" href="#我幫你再整理成一張表" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>op</code></td>
+<td style="text-align: right;">0</td>
+<td>R-type 的基本類別</td>
+</tr>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;">17</td>
+<td><code>$s1</code></td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;">18</td>
+<td><code>$s2</code></td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td style="text-align: right;">8</td>
+<td><code>$t0</code></td>
+</tr>
+<tr>
+<td><code>shamt</code></td>
+<td style="text-align: right;">0</td>
+<td><code>add</code> 不是 shift</td>
+</tr>
+<tr>
+<td><code>funct</code></td>
+<td style="text-align: right;">32</td>
+<td><code>add</code> 的功能碼</td>
+</tr>
+</tbody>
+</table>
+<p>對應二進位：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">位數</th>
+<th>二進位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>op</code></td>
+<td style="text-align: right;">6</td>
+<td><code>000000</code></td>
+</tr>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;">5</td>
+<td><code>10001</code></td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;">5</td>
+<td><code>10010</code></td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td style="text-align: right;">5</td>
+<td><code>01000</code></td>
+</tr>
+<tr>
+<td><code>shamt</code></td>
+<td style="text-align: right;">5</td>
+<td><code>00000</code></td>
+</tr>
+<tr>
+<td><code>funct</code></td>
+<td style="text-align: right;">6</td>
+<td><code>100000</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="額外送你一個更進一步的結果十六進位表示">額外送你一個更進一步的結果：十六進位表示<a class="headerlink" href="#額外送你一個更進一步的結果十六進位表示" title="Permanent link"></a></h4>
+<p>把這 32-bit 再每 4 bits 分組：</p>
+<div class="highlight"><pre><span></span><code>0000 0010 0011 0010 0100 0000 0010 0000
+</code></pre></div>
+<p>轉成 hex(十六進位) 是：</p>
+<div class="highlight"><pre><span></span><code>0x02324020
+</code></pre></div>
+<p>這不是投影片主題，但非常實用。<br />
+因為之後看 machine code dump 時，常常會直接看到 hex。</p>
+<hr />
+<h4 id="最容易考--最容易混淆_6">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_6" title="Permanent link"></a></h4>
+<h5 id="1-rsrtrd-不要背反">1. <code>rs</code>、<code>rt</code>、<code>rd</code> 不要背反<a class="headerlink" href="#1-rsrtrd-不要背反" title="Permanent link"></a></h5>
+<p>以 <code>add rd, rs, rt</code> 來說：</p>
+<ul>
+<li><code>rs</code> = 第一個來源</li>
+<li><code>rt</code> = 第二個來源</li>
+<li><code>rd</code> = 目的地</li>
+</ul>
+<p>也就是：</p>
+<div class="highlight"><pre><span></span><code>rd = rs + rt
+</code></pre></div>
+<h5 id="2-op0-不代表指令就是-add">2. <code>op=0</code> 不代表指令就是 add<a class="headerlink" href="#2-op0-不代表指令就是-add" title="Permanent link"></a></h5>
+<p>❌ 不是。<br />
+<code>op=0</code> 只表示它進入某個 R-type 類別，<br />
+真正是哪種運算，還要看 <code>funct</code>。</p>
+<h5 id="3-shamt-不是每條-r-type-都有意義">3. <code>shamt</code> 不是每條 R-type 都有意義<a class="headerlink" href="#3-shamt-不是每條-r-type-都有意義" title="Permanent link"></a></h5>
+<p>只有 shift 指令才真的會用到。<br />
+像 <code>add</code>、<code>sub</code> 通常都填 0。</p>
+<h5 id="4-第-106-頁有內容錯誤">4. 第 106 頁有內容錯誤<a class="headerlink" href="#4-第-106-頁有內容錯誤" title="Permanent link"></a></h5>
+<p>這頁不要照單全收：</p>
+<ul>
+<li><code>nor</code> 不是 XOR</li>
+<li><code>nor</code> 的說明欄寫錯</li>
+<li><code>sll/srl</code> 不是循環位移</li>
+</ul>
+<h5 id="5-第-113-頁把-immediate-寫成最大可到-216要小心">5. 第 113 頁把 immediate 寫成「最大可到 2^16」要小心<a class="headerlink" href="#5-第-113-頁把-immediate-寫成最大可到-216要小心" title="Permanent link"></a></h5>
+<p>更精準的說法是：</p>
+<blockquote>
+<p><strong>I-type 有 16-bit immediate 欄位。</strong></p>
+</blockquote>
+<p>但它的數值解讀要看指令：</p>
+<ul>
+<li><code>addi</code> 常用 <strong>signed immediate</strong></li>
+<li><code>andi/ori</code> 常用 <strong>unsigned / zero-extended immediate</strong></li>
+</ul>
+<p>所以不是所有 I-type 都直接當「最大值 2^16」來理解。</p>
+<hr />
+<h4 id="小結_10">小結<a class="headerlink" href="#小結_10" title="Permanent link"></a></h4>
+<p>把這幾頁濃縮成一句話就是：</p>
+<blockquote>
+<p><strong>MIPS 為了讓硬體規則、容易解碼，把指令固定成 32-bit，並分成 R / I / J 三種格式；其中 R-type 透過 <code>op + rs + rt + rd + shamt + funct</code> 來表示暫存器型運算，而 <code>add $t0,$s1,$s2</code> 會被編成 <code>0 17 18 8 0 32</code>，也就是二進位 <code>000000 10001 10010 01000 00000 100000</code>。</strong> </p>
+</blockquote>
+<hr />
+<h4 id="超短背法_3">超短背法<a class="headerlink" href="#超短背法_3" title="Permanent link"></a></h4>
+<ul>
+<li><strong>R-type</strong>：兩個來源 + 一個目的地</li>
+<li><strong><code>op</code></strong>：大分類</li>
+<li><strong><code>funct</code></strong>：細分類</li>
+<li><strong><code>shamt</code></strong>：給 shift 用</li>
+<li><strong><code>add $t0,$s1,$s2</code></strong><br />
+  → <code>0 17 18 8 0 32</code><br />
+  → <code>000000 10001 10010 01000 00000 100000</code></li>
+</ul>
+<p>下一步最適合的是，我直接帶你手算一題<br />
+<strong><code>sub $s0, $t1, $t2</code> 要怎麼轉成機器碼</strong>。</p>
+<h3 id="shamt-要放啥">shamt 要放啥<a class="headerlink" href="#shamt-要放啥" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="直接答案_1">直接答案<a class="headerlink" href="#直接答案_1" title="Permanent link"></a></h4>
+<p><strong><code>shamt</code> 通常放 <code>0</code>。</strong></p>
+<p>因為 <code>shamt</code> 是 <strong>shift amount(位移量)</strong>，只有在 <strong>shift 指令</strong> 才真的會用到；你這一段在講的 <code>add</code> 這類 R-type 指令，<code>shamt</code> 沒用，所以就填 <strong>0</strong>。教材第 110 頁直接寫到：<code>shamt</code> 是位移量，而且「在該節之前將不會被使用到，因此本節中該欄位內均含 0」；第 112 頁 <code>add $t0,$s1,$s2</code> 的例子也把第五欄填成 <code>0</code>。 </p>
+<hr />
+<h4 id="先講直覺_8">先講直覺<a class="headerlink" href="#先講直覺_8" title="Permanent link"></a></h4>
+<p>你可以把 R-type 想成：</p>
+<div class="highlight"><pre><span></span><code>op | rs | rt | rd | shamt | funct
+</code></pre></div>
+<p>其中：</p>
+<ul>
+<li><code>rs</code>、<code>rt</code>、<code>rd</code>：誰拿資料、誰放結果</li>
+<li><code>funct</code>：到底是 add、sub、and&hellip;</li>
+<li><code>shamt</code>：<strong>只有做位移時才需要告訴 CPU 要移幾格</strong></li>
+</ul>
+<p>所以：</p>
+<ul>
+<li><code>add</code> 不位移 → <code>shamt = 0</code></li>
+<li><code>sub</code> 不位移 → <code>shamt = 0</code></li>
+<li><code>and</code> 不位移 → <code>shamt = 0</code></li>
+</ul>
+<hr />
+<h4 id="什麼時候不是-0">什麼時候不是 0？<a class="headerlink" href="#什麼時候不是-0" title="Permanent link"></a></h4>
+<p>只有像這種 <strong>shift instruction(位移指令)</strong> 才不是 0：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">sll</span><span class="w"> </span><span class="no">$1</span><span class="p">,</span><span class="w"> </span><span class="no">$2</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span>
+<span class="nf">srl</span><span class="w"> </span><span class="no">$1</span><span class="p">,</span><span class="w"> </span><span class="no">$2</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span>
+</code></pre></div>
+<p>這時：</p>
+<ul>
+<li><code>shamt = 10</code></li>
+</ul>
+<p>因為 CPU 需要知道要左移或右移 <strong>10 位</strong>。教材第 106 頁的表格就有這種例子。</p>
+<hr />
+<h4 id="你現在這題最該怎麼記">你現在這題最該怎麼記<a class="headerlink" href="#你現在這題最該怎麼記" title="Permanent link"></a></h4>
+<h5 id="一般-r-type">一般 R-type<a class="headerlink" href="#一般-r-type" title="Permanent link"></a></h5>
+<ul>
+<li><code>add</code></li>
+<li><code>sub</code></li>
+<li><code>and</code></li>
+<li><code>or</code></li>
+<li><code>slt</code></li>
+</ul>
+<p>這些都先記：</p>
+<blockquote>
+<p><strong><code>shamt = 0</code></strong></p>
+</blockquote>
+<h5 id="shift-類">shift 類<a class="headerlink" href="#shift-類" title="Permanent link"></a></h5>
+<ul>
+<li><code>sll</code></li>
+<li><code>srl</code></li>
+</ul>
+<p>這些才記：</p>
+<blockquote>
+<p><strong><code>shamt = 你要移的位數</code></strong></p>
+</blockquote>
+<hr />
+<h4 id="套回你剛剛那題">套回你剛剛那題<a class="headerlink" href="#套回你剛剛那題" title="Permanent link"></a></h4>
+<p><code>add $t0, $s1, $s2</code></p>
+<p>對應欄位是：</p>
+<div class="highlight"><pre><span></span><code>op rs rt rd shamt funct
+0  17 18  8   0    32
+</code></pre></div>
+<p>所以這題的 <code>shamt</code> 就是 <strong>0</strong>。</p>
+<hr />
+<h4 id="小結_11">小結<a class="headerlink" href="#小結_11" title="Permanent link"></a></h4>
+<p>一句話背起來：</p>
+<blockquote>
+<p><strong><code>shamt</code> 是給位移指令用的；不是位移指令時就放 0。</strong> </p>
+</blockquote>
+<p>下一題如果你要，我可以直接帶你把<br />
+<strong><code>sll $t0, $s1, 4</code></strong><br />
+完整拆成 <code>op rs rt rd shamt funct</code>。</p>
+<h3 id="sll和srl的機器碼會長怎樣">sll和srl的機器碼會長怎樣<a class="headerlink" href="#sll和srl的機器碼會長怎樣" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="直接答案_2">直接答案<a class="headerlink" href="#直接答案_2" title="Permanent link"></a></h4>
+<p><code>sll</code> 和 <code>srl</code> 都是 <strong>R-type(Register 型)</strong> 指令，所以機器碼一樣是 <strong>32 bits</strong>，欄位排列都是：</p>
+<div class="highlight"><pre><span></span><code>op | rs | rt | rd | shamt | funct
+</code></pre></div>
+<p>MIPS32 指令固定長度是 32 bits。(<a href="https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf" title="Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx">MIPS Training</a>)</p>
+<hr />
+<h4 id="1-sll-的機器碼格式">1. <code>sll</code> 的機器碼格式<a class="headerlink" href="#1-sll-的機器碼格式" title="Permanent link"></a></h4>
+<p>組合語言：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">sll</span><span class="w"> </span><span class="no">rd</span><span class="p">,</span><span class="w"> </span><span class="no">rt</span><span class="p">,</span><span class="w"> </span><span class="no">shamt</span>
+</code></pre></div>
+<p>機器碼欄位：</p>
+<div class="highlight"><pre><span></span><code>op     rs     rt     rd    shamt   funct
+000000 00000  ttttt  ddddd  hhhhh  000000
+</code></pre></div>
+<p>重點是：</p>
+<ul>
+<li><code>op = 000000</code></li>
+<li><code>rs = 00000</code></li>
+<li><code>rt = 被拿來位移的來源暫存器</code></li>
+<li><code>rd = 結果放入的目的暫存器</code></li>
+<li><code>shamt = 要位移幾位</code></li>
+<li><code>funct = 000000</code></li>
+</ul>
+<p><code>sll</code> 的標準編碼就是這種型態。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Phoenix</a>)</p>
+<hr />
+<h4 id="2-srl-的機器碼格式">2. <code>srl</code> 的機器碼格式<a class="headerlink" href="#2-srl-的機器碼格式" title="Permanent link"></a></h4>
+<p>組合語言：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">srl</span><span class="w"> </span><span class="no">rd</span><span class="p">,</span><span class="w"> </span><span class="no">rt</span><span class="p">,</span><span class="w"> </span><span class="no">shamt</span>
+</code></pre></div>
+<p>機器碼欄位：</p>
+<div class="highlight"><pre><span></span><code>op     rs     rt     rd    shamt   funct
+000000 00000  ttttt  ddddd  hhhhh  000010
+</code></pre></div>
+<p>重點只差在最後的 <code>funct</code>：</p>
+<ul>
+<li><code>sll</code> 的 <code>funct = 000000</code></li>
+<li><code>srl</code> 的 <code>funct = 000010</code></li>
+</ul>
+<p><code>srl</code> 的標準編碼也是這樣。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Phoenix</a>)</p>
+<hr />
+<h4 id="為什麼-rs-要放-0">為什麼 <code>rs</code> 要放 0？<a class="headerlink" href="#為什麼-rs-要放-0" title="Permanent link"></a></h4>
+<p>因為這兩條是「<strong>固定位移量</strong>」版本。</p>
+<p>也就是位移量不是放在某個來源暫存器，而是直接放在 <code>shamt</code> 欄位裡。<br />
+所以這種情況下：</p>
+<div class="highlight"><pre><span></span><code>rs = 00000
+</code></pre></div>
+<p>你可以把它理解成：</p>
+<blockquote>
+<p><code>sll/srl</code> 不用第一個來源暫存器，改用 <code>shamt</code> 直接寫死位移量。</p>
+</blockquote>
+<hr />
+<h4 id="3-具體例子sll-t0-s1-4">3. 具體例子：<code>sll $t0, $s1, 4</code><a class="headerlink" href="#3-具體例子sll-t0-s1-4" title="Permanent link"></a></h4>
+<p>先換成暫存器編號：</p>
+<ul>
+<li><code>$t0 = 8</code> → <code>01000</code></li>
+<li><code>$s1 = 17</code> → <code>10001</code></li>
+<li><code>4</code> → <code>00100</code></li>
+</ul>
+<p>代進去：</p>
+<div class="highlight"><pre><span></span><code>op     rs     rt     rd     shamt  funct
+000000 00000  10001  01000  00100  000000
+</code></pre></div>
+<p>完整 32-bit 機器碼：</p>
+<div class="highlight"><pre><span></span><code>000000 00000 10001 01000 00100 000000
+</code></pre></div>
+<p>把空格拿掉就是：</p>
+<div class="highlight"><pre><span></span><code>00000000000100010100000100000000
+</code></pre></div>
+<p>十六進位是：</p>
+<div class="highlight"><pre><span></span><code>0x00114100
+</code></pre></div>
+<p>其中十進位數值可計成 1130752。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Phoenix</a>)</p>
+<hr />
+<h4 id="4-具體例子srl-t0-s1-4">4. 具體例子：<code>srl $t0, $s1, 4</code><a class="headerlink" href="#4-具體例子srl-t0-s1-4" title="Permanent link"></a></h4>
+<p>前面都一樣，只差最後 <code>funct</code>：</p>
+<div class="highlight"><pre><span></span><code>op     rs     rt     rd     shamt  funct
+000000 00000  10001  01000  00100  000010
+</code></pre></div>
+<p>完整 32-bit 機器碼：</p>
+<div class="highlight"><pre><span></span><code>000000 00000 10001 01000 00100 000010
+</code></pre></div>
+<p>拿掉空格：</p>
+<div class="highlight"><pre><span></span><code>00000000000100010100000100000010
+</code></pre></div>
+<p>十六進位是：</p>
+<div class="highlight"><pre><span></span><code>0x00114102
+</code></pre></div>
+<p>十進位數值是 1130754。(<a href="https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com" title="MIPS Instruction Reference">Phoenix</a>)</p>
+<hr />
+<h4 id="你可以這樣超短記">你可以這樣超短記<a class="headerlink" href="#你可以這樣超短記" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>sll: op=0, rs=0, funct=0
+srl: op=0, rs=0, funct=2
+</code></pre></div>
+<p>中間的：</p>
+<ul>
+<li><code>rt</code> = 來源</li>
+<li><code>rd</code> = 目的地</li>
+<li><code>shamt</code> = 位移量</li>
+</ul>
+<hr />
+<h4 id="小結_12">小結<a class="headerlink" href="#小結_12" title="Permanent link"></a></h4>
+<p>所以 <code>sll</code> 和 <code>srl</code> 的機器碼長相幾乎一樣，差別只有最後的 <code>funct</code>：</p>
+<div class="highlight"><pre><span></span><code>sll = 000000 00000 rt rd shamt 000000
+srl = 000000 00000 rt rd shamt 000010
+</code></pre></div>
+<p>如果你要，我下一則可以直接幫你把<br />
+<strong><code>sll $t0,$s1,4</code></strong> 和 <strong><code>add $t0,$s1,$s2</code></strong><br />
+並排比較，讓你一眼看出為什麼 shift 指令一定要用 <code>shamt</code>。</p>
+<hr />
+<p>file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E8%AC%9B%E7%BE%A9/2026.3.20,27%20CH-02_%E5%85%A8.pdf</p>
+<p><img alt="alt text" src="images/ch%202-58.png" /></p>
+<p>~113</p>
 
 
 
