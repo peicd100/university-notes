@@ -3467,6 +3467,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3749,6 +3751,34 @@ is now available!
     
   
     Instance array(實例陣列)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    同步重置、非同步重置
   
 
     
@@ -13162,11 +13192,11 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <hr />
 <h4 id="我幫你整理成一張小圖">我幫你整理成一張小圖<a class="headerlink" href="#我幫你整理成一張小圖" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
-    A["高位址 max"] --&gt; B["stack(堆疊)&lt;br&gt;函式參數、區域變數、返回位址&lt;br&gt;通常向下成長"]
+    A[高位址 max] --&gt; B[stack(堆疊)&lt;br&gt;函式參數、區域變數、返回位址&lt;br&gt;通常向下成長]
     B --&gt; C["未使用空間&lt;br&gt;給 stack / heap 擴張"]
-    C --&gt; D["heap(堆積)&lt;br&gt;malloc / new 動態配置&lt;br&gt;通常向上成長"]
-    D --&gt; E["data section(資料區)&lt;br&gt;global / static 變數"]
-    E --&gt; F["text section(程式碼區)&lt;br&gt;可執行機器指令"]
+    C --&gt; D[heap(堆積)&lt;br&gt;malloc / new 動態配置&lt;br&gt;通常向上成長]
+    D --&gt; E[data section(資料區)&lt;br&gt;global / static 變數]
+    E --&gt; F[text section(程式碼區)&lt;br&gt;可執行機器指令]
     F --&gt; G["低位址 0"]</code></pre>
 <hr />
 <h4 id="再補一個你之後很常連到的觀念">再補一個你之後很常連到的觀念<a class="headerlink" href="#再補一個你之後很常連到的觀念" title="Permanent link"></a></h4>
@@ -15598,12 +15628,12 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>一個 grandchild（第一個 child 在第二次 fork 生的）</li>
 </ul>
 <pre class="diagram"><code>flowchart TB
-    P0["P0：原始 parent process"] --&gt; F1["第一次 fork()"]
+    P0[P0：原始 parent process] --&gt; F1[第一次 fork()]
     F1 --&gt; P0a["P0：第一次 fork 後的 parent"]
     F1 --&gt; P1["P1：第一次 fork 產生的 child"]
 
-    P0a --&gt; F2A["第二次 fork()（由 P0 執行）"]
-    P1 --&gt; F2B["第二次 fork()（由 P1 執行）"]
+    P0a --&gt; F2A[第二次 fork()（由 P0 執行）]
+    P1 --&gt; F2B[第二次 fork()（由 P1 執行）]
 
     F2A --&gt; P0b["P0：原始 parent 繼續執行"]
     F2A --&gt; P2["P2：P0 在第二次 fork 產生的 child"]
@@ -16279,6 +16309,8 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
       
         <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
       
