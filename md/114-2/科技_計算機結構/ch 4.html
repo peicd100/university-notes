@@ -1,0 +1,6974 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.html">
+      
+      
+        <link rel="prev" href="ch%202.html">
+      
+      
+      
+        
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../logo/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Ch 4 - PEICD100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+<script src="../../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+<!-- google 朗讀和翻譯 -->
+<!--
+把整段放進你的 tts.md（snippets）即可
+
+本版新增：
+- Auto scroll 開關（是否自動捲動到正在讀的句子），在語音選單中設定並記住
+- 自動翻到下一頁後續讀（優先用 rel="next" / footer next link；找不到才嘗試模擬按 n；並加入「未換頁就清旗標」保護）
+其餘維持：Auto 連播、Rate/Gap、EN 全英語（en-*）、dracula 不動
+-->
+
+<style>
+/* =========================
+   句子 TTS：文字 + 按鈕（避免 st/nd 跑位）
+   ========================= */
+:root{
+  --tts-accent: var(--md-primary-fg-color, #7ad3ff);
+  --tts-accent-strong: var(--md-accent-fg-color, var(--tts-accent));
+  --tts-surface: var(--peicd-card, rgba(22, 28, 38, 0.96));
+  --tts-surface-strong: var(--peicd-surface-2, rgba(20, 25, 35, 0.98));
+  --tts-border: rgba(122, 211, 255, 0.32);
+  --tts-border-soft: rgba(255, 255, 255, 0.08);
+  --tts-muted: rgba(255, 255, 255, 0.6);
+  --tts-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+[data-md-color-scheme="default"],
+[data-md-color-scheme="light"]{
+  --tts-surface: #ffffff;
+  --tts-surface-strong: #ffffff;
+  --tts-border: rgba(0, 0, 0, 0.16);
+  --tts-border-soft: rgba(0, 0, 0, 0.08);
+  --tts-muted: rgba(0, 0, 0, 0.6);
+  --tts-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.tts-wrap{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tts{ display: inline; }
+
+/* =========================
+   通用播放按鈕（圖形）
+   ========================= */
+.tts-btn{
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tts-border-soft);
+  font: inherit;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  cursor: pointer;
+  line-height: 1;
+
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+
+  color: var(--md-primary-fg-color);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  touch-action: manipulation;
+}
+.tts-btn:hover{
+  color: var(--md-primary-fg-color);
+  background: rgba(122, 211, 255, 0.12);
+  border-color: var(--tts-border);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+.tts-btn[aria-pressed="true"]{
+  color: var(--md-primary-fg-color);
+  background: rgba(122, 211, 255, 0.16);
+  border-color: rgba(122, 211, 255, 0.5);
+  opacity: 0.95;
+}
+.tts-btn:focus-visible{
+  outline: 2px solid var(--tts-accent-strong);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* 播放：三角形 */
+.tts-btn[data-state="play"]::before{
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 9px 14px;
+  border-color: transparent transparent transparent currentColor;
+  transform: translateX(1px);
+}
+/* 停止：方塊 */
+.tts-btn[data-state="stop"]::before{
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  border-radius: 3px;
+}
+
+/* 手機按鈕加大 */
+@media (max-width: 600px){
+  .tts-btn{ width: 52px; height: 52px; }
+  .tts-btn[data-state="play"]::before{ border-width: 10px 0 10px 16px; }
+  .tts-btn[data-state="stop"]::before{ width: 18px; height: 18px; }
+}
+
+/* =========================
+   Header：塞進 .md-header__ellipsis 並靠右
+   ========================= */
+.md-header__ellipsis.tts-ellipsis-flex{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* 我們插入的 header 控制容器（你指定） */
+#tts-header-control{
+  margin-left: auto;
+  margin-right: -19px;
+  /* transform: translateY(-1px); */
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+/* =========================
+   Header 喇叭按鈕：無邊框、hover 不變色
+   ========================= */
+#tts-header-voice-toggle{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+
+  border: 0 !important;
+  background: transparent;
+  color: inherit;
+
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+#tts-header-voice-toggle:hover{
+  color: inherit !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+#tts-header-voice-toggle:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+#tts-header-voice-toggle svg{
+  width: 22px;
+  height: 22px;
+  display:block;
+  fill: currentColor !important;
+}
+
+/* 亮色模式：圈圈底色較深主題色、圖示白色 */
+[data-md-color-scheme="default"] #tts-header-voice-toggle,
+[data-md-color-scheme="light"]   #tts-header-voice-toggle{
+  background: transparent !important;
+  color: inherit !important;
+  border-color: transparent !important;
+}
+
+/* 黑暗模式（dracula）時，喇叭顏色 = 內文文字色 */
+[data-md-color-scheme="dracula"] #tts-header-voice-toggle{
+  background: transparent !important;
+  color: var(--md-default-fg-color, currentColor) !important;
+}
+
+/* =========================
+   Voice Panel（Portal 到 body）+ 自製 dropdown
+   ========================= */
+#tts-voice-panel-portal{
+  position: fixed;
+  z-index: 9998;
+  display: none;
+
+  min-width: min(520px, 92vw);
+  padding: 12px 14px;
+  border-radius: 16px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), var(--tts-surface);
+  border: 1px solid var(--tts-border-soft);
+  box-shadow: var(--tts-shadow);
+  backdrop-filter: blur(12px);
+
+  font-size: 1rem;
+  font-weight: normal;
+
+  max-width: calc(100vw - 16px);
+  box-sizing: border-box;
+
+  max-height: min(60vh, calc(100vh - 120px));
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+#tts-voice-panel-portal.open{
+  display: block;
+  animation: ttsPopIn .12s ease-out;
+}
+@keyframes ttsPopIn{
+  from{ transform: scale(.98); opacity: .0; }
+  to  { transform: scale(1); opacity: 1; }
+}
+
+.tts-vp-row{
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: start;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 6px 2px;
+}
+.tts-vp-row + .tts-vp-row{
+  border-top: 1px solid var(--tts-border-soft);
+  margin-top: 10px;
+  padding-top: 12px;
+}
+.tts-vp-row .lbl{
+  color: var(--tts-muted);
+  padding-top: 6px;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.6rem;
+}
+
+/* =========================
+   Auto（自動朗讀）按鈕：放在語言選擇左側
+   ========================= */
+#tts-autoread-toggle{
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  font: inherit;
+  line-height: 1;
+  user-select: none;
+}
+#tts-autoread-toggle:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+#tts-autoread-toggle .dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: .75;
+}
+#tts-autoread-toggle[data-mode="armed"]{
+  border-color: var(--md-accent-fg-color, rgba(255,255,255,.45));
+}
+#tts-autoread-toggle[data-mode="armed"] .dot{
+  opacity: 1;
+}
+#tts-autoread-toggle[data-mode="running"]{
+  border-color: var(--md-accent-fg-color, rgba(255,255,255,.55));
+}
+#tts-autoread-toggle[data-mode="running"] .dot{
+  opacity: 1;
+}
+#tts-autoread-hint{
+  padding-top: 4px;
+  font-size: 0.88rem;
+  opacity: .85;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* =========================
+   設定列（Rate / Gap / Auto scroll）
+   ========================= */
+.tts-kv{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.tts-kv input[type="range"]{
+  width: 100%;
+  accent-color: var(--md-primary-fg-color);
+}
+.tts-kv .val{
+  min-width: 74px;
+  text-align: right;
+  opacity: .85;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* Auto scroll toggle */
+.tts-toggle-btn{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+
+  text-align: left;
+}
+.tts-toggle-btn:hover{
+  border-color: var(--tts-border);
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-toggle-btn:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+.tts-toggle-btn .state{
+  opacity: .9;
+  user-select: none;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--tts-border-soft);
+}
+.tts-toggle-btn[data-on="true"] .state{
+  border-color: var(--tts-border);
+}
+
+/* =========================
+   Dropdown
+   ========================= */
+.tts-dd-btn{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--tts-border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  cursor: pointer;
+
+  text-align: left;
+}
+.tts-dd-btn:hover{
+  border-color: var(--tts-border);
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-dd-btn:focus-visible{
+  outline: 2px solid var(--md-accent-fg-color, currentColor);
+  outline-offset: 2px;
+}
+.tts-dd-btn .chev{
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .85;
+  flex: 0 0 auto;
+}
+
+.tts-dd-list{
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--tts-border-soft);
+  background: var(--tts-surface-strong);
+  overflow: auto;
+
+  max-height: min(42vh, 320px);
+  display: none;
+}
+.tts-dd.open .tts-dd-list{ display: block; }
+
+.tts-dd-item{
+  padding: 10px 10px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.25;
+  border-bottom: 1px solid var(--tts-border-soft);
+}
+.tts-dd-item:last-child{ border-bottom: 0; }
+.tts-dd-item:hover{
+  background: rgba(122, 211, 255, 0.08);
+}
+.tts-dd-item.active{
+  background: rgba(122, 211, 255, 0.14);
+  outline: 1px solid rgba(122, 211, 255, 0.35);
+}
+
+/* dracula：更黑（暗色不動） */
+[data-md-color-scheme="dracula"] #tts-voice-panel-portal{
+  background: #1b1d24;
+  border-color: rgba(255,255,255,.18);
+}
+[data-md-color-scheme="dracula"] .tts-dd-list{
+  background: #13151b;
+  border-color: rgba(255,255,255,.18);
+}
+
+/* =========================
+   亮色模式：語音清單白底；只有 active 變暗
+   ========================= */
+[data-md-color-scheme="default"] #tts-voice-panel-portal,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal{
+  background: #fff;
+  border-color: rgba(0,0,0,.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  color: rgba(0,0,0,.87);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-vp-row .lbl,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-vp-row .lbl{
+  color: rgba(0,0,0,.72);
+}
+[data-md-color-scheme="default"] #tts-autoread-toggle,
+[data-md-color-scheme="light"]   #tts-autoread-toggle{
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-autoread-hint,
+[data-md-color-scheme="light"]   #tts-autoread-hint{
+  color: rgba(0,0,0,.72);
+}
+[data-md-color-scheme="default"] .tts-toggle-btn,
+[data-md-color-scheme="light"]   .tts-toggle-btn{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] .tts-toggle-btn .state,
+[data-md-color-scheme="light"]   .tts-toggle-btn .state{
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-btn,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-btn{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-color: rgba(0,0,0,.18);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-list,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-list{
+  background: #fff;
+  border-color: rgba(0,0,0,.12);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item{
+  background: #fff;
+  color: rgba(0,0,0,.87);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item:hover,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item:hover{
+  background: rgba(0,0,0,.06);
+}
+[data-md-color-scheme="default"] #tts-voice-panel-portal .tts-dd-item.active,
+[data-md-color-scheme="light"]   #tts-voice-panel-portal .tts-dd-item.active{
+  background: rgba(0,0,0,.16);
+  outline: 1px solid rgba(0,0,0,.16);
+}
+
+/* =========================
+   反白浮動工具（播放 + 翻譯）
+   ========================= */
+#tts-selection-pop{
+  position: fixed;
+  z-index: 9999;
+  display: none;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), var(--tts-surface);
+  border: 1px solid var(--tts-border-soft);
+  box-shadow: var(--tts-shadow);
+  backdrop-filter: blur(12px);
+
+  align-items: center;
+  gap: 12px;
+  max-width: min(720px, 92vw);
+}
+#tts-selection-zh{
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--md-default-fg-color, #ddd);
+  word-break: break-word;
+  max-width: min(640px, 78vw);
+}
+#tts-selection-zh .muted{ opacity: .75; }
+</style>
+
+<script>
+(function () {
+  if (window.__TTS_TOOLKIT__ && typeof window.__TTS_TOOLKIT__.scheduleEnhance === "function") {
+    window.__TTS_TOOLKIT__.scheduleEnhance();
+    return;
+  }
+
+  /* =========================
+     你可以改的地方
+     ========================= */
+  const DEFAULT_LANG_EN = "en-US";
+  const DEFAULT_NAME_EN_INCLUDES = "Google US English";
+
+  const DEFAULT_LANG_ZH = "zh-TW";
+  const DEFAULT_NAME_ZH_INCLUDES = "Google";
+
+  const SELECTION_MAX_CHARS = 500;
+  const TRANSLATE_TO = "zh-TW";
+  const TRANSLATE_FROM = "en"; // 也可改 "auto"
+
+  const MAX_VOICES_RENDER = 2000;
+
+  const RATE_MIN = 0.1;
+  const RATE_MAX = 1.5;
+  const RATE_STEP = 0.05;
+
+  const GAP_MIN = 0;
+  const GAP_MAX = 2000;
+  const GAP_STEP = 50;
+
+  const DEFAULT_RATE = 1.0;
+  const DEFAULT_GAP_MS = 400;
+
+  // Auto scroll 預設開
+  const DEFAULT_AUTO_SCROLL = true;
+
+  // 同網域多站台時，避免和其他 GitHub Pages 專案共用同一組 localStorage key
+  const LS_NAMESPACE = "university-notes:";
+
+  // 自動翻到下一頁後續讀（用 localStorage 做跨頁續讀）
+  const LS_AUTO_RESUME = "ttsAutoResumeNextPageTs";
+  const AUTO_RESUME_TTL_MS = 5 * 60 * 1000; // 續讀旗標最長保留 5 分鐘，避免意外卡住
+  /* ========================= */
+
+  let currentBtn = null;
+  let activeUtterances = [];
+  let onSpeakDone = null;
+  const translateCache = new Map();
+
+  const LS_VOICE_EN = "ttsVoiceKeyEN";
+  const LS_VOICE_ZH = "ttsVoiceKeyZH";
+  let voiceKeyEN = safeGetLS(LS_VOICE_EN);
+  let voiceKeyZH = safeGetLS(LS_VOICE_ZH);
+
+  const LS_RATE = "ttsRate";
+  const LS_GAP  = "ttsAutoGapMs";
+
+  const LS_AUTO_SCROLL = "ttsAutoScroll";
+
+  let ttsRate = safeGetNumberLS(LS_RATE, DEFAULT_RATE);
+  let autoGapMs = safeGetNumberLS(LS_GAP, DEFAULT_GAP_MS);
+
+  let autoScrollEnabled = safeGetBoolLS(LS_AUTO_SCROLL, DEFAULT_AUTO_SCROLL);
+
+  let globalEventsBound = false;
+  let observer = null;
+  let observerTarget = null;
+  let scheduled = false;
+
+  /* =========================
+     Auto（自動朗讀）+ 跨頁
+     ========================= */
+  function getNextPageUrl(){
+    // MkDocs/Material 常見：head 裡有 <link rel="next" href="...">
+    const link = document.querySelector('link[rel="next"]');
+    if (link && link.href) return link.href;
+
+    // 有些主題會用 a[rel="next"]
+    const aRel = document.querySelector('a[rel="next"]');
+    if (aRel && aRel.href) return aRel.href;
+
+    // Material footer next
+    const footerNext = document.querySelector('.md-footer__link--next a');
+    if (footerNext && footerNext.href) return footerNext.href;
+
+    // pagination
+    const pagNext = document.querySelector('a.md-pagination__link--next');
+    if (pagNext && pagNext.href) return pagNext.href;
+
+    return null;
+  }
+
+  function markResumeOnNextPage(){
+    safeSetLS(LS_AUTO_RESUME, String(Date.now()));
+  }
+
+  function clearResumeFlag(){
+    safeRemoveLS(LS_AUTO_RESUME);
+  }
+
+  function gotoNextPageForAuto(){
+    const url = getNextPageUrl();
+    if (url){
+      markResumeOnNextPage();
+      window.location.assign(url);
+      return true;
+    }
+
+    // 找不到 next 連結時，最後才嘗試模擬按 n（你提到使用者按 n）
+    try{
+      markResumeOnNextPage();
+      const before = location.href;
+
+      const ev = new KeyboardEvent("keydown", { key: "n", code: "KeyN", bubbles: true });
+      document.dispatchEvent(ev);
+
+      // 若 800ms 內沒有換頁，視為失敗：清旗標並停止 auto
+      setTimeout(() => {
+        if (location.href === before) {
+          clearResumeFlag();
+          stopAuto();
+        }
+      }, 800);
+
+      return true;
+    } catch (_){
+      clearResumeFlag();
+      return false;
+    }
+  }
+
+  function resumeAutoIfRequested(){
+    const ts = safeGetNumberLS(LS_AUTO_RESUME, 0);
+    if (!ts) return;
+
+    // 避免舊旗標造成誤續讀
+    if (Date.now() - ts > AUTO_RESUME_TTL_MS){
+      clearResumeFlag();
+      return;
+    }
+
+    const root = getContentRoot();
+    const firstBtn = root && root.querySelector(".tts-wrap > button.tts-btn");
+
+    // 內容/按鈕還沒 attach 好：先別清旗標，等下一次 enhance 再試
+    if (!firstBtn) return;
+
+    // 成功抓到第一句：清旗標並開始連播
+    clearResumeFlag();
+    startAutoFrom(firstBtn);
+  }
+
+  let autoSelectMode = false;
+  let autoRunning = false;
+  let autoQueue = [];
+  let autoIndex = 0;
+
+  function clamp(n, a, b){
+    n = Number(n);
+    if (!isFinite(n)) return a;
+    return Math.min(b, Math.max(a, n));
+  }
+
+  function updateAutoUI(){
+    const btn = document.getElementById("tts-autoread-toggle");
+    const hint = document.getElementById("tts-autoread-hint");
+    if (!btn) return;
+
+    let mode = "off";
+    if (autoRunning) mode = "running";
+    else if (autoSelectMode) mode = "armed";
+
+    btn.setAttribute("data-mode", mode);
+
+    if (hint) {
+      if (autoRunning) hint.textContent = "Auto reading… (press Auto to stop)";
+      else if (autoSelectMode) hint.textContent = "Pick a sentence button to start";
+      else hint.textContent = "Auto (continuous)";
+    }
+  }
+
+  function stopAuto(){
+    autoSelectMode = false;
+    autoRunning = false;
+    autoQueue = [];
+    autoIndex = 0;
+    updateAutoUI();
+  }
+
+  function toggleAuto(){
+    if (autoRunning){
+      stop({ cancelAuto: true });
+      return;
+    }
+    autoSelectMode = !autoSelectMode;
+    updateAutoUI();
+  }
+
+  function getSentenceTextFromBtn(btn){
+    const wrap = btn && btn.closest(".tts-wrap");
+    if (!wrap) return "";
+    const textSpan = wrap.querySelector(".tts");
+    const t = (textSpan && (textSpan.getAttribute("data-tts") || textSpan.textContent || "")) || "";
+    return t.trim();
+  }
+
+  function buildAutoQueueFrom(startBtn){
+    const root = getContentRoot();
+    const btns = Array.from(root.querySelectorAll(".tts-wrap > button.tts-btn"));
+    const idx = btns.indexOf(startBtn);
+    if (idx < 0) return [];
+    const out = [];
+    for (let i = idx; i < btns.length; i++){
+      const b = btns[i];
+      const text = getSentenceTextFromBtn(b);
+      if (text) out.push({ btn: b, text });
+    }
+    return out;
+  }
+
+  function scrollToSentence(btn){
+    const wrap = btn && btn.closest(".tts-wrap");
+    if (!wrap) return;
+    try {
+      wrap.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    } catch (_) {
+      try { wrap.scrollIntoView(true); } catch (_) {}
+    }
+  }
+
+  function startAutoFrom(startBtn){
+    autoQueue = buildAutoQueueFrom(startBtn);
+    autoIndex = 0;
+
+    if (!autoQueue.length){
+      stopAuto();
+      return;
+    }
+
+    autoRunning = true;
+    autoSelectMode = false;
+    updateAutoUI();
+
+    playAutoCurrent();
+  }
+
+  function playAutoCurrent(){
+    if (!autoRunning) return;
+    const item = autoQueue[autoIndex];
+    if (!item){
+      stopAuto();
+      return;
+    }
+
+    // 依設定決定是否自動捲動
+    if (autoScrollEnabled) scrollToSentence(item.btn);
+
+    speakAuto(item.text, item.btn, { auto: true });
+  }
+
+  function advanceAuto(){
+    if (!autoRunning) return;
+    autoIndex += 1;
+
+    // 本頁播完：嘗試前往下一頁並續讀
+    if (autoIndex >= autoQueue.length){
+      // 先結束本頁 auto 狀態（避免重入）
+      autoRunning = false;
+      autoSelectMode = false;
+      updateAutoUI();
+
+      // 若有下一頁就導頁；沒有就結束
+      const ok = gotoNextPageForAuto();
+      if (!ok){
+        clearResumeFlag();
+        stopAuto();
+      }
+      return;
+    }
+
+    playAutoCurrent();
+  }
+
+  /* =========================
+     localStorage helpers
+     ========================= */
+  function getScopedLSKey(key){
+    return LS_NAMESPACE + key;
+  }
+
+  function safeGetRawLS(key){
+    try {
+      const scopedKey = getScopedLSKey(key);
+      const scopedVal = localStorage.getItem(scopedKey);
+      if (scopedVal !== null && scopedVal !== undefined) return scopedVal;
+
+      const legacyVal = localStorage.getItem(key);
+      if (legacyVal !== null && legacyVal !== undefined) {
+        localStorage.setItem(scopedKey, legacyVal);
+        localStorage.removeItem(key);
+        return legacyVal;
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  function safeRemoveLS(key){
+    try {
+      localStorage.removeItem(getScopedLSKey(key));
+      localStorage.removeItem(key);
+    } catch (_) {}
+  }
+
+  function safeGetLS(key){
+    return safeGetRawLS(key);
+  }
+  function safeSetLS(key, val){
+    try { localStorage.setItem(getScopedLSKey(key), val); } catch (_) {}
+  }
+  function safeGetNumberLS(key, def){
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    const n = Number(v);
+    return isFinite(n) ? n : def;
+  }
+  function safeGetBoolLS(key, def){
+    const v = safeGetRawLS(key);
+    if (v === null || v === undefined) return def;
+    // "0"/"false" => false，其餘視為 true
+    const s = String(v).toLowerCase().trim();
+    if (s === "0" || s === "false" || s === "off") return false;
+    if (s === "1" || s === "true"  || s === "on")  return true;
+    return def;
+  }
+
+  function supported() {
+    return ("speechSynthesis" in window) && ("SpeechSynthesisUtterance" in window);
+  }
+
+  function warmVoices() {
+    try { speechSynthesis.getVoices(); } catch (_) {}
+  }
+  function getVoices() {
+    return speechSynthesis.getVoices() || [];
+  }
+
+  function voiceKey(v){
+    if (v && v.voiceURI) return "uri:" + v.voiceURI;
+    return "nl:" + (v.lang || "") + "||" + (v.name || "");
+  }
+  function findVoiceByKey(key){
+    if (!key) return null;
+    const voices = getVoices();
+    for (const v of voices) if (voiceKey(v) === key) return v;
+    return null;
+  }
+
+  function isZhLang(lang){
+    const l = (lang || "").toLowerCase();
+    return l.startsWith("zh");
+  }
+  function isEnLang(lang){
+    const l = (lang || "").toLowerCase();
+    return l.startsWith("en"); // 所有英語 en-*
+  }
+
+  function pickDefaultVoiceKey(voices, langNeedle, nameIncludes){
+    if (!voices.length) return null;
+
+    const needle = (nameIncludes || "").toLowerCase();
+    const langN = (langNeedle || "").toLowerCase();
+
+    let v = voices.find(x => (x.lang||"").toLowerCase() === langN && (x.name||"").toLowerCase().includes(needle));
+    if (v) return voiceKey(v);
+
+    v = voices.find(x => (x.name||"").toLowerCase().includes(needle));
+    if (v) return voiceKey(v);
+
+    v = voices.find(x => (x.lang||"").toLowerCase() === langN);
+    if (v) return voiceKey(v);
+
+    const prefix = langN.split("-")[0];
+    v = voices.find(x => (x.lang||"").toLowerCase().startsWith(prefix));
+    if (v) return voiceKey(v);
+
+    return voiceKey(voices[0]);
+  }
+
+  function ensureVoiceKeys(){
+    const voices = getVoices();
+    if (!voices.length) return;
+
+    if (!voiceKeyEN || !findVoiceByKey(voiceKeyEN)) {
+      voiceKeyEN =
+        pickDefaultVoiceKey(voices.filter(v => isEnLang(v.lang)), DEFAULT_LANG_EN, DEFAULT_NAME_EN_INCLUDES)
+        || pickDefaultVoiceKey(voices, DEFAULT_LANG_EN, DEFAULT_NAME_EN_INCLUDES);
+      if (voiceKeyEN) safeSetLS(LS_VOICE_EN, voiceKeyEN);
+    }
+
+    if (!voiceKeyZH || !findVoiceByKey(voiceKeyZH)) {
+      voiceKeyZH =
+        pickDefaultVoiceKey(voices.filter(v => isZhLang(v.lang)), DEFAULT_LANG_ZH, DEFAULT_NAME_ZH_INCLUDES)
+        || pickDefaultVoiceKey(voices, DEFAULT_LANG_ZH, DEFAULT_NAME_ZH_INCLUDES);
+      if (voiceKeyZH) safeSetLS(LS_VOICE_ZH, voiceKeyZH);
+    }
+  }
+
+  function getVoiceForLangTag(tag){
+    ensureVoiceKeys();
+    if (tag === "zh") return findVoiceByKey(voiceKeyZH) || null;
+    return findVoiceByKey(voiceKeyEN) || null;
+  }
+
+  // ✅ 修正：stop() 乾淨且可解析
+  function stop(opts) {
+    const o = opts || {};
+    const cancelAuto = (o.cancelAuto !== false);
+
+    try { speechSynthesis.cancel(); } catch (_) {}
+    activeUtterances = [];
+    onSpeakDone = null;
+
+    if (currentBtn) {
+      currentBtn.setAttribute("data-state", "play");
+      currentBtn.setAttribute("aria-pressed", "false");
+      currentBtn = null;
+    }
+
+    if (cancelAuto) {
+      clearResumeFlag();   // 使用者手動停止，就不要跨頁續讀
+      stopAuto();
+    }
+  }
+
+  function splitByLang(text){
+    const s = (text || "");
+    const out = [];
+    let buf = "";
+    let cur = null;
+
+    function flush(){
+      const t = buf.trim();
+      if (t) out.push({ lang: cur || "en", text: t });
+      buf = "";
+    }
+    function charType(ch){
+      if (/[\u4e00-\u9fff\u3400-\u4dbf]/.test(ch)) return "zh";
+      if (/[A-Za-z]/.test(ch)) return "en";
+      return "other";
+    }
+
+    for (let i=0;i<s.length;i++){
+      const ch = s[i];
+      const t = charType(ch);
+      const lang = (t === "other") ? (cur || "en") : t;
+
+      if (cur === null) cur = lang;
+      if (lang !== cur){
+        flush();
+        cur = lang;
+      }
+      buf += ch;
+    }
+    flush();
+    return out.length ? out : [{ lang: "en", text: s.trim() }];
+  }
+
+  function speakAuto(text, btn, opts){
+    if (!supported()) return;
+
+    const t = (text || "").trim();
+    if (!t) return;
+
+    const o = opts || {};
+    const isAuto = !!o.auto;
+
+    const pressed = btn.getAttribute("aria-pressed") === "true";
+    if (currentBtn === btn && pressed) {
+      stop({ cancelAuto: true });
+      return;
+    }
+
+    stop({ cancelAuto: !isAuto });
+
+    btn.setAttribute("data-state", "stop");
+    btn.setAttribute("aria-pressed", "true");
+    currentBtn = btn;
+
+    onSpeakDone = isAuto ? function(){
+      if (autoRunning) setTimeout(advanceAuto, clamp(autoGapMs, GAP_MIN, GAP_MAX));
+    } : null;
+
+    const segs = splitByLang(t);
+    activeUtterances = segs.map(seg => {
+      const u = new SpeechSynthesisUtterance(seg.text);
+
+      u.rate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+      u.pitch = 1.0;
+
+      const v = getVoiceForLangTag(seg.lang);
+      if (v) {
+        u.voice = v;
+        u.lang = v.lang || (seg.lang === "zh" ? DEFAULT_LANG_ZH : DEFAULT_LANG_EN);
+      } else {
+        u.lang = (seg.lang === "zh" ? DEFAULT_LANG_ZH : DEFAULT_LANG_EN);
+      }
+      return u;
+    });
+
+    playNext();
+  }
+
+  function playNext(){
+    if (!activeUtterances.length){
+      const cb = onSpeakDone;
+      onSpeakDone = null;
+
+      // 收尾：只重置按鈕，不清 auto（讓 auto 邏輯決定下一步）
+      stop({ cancelAuto: false });
+
+      if (typeof cb === "function") cb();
+      return;
+    }
+
+    const u = activeUtterances.shift();
+    u.onend = () => playNext();
+    u.onerror = () => stop({ cancelAuto: true });
+
+    warmVoices();
+    try { speechSynthesis.speak(u); } catch (_) { stop({ cancelAuto: true }); }
+  }
+
+  function attachSentenceButtons(root){
+    const scope = root || document;
+    scope.querySelectorAll(".tts").forEach(textSpan => {
+      let wrap = textSpan.closest(".tts-wrap");
+      if (!wrap) {
+        wrap = document.createElement("span");
+        wrap.className = "tts-wrap";
+        textSpan.parentNode.insertBefore(wrap, textSpan);
+        wrap.appendChild(textSpan);
+      }
+      if (wrap.querySelector(":scope > button.tts-btn")) return;
+
+      const pure = (textSpan.getAttribute("data-tts") || textSpan.textContent || "").trim();
+      textSpan.setAttribute("data-tts", pure);
+
+      const btn = document.createElement("button");
+      btn.className = "tts-btn";
+      btn.type = "button";
+      btn.setAttribute("data-state", "play");
+      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("aria-label", "Play/Stop");
+
+      btn.addEventListener("pointerdown", warmVoices, { passive: true });
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (autoSelectMode) {
+          startAutoFrom(btn);
+          return;
+        }
+        if (autoRunning) {
+          startAutoFrom(btn);
+          return;
+        }
+
+        speakAuto(textSpan.getAttribute("data-tts"), btn, { auto: false });
+      });
+
+      wrap.appendChild(btn);
+    });
+  }
+
+  function getHeaderEllipsis(){
+    return document.querySelector(".md-header__ellipsis");
+  }
+
+  function ensureHeaderControl(){
+    const ellipsis = getHeaderEllipsis();
+    if (!ellipsis) return false;
+
+    ellipsis.classList.add("tts-ellipsis-flex");
+    if (document.getElementById("tts-header-control")) return true;
+
+    const wrap = document.createElement("span");
+    wrap.id = "tts-header-control";
+
+    const toggle = document.createElement("button");
+    toggle.id = "tts-header-voice-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Choose voices");
+    toggle.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10v4c0 1.1.9 2 2 2h3l4 3V5L8 8H5c-1.1 0-2 .9-2 2zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/>
+      </svg>
+    `;
+
+    toggle.addEventListener("pointerdown", warmVoices, { passive: true });
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openOrToggleVoicePanel(toggle);
+    });
+
+    wrap.appendChild(toggle);
+    ellipsis.appendChild(wrap);
+
+    return true;
+  }
+
+  function makeAutoRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <button id="tts-autoread-toggle" type="button" aria-label="Auto reading">
+        <span class="dot"></span>
+      </button>
+      <div id="tts-autoread-hint">Auto (continuous)</div>
+    `;
+    return row;
+  }
+
+  function makeRateRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Rate</div>
+      <div class="tts-kv">
+        <input id="tts-rate" type="range" min="${RATE_MIN}" max="${RATE_MAX}" step="${RATE_STEP}" />
+        <span id="tts-rate-val" class="val"></span>
+      </div>
+    `;
+    return row;
+  }
+
+  function makeGapRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Gap</div>
+      <div class="tts-kv">
+        <input id="tts-gap" type="range" min="${GAP_MIN}" max="${GAP_MAX}" step="${GAP_STEP}" />
+        <span id="tts-gap-val" class="val"></span>
+      </div>
+    `;
+    return row;
+  }
+
+  function makeScrollRow(){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+    row.innerHTML = `
+      <div class="lbl">Scroll</div>
+      <button id="tts-autoscroll-toggle" class="tts-toggle-btn" type="button" aria-label="Toggle auto scroll">
+        <span class="txt">Auto scroll</span>
+        <span id="tts-autoscroll-val" class="state"></span>
+      </button>
+    `;
+    return row;
+  }
+
+  function updateSettingsUI(){
+    ttsRate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+    autoGapMs = Math.round(clamp(autoGapMs, GAP_MIN, GAP_MAX));
+
+    const rateEl = document.getElementById("tts-rate");
+    const rateVal = document.getElementById("tts-rate-val");
+    if (rateEl) rateEl.value = String(ttsRate);
+    if (rateVal) rateVal.textContent = ttsRate.toFixed(2).replace(/\.00$/,"") + "x";
+
+    const gapEl = document.getElementById("tts-gap");
+    const gapVal = document.getElementById("tts-gap-val");
+    if (gapEl) gapEl.value = String(autoGapMs);
+    if (gapVal) gapVal.textContent = autoGapMs + "ms";
+
+    const scBtn = document.getElementById("tts-autoscroll-toggle");
+    const scVal = document.getElementById("tts-autoscroll-val");
+    if (scBtn) scBtn.setAttribute("data-on", autoScrollEnabled ? "true" : "false");
+    if (scVal) scVal.textContent = autoScrollEnabled ? "ON" : "OFF";
+  }
+
+  function bindSettingsControlsOnce(){
+    const rateEl = document.getElementById("tts-rate");
+    const gapEl  = document.getElementById("tts-gap");
+    const scBtn  = document.getElementById("tts-autoscroll-toggle");
+
+    if (rateEl && !rateEl.__tts_bound__){
+      rateEl.__tts_bound__ = true;
+      rateEl.addEventListener("input", () => {
+        ttsRate = clamp(Number(rateEl.value), RATE_MIN, RATE_MAX);
+        safeSetLS(LS_RATE, String(ttsRate));
+        updateSettingsUI();
+      });
+      rateEl.addEventListener("change", () => {
+        ttsRate = clamp(Number(rateEl.value), RATE_MIN, RATE_MAX);
+        safeSetLS(LS_RATE, String(ttsRate));
+        updateSettingsUI();
+      });
+    }
+
+    if (gapEl && !gapEl.__tts_bound__){
+      gapEl.__tts_bound__ = true;
+      gapEl.addEventListener("input", () => {
+        autoGapMs = Math.round(clamp(Number(gapEl.value), GAP_MIN, GAP_MAX));
+        safeSetLS(LS_GAP, String(autoGapMs));
+        updateSettingsUI();
+      });
+      gapEl.addEventListener("change", () => {
+        autoGapMs = Math.round(clamp(Number(gapEl.value), GAP_MIN, GAP_MAX));
+        safeSetLS(LS_GAP, String(autoGapMs));
+        updateSettingsUI();
+      });
+    }
+
+    if (scBtn && !scBtn.__tts_bound__){
+      scBtn.__tts_bound__ = true;
+      scBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        autoScrollEnabled = !autoScrollEnabled;
+        safeSetLS(LS_AUTO_SCROLL, autoScrollEnabled ? "1" : "0");
+        updateSettingsUI();
+      });
+    }
+  }
+
+  function ensureVoicePanelPortal(){
+    let panel = document.getElementById("tts-voice-panel-portal");
+    if (panel) {
+      if (!panel.querySelector("#tts-autoread-toggle")) {
+        panel.insertBefore(makeAutoRow(), panel.firstChild);
+      }
+
+      // 補 Rate/Gap/Scroll rows（固定在 Auto row 後面）
+      if (!panel.querySelector("#tts-rate") || !panel.querySelector("#tts-gap") || !panel.querySelector("#tts-autoscroll-toggle")) {
+        const autoBtn = panel.querySelector("#tts-autoread-toggle");
+        const autoRow = autoBtn ? autoBtn.closest(".tts-vp-row") : null;
+
+        const rateRow = panel.querySelector("#tts-rate") ? null : makeRateRow();
+        const gapRow  = panel.querySelector("#tts-gap") ? null : makeGapRow();
+        const scrRow  = panel.querySelector("#tts-autoscroll-toggle") ? null : makeScrollRow();
+
+        let anchor = autoRow;
+        if (anchor && rateRow) { anchor.insertAdjacentElement("afterend", rateRow); anchor = rateRow; }
+        if (anchor && gapRow)  { anchor.insertAdjacentElement("afterend", gapRow);  anchor = gapRow; }
+        if (anchor && scrRow)  { anchor.insertAdjacentElement("afterend", scrRow);  anchor = scrRow; }
+
+        if (!autoRow) {
+          if (scrRow) panel.insertBefore(scrRow, panel.firstChild);
+          if (gapRow) panel.insertBefore(gapRow, panel.firstChild);
+          if (rateRow) panel.insertBefore(rateRow, panel.firstChild);
+        }
+      }
+
+      const autoBtn = panel.querySelector("#tts-autoread-toggle");
+      if (autoBtn && !autoBtn.__tts_bound__) {
+        autoBtn.__tts_bound__ = true;
+        autoBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleAuto();
+        });
+      }
+
+      bindSettingsControlsOnce();
+      updateSettingsUI();
+      updateAutoUI();
+      return panel;
+    }
+
+    panel = document.createElement("div");
+    panel.id = "tts-voice-panel-portal";
+
+    panel.appendChild(makeAutoRow());
+    panel.appendChild(makeRateRow());
+    panel.appendChild(makeGapRow());
+    panel.appendChild(makeScrollRow());
+
+    panel.appendChild(makeDropdownRow("EN", "en"));
+    panel.appendChild(makeDropdownRow("ZH", "zh"));
+
+    document.body.appendChild(panel);
+
+    const autoBtn = panel.querySelector("#tts-autoread-toggle");
+    if (autoBtn) {
+      autoBtn.__tts_bound__ = true;
+      autoBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleAuto();
+      });
+    }
+
+    bindSettingsControlsOnce();
+    updateSettingsUI();
+    updateAutoUI();
+
+    return panel;
+  }
+
+  function makeDropdownRow(label, kind){
+    const row = document.createElement("div");
+    row.className = "tts-vp-row";
+
+    const lbl = document.createElement("div");
+    lbl.className = "lbl";
+    lbl.textContent = label;
+
+    const dd = document.createElement("div");
+    dd.className = "tts-dd";
+    dd.setAttribute("data-kind", kind);
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "tts-dd-btn";
+    btn.innerHTML = `<span class="txt">Loading…</span><span class="chev"></span>`;
+    btn.addEventListener("pointerdown", warmVoices, { passive: true });
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleDropdown(kind);
+    });
+
+    const list = document.createElement("div");
+    list.className = "tts-dd-list";
+
+    dd.appendChild(btn);
+    dd.appendChild(list);
+
+    row.appendChild(lbl);
+    row.appendChild(dd);
+    return row;
+  }
+
+  function closeAllDropdowns(){
+    document.querySelectorAll("#tts-voice-panel-portal .tts-dd.open").forEach(x => x.classList.remove("open"));
+  }
+
+  function toggleDropdown(kind){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+    const dd = panel.querySelector(`.tts-dd[data-kind="${kind}"]`);
+    if (!dd) return;
+
+    const isOpen = dd.classList.contains("open");
+    closeAllDropdowns();
+    if (!isOpen) dd.classList.add("open");
+  }
+
+  function voiceLabel(v){
+    return `${v.lang} — ${v.name}`;
+  }
+
+  function syncVoiceDropdowns(){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+
+    const voices = getVoices();
+    ensureVoiceKeys();
+
+    const ddEN = panel.querySelector('.tts-dd[data-kind="en"]');
+    const ddZH = panel.querySelector('.tts-dd[data-kind="zh"]');
+
+    if (ddEN) fillDropdown(ddEN, voices, "en", voiceKeyEN);
+    if (ddZH) fillDropdown(ddZH, voices, "zh", voiceKeyZH);
+  }
+
+  function fillDropdown(dd, voices, kind, selectedKey){
+    const btnTxt = dd.querySelector(".tts-dd-btn .txt");
+    const list = dd.querySelector(".tts-dd-list");
+    list.innerHTML = "";
+
+    let listVoices;
+    if (kind === "en") {
+      const allEn = voices.filter(v => isEnLang(v.lang));
+      listVoices = allEn.length ? allEn : voices;
+    } else {
+      const zh = voices.filter(v => isZhLang(v.lang));
+      listVoices = zh.length ? zh : voices;
+    }
+
+    // 讓 en-US / en-CA 靠前，但仍保留全部 en-*
+    if (kind === "en" && listVoices.length) {
+      const score = (v) => {
+        const l = (v.lang || "").toLowerCase();
+        if (l === "en-us") return 0;
+        if (l === "en-ca") return 1;
+        if (l.startsWith("en-")) return 2;
+        return 3;
+      };
+      listVoices = listVoices.slice().sort((a,b) => {
+        const sa = score(a), sb = score(b);
+        if (sa !== sb) return sa - sb;
+        return String(a.name||"").localeCompare(String(b.name||""));
+      });
+    }
+
+    const trimmed = listVoices.slice(0, MAX_VOICES_RENDER);
+
+    const exists = trimmed.some(v => voiceKey(v) === selectedKey) || listVoices.some(v => voiceKey(v) === selectedKey);
+    if (!exists) {
+      const fallbackKey =
+        (kind === "zh")
+          ? pickDefaultVoiceKey(listVoices, "zh-TW", DEFAULT_NAME_ZH_INCLUDES)
+          : pickDefaultVoiceKey(listVoices, "en-US", DEFAULT_NAME_EN_INCLUDES);
+
+      if (kind === "zh") { voiceKeyZH = fallbackKey; safeSetLS(LS_VOICE_ZH, voiceKeyZH); selectedKey = voiceKeyZH; }
+      else { voiceKeyEN = fallbackKey; safeSetLS(LS_VOICE_EN, voiceKeyEN); selectedKey = voiceKeyEN; }
+    }
+
+    const selectedVoice = findVoiceByKey(selectedKey) || listVoices[0] || null;
+    if (btnTxt) btnTxt.textContent = selectedVoice ? voiceLabel(selectedVoice) : "No voices";
+
+    if (!trimmed.length) {
+      const it = document.createElement("div");
+      it.className = "tts-dd-item";
+      it.textContent = "No voices";
+      list.appendChild(it);
+      return;
+    }
+
+    trimmed.forEach(v => {
+      const k = voiceKey(v);
+      const it = document.createElement("div");
+      it.className = "tts-dd-item" + (k === selectedKey ? " active" : "");
+      it.textContent = voiceLabel(v);
+
+      it.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (kind === "zh") { voiceKeyZH = k; safeSetLS(LS_VOICE_ZH, voiceKeyZH); }
+        else { voiceKeyEN = k; safeSetLS(LS_VOICE_EN, voiceKeyEN); }
+
+        syncVoiceDropdowns();
+        closeAllDropdowns();
+      });
+
+      list.appendChild(it);
+    });
+  }
+
+  function hideVoicePanel(){
+    const panel = document.getElementById("tts-voice-panel-portal");
+    if (!panel) return;
+    panel.classList.remove("open");
+    panel.style.display = "none";
+    closeAllDropdowns();
+  }
+
+  function openOrToggleVoicePanel(anchorBtn){
+    const panel = ensureVoicePanelPortal();
+
+    if (panel.classList.contains("open")) {
+      hideVoicePanel();
+      return;
+    }
+
+    warmVoices();
+    ensureVoiceKeys();
+    syncVoiceDropdowns();
+    updateSettingsUI();
+    updateAutoUI();
+
+    panel.style.display = "block";
+    panel.classList.add("open");
+    closeAllDropdowns();
+
+    requestAnimationFrame(() => positionVoicePanel(anchorBtn, panel));
+  }
+
+  function positionVoicePanel(anchorBtn, panel){
+    if (!anchorBtn || !panel) return;
+
+    const margin = 8;
+    const gap = 8;
+    const r = anchorBtn.getBoundingClientRect();
+
+    const w = panel.offsetWidth || 360;
+    const h = panel.offsetHeight || 160;
+
+    let left = r.right - w;
+    let top  = r.bottom + gap;
+
+    if (left < margin) left = margin;
+    if (left + w > window.innerWidth - margin) left = window.innerWidth - margin - w;
+
+    if (top + h > window.innerHeight - margin) {
+      top = r.top - gap - h;
+    }
+    if (top < margin) top = margin;
+
+    panel.style.left = left + "px";
+    panel.style.top  = top + "px";
+  }
+
+  function ensureSelectionPop() {
+    let pop = document.getElementById("tts-selection-pop");
+    if (pop) return pop;
+
+    pop = document.createElement("div");
+    pop.id = "tts-selection-pop";
+
+    const btn = document.createElement("button");
+    btn.className = "tts-btn";
+    btn.type = "button";
+    btn.setAttribute("data-state", "play");
+    btn.setAttribute("aria-pressed", "false");
+    btn.setAttribute("aria-label", "Speak selection");
+
+    const zh = document.createElement("div");
+    zh.id = "tts-selection-zh";
+    zh.innerHTML = '<span class="muted">翻譯載入中…</span>';
+
+    btn.addEventListener("pointerdown", warmVoices, { passive: true });
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const text = getSelectionText();
+      if (!text) return;
+
+      stop({ cancelAuto: true });
+      speakAuto(text, btn, { auto: false });
+    });
+
+    pop.appendChild(btn);
+    pop.appendChild(zh);
+    document.body.appendChild(pop);
+    return pop;
+  }
+
+  function getSelectionPopEl() { return document.getElementById("tts-selection-pop"); }
+
+  function nodeInsidePop(node, pop) {
+    if (!node || !pop) return false;
+    const el = (node.nodeType === Node.TEXT_NODE) ? node.parentNode : node;
+    return !!(el && pop.contains(el));
+  }
+
+  function selectionTouchesPop() {
+    const pop = getSelectionPopEl();
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!pop || !sel || sel.rangeCount === 0) return false;
+    return nodeInsidePop(sel.anchorNode, pop) || nodeInsidePop(sel.focusNode, pop);
+  }
+
+  function hideSelectionPop() {
+    const pop = getSelectionPopEl();
+    if (pop) pop.style.display = "none";
+  }
+
+  function getSelectionText() {
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!sel || sel.rangeCount === 0) return "";
+    const text = (sel.toString() || "").trim();
+    if (!text || text.length > SELECTION_MAX_CHARS) return "";
+    return text;
+  }
+
+  function getSelectionRect() {
+    const sel = window.getSelection ? window.getSelection() : null;
+    if (!sel || sel.rangeCount === 0) return null;
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    if (!rect || (rect.width === 0 && rect.height === 0)) return null;
+    return rect;
+  }
+
+  async function translateToZh(text) {
+    const key = `${TRANSLATE_FROM}|${TRANSLATE_TO}|${text}`;
+    if (translateCache.has(key)) return translateCache.get(key);
+
+    const url =
+      "https://translate.googleapis.com/translate_a/single" +
+      `?client=gtx&sl=${encodeURIComponent(TRANSLATE_FROM)}` +
+      `&tl=${encodeURIComponent(TRANSLATE_TO)}` +
+      `&dt=t&q=${encodeURIComponent(text)}`;
+
+    try {
+      const res = await fetch(url, { method: "GET" });
+      if (!res.ok) throw new Error("http " + res.status);
+      const data = await res.json();
+      const translated = Array.isArray(data?.[0]) ? data[0].map(x => x?.[0] || "").join("") : "";
+      translateCache.set(key, translated);
+      return translated;
+    } catch (_) {
+      translateCache.set(key, "");
+      return "";
+    }
+  }
+
+  async function showSelectionPop() {
+    if (!supported()) return;
+    if (selectionTouchesPop()) return;
+
+    const text = getSelectionText();
+    if (!text) return;
+
+    const rect = getSelectionRect();
+    if (!rect) return;
+
+    const pop = ensureSelectionPop();
+    const zh = document.getElementById("tts-selection-zh");
+
+    pop.style.display = "flex";
+
+    const offset = 8;
+    const popW = pop.offsetWidth || 240;
+    const popH = pop.offsetHeight || 56;
+
+    let left = rect.left + rect.width / 2 - popW / 2;
+    let top  = rect.top - popH - offset;
+
+    left = Math.max(8, Math.min(left, window.innerWidth - popW - 8));
+    if (top < 8) top = rect.bottom + offset;
+
+    pop.style.left = `${left}px`;
+    pop.style.top  = `${top}px`;
+
+    if (zh) {
+      zh.innerHTML = '<span class="muted">翻譯載入中…</span>';
+      const translated = await translateToZh(text);
+      zh.textContent = translated ? translated : "（翻譯失敗或被阻擋）";
+    }
+  }
+
+  function bindGlobalEventsOnce(){
+    if (globalEventsBound) return;
+    globalEventsBound = true;
+
+    document.addEventListener("mouseup", (e) => {
+      const pop = getSelectionPopEl();
+      if (pop && e.target && pop.contains(e.target)) return;
+      setTimeout(showSelectionPop, 0);
+    });
+
+    document.addEventListener("keyup", () => {
+      const pop = getSelectionPopEl();
+      if (pop && document.activeElement && pop.contains(document.activeElement)) return;
+      setTimeout(showSelectionPop, 0);
+    });
+
+    document.addEventListener("mousedown", (e) => {
+      const t = e.target;
+
+      const panel = document.getElementById("tts-voice-panel-portal");
+      const toggle = document.getElementById("tts-header-voice-toggle");
+      if (panel && panel.classList.contains("open")) {
+        const insidePanel = panel.contains(t);
+        const insideToggle = toggle && toggle.contains(t);
+        if (!insidePanel && !insideToggle) hideVoicePanel();
+        if (insidePanel && !t.closest(".tts-dd")) closeAllDropdowns();
+      }
+
+      const pop = getSelectionPopEl();
+      if (pop && t && !pop.contains(t)) hideSelectionPop();
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      hideSelectionPop();
+      const panel = document.getElementById("tts-voice-panel-portal");
+      const toggle = document.getElementById("tts-header-voice-toggle");
+      if (panel && panel.classList.contains("open") && toggle) {
+        positionVoicePanel(toggle, panel);
+      }
+    });
+
+    window.addEventListener("scroll", hideSelectionPop, true);
+
+    if ("speechSynthesis" in window) {
+      speechSynthesis.onvoiceschanged = () => {
+        ensureVoiceKeys();
+        syncVoiceDropdowns();
+      };
+    }
+
+    if (window.document$ && typeof window.document$.subscribe === "function") {
+      window.document$.subscribe(() => scheduleEnhance(true));
+    }
+    document.addEventListener("navigation:complete", () => scheduleEnhance(true));
+  }
+
+  function getContentRoot(){
+    return document.querySelector(".md-content .md-content__inner")
+        || document.querySelector(".md-content")
+        || document.querySelector("main")
+        || document.body;
+  }
+
+  function enhanceOnce(){
+    if (!supported()) return;
+
+    const root = getContentRoot();
+    attachSentenceButtons(root);
+
+    ensureHeaderControl();
+    ensureVoicePanelPortal();
+    syncVoiceDropdowns();
+    updateSettingsUI();
+    updateAutoUI();
+
+    ensureSelectionPop();
+    resumeAutoIfRequested();
+  }
+
+  function enhanceWithRetry(tries){
+    enhanceOnce();
+
+    const ellipsis = getHeaderEllipsis();
+    const hasHeaderBtn = !!document.getElementById("tts-header-control");
+    const ready = !!ellipsis && hasHeaderBtn;
+
+    if (!ready && tries < 14) {
+      setTimeout(() => enhanceWithRetry(tries + 1), 120);
+    }
+  }
+
+  function scheduleEnhance(force){
+    if (scheduled && !force) return;
+    scheduled = true;
+
+    requestAnimationFrame(() => {
+      scheduled = false;
+      warmVoices();
+      ensureVoiceKeys();
+
+      // normalize persisted values
+      ttsRate = clamp(ttsRate, RATE_MIN, RATE_MAX);
+      autoGapMs = Math.round(clamp(autoGapMs, GAP_MIN, GAP_MAX));
+      safeSetLS(LS_RATE, String(ttsRate));
+      safeSetLS(LS_GAP, String(autoGapMs));
+      safeSetLS(LS_AUTO_SCROLL, autoScrollEnabled ? "1" : "0");
+
+      enhanceWithRetry(0);
+      startObserver();
+    });
+  }
+
+  function startObserver(){
+    const target = getContentRoot();
+    if (!target) return;
+
+    if (observer && observerTarget === target) return;
+
+    if (observer) {
+      try { observer.disconnect(); } catch (_) {}
+      observer = null;
+      observerTarget = null;
+    }
+
+    observerTarget = target;
+    observer = new MutationObserver(() => scheduleEnhance(false));
+    observer.observe(target, { childList: true, subtree: true });
+  }
+
+  function init(){
+    if (!supported()) return;
+    bindGlobalEventsOnce();
+    warmVoices();
+    ensureVoiceKeys();
+    scheduleEnhance(true);
+    startObserver();
+  }
+
+  window.__TTS_TOOLKIT__ = {
+    scheduleEnhance: () => scheduleEnhance(true)
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>  
+
+
+
+<!-- <script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "WS267X19C5",
+        apiKey: "1d3e38f83811634b945a922d39d9b719",
+        indexName: "algolia",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未發現與 「${query}」相關内容",
+          "hits_stats": "找到${hits}條结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+
+   -->
+<!-- 
+
+ -->
+
+
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
+    
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260322-2">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#管道化" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            <!-- <a href="https://github.com/pei-yan-2147">Sponsorship</a>
+
+is now available!
+<span class="twemoji heart-throb">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.655 14.916zh-.002l-.006-.003-.018-.01a22 22 0 0 1-3.744-2.584C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.044 5.231-3.886 6.818a22 22 0 0 1-3.433 2.414 7 7 0 0 1-.31.17l-.018.01-.008.004a.75.75 0 0 1-.69 0"/></svg>
+</span> -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- 
+近期更新<a href="機器學習%28Machine%20Learning%29.html">人工智慧</a> -->
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cascadia Mono', monospace;
+        }
+
+        .key {
+            display: inline-block;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin: 0 2px;
+            font-size: 0.9em;
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    快捷鍵⮕
+    <span class="key">F</span>,
+    <span class="key">S</span>,
+    <span class="key">/</span>：開啟搜尋對話框；
+    <span class="key">P</span>,
+    <span class="key">,</span>：轉到上一頁；
+    <span class="key">N</span>,
+    <span class="key">.</span>：轉到下一頁
+</body>
+
+</html>
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://peicd100.github.io/university-notes/"
+      title="PEICD100"
+      class="md-header__button md-logo"
+      aria-label="PEICD100"
+    >
+      
+  <img src="../../../logo/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PEICD100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ch 4
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  首頁
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Verilog/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Verilog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  科大_數位邏輯設計實習
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  電機_作業系統
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  機電_數位邏輯實驗
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  資工_電腦輔助 VLSI 設計
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  科技_計算機結構
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
+      
+  <img src="../../../logo/logo.png" alt="logo">
+
+    </a>
+    PEICD100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../blog/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    首頁
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/archive/2025.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/archive/2023.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/archive/2022.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Categories
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/category/mkdocs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/category/%E6%B8%AC%E8%A9%A6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    測試
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verilog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Verilog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    學習資源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基礎語法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基礎語法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模組與建模方式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常見資料型別
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E6%95%B8%E5%80%BC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    數值與 Literal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%81%8B%E7%AE%97%E5%AD%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運算子
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%81%8B%E7%AE%97%E5%AD%90%E5%84%AA%E5%85%88%E5%BA%A6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    運算子優先度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/vector.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vector、MSB 與 LSB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/Generate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    四則運算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    程序式寫法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    程序式寫法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/always%E3%80%81initial%20%E8%88%87%E4%BA%8B%E4%BB%B6%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    always、initial 與事件控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/blocking%20%E8%88%87%20non-blocking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blocking 與 non-blocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%81%B8%E6%93%87%E7%B5%90%E6%A7%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    選擇結構
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    迴圈與程序控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬與常見電路
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模擬與常見電路
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/system%20tasks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模擬控制與 System Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/priority%20encoder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Encoder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/full%20adder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    full adder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    進階觀念/技巧
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    進階觀念/技巧
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防止變成 latch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    不會被刪除的變數
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%A0%86%E5%BA%8F%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%A3%E7%BA%8C%E9%81%8B%E7%AE%97.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    順序相同的連續運算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%A4%9A%E5%B7%A5%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多工器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/adder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    直接相加的 adder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/half_adder%20%26%20full_adder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    half_adder 和 full_adder 組成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    四則運算與邏輯運算的位寬
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/overflow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    判斷有號數的 Overflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instance array(實例陣列)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    同步重置、非同步重置
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    科大_數位邏輯設計實習
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    科大_數位邏輯設計實習
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    教材
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/Vivado%20%E5%B0%88%E6%A1%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vivado 專案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E7%87%92%E9%8C%84%E6%9D%BF%E5%AD%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    燒錄板子
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    電機_作業系統
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    電機_作業系統
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    相關資訊
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/windows%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    windows CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/Linux%20CLI%20%E6%8C%87%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux CLI 指令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/vim.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    子行程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%201.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%203.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%204.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    機電_數位邏輯實驗
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    機電_數位邏輯實驗
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首頁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/Quartus%20%E5%89%B5%E5%BB%BA%E5%B0%88%E6%A1%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    創建專案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E5%AE%89%E8%A3%9D%20usb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安裝 usb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E8%B7%91%20tb.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跑 tb
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%81%B8%E8%85%B3%E4%BD%8D.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    選腳位
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E4%B8%8A%E5%82%B3%E9%9B%BB%E8%B7%AF%E6%9D%BF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    上傳電路板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    資工_電腦輔助 VLSI 設計
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    moodle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/nmos%E3%80%81pmos.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nmos、pmos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    科技_計算機結構
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    科技_計算機結構
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SI 前綴表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ch%200.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ch%201.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ch%202.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ch%204.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#管道化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管道化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="管道化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先抓整體這幾頁到底在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先抓整體：這幾頁到底在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一45-管道化處理概觀先用洗衣服把直覺建立起來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、4.5 管道化處理概觀：先用洗衣服把直覺建立起來
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、4.5 管道化處理概觀：先用洗衣服把直覺建立起來">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-核心概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最容易混淆的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最容易混淆的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二mips-的五級管道是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、MIPS 的五級管道是什麼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、MIPS 的五級管道是什麼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-用一條指令來看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 用一條指令來看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要切成這五段" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要切成這五段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三圖-426427single-cycle單一時脈週期-和-pipelined管道化-到底差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、圖 4.26、4.27：single-cycle(單一時脈週期) 和 pipelined(管道化) 到底差在哪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、圖 4.26、4.27：single-cycle(單一時脈週期) 和 pipelined(管道化) 到底差在哪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-非管道化-single-cycle-為什麼是-800-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 非管道化 single-cycle 為什麼是 800 ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-管道化為什麼可以變成-200-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 管道化為什麼可以變成 200 ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-但單一指令有變快嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 但單一指令有變快嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼教材算出來不是-5-倍而是接近-4-倍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼教材算出來不是 5 倍，而是接近 4 倍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這段最容易考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這段最容易考
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四頁-274275為什麼說-mips-是為管道化而設計的-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、頁 274–275：為什麼說 MIPS 是「為管道化而設計」的 ISA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、頁 274–275：為什麼說 MIPS 是「為管道化而設計」的 ISA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-固定長度-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 固定長度 instruction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-指令格式少而且-register-欄位位置一致" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 指令格式少，而且 register 欄位位置一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-記憶體運算只出現在-load--store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 記憶體運算只出現在 load / store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-alignment對齊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. alignment(對齊)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小結_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五hazard危障-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、hazard(危障) 是什麼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、hazard(危障) 是什麼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-structural-hazard結構危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Structural Hazard(結構危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-hazard數據危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Data Hazard(數據危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-control-hazard控制危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Control Hazard(控制危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#六structural-hazard結構危障不是資料錯是硬體不夠" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、Structural Hazard(結構危障)：不是資料錯，是硬體不夠
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Structural Hazard(結構危障)：不是資料錯，是硬體不夠">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cpu-版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. CPU 版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 解法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#七data-hazard數據危障前一條還沒算完下一條就急著要用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、Data Hazard(數據危障)：前一條還沒算完，下一條就急著要用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Data Hazard(數據危障)：前一條還沒算完，下一條就急著要用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-最基本的直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最基本的直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-forwarding前饋--bypassing繞送-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. forwarding(前饋) / bypassing(繞送) 是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-add--sub-可以靠-forwarding-解掉" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 add → sub 可以靠 forwarding 解掉
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-但為什麼-lw--use-還是要-stall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 但為什麼 lw → use 還是要 stall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-bubble氣泡--stall停滯-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. bubble(氣泡) / stall(停滯) 是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-為什麼教材說-compiler編譯器-也能幫忙" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 為什麼教材說 compiler(編譯器) 也能幫忙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-補充一個很容易被問的點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 補充一個很容易被問的點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#八control-hazard控制危障問題不是資料而是下一條指令去哪裡抓" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Control Hazard(控制危障)：問題不是資料，而是下一條指令去哪裡抓
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Control Hazard(控制危障)：問題不是資料，而是下一條指令去哪裡抓">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最保守的解法stall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最保守的解法：stall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第二種解法prediction預測" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第二種解法：prediction(預測)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第三種解法delayed-branch延遲分支" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第三種解法：delayed branch(延遲分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-但現在還常用-delayed-branch-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 但現在還常用 delayed branch 嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#九頁-283-的自我檢查三個序列怎麼判斷要不要-stall--forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、頁 283 的自我檢查：三個序列怎麼判斷要不要 stall / forwarding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、頁 283 的自我檢查：三個序列怎麼判斷要不要 stall / forwarding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#序列-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#序列-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#序列-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這頁想考你的不是背答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這頁想考你的不是背答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十頁-284-開頭46-管道化數據通道及控制在鋪什麼梗" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、頁 284 開頭：4.6 管道化數據通道及控制，在鋪什麼梗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十一把整段觀念串成一條線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、把整段觀念串成一條線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十二這段最容易考也最容易混淆的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、這段最容易考、也最容易混淆的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十三小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#管道化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管道化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="管道化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先抓整體這幾頁到底在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先抓整體：這幾頁到底在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#一45-管道化處理概觀先用洗衣服把直覺建立起來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、4.5 管道化處理概觀：先用洗衣服把直覺建立起來
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、4.5 管道化處理概觀：先用洗衣服把直覺建立起來">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-核心概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最容易混淆的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最容易混淆的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#二mips-的五級管道是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、MIPS 的五級管道是什麼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、MIPS 的五級管道是什麼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-用一條指令來看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 用一條指令來看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要切成這五段" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要切成這五段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三圖-426427single-cycle單一時脈週期-和-pipelined管道化-到底差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、圖 4.26、4.27：single-cycle(單一時脈週期) 和 pipelined(管道化) 到底差在哪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、圖 4.26、4.27：single-cycle(單一時脈週期) 和 pipelined(管道化) 到底差在哪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-非管道化-single-cycle-為什麼是-800-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 非管道化 single-cycle 為什麼是 800 ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-管道化為什麼可以變成-200-ps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 管道化為什麼可以變成 200 ps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-但單一指令有變快嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 但單一指令有變快嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼教材算出來不是-5-倍而是接近-4-倍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼教材算出來不是 5 倍，而是接近 4 倍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這段最容易考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這段最容易考
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四頁-274275為什麼說-mips-是為管道化而設計的-isa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、頁 274–275：為什麼說 MIPS 是「為管道化而設計」的 ISA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、頁 274–275：為什麼說 MIPS 是「為管道化而設計」的 ISA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-固定長度-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 固定長度 instruction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-指令格式少而且-register-欄位位置一致" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 指令格式少，而且 register 欄位位置一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-記憶體運算只出現在-load--store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 記憶體運算只出現在 load / store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-alignment對齊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. alignment(對齊)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小結_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#五hazard危障-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、hazard(危障) 是什麼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、hazard(危障) 是什麼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-structural-hazard結構危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Structural Hazard(結構危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-hazard數據危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Data Hazard(數據危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-control-hazard控制危障" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Control Hazard(控制危障)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#六structural-hazard結構危障不是資料錯是硬體不夠" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、Structural Hazard(結構危障)：不是資料錯，是硬體不夠
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Structural Hazard(結構危障)：不是資料錯，是硬體不夠">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cpu-版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. CPU 版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 解法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#七data-hazard數據危障前一條還沒算完下一條就急著要用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、Data Hazard(數據危障)：前一條還沒算完，下一條就急著要用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Data Hazard(數據危障)：前一條還沒算完，下一條就急著要用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-最基本的直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最基本的直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-forwarding前饋--bypassing繞送-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. forwarding(前饋) / bypassing(繞送) 是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-add--sub-可以靠-forwarding-解掉" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 add → sub 可以靠 forwarding 解掉
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-但為什麼-lw--use-還是要-stall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 但為什麼 lw → use 還是要 stall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-bubble氣泡--stall停滯-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. bubble(氣泡) / stall(停滯) 是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-為什麼教材說-compiler編譯器-也能幫忙" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 為什麼教材說 compiler(編譯器) 也能幫忙
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-補充一個很容易被問的點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 補充一個很容易被問的點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#八control-hazard控制危障問題不是資料而是下一條指令去哪裡抓" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Control Hazard(控制危障)：問題不是資料，而是下一條指令去哪裡抓
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Control Hazard(控制危障)：問題不是資料，而是下一條指令去哪裡抓">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這段在回答什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化例子_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最保守的解法stall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最保守的解法：stall
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第二種解法prediction預測" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第二種解法：prediction(預測)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第三種解法delayed-branch延遲分支" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第三種解法：delayed branch(延遲分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-但現在還常用-delayed-branch-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 但現在還常用 delayed branch 嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#九頁-283-的自我檢查三個序列怎麼判斷要不要-stall--forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、頁 283 的自我檢查：三個序列怎麼判斷要不要 stall / forwarding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、頁 283 的自我檢查：三個序列怎麼判斷要不要 stall / forwarding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#序列-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#序列-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#序列-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        序列 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這頁想考你的不是背答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這頁想考你的不是背答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十頁-284-開頭46-管道化數據通道及控制在鋪什麼梗" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、頁 284 開頭：4.6 管道化數據通道及控制，在鋪什麼梗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十一把整段觀念串成一條線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、把整段觀念串成一條線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十二這段最容易考也最容易混淆的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、這段最容易考、也最容易混淆的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#十三小結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+  <h1>Ch 4</h1>
+
+<h2 id="管道化">管道化<a class="headerlink" href="#管道化" title="Permanent link"></a></h2>
+<p>已啟用教學模式</p>
+<h4 id="先抓整體這幾頁到底在回答什麼問題">先抓整體：這幾頁到底在回答什麼問題<a class="headerlink" href="#先抓整體這幾頁到底在回答什麼問題" title="Permanent link"></a></h4>
+<p>這一大段其實在回答兩個核心問題：</p>
+<ol>
+<li><strong>為什麼 CPU 要做 pipelining(管道化)</strong></li>
+<li><strong>做了 pipelining 之後，為什麼又會冒出一堆麻煩，例如 hazard(危障)</strong></li>
+</ol>
+<p>最直覺的說法是：<br />
+<strong>管道化不是把一個人洗衣服洗得更快，而是讓很多批衣服同時卡在不同步驟裡面一起往前推。</strong><br />
+放到 CPU 上，就是：<strong>不是讓一條 instruction(指令) 瞬間變短，而是讓很多條指令重疊執行，提高 throughput(吞吐量)</strong>。理想上 speedup(加速比) 會接近管線的 stage(階段) 數，但實際上會被各階段不平均、管線填滿/排空成本，以及 hazard 拉低。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<pre class="diagram"><code>flowchart TB
+    A[單一指令執行&lt;br&gt;IF → ID → EX → MEM → WB] --&gt; B[多條指令重疊執行]
+    B --&gt; C[Throughput(吞吐量)上升]
+    B --&gt; D[Hazard(危障)出現]
+    D --&gt; E[Structural Hazard(結構危障)]
+    D --&gt; F[Data Hazard(數據危障)]
+    D --&gt; G[Control Hazard(控制危障)]</code></pre>
+<hr />
+<h4 id="一45-管道化處理概觀先用洗衣服把直覺建立起來">一、4.5 管道化處理概觀：先用洗衣服把直覺建立起來<a class="headerlink" href="#一45-管道化處理概觀先用洗衣服把直覺建立起來" title="Permanent link"></a></h4>
+<p>你的教材從 <strong>洗、烘、摺、收</strong> 這四步驟開始講，這個比喻非常重要。</p>
+<h5 id="1-這段在回答什麼問題">1. 這段在回答什麼問題<a class="headerlink" href="#1-這段在回答什麼問題" title="Permanent link"></a></h5>
+<p>它在回答：<br />
+<strong>為什麼把工作拆成多階段重疊做，總完成量會變大？</strong></p>
+<h5 id="2-核心概念">2. 核心概念<a class="headerlink" href="#2-核心概念" title="Permanent link"></a></h5>
+<p>非管道化(non-pipelined)做法是：</p>
+<ul>
+<li>第一批衣服：洗完</li>
+<li>再烘完</li>
+<li>再摺完</li>
+<li>再收完</li>
+<li>然後才做第二批</li>
+</ul>
+<p>這樣做的問題不是每一步慢，而是<strong>很多資源在等</strong>。<br />
+例如你在摺衣服時，洗衣機和烘衣機是閒著的。</p>
+<p>管道化(pipelined)做法是：</p>
+<ul>
+<li>第一批在烘時，第二批可以開始洗</li>
+<li>第一批在摺時，第二批在烘、第三批在洗</li>
+</ul>
+<p>也就是：</p>
+<ul>
+<li><strong>不同批次</strong></li>
+<li><strong>同時佔據不同階段</strong></li>
+<li><strong>彼此重疊(overlap)</strong></li>
+</ul>
+<p>這正是 instruction pipeline(指令管線) 的本質。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="3-生活化例子">3. 生活化例子<a class="headerlink" href="#3-生活化例子" title="Permanent link"></a></h5>
+<p>像便當店做餐：</p>
+<ul>
+<li>
+<p>一個人從頭到尾做完一份便當，再做下一份<br />
+  → latency(單份完成時間)看起來簡單，但整體產量低</p>
+</li>
+<li>
+<p>改成分站：</p>
+</li>
+<li>
+<p>A 洗菜</p>
+</li>
+<li>B 切菜</li>
+<li>C 炒</li>
+<li>D 裝盒</li>
+</ul>
+<p>這時一份便當不一定比較早完成，<br />
+但<strong>一小時內能出更多份</strong>。</p>
+<h5 id="4-最容易混淆的地方">4. 最容易混淆的地方<a class="headerlink" href="#4-最容易混淆的地方" title="Permanent link"></a></h5>
+<p>這裡最重要的一句話是：</p>
+<p><strong>Pipeline 改善的是 throughput(吞吐量)，不是 latency(延遲)。</strong><br />
+也就是說：</p>
+<ul>
+<li>✅ 單位時間完成更多指令</li>
+<li>❌ 單一指令一定更快</li>
+</ul>
+<p>這是整段最核心、也最常考錯的觀念。教材後面用 800 ps 與 200 ps 的例子，就是在證明這件事。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="5-小結">5. 小結<a class="headerlink" href="#5-小結" title="Permanent link"></a></h5>
+<p>洗衣服例子不是在說「CPU 真的像洗衣機」，<br />
+而是在幫你抓到一個抽象：</p>
+<blockquote>
+<p><strong>把工作切成階段，讓多個工作同時處在不同階段，就能提升整體產量。</strong></p>
+</blockquote>
+<hr />
+<h4 id="二mips-的五級管道是什麼">二、MIPS 的五級管道是什麼<a class="headerlink" href="#二mips-的五級管道是什麼" title="Permanent link"></a></h4>
+<p>你的頁面接著把洗衣服例子對應到 MIPS 的 5-stage pipeline(五級管線)：</p>
+<ol>
+<li><strong>IF, Instruction Fetch(指令擷取)</strong></li>
+<li><strong>ID, Instruction Decode / Register Read(指令解碼 / 暫存器讀取)</strong></li>
+<li><strong>EX, Execute / Address Calculation(執行 / 位址計算)</strong></li>
+<li><strong>MEM, Memory Access(記憶體存取)</strong></li>
+<li><strong>WB, Write Back(寫回)</strong></li>
+</ol>
+<p>這五步是經典 MIPS pipeline 的骨架。(<a href="https://www.cs.umd.edu/users/meesh/411/Pipelining_Lecture.pdf" title="https://www.cs.umd.edu/users/meesh/411/Pipelining_Lecture.pdf">cs.umd.edu</a>)</p>
+<h5 id="1-用一條指令來看">1. 用一條指令來看<a class="headerlink" href="#1-用一條指令來看" title="Permanent link"></a></h5>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w"> </span><span class="no">$s1</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">(</span><span class="no">$s0</span><span class="p">)</span>
+</code></pre></div>
+<p>它在五個階段大致做的是：</p>
+<ul>
+<li><strong>IF</strong>：從 instruction memory(指令記憶體) 把 <code>lw</code> 抓出來</li>
+<li><strong>ID</strong>：看懂這是 <code>lw</code>，讀 <code>$s0</code></li>
+<li><strong>EX</strong>：算有效位址 <code>$s0 + 100</code></li>
+<li><strong>MEM</strong>：去 data memory(資料記憶體) 把內容讀出來</li>
+<li><strong>WB</strong>：把資料寫回 <code>$s1</code></li>
+</ul>
+<p>而像 <code>add $t0,$t1,$t2</code> 這種 R-type(暫存器型) 指令：</p>
+<ul>
+<li>IF：抓指令</li>
+<li>ID：讀 <code>$t1</code>,<code>$t2</code></li>
+<li>EX：ALU 相加</li>
+<li>MEM：這階段通常沒事做</li>
+<li>WB：把結果寫回 <code>$t0</code></li>
+</ul>
+<h5 id="2-為什麼要切成這五段">2. 為什麼要切成這五段<a class="headerlink" href="#2-為什麼要切成這五段" title="Permanent link"></a></h5>
+<p>因為這樣可以讓不同指令在不同硬體單元上同時前進。<br />
+例如當第 1 條在 EX 時，第 2 條可以在 ID，第 3 條可以在 IF。<br />
+這就是頁面中一直畫斜斜排開的原因。(<a href="https://www.cs.umd.edu/users/meesh/411/Pipelining_Lecture.pdf" title="https://www.cs.umd.edu/users/meesh/411/Pipelining_Lecture.pdf">cs.umd.edu</a>)</p>
+<h5 id="3-小結">3. 小結<a class="headerlink" href="#3-小結" title="Permanent link"></a></h5>
+<p>五級管道不是隨便切的，<br />
+而是把一條指令從「抓、看懂、運算、碰記憶體、寫回」拆成五個可重疊的步驟。</p>
+<hr />
+<h4 id="三圖-426427single-cycle單一時脈週期-和-pipelined管道化-到底差在哪">三、圖 4.26、4.27：single-cycle(單一時脈週期) 和 pipelined(管道化) 到底差在哪<a class="headerlink" href="#三圖-426427single-cycle單一時脈週期-和-pipelined管道化-到底差在哪" title="Permanent link"></a></h4>
+<p>這幾頁是整章最關鍵的數字例子。</p>
+<p>教材給了各功能單元的延遲：</p>
+<ul>
+<li>Instruction memory / fetch：200 ps</li>
+<li>Register read：100 ps</li>
+<li>ALU：200 ps</li>
+<li>Data memory：200 ps</li>
+<li>Register write：100 ps</li>
+</ul>
+<h5 id="1-非管道化-single-cycle-為什麼是-800-ps">1. 非管道化 single-cycle 為什麼是 800 ps<a class="headerlink" href="#1-非管道化-single-cycle-為什麼是-800-ps" title="Permanent link"></a></h5>
+<p>如果是 single-cycle design(單一時脈週期設計)，<br />
+<strong>每條指令都要在同一個 clock cycle(時脈週期) 裡全部做完</strong>。</p>
+<p>所以 clock period(時脈週期長度) 必須容納<strong>最慢的那條指令</strong>。<br />
+在教材例子裡，最慢的是 <code>lw</code>：</p>
+<ul>
+<li>IF 200</li>
+<li>ID 100</li>
+<li>EX 200</li>
+<li>MEM 200</li>
+<li>WB 100</li>
+</ul>
+<p>總共 <strong>800 ps</strong></p>
+<p>所以：</p>
+<ul>
+<li><code>lw</code> 要 800 ps</li>
+<li><code>sw</code> 明明只需要 700 ps，還是得等 800 ps</li>
+<li>R-type 明明只需要 600 ps，也還是得等 800 ps</li>
+<li><code>beq</code> 只要 500 ps，仍然得等 800 ps</li>
+</ul>
+<p>這就像全班考試明明有人 30 分鐘能寫完，但規定每個人都要坐滿 2 小時才交卷。<br />
+系統設計被最慢者綁住。(<a href="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf" title="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf">cseweb.ucsd.edu</a>)</p>
+<h5 id="2-管道化為什麼可以變成-200-ps">2. 管道化為什麼可以變成 200 ps<a class="headerlink" href="#2-管道化為什麼可以變成-200-ps" title="Permanent link"></a></h5>
+<p>管道化後，每個 stage 各佔一個 clock cycle。<br />
+所以新的 clock period 只要能容納<strong>最慢的 stage</strong> 就好，不必容納整條指令。</p>
+<p>在這例子裡最慢 stage 是 200 ps，<br />
+所以 pipeline clock 可以設成 <strong>200 ps</strong>。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="3-但單一指令有變快嗎">3. 但單一指令有變快嗎<a class="headerlink" href="#3-但單一指令有變快嗎" title="Permanent link"></a></h5>
+<p>沒有，甚至常常更慢。</p>
+<p>因為一條 <code>lw</code> 現在要走 5 個 stage：</p>
+<ul>
+<li>5 × 200 ps = 1000 ps</li>
+</ul>
+<p>所以你會看到一個很反直覺但很重要的結論：</p>
+<ul>
+<li>single-cycle：一條 <code>lw</code> = 800 ps</li>
+<li>pipelined：一條 <code>lw</code> ≈ 1000 ps</li>
+</ul>
+<p><strong>單條指令 latency 沒降，甚至上升。</strong></p>
+<p>但如果連續做好多條指令：</p>
+<ul>
+<li>non-pipeline 每條都要再加 800 ps</li>
+<li>pipeline 每多一條通常只要再加 200 ps</li>
+</ul>
+<p>這就是「一開始不一定贏，做久了就贏很大」的原因。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="4-為什麼教材算出來不是-5-倍而是接近-4-倍">4. 為什麼教材算出來不是 5 倍，而是接近 4 倍<a class="headerlink" href="#4-為什麼教材算出來不是-5-倍而是接近-4-倍" title="Permanent link"></a></h5>
+<p>因為理想 speedup ≈ stage 數，只在很理想的情況成立：</p>
+<ul>
+<li>階段長度很平均</li>
+<li>沒有額外 pipeline register overhead(管線暫存器負擔)</li>
+<li>指令數很多</li>
+<li>沒有 hazard</li>
+</ul>
+<p>教材這個例子裡並不平均：</p>
+<ul>
+<li>有的 stage 100 ps</li>
+<li>有的 stage 200 ps</li>
+</ul>
+<p>所以 clock 還是被 200 ps 綁住，<br />
+100 ps 的那些 stage 等於有一半時間在閒著。<br />
+再加上管線剛開始要 fill(填滿)、最後要 drain(排空)，<br />
+因此真實 speedup 會小於 stage 數。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="5-這段最容易考">5. 這段最容易考<a class="headerlink" href="#5-這段最容易考" title="Permanent link"></a></h5>
+<p>最常錯的兩句：</p>
+<ul>
+<li><strong>Pipeline 提升 throughput，不保證降低 latency</strong></li>
+<li><strong>理想 speedup ≈ 管線級數，但實際通常比較小</strong></li>
+</ul>
+<hr />
+<h4 id="四頁-274275為什麼說-mips-是為管道化而設計的-isa">四、頁 274–275：為什麼說 MIPS 是「為管道化而設計」的 ISA<a class="headerlink" href="#四頁-274275為什麼說-mips-是為管道化而設計的-isa" title="Permanent link"></a></h4>
+<p>這裡教材其實在講一個更深的問題：</p>
+<blockquote>
+<p>不是只有硬體要管道化，連 ISA(Instruction Set Architecture，指令集架構) 也會影響管道化容不容易做。</p>
+</blockquote>
+<p>你的教材列了四點，這四點非常重要。</p>
+<h5 id="1-固定長度-instruction">1. 固定長度 instruction<a class="headerlink" href="#1-固定長度-instruction" title="Permanent link"></a></h5>
+<p>MIPS 指令長度固定。<br />
+好處是 IF 和 ID 很單純：</p>
+<ul>
+<li>每次都抓固定大小</li>
+<li>不用猜下一條指令到底長幾 byte</li>
+</ul>
+<p>可變長度指令會讓前端更複雜，對簡單 pipeline 不友善。(<a href="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf" title="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf">cseweb.ucsd.edu</a>)</p>
+<h5 id="2-指令格式少而且-register-欄位位置一致">2. 指令格式少，而且 register 欄位位置一致<a class="headerlink" href="#2-指令格式少而且-register-欄位位置一致" title="Permanent link"></a></h5>
+<p>這讓 ID 階段更容易：</p>
+<ul>
+<li>比較容易解碼</li>
+<li>比較容易同時讀 register file(暫存器檔)</li>
+</ul>
+<p>因為硬體不用每次都重新猜「來源暫存器欄位到底藏在哪」。</p>
+<h5 id="3-記憶體運算只出現在-load--store">3. 記憶體運算只出現在 load / store<a class="headerlink" href="#3-記憶體運算只出現在-load--store" title="Permanent link"></a></h5>
+<p>這是典型 load/store architecture(載入/儲存架構)。<br />
+意思是：</p>
+<ul>
+<li>真正算術邏輯運算主要在 register 之間做</li>
+<li>只有 <code>lw</code>,<code>sw</code> 會碰 memory</li>
+</ul>
+<p>這很重要，因為如果每種指令都能直接 memory-to-memory，<br />
+那 pipeline 的 EX/MEM 會變超級複雜，也更容易出現 hazard。(<a href="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf" title="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf">cseweb.ucsd.edu</a>)</p>
+<h5 id="4-alignment對齊">4. alignment(對齊)<a class="headerlink" href="#4-alignment對齊" title="Permanent link"></a></h5>
+<p>資料對齊可以讓 memory access(記憶體存取) 比較規律，<br />
+避免一筆資料拆成兩次 memory 存取。<br />
+這對 pipeline 來說很關鍵，因為你希望 MEM stage 行為固定、可預測。</p>
+<h5 id="5-小結_1">5. 小結<a class="headerlink" href="#5-小結_1" title="Permanent link"></a></h5>
+<p>所以「MIPS 適合管道化」不是口號，<br />
+而是因為它的 ISA 幫硬體把事情先整理乾淨了。</p>
+<hr />
+<h4 id="五hazard危障-是什麼">五、hazard(危障) 是什麼<a class="headerlink" href="#五hazard危障-是什麼" title="Permanent link"></a></h4>
+<p>現在進入第二大主題：<br />
+<strong>既然 pipeline 這麼棒，為什麼還會卡住？</strong></p>
+<p>hazard 就是：</p>
+<blockquote>
+<p><strong>原本希望下一條指令照時鐘節拍正常往前走，但因為某種衝突或依賴，做不到。</strong></p>
+</blockquote>
+<p>教材分成三類，這也是標準分類。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="1-structural-hazard結構危障">1. Structural Hazard(結構危障)<a class="headerlink" href="#1-structural-hazard結構危障" title="Permanent link"></a></h5>
+<p>硬體資源撞車。<br />
+兩條指令同一時間想用同一個硬體，但只有一份。</p>
+<h5 id="2-data-hazard數據危障">2. Data Hazard(數據危障)<a class="headerlink" href="#2-data-hazard數據危障" title="Permanent link"></a></h5>
+<p>後面指令需要前面指令的結果，<br />
+但前面那條還沒生出來，或還沒送到可用的位置。</p>
+<h5 id="3-control-hazard控制危障">3. Control Hazard(控制危障)<a class="headerlink" href="#3-control-hazard控制危障" title="Permanent link"></a></h5>
+<p>碰到 branch(分支) / jump(跳躍) 時，<br />
+下一條到底該抓哪裡，還不知道。</p>
+<hr />
+<h4 id="六structural-hazard結構危障不是資料錯是硬體不夠">六、Structural Hazard(結構危障)：不是資料錯，是硬體不夠<a class="headerlink" href="#六structural-hazard結構危障不是資料錯是硬體不夠" title="Permanent link"></a></h4>
+<h5 id="1-這段在回答什麼問題_1">1. 這段在回答什麼問題<a class="headerlink" href="#1-這段在回答什麼問題_1" title="Permanent link"></a></h5>
+<p>如果 pipeline 裡每一級都同時跑，<br />
+會不會有兩條指令搶同一台機器？</p>
+<p>答案是：會。這就是 structural hazard。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="2-生活化例子">2. 生活化例子<a class="headerlink" href="#2-生活化例子" title="Permanent link"></a></h5>
+<p>洗衣比喻裡，如果你不是「洗衣機 + 烘衣機」各一台，<br />
+而是只有一台機器同時兼任洗和烘，<br />
+那某一批在洗時，另一批就不可能同時烘。</p>
+<h5 id="3-cpu-版本">3. CPU 版本<a class="headerlink" href="#3-cpu-版本" title="Permanent link"></a></h5>
+<p>最典型例子是：</p>
+<ul>
+<li>某條 <code>lw/sw</code> 在 MEM stage 要用 memory</li>
+<li>同時另一條指令在 IF stage 也要去抓 instruction memory</li>
+</ul>
+<p>如果 instruction 和 data 共用同一個 memory，<br />
+這兩個需求會衝突。<br />
+所以教材才會說，pipelined datapath 常需要分開的 instruction/data memory 或 cache。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="4-解法">4. 解法<a class="headerlink" href="#4-解法" title="Permanent link"></a></h5>
+<p>兩種：</p>
+<ul>
+<li><strong>stall(停滯)</strong>：先讓其中一個等</li>
+<li><strong>加硬體</strong>：把資源複製開，例如 I-cache / D-cache 分離</li>
+</ul>
+<h5 id="5-易混淆">5. 易混淆<a class="headerlink" href="#5-易混淆" title="Permanent link"></a></h5>
+<p>很多人一看到 hazard 就只想到資料相依，<br />
+但 structural hazard 跟資料內容無關，<br />
+它是<strong>資源衝突(resource conflict)</strong>。</p>
+<hr />
+<h4 id="七data-hazard數據危障前一條還沒算完下一條就急著要用">七、Data Hazard(數據危障)：前一條還沒算完，下一條就急著要用<a class="headerlink" href="#七data-hazard數據危障前一條還沒算完下一條就急著要用" title="Permanent link"></a></h4>
+<p>這是最核心、也最常考的部分。</p>
+<h5 id="1-最基本的直覺">1. 最基本的直覺<a class="headerlink" href="#1-最基本的直覺" title="Permanent link"></a></h5>
+<p>看這兩條：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">add</span><span class="w"> </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="no">$t1</span>
+<span class="nf">sub</span><span class="w"> </span><span class="no">$t2</span><span class="p">,</span><span class="w"> </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$t3</span>
+</code></pre></div>
+<p>第二條 <code>sub</code> 需要 <code>$s0</code>，<br />
+但 <code>$s0</code> 是第一條 <code>add</code> 才剛要算出來的。</p>
+<p>問題不是「永遠拿不到」，<br />
+而是「<strong>當第二條需要時，第一條還沒正式寫回 register file</strong>」。<br />
+這就叫 data hazard。(<a href="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html" title="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html">cs.umd.edu</a>)</p>
+<h5 id="2-forwarding前饋--bypassing繞送-是什麼">2. forwarding(前饋) / bypassing(繞送) 是什麼<a class="headerlink" href="#2-forwarding前饋--bypassing繞送-是什麼" title="Permanent link"></a></h5>
+<p>forwarding 的核心思想是：</p>
+<blockquote>
+<p><strong>既然結果其實已經在 pipeline 中間某個地方算出來了，就不要傻傻等它一路走到 WB 再回 register file，直接從中途送到下一條指令要用的地方。</strong></p>
+</blockquote>
+<p>也就是：</p>
+<ul>
+<li>結果剛在 EX 算好</li>
+<li>下一條很快就要在 EX 用到</li>
+<li>那就直接把 EX/MEM pipeline register 裡的值餵回 ALU input</li>
+</ul>
+<p>這就是圖 4.29 在畫的事。(<a href="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html" title="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html">cs.umd.edu</a>)</p>
+<h5 id="3-為什麼-add--sub-可以靠-forwarding-解掉">3. 為什麼 add → sub 可以靠 forwarding 解掉<a class="headerlink" href="#3-為什麼-add--sub-可以靠-forwarding-解掉" title="Permanent link"></a></h5>
+<p>因為 <code>add</code> 的結果在 <strong>EX 結束</strong> 時就已經有了。<br />
+而下一條 <code>sub</code> 真正需要它，是在自己的 <strong>EX 開始</strong>。</p>
+<p>時間還接得上。<br />
+所以可以 forward，通常<strong>不用 stall</strong>。(<a href="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html" title="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html">cs.umd.edu</a>)</p>
+<h5 id="4-但為什麼-lw--use-還是要-stall">4. 但為什麼 lw → use 還是要 stall<a class="headerlink" href="#4-但為什麼-lw--use-還是要-stall" title="Permanent link"></a></h5>
+<p>這是社群上最常卡住的點。</p>
+<p>看：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w">  </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">(</span><span class="no">$t1</span><span class="p">)</span>
+<span class="nf">sub</span><span class="w"> </span><span class="no">$t2</span><span class="p">,</span><span class="w"> </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$t3</span>
+</code></pre></div>
+<p><code>lw</code> 的資料不是在 EX 就算完，<br />
+而是要等到 <strong>MEM stage 結束</strong>，從 data memory 讀出來後才真的拿到。</p>
+<p>但下一條 <code>sub</code> 在自己的 EX 就想用 <code>$s0</code>。<br />
+時間點太早了。</p>
+<p>所以即使有 forwarding，<br />
+對標準 5-stage MIPS 來說，<strong>load-use hazard(載入後立即使用危障)</strong> 通常仍需要 <strong>1 個 stall cycle</strong>。<br />
+也就是插入一個 bubble(氣泡)。(<a href="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html" title="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html">cs.umd.edu</a>)</p>
+<h5 id="5-bubble氣泡--stall停滯-是什麼">5. bubble(氣泡) / stall(停滯) 是什麼<a class="headerlink" href="#5-bubble氣泡--stall停滯-是什麼" title="Permanent link"></a></h5>
+<p>bubble 你可以把它想成：</p>
+<ul>
+<li>pipeline 某格本來應該塞一條有效指令</li>
+<li>但為了等資料，硬塞一個「空操作 NOP」</li>
+</ul>
+<p>它看起來像東西還在流動，<br />
+但那一格其實沒做有效工作。</p>
+<h5 id="6-為什麼教材說-compiler編譯器-也能幫忙">6. 為什麼教材說 compiler(編譯器) 也能幫忙<a class="headerlink" href="#6-為什麼教材說-compiler編譯器-也能幫忙" title="Permanent link"></a></h5>
+<p>因為有些 stall 可以透過 instruction scheduling(指令重排) 減少。</p>
+<p>例如本來：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w">   </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$t0</span><span class="p">)</span>
+<span class="nf">add</span><span class="w">  </span><span class="no">$t3</span><span class="p">,</span><span class="w"> </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="no">$t2</span>
+</code></pre></div>
+<p>如果中間能插進一條與 <code>$t1</code> 無關的指令：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w">   </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$t0</span><span class="p">)</span>
+<span class="nf">addi</span><span class="w"> </span><span class="no">$s5</span><span class="p">,</span><span class="w"> </span><span class="no">$s5</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
+<span class="nf">add</span><span class="w">  </span><span class="no">$t3</span><span class="p">,</span><span class="w"> </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="no">$t2</span>
+</code></pre></div>
+<p>就可能把原本的 bubble 拿去做別的事。<br />
+這就是頁 278 那個「重排程式碼以避免管道停滯」例子的核心。(<a href="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html" title="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html">cs.umd.edu</a>)</p>
+<h5 id="7-補充一個很容易被問的點">7. 補充一個很容易被問的點<a class="headerlink" href="#7-補充一個很容易被問的點" title="Permanent link"></a></h5>
+<p>在這種經典 <strong>5-stage、in-order(循序發射)、單發射</strong> MIPS pipeline 裡，<br />
+最主要會碰到的是 <strong>RAW, Read After Write(先寫後讀相依)</strong>。<br />
+而 <strong>WAR / WAW</strong> 在這種簡單管線裡通常不會成為問題，因為：</p>
+<ul>
+<li>讀大多固定在 ID</li>
+<li>寫大多固定在 WB</li>
+<li>指令順序不會亂掉</li>
+</ul>
+<p>所以時序上不會出現後讀先於前讀、後寫先於前寫這種情況。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<hr />
+<h4 id="八control-hazard控制危障問題不是資料而是下一條指令去哪裡抓">八、Control Hazard(控制危障)：問題不是資料，而是下一條指令去哪裡抓<a class="headerlink" href="#八control-hazard控制危障問題不是資料而是下一條指令去哪裡抓" title="Permanent link"></a></h4>
+<h5 id="1-這段在回答什麼問題_2">1. 這段在回答什麼問題<a class="headerlink" href="#1-這段在回答什麼問題_2" title="Permanent link"></a></h5>
+<p>branch 指令像 <code>beq</code>,<code>bne</code> 會改變 PC。<br />
+但在 branch 條件尚未判定前，CPU 不知道下一條該抓：</p>
+<ul>
+<li><code>PC + 4</code> 的順序下一條？</li>
+<li>還是 branch target(分支目標)？</li>
+</ul>
+<p>這種「下一步路線未定」就是 control hazard。(<a href="https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html" title="https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="2-生活化例子_1">2. 生活化例子<a class="headerlink" href="#2-生活化例子_1" title="Permanent link"></a></h5>
+<p>教材用洗足球制服的例子很不錯。</p>
+<p>你必須先觀察洗完/烘完後衣服夠不夠乾淨，<br />
+才能決定下一步要不要改設定重洗。<br />
+在決定出來前，後面的動作不敢完全確定。</p>
+<h5 id="3-最保守的解法stall">3. 最保守的解法：stall<a class="headerlink" href="#3-最保守的解法stall" title="Permanent link"></a></h5>
+<p>最簡單做法是：</p>
+<ul>
+<li>branch 進來後</li>
+<li>先停住</li>
+<li>等結果確定</li>
+<li>再決定抓哪條</li>
+</ul>
+<p>這很安全，但效能差。<br />
+教材頁 280 用「若 17% 指令是 branch，且每次多 1 個 cycle」算到 CPI 變成 1.17，重點不是 17 這個數字本身，而是要你理解：</p>
+<blockquote>
+<p><strong>branch 很常見，所以每次都停，代價很大。</strong></p>
+</blockquote>
+<p>這也是為什麼控制危障非常麻煩。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="4-第二種解法prediction預測">4. 第二種解法：prediction(預測)<a class="headerlink" href="#4-第二種解法prediction預測" title="Permanent link"></a></h5>
+<p>既然等太慢，那就先猜。</p>
+<p>最簡單的 static prediction(靜態預測) 是：</p>
+<ul>
+<li><strong>predict not taken(預測不分支)</strong><br />
+  先抓 <code>PC+4</code> 那條</li>
+</ul>
+<p>如果猜對：</p>
+<ul>
+<li>幾乎沒損失</li>
+</ul>
+<p>如果猜錯：</p>
+<ul>
+<li>把已經抓錯的指令 flush(清空)</li>
+<li>插入 bubble</li>
+<li>改抓正確目標</li>
+</ul>
+<p>這就是你圖 4.32 的主軸。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="5-第三種解法delayed-branch延遲分支">5. 第三種解法：delayed branch(延遲分支)<a class="headerlink" href="#5-第三種解法delayed-branch延遲分支" title="Permanent link"></a></h5>
+<p>這是歷史上經典 MIPS 很有名的作法。</p>
+<p>概念是：</p>
+<ul>
+<li>branch 後面那一格 delay slot(延遲槽)</li>
+<li>不管 branch 成不成立，這一格都先執行</li>
+</ul>
+<p>於是 compiler 嘗試把一條「不管跳不跳都安全」的指令塞進去，<br />
+把原本浪費的 bubble 變有用。</p>
+<p>這在短而簡單的 in-order pipeline 很實用。(<a href="https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html" title="https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html">cs.umd.edu</a>)</p>
+<h5 id="6-但現在還常用-delayed-branch-嗎">6. 但現在還常用 delayed branch 嗎<a class="headerlink" href="#6-但現在還常用-delayed-branch-嗎" title="Permanent link"></a></h5>
+<p>你的教材把 delayed branch 當作重要概念，是對的，因為它是理解 control hazard 的經典方法。<br />
+但如果從現代 CPU 角度補充一句：</p>
+<p><strong>新一代高效能處理器通常更依賴 branch prediction，而不是 branch delay slot。</strong><br />
+原因是 delay slot 對 superscalar(超純量)、out-of-order(亂序執行) 等高效能設計不太友善，控制更複雜、收益也變差。(<a href="https://stackoverflow.com/questions/54724410/why-is-the-branch-delay-slot-deprecated-or-obsolete" title="https://stackoverflow.com/questions/54724410/why-is-the-branch-delay-slot-deprecated-or-obsolete">Stack Overflow</a>)</p>
+<hr />
+<h4 id="九頁-283-的自我檢查三個序列怎麼判斷要不要-stall--forwarding">九、頁 283 的自我檢查：三個序列怎麼判斷要不要 stall / forwarding<a class="headerlink" href="#九頁-283-的自我檢查三個序列怎麼判斷要不要-stall--forwarding" title="Permanent link"></a></h4>
+<p>這頁其實很值得講，因為它是在訓練你「看相依性」。</p>
+<h5 id="序列-1">序列 1<a class="headerlink" href="#序列-1" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="nf">lw</span><span class="w">   </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$t0</span><span class="p">)</span>
+<span class="nf">add</span><span class="w">  </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span>
+</code></pre></div>
+<p>這是 <strong>load-use hazard</strong>。<br />
+<code>add</code> 立刻要用 <code>lw</code> 載入的 <code>$t0</code>。<br />
+即使有 forwarding，對經典 5-stage pipeline 通常仍要 <strong>stall 1 cycle</strong>。(<a href="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html" title="https://www.cs.umd.edu/~meesh/411/mips-pipe/proj-fall11/mips-doc/node7.html">cs.umd.edu</a>)</p>
+<h5 id="序列-2">序列 2<a class="headerlink" href="#序列-2" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="nf">add</span><span class="w">   </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t2</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#5</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t4</span><span class="p">,</span><span class="w"> </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="mi">#5</span>
+</code></pre></div>
+<p>這裡第三條依賴第一條的 <code>$t1</code>，<br />
+但中間隔了一條不相依的 <code>addi $t2,...</code>。</p>
+<p>所以這通常可以靠 forwarding 解決，<br />
+<strong>不一定需要 stall</strong>。<br />
+重點是：<strong>有相依，不代表一定 stall；要看資料何時產生、何時被使用。</strong>(<a href="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html" title="https://www.cs.umd.edu/~meesh/cmsc411/website/proj01/dlx/forwarding.html">cs.umd.edu</a>)</p>
+<h5 id="序列-3">序列 3<a class="headerlink" href="#序列-3" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="nf">addi</span><span class="w">  </span><span class="no">$t1</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t2</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#2</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t3</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#2</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t3</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#4</span>
+<span class="nf">addi</span><span class="w">  </span><span class="no">$t5</span><span class="p">,</span><span class="w"> </span><span class="no">$t0</span><span class="p">,</span><span class="w"> </span><span class="mi">#5</span>
+</code></pre></div>
+<p>這串幾乎都只是讀 <code>$t0</code>，<br />
+沒有「下一條急著讀前一條剛算出的結果」那種 RAW hazard。<br />
+雖然 <code>$t3</code> 被連續寫兩次，但在這種簡單 5-stage in-order pipeline 中，這不會形成你這章主講的那種 data stall。<br />
+所以大致可視為：</p>
+<ul>
+<li><strong>不用 stall</strong></li>
+<li><strong>也不特別需要 forwarding</strong></li>
+</ul>
+<h5 id="這頁想考你的不是背答案">這頁想考你的不是背答案<a class="headerlink" href="#這頁想考你的不是背答案" title="Permanent link"></a></h5>
+<p>而是問你：</p>
+<blockquote>
+<p><strong>這條指令真正使用來源操作數，是在哪個 stage？前一條的結果又是在哪個 stage 才可用？</strong></p>
+</blockquote>
+<p>只要你抓住這個判斷法，題目換一組寄存器名稱你也會做。</p>
+<hr />
+<h4 id="十頁-284-開頭46-管道化數據通道及控制在鋪什麼梗">十、頁 284 開頭：4.6 管道化數據通道及控制，在鋪什麼梗<a class="headerlink" href="#十頁-284-開頭46-管道化數據通道及控制在鋪什麼梗" title="Permanent link"></a></h4>
+<p>這一頁是在告訴你：</p>
+<p>前面 4.5 還是在講<strong>概念與效能直覺</strong>，<br />
+接下來 4.6 要開始進入真正硬體結構，也就是 datapath(數據通道) 和 control(控制)。</p>
+<p>它把單週期 datapath 拆成 5 個部分：</p>
+<ol>
+<li>IF</li>
+<li>ID</li>
+<li>EX</li>
+<li>MEM</li>
+<li>WB</li>
+</ol>
+<p>並提醒你：<br />
+資料與指令大致從左到右流，<br />
+但有兩個重要「回頭」現象：</p>
+<ul>
+<li><strong>WB</strong> 會把結果寫回中間的 register file</li>
+<li><strong>next PC selection</strong> 會依 branch 結果改變之後從哪抓指令</li>
+</ul>
+<p>這兩個「不是單純一路往右走」的地方，<br />
+正是後面控制邏輯最麻煩的來源。</p>
+<hr />
+<h4 id="十一把整段觀念串成一條線">十一、把整段觀念串成一條線<a class="headerlink" href="#十一把整段觀念串成一條線" title="Permanent link"></a></h4>
+<p>你可以把頁 270–284 壓成下面這條主線：</p>
+<ol>
+<li><strong>把指令執行切成 5 個 stage</strong></li>
+<li><strong>讓多條指令同時卡在不同 stage</strong></li>
+<li><strong>因此 throughput 變高</strong></li>
+<li>
+<p><strong>但重疊之後就會撞到</strong></p>
+</li>
+<li>
+<p>資源衝突 → structural hazard</p>
+</li>
+<li>資料相依 → data hazard</li>
+<li>分支不確定 → control hazard</li>
+<li>
+<p><strong>所以要靠</strong></p>
+</li>
+<li>
+<p>stall / bubble</p>
+</li>
+<li>forwarding</li>
+<li>instruction scheduling</li>
+<li>branch prediction</li>
+<li>delayed branch（歷史/教材重點）</li>
+</ol>
+<p>這就是這幾頁真正的大架構。(<a href="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html" title="https://www.cs.umd.edu/~meesh/411/CA-online/chapter/pipeline-hazards/index.html">cs.umd.edu</a>)</p>
+<hr />
+<h4 id="十二這段最容易考也最容易混淆的地方">十二、這段最容易考、也最容易混淆的地方<a class="headerlink" href="#十二這段最容易考也最容易混淆的地方" title="Permanent link"></a></h4>
+<ol>
+<li><strong>Pipeline 提升 throughput，不保證降低 latency。</strong></li>
+<li><strong>single-cycle 的 clock period 由最慢指令決定；pipeline 的 clock period 由最慢 stage 決定。</strong></li>
+<li><strong>理想 speedup 接近 stage 數，不一定等於 stage 數。</strong></li>
+<li><strong>forwarding 不是寫回暫存器後再讀，而是中途直接送到需要的位置。</strong></li>
+<li><strong>add-use 常可靠 forwarding 解；load-use 通常還要 1 個 stall。</strong></li>
+<li><strong>control hazard 是因為 next PC 不確定，不是因為資料值錯。</strong></li>
+<li><strong>MIPS 適合管道化，和它的 ISA 設計有很大關係：固定長度、少格式、load/store、對齊。</strong> (<a href="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf" title="https://cseweb.ucsd.edu/classes/wi12/cse141-a/Slides/03_ImplementingMIPS-e.pdf">cseweb.ucsd.edu</a>)</li>
+</ol>
+<hr />
+<h4 id="十三小結">十三、小結<a class="headerlink" href="#十三小結" title="Permanent link"></a></h4>
+<p>這幾頁你如果只記一句話，請記這句：</p>
+<blockquote>
+<p><strong>管道化的本質是用重疊執行換吞吐量；而所有 hazard，都是這個「重疊」帶來的副作用。</strong></p>
+</blockquote>
+<p>再精簡成考前版：</p>
+<ul>
+<li><strong>Pipeline 是 overlap(重疊)</strong></li>
+<li><strong>好處是 throughput 上升</strong></li>
+<li><strong>代價是 hazard</strong></li>
+<li><strong>Data hazard 靠 forwarding / stall</strong></li>
+<li><strong>Control hazard 靠 stall / predict / delayed branch</strong></li>
+</ul>
+<p>如果你要，我下一則可以直接接著幫你做一份：</p>
+<p><strong>「頁 270–284 的考前背誦版重點整理」</strong><br />
+或是<br />
+<strong>「把圖 4.28～4.32 一張一張重新畫成更好懂的時間線」</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="ch%202.html"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ch 2
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.tabs", "navigation.top", "announce.dismiss", "content.tabs.link", "search.share", "content.code.copy", "content.code.annotations", "content.action.edit", "content.action.view", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mermaid-config-override.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+      
+        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mermaid-zoom.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/toc-fold.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/image-zoom.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-3"></script>
+      
+        <script src="../../../assets/pymdownx-extras/legacy-image-width.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/source-jump.js"></script>
+      
+    
+  </body>
+</html>
