@@ -824,3 +824,11 @@ Oracle 對 virtual threads 甚至明講：它們**不是 faster threads**，它�
 [6]: https://learn.microsoft.com/en-us/windows/win32/procthread/fibers "Fibers - Win32 apps | Microsoft Learn"
 [7]: https://stackoverflow.com/questions/15983872/difference-between-user-level-and-kernel-supported-threads "multithreading - Difference between user-level and kernel-supported threads? - Stack Overflow"
 [8]: https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html "Virtual Threads"
+
+
+
+
+
+https://drive.google.com/file/d/1mBsJSbB-x89Bcnq0AE4FsK7zo2-Y8xfz/view
+
+p.16
