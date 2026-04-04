@@ -172,3 +172,5 @@ git clone https://github.com/peicd100/university-notes.git
 - 2026-03-29：已把右鍵原文定位改成不必先選字；現在在 `mkdocs serve` 預覽時，直接對文章段落按右鍵也會跳出 `開啟原文檔案`，並以右鍵所在 block 反查原始 Markdown。若有選字，則仍優先用選字做較精準的定位，且保留 `複製` 選項。
 - 2026-03-29：已順手修正原文定位的 endpoint probe 回應；前端用 `selection=__probe__` 檢查本機 JSON endpoint 時，後端現在直接回 `200 OK` 的 probe payload，不再因為故意查不到內容而製造 404 console 噪音。
 - 2026-03-29：已新增 `tools/fence_id_cleanup_hook.py`，在 MkDocs `on_page_markdown` 階段自動清掉這種 bare fenced-code header 尾端的 `id="..."`，例如 ```` ```asm id="h4t1x9" ```` 會在渲染前被視為一般 ` ```asm `，因此不再因為尾端 id 破壞程式碼區塊渲染。
+- 2026-04-04：已新增 `tools/latex_bracket_math_hook.py`，在 MkDocs `on_page_markdown` 階段自動把單獨一行的 `[` / `]` 數學區塊改寫成標準 `\[` / `\]` display math，讓 `docs/md/114-2/電機_作業系統/ch 4.md` 這類原始筆記寫法可直接被 Arithmatex + MathJax 渲染，且不必手動改原文；`.gitignore` 已檢查，這次不需修改。
+- 2026-04-04：已提升右鍵「開啟原文檔案」在重複文字場景下的命中準確度；前端 `source-jump.js` 現在會額外送出目前章節路徑、前後鄰居區塊文字、區塊 tag 與頁面內順序，後端 `tools/source_jump_hook.py` 也同步把 Markdown block 建成含章節/鄰居/順序的索引後再綜合評分，避免只因段落文字相同就跳到別處；同時把 `mkdocs.yml` 內 `source-jump.js` 加上版本參數 `20260404-1` 以降低快取吃舊檔的機率；`.gitignore` 已檢查，這次不需修改。

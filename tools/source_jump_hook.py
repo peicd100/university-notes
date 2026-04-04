@@ -28,11 +28,17 @@ _VSCODE_COMMAND: str | None = None
 @dataclass
 class BlockRecord:
     kind: str
+    tag: str
+    order_index: int
     start_line: int
     end_line: int
     visible_text: str
     normalized_text: str
     normalized_source_offsets: list[int]
+    heading_path: tuple[str, ...]
+    normalized_heading_path: str
+    prev_text: str = ""
+    next_text: str = ""
 
 
 @dataclass
@@ -94,7 +100,16 @@ def _handle_lookup_request(environ, start_response, server):
     selection = params.get("selection", [""])[0]
     container = params.get("container", [""])[0]
     prefix = params.get("prefix", [""])[0]
+    heading_path = params.get("heading_path", [""])[0]
+    prev_block = params.get("prev_block", [""])[0]
+    next_block = params.get("next_block", [""])[0]
+    block_tag = params.get("block_tag", [""])[0]
+    block_index_raw = params.get("block_index", [""])[0]
     action = params.get("action", ["lookup"])[0].strip().lower()
+    try:
+        block_index = int(block_index_raw)
+    except (TypeError, ValueError):
+        block_index = None
 
     if selection == "__probe__":
         return _json_response(
@@ -119,7 +134,17 @@ def _handle_lookup_request(environ, start_response, server):
             payload={"ok": False, "message": f"page not indexed: {page_key}"},
         )
 
-    result = _locate_selection(record, selection, container, prefix)
+    result = _locate_selection(
+        record,
+        selection,
+        container,
+        prefix,
+        heading_path,
+        prev_block,
+        next_block,
+        block_tag,
+        block_index,
+    )
     if result.get("ok") and action == "open":
         opened, message = _open_in_vscode(
             result["abs_path"],
@@ -172,27 +197,25 @@ def _normalize_page_key(page_path: str, mount_path: str) -> str:
 def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:
     line_starts = _line_starts(markdown)
     blocks: list[BlockRecord] = []
+    heading_stack: list[str] = []
+    tokens = _MARKDOWN.parse(markdown)
 
-    for token in _MARKDOWN.parse(markdown):
-        if not token.map:
-            continue
-
-        visible_text = _visible_text_from_token(token)
-        if not visible_text.strip():
-            continue
-
-        start_line0, end_line0 = token.map
+    for token_index, token in enumerate(tokens):
         block = _build_block_record(
-            kind=token.type,
-            visible_text=visible_text,
+            token=token,
+            tokens=tokens,
+            token_index=token_index,
             markdown=markdown,
             line_starts=line_starts,
-            start_line0=start_line0,
-            end_line0=end_line0,
+            heading_stack=heading_stack,
         )
         if block is None:
             continue
         blocks.append(block)
+        if block.kind == "heading":
+            heading_stack = list(block.heading_path)
+
+    _attach_neighbor_context(blocks)
 
     return PageRecord(
         src_uri=str(getattr(file_obj, "src_uri", "")).replace("\\", "/"),
@@ -206,13 +229,21 @@ def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:
 
 def _build_block_record(
     *,
-    kind: str,
-    visible_text: str,
+    token: Any,
+    tokens: list[Any],
+    token_index: int,
     markdown: str,
     line_starts: list[int],
-    start_line0: int,
-    end_line0: int,
+    heading_stack: list[str],
 ) -> BlockRecord | None:
+    if not token.map:
+        return None
+
+    visible_text = _visible_text_from_token(token)
+    if not visible_text.strip():
+        return None
+
+    start_line0, end_line0 = token.map
     source_start = line_starts[start_line0]
     source_end = line_starts[end_line0] if end_line0 < len(line_starts) else len(markdown)
     source_slice = markdown[source_start:source_end]
@@ -222,13 +253,19 @@ def _build_block_record(
     if not normalized_text:
         return None
 
+    kind, tag, block_heading_path = _resolve_block_context(tokens, token_index, heading_stack, visible_text)
+
     return BlockRecord(
         kind=kind,
+        tag=tag,
+        order_index=-1,
         start_line=start_line0 + 1,
         end_line=max(start_line0 + 1, end_line0),
         visible_text=visible_text,
         normalized_text=normalized_text,
         normalized_source_offsets=normalized_source_offsets,
+        heading_path=block_heading_path,
+        normalized_heading_path=_normalize_heading_path(block_heading_path),
     )
 
 
@@ -266,6 +303,75 @@ def _html_to_text(html: str) -> str:
     if not html:
         return ""
     return BeautifulSoup(html, "html.parser").get_text(" ", strip=False)
+
+
+def _resolve_block_context(
+    tokens: list[Any],
+    token_index: int,
+    heading_stack: list[str],
+    visible_text: str,
+) -> tuple[str, str, tuple[str, ...]]:
+    token = tokens[token_index]
+    token_type = getattr(token, "type", "")
+
+    if token_type in {"fence", "code_block"}:
+        return "code", "pre", tuple(heading_stack)
+    if token_type == "html_block":
+        return "html_block", "", tuple(heading_stack)
+    if token_type != "inline":
+        return token_type, getattr(token, "tag", "") or "", tuple(heading_stack)
+
+    previous = tokens[token_index - 1] if token_index > 0 else None
+    previous_type = getattr(previous, "type", "")
+    previous_tag = getattr(previous, "tag", "") or ""
+
+    if previous_type == "heading_open":
+        heading_level = _heading_level_from_tag(previous_tag)
+        heading_title = visible_text.strip()
+        heading_path = tuple(heading_stack[: max(heading_level - 1, 0)] + ([heading_title] if heading_title else []))
+        return "heading", previous_tag or "heading", heading_path
+
+    if previous_type.endswith("_open"):
+        open_type = previous_type[:-5]
+        return _map_open_token_to_kind(open_type), previous_tag, tuple(heading_stack)
+
+    return "inline", getattr(token, "tag", "") or "", tuple(heading_stack)
+
+
+def _heading_level_from_tag(tag: str) -> int:
+    if len(tag) == 2 and tag.startswith("h") and tag[1].isdigit():
+        return int(tag[1])
+    return 1
+
+
+def _map_open_token_to_kind(open_type: str) -> str:
+    if open_type == "paragraph":
+        return "paragraph"
+    if open_type == "list_item":
+        return "list_item"
+    if open_type in {"bullet_list", "ordered_list"}:
+        return "list"
+    if open_type in {"td", "th"}:
+        return "table_cell"
+    if open_type == "heading":
+        return "heading"
+    return open_type
+
+
+def _normalize_heading_path(parts: tuple[str, ...]) -> str:
+    normalized_parts: list[str] = []
+    for part in parts:
+        normalized_part = _normalize_text(part)
+        if normalized_part:
+            normalized_parts.append(normalized_part)
+    return " / ".join(normalized_parts)
+
+
+def _attach_neighbor_context(blocks: list[BlockRecord]) -> None:
+    for index, block in enumerate(blocks):
+        block.order_index = index
+        block.prev_text = blocks[index - 1].normalized_text if index > 0 else ""
+        block.next_text = blocks[index + 1].normalized_text if index + 1 < len(blocks) else ""
 
 
 def _align_visible_text_to_source(visible_text: str, source_text: str, global_start: int) -> list[int]:
@@ -338,10 +444,24 @@ def _normalize_text_with_offsets(text: str, offsets: list[int]) -> tuple[str, li
     return "".join(output_chars), output_offsets
 
 
-def _locate_selection(record: PageRecord, selection: str, container: str, prefix: str) -> dict[str, Any]:
+def _locate_selection(
+    record: PageRecord,
+    selection: str,
+    container: str,
+    prefix: str,
+    heading_path: str,
+    prev_block: str,
+    next_block: str,
+    block_tag: str,
+    block_index: int | None,
+) -> dict[str, Any]:
     selection_norm = _normalize_text(selection)
     container_norm = _normalize_text(container)
     prefix_norm = _normalize_text(prefix)
+    heading_path_norm = _normalize_text(heading_path)
+    prev_block_norm = _normalize_text(prev_block)
+    next_block_norm = _normalize_text(next_block)
+    block_tag_norm = _normalize_block_tag(block_tag)
 
     if not selection_norm and not container_norm:
         return {"ok": False, "message": "selection and container both became empty after normalization"}
@@ -354,7 +474,18 @@ def _locate_selection(record: PageRecord, selection: str, container: str, prefix
                 "src_uri": record.src_uri,
             }
 
-        best_block = max(record.blocks, key=lambda block: _container_only_score(block, container_norm))
+        best_block = max(
+            record.blocks,
+            key=lambda block: _container_only_score(
+                block,
+                container_norm,
+                heading_path_norm,
+                prev_block_norm,
+                next_block_norm,
+                block_tag_norm,
+                block_index,
+            ),
+        )
         if best_block.normalized_source_offsets:
             source_offset = best_block.normalized_source_offsets[0]
             line, column = _offset_to_line_column(record.line_starts, source_offset)
@@ -376,7 +507,17 @@ def _locate_selection(record: PageRecord, selection: str, container: str, prefix
 
     best_block = max(
         candidates,
-        key=lambda block: _block_score(block, selection_norm, container_norm, prefix_norm),
+        key=lambda block: _block_score(
+            block,
+            selection_norm,
+            container_norm,
+            prefix_norm,
+            heading_path_norm,
+            prev_block_norm,
+            next_block_norm,
+            block_tag_norm,
+            block_index,
+        ),
     )
     match_index = _choose_match_index(best_block.normalized_text, selection_norm, prefix_norm)
     if match_index < 0 or match_index >= len(best_block.normalized_source_offsets):
@@ -398,7 +539,17 @@ def _success_payload(record: PageRecord, line: int, column: int) -> dict[str, An
     }
 
 
-def _block_score(block: BlockRecord, selection_norm: str, container_norm: str, prefix_norm: str) -> float:
+def _block_score(
+    block: BlockRecord,
+    selection_norm: str,
+    container_norm: str,
+    prefix_norm: str,
+    heading_path_norm: str,
+    prev_block_norm: str,
+    next_block_norm: str,
+    block_tag_norm: str,
+    block_index: int | None,
+) -> float:
     score = 0.0
 
     if container_norm:
@@ -420,12 +571,44 @@ def _block_score(block: BlockRecord, selection_norm: str, container_norm: str, p
         if actual_index >= 0:
             score += max(0, 1400 - abs(actual_index - desired_index) * 4)
 
+    score += _context_score(
+        block.normalized_heading_path,
+        heading_path_norm,
+        exact_bonus=2600,
+        contain_bonus=1700,
+        ratio_bonus=1400,
+    )
+    score += _context_score(
+        block.prev_text,
+        prev_block_norm,
+        exact_bonus=1050,
+        contain_bonus=760,
+        ratio_bonus=700,
+    )
+    score += _context_score(
+        block.next_text,
+        next_block_norm,
+        exact_bonus=1050,
+        contain_bonus=760,
+        ratio_bonus=700,
+    )
+    score += _block_tag_score(block, block_tag_norm)
+    score += _block_order_score(block.order_index, block_index)
+
     score += max(0, 300 - (block.end_line - block.start_line))
     score += max(0, 200 - block.start_line / 10)
     return score
 
 
-def _container_only_score(block: BlockRecord, container_norm: str) -> float:
+def _container_only_score(
+    block: BlockRecord,
+    container_norm: str,
+    heading_path_norm: str,
+    prev_block_norm: str,
+    next_block_norm: str,
+    block_tag_norm: str,
+    block_index: int | None,
+) -> float:
     score = 0.0
 
     if container_norm:
@@ -441,9 +624,87 @@ def _container_only_score(block: BlockRecord, container_norm: str) -> float:
 
         score -= abs(len(block.normalized_text) - len(container_norm)) / 5
 
+    score += _context_score(
+        block.normalized_heading_path,
+        heading_path_norm,
+        exact_bonus=2600,
+        contain_bonus=1700,
+        ratio_bonus=1400,
+    )
+    score += _context_score(
+        block.prev_text,
+        prev_block_norm,
+        exact_bonus=1050,
+        contain_bonus=760,
+        ratio_bonus=700,
+    )
+    score += _context_score(
+        block.next_text,
+        next_block_norm,
+        exact_bonus=1050,
+        contain_bonus=760,
+        ratio_bonus=700,
+    )
+    score += _block_tag_score(block, block_tag_norm)
+    score += _block_order_score(block.order_index, block_index)
+
     score += max(0, 300 - (block.end_line - block.start_line))
     score += max(0, 200 - block.start_line / 10)
     return score
+
+
+def _context_score(
+    candidate: str,
+    observed: str,
+    *,
+    exact_bonus: float,
+    contain_bonus: float,
+    ratio_bonus: float,
+) -> float:
+    if not candidate or not observed:
+        return 0.0
+    if candidate == observed:
+        return exact_bonus
+    if observed in candidate:
+        return contain_bonus
+    if candidate in observed:
+        return contain_bonus * 0.72
+    return SequenceMatcher(None, candidate[:1200], observed[:1200]).ratio() * ratio_bonus
+
+
+def _normalize_block_tag(tag: str) -> str:
+    return (tag or "").strip().lower()
+
+
+def _block_tag_score(block: BlockRecord, block_tag: str) -> float:
+    if not block_tag:
+        return 0.0
+    if block.tag == block_tag:
+        return 700.0
+    if _tags_compatible(block, block_tag):
+        return 320.0
+    return 0.0
+
+
+def _tags_compatible(block: BlockRecord, block_tag: str) -> bool:
+    if block_tag == "li" and block.kind in {"list_item", "paragraph"}:
+        return True
+    if block_tag in {"h1", "h2", "h3", "h4", "h5", "h6"} and block.kind == "heading":
+        return True
+    if block_tag in {"td", "th"} and block.tag in {"td", "th"}:
+        return True
+    if block_tag == "pre" and block.kind == "code":
+        return True
+    if block_tag == "p" and block.kind == "paragraph":
+        return True
+    return False
+
+
+def _block_order_score(order_index: int, block_index: int | None) -> float:
+    if block_index is None or block_index < 0 or order_index < 0:
+        return 0.0
+    delta = abs(order_index - block_index)
+    return max(0.0, 900.0 - delta * 35.0)
 
 
 def _choose_match_index(text: str, needle: str, prefix_norm: str) -> int:
