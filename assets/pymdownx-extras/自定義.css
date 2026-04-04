@@ -1737,6 +1737,15 @@ html.peicd-image-viewer-open body {
   width: 100%;
 }
 
+.peicd-image-viewer__canvas {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
 .peicd-image-viewer__img {
   border: 0;
   box-shadow: 0 1.6rem 4rem rgba(12, 18, 30, 0.16);
@@ -2010,6 +2019,17 @@ html.peicd-image-viewer-open body {
 
 .peicd-mermaid-viewer .peicd-image-viewer__img {
   cursor: zoom-in;
+  transform: none !important;
+  will-change: auto;
+}
+
+.peicd-mermaid-viewer .peicd-image-viewer__canvas {
+  cursor: zoom-in;
+}
+
+.peicd-mermaid-viewer .peicd-mermaid-viewer__svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
 }
 
 .peicd-mermaid-viewer .peicd-image-viewer__img.is-draggable {
