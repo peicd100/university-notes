@@ -14,6 +14,8 @@
   var MAX_SELECTION_CHARS = 600;
   var MAX_CONTAINER_CHARS = 2000;
   var MAX_PREFIX_CHARS = 500;
+  var MAX_NEIGHBOR_CHARS = 500;
+  var MAX_HEADING_PATH_CHARS = 500;
   var bound = false;
   var activeContext = null;
   var endpointProbe = null;
@@ -268,6 +270,79 @@
     return sanitizeText(block && (block.innerText || block.textContent || ""), MAX_CONTAINER_CHARS);
   }
 
+  function getContentBlocks() {
+    var root = getContentRoot();
+    if (!root) return [];
+
+    return Array.prototype.filter.call(
+      root.querySelectorAll(BLOCK_SELECTOR),
+      function (node) {
+        return !!sanitizeText(node && (node.innerText || node.textContent || ""), 1);
+      }
+    );
+  }
+
+  function getHeadingPath(block) {
+    var root = getContentRoot();
+    if (!root || !block) return "";
+
+    var headings = root.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    var stack = [];
+
+    for (var i = 0; i < headings.length; i += 1) {
+      var heading = headings[i];
+      var relation = heading.compareDocumentPosition(block);
+      var isBeforeBlock = heading === block || !!(relation & Node.DOCUMENT_POSITION_FOLLOWING);
+      if (!isBeforeBlock) break;
+
+      var level = parseInt(heading.tagName.slice(1), 10);
+      if (!level) continue;
+
+      var text = sanitizeText(heading.innerText || heading.textContent || "", 120);
+      if (!text) continue;
+
+      stack = stack.slice(0, Math.max(level - 1, 0));
+      stack.push(text);
+    }
+
+    return sanitizeText(stack.join(" / "), MAX_HEADING_PATH_CHARS);
+  }
+
+  function getBlockContextMeta(block) {
+    if (!block) {
+      return {
+        blockTag: "",
+        blockIndex: -1,
+        headingPath: "",
+        prevBlock: "",
+        nextBlock: ""
+      };
+    }
+
+    var blocks = getContentBlocks();
+    var blockIndex = blocks.indexOf(block);
+    var prevBlock = "";
+    var nextBlock = "";
+
+    for (var prevIndex = blockIndex - 1; prevIndex >= 0; prevIndex -= 1) {
+      prevBlock = sanitizeText(blocks[prevIndex].innerText || blocks[prevIndex].textContent || "", MAX_NEIGHBOR_CHARS);
+      if (prevBlock) break;
+    }
+
+    for (var nextIndex = blockIndex + 1; nextIndex < blocks.length; nextIndex += 1) {
+      nextBlock = sanitizeText(blocks[nextIndex].innerText || blocks[nextIndex].textContent || "", MAX_NEIGHBOR_CHARS);
+      if (nextBlock) break;
+    }
+
+    return {
+      blockTag: (block.tagName || "").toLowerCase(),
+      blockIndex: blockIndex,
+      headingPath: getHeadingPath(block),
+      prevBlock: prevBlock,
+      nextBlock: nextBlock
+    };
+  }
+
   function buildSelectionContext(targetNode) {
     var selection = getSelectionObject();
     if (!selection || selection.rangeCount === 0) return null;
@@ -281,6 +356,7 @@
     var clickedBlock = getClosestBlock(targetNode);
     var block = getClosestBlock(range.startContainer || selection.anchorNode);
     if (!block || !clickedBlock || block !== clickedBlock) return null;
+    var blockMeta = getBlockContextMeta(block);
 
     var containerText = getBlockText(block);
     var prefixText = "";
@@ -299,13 +375,19 @@
       selection: text,
       container: containerText,
       prefix: prefixText,
-      hasSelection: true
+      hasSelection: true,
+      headingPath: blockMeta.headingPath,
+      prevBlock: blockMeta.prevBlock,
+      nextBlock: blockMeta.nextBlock,
+      blockTag: blockMeta.blockTag,
+      blockIndex: blockMeta.blockIndex
     };
   }
 
   function buildBlockContext(targetNode) {
     var block = getClosestBlock(targetNode);
     if (!block) return null;
+    var blockMeta = getBlockContextMeta(block);
 
     var containerText = getBlockText(block);
     if (!containerText) return null;
@@ -315,7 +397,12 @@
       selection: "",
       container: containerText,
       prefix: "",
-      hasSelection: false
+      hasSelection: false,
+      headingPath: blockMeta.headingPath,
+      prevBlock: blockMeta.prevBlock,
+      nextBlock: blockMeta.nextBlock,
+      blockTag: blockMeta.blockTag,
+      blockIndex: blockMeta.blockIndex
     };
   }
 
@@ -325,6 +412,13 @@
     url.searchParams.set("selection", context.selection);
     if (context.container) url.searchParams.set("container", context.container);
     if (context.prefix) url.searchParams.set("prefix", context.prefix);
+    if (context.headingPath) url.searchParams.set("heading_path", context.headingPath);
+    if (context.prevBlock) url.searchParams.set("prev_block", context.prevBlock);
+    if (context.nextBlock) url.searchParams.set("next_block", context.nextBlock);
+    if (context.blockTag) url.searchParams.set("block_tag", context.blockTag);
+    if (typeof context.blockIndex === "number" && context.blockIndex >= 0) {
+      url.searchParams.set("block_index", String(context.blockIndex));
+    }
     return url.toString();
   }
 
@@ -333,7 +427,12 @@
       page: window.location.pathname,
       selection: "__probe__",
       container: "",
-      prefix: ""
+      prefix: "",
+      headingPath: "",
+      prevBlock: "",
+      nextBlock: "",
+      blockTag: "",
+      blockIndex: -1
     });
   }
 
