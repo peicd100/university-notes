@@ -6,6 +6,7 @@
   const STATE = {
     dialog: null,
     stage: null,
+    canvas: null,
     zoomValue: null,
     activeHost: null,
     media: null,
@@ -65,7 +66,7 @@
     dialog.innerHTML = [
       '<div class="peicd-image-viewer__shell">',
       '  <button class="peicd-image-viewer__close" type="button" aria-label="關閉 Mermaid 圖表檢視">×</button>',
-      '  <div class="peicd-image-viewer__stage" aria-live="polite"></div>',
+      '  <div class="peicd-image-viewer__stage" aria-live="polite"><div class="peicd-image-viewer__canvas"></div></div>',
       '  <div class="peicd-image-viewer__toolbar" role="toolbar" aria-label="Mermaid 圖表縮放控制">',
       '    <button class="peicd-image-viewer__tool" type="button" data-action="zoom-out" aria-label="縮小">−</button>',
       '    <button class="peicd-image-viewer__tool peicd-image-viewer__zoom-value" type="button" data-action="reset" aria-label="重設縮放">100%</button>',
@@ -78,6 +79,7 @@
 
     STATE.dialog = dialog;
     STATE.stage = dialog.querySelector(".peicd-image-viewer__stage");
+    STATE.canvas = dialog.querySelector(".peicd-image-viewer__canvas");
     STATE.zoomValue = dialog.querySelector(".peicd-image-viewer__zoom-value");
 
     dialog.querySelector(".peicd-image-viewer__close").addEventListener("click", closeViewer);
@@ -129,8 +131,12 @@
   }
 
   function updateTransform() {
-    if (!STATE.media) return;
-    STATE.media.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0) scale(" + STATE.scale + ")";
+    if (!STATE.media || !STATE.canvas) return;
+    const renderedWidth = Math.max(STATE.baseWidth * STATE.scale, 1);
+    const renderedHeight = Math.max(STATE.baseHeight * STATE.scale, 1);
+    STATE.media.style.width = renderedWidth + "px";
+    STATE.media.style.height = renderedHeight + "px";
+    STATE.canvas.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0)";
     STATE.media.classList.toggle("is-draggable", STATE.scale > STATE.fitScale * 1.02);
     if (STATE.zoomValue) STATE.zoomValue.textContent = Math.round(STATE.scale * 100) + "%";
   }
@@ -261,12 +267,17 @@
     sourceSvg.style.transformOrigin = "center center";
     sourceSvg.style.touchAction = "none";
     sourceSvg.style.userSelect = "none";
-    sourceSvg.style.willChange = "transform";
+    sourceSvg.style.willChange = "width, height";
     if (!sourceSvg.getAttribute("preserveAspectRatio")) {
       sourceSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     }
 
-    STATE.stage.appendChild(sourceSvg);
+    if (STATE.canvas) {
+      STATE.canvas.style.transform = "translate3d(0, 0, 0)";
+      STATE.canvas.appendChild(sourceSvg);
+    } else {
+      STATE.stage.appendChild(sourceSvg);
+    }
     bindMediaEvents();
 
     STATE.dialog.showModal();
@@ -305,6 +316,9 @@
     }
 
     STATE.activeHost = null;
+    if (STATE.canvas) {
+      STATE.canvas.style.transform = "";
+    }
     STATE.media = null;
     STATE.placeholder = null;
     STATE.savedInlineStyles = null;

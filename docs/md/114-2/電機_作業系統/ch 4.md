@@ -578,425 +578,58 @@ stack：像每個員工自己的桌面草稿區
 ## Amdahl’s Law、Gustafson's Law
 
 
+
+![alt text](<images/ch 4-2.png>)
+
+![alt text](<images/ch 4-3.png>)
+
 ### 講解
 
-已啟用教學模式
 
-#### 這兩張投影片在回答什麼問題
-
-它們都在回答同一件事：
-
-**「當我們把 CPU cores(核心) 變多時，程式到底能快多少？」**
-
-但兩者看的角度不同：
-
-* **Amdahl’s Law**：工作量固定不變時，加核心後最多能快多少？
-* **Gustafson’s Law**：如果核心變多，我們也把問題規模放大，那在差不多同樣時間內，能做多大工作？
-
-這兩張投影片本質上是在講 **parallel scalability(平行可擴展性)**。課堂投影片內容也正是在多核心程式設計脈絡下介紹這兩個模型。
-
----
-
-#### 先講直覺版
-
-想像你在搬書。
-
-* 有些工作可以找很多人一起做，例如「把一堆書分批搬」
-* 有些工作只能一個人做，例如「確認清單、開門、最後點收」
-
-那麼就算你找再多人來，**那一小段只能單人做的部分，永遠卡在那裡**。
-
-這就是 **Amdahl’s Law** 的核心直覺。
-
-但如果今天你不是只想搬原本那 100 本書，而是想說：
-
-**「既然人變多了，那我乾脆搬 1000 本書，而且希望總時間不要增加太多。」**
-
-這就是 **Gustafson’s Law** 的想法。
-
-所以：
-
-* **Amdahl** 在乎「同一份工作，能快多少」
-* **Gustafson** 在乎「同樣時間，能做多少更大的工作」
-
-HPC Wiki 也把這個差異直接對應成 **strong scaling(固定問題大小)** 與 **weak scaling(隨資源放大問題大小)**。([HPC Wiki][1])
-
----
-
-#### 關係圖
-
-```mermaid
-flowchart TB
-    A[我們想評估加核心的效果] --> B{問題大小固定嗎?}
-    B -->|是| C[Amdahl's Law]
-    B -->|否，問題也跟著放大| D[Gustafson's Law]
-
-    C --> C1[看同一份工作能加速多少]
-    C --> C2[serial part(序列部分) 形成上限]
-
-    D --> D1[看同樣時間內能做多大工作]
-    D --> D2[parallel part(平行部分) 隨核心擴張]
-```
-
----
-
-#### 1. Amdahl’s Law(阿姆達爾定律)
-
-投影片上的公式是：
-
-\[
-speedup \le \frac{1}{S + \frac{1-S}{N}}
-\]
-
-其中：
-
-* **S** = serial portion(序列部分、不可平行化比例)
-* **1-S** = parallel portion(可平行化比例)
-* **N** = processing cores(處理核心數)
-
-這表示：
-
-1. 不可平行的那一段 **S**，不會因為加核心而變快
-2. 可平行的那一段 **1-S**，理想上可以被 (N) 個核心分攤
-3. 所以整體 speedup(加速比) 有天花板
-
-HPC Wiki 對 Amdahl’s Law 的定義也是：對於 **fixed problem(固定問題大小)**，speedup 上限由 serial fraction(序列比例) 決定。([HPC Wiki][1])
-
----
-
-#### 2. 用投影片的例子算一次
-
-投影片寫：
-
-* 75% parallel
-* 25% serial
-* 從 1 core 增加到 2 cores
-
-也就是：
-
-* (S = 0.25)
-* (N = 2)
-
-代進去：
-
-[
-speedup = \frac{1}{0.25 + \frac{0.75}{2}}
-= \frac{1}{0.25 + 0.375}
-= \frac{1}{0.625}
-= 1.6
-]
-
-所以答案就是投影片寫的 **1.6 倍**。
-
----
-
-#### 3. 為什麼它這麼重要
-
-因為它告訴你：
-
-> **只要 serial part(序列部分) 還在，核心再多也不可能無限加速。**
-
-例如：
-
-如果 (S = 0.1)，也就是 10% 完全不能平行化，
-
-那麼就算 (N \to \infty)：
-
-[
-speedup \to \frac{1}{S} = \frac{1}{0.1} = 10
-]
-
-也就是說：
-
-**你就算有無限多核心，理論上最多也只到 10 倍。**
-
-這就是投影片那句：
-
-**As N approaches infinity, speedup approaches 1/S**。
-
----
-
-#### 4. Gustafson’s Law(古斯塔夫森定律)
-
-投影片公式是：
-
-[
-Speedup(N)= s + p \cdot N
-]
-
-因為 (s+p=1)，所以也可寫成：
-
-[
-Speedup(N)= s + (1-s)N
-]
-
-再整理成：
-
-[
-Speedup(N)= N - s(N-1)
-]
-
-其中：
-
-* **s** = serial fraction(序列比例)
-* **p** = parallel fraction(平行比例)
-* **N** = processors(處理器/核心數)
-
-它的重點不是「同一份工作變多快」，而是：
-
-> **當核心變多，我們把問題一起放大，看看能不能有效利用這些額外資源。**
-
-HPC Wiki 明確寫到：Gustafson’s Law 針對的是 **scaled speedup(縮放後的加速)**，也就是問題規模跟著資源一起成長的情況。([HPC Wiki][1])
-
----
-
-#### 5. 這個公式直覺上在說什麼
-
-假設你原本用 1 個核心只能跑小型模擬。
-
-現在你有 100 個核心，你不一定只想把原本那個小模擬跑得很快；你更可能想：
-
-* 做更高解析度
-* 模擬更久時間
-* 處理更大資料集
-* 跑更多粒子、更多格點、更多樣本
-
-這時候你會發現：
-
-雖然 serial part 還是存在，但 **整體工作量裡的 parallel work 變得非常大**，所以多核心就更有價值。
-
-這也是為什麼 Gustafson’s Law 常被認為更符合很多 scientific computing(科學計算) 與 HPC(高效能運算) 的使用情境。([HPC Wiki][1])
-
----
-
-#### 6. Amdahl 與 Gustafson 最大差別
-
-最容易搞混的地方就在這裡。
-
-**Amdahl 不是錯，Gustafson 也不是在推翻 Amdahl。**
-
-它們只是回答不同問題。
-
-**Amdahl’s Law**
-
-* 固定工作量
-* 問「同一件事能快多少」
-* 對應 strong scaling(強擴展)
-
-**Gustafson’s Law**
-
-* 放大工作量
-* 問「同樣時間能做多少更大的事」
-* 對應 weak scaling(弱擴展)
-
-HPC Wiki 與 Stack Overflow 的討論都強調這點：兩者是 **同一個 scalability 問題的兩種視角**，不是互相打臉。([HPC Wiki][1])
-
----
-
-#### 7. 為什麼很多學生會覺得 Gustafson 很怪
-
-因為你會想：
-
-> 「執行時間都差不多，那 speedup 到底在哪裡？」
-
-答案是：
-
-在 Gustafson 的觀點裡，**speedup 不是只看時間縮短，而是看『同樣時間內完成的工作量增加多少』**。
-
-生活化例子：
-
-* Amdahl：原本 1 小時做完 100 題，現在 30 分鐘做完 100 題
-* Gustafson：原本 1 小時做完 100 題，現在還是 1 小時，但能做 800 題
-
-所以它看的是 **capacity(處理能力)** 的放大，不只是 wall-clock time(實際時間) 的縮短。這也是社群討論裡常見的解釋方式。([Stack Overflow][2])
-
----
-
-#### 8. 用同一組數字比較一次
-
-假設序列比例都是 25%，核心數 (N=2)
-
-**Amdahl：**
-
-[
-\frac{1}{0.25 + 0.75/2} = 1.6
-]
-
-**Gustafson：**
-
-[
-2 - 0.25(2-1) = 1.75
-]
-
-你會看到 Gustafson 比較樂觀。
-
-但這裡要非常小心：
-
-**這兩個數字不能直接當成同一場比賽的比分。**
-
-因為：
-
-* Amdahl 假設的是 **固定問題大小**
-* Gustafson 假設的是 **問題規模隨資源擴張**
-
-所以這不是「1.75 比 1.6 更正確」，而是 **兩個模型根本在看不同情境**。這正是最常考、也最常被誤解的地方。([HPC Wiki][1])
-
----
-
-#### 9. 那投影片最後那句「現代 multicore systems(多核心系統) 有算進去嗎？」
-
-嚴格說：
-
-**沒有完全算進去。**
-
-因為這兩條 law 都是 **idealized model(理想化模型)**。它們通常沒有完整納入：
-
-* synchronization overhead(同步開銷)
-* communication overhead(通訊開銷)
-* load imbalance(負載不均)
-* memory bandwidth(記憶體頻寬限制)
-* cache effects(快取效應)
-* thread/process management overhead(執行緒/行程管理成本)
-
-HPC Wiki 提到 strong scaling 在核心數變大時，很多演算法的 communication overhead 也會跟著上升；社群討論也常提醒，實務上平行化 overhead 甚至可能讓效能下降。([HPC Wiki][1])
-
-所以在真實系統裡：
-
-* **Amdahl/Gustafson 給你的是方向感**
-* **不是保證值**
-
-如果真的要評估你的程式，最可靠的方法還是：
-
-1. profile(效能分析)
-2. 找 serial bottleneck(序列瓶頸)
-3. 量測不同核心數的 strong/weak scaling curve(擴展曲線)
-
----
-
-#### 10. 最容易考、最容易混淆
-
-1. **Amdahl 看固定問題大小**
-
-   * 同一份工作，加核心後最多多快
-
-2. **Gustafson 看放大後的問題大小**
-
-   * 核心變多後，我們通常不會只做原本那點小事
-
-3. **兩者不是互相否定**
-
-   * 是不同 assumptions(假設) 下的模型
-
-4. **Amdahl 的上限很重要**
-
-   * (N \to \infty) 時，speedup 仍被 (1/S) 限制
-
-5. **實務效能通常比公式更差**
-
-   * 因為 overhead、memory、cache、同步都會吃掉理論值
-
----
-
-#### 小結
-
-你這兩張投影片的核心可以濃縮成一句話：
-
-* **Amdahl’s Law**：固定工作量時，**不可平行部分決定加速上限**
-* **Gustafson’s Law**：如果問題規模能跟著核心一起變大，多核心的價值就會更高
-
-所以考試如果問：
-
-**「Amdahl 與 Gustafson 差在哪？」**
-
-最標準答案就是：
-
-> **Amdahl 分析 fixed-size problem(固定大小問題) 的 speedup；Gustafson 分析 scaled-size problem(可擴張問題) 的 speedup。前者對應 strong scaling，後者對應 weak scaling。** ([HPC Wiki][1])
-
-參考投影片：
-
-下一則我可以直接幫你整理成「考試背誦版」或「一題一題帶你算例題版」。
-
-[1]: https://hpc-wiki.info/hpc/Scaling "Scaling - HPC Wiki"
-[2]: https://stackoverflow.com/questions/69557046/what-is-gustafsons-law-trying-to-argue "performance - What is Gustafson's law trying to argue? - Stack Overflow"
-
-
-
-## User Threads and Kernel Threads
-
-
-![alt text](<images/ch 4.png>)
-![alt text](<images/ch 4-1.png>)
 
 已啟用教學模式
-
-
-### 講解
 
 #### 這段在回答什麼問題
 
-這三張投影片在回答的是：
+這幾張圖其實在回答一個很核心的問題：
 
-**「執行緒(Thread)到底是誰在管理與排程？」**
+**「Thread(執行緒) 到底是誰在管理？是 application/runtime(應用程式／執行期函式庫) 自己管，還是 OS kernel(作業系統核心) 在管？」**
 
-也就是，執行緒可以主要由：
+這個問題很重要，因為它直接影響三件事：
 
-* 使用者空間(user space)的 thread library(執行緒函式庫) 管理
-* 或由作業系統核心(kernel) 直接管理與排程
-
-課程投影片本身就是先總覽，再分別介紹 user threads(使用者執行緒) 與 kernel threads(核心執行緒)，接著下一段再帶到 many-to-one、one-to-one、many-to-many 等對應模型。
-
----
-
-#### 先講直覺
-
-先用一個生活化比喻。
-
-想像一家公司有很多工作要做。
-
-* **User thread(使用者執行緒)**：像是「部門主管自己在公司內部分配工作」，老闆不一定知道每個小工作怎麼切。
-* **Kernel thread(核心執行緒)**：像是「總公司人資直接知道每個工作單位，並決定誰用哪台機器、什麼時候跑」。
-
-差別不在於「有沒有執行緒」而在於：
-
-> **誰知道這些執行緒的存在，誰負責 scheduling(排程)。**
-
-這正是投影片第二、三張在分別定義的內容。
+1. 建立與切換 thread 快不快
+2. 遇到 blocking I/O(阻塞式輸入輸出) 時會不會整串卡住
+3. 能不能有效利用 multicore(多核心) 平行執行。([man7.org][1])
 
 ---
 
-#### 分區看這三張投影片
+#### 我先幫你修正一個最容易被投影片誤導的地方
 
-第 1 張是總覽：
+你這組投影片把 **POSIX Pthreads、Win32 threads、Java threads** 放在 **User threads(使用者層執行緒)** 那一側，這個講法在今天的實作上**不夠精確**，甚至在考試以外的真實系統裡會讓你觀念歪掉。✅
 
-* user threads：由 user-level thread library(使用者層執行緒函式庫) 管理
-* kernel threads：由 kernel(核心) 支援
+原因是：
 
-第 2 張補 user threads 的特性：
+* 在現代 Linux，`pthreads` 的常見實作是 **1:1**，也就是每個 pthread 都對應到一個 **kernel scheduling entity(核心可排程實體)**。([man7.org][1])
+* 在 Windows，普通的 thread 是系統直接排程的；真正比較接近 user-level scheduling(使用者層排程) 的反而是 **Fibers** 或 **UMS(User-Mode Scheduling)**。([Microsoft Learn][2])
+* 在現代 Java，`Thread` 有兩種：**platform threads(平台執行緒)** 通常是 1:1 對應 kernel threads；**virtual threads(虛擬執行緒)** 才是比較接近 user-mode threads(使用者模式執行緒) 由 Java runtime 排程。([Oracle Docs][3])
 
-* 在 user space(使用者空間) 管理
-* lightweight(輕量)
-* 建立與管理通常較快
-
-第 3 張補 kernel threads 的特性：
-
-* 由 OS kernel(作業系統核心) 管理與排程
-* 比較 heavyweight(重量級)
-* 建立與管理通常較慢
-* 但對 multicore(多核心)、blocking I/O(阻塞式 I/O)、preemptive multitasking(可搶先多工) 比較有利
-
-這個脈絡和教材後面接著介紹的 one-to-one / many-to-many 模型是連在一起的。
+所以如果你是為了考試背課本，我們可以照課本分類；但如果你是要真的理解 OS，**不要把 API 名字直接等同於 user thread 或 kernel thread**。要看的是：**誰排程、誰知道這個 thread 的存在、它跟 kernel schedulable entity 的 mapping(對映) 是什麼。** ([man7.org][1])
 
 ---
 
 #### 核心概念
 
-先把最重要的概念講清楚：
+最核心的切法不是「這個 thread 叫什麼名字」，而是：
 
-**User thread(使用者執行緒)**
-是由 application(應用程式) 或 runtime library(執行階段函式庫) 在 user space 管理的執行緒。核心不一定直接看見每一條 user thread。純 user-level model(純使用者層模型) 的優點是切換快、建立成本低；缺點是如果一條 thread 做了 blocking system call(阻塞系統呼叫)，可能整個 process(行程) 都被拖住，而且也不容易充分利用多核心。這和教材對 many-to-one 的描述一致：一條 blocking 會讓全部一起卡住，而且無法真正平行跑在多核心上。
+* **User threads(使用者層執行緒)**：主要由 user-space runtime/library(使用者空間的執行期／函式庫) 管理
+* **Kernel threads(核心層執行緒)**：核心知道它們，並由 kernel scheduler(核心排程器) 直接排程。([Microsoft Learn][4])
 
-**Kernel thread(核心執行緒)**
-是由 OS kernel 直接管理與排程的執行實體。好處是 OS 看得到每一條可排程單位，所以可以把不同 thread 分配到不同 CPU core(核心) 上，也能比較自然地處理 blocking I/O 與 preemption(搶先)。Windows 官方文件明確說明 Windows 支援 preemptive multitasking(可搶先多工)，而在 multiprocessor(多處理器) 電腦上，系統可以同時執行多條 thread。([Microsoft Learn][1])
+你可以把它想成：
+
+* **User threads**：像是班上小組自己排發言順序，老師不一定知道組內誰先講
+* **Kernel threads**：像是老師直接點每個學生上台，誰先講由老師決定
+
+這個差別，會一路影響效能與行為。
 
 ---
 
@@ -1004,171 +637,190 @@ HPC Wiki 提到 strong scaling 在核心數變大時，很多演算法的 commun
 
 ```mermaid
 flowchart TB
-    A[程式呼叫 thread API] --> B{thread 由誰管理?}
-    B -->|runtime library| C[User threads]
+    A[Application / Runtime<br>想同時做很多工作] --> B{誰負責排程 thread?}
+
+    B -->|Runtime / library| C[User threads]
     B -->|OS kernel| D[Kernel threads]
 
-    C --> C1[建立/切換快]
-    C --> C2[核心不一定看見每條 thread]
-    C --> C3[blocking call 可能拖住整個 process]
-    C --> C4[多核心利用通常較差]
+    C --> C1[切換通常較快<br>因為可在 user mode 完成]
+    C --> C2[若底層只有少量 kernel threads<br>blocking 可能連帶卡住]
+    C --> C3[是否能多核心平行<br>取決於是否映射到多個 kernel schedulable entities]
 
-    D --> D1[由 kernel scheduler 排程]
-    D --> D2[可分配到不同 cores]
-    D --> D3[blocking I/O 較好處理]
-    D --> D4[建立/切換成本較高]
+    D --> D1[由 kernel scheduler 直接排程]
+    D --> D2[較能處理 blocking I/O]
+    D --> D3[較容易在多核心上真正同時執行]
 ```
 
-這也是為什麼教材下一頁會馬上接 many-to-one、one-to-one、many-to-many：因為真實系統往往不是「只有 user thread」或「只有 kernel thread」，而是兩者之間有 mapping(對映) 關係。
+這張圖要表達的重點是：
+
+**「快不快」不是唯一問題，真正關鍵是它跟 kernel 之間的關係。**
 
 ---
 
-#### 你這組投影片有一個很重要的地方要修正
+#### User threads(使用者層執行緒) 是什麼
 
-這裡要直接指出來：
+直覺上，User threads 就是：
 
-**把 Pthreads、Win32 threads 直接當成「user threads 的例子」在現代系統脈絡下是不夠精確的。** ✅
+> **thread 的建立、切換、管理，主要在 user space 完成，不必每次都叫 kernel 介入。**
 
-原因是：
+Windows 官方文件對 **UMS(User-Mode Scheduling)** 的描述很直接：application 可以在 **user mode** 內切換 threads，而不必每次都交給 system scheduler；這也是它比一般 thread pool 更輕量的原因之一。Windows 的 **fibers** 也明講了：fiber 不是由系統搶先式排程，而是由應用程式自己切換；系統真正排程的仍然是底下的 thread。([Microsoft Learn][4])
 
-1. **Pthreads 是 API specification(規格)，不是唯一實作方式。**
-   你的教材後面其實自己也有寫到：Pthreads 是規格，不是製作方式，而且 **may be provided either as user-level or kernel-level**。
-
-2. **現代 Linux 的 Pthreads 通常是 kernel-supported(核心支援) 的 1:1 implementation(一對一實作)。**
-   Linux `pthreads(7)` 官方手冊明確寫到：現代 Linux 使用的 NPTL(Native POSIX Threads Library) 是現代的 Pthreads implementation，而且 **1:1** 映射到 kernel scheduling entity(核心排程實體)；它透過 `clone(2)` 與 `futex(2)` 來實作。([man7.org][2])
-
-3. **Win32 threads 也是 OS thread，不是純 user-level thread。**
-   Microsoft 官方文件對 `CreateThread` 的描述就是：它會在 calling process(呼叫行程) 的 virtual address space(虛擬位址空間) 中建立一條 thread 來執行；Windows 也由 OS 進行 preemptive scheduling(搶先排程)。([Microsoft Learn][3])
-
-所以更精確地說：
-
-* **Pthreads / Win32 / Java Thread API** 比較適合被看成 **thread library / thread API(執行緒函式庫 / 介面)**
-* 它們底下到底是 pure user-level、kernel-level、還是 hybrid(混合式)，要看具體作業系統與 runtime 的實作。 ([man7.org][2])
+Java 的 **virtual threads** 也屬於這種思維。Oracle 文件寫得很清楚：virtual threads 通常是 **user-mode threads**，由 Java runtime 排程，而不是 OS；而且很多 virtual threads 可以映射到少量 platform threads 上。([Oracle Docs][3])
 
 ---
 
-#### 再修正一個容易混淆的點
+#### 為什麼 User threads 會比較輕
 
-投影片第三張最後一句說 kernel threads 常用於：
+因為切換 thread 時，如果不用每次都進 kernel，就少了 kernel involvement(核心介入) 的成本。
 
-* device drivers
-* file system operations
-* system-level services
+Windows 對 UMS 的說法就是：在 user mode 切換能讓它更有效率，特別是大量、短時間、少 system call 的工作。Java 也指出 virtual threads 需要的資源通常比較少，一個 JVM 甚至可支援非常多個 virtual threads。([Microsoft Learn][4])
 
-這句**不是完全錯**，但它混進了另一個概念：
+生活化一點講：
 
-* **kernel-supported threads(由核心管理的執行緒)**
-* **kernel-only threads(只執行核心程式碼的核心內部執行緒)**
+* **Kernel threads** 像你每次換人做事，都要去學校教務處登記
+* **User threads** 像你們小組內自己換人，教務處根本不用知道
 
-你這章在談的其實主要是前者，也就是「由核心管理與排程的 thread model(執行緒模型)」。
-但 device driver、filesystem service 這種說法，比較像在講 **kernel internal threads(核心內部執行緒)**。
+所以 user-level switch 會比較輕。
 
-我根據 Linux `pthreads(7)` 與 Windows `CreateThread` 官方文件做的推論是：
+---
 
-> 在多執行緒程式設計這一章裡，kernel threads 更精確的意思應該是「由 OS kernel 直接管理與排程的 thread」，不等於「只跑 kernel code 的背景核心工作者」。([man7.org][2])
+#### 但 User threads 的代價是什麼
 
-這個地方非常容易考試寫歪。
+代價在於：**kernel 可能看不到你 user-level 的細節。**
+
+Solaris 文件對這點講得很經典：OS 只決定哪個 **LWP(Lightweight Process)** 在哪顆 processor 上跑、什麼時候跑；它**不知道**每個 process 裡有多少 user threads，也不知道它們各自的狀態。當某個 user thread 因同步而 block 時，LWP 會轉去另一個 runnable thread，但這取決於整個執行模型怎麼設計。([Oracle Docs][5])
+
+這造成兩個常見問題：
+
+1. **Blocking 問題**
+   如果很多 user threads 只掛在少數底層 schedulable entities 上，那其中一個發生阻塞，影響可能會擴散。Windows fibers 也明白表示：系統排程的是 thread，不是 fiber。([Microsoft Learn][6])
+
+2. **多核心平行度問題**
+   純 user threads 並不保證你真的能同時吃到多顆核心；你要看它底下有沒有對應到足夠多的 kernel-schedulable entities。Solaris 的 M:N 架構、Java virtual threads 的 carrier threads 都是在解這件事。([Oracle Docs][5])
+
+---
+
+#### Kernel threads(核心層執行緒) 是什麼
+
+Kernel threads 的直覺版定義是：
+
+> **這個 thread 是 kernel 知道的，kernel scheduler 可以直接決定它何時執行、在哪顆 CPU 上執行。**
+
+Windows 官方直接寫：thread 是 process 內可以被排程執行的實體；system scheduler 會決定哪個 thread 得到下一個 processor time slice(處理器時間片)。([Microsoft Learn][2])
+
+Linux 的 `pthreads(7)` 也指出，現代 Linux 的 NPTL 與舊 LinuxThreads 都是 **1:1 implementation**，每個 thread 都對應到 kernel scheduling entity。([man7.org][1])
+
+所以在現代 Linux/Windows 這種一般用途 OS 上，你平常寫的很多「thread」，其實背後都是 **kernel-schedulable threads**。
+
+---
+
+#### 為什麼 Kernel threads 比較「重」
+
+這裡的「重」是**相對於純 user-level 管理**，不是說它跟 process 一樣重。
+
+因為 kernel threads 牽涉到：
+
+* kernel scheduler 的參與
+* thread context(執行脈絡) 的保存與恢復
+* OS 維護的 stack / priority / TLS / kernel data structures。([Microsoft Learn][2])
+
+Java 官方文件就直接說，platform threads 通常有比較大的 stack 與其他由 OS 維護的資源，因此它們是有限資源。這正是為什麼 virtual threads 能大量擴張，但 platform threads 不適合無限制暴增。([Oracle Docs][3])
+
+---
+
+#### 三種最常考的 mapping(對映) 模型
+
+這裡是考試很愛出的點，我幫你重組成最清楚的版本。
+
+##### 1. Many-to-One(多對一)
+
+很多 user threads 對到 **一個** kernel thread。
+
+* 優點：user-level 管理很便宜
+* 缺點：一旦底層那個 kernel thread block，整串可能受影響；也很難真正利用多核心。
+  這類問題正是 user-level threading 的經典弱點。([Microsoft Learn][6])
+
+##### 2. One-to-One(一對一)
+
+每個 user-visible thread 對到一個 kernel thread。
+
+* 優點：容易被 kernel 直接排程，可利用多核心
+* 缺點：建立很多 thread 時，OS 成本較高
+  現代 Linux 的 pthreads 就是典型 1:1。([man7.org][1])
+
+##### 3. Many-to-Many(多對多)
+
+很多 user threads 映射到較少或適量的 kernel schedulable entities。
+
+* 優點：想兼顧 user-level 的輕量與 kernel-level 的平行度
+* 代表概念：Solaris 的 user threads 對 LWPs、Java virtual threads 對 carrier threads。([Oracle Docs][5])
+
+工程社群也常把這種 user-managed 的概念叫做 **green threads(綠色執行緒)**；例如討論中常用「很多 green threads 映射到少數 OS threads」來建立直覺。這是有用的直覺，但不同語言 runtime 的細節並不完全相同。([Stack Overflow][7])
 
 ---
 
 #### 生活化例子
 
-假設你寫一個下載器：
+假設你開一家餐廳。
 
-* 同時下載 8 個檔案
-* 每個檔案一條 thread
+* **Kernel threads**：每位服務生都直接由店長排班，店長知道每個人現在在做什麼
+* **User threads**：你只跟店長說「我這組有 3 個人會輪流做事」，至於誰現在端菜、誰現在收桌，是你們組內自己決定
 
-**若是 pure user threads(純使用者執行緒)**
-程式自己在 user space 安排誰先跑。切換很快，但如果某條 thread 卡在 blocking I/O，而核心根本不知道 process 裡還有其他可執行 thread，整體就可能一起停住。
+如果只有一個服務生代表整組對外工作，那他一去廚房等菜，整組的對外進度就可能卡住。
+如果你有多個被店長正式排班的服務生，就比較能在不同桌之間真正平行處理。
 
-**若是 kernel threads(核心執行緒)**
-OS 知道這 8 條 thread 的存在。當某一條在等網路 I/O 時，kernel scheduler(核心排程器) 可以去跑別條 thread，甚至分散到不同核心。
-
-所以 real-world(真實世界) 的網路伺服器、GUI 程式、多核心計算，比較偏好 kernel-supported threading(核心支援執行緒) 或混合模型。這也是教材接下來說現代系統多採用 one-to-one，因為 many-to-one 無法善用多核心。
-
----
-
-#### 為什麼會這樣
-
-因為 kernel(核心) 是真正掌握：
-
-* CPU scheduling(處理器排程)
-* blocking / wake-up(阻塞與喚醒)
-* I/O completion(輸入輸出完成)
-* 多核心分配
-
-的那一層。
-
-所以只要你希望：
-
-* thread A 卡住時，thread B 還能繼續跑
-* 不同 thread 能同時跑在不同 core
-* OS 能公平地排程多個執行單位
-
-那 kernel 就必須「看得到」這些 thread，或至少底下要有對應的 kernel schedulable entities(可被核心排程的實體)。Linux `clone(2)` 文件也說明了 thread group、TGID、TID 這些核心可見的 thread 組織方式。([man7.org][4])
-
----
-
-#### Java threads(Java 執行緒) 要特別怎麼看
-
-這張投影片把 Java threads 列進 thread library 範例，概念上可以，但現代語境要補一句：
-
-**Java thread 不是單一固定模型。**
-
-現在 Java 至少有兩種重要型態：
-
-* **platform thread(平台執行緒)**：通常是 OS thread 的 thin wrapper(薄封裝)
-* **virtual thread(虛擬執行緒)**：通常是 user-mode threads(使用者模式執行緒)，由 Java runtime 排程，再掛載到少量 platform threads 上
-
-Oracle 官方文件明確這樣區分。也就是說，**Java 現代生態本身同時呈現了 kernel-supported 與 user-mode managed 的兩種味道**。([Oracle Docs][5])
-
-所以如果老師是用比較傳統的 OS 課本分類，那你考試可以照課本寫；但如果問到實作細節，這裡就必須更精確。
+這就是 user threads 與 kernel threads 在 blocking 與 multicore 上差異的直覺來源。([Microsoft Learn][6])
 
 ---
 
 #### 最容易考 / 最容易混淆
 
-**1. User thread 與 kernel thread 的真正差別是誰管理、誰排程。**
-不是只有「輕量」跟「重量」這麼表面。
+##### 1. Kernel thread 不是「永遠在 kernel mode 跑的 thread」
 
-**2. Pthreads 不等於一定是 user thread。**
-Pthreads 是 POSIX API 規格；Linux 現代 NPTL 實作是 1:1 kernel-supported。✅  ([man7.org][2])
+這是超常見誤解。
+這裡的 kernel thread / kernel-supported thread，重點是 **kernel 知道它、會排程它**，不是說它整天都在 kernel mode 做 privileged work(特權工作)。Windows 對 thread 的定義就是「可被系統排程的實體」。([Microsoft Learn][2])
 
-**3. Win32 threads 也不是純 user thread。**
-`CreateThread` 建的是由 Windows 核心排程的 thread。✅ ([Microsoft Learn][3])
+##### 2. `pthread` 不等於「user thread」
 
-**4. many-to-one 會有 blocking 問題，且難以利用多核心。**
-這是 user-level threading 的經典缺點，也是教材下一張會講的重點。
+在現代 Linux，`pthreads` 常見實作是 1:1，所以它其實對應 kernel scheduling entity。
+所以如果考試寫「pthread 是 user thread library」可能是照教材脈絡拿分；但在實作理解上，這句話要加很多條件。([man7.org][1])
 
-**5. 現代系統多半不是純理論上的單一模型。**
-常見是 one-to-one，或 runtime 在上層再做一層更輕量的 user-mode scheduling。Java virtual threads 就是很好的現代例子。([man7.org][2])
+##### 3. `Java thread` 也不能一概而論
+
+* **platform thread**：通常 1:1 對應 kernel thread
+* **virtual thread**：通常是 user-mode thread，由 Java runtime 排程。([Oracle Docs][3])
+
+##### 4. User threads 不一定真的比較好
+
+✅ 建立很多 concurrent tasks(並行任務) 時，它們常常更省
+❌ 但它們不是「跑得比較快的 thread」本體
+
+Oracle 對 virtual threads 甚至明講：它們**不是 faster threads**，它們主要帶來的是 **scale(可擴張性／吞吐量)**，不是單一工作 latency(延遲) 變短。([Oracle Docs][8])
+
+##### 5. 投影片說 kernel threads「heavyweight」時，要知道它是相對說法
+
+它是相對於純 user-level 切換較重，不是說它重到像 process。
+這種題目如果你只背「user thread 快、kernel thread 慢」，很容易失分，因為老師下一題就會考你 **為什麼**。真正原因是：**kernel 參與程度、排程權限、blocking 行為、多核心利用方式** 不同。([Microsoft Learn][4])
 
 ---
 
 #### 小結
 
-這三張投影片你可以濃縮成下面這一段來背：
+你把這題濃縮成下面這段，考試會很好用：
 
-> **User threads(使用者執行緒)** 由 user-space library/runtime 管理，建立與切換較快，但遇到 blocking call 與多核心利用時有侷限。
-> **Kernel threads(核心執行緒)** 由 OS kernel 管理與排程，成本較高，但比較能處理 blocking I/O、preemption 與 multicore parallelism。
-> **真正要小心的是：Pthreads、Win32 threads、Java threads 是 API / library 層的名稱，不保證等於某一種固定實作；現代 Linux 的 pthreads 與 Windows threads 多半是 kernel-supported，而現代 Java 還額外有 virtual threads。**  ([man7.org][2])
+> **User threads(使用者層執行緒)** 主要由 user-space runtime/library 管理，切換成本通常較低，但 kernel 不一定知道每個 user thread，因此在 blocking 與 multicore 利用上可能受限。
+> **Kernel threads(核心層執行緒)** 是 kernel 可直接排程的執行實體，較容易支援 blocking I/O 與多核心平行，但建立與管理成本通常高於純 user-level 管理。
+> 真正實作上還要看 mapping model(對映模型)：Many-to-One、One-to-One、Many-to-Many。([man7.org][1])
 
----
+如果你要，我下一則可以直接幫你整理成：
 
-#### 你現在最值得做的本機驗證
+**「考試背誦版 10 行」** 或 **「選擇題 / 申論題常見陷阱版」**。
 
-在你的 Ubuntu VM 裡，最有幫助的是直接驗證「Linux pthread 到底是不是核心可見」：
-
-⭐ 先寫一個簡單的 `pthread_create()` 範例，建立幾條 thread。
-⭐ 跑程式後，用 `ps -L -p <pid>` 或 `top -H -p <pid>` 觀察 thread。
-⭐ 再用 `getconf GNU_LIBPTHREAD_VERSION` 看系統是不是 NPTL。
-
-這樣你會把「課本分類」和「現代 Linux 實作」一次接起來。
-
-下一步最適合的是把 **many-to-one / one-to-one / many-to-many** 接著講清楚，因為它正好是這三張投影片的下半場。
-
-[1]: https://learn.microsoft.com/da-dk/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com "About Processes and Threads - Win32 apps | Microsoft Learn"
-[2]: https://man7.org/linux/man-pages/man7/pthreads.7.html?utm_source=chatgpt.com "pthreads(7) - Linux manual page"
-[3]: https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread?utm_source=chatgpt.com "CreateThread function (processthreadsapi.h) - Win32 apps | Microsoft Learn"
-[4]: https://man7.org/linux/man-pages/man2/clone.2.html?utm_source=chatgpt.com "clone(2) - Linux manual page"
-[5]: https://docs.oracle.com/en/java/javase/25/core/virtual-threads.html?utm_source=chatgpt.com "Virtual Threads"
+[1]: https://man7.org/linux/man-pages/man7/pthreads.7.html "pthreads(7) - Linux manual page"
+[2]: https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com "About Processes and Threads - Win32 apps"
+[3]: https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html "Thread (Java SE 23 & JDK 23)"
+[4]: https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling "User-Mode Scheduling - Win32 apps | Microsoft Learn"
+[5]: https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html "Lightweight Processes (Multithreaded Programming Guide) "
+[6]: https://learn.microsoft.com/en-us/windows/win32/procthread/fibers "Fibers - Win32 apps | Microsoft Learn"
+[7]: https://stackoverflow.com/questions/15983872/difference-between-user-level-and-kernel-supported-threads "multithreading - Difference between user-level and kernel-supported threads? - Stack Overflow"
+[8]: https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html "Virtual Threads"
