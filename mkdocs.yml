@@ -312,6 +312,7 @@ nav:
         - 'md\Verilog\instance array(實例陣列).md'
         - 'md\Verilog\同步重置、非同步重置.md'
         - 'md\Verilog\dff.md'
+        - 'md\Verilog\雙邊緣觸發.md'
       
       
       
@@ -332,6 +333,8 @@ nav:
       - 'md/114-2/電機_作業系統/ch 1.md'
       - 'md/114-2/電機_作業系統/ch 3.md'
       - 'md/114-2/電機_作業系統/ch 4.md'
+      - '整理':
+        - 'md/114-2/電機_作業系統/Pthread.md'
       
       
       
