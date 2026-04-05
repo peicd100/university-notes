@@ -14,7 +14,7 @@
         <link rel="prev" href="ch%203.html">
       
       
-        <link rel="next" href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html">
+        <link rel="next" href="Pthread.html">
       
       
         
@@ -3471,6 +3471,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3822,6 +3824,34 @@ is now available!
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    雙邊緣觸發
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3996,6 +4026,8 @@ is now available!
   
     
     
+      
+        
       
         
       
@@ -5268,6 +5300,1504 @@ is now available!
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#為何需要user-threadskernel-threads什麼情況會需要kernel-threads為何不全部都用user-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要user threads、kernel threads，什麼情況會需要kernel threads，為何不全部都用user threads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何需要user threads、kernel threads，什麼情況會需要kernel threads，為何不全部都用user threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這題在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這題在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-user-threads使用者層執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 User threads(使用者層執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-kernel-threads核心可排程執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 Kernel threads(核心可排程執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#什麼情況會需要-kernel-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼情況會需要 Kernel threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何不能全部都用-user-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何不能全部都用 User threads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何不能全部都用 User threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-因為-os-看不到每個-user-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 因為 OS 看不到每個 User thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-因為一個-blocking-call-可能拖累整批" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 因為一個 blocking call 可能拖累整批
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-因為很難真正吃滿多核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 因為很難真正吃滿多核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-因為輕不代表永遠較好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 因為「輕」不代表「永遠較好」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為什麼也不能全部都用-kernel-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為什麼也不能全部都用 Kernel threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#還有一種真正的-kernel-threados-自己用的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        還有一種「真正的 Kernel thread」：OS 自己用的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#考試背誦版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        考試背誦版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多執行緒模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多執行緒模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多執行緒模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四種模型逐一重講" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四種模型逐一重講
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-many-to-one-model多對一模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Many-to-One model(多對一模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Many-to-One model(多對一模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-one-to-one-model一對一模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. One-to-One model(一對一模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. One-to-One model(一對一模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼它常見" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼它常見
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代價是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代價是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-many-to-many-model多對多模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Many-to-Many model(多對多模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Many-to-Many model(多對多模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這模型想解決什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這模型想解決什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼比較難" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼比較難
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-two-level-model二層模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Two-level Model(二層模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Two-level Model(二層模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這句話的關鍵是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這句話的關鍵是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要綁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要綁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你要怎麼跟-mm-分辨" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你要怎麼跟 M:M 分辨
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣設計" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣設計
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-concurrency並行進展-不等於-parallelism真正平行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concurrency(並行進展) 不等於 Parallelism(真正平行)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-blocking-問題最常考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Blocking 問題最常考
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-level-不是全新第四種邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Two-level 不是全新第四種邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-現代實務上常見的是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 現代實務上常見的是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在可以怎麼背" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在可以怎麼背
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼user-threads要對應到kernel-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼user threads要對應到kernel thread
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼user threads要對應到kernel thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-thread使用者執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User thread(使用者執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-thread核心執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel thread(核心執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼一定要有對應關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼一定要有對應關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-因為-cpu-排程是-kernel-在做不是-application-在做" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 因為 CPU 排程是 kernel 在做，不是 application 在做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-因為-user-thread-自己不能直接取得-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 因為 user thread 自己不能直接取得 CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-因為-blocking-system-call阻塞式系統呼叫-需要-kernel-介入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 因為 blocking system call(阻塞式系統呼叫) 需要 kernel 介入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-因為多核心-parallelism平行執行-要靠-kernel-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 因為多核心 parallelism(平行執行) 要靠 kernel thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼不乾脆全部只用-user-thread-就好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼不乾脆全部只用 user thread 就好
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼不乾脆全部只用 user thread 就好">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#優點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        優點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-對應不一定代表一對一" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 「對應」不一定代表一對一
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-thread-不是假的但它不是-os-原生排程單位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. user thread 不是假的，但它不是 OS 原生排程單位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kernel-thread-比較重不代表一定比較差" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. kernel thread 比較重，不代表一定比較差
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在可以這樣理解這句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在可以這樣理解這句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#他們兩個的關係就類似process在ready-queue和正在被執行嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        他們兩個的關係就類似process在ready queue和正在被執行嗎
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="他們兩個的關係就類似process在ready queue和正在被執行嗎">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先直接回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先直接回答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正式概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正式概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-ready--running-是狀態" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Ready / Running 是「狀態」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-thread--kernel-thread-是兩層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. User thread / Kernel thread 是「兩層」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你這個類比哪裡像" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你這個類比哪裡像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但關鍵差別在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但關鍵差別在哪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-ready--running-是同一層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. ready / running 是同一層
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-user-thread--kernel-thread-是跨層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. user thread / kernel thread 是跨層
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用一個更準的比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用一個更準的比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以你這句話要怎麼修正才會變正確" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以你這句話要怎麼修正才會變正確
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-不要把-mapping-當成-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 不要把 mapping 當成 state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-不要把-on-lwp-當成已經在-cpu-上跑" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不要把 On LWP 當成已經在 CPU 上跑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-在-one-to-one-模型裡你的錯覺會更強" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 在 one-to-one 模型裡，你的錯覺會更強
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小考最安全寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小考最安全寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pthread-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pthread 指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pthread 指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-pthread_create-在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. pthread_create() 在做什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一個參數-pthread_t-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一個參數 pthread_t *thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二個參數-pthread_attr_t-attr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二個參數 pthread_attr_t *attr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三個參數-void-start_routinevoid-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三個參數 void *(*start_routine)(void *)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第四個參數-void-arg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第四個參數 void *arg
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-thread-function-一定長這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 thread function 一定長這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-不要把整數直接硬塞進-void-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. 不要把整數直接硬塞進 void *
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-不要傳區域變數位址後又讓它太早失效" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. 不要傳區域變數位址後又讓它太早失效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pthread_join-在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. pthread_join() 在做什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pthread_join-的第二個參數到底是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pthread_join() 的第二個參數到底是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要 join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-thread-怎麼結束return-與-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Thread 怎麼結束：return 與 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為什麼還需要-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為什麼還需要 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#很重要pthread_exit-傳回去的東西不能亂用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        很重要：pthread_exit() 傳回去的東西不能亂用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-main-結束exitpthread_exit-三者差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. main() 結束、exit()、pthread_exit() 三者差在哪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. main() 結束、exit()、pthread_exit() 三者差在哪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#情況一某個-worker-thread-return--pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：某個 worker thread return / pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二任何-thread-呼叫-exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：任何 thread 呼叫 exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況三main-直接-return通常等價於-process-結束" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況三：main() 直接 return，通常等價於 process 結束
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況四main-呼叫-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況四：main 呼叫 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-pthread_join-等的是thread不是process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. pthread_join() 等的是「thread」，不是「process」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-return-對-worker-thread-幾乎等價於-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. return 對 worker thread 幾乎等價於 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-exit-跟-pthread_exit-完全不同" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. exit() 跟 pthread_exit() 完全不同
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-不要回傳-local-variable-位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 不要回傳 local variable 位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-投影片第三張不要硬背成pthreads-都只存在-user-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 投影片第三張不要硬背成「pthreads 都只存在 user space」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在最適合接著學的下一步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在最適合接著學的下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5276,6 +6806,96 @@ is now available!
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    整理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Pthread.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pthread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -6831,6 +8451,1504 @@ is now available!
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#為何需要user-threadskernel-threads什麼情況會需要kernel-threads為何不全部都用user-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要user threads、kernel threads，什麼情況會需要kernel threads，為何不全部都用user threads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何需要user threads、kernel threads，什麼情況會需要kernel threads，為何不全部都用user threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這題在回答什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這題在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-user-threads使用者層執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 User threads(使用者層執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-kernel-threads核心可排程執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 Kernel threads(核心可排程執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#什麼情況會需要-kernel-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼情況會需要 Kernel threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何不能全部都用-user-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何不能全部都用 User threads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何不能全部都用 User threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-因為-os-看不到每個-user-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 因為 OS 看不到每個 User thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-因為一個-blocking-call-可能拖累整批" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 因為一個 blocking call 可能拖累整批
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-因為很難真正吃滿多核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 因為很難真正吃滿多核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-因為輕不代表永遠較好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 因為「輕」不代表「永遠較好」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為什麼也不能全部都用-kernel-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為什麼也不能全部都用 Kernel threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#還有一種真正的-kernel-threados-自己用的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        還有一種「真正的 Kernel thread」：OS 自己用的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#考試背誦版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        考試背誦版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#多執行緒模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        多執行緒模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="多執行緒模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#講解_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#四種模型逐一重講" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四種模型逐一重講
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-many-to-one-model多對一模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Many-to-One model(多對一模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Many-to-One model(多對一模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-one-to-one-model一對一模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. One-to-One model(一對一模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. One-to-One model(一對一模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼它常見" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼它常見
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#代價是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代價是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-many-to-many-model多對多模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Many-to-Many model(多對多模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Many-to-Many model(多對多模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這模型想解決什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這模型想解決什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼比較難" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼比較難
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-two-level-model二層模式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Two-level Model(二層模式)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Two-level Model(二層模式)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這句話的關鍵是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這句話的關鍵是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要綁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要綁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你要怎麼跟-mm-分辨" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你要怎麼跟 M:M 分辨
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼會這樣設計" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼會這樣設計
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-concurrency並行進展-不等於-parallelism真正平行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concurrency(並行進展) 不等於 Parallelism(真正平行)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-blocking-問題最常考" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Blocking 問題最常考
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-level-不是全新第四種邏輯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Two-level 不是全新第四種邏輯
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-現代實務上常見的是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 現代實務上常見的是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在可以怎麼背" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在可以怎麼背
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼user-threads要對應到kernel-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼user threads要對應到kernel thread
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼user threads要對應到kernel thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-thread使用者執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User thread(使用者執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-thread核心執行緒" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel thread(核心執行緒)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼一定要有對應關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼一定要有對應關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-因為-cpu-排程是-kernel-在做不是-application-在做" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 因為 CPU 排程是 kernel 在做，不是 application 在做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-因為-user-thread-自己不能直接取得-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 因為 user thread 自己不能直接取得 CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-因為-blocking-system-call阻塞式系統呼叫-需要-kernel-介入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 因為 blocking system call(阻塞式系統呼叫) 需要 kernel 介入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-因為多核心-parallelism平行執行-要靠-kernel-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 因為多核心 parallelism(平行執行) 要靠 kernel thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼不乾脆全部只用-user-thread-就好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼不乾脆全部只用 user thread 就好
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為什麼不乾脆全部只用 user thread 就好">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#優點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        優點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-對應不一定代表一對一" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 「對應」不一定代表一對一
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-thread-不是假的但它不是-os-原生排程單位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. user thread 不是假的，但它不是 OS 原生排程單位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-kernel-thread-比較重不代表一定比較差" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. kernel thread 比較重，不代表一定比較差
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在可以這樣理解這句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在可以這樣理解這句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#他們兩個的關係就類似process在ready-queue和正在被執行嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        他們兩個的關係就類似process在ready queue和正在被執行嗎
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="他們兩個的關係就類似process在ready queue和正在被執行嗎">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#先直接回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先直接回答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#正式概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正式概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-ready--running-是狀態" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Ready / Running 是「狀態」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-thread--kernel-thread-是兩層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. User thread / Kernel thread 是「兩層」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你這個類比哪裡像" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你這個類比哪裡像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但關鍵差別在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但關鍵差別在哪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-ready--running-是同一層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. ready / running 是同一層
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-user-thread--kernel-thread-是跨層" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. user thread / kernel thread 是跨層
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用一個更準的比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用一個更準的比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以你這句話要怎麼修正才會變正確" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以你這句話要怎麼修正才會變正確
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-不要把-mapping-當成-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 不要把 mapping 當成 state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-不要把-on-lwp-當成已經在-cpu-上跑" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不要把 On LWP 當成已經在 CPU 上跑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-在-one-to-one-模型裡你的錯覺會更強" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 在 one-to-one 模型裡，你的錯覺會更強
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小考最安全寫法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小考最安全寫法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pthread-指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pthread 指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pthread 指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#這段在回答什麼問題_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        這段在回答什麼問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-pthread_create-在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. pthread_create() 在做什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#核心概念_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#第一個參數-pthread_t-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第一個參數 pthread_t *thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第二個參數-pthread_attr_t-attr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第二個參數 pthread_attr_t *attr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第三個參數-void-start_routinevoid-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第三個參數 void *(*start_routine)(void *)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#第四個參數-void-arg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第四個參數 void *arg
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#生活化例子_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-thread-function-一定長這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 thread function 一定長這樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-不要把整數直接硬塞進-void-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. 不要把整數直接硬塞進 void *
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-不要傳區域變數位址後又讓它太早失效" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. 不要傳區域變數位址後又讓它太早失效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pthread_join-在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. pthread_join() 在做什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#先講直覺_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先講直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pthread_join-的第二個參數到底是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pthread_join() 的第二個參數到底是什麼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要 join
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-thread-怎麼結束return-與-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Thread 怎麼結束：return 與 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為什麼還需要-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為什麼還需要 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#很重要pthread_exit-傳回去的東西不能亂用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        很重要：pthread_exit() 傳回去的東西不能亂用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-main-結束exitpthread_exit-三者差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. main() 結束、exit()、pthread_exit() 三者差在哪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. main() 結束、exit()、pthread_exit() 三者差在哪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#情況一某個-worker-thread-return--pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：某個 worker thread return / pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二任何-thread-呼叫-exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：任何 thread 呼叫 exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況三main-直接-return通常等價於-process-結束" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況三：main() 直接 return，通常等價於 process 結束
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況四main-呼叫-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況四：main 呼叫 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關係--流程--因果_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關係 / 流程 / 因果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易考--最容易混淆_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易考 / 最容易混淆
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-pthread_join-等的是thread不是process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. pthread_join() 等的是「thread」，不是「process」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-return-對-worker-thread-幾乎等價於-pthread_exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. return 對 worker thread 幾乎等價於 pthread_exit()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-exit-跟-pthread_exit-完全不同" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. exit() 跟 pthread_exit() 完全不同
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-不要回傳-local-variable-位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 不要回傳 local variable 位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-投影片第三張不要硬背成pthreads-都只存在-user-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 投影片第三張不要硬背成「pthreads 都只存在 user space」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#小結_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小結
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#你現在最適合接著學的下一步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你現在最適合接著學的下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6892,7 +10010,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <li>register set(暫存器集合)</li>
 <li>stack(堆疊)</li>
 </ul>
-<p>而同一個 process 裡的多個 thread，會共享大部分 process 的資源。這和常見的 multithreading 定義一致：同一個 process 內的 threads 共享 address space(位址空間)、open files(開啟檔案) 等資源，但每個 thread 仍保有自己的 PC、registers、stack。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">Oracle 文件</a>)</p>
+<p>而同一個 process 裡的多個 thread，會共享大部分 process 的資源。這和常見的 multithreading 定義一致：同一個 process 內的 threads 共享 address space(位址空間)、open files(開啟檔案) 等資源，但每個 thread 仍保有自己的 PC、registers、stack。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <hr />
 <h4 id="核心概念-1單執行緒-vs-多執行緒">核心概念 1：單執行緒 vs 多執行緒<a class="headerlink" href="#核心概念-1單執行緒-vs-多執行緒" title="Permanent link"></a></h4>
 <p>你圖中的左邊是 <strong>single-threaded process(單執行緒行程)</strong>，右邊是 <strong>multithreaded process(多執行緒行程)</strong>。</p>
@@ -6914,7 +10032,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <li>一個負責網路下載</li>
 <li>一個負責背景計算</li>
 </ul>
-<p>這也是 Oracle 的 multithreading 說法：傳統 process 常只有一個 control flow(控制流)，而 multithreading 會把 process 分成多個彼此獨立前進的 execution threads(執行緒)。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Oracle 文件</a>)</p>
+<p>這也是 Oracle 的 multithreading 說法：傳統 process 常只有一個 control flow(控制流)，而 multithreading 會把 process 分成多個彼此獨立前進的 execution threads(執行緒)。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <hr />
 <h4 id="411-動機為什麼很多程式都做成多執行緒">4.1.1 動機：為什麼很多程式都做成多執行緒<a class="headerlink" href="#411-動機為什麼很多程式都做成多執行緒" title="Permanent link"></a></h4>
 <p>這張「動機」圖在講的是：</p>
@@ -6954,7 +10072,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <h5 id="生活化例子">生活化例子<a class="headerlink" href="#生活化例子" title="Permanent link"></a></h5>
 <p>你用瀏覽器下載大檔案時，頁面還是能滑、按鈕還是能按。<br />
 這就是 responsiveness。</p>
-<p>Oracle 的 multithreading 文件也把 improving application responsiveness(提升應用回應性) 列為 multithreading 的重要好處之一。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle 文件</a>)</p>
+<p>Oracle 的 multithreading 文件也把 improving application responsiveness(提升應用回應性) 列為 multithreading 的重要好處之一。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle 文件</a>)</p>
 <hr />
 <h4 id="2-resource-sharing資源分享">2. Resource Sharing(資源分享)<a class="headerlink" href="#2-resource-sharing資源分享" title="Permanent link"></a></h4>
 <p>這張圖寫得很關鍵：</p>
@@ -6972,7 +10090,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <li>program counter</li>
 <li>registers</li>
 </ul>
-<p>這也正是你那張英文圖在表達的重點，並且和官方文件一致。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">Oracle 文件</a>)</p>
+<p>這也正是你那張英文圖在表達的重點，並且和官方文件一致。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <h5 id="直覺理解">直覺理解<a class="headerlink" href="#直覺理解" title="Permanent link"></a></h5>
 <p>同一間辦公室裡的員工，共用：</p>
 <ul>
@@ -6992,7 +10110,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <p>這個字很多人第一次看會覺得抽象，其實意思很簡單：</p>
 <p><strong>建立 thread 的成本通常比建立 process 低，切換 thread 的成本通常也比較低。</strong></p>
 <p>因為 thread 不需要像 process 那樣重建一整套獨立資源空間。<br />
-官方資料也明確提到 thread 有利於 using fewer system resources(使用較少系統資源)，以及 thread-based 架構能降低 resource consumption(資源消耗) 並讓 context switch(情境切換) 開銷較低。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling" title="User-Mode Scheduling - Win32 apps | Microsoft Learn">Oracle 文件</a>)</p>
+官方資料也明確提到 thread 有利於 using fewer system resources(使用較少系統資源)，以及 thread-based 架構能降低 resource consumption(資源消耗) 並讓 context switch(情境切換) 開銷較低。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle 文件</a>)</p>
 <h5 id="直覺理解_1">直覺理解<a class="headerlink" href="#直覺理解_1" title="Permanent link"></a></h5>
 <ul>
 <li>開一家新公司 = 建立一個新 process</li>
@@ -7002,7 +10120,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <hr />
 <h4 id="4-scalability可擴展性">4. Scalability(可擴展性)<a class="headerlink" href="#4-scalability可擴展性" title="Permanent link"></a></h4>
 <p>意思是：</p>
-<p>在 multiprocessor / multicore 系統上，多個 threads 可以分散到不同 CPU cores(核心) 上跑，所以比較容易把硬體能力吃滿。Oracle 文件也把 using multiprocessors efficiently(有效利用多處理器) 視為 multithreading 的重要利益。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle 文件</a>)</p>
+<p>在 multiprocessor / multicore 系統上，多個 threads 可以分散到不同 CPU cores(核心) 上跑，所以比較容易把硬體能力吃滿。Oracle 文件也把 using multiprocessors efficiently(有效利用多處理器) 視為 multithreading 的重要利益。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle 文件</a>)</p>
 <h5 id="直覺理解_2">直覺理解<a class="headerlink" href="#直覺理解_2" title="Permanent link"></a></h5>
 <p>如果你只有一條工作線，再多核心也很難同時忙起來。<br />
 但如果你有很多 threads，就比較有機會把工作分給多個核心一起做。</p>
@@ -7025,7 +10143,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <li>資源彼此獨立</li>
 <li>修改自己的資料，不會直接變成對方的資料</li>
 </ul>
-<p>這正符合一般作業系統對 process 的理解：不同 processes 彼此隔離，擁有各自獨立的 memory space。(<a href="https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html" title="Lightweight Processes (Multithreaded Programming Guide) ">GeeksforGeeks</a>)</p>
+<p>這正符合一般作業系統對 process 的理解：不同 processes 彼此隔離，擁有各自獨立的 memory space。(<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">GeeksforGeeks</a>)</p>
 <hr />
 <h4 id="再看-thread-creation建立執行緒">再看 Thread creation(建立執行緒)<a class="headerlink" href="#再看-thread-creation建立執行緒" title="Permanent link"></a></h4>
 <p>右邊圖是：</p>
@@ -7033,7 +10151,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <li>Thread A 呼叫 <code>pthread_create()</code></li>
 <li>產生 Thread B</li>
 </ul>
-<p>這時候 <strong>Thread B 不會複製整個 process 資源</strong>，它只需要建立自己那份執行狀態，尤其是自己的 <strong>stack</strong>。而 code、data、BSS、heap、files 這些仍和同 process 的其他 threads 共享。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">Oracle 文件</a>)</p>
+<p>這時候 <strong>Thread B 不會複製整個 process 資源</strong>，它只需要建立自己那份執行狀態，尤其是自己的 <strong>stack</strong>。而 code、data、BSS、heap、files 這些仍和同 process 的其他 threads 共享。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <hr />
 <h4 id="這張圖最該背的表">這張圖最該背的表<a class="headerlink" href="#這張圖最該背的表" title="Permanent link"></a></h4>
 <table>
@@ -7139,7 +10257,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <hr />
 <h4 id="3-data-splitting資料分割">3. Data splitting(資料分割)<a class="headerlink" href="#3-data-splitting資料分割" title="Permanent link"></a></h4>
 <p>不只工作要切，<strong>資料也要切</strong>。</p>
-<p>尤其在 data parallelism(資料平行) 裡，常見做法是把同一批資料切成多塊，交給不同核心做相同操作。這正是 data parallelism 的典型定義。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle 文件</a>)</p>
+<p>尤其在 data parallelism(資料平行) 裡，常見做法是把同一批資料切成多塊，交給不同核心做相同操作。這正是 data parallelism 的典型定義。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle 文件</a>)</p>
 <h5 id="例子">例子<a class="headerlink" href="#例子" title="Permanent link"></a></h5>
 <p>你要處理一千萬筆資料：</p>
 <ul>
@@ -7152,7 +10270,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <h4 id="4-data-dependency資料相依">4. Data dependency(資料相依)<a class="headerlink" href="#4-data-dependency資料相依" title="Permanent link"></a></h4>
 <p>這是最關鍵也最容易出錯的點。</p>
 <p>如果任務 A 需要任務 B 的結果，或多個 threads 同時讀寫同一份資料，就會有 dependency(相依性) 問題。<br />
-因為 threads 共享資料，一個 thread 改了 shared data(共享資料)，其他 threads 可能立刻看見，所以常常需要 mutex(互斥鎖) 等同步機制來保護資料一致性。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">Oracle 文件</a>)</p>
+因為 threads 共享資料，一個 thread 改了 shared data(共享資料)，其他 threads 可能立刻看見，所以常常需要 mutex(互斥鎖) 等同步機制來保護資料一致性。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <h5 id="生活化例子_2">生活化例子<a class="headerlink" href="#生活化例子_2" title="Permanent link"></a></h5>
 <p>兩個人同時改同一份 Excel：</p>
 <ul>
@@ -7163,7 +10281,7 @@ E --&gt; F["延伸到 Concurrency 與 Parallelism"]</code></pre>
 <hr />
 <h4 id="5-testing-and-debugging測試與除錯">5. Testing and debugging(測試與除錯)<a class="headerlink" href="#5-testing-and-debugging測試與除錯" title="Permanent link"></a></h4>
 <p>這也是老師很愛考的觀念。</p>
-<p>多執行緒 / 多核心程式常常比單執行緒難 debug，因為每次執行的 interleaving(交錯順序) 可能不同。某些 bug 可能今天出現、明天消失，這正是 concurrency 程式麻煩的地方。Oracle 的 multithreaded programming guide 也專門有 synchronization 與 compiling/debugging 章節，反映這類程式在除錯上的額外困難。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Oracle 文件</a>)</p>
+<p>多執行緒 / 多核心程式常常比單執行緒難 debug，因為每次執行的 interleaving(交錯順序) 可能不同。某些 bug 可能今天出現、明天消失，這正是 concurrency 程式麻煩的地方。Oracle 的 multithreaded programming guide 也專門有 synchronization 與 compiling/debugging 章節，反映這類程式在除錯上的額外困難。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 <h5 id="典型問題">典型問題<a class="headerlink" href="#典型問題" title="Permanent link"></a></h5>
 <ul>
 <li>race condition(競爭條件)</li>
@@ -7263,23 +10381,23 @@ G --&gt; H[但會遇到切分 負載平衡 相依性 除錯等挑戰]</code></pr
 <ol>
 <li>
 <p><strong>Thread 是什麼</strong><br />
-   是 process 裡的基本執行單位，每個 thread 有自己的 stack / PC / registers，共享 process 的多數資源。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">Oracle 文件</a>)</p>
+   是 process 裡的基本執行單位，每個 thread 有自己的 stack / PC / registers，共享 process 的多數資源。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 </li>
 <li>
 <p><strong>為什麼要用 multithreading</strong><br />
-   因為現代應用程式常同時處理 UI、I/O、背景工作，multithreading 能改善 responsiveness 並更有效利用多處理器。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle 文件</a>)</p>
+   因為現代應用程式常同時處理 UI、I/O、背景工作，multithreading 能改善 responsiveness 並更有效利用多處理器。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle 文件</a>)</p>
 </li>
 <li>
 <p><strong>它的好處是什麼</strong><br />
-   Responsiveness、Resource Sharing、Economy、Scalability。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle 文件</a>)</p>
+   Responsiveness、Resource Sharing、Economy、Scalability。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle 文件</a>)</p>
 </li>
 <li>
 <p><strong>它和 process 差在哪</strong><br />
-   Process 通常彼此隔離；threads 在同一 process 內共享大部分資源，只各自保有自己的執行狀態。(<a href="https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html" title="Lightweight Processes (Multithreaded Programming Guide) ">GeeksforGeeks</a>)</p>
+   Process 通常彼此隔離；threads 在同一 process 內共享大部分資源，只各自保有自己的執行狀態。(<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">GeeksforGeeks</a>)</p>
 </li>
 <li>
 <p><strong>到了 multicore 為什麼反而更難</strong><br />
-   因為你得處理切分、平衡、資料相依、同步、測試與除錯。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Oracle 文件</a>)</p>
+   因為你得處理切分、平衡、資料相依、同步、測試與除錯。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle 文件</a>)</p>
 </li>
 </ol>
 <p>如果你要，我下一則可以直接幫你整理成一份<br />
@@ -7326,24 +10444,24 @@ stack：像每個員工自己的桌面草稿區</p>
 <ol>
 <li>建立與切換 thread 快不快</li>
 <li>遇到 blocking I/O(阻塞式輸入輸出) 時會不會整串卡住</li>
-<li>能不能有效利用 multicore(多核心) 平行執行。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</li>
+<li>能不能有效利用 multicore(多核心) 平行執行。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</li>
 </ol>
 <hr />
 <h4 id="我先幫你修正一個最容易被投影片誤導的地方">我先幫你修正一個最容易被投影片誤導的地方<a class="headerlink" href="#我先幫你修正一個最容易被投影片誤導的地方" title="Permanent link"></a></h4>
 <p>你這組投影片把 <strong>POSIX Pthreads、Win32 threads、Java threads</strong> 放在 <strong>User threads(使用者層執行緒)</strong> 那一側，這個講法在今天的實作上<strong>不夠精確</strong>，甚至在考試以外的真實系統裡會讓你觀念歪掉。✅</p>
 <p>原因是：</p>
 <ul>
-<li>在現代 Linux，<code>pthreads</code> 的常見實作是 <strong>1:1</strong>，也就是每個 pthread 都對應到一個 <strong>kernel scheduling entity(核心可排程實體)</strong>。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</li>
-<li>在 Windows，普通的 thread 是系統直接排程的；真正比較接近 user-level scheduling(使用者層排程) 的反而是 <strong>Fibers</strong> 或 <strong>UMS(User-Mode Scheduling)</strong>。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Microsoft Learn</a>)</li>
-<li>在現代 Java，<code>Thread</code> 有兩種：<strong>platform threads(平台執行緒)</strong> 通常是 1:1 對應 kernel threads；<strong>virtual threads(虛擬執行緒)</strong> 才是比較接近 user-mode threads(使用者模式執行緒) 由 Java runtime 排程。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle Docs</a>)</li>
+<li>在現代 Linux，<code>pthreads</code> 的常見實作是 <strong>1:1</strong>，也就是每個 pthread 都對應到一個 <strong>kernel scheduling entity(核心可排程實體)</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</li>
+<li>在 Windows，普通的 thread 是系統直接排程的；真正比較接近 user-level scheduling(使用者層排程) 的反而是 <strong>Fibers</strong> 或 <strong>UMS(User-Mode Scheduling)</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</li>
+<li>在現代 Java，<code>Thread</code> 有兩種：<strong>platform threads(平台執行緒)</strong> 通常是 1:1 對應 kernel threads；<strong>virtual threads(虛擬執行緒)</strong> 才是比較接近 user-mode threads(使用者模式執行緒) 由 Java runtime 排程。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle Docs</a>)</li>
 </ul>
-<p>所以如果你是為了考試背課本，我們可以照課本分類；但如果你是要真的理解 OS，<strong>不要把 API 名字直接等同於 user thread 或 kernel thread</strong>。要看的是：<strong>誰排程、誰知道這個 thread 的存在、它跟 kernel schedulable entity 的 mapping(對映) 是什麼。</strong> (<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</p>
+<p>所以如果你是為了考試背課本，我們可以照課本分類；但如果你是要真的理解 OS，<strong>不要把 API 名字直接等同於 user thread 或 kernel thread</strong>。要看的是：<strong>誰排程、誰知道這個 thread 的存在、它跟 kernel schedulable entity 的 mapping(對映) 是什麼。</strong> (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</p>
 <hr />
 <h4 id="核心概念">核心概念<a class="headerlink" href="#核心概念" title="Permanent link"></a></h4>
 <p>最核心的切法不是「這個 thread 叫什麼名字」，而是：</p>
 <ul>
 <li><strong>User threads(使用者層執行緒)</strong>：主要由 user-space runtime/library(使用者空間的執行期／函式庫) 管理</li>
-<li><strong>Kernel threads(核心層執行緒)</strong>：核心知道它們，並由 kernel scheduler(核心排程器) 直接排程。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling" title="User-Mode Scheduling - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</li>
+<li><strong>Kernel threads(核心層執行緒)</strong>：核心知道它們，並由 kernel scheduler(核心排程器) 直接排程。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Microsoft Learn</a>)</li>
 </ul>
 <p>你可以把它想成：</p>
 <ul>
@@ -7374,12 +10492,12 @@ stack：像每個員工自己的桌面草稿區</p>
 <blockquote>
 <p><strong>thread 的建立、切換、管理，主要在 user space 完成，不必每次都叫 kernel 介入。</strong></p>
 </blockquote>
-<p>Windows 官方文件對 <strong>UMS(User-Mode Scheduling)</strong> 的描述很直接：application 可以在 <strong>user mode</strong> 內切換 threads，而不必每次都交給 system scheduler；這也是它比一般 thread pool 更輕量的原因之一。Windows 的 <strong>fibers</strong> 也明講了：fiber 不是由系統搶先式排程，而是由應用程式自己切換；系統真正排程的仍然是底下的 thread。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling" title="User-Mode Scheduling - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</p>
-<p>Java 的 <strong>virtual threads</strong> 也屬於這種思維。Oracle 文件寫得很清楚：virtual threads 通常是 <strong>user-mode threads</strong>，由 Java runtime 排程，而不是 OS；而且很多 virtual threads 可以映射到少量 platform threads 上。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle Docs</a>)</p>
+<p>Windows 官方文件對 <strong>UMS(User-Mode Scheduling)</strong> 的描述很直接：application 可以在 <strong>user mode</strong> 內切換 threads，而不必每次都交給 system scheduler；這也是它比一般 thread pool 更輕量的原因之一。Windows 的 <strong>fibers</strong> 也明講了：fiber 不是由系統搶先式排程，而是由應用程式自己切換；系統真正排程的仍然是底下的 thread。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Microsoft Learn</a>)</p>
+<p>Java 的 <strong>virtual threads</strong> 也屬於這種思維。Oracle 文件寫得很清楚：virtual threads 通常是 <strong>user-mode threads</strong>，由 Java runtime 排程，而不是 OS；而且很多 virtual threads 可以映射到少量 platform threads 上。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle Docs</a>)</p>
 <hr />
 <h4 id="為什麼-user-threads-會比較輕">為什麼 User threads 會比較輕<a class="headerlink" href="#為什麼-user-threads-會比較輕" title="Permanent link"></a></h4>
 <p>因為切換 thread 時，如果不用每次都進 kernel，就少了 kernel involvement(核心介入) 的成本。</p>
-<p>Windows 對 UMS 的說法就是：在 user mode 切換能讓它更有效率，特別是大量、短時間、少 system call 的工作。Java 也指出 virtual threads 需要的資源通常比較少，一個 JVM 甚至可支援非常多個 virtual threads。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling" title="User-Mode Scheduling - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</p>
+<p>Windows 對 UMS 的說法就是：在 user mode 切換能讓它更有效率，特別是大量、短時間、少 system call 的工作。Java 也指出 virtual threads 需要的資源通常比較少，一個 JVM 甚至可支援非常多個 virtual threads。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Microsoft Learn</a>)</p>
 <p>生活化一點講：</p>
 <ul>
 <li><strong>Kernel threads</strong> 像你每次換人做事，都要去學校教務處登記</li>
@@ -7389,16 +10507,16 @@ stack：像每個員工自己的桌面草稿區</p>
 <hr />
 <h4 id="但-user-threads-的代價是什麼">但 User threads 的代價是什麼<a class="headerlink" href="#但-user-threads-的代價是什麼" title="Permanent link"></a></h4>
 <p>代價在於：<strong>kernel 可能看不到你 user-level 的細節。</strong></p>
-<p>Solaris 文件對這點講得很經典：OS 只決定哪個 <strong>LWP(Lightweight Process)</strong> 在哪顆 processor 上跑、什麼時候跑；它<strong>不知道</strong>每個 process 裡有多少 user threads，也不知道它們各自的狀態。當某個 user thread 因同步而 block 時，LWP 會轉去另一個 runnable thread，但這取決於整個執行模型怎麼設計。(<a href="https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html" title="Lightweight Processes (Multithreaded Programming Guide) ">Oracle Docs</a>)</p>
+<p>Solaris 文件對這點講得很經典：OS 只決定哪個 <strong>LWP(Lightweight Process)</strong> 在哪顆 processor 上跑、什麼時候跑；它<strong>不知道</strong>每個 process 裡有多少 user threads，也不知道它們各自的狀態。當某個 user thread 因同步而 block 時，LWP 會轉去另一個 runnable thread，但這取決於整個執行模型怎麼設計。(<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Oracle Docs</a>)</p>
 <p>這造成兩個常見問題：</p>
 <ol>
 <li>
 <p><strong>Blocking 問題</strong><br />
-   如果很多 user threads 只掛在少數底層 schedulable entities 上，那其中一個發生阻塞，影響可能會擴散。Windows fibers 也明白表示：系統排程的是 thread，不是 fiber。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/fibers" title="Fibers - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</p>
+   如果很多 user threads 只掛在少數底層 schedulable entities 上，那其中一個發生阻塞，影響可能會擴散。Windows fibers 也明白表示：系統排程的是 thread，不是 fiber。(<a href="https://docs.kernel.org/core-api/workqueue.html" title="Workqueue — The Linux Kernel  documentation">Microsoft Learn</a>)</p>
 </li>
 <li>
 <p><strong>多核心平行度問題</strong><br />
-   純 user threads 並不保證你真的能同時吃到多顆核心；你要看它底下有沒有對應到足夠多的 kernel-schedulable entities。Solaris 的 M:N 架構、Java virtual threads 的 carrier threads 都是在解這件事。(<a href="https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html" title="Lightweight Processes (Multithreaded Programming Guide) ">Oracle Docs</a>)</p>
+   純 user threads 並不保證你真的能同時吃到多顆核心；你要看它底下有沒有對應到足夠多的 kernel-schedulable entities。Solaris 的 M:N 架構、Java virtual threads 的 carrier threads 都是在解這件事。(<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Oracle Docs</a>)</p>
 </li>
 </ol>
 <hr />
@@ -7407,8 +10525,8 @@ stack：像每個員工自己的桌面草稿區</p>
 <blockquote>
 <p><strong>這個 thread 是 kernel 知道的，kernel scheduler 可以直接決定它何時執行、在哪顆 CPU 上執行。</strong></p>
 </blockquote>
-<p>Windows 官方直接寫：thread 是 process 內可以被排程執行的實體；system scheduler 會決定哪個 thread 得到下一個 processor time slice(處理器時間片)。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Microsoft Learn</a>)</p>
-<p>Linux 的 <code>pthreads(7)</code> 也指出，現代 Linux 的 NPTL 與舊 LinuxThreads 都是 <strong>1:1 implementation</strong>，每個 thread 都對應到 kernel scheduling entity。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</p>
+<p>Windows 官方直接寫：thread 是 process 內可以被排程執行的實體；system scheduler 會決定哪個 thread 得到下一個 processor time slice(處理器時間片)。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<p>Linux 的 <code>pthreads(7)</code> 也指出，現代 Linux 的 NPTL 與舊 LinuxThreads 都是 <strong>1:1 implementation</strong>，每個 thread 都對應到 kernel scheduling entity。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</p>
 <p>所以在現代 Linux/Windows 這種一般用途 OS 上，你平常寫的很多「thread」，其實背後都是 <strong>kernel-schedulable threads</strong>。</p>
 <hr />
 <h4 id="為什麼-kernel-threads-比較重">為什麼 Kernel threads 比較「重」<a class="headerlink" href="#為什麼-kernel-threads-比較重" title="Permanent link"></a></h4>
@@ -7417,9 +10535,9 @@ stack：像每個員工自己的桌面草稿區</p>
 <ul>
 <li>kernel scheduler 的參與</li>
 <li>thread context(執行脈絡) 的保存與恢復</li>
-<li>OS 維護的 stack / priority / TLS / kernel data structures。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Microsoft Learn</a>)</li>
+<li>OS 維護的 stack / priority / TLS / kernel data structures。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</li>
 </ul>
-<p>Java 官方文件就直接說，platform threads 通常有比較大的 stack 與其他由 OS 維護的資源，因此它們是有限資源。這正是為什麼 virtual threads 能大量擴張，但 platform threads 不適合無限制暴增。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle Docs</a>)</p>
+<p>Java 官方文件就直接說，platform threads 通常有比較大的 stack 與其他由 OS 維護的資源，因此它們是有限資源。這正是為什麼 virtual threads 能大量擴張，但 platform threads 不適合無限制暴增。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle Docs</a>)</p>
 <hr />
 <h4 id="三種最常考的-mapping對映-模型">三種最常考的 mapping(對映) 模型<a class="headerlink" href="#三種最常考的-mapping對映-模型" title="Permanent link"></a></h4>
 <p>這裡是考試很愛出的點，我幫你重組成最清楚的版本。</p>
@@ -7428,20 +10546,20 @@ stack：像每個員工自己的桌面草稿區</p>
 <ul>
 <li>優點：user-level 管理很便宜</li>
 <li>缺點：一旦底層那個 kernel thread block，整串可能受影響；也很難真正利用多核心。<br />
-  這類問題正是 user-level threading 的經典弱點。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/fibers" title="Fibers - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</li>
+  這類問題正是 user-level threading 的經典弱點。(<a href="https://docs.kernel.org/core-api/workqueue.html" title="Workqueue — The Linux Kernel  documentation">Microsoft Learn</a>)</li>
 </ul>
 <h5 id="2-one-to-one一對一">2. One-to-One(一對一)<a class="headerlink" href="#2-one-to-one一對一" title="Permanent link"></a></h5>
 <p>每個 user-visible thread 對到一個 kernel thread。</p>
 <ul>
 <li>優點：容易被 kernel 直接排程，可利用多核心</li>
 <li>缺點：建立很多 thread 時，OS 成本較高<br />
-  現代 Linux 的 pthreads 就是典型 1:1。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</li>
+  現代 Linux 的 pthreads 就是典型 1:1。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</li>
 </ul>
 <h5 id="3-many-to-many多對多">3. Many-to-Many(多對多)<a class="headerlink" href="#3-many-to-many多對多" title="Permanent link"></a></h5>
 <p>很多 user threads 映射到較少或適量的 kernel schedulable entities。</p>
 <ul>
 <li>優點：想兼顧 user-level 的輕量與 kernel-level 的平行度</li>
-<li>代表概念：Solaris 的 user threads 對 LWPs、Java virtual threads 對 carrier threads。(<a href="https://docs.oracle.com/cd/E19455-01/806-5257/guide-60747/index.html" title="Lightweight Processes (Multithreaded Programming Guide) ">Oracle Docs</a>)</li>
+<li>代表概念：Solaris 的 user threads 對 LWPs、Java virtual threads 對 carrier threads。(<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Oracle Docs</a>)</li>
 </ul>
 <p>工程社群也常把這種 user-managed 的概念叫做 <strong>green threads(綠色執行緒)</strong>；例如討論中常用「很多 green threads 映射到少數 OS threads」來建立直覺。這是有用的直覺，但不同語言 runtime 的細節並不完全相同。(<a href="https://stackoverflow.com/questions/15983872/difference-between-user-level-and-kernel-supported-threads" title="multithreading - Difference between user-level and kernel-supported threads? - Stack Overflow">Stack Overflow</a>)</p>
 <hr />
@@ -7453,19 +10571,19 @@ stack：像每個員工自己的桌面草稿區</p>
 </ul>
 <p>如果只有一個服務生代表整組對外工作，那他一去廚房等菜，整組的對外進度就可能卡住。<br />
 如果你有多個被店長正式排班的服務生，就比較能在不同桌之間真正平行處理。</p>
-<p>這就是 user threads 與 kernel threads 在 blocking 與 multicore 上差異的直覺來源。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/fibers" title="Fibers - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</p>
+<p>這就是 user threads 與 kernel threads 在 blocking 與 multicore 上差異的直覺來源。(<a href="https://docs.kernel.org/core-api/workqueue.html" title="Workqueue — The Linux Kernel  documentation">Microsoft Learn</a>)</p>
 <hr />
 <h4 id="最容易考--最容易混淆_1">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_1" title="Permanent link"></a></h4>
 <h5 id="1-kernel-thread-不是永遠在-kernel-mode-跑的-thread">1. Kernel thread 不是「永遠在 kernel mode 跑的 thread」<a class="headerlink" href="#1-kernel-thread-不是永遠在-kernel-mode-跑的-thread" title="Permanent link"></a></h5>
 <p>這是超常見誤解。<br />
-這裡的 kernel thread / kernel-supported thread，重點是 <strong>kernel 知道它、會排程它</strong>，不是說它整天都在 kernel mode 做 privileged work(特權工作)。Windows 對 thread 的定義就是「可被系統排程的實體」。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/about-processes-and-threads?utm_source=chatgpt.com" title="About Processes and Threads - Win32 apps">Microsoft Learn</a>)</p>
+這裡的 kernel thread / kernel-supported thread，重點是 <strong>kernel 知道它、會排程它</strong>，不是說它整天都在 kernel mode 做 privileged work(特權工作)。Windows 對 thread 的定義就是「可被系統排程的實體」。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
 <h5 id="2-pthread-不等於user-thread">2. <code>pthread</code> 不等於「user thread」<a class="headerlink" href="#2-pthread-不等於user-thread" title="Permanent link"></a></h5>
 <p>在現代 Linux，<code>pthreads</code> 常見實作是 1:1，所以它其實對應 kernel scheduling entity。<br />
-所以如果考試寫「pthread 是 user thread library」可能是照教材脈絡拿分；但在實作理解上，這句話要加很多條件。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</p>
+所以如果考試寫「pthread 是 user thread library」可能是照教材脈絡拿分；但在實作理解上，這句話要加很多條件。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</p>
 <h5 id="3-java-thread-也不能一概而論">3. <code>Java thread</code> 也不能一概而論<a class="headerlink" href="#3-java-thread-也不能一概而論" title="Permanent link"></a></h5>
 <ul>
 <li><strong>platform thread</strong>：通常 1:1 對應 kernel thread</li>
-<li><strong>virtual thread</strong>：通常是 user-mode thread，由 Java runtime 排程。(<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 23 &amp; JDK 23)">Oracle Docs</a>)</li>
+<li><strong>virtual thread</strong>：通常是 user-mode thread，由 Java runtime 排程。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle Docs</a>)</li>
 </ul>
 <h5 id="4-user-threads-不一定真的比較好">4. User threads 不一定真的比較好<a class="headerlink" href="#4-user-threads-不一定真的比較好" title="Permanent link"></a></h5>
 <p>✅ 建立很多 concurrent tasks(並行任務) 時，它們常常更省<br />
@@ -7473,19 +10591,1117 @@ stack：像每個員工自己的桌面草稿區</p>
 <p>Oracle 對 virtual threads 甚至明講：它們<strong>不是 faster threads</strong>，它們主要帶來的是 <strong>scale(可擴張性／吞吐量)</strong>，不是單一工作 latency(延遲) 變短。(<a href="https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html" title="Virtual Threads">Oracle Docs</a>)</p>
 <h5 id="5-投影片說-kernel-threadsheavyweight時要知道它是相對說法">5. 投影片說 kernel threads「heavyweight」時，要知道它是相對說法<a class="headerlink" href="#5-投影片說-kernel-threadsheavyweight時要知道它是相對說法" title="Permanent link"></a></h5>
 <p>它是相對於純 user-level 切換較重，不是說它重到像 process。<br />
-這種題目如果你只背「user thread 快、kernel thread 慢」，很容易失分，因為老師下一題就會考你 <strong>為什麼</strong>。真正原因是：<strong>kernel 參與程度、排程權限、blocking 行為、多核心利用方式</strong> 不同。(<a href="https://learn.microsoft.com/en-us/windows/win32/procthread/user-mode-scheduling" title="User-Mode Scheduling - Win32 apps | Microsoft Learn">Microsoft Learn</a>)</p>
+這種題目如果你只背「user thread 快、kernel thread 慢」，很容易失分，因為老師下一題就會考你 <strong>為什麼</strong>。真正原因是：<strong>kernel 參與程度、排程權限、blocking 行為、多核心利用方式</strong> 不同。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Microsoft Learn</a>)</p>
 <hr />
 <h4 id="小結_1">小結<a class="headerlink" href="#小結_1" title="Permanent link"></a></h4>
 <p>你把這題濃縮成下面這段，考試會很好用：</p>
 <blockquote>
 <p><strong>User threads(使用者層執行緒)</strong> 主要由 user-space runtime/library 管理，切換成本通常較低，但 kernel 不一定知道每個 user thread，因此在 blocking 與 multicore 利用上可能受限。<br />
 <strong>Kernel threads(核心層執行緒)</strong> 是 kernel 可直接排程的執行實體，較容易支援 blocking I/O 與多核心平行，但建立與管理成本通常高於純 user-level 管理。<br />
-真正實作上還要看 mapping model(對映模型)：Many-to-One、One-to-One、Many-to-Many。(<a href="https://man7.org/linux/man-pages/man7/pthreads.7.html" title="pthreads(7) - Linux manual page">man7.org</a>)</p>
+真正實作上還要看 mapping model(對映模型)：Many-to-One、One-to-One、Many-to-Many。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">man7.org</a>)</p>
 </blockquote>
 <p>如果你要，我下一則可以直接幫你整理成：</p>
 <p><strong>「考試背誦版 10 行」</strong> 或 <strong>「選擇題 / 申論題常見陷阱版」</strong>。</p>
-<p><a href="https://drive.google.com/file/d/1mBsJSbB-x89Bcnq0AE4FsK7zo2-Y8xfz/view">https://drive.google.com/file/d/1mBsJSbB-x89Bcnq0AE4FsK7zo2-Y8xfz/view</a></p>
-<p>p.16</p>
+<p>進度：<br />
+<a href="https://drive.google.com/file/d/1mBsJSbB-x89Bcnq0AE4FsK7zo2-Y8xfz/view">https://drive.google.com/file/d/1mBsJSbB-x89Bcnq0AE4FsK7zo2-Y8xfz/view</a><br />
+p.16</p>
+<h3 id="為何需要user-threadskernel-threads什麼情況會需要kernel-threads為何不全部都用user-threads">為何需要user threads、kernel threads，什麼情況會需要kernel threads，為何不全部都用user threads<a class="headerlink" href="#為何需要user-threadskernel-threads什麼情況會需要kernel-threads為何不全部都用user-threads" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="這題在回答什麼問題">這題在回答什麼問題<a class="headerlink" href="#這題在回答什麼問題" title="Permanent link"></a></h4>
+<p>你在問的其實是這個：</p>
+<p><strong>既然 User threads(使用者層執行緒) 比較輕，為什麼作業系統還需要 Kernel threads(核心可排程執行緒)？為什麼不全部都用 User threads？</strong></p>
+<p>最核心的一句話是：</p>
+<blockquote>
+<p><strong>因為我們同時想要兩種東西：低開銷的「很多工作單位」，以及能被 OS 正確看見、阻塞、搶先、分配到多核心上的「真正執行單位」。單靠其中一種，很多情況都做不好。</strong> 你的課堂投影片也是沿著這個取捨在講：User threads 較輕，Kernel threads 較重，但能更好支援 multicore(多核心)、blocking I/O(阻塞式 I/O)、以及 preemptive multitasking(可搶先多工)。 (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+</blockquote>
+<hr />
+<h4 id="先講直覺">先講直覺<a class="headerlink" href="#先講直覺" title="Permanent link"></a></h4>
+<p>把它想成一家公司：</p>
+<ul>
+<li><strong>User threads</strong> 像是部門內自己排班的小任務</li>
+<li><strong>Kernel threads</strong> 像是公司人資系統正式登記、可以被全公司排班的員工</li>
+</ul>
+<p>如果你全部都只用部門內的小任務：</p>
+<ul>
+<li>部門自己切換很快</li>
+<li>但公司高層看不到每個小任務</li>
+<li>一個小任務卡住時，整個部門可能一起受影響</li>
+<li>公司也不容易把它們分散到不同 CPU cores(核心) 真正同時跑</li>
+</ul>
+<p>所以我們才需要兩層概念，而不是只保留一層。這也是 Windows 對 fibers(纖程) 的描述：fiber 要由應用程式自己手動排程，系統真正排程的還是 thread。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<hr />
+<h4 id="關係--流程--因果_1">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_1" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A[程式裡有很多工作要同時推進] --&gt; B{最在意什麼?}
+
+    B --&gt;|超大量、很輕、想自己排| C[User threads / virtual threads]
+    B --&gt;|真多核心、blocking I/O、OS排程| D[Kernel-schedulable threads]
+
+    C --&gt; E[建立/切換較便宜]
+    C --&gt; F[但通常仍要掛在一些 kernel threads 上]
+    C --&gt; G[若底層太少 kernel execution contexts&lt;br&gt;一個 block 可能拖累很多工作]
+
+    D --&gt; H[OS 看得見每個 thread]
+    D --&gt; I[可被搶先排程]
+    D --&gt; J[可分配到多顆核心]</code></pre>
+<p>這張圖最重要的意思是：</p>
+<p><strong>User threads 常常是「管理策略」，Kernel threads 常常是「真正被 OS 排程的執行實體」。</strong> (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<hr />
+<h4 id="核心概念_1">核心概念<a class="headerlink" href="#核心概念_1" title="Permanent link"></a></h4>
+<p>你的課堂投影片把 User threads 說成由 user-level library(使用者層函式庫) 管理、Kernel threads 由 kernel(核心) 管理，這個大方向是對的。投影片也明講 Many-to-One(多對一) 會有「一個 blocking，全部跟著卡」以及「無法善用 multiple cores(多核心)」的問題。</p>
+<p>而在現代系統裡，Linux 的 <code>pthreads</code> 常見實作是 <strong>1:1</strong>，也就是每個 thread 對應一個 kernel scheduling entity(核心排程實體)；Windows 也把 thread 定義成 process 內可被系統排程的實體。換句話說，今天很多你平常寫的「一般 thread」，本質上已經是 <strong>kernel-schedulable</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">man7.org</a>)</p>
+<hr />
+<h4 id="為何需要-user-threads使用者層執行緒">為何需要 User threads(使用者層執行緒)<a class="headerlink" href="#為何需要-user-threads使用者層執行緒" title="Permanent link"></a></h4>
+<p>User threads 存在的理由，不是因為它「比較正統」，而是因為它能把很多很輕的小工作，用比較低的成本管理起來。課堂投影片說它們通常較輕、建立和管理較快；Java 官方對 virtual threads(虛擬執行緒) 也說得很直接：它們通常是 user-mode threads(使用者模式執行緒)，由 Java runtime 排程，資源需求低，一個 JVM 甚至可支援非常多個 virtual threads。 (<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle Docs</a>)</p>
+<p>最適合 User threads 的情況，通常是這種：</p>
+<ul>
+<li>有<strong>非常多個</strong> concurrent tasks(並行任務)</li>
+<li>每個任務都很輕</li>
+<li>很多時間其實在等待，不是在狂吃 CPU</li>
+<li>你希望 runtime(執行期) 自己安排切換策略</li>
+</ul>
+<p>Java 官方甚至直接說，virtual threads 適合大多時間在等待 I/O 的任務，<strong>不是</strong>拿來跑長時間 CPU-intensive(高 CPU 密集) 工作的。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle Docs</a>)</p>
+<hr />
+<h4 id="為何需要-kernel-threads核心可排程執行緒">為何需要 Kernel threads(核心可排程執行緒)<a class="headerlink" href="#為何需要-kernel-threads核心可排程執行緒" title="Permanent link"></a></h4>
+<p>這裡先糾正一個很容易混淆的點：</p>
+<p><strong>對一般應用程式來說，需要 Kernel threads，不是因為應用程式 thread 本身要拿到 kernel privilege(核心權限)。</strong><br />
+真正的原因通常是：</p>
+<ol>
+<li>
+<p><strong>OS 要看得見它，才能排程它</strong><br />
+   Windows 官方定義 thread 就是 process 內可被排程執行的實體。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+</li>
+<li>
+<p><strong>要能真正利用 multicore(多核心)</strong><br />
+   Windows 官方寫得很清楚：在 multiprocessor computer(多處理器電腦) 上，系統可以同時執行與 processors 數量相同的 threads。Linux 的 NPTL 也明說 <code>pthread</code> 是 1:1 對應 kernel scheduling entity。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+</li>
+<li>
+<p><strong>遇到 blocking system call / blocking I/O 時，不能整串停住</strong><br />
+   如果 thread 做 <code>read()</code>、<code>recv()</code>、<code>open()</code> 這些可能阻塞的事，kernel 必須知道是哪個執行單位在等，才能讓別的可跑單位繼續。POSIX 也把許多 I/O 與等待函式列為 cancelation points(取消點)，反映這些操作本來就可能把 thread 卡住。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">man7.org</a>)</p>
+</li>
+</ol>
+<hr />
+<h4 id="什麼情況會需要-kernel-threads">什麼情況會需要 Kernel threads<a class="headerlink" href="#什麼情況會需要-kernel-threads" title="Permanent link"></a></h4>
+<p>如果你問的是「一般應用程式什麼時候需要 kernel-schedulable threads」，答案通常是下面三類。</p>
+<p>第一類是 <strong>CPU-bound parallelism(CPU 密集平行運算)</strong>。<br />
+像矩陣乘法、影像處理、數值模擬這種想把工作真的分到不同核心同時跑，OS 必須能把不同執行單位放到不同 CPU 上。你的投影片也把 scalability(可擴展性) 直接跟多處理器上的多執行緒利益連在一起。 (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<p>第二類是 <strong>blocking I/O 很多的程式</strong>。<br />
+如果你的 thread 會做檔案讀寫、網路收送、等待 socket、等待子程序，讓 OS 看得到每個 thread 會比較安全，因為一個 thread block 了，其他 kernel-schedulable threads 還能繼續被排程。這也是社群上常拿來解釋「為何純 user-level threads 會出事」的第一個原因。 (<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Stack Overflow</a>)</p>
+<p>第三類是 <strong>需要吃到 OS 排程功能</strong>。<br />
+像 priority(優先權)、CPU affinity(CPU 親和性)、preemption(搶先)、system-wide competition(系統範圍競爭) 這些，都比較依賴 OS 直接管理那個執行單位。你的排班章節也把 System-contention scope(系統競爭範圍) 和 kernel-level scheduling 連在一起。</p>
+<hr />
+<h4 id="為何不能全部都用-user-threads">為何不能全部都用 User threads<a class="headerlink" href="#為何不能全部都用-user-threads" title="Permanent link"></a></h4>
+<p>這題真正的考點就在這裡。</p>
+<h5 id="1-因為-os-看不到每個-user-thread">1. 因為 OS 看不到每個 User thread<a class="headerlink" href="#1-因為-os-看不到每個-user-thread" title="Permanent link"></a></h5>
+<p>如果很多 User threads 只掛在一個 kernel-scheduled task 上，對 OS 來說，那整坨就像一個執行單位。結果就是：</p>
+<ul>
+<li>OS 不能對每個 user thread 個別排程</li>
+<li>OS 也不能把它們自然地分散到多顆核心</li>
+<li>OS 的 accounting(資源計算)、priority、debugging、signal handling 都比較難精準對到每個工作單位</li>
+</ul>
+<p>這正是 User threads 天生的盲點。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<h5 id="2-因為一個-blocking-call-可能拖累整批">2. 因為一個 blocking call 可能拖累整批<a class="headerlink" href="#2-因為一個-blocking-call-可能拖累整批" title="Permanent link"></a></h5>
+<p>你的課堂投影片已經很直白地寫出 Many-to-One 的問題：<strong>One thread blocking causes all to block</strong>。社群上的經驗說法也幾乎一樣：若所有 user threads 都跑在同一個 kernel-scheduled task 上，當其中一個做出 blocking system call 時，其他 user threads 也沒辦法被執行。 (<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Stack Overflow</a>)</p>
+<h5 id="3-因為很難真正吃滿多核心">3. 因為很難真正吃滿多核心<a class="headerlink" href="#3-因為很難真正吃滿多核心" title="Permanent link"></a></h5>
+<p>Many-to-One 模型最典型的限制，就是明明你程式裡有很多 user threads，但底層只有一個真正被 OS 排程的東西，所以不可能在多核心上「真的同時」跑很多個。投影片也直接說 Few systems currently use this model, because it cannot take advantage of multiple processing cores。</p>
+<h5 id="4-因為輕不代表永遠較好">4. 因為「輕」不代表「永遠較好」<a class="headerlink" href="#4-因為輕不代表永遠較好" title="Permanent link"></a></h5>
+<p>Microsoft 對 fibers 的說法很值得背：fiber 必須由應用程式手動排程，而且 <strong>in general, fibers do not provide advantages over a well-designed multithreaded application</strong>。也就是說，user-level scheduling 並不是免費午餐；你省下 kernel 介入，卻把很多複雜度搬回應用程式自己扛。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<hr />
+<h4 id="那為什麼也不能全部都用-kernel-threads">那為什麼也不能全部都用 Kernel threads<a class="headerlink" href="#那為什麼也不能全部都用-kernel-threads" title="Permanent link"></a></h4>
+<p>你雖然沒有直接問這句，但這是這題最好的補強。</p>
+<p>如果我們反過來「全部都用 kernel threads」，也不完美。<br />
+因為 platform threads(平台執行緒) 往往有較大的 stack 與 OS 維護的資源，數量本身就是有限資源。Java 官方就直接說 platform threads 通常 mapped 1:1 to kernel threads，而且是 limited resource(有限資源)；virtual threads 則可以很多、甚至到 millions(數百萬)。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle Docs</a>)</p>
+<p>所以現代實務常見的做法不是二選一，而是：</p>
+<blockquote>
+<p><strong>底層用 kernel-schedulable threads 保證 OS 排程、blocking、multicore；上層再加 user-mode scheduling 或 virtual threads，去管理大量細小工作。</strong></p>
+</blockquote>
+<p>Java virtual threads 就是這個思路的現代版本：virtual thread 由 runtime 排，底下仍然靠少量 platform threads(carrier threads) 真正被 OS 排程。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle Docs</a>)</p>
+<hr />
+<h4 id="還有一種真正的-kernel-threados-自己用的">還有一種「真正的 Kernel thread」：OS 自己用的<a class="headerlink" href="#還有一種真正的-kernel-threados-自己用的" title="Permanent link"></a></h4>
+<p>如果你問的是更狹義的 <strong>kernel-internal threads(核心內部執行緒)</strong>，那它們通常是 OS 或 driver(驅動程式) 自己拿來做背景工作的。Linux kernel 的 workqueue 文件就寫得很明白：當 kernel 需要 asynchronous execution context(非同步執行脈絡) 時，會把 work item 放到 queue，然後由獨立的 worker thread 去執行。(<a href="https://docs.kernel.org/core-api/workqueue.html" title="Workqueue — The Linux Kernel  documentation">Linux Kernel Documentation</a>)</p>
+<p>這種 thread 和一般應用程式 thread 不同；它們不是為了讓你寫 app 更方便，而是為了讓 kernel 本身也能把工作拆開、延後、背景化、避免死結或長時間卡在某個 context。(<a href="https://docs.kernel.org/core-api/workqueue.html" title="Workqueue — The Linux Kernel  documentation">Linux Kernel Documentation</a>)</p>
+<hr />
+<h4 id="最容易考--最容易混淆_2">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_2" title="Permanent link"></a></h4>
+<p>第一個混淆是：</p>
+<blockquote>
+<p><strong>Kernel threads 不是因為它「有系統權限」才需要。</strong> ❌</p>
+</blockquote>
+<p>更精確地說，對一般應用程式而言，Kernel threads 的價值主要在於 <strong>kernel 可見、可排程、可阻塞、可分派到多核心</strong>，不是因為每個應用程式 thread 自己拿到了核心特權。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<p>第二個混淆是：</p>
+<blockquote>
+<p><strong>User threads 也不是老舊、沒用。</strong> ❌</p>
+</blockquote>
+<p>它們在需要超大量、輕量、等待型工作時仍然很有價值；只是它們通常不該「單獨統治整個系統」，而是跟 kernel-schedulable threads 搭配。Java virtual threads 就是非常典型的例子。(<a href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Thread.html" title="Thread (Java SE 24 &amp; JDK 24)">Oracle Docs</a>)</p>
+<p>第三個混淆是：</p>
+<blockquote>
+<p><strong>今天你在 Linux 寫 <code>pthread</code>，不代表你正在用「純 user threads」。</strong></p>
+</blockquote>
+<p>Linux 的現代 <code>pthreads</code> 是 1:1 implementation，這是 man7 直接寫的。也就是說，今天很多課本上叫你背的分類，跟真實系統 API 名稱不能直接畫等號。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">man7.org</a>)</p>
+<hr />
+<h4 id="小結_2">小結<a class="headerlink" href="#小結_2" title="Permanent link"></a></h4>
+<p>你把這題記成下面這段，最穩：</p>
+<blockquote>
+<p><strong>User threads(使用者層執行緒)</strong> 的價值在於輕量、切換快、適合管理大量細小或等待型任務；<br />
+<strong>Kernel threads(核心可排程執行緒)</strong> 的價值在於 OS 看得見它們，能正確處理 blocking I/O、preemption(搶先)、以及 multicore parallelism(多核心平行)。<br />
+不能全部都用 User threads，因為一旦 OS 看不到每個 thread，就容易出現「一個 block 全部卡住」和「無法真正吃滿多核心」的問題；<br />
+也不能只靠大量 Kernel threads，因為它們的 stack 與 OS 資源成本較高。<br />
+所以現代系統常採 <strong>混合策略</strong>：底層靠 kernel-schedulable threads，上層再疊 user-mode scheduling。 (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+</blockquote>
+<hr />
+<h4 id="考試背誦版">考試背誦版<a class="headerlink" href="#考試背誦版" title="Permanent link"></a></h4>
+<p><strong>為何需要兩種 thread？</strong><br />
+因為 User threads 提供低開銷與高數量的工作管理，而 Kernel threads 提供 OS 可見的排程、blocking I/O 處理與多核心平行能力。 (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<p><strong>什麼情況需要 Kernel threads？</strong><br />
+當我們需要真正利用多核心、需要 OS 個別排程 thread、或 thread 可能進行 blocking system calls / blocking I/O 時。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Microsoft Learn</a>)</p>
+<p><strong>為何不能全部都用 User threads？</strong><br />
+因為 OS 看不到每個 user thread，可能造成一個 blocking call 讓整批停住，而且難以真正平行跑在多核心上。 (<a href="https://stackoverflow.com/questions/34348095/why-cans-a-thread-make-a-blocking-system-call-user-level-threads" title="Why can's a thread make a blocking system call (user level threads)? - Stack Overflow">Stack Overflow</a>)</p>
+<p>下一則我可以直接幫你整理成「User threads / Kernel threads / Many-to-One / One-to-One / Many-to-Many」一張總表。</p>
+<h2 id="多執行緒模式">多執行緒模式<a class="headerlink" href="#多執行緒模式" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%204-6.png" /><br />
+<img alt="alt text" src="images/ch%204-7.png" /></p>
+<h3 id="講解_2">講解<a class="headerlink" href="#講解_2" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="這段在回答什麼問題_1">這段在回答什麼問題<a class="headerlink" href="#這段在回答什麼問題_1" title="Permanent link"></a></h4>
+<p>這四種模型在回答的是同一件事：</p>
+<p><strong>「使用者看到的 thread，最後到底怎麼對應到核心(kernel)能排程的 thread？」</strong></p>
+<p>你可以把它想成：</p>
+<ul>
+<li>User thread(使用者執行緒) = 應用程式自己想切出來的工作單位</li>
+<li>Kernel thread(核心執行緒) = 作業系統真正能拿去排班到 CPU 上跑的單位</li>
+</ul>
+<p>投影片的重點就是：<strong>User thread 和 Kernel thread 的對映(mapping)方式不同，會直接影響平行度(parallelism)、blocking behavior(阻塞行為)、建立成本與實作複雜度</strong>。你的課本明確列出四種：Many-to-One、One-to-One、Many-to-Many、Two-level model。</p>
+<hr />
+<h4 id="先講直覺_1">先講直覺<a class="headerlink" href="#先講直覺_1" title="Permanent link"></a></h4>
+<p>把 User thread 想成「公司裡分出去的工作」，Kernel thread 想成「真正能開上高速公路的貨車」。</p>
+<ul>
+<li>你有很多工作，但只有 <strong>1 台貨車</strong>：這就是 <strong>Many-to-One</strong></li>
+<li>每個工作都配 <strong>1 台貨車</strong>：這就是 <strong>One-to-One</strong></li>
+<li>很多工作共用 <strong>幾台貨車</strong>：這就是 <strong>Many-to-Many</strong></li>
+<li>平常很多工作共用幾台貨車，但<strong>某些重要工作可以直接綁定專屬貨車</strong>：這就是 <strong>Two-level model</strong></li>
+</ul>
+<p>所以你一看到這四種模型，腦中先不要背定義，先問：</p>
+<p><strong>「到底有幾個 user threads？幾個 kernel threads？有沒有綁定？」</strong></p>
+<hr />
+<h4 id="核心概念_2">核心概念<a class="headerlink" href="#核心概念_2" title="Permanent link"></a></h4>
+<p>先記一個最重要的判斷表：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>對映方式</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Many-to-One</td>
+<td>多個 user threads → 1 個 kernel thread</td>
+<td>建立快、管理輕</td>
+<td>一個 blocking 全卡住，不能真正多核心平行</td>
+</tr>
+<tr>
+<td>One-to-One</td>
+<td>1 個 user thread → 1 個 kernel thread</td>
+<td>可真正平行、blocking 影響較小</td>
+<td>建立與切換成本較高，thread 數量受限制</td>
+</tr>
+<tr>
+<td>Many-to-Many</td>
+<td>多個 user threads → 多個 kernel threads</td>
+<td>兼顧彈性與平行性</td>
+<td>實作複雜</td>
+</tr>
+<tr>
+<td>Two-level</td>
+<td>類似 M:M，但允許某些 user thread 綁定某個 kernel thread</td>
+<td>比 M:M 更彈性</td>
+<td>更複雜</td>
+</tr>
+</tbody>
+</table>
+<p>這些點在你的投影片中都有直接寫到：Many-to-One 會讓一個 thread blocking 導致全部卡住，且無法善用 multicore；One-to-One 是每個 user thread 對一個 kernel thread，支援 multiprocessors，但 thread 數受 kernel thread 成本限制；Many-to-Many 是 many user threads 對到較少或相等數量的 kernel threads；Two-level model 則是在 M:M 上額外允許綁定(bind)某個 user thread 到 kernel thread。</p>
+<hr />
+<h4 id="關係--流程--因果_2">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_2" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A[Application 建立 User Threads] --&gt; B{如何對映到 Kernel Threads?}
+
+    B --&gt; C[Many-to-One&lt;br&gt;多個 U → 1 個 K]
+    B --&gt; D[One-to-One&lt;br&gt;1 個 U → 1 個 K]
+    B --&gt; E[Many-to-Many&lt;br&gt;多個 U → 多個 K]
+    B --&gt; F[Two-level&lt;br&gt;M:M + 可綁定]
+
+    C --&gt; C1[建立快]
+    C --&gt; C2[一個 blocking 全卡]
+    C --&gt; C3[無法有效利用多核心]
+
+    D --&gt; D1[可真正平行]
+    D --&gt; D2[每建一個 U 幾乎都要建一個 K]
+    D --&gt; D3[成本較高]
+
+    E --&gt; E1[較彈性]
+    E --&gt; E2[可控制 K 的數量]
+    E --&gt; E3[較複雜]
+
+    F --&gt; F1[一般 thread 可共用 K]
+    F --&gt; F2[重要 thread 可綁定專屬 K]</code></pre>
+<p>更正式一點講，因果是這樣：</p>
+<ol>
+<li><strong>Kernel 才是最後真正排到 CPU 的那層</strong></li>
+<li>
+<p>所以如果很多 user threads 最後只對到 <strong>1 個 kernel thread</strong></p>
+</li>
+<li>
+<p>那 OS 其實只看到 <strong>1 個可排程實體</strong></p>
+</li>
+<li>因此無法在多核心上真正同時跑多個 thread</li>
+<li>
+<p>如果每個 user thread 都有自己的 kernel thread</p>
+</li>
+<li>
+<p>OS 可以直接把它們分散到不同 CPU</p>
+</li>
+<li>但你付出的代價是 kernel thread 建立與管理成本</li>
+<li>
+<p>如果改成 many-to-many</p>
+</li>
+<li>
+<p>就是在「效能」和「成本」中間折衷</p>
+</li>
+<li>
+<p>Two-level model 再往前一步</p>
+</li>
+<li>
+<p>讓你在折衷架構裡，對少數重要 thread 保留專屬通道</p>
+</li>
+</ol>
+<p>這個理解也和 Oracle 舊版 Solaris/JDK 文件一致：Many-to-One 只能讓一個 schedulable entity(可排程實體)被 OS 看見，因此 concurrency 有限且無法有效利用 multiprocessor；One-to-One 則讓每個 user thread 都被 kernel 知道；Many-to-Many 由 user-level library 在 kernel threads 之上做排程。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle Docs</a>)</p>
+<hr />
+<h4 id="四種模型逐一重講">四種模型逐一重講<a class="headerlink" href="#四種模型逐一重講" title="Permanent link"></a></h4>
+<h4 id="1-many-to-one-model多對一模式">1. Many-to-One model(多對一模式)<a class="headerlink" href="#1-many-to-one-model多對一模式" title="Permanent link"></a></h4>
+<p><strong>直覺：</strong> 很多工作共用一台貨車。</p>
+<p>投影片寫得很直接：</p>
+<ul>
+<li>many user-level threads 對到 single kernel-level thread</li>
+<li>one thread blocking causes all to block</li>
+<li>multicore 上不能真正 parallel</li>
+<li>現在很少系統使用，因為不能利用 multiple processing cores</li>
+<li>例子：Solaris Green Threads、GNU Portable Threads。</li>
+</ul>
+<h5 id="為什麼會這樣">為什麼會這樣<a class="headerlink" href="#為什麼會這樣" title="Permanent link"></a></h5>
+<p>因為作業系統只看到 <strong>1 個 kernel thread</strong>。<br />
+所以即使你程式裡面開了 100 個 user threads，對 OS 來說仍然像只有 1 條真正可排程的執行路線。</p>
+<h5 id="生活化例子_4">生活化例子<a class="headerlink" href="#生活化例子_4" title="Permanent link"></a></h5>
+<p>你在餐廳有 5 個服務生，但店裡只有 <strong>1 台送餐機器人</strong>能進廚房拿餐。<br />
+只要那台機器人卡住，5 個服務生全部都得等。</p>
+<h5 id="最容易混淆">最容易混淆<a class="headerlink" href="#最容易混淆" title="Permanent link"></a></h5>
+<p>很多人會以為「很多 thread = 一定比較快」。<br />
+❌ 不一定。<br />
+如果它們最後只映射到 <strong>1 個 kernel thread</strong>，那只是<strong>邏輯上很多條工作線</strong>，不是<strong>實體上真的平行</strong>。</p>
+<p>Oracle 對 Many-to-One 的說明也同樣指出：所有 thread activity 都侷限於 user space，且同一時間只有一個 thread 能接觸 kernel，因此 multiprocessors 無法被有效利用。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle Docs</a>)</p>
+<hr />
+<h4 id="2-one-to-one-model一對一模式">2. One-to-One model(一對一模式)<a class="headerlink" href="#2-one-to-one-model一對一模式" title="Permanent link"></a></h4>
+<p><strong>直覺：</strong> 每個工作都給一台貨車。</p>
+<p>投影片的定義是：</p>
+<ul>
+<li>each user thread map to a kernel thread</li>
+<li>建 user thread 也要建 kernel thread</li>
+<li>supporting multiprocessors</li>
+<li>但 thread 數量會被 kernel thread 建立成本限制</li>
+<li>例子：Windows NT/XP/2000、Linux、Solaris 9 之後。</li>
+</ul>
+<h5 id="為什麼它常見">為什麼它常見<a class="headerlink" href="#為什麼它常見" title="Permanent link"></a></h5>
+<p>因為它很好理解，也比較符合現代多核心系統的需求。<br />
+每個 user thread 都有對應 kernel thread，OS 可以直接排程到不同 CPU 核心。</p>
+<h5 id="生活化例子_5">生活化例子<a class="headerlink" href="#生活化例子_5" title="Permanent link"></a></h5>
+<p>你有 4 個外送訂單，就派 4 台機車。<br />
+這樣 4 個外送員可以同時跑不同路線。</p>
+<h5 id="代價是什麼">代價是什麼<a class="headerlink" href="#代價是什麼" title="Permanent link"></a></h5>
+<p>每多一個 thread，就多一份 kernel 端管理成本。<br />
+這些成本包括建立、排程、context switch(內容切換)、stack 與 kernel bookkeeping(管理資料)。</p>
+<h5 id="最容易考">最容易考<a class="headerlink" href="#最容易考" title="Permanent link"></a></h5>
+<p>老師很愛考：<br />
+<strong>「為什麼 One-to-One 支援 multiprocessor，但數量受限？」</strong></p>
+<p>答案就是：<br />
+因為每個 user thread 都對應一個 kernel thread，所以可被 OS 分散到多核心；但也因為每個 thread 都是 kernel 要管的實體，所以成本較高。</p>
+<p>另外，Linux 現代執行緒實作通常以 POSIX threads 映射到 kernel schedulable entities，實務上屬於 One-to-One 類型；社群討論也普遍認為現代通用系統幾乎都不再採 Many-to-One。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<hr />
+<h4 id="3-many-to-many-model多對多模式">3. Many-to-Many model(多對多模式)<a class="headerlink" href="#3-many-to-many-model多對多模式" title="Permanent link"></a></h4>
+<p><strong>直覺：</strong> 很多工作，共用幾台貨車。</p>
+<p>投影片給的定義是：</p>
+<ul>
+<li>many user-level threads 對到 smaller or equal number of kernel threads</li>
+<li>kernel thread 數量可依 application 或 machine 決定</li>
+<li>例子：Solaris prior to version 9、Windows NT/2000 搭配 ThreadFiber package。</li>
+</ul>
+<h5 id="這模型想解決什麼">這模型想解決什麼<a class="headerlink" href="#這模型想解決什麼" title="Permanent link"></a></h5>
+<p>它想同時避開前兩者的缺點：</p>
+<ul>
+<li>不想像 Many-to-One 一樣，全部卡在一條 kernel thread 上</li>
+<li>也不想像 One-to-One 一樣，每開一條 user thread 都付一條 kernel thread 的成本</li>
+</ul>
+<p>所以它的想法是：</p>
+<ul>
+<li>應用程式可以開很多 user threads</li>
+<li>但底層只維持一部分 kernel threads</li>
+<li>user-level library 再把 runnable user threads 排到這些 kernel threads 上</li>
+</ul>
+<h5 id="生活化例子_6">生活化例子<a class="headerlink" href="#生活化例子_6" title="Permanent link"></a></h5>
+<p>你有 100 張訂單，但店裡不需要 100 台機車。<br />
+你可能只需要 8 台機車輪流送，就能讓整體效率很高。</p>
+<h5 id="為什麼比較難">為什麼比較難<a class="headerlink" href="#為什麼比較難" title="Permanent link"></a></h5>
+<p>因為現在不只 OS 在排程，<strong>user-level thread library 也在排程</strong>。<br />
+也就是說你有兩層排程邏輯，實作和除錯都比較複雜。</p>
+<p>Oracle 舊 Solaris 文件也描述了這一點：Many-to-Many 由 user-level thread library 在 kernel threads 之上進行排程，kernel 只管理目前活躍的那些 threads。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle Docs</a>)</p>
+<hr />
+<h4 id="4-two-level-model二層模式">4. Two-level Model(二層模式)<a class="headerlink" href="#4-two-level-model二層模式" title="Permanent link"></a></h4>
+<p><strong>直覺：</strong> 平常很多工作共用幾台貨車，但 VIP 工作可綁一台專車。</p>
+<p>投影片寫的是：</p>
+<ul>
+<li>Similar to M:M</li>
+<li>except that it allows a user thread to be bound to a kernel thread</li>
+<li>例子：IRIX、HP-UX、Tru64 UNIX、Solaris 8 and earlier。</li>
+</ul>
+<h5 id="這句話的關鍵是什麼">這句話的關鍵是什麼<a class="headerlink" href="#這句話的關鍵是什麼" title="Permanent link"></a></h5>
+<p>關鍵字是 <strong>bound</strong>。</p>
+<p>也就是：<br />
+雖然平常大部分 user threads 還是走 many-to-many 的共享模式，<br />
+但某些特殊 thread 可以直接綁定某個 kernel thread。</p>
+<h5 id="為什麼要綁">為什麼要綁<a class="headerlink" href="#為什麼要綁" title="Permanent link"></a></h5>
+<p>因為某些 thread 可能：</p>
+<ul>
+<li>對 latency(延遲) 很敏感</li>
+<li>需要比較穩定的 scheduling behavior(排程行為)</li>
+<li>常做 blocking system calls</li>
+<li>需要比較可預期的執行資源</li>
+</ul>
+<h5 id="生活化例子_7">生活化例子<a class="headerlink" href="#生活化例子_7" title="Permanent link"></a></h5>
+<p>平常員工搭公司共用車，但總經理、急件司機有專車。</p>
+<h5 id="你要怎麼跟-mm-分辨">你要怎麼跟 M:M 分辨<a class="headerlink" href="#你要怎麼跟-mm-分辨" title="Permanent link"></a></h5>
+<p>這是最容易混淆的地方：</p>
+<ul>
+<li><strong>M:M</strong>：很多 U 對很多 K，但通常沒有「保證這條 U 永遠對這條 K」</li>
+<li><strong>Two-level</strong>：本質很像 M:M，但<strong>允許特定 U 綁定特定 K</strong></li>
+</ul>
+<p>這也是投影片唯一特別加粗的差異點。</p>
+<hr />
+<h4 id="為什麼會這樣設計">為什麼會這樣設計<a class="headerlink" href="#為什麼會這樣設計" title="Permanent link"></a></h4>
+<p>其實這四種模型就是在拉扯三件事：</p>
+<ol>
+<li><strong>效能(Performance)</strong></li>
+<li><strong>平行性(Parallelism)</strong></li>
+<li><strong>管理成本(Overhead / Complexity)</strong></li>
+</ol>
+<p>你可以這樣記：</p>
+<ul>
+<li>Many-to-One：<strong>最省 kernel 成本，但平行性最差</strong></li>
+<li>One-to-One：<strong>平行性最好，但 kernel 成本高</strong></li>
+<li>Many-to-Many：<strong>折衷</strong></li>
+<li>Two-level：<strong>更彈性的折衷</strong></li>
+</ul>
+<p>Solaris 內部設計文件也提到，舊版 two-level/M:M 設計的初衷是支援非常大量的 threads，而不必每次 thread 管理都進 kernel；但後來維護 user-level scheduler 與正確處理 signal 等問題非常複雜。這也是為什麼很多現代系統最後偏向 One-to-One。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Flylib</a>)</p>
+<hr />
+<h4 id="最容易考--最容易混淆_3">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_3" title="Permanent link"></a></h4>
+<h4 id="1-concurrency並行進展-不等於-parallelism真正平行">1. Concurrency(並行進展) 不等於 Parallelism(真正平行)<a class="headerlink" href="#1-concurrency並行進展-不等於-parallelism真正平行" title="Permanent link"></a></h4>
+<p>Many-to-One 可以有 concurrency，因為多個 user threads 可以輪流前進。<br />
+但它不容易有真正的 multicore parallelism，因為底層只有 1 個 kernel thread。</p>
+<h4 id="2-blocking-問題最常考">2. Blocking 問題最常考<a class="headerlink" href="#2-blocking-問題最常考" title="Permanent link"></a></h4>
+<ul>
+<li>Many-to-One：一個 blocking，全部可能卡住</li>
+<li>One-to-One：通常只影響那條 thread</li>
+<li>Many-to-Many / Two-level：通常不會整批一起卡，因為有多個 kernel threads 可用。</li>
+</ul>
+<h4 id="3-two-level-不是全新第四種邏輯">3. Two-level 不是全新第四種邏輯<a class="headerlink" href="#3-two-level-不是全新第四種邏輯" title="Permanent link"></a></h4>
+<p>它其實是：<br />
+<strong>Many-to-Many + binding capability(綁定能力)</strong>。</p>
+<h4 id="4-現代實務上常見的是什麼">4. 現代實務上常見的是什麼<a class="headerlink" href="#4-現代實務上常見的是什麼" title="Permanent link"></a></h4>
+<p>就一般教材與現代通用 OS 實務來看，<strong>One-to-One 最常見</strong>。<br />
+你的投影片也把 Linux、Solaris 9+ 放在 One-to-One 那頁。<br />
+從官方與社群資料看，Many-to-One 多半是歷史教學模型，現代主流系統很少採用。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle Docs</a>)</p>
+<hr />
+<h4 id="小結_3">小結<a class="headerlink" href="#小結_3" title="Permanent link"></a></h4>
+<p>你只要記住一句話，這題就穩很多：</p>
+<p><strong>這四種模型的本質差別，就是 User thread(使用者執行緒) 到 Kernel thread(核心執行緒) 的對映方式。</strong></p>
+<p>再配上這個口訣：</p>
+<ul>
+<li><strong>Many-to-One</strong>：省，但會卡，不能善用多核心</li>
+<li><strong>One-to-One</strong>：直觀，可平行，但成本高</li>
+<li><strong>Many-to-Many</strong>：共享底層 kernel threads，折衷</li>
+<li><strong>Two-level</strong>：M:M 再加上「可綁定」</li>
+</ul>
+<hr />
+<h4 id="你現在可以怎麼背">你現在可以怎麼背<a class="headerlink" href="#你現在可以怎麼背" title="Permanent link"></a></h4>
+<p>最建議你用這個順序背，而不是照投影片原文死背：</p>
+<ol>
+<li>先背「誰對誰」</li>
+<li>再背「blocking 會不會整批卡」</li>
+<li>再背「能不能用多核心」</li>
+<li>最後背「成本 / 複雜度」</li>
+</ol>
+<p>這樣考試看到敘述題，你比較容易自己推回答案。</p>
+<p>你這張圖對應的教材是 Chapter 4 多執行緒。</p>
+<p>如果你要，我下一則可以直接幫你整理成：<br />
+<strong>「考試速記版 1 頁表格 + 4 題常見選擇題陷阱」</strong>。</p>
+<h3 id="為什麼user-threads要對應到kernel-thread">為什麼user threads要對應到kernel thread<a class="headerlink" href="#為什麼user-threads要對應到kernel-thread" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="這段在回答什麼問題_2">這段在回答什麼問題<a class="headerlink" href="#這段在回答什麼問題_2" title="Permanent link"></a></h4>
+<p>你問的是：</p>
+<p><strong>為什麼我們已經有 user thread(使用者執行緒) 了，還需要對應到 kernel thread(核心執行緒)？</strong></p>
+<p>最核心的一句話是：</p>
+<p><strong>因為真正能被作業系統排程到 CPU 上執行的，不是 user thread，而是 kernel thread。</strong><br />
+user thread 如果完全沒有對到任何 kernel thread，它本身就只是你程式裡的一份「執行狀態資料」，還不是真正會跑的實體。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<hr />
+<h4 id="先講直覺_2">先講直覺<a class="headerlink" href="#先講直覺_2" title="Permanent link"></a></h4>
+<p>你可以把它想成：</p>
+<ul>
+<li>User thread = 你自己在公司內部排的工作單</li>
+<li>Kernel thread = 真正拿到工廠機台使用權的人</li>
+</ul>
+<p>你在紙上排了 10 張工作單，不代表機器就會自己開始做。<br />
+<strong>一定要有真正被工廠主管承認、能排上機台的人去執行。</strong></p>
+<p>在作業系統裡，這個「工廠主管」就是 <strong>scheduler(排程器)</strong>。<br />
+而 scheduler 真正認得、真正會分配 CPU 的對象，是 <strong>kernel thread</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<p>所以答案不是「user thread 沒用」，而是：</p>
+<p><strong>user thread 想要真的往前跑，最後一定要落到某個 kernel thread 上。</strong></p>
+<hr />
+<h4 id="核心概念_3">核心概念<a class="headerlink" href="#核心概念_3" title="Permanent link"></a></h4>
+<p>先把兩者角色分清楚：</p>
+<h5 id="user-thread使用者執行緒">User thread(使用者執行緒)<a class="headerlink" href="#user-thread使用者執行緒" title="Permanent link"></a></h5>
+<ul>
+<li>由 user-space(使用者空間) 的 thread library / runtime 管理</li>
+<li>建立通常比較快、比較輕量</li>
+<li>kernel 不一定直接知道它的存在(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<h5 id="kernel-thread核心執行緒">Kernel thread(核心執行緒)<a class="headerlink" href="#kernel-thread核心執行緒" title="Permanent link"></a></h5>
+<ul>
+<li>由 OS kernel(作業系統核心) 管理</li>
+<li>是 scheduler 真正拿來分配 CPU 的對象</li>
+<li>能處理 blocking I/O、preemption(搶先式排程)、多核心分派等事情(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<p>所以不是說 user thread 不重要，而是：</p>
+<p><strong>user thread 比較像「程式層的工作抽象」，kernel thread 才是「系統層的可執行實體」。</strong></p>
+<hr />
+<h4 id="為什麼一定要有對應關係">為什麼一定要有對應關係<a class="headerlink" href="#為什麼一定要有對應關係" title="Permanent link"></a></h4>
+<h4 id="1-因為-cpu-排程是-kernel-在做不是-application-在做">1. 因為 CPU 排程是 kernel 在做，不是 application 在做<a class="headerlink" href="#1-因為-cpu-排程是-kernel-在做不是-application-在做" title="Permanent link"></a></h4>
+<p>CPU 不會直接問你的程式：</p>
+<blockquote>
+<p>你今天想跑哪個 user thread？</p>
+</blockquote>
+<p>CPU 是由 kernel 排程器控制的。<br />
+所以如果一個 user thread 沒有落到某個 kernel thread 上，kernel 根本不知道要把哪個執行流送去 CPU。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<p>這就像：</p>
+<ul>
+<li>你在 Notion 寫了很多待辦事項</li>
+<li>但公司門禁系統只認員工卡</li>
+</ul>
+<p>那待辦事項本身不會進辦公室。<br />
+<strong>一定要綁到某個拿員工卡的人，事情才真的開始做。</strong></p>
+<hr />
+<h4 id="2-因為-user-thread-自己不能直接取得-cpu">2. 因為 user thread 自己不能直接取得 CPU<a class="headerlink" href="#2-因為-user-thread-自己不能直接取得-cpu" title="Permanent link"></a></h4>
+<p>這是最容易忽略的一點。</p>
+<p>User thread 只是 user-space 裡的一種執行模型。<br />
+它可以描述：</p>
+<ul>
+<li>目前程式跑到哪</li>
+<li>stack(堆疊)</li>
+<li>register state(暫存器狀態)</li>
+<li>下一步要做什麼</li>
+</ul>
+<p>但它<strong>不是 kernel scheduler 眼中的原生排程單位</strong>。<br />
+所以它不能自己說「我要去 CPU core 2 跑」。<br />
+這件事必須透過 kernel thread 才行。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<hr />
+<h4 id="3-因為-blocking-system-call阻塞式系統呼叫-需要-kernel-介入">3. 因為 blocking system call(阻塞式系統呼叫) 需要 kernel 介入<a class="headerlink" href="#3-因為-blocking-system-call阻塞式系統呼叫-需要-kernel-介入" title="Permanent link"></a></h4>
+<p>像是：</p>
+<ul>
+<li>read()</li>
+<li>open()</li>
+<li>network I/O</li>
+<li>sleep()</li>
+<li>wait()</li>
+</ul>
+<p>這些都會進 kernel。</p>
+<p>如果你的 thread 模型是很多 user threads 共用 1 個 kernel thread，那麼只要其中一個 user thread 進入 blocking system call，<strong>那個 kernel thread 被卡住時，其他映射在它上面的 user threads 也沒辦法前進</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<p>所以我們需要 mapping(對應)，而且 mapping 方式會直接影響：</p>
+<ul>
+<li>一個 thread 卡住時，會不會拖累其他 thread</li>
+<li>系統能不能有效處理 I/O</li>
+<li>整體 responsiveness(回應性) 好不好</li>
+</ul>
+<hr />
+<h4 id="4-因為多核心-parallelism平行執行-要靠-kernel-thread">4. 因為多核心 parallelism(平行執行) 要靠 kernel thread<a class="headerlink" href="#4-因為多核心-parallelism平行執行-要靠-kernel-thread" title="Permanent link"></a></h4>
+<p>假設你有 8 核心 CPU。</p>
+<p>如果你的程式裡有 100 個 user threads，但最後都只對到 <strong>1 個 kernel thread</strong>，那對 OS 來說，你仍然只有 <strong>1 個真正可排程的實體</strong>。<br />
+結果就是：</p>
+<ul>
+<li>邏輯上好像很多 thread</li>
+<li>實際上卻沒辦法同時跑在多個核心上</li>
+</ul>
+<p>這就是為什麼 purely user-level threading(純使用者層執行緒) 很難充分利用 multicore(多核心)。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<p>你可以把它想成：</p>
+<ul>
+<li>你有 8 個廚房爐口</li>
+<li>但只有 1 個廚師能被廚房主管派工</li>
+</ul>
+<p>那再多菜單都沒用，因為真正能站上爐口的人只有 1 個。</p>
+<hr />
+<h4 id="關係--流程--因果_3">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_3" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A[Program 建立 User Threads] --&gt; B[User-space thread library 管理]
+    B --&gt; C{是否對應到 Kernel Thread?}
+
+    C --&gt;|否| D[只是程式內部的執行狀態&lt;br&gt;不能直接被 OS 排到 CPU]
+    C --&gt;|是| E[Kernel scheduler 看得到可執行實體]
+    E --&gt; F[分配到 CPU core 執行]
+
+    E --&gt; G[可處理 blocking I/O]
+    E --&gt; H[可在 multicore 上平行]
+    E --&gt; I[可被 OS preemptive scheduling 管理]</code></pre>
+<hr />
+<h4 id="生活化例子_8">生活化例子<a class="headerlink" href="#生活化例子_8" title="Permanent link"></a></h4>
+<p>假設你在玩一個餐廳模擬遊戲。</p>
+<p>你在遊戲介面中開了很多「工作槽」：</p>
+<ul>
+<li>一個切菜</li>
+<li>一個煮麵</li>
+<li>一個送餐</li>
+<li>一個結帳</li>
+</ul>
+<p>這些工作槽就像 <strong>user threads</strong>。</p>
+<p>但真正能去碰實體廚具與收銀機的，是後台系統認可的「員工帳號」，這些像 <strong>kernel threads</strong>。</p>
+<p>所以：</p>
+<ul>
+<li>你可以在前台畫很多工作流程</li>
+<li>但如果後台只給你 1 個員工帳號</li>
+<li>那所有事情還是得輪流做</li>
+</ul>
+<p>這就是「為什麼 user thread 最後要對應到 kernel thread」。</p>
+<hr />
+<h4 id="為什麼不乾脆全部只用-user-thread-就好">為什麼不乾脆全部只用 user thread 就好<a class="headerlink" href="#為什麼不乾脆全部只用-user-thread-就好" title="Permanent link"></a></h4>
+<p>因為只用 user thread 雖然有優點，但也有硬傷。</p>
+<h5 id="優點">優點<a class="headerlink" href="#優點" title="Permanent link"></a></h5>
+<ul>
+<li>建立快</li>
+<li>切換快</li>
+<li>user-space 管理彈性大(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<h5 id="缺點">缺點<a class="headerlink" href="#缺點" title="Permanent link"></a></h5>
+<ul>
+<li>kernel 看不到它們</li>
+<li>遇到 blocking system call 很麻煩</li>
+<li>很難善用多核心(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<p>所以系統設計才會出現：</p>
+<ul>
+<li>Many-to-One</li>
+<li>One-to-One</li>
+<li>Many-to-Many</li>
+</ul>
+<p>本質上就是在回答：</p>
+<p><strong>user threads 到底要怎麼接到 kernel threads，才能兼顧成本與效能。</strong>(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Stack Overflow</a>)</p>
+<hr />
+<h4 id="最容易混淆_1">最容易混淆<a class="headerlink" href="#最容易混淆_1" title="Permanent link"></a></h4>
+<h4 id="1-對應不一定代表一對一">1. 「對應」不一定代表一對一<a class="headerlink" href="#1-對應不一定代表一對一" title="Permanent link"></a></h4>
+<p>這點很重要。</p>
+<p>你問「為什麼要對應」，不代表一定是：</p>
+<ul>
+<li>1 個 user thread 對 1 個 kernel thread</li>
+</ul>
+<p>也可以是：</p>
+<ul>
+<li>多個 user threads 對 1 個 kernel thread</li>
+<li>多個 user threads 對多個 kernel threads</li>
+</ul>
+<p>重點不是一定要 one-to-one，<br />
+而是 <strong>最終一定要有某種 relationship(關係)，讓 user thread 能透過 kernel thread 被 CPU 執行。</strong>(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<h4 id="2-user-thread-不是假的但它不是-os-原生排程單位">2. user thread 不是假的，但它不是 OS 原生排程單位<a class="headerlink" href="#2-user-thread-不是假的但它不是-os-原生排程單位" title="Permanent link"></a></h4>
+<p>很多人會誤會成：</p>
+<ul>
+<li>user thread 不是真 thread</li>
+</ul>
+<p>這樣講不夠精確。</p>
+<p>更準確的說法是：</p>
+<ul>
+<li>它在程式層面是真正有意義的執行流</li>
+<li>但在 OS 排程層面，通常需要透過 kernel thread 才能真正被 CPU 執行(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<h4 id="3-kernel-thread-比較重不代表一定比較差">3. kernel thread 比較重，不代表一定比較差<a class="headerlink" href="#3-kernel-thread-比較重不代表一定比較差" title="Permanent link"></a></h4>
+<p>它比較重，是因為 kernel 要管它。<br />
+但也正因為 kernel 有管，它才能支援：</p>
+<ul>
+<li>blocking I/O</li>
+<li>preemption</li>
+<li>multicore scheduling(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<p>所以不是誰絕對比較好，而是取捨不同。</p>
+<hr />
+<h4 id="小結_4">小結<a class="headerlink" href="#小結_4" title="Permanent link"></a></h4>
+<p>你可以直接背這一句：</p>
+<p><strong>因為 user thread 本身只是使用者空間中的執行抽象，真正能被作業系統排程到 CPU 的是 kernel thread，所以 user thread 想要真正執行，就必須和 kernel thread 建立對應關係。</strong> (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</p>
+<p>再壓縮成考試版：</p>
+<ul>
+<li>CPU 排程看的是 kernel thread</li>
+<li>blocking / I/O 要靠 kernel</li>
+<li>multicore 平行也要靠 kernel</li>
+<li>所以 user thread 最後一定得映射到 kernel thread 上(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Stack Overflow</a>)</li>
+</ul>
+<hr />
+<h4 id="你現在可以這樣理解這句話">你現在可以這樣理解這句話<a class="headerlink" href="#你現在可以這樣理解這句話" title="Permanent link"></a></h4>
+<p>不是：</p>
+<blockquote>
+<p>user thread 很弱，所以要靠 kernel thread</p>
+</blockquote>
+<p>而是：</p>
+<blockquote>
+<p>user thread 負責「程式內部的工作切分」；kernel thread 負責「讓這些工作真的被系統排上 CPU 去跑」。</p>
+</blockquote>
+<p>這樣就會通了。</p>
+<p>如果你要，我下一則可以直接幫你畫一張：</p>
+<p><strong>Many-to-One / One-to-One / Many-to-Many 到底怎麼對應的超直覺圖解</strong></p>
+<h3 id="他們兩個的關係就類似process在ready-queue和正在被執行嗎">他們兩個的關係就類似process在ready queue和正在被執行嗎<a class="headerlink" href="#他們兩個的關係就類似process在ready-queue和正在被執行嗎" title="Permanent link"></a></h3>
+<p>已啟用教學模式</p>
+<h4 id="先直接回答">先直接回答<a class="headerlink" href="#先直接回答" title="Permanent link"></a></h4>
+<p><strong>部分像，但不完全對。</strong> ✅</p>
+<p>比較精確地說：</p>
+<ul>
+<li>
+<p><strong>process 在 ready queue / running</strong><br />
+  這是在描述<strong>同一個排程實體的狀態變化</strong>：它現在是「準備跑」還是「正在跑」。</p>
+</li>
+<li>
+<p><strong>user thread / kernel thread</strong><br />
+  這不是在講同一個東西的兩種狀態，<strong>而是在講兩個不同層級的執行單位之間的對應關係(mapping)</strong>。在 many-to-many 的 Solaris 模型裡，user thread 先在 user-level run queue 等待，被分配到某個 LWP 後才可能真的往 CPU 前進；而「On LWP」也還不保證它此刻就在 CPU 上跑，因為底下的 LWP 自己還要等 kernel 排程。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+</li>
+</ul>
+<hr />
+<h4 id="這段在回答什麼問題_3">這段在回答什麼問題<a class="headerlink" href="#這段在回答什麼問題_3" title="Permanent link"></a></h4>
+<p>你其實是在問：</p>
+<p><strong>「user thread 和 kernel thread 的關係，能不能類比成 process 的 ready / running？」</strong></p>
+<p>答案是：</p>
+<p><strong>只能類比一小部分，但不能直接畫等號。</strong><br />
+因為這兩組概念在回答的問題不一樣。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<hr />
+<h4 id="先講直覺_3">先講直覺<a class="headerlink" href="#先講直覺_3" title="Permanent link"></a></h4>
+<p>你可以這樣想：</p>
+<ul>
+<li>
+<p><strong>ready / running</strong>：是在問<br />
+<strong>「同一個人現在是在排隊，還是在工作？」</strong></p>
+</li>
+<li>
+<p><strong>user thread / kernel thread</strong>：是在問<br />
+<strong>「前台登記的工作單，最後是交給哪位正式員工去做？」</strong></p>
+</li>
+</ul>
+<p>所以：</p>
+<ul>
+<li>ready / running = <strong>狀態(state)</strong></li>
+<li>user thread / kernel thread = <strong>層級關係 + 對映關係(mapping relationship)</strong></li>
+</ul>
+<hr />
+<h4 id="正式概念">正式概念<a class="headerlink" href="#正式概念" title="Permanent link"></a></h4>
+<h4 id="1-ready--running-是狀態">1. Ready / Running 是「狀態」<a class="headerlink" href="#1-ready--running-是狀態" title="Permanent link"></a></h4>
+<p>以作業系統排程來看，ready 的意思是：</p>
+<ul>
+<li>這個執行單位已經可以跑</li>
+<li>但還沒拿到 CPU</li>
+</ul>
+<p>running 的意思是：</p>
+<ul>
+<li>它現在已經拿到 CPU 正在執行</li>
+</ul>
+<p>這兩個是在描述<strong>同一個 schedulable entity(可排程實體)</strong> 的不同時刻。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">Oracle</a>)</p>
+<hr />
+<h4 id="2-user-thread--kernel-thread-是兩層">2. User thread / Kernel thread 是「兩層」<a class="headerlink" href="#2-user-thread--kernel-thread-是兩層" title="Permanent link"></a></h4>
+<p>Oracle/Solaris 相關文件把 user thread 和底下的 LWP / kernel scheduling 分成兩層來看：</p>
+<ul>
+<li>user thread 可能在 user-level run queue 中等待</li>
+<li>當 user-level scheduler 幫它找到一個 LWP，它就進入 <strong>On LWP</strong></li>
+<li>但即使 <strong>On LWP</strong>，也不代表已經真的在 CPU 上跑，因為那個 LWP 還可能在睡眠、等處理器、或被 kernel 排程器延後。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</li>
+</ul>
+<p>這就表示：</p>
+<p><strong>user thread → kernel thread/LWP → CPU</strong><br />
+中間其實有兩層排程，不是一個單純的 ready/run 狀態切換。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<hr />
+<h4 id="你這個類比哪裡像">你這個類比哪裡像<a class="headerlink" href="#你這個類比哪裡像" title="Permanent link"></a></h4>
+<p>像的地方在這裡：</p>
+<p>如果我們只看 <strong>某一條 user thread</strong>，那它確實也可能有點像：</p>
+<ul>
+<li>在 user-level run queue 裡等</li>
+<li>被挑中後掛到某個 LWP 上</li>
+<li>再由 kernel 排到 CPU</li>
+</ul>
+<p>這裡面那個「等資源 → 真正拿到資源」的感覺，<strong>跟 ready → running 有一點像</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<p>也就是說，你的直覺<strong>不是完全錯</strong>。✅</p>
+<hr />
+<h4 id="但關鍵差別在哪">但關鍵差別在哪<a class="headerlink" href="#但關鍵差別在哪" title="Permanent link"></a></h4>
+<p>差別在於：</p>
+<h4 id="a-ready--running-是同一層">A. ready / running 是同一層<a class="headerlink" href="#a-ready--running-是同一層" title="Permanent link"></a></h4>
+<p>這是排程器在描述<strong>同一個排程對象</strong>的狀態。</p>
+<h4 id="b-user-thread--kernel-thread-是跨層">B. user thread / kernel thread 是跨層<a class="headerlink" href="#b-user-thread--kernel-thread-是跨層" title="Permanent link"></a></h4>
+<p>這是在描述：</p>
+<ul>
+<li>user-space 的執行流</li>
+<li>如何透過 kernel-visible 的執行實體去真的執行</li>
+</ul>
+<p>它們不是同一個東西從 ready 變 running，<br />
+而是 <strong>上層工作單位要先綁到底層可排程單位</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<hr />
+<h4 id="用一個更準的比喻">用一個更準的比喻<a class="headerlink" href="#用一個更準的比喻" title="Permanent link"></a></h4>
+<p>這樣比喻會更準：</p>
+<ul>
+<li><strong>User thread</strong> = 公司內部任務單</li>
+<li><strong>Kernel thread / LWP</strong> = 有門禁卡、能進工廠的人</li>
+<li><strong>Running on CPU</strong> = 真的站上機台開始加工</li>
+</ul>
+<p>那流程就是：</p>
+<ol>
+<li>任務單先在公司內部排隊</li>
+<li>某張任務單被指派給一位有門禁卡的人</li>
+<li>那位人員再去排工廠機台</li>
+<li>排到了，事情才真的做起來</li>
+</ol>
+<p>所以比較像的是這個：</p>
+<ul>
+<li>user thread 在 queue 裡等 <strong>LWP</strong></li>
+<li>LWP 在 kernel 那邊等 <strong>CPU</strong></li>
+</ul>
+<p>這是<strong>兩段等待</strong>，不是單一 ready/running。Brown 的 Solaris threads 說得很清楚：user thread 若 runnable 但還沒在 LWP 上，會在 run queue；一旦被某個 LWP 接走才變成 On LWP，而 On LWP 仍不等於正在 CPU 上執行。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<hr />
+<h4 id="關係--流程--因果_4">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_4" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A[User thread&lt;br&gt;runnable] --&gt; B[在 user-level run queue 等待]
+    B --&gt; C[被 user-level scheduler 指派到某個 LWP / kernel thread]
+    C --&gt; D[On LWP]
+    D --&gt; E[由 kernel scheduler 排到 CPU]
+    E --&gt; F[真正 running]
+
+    X[ready / running] --&gt; Y[同一個排程實體的狀態切換]
+    Z[user thread / kernel thread] --&gt; W[不同層級之間的映射關係]</code></pre>
+<hr />
+<h4 id="所以你這句話要怎麼修正才會變正確">所以你這句話要怎麼修正才會變正確<a class="headerlink" href="#所以你這句話要怎麼修正才會變正確" title="Permanent link"></a></h4>
+<p>你原本的說法：</p>
+<blockquote>
+<p>他們兩個的關係就類似 process 在 ready queue 和正在被執行嗎</p>
+</blockquote>
+<p>我會把它修成：</p>
+<blockquote>
+<p><strong>不完全是。ready queue 與 running 是同一個實體的狀態；user thread 與 kernel thread 則是不同層級執行單位之間的對映關係。</strong></p>
+</blockquote>
+<p>如果你想保留你的直覺，也可以說成：</p>
+<blockquote>
+<p><strong>user thread 被掛到 kernel thread/LWP 上，這一步有點像「從等待可執行資源走向可真正執行」；但它不是單純的 ready → running，而是多了一層映射。</strong></p>
+</blockquote>
+<p>這樣就非常準了。✅</p>
+<hr />
+<h4 id="最容易混淆_2">最容易混淆<a class="headerlink" href="#最容易混淆_2" title="Permanent link"></a></h4>
+<h4 id="1-不要把-mapping-當成-state">1. 不要把 mapping 當成 state<a class="headerlink" href="#1-不要把-mapping-當成-state" title="Permanent link"></a></h4>
+<ul>
+<li>mapping = 這條 user thread 由誰承載</li>
+<li>state = 它現在在等、在跑、還是被 block</li>
+</ul>
+<p>這兩件事不同。</p>
+<h4 id="2-不要把-on-lwp-當成已經在-cpu-上跑">2. 不要把 On LWP 當成已經在 CPU 上跑<a class="headerlink" href="#2-不要把-on-lwp-當成已經在-cpu-上跑" title="Permanent link"></a></h4>
+<p>Brown 的文件明確說：<strong>thread cannot be actually running on a CPU unless it is On LWP, but being On LWP does not imply that a thread is running on a CPU</strong>。也就是說，On LWP 是必要條件，但不是充分條件。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<h4 id="3-在-one-to-one-模型裡你的錯覺會更強">3. 在 one-to-one 模型裡，你的錯覺會更強<a class="headerlink" href="#3-在-one-to-one-模型裡你的錯覺會更強" title="Permanent link"></a></h4>
+<p>因為 one-to-one 時，一條 user thread 幾乎就對一條 kernel thread，所以你比較容易覺得它像同一個東西的狀態切換；但概念上仍然是<strong>兩層</strong>，只是它們綁得很緊。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">Oracle Docs</a>)</p>
+<hr />
+<h4 id="小結_5">小結<a class="headerlink" href="#小結_5" title="Permanent link"></a></h4>
+<p>你的想法有抓到一部分直覺，但要修正成這句才精確：</p>
+<p><strong>ready / running 是「狀態關係」；user thread / kernel thread 是「映射關係」。</strong></p>
+<p>如果硬要類比：</p>
+<ul>
+<li>user thread 在 user run queue 等 LWP<br />
+  有點像 ready</li>
+<li>LWP 被 kernel 排到 CPU<br />
+  才比較接近真正 running</li>
+</ul>
+<p>所以它不是一段，而是<strong>兩段式排程</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<hr />
+<h4 id="小考最安全寫法">小考最安全寫法<a class="headerlink" href="#小考最安全寫法" title="Permanent link"></a></h4>
+<p>你考試如果要寫一句最穩的：</p>
+<p><strong>User thread 與 kernel thread 不是像 ready 與 running 那樣的狀態關係，而是上層執行流與下層可排程實體之間的對映關係；真正的 running 還要等 kernel thread/LWP 被排到 CPU。</strong> (<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">布朗大學計算機科學系</a>)</p>
+<p>下一則我可以直接幫你畫出<br />
+<strong>process、user thread、kernel thread、CPU、ready queue 這五個東西的同一張總圖</strong>。</p>
+<h2 id="pthread-指令">Pthread 指令<a class="headerlink" href="#pthread-指令" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%204-8.png" /><br />
+<img alt="alt text" src="images/ch%204-9.png" /></p>
+<p>已啟用教學模式</p>
+<h4 id="這段在回答什麼問題_4">這段在回答什麼問題<a class="headerlink" href="#這段在回答什麼問題_4" title="Permanent link"></a></h4>
+<p>這三張投影片在回答的是：</p>
+<ol>
+<li><strong>怎麼建立 thread</strong>：<code>pthread_create()</code></li>
+<li><strong>怎麼等 thread 做完</strong>：<code>pthread_join()</code></li>
+<li><strong>thread 怎麼結束</strong>：<code>return</code> 或 <code>pthread_exit()</code></li>
+</ol>
+<p>但我先幫你抓一個很重要的點：</p>
+<p><strong>第三張投影片那句「pthreads exist in user space and are seen by the kernel as a single process」在現代 Linux / POSIX 脈絡下，拿來教入門直覺可以，但如果當成精確敘述，容易誤導。</strong><br />
+現代 Linux 的 POSIX threads 一般是 <strong>One-to-One model(一對一模型)</strong>，kernel 會看見可排程的 thread；不是只有看到「單一 process」而完全不知道 thread。這和你前面那幾張 thread mapping 投影片也一致。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<hr />
+<h4 id="先講直覺_4">先講直覺<a class="headerlink" href="#先講直覺_4" title="Permanent link"></a></h4>
+<p>你可以把這三個 API 想成：</p>
+<ul>
+<li><code>pthread_create()</code>：<strong>找工讀生來做事</strong></li>
+<li><code>pthread_join()</code>：<strong>主管先不要下班，等工讀生把工作做完再說</strong></li>
+<li><code>pthread_exit()</code>：<strong>工讀生做完後，正式回報「我結束了，這是我的結果」</strong></li>
+</ul>
+<p>所以整體流程其實很像：</p>
+<pre class="diagram"><code>flowchart TB
+    A[main thread 主執行緒] --&gt; B[pthread_create()&lt;br&gt;建立子執行緒]
+    B --&gt; C[child thread 開始執行 start routine]
+    C --&gt; D[return 或 pthread_exit()&lt;br&gt;子執行緒結束]
+    D --&gt; E[pthread_join()&lt;br&gt;主執行緒回收結果並確認對方已結束]</code></pre>
+<hr />
+<h4 id="1-pthread_create-在做什麼">1. <code>pthread_create()</code> 在做什麼<a class="headerlink" href="#1-pthread_create-在做什麼" title="Permanent link"></a></h4>
+<p>投影片上的 prototype 是：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">pthread_create</span><span class="p">(</span>
+<span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="o">*</span><span class="kr">thread</span><span class="p">,</span>
+<span class="w">    </span><span class="n">pthread_attr_t</span><span class="w"> </span><span class="o">*</span><span class="n">attr</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">),</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>POSIX 的意思是：<br />
+<code>pthread_create()</code> 會建立一個新 thread，讓它從你給的 <code>start_routine</code> 開始跑，並把 <code>arg</code> 當參數傳進去；成功回傳 <code>0</code>。這和投影片列的四個參數用途一致。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<hr />
+<h4 id="核心概念_4">核心概念<a class="headerlink" href="#核心概念_4" title="Permanent link"></a></h4>
+<h5 id="第一個參數-pthread_t-thread">第一個參數 <code>pthread_t *thread</code><a class="headerlink" href="#第一個參數-pthread_t-thread" title="Permanent link"></a></h5>
+<p>這是<strong>輸出用</strong>。<br />
+系統建立成功後，會把新 thread 的 ID 放進這裡，之後你要 <code>join</code> 它，就要用這個 ID。</p>
+<h5 id="第二個參數-pthread_attr_t-attr">第二個參數 <code>pthread_attr_t *attr</code><a class="headerlink" href="#第二個參數-pthread_attr_t-attr" title="Permanent link"></a></h5>
+<p>這是 thread attributes(執行緒屬性)。<br />
+最常見入門寫法都是傳 <code>NULL</code>，表示用預設值。像 stack size、detach state 之類才會用到自訂 attributes。這是 POSIX 與實務教學的一般用法。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<h5 id="第三個參數-void-start_routinevoid-">第三個參數 <code>void *(*start_routine)(void *)</code><a class="headerlink" href="#第三個參數-void-start_routinevoid-" title="Permanent link"></a></h5>
+<p>這是<strong>新 thread 真正要執行的函式</strong>。</p>
+<p>注意這個函式型別長這樣：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+</code></pre></div>
+<p>意思是：</p>
+<ul>
+<li>輸入：<code>void *</code></li>
+<li>輸出：<code>void *</code></li>
+</ul>
+<p>這樣設計是為了通用性。<br />
+你可以把任何資料地址塞進去，再在函式內自己轉型。</p>
+<h5 id="第四個參數-void-arg">第四個參數 <code>void *arg</code><a class="headerlink" href="#第四個參數-void-arg" title="Permanent link"></a></h5>
+<p>這是傳給 thread function 的參數。<br />
+通常是一個 pointer，常見是：</p>
+<ul>
+<li>傳單一變數的位址</li>
+<li>傳 struct(結構體) 的位址</li>
+</ul>
+<hr />
+<h4 id="生活化例子_9">生活化例子<a class="headerlink" href="#生活化例子_9" title="Permanent link"></a></h4>
+<p>你叫一位助教去處理作業：</p>
+<ul>
+<li><code>thread</code>：幫他辦員工編號</li>
+<li><code>attr</code>：他的工作條件</li>
+<li><code>start_routine</code>：叫他去做哪份工作</li>
+<li><code>arg</code>：給他的那份資料夾</li>
+</ul>
+<hr />
+<h4 id="2-為什麼-thread-function-一定長這樣">2. 為什麼 thread function 一定長這樣<a class="headerlink" href="#2-為什麼-thread-function-一定長這樣" title="Permanent link"></a></h4>
+<p>很多同學會問：</p>
+<blockquote>
+<p>為什麼不是 <code>int func(int x)</code>？</p>
+</blockquote>
+<p>因為 <code>pthread_create()</code> 需要一個<strong>統一規格</strong>的函式指標。<br />
+所以 POSIX 規定 thread start routine 形式為：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span>
+</code></pre></div>
+<p>這樣不管你實際想傳的是：</p>
+<ul>
+<li>一個整數</li>
+<li>一個字串</li>
+<li>一個 struct</li>
+</ul>
+<p>都可以先包成位址傳進去。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<hr />
+<h4 id="最容易混淆_3">最容易混淆<a class="headerlink" href="#最容易混淆_3" title="Permanent link"></a></h4>
+<h4 id="a-不要把整數直接硬塞進-void-">A. 不要把整數直接硬塞進 <code>void *</code><a class="headerlink" href="#a-不要把整數直接硬塞進-void-" title="Permanent link"></a></h4>
+<p>像這樣：</p>
+<div class="highlight"><pre><span></span><code><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">worker</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">   </span><span class="c1">// 不好</span>
+</code></pre></div>
+<p>這通常是不對的，因為第四個參數要的是 pointer。<br />
+應該傳位址，或明確做安全轉換。</p>
+<h4 id="b-不要傳區域變數位址後又讓它太早失效">B. 不要傳區域變數位址後又讓它太早失效<a class="headerlink" href="#b-不要傳區域變數位址後又讓它太早失效" title="Permanent link"></a></h4>
+<p>例如在某函式裡建 thread，卻把一個很快就離開 scope 的 local variable 位址傳進去，thread 之後再讀可能就出事。這和 <code>pthread_exit()</code> 回傳 local variable 位址會出問題的道理很像。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<hr />
+<h4 id="3-pthread_join-在做什麼">3. <code>pthread_join()</code> 在做什麼<a class="headerlink" href="#3-pthread_join-在做什麼" title="Permanent link"></a></h4>
+<p>投影片的 prototype：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">pthread_join</span><span class="p">(</span><span class="n">pthread_t</span><span class="w"> </span><span class="kr">thread</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">thread_return</span><span class="p">);</span>
+</code></pre></div>
+<p>POSIX 定義是：</p>
+<ul>
+<li>目前呼叫 <code>pthread_join()</code> 的 thread 會被暫停</li>
+<li>直到目標 thread 終止</li>
+<li>如果第二個參數不是 <code>NULL</code>，會把目標 thread 的結束值交給你。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</li>
+</ul>
+<hr />
+<h4 id="先講直覺_5">先講直覺<a class="headerlink" href="#先講直覺_5" title="Permanent link"></a></h4>
+<p>這就像：</p>
+<blockquote>
+<p>主執行緒說：我先等你做完，你做完再把結果給我。</p>
+</blockquote>
+<p>所以 <code>join</code> 的兩個作用是：</p>
+<ol>
+<li><strong>等待 thread 結束</strong></li>
+<li><strong>取得它的 return value / exit status</strong></li>
+</ol>
+<p>這點你的投影片紅字講得方向是對的。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<hr />
+<h4 id="pthread_join-的第二個參數到底是什麼"><code>pthread_join()</code> 的第二個參數到底是什麼<a class="headerlink" href="#pthread_join-的第二個參數到底是什麼" title="Permanent link"></a></h4>
+<p>這邊很容易卡住。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ret</span><span class="p">;</span>
+<span class="n">pthread_join</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ret</span><span class="p">);</span>
+</code></pre></div>
+<p>你看到的是 <code>void **</code>，是因為：</p>
+<ul>
+<li>thread 結束時回傳的是 <code>void *</code></li>
+<li>你想把這個 <code>void *</code> 存進 <code>ret</code></li>
+<li>所以要把 <code>ret</code> 的位址 <code>&amp;ret</code> 傳進去</li>
+</ul>
+<p>也就是：</p>
+<ul>
+<li>thread 的回傳值型別：<code>void *</code></li>
+<li>join 要幫你填入那個值</li>
+<li>所以 join 參數是 <code>void **</code></li>
+</ul>
+<hr />
+<h4 id="為什麼要-join">為什麼要 join<a class="headerlink" href="#為什麼要-join" title="Permanent link"></a></h4>
+<p>因為如果不 join，一個 joinable thread(可被 join 的執行緒) 結束後，它的某些資源不會立刻完全回收；POSIX 甚至用 zombie thread(殭屍執行緒) 來描述已結束但尚未 join 的情況。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<p>所以比較精確的說法不是投影片紅字寫的：</p>
+<blockquote>
+<p>不 join，thread 可能在 main 結束後繼續跑</p>
+</blockquote>
+<p>而是：</p>
+<ul>
+<li><strong>如果 main thread 直接讓整個 process 結束，整個 process 內的 threads 都會一起被終止</strong></li>
+<li><strong>如果某個 thread 已經結束但你不 join，它可能留下未回收的 thread termination state</strong>。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</li>
+</ul>
+<p>也就是說，投影片這句話有點混了兩件事：</p>
+<ol>
+<li><code>main</code> 提早結束，整個 process 可能結束</li>
+<li>thread 沒 join，資源可能沒被妥善回收</li>
+</ol>
+<p>這兩件事不要混在一起背。</p>
+<hr />
+<h4 id="4-thread-怎麼結束return-與-pthread_exit">4. Thread 怎麼結束：<code>return</code> 與 <code>pthread_exit()</code><a class="headerlink" href="#4-thread-怎麼結束return-與-pthread_exit" title="Permanent link"></a></h4>
+<p>POSIX 明確說：</p>
+<ul>
+<li>對於<strong>不是 main 的 thread</strong></li>
+<li>如果它從 start routine 直接 <code>return</code></li>
+<li>效果等同於隱含呼叫 <code>pthread_exit(return_value)</code>。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</li>
+</ul>
+<p>所以這兩種寫法對一般 worker thread 來說，本質上很接近：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">worker</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">some_ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>跟</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">worker</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="n">some_ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h4 id="那為什麼還需要-pthread_exit">那為什麼還需要 <code>pthread_exit()</code><a class="headerlink" href="#那為什麼還需要-pthread_exit" title="Permanent link"></a></h4>
+<p>因為有時候你想在函式中途就結束 thread，<br />
+不用一路寫到 <code>return</code>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>它提供的是一個「我現在就結束這條 thread」的明確 API。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<hr />
+<h4 id="很重要pthread_exit-傳回去的東西不能亂用">很重要：<code>pthread_exit()</code> 傳回去的東西不能亂用<a class="headerlink" href="#很重要pthread_exit-傳回去的東西不能亂用" title="Permanent link"></a></h4>
+<p>POSIX 特別提醒：</p>
+<p><strong>不要把 exiting thread 的 local(auto) variable 位址當成 <code>pthread_exit()</code> 的值傳出去。</strong><br />
+因為 thread 一結束，那些區域變數就失效了，之後再取用是 undefined behavior(未定義行為)。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<p>例如這樣就危險：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">worker</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span><span class="w">   </span><span class="c1">// 危險</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>因為 <code>x</code> 是 worker 的 local variable，thread 一結束它就沒了。</p>
+<p>比較安全的是：</p>
+<ul>
+<li>回傳 <code>malloc()</code> 配置的記憶體位址</li>
+<li>或傳靜態 / 全域資料位址</li>
+<li>或根本不要用 pointer 當回傳資料，改用共享資料結構加同步機制</li>
+</ul>
+<hr />
+<h4 id="5-main-結束exitpthread_exit-三者差在哪">5. <code>main()</code> 結束、<code>exit()</code>、<code>pthread_exit()</code> 三者差在哪<a class="headerlink" href="#5-main-結束exitpthread_exit-三者差在哪" title="Permanent link"></a></h4>
+<p>這是這頁最容易考的地方。</p>
+<h5 id="情況一某個-worker-thread-return--pthread_exit">情況一：某個 worker thread return / <code>pthread_exit()</code><a class="headerlink" href="#情況一某個-worker-thread-return--pthread_exit" title="Permanent link"></a></h5>
+<p>只有那條 thread 結束。<br />
+其他 thread 還可以繼續。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<h5 id="情況二任何-thread-呼叫-exit">情況二：任何 thread 呼叫 <code>exit()</code><a class="headerlink" href="#情況二任何-thread-呼叫-exit" title="Permanent link"></a></h5>
+<p>是<strong>整個 process 結束</strong>，不是只有一條 thread 結束。<br />
+因此所有 threads 都會一起被終止。這點和投影片的第一個小點方向一致。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<h5 id="情況三main-直接-return通常等價於-process-結束">情況三：<code>main()</code> 直接 <code>return</code>，通常等價於 process 結束<a class="headerlink" href="#情況三main-直接-return通常等價於-process-結束" title="Permanent link"></a></h5>
+<p>如果 <code>main</code> 直接結束，整個 process 一般就結束了，因此其他 threads 也會被一起帶走。這也是為什麼多執行緒程式常常在 <code>main</code> 內要 <code>join</code> 其他 threads。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<h5 id="情況四main-呼叫-pthread_exit">情況四：<code>main</code> 呼叫 <code>pthread_exit()</code><a class="headerlink" href="#情況四main-呼叫-pthread_exit" title="Permanent link"></a></h5>
+<p>這個很關鍵。<br />
+如果 <code>main thread</code> 不想直接把整個 process 關掉，而是希望其他 threads 繼續跑，可以讓 <code>main thread</code> 呼叫 <code>pthread_exit()</code>；此時 process 會在<strong>最後一個 thread 終止後</strong>才真正結束。POSIX 明確寫到：當最後一個 thread 終止時，process 才像是被 <code>exit(0)</code> 一樣結束。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<p>所以這裡你可以看出投影片的第三頁其實寫得有點太粗：</p>
+<ul>
+<li>「if the main() function exits, all other threads are terminated」<br />
+  方向上對</li>
+<li>但它沒有補充<br />
+<strong>main thread 若改用 <code>pthread_exit()</code>，其他 threads 可以繼續活著</strong></li>
+</ul>
+<p>這是考試和實作都很值得補上的修正。</p>
+<hr />
+<h4 id="關係--流程--因果_5">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_5" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A[main thread] --&gt; B[pthread_create]
+    B --&gt; C[child thread 開始執行]
+
+    C --&gt; D1[return value]
+    C --&gt; D2[pthread_exit(value)]
+
+    D1 --&gt; E[thread terminated]
+    D2 --&gt; E
+
+    E --&gt; F[pthread_join]
+    F --&gt; G[主執行緒拿到 child 的結束值]
+
+    A --&gt; H[main return / exit()]
+    H --&gt; I[整個 process 結束&lt;br&gt;其他 threads 一起被終止]
+
+    A --&gt; J[main 呼叫 pthread_exit()]
+    J --&gt; K[main thread 結束&lt;br&gt;其他 threads 可繼續]</code></pre>
+<hr />
+<h4 id="最容易考--最容易混淆_4">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_4" title="Permanent link"></a></h4>
+<h4 id="1-pthread_join-等的是thread不是process">1. <code>pthread_join()</code> 等的是「thread」，不是「process」<a class="headerlink" href="#1-pthread_join-等的是thread不是process" title="Permanent link"></a></h4>
+<p>它只是在等特定 thread 結束。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<h4 id="2-return-對-worker-thread-幾乎等價於-pthread_exit">2. <code>return</code> 對 worker thread 幾乎等價於 <code>pthread_exit()</code><a class="headerlink" href="#2-return-對-worker-thread-幾乎等價於-pthread_exit" title="Permanent link"></a></h4>
+<p>這是 POSIX 明確定義的。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<h4 id="3-exit-跟-pthread_exit-完全不同">3. <code>exit()</code> 跟 <code>pthread_exit()</code> 完全不同<a class="headerlink" href="#3-exit-跟-pthread_exit-完全不同" title="Permanent link"></a></h4>
+<ul>
+<li><code>exit()</code>：整個 process 結束</li>
+<li><code>pthread_exit()</code>：只有呼叫它的那條 thread 結束。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</li>
+</ul>
+<h4 id="4-不要回傳-local-variable-位址">4. 不要回傳 local variable 位址<a class="headerlink" href="#4-不要回傳-local-variable-位址" title="Permanent link"></a></h4>
+<p>這是超常考、也超常出 bug 的點。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</p>
+<h4 id="5-投影片第三張不要硬背成pthreads-都只存在-user-space">5. 投影片第三張不要硬背成「pthreads 都只存在 user space」<a class="headerlink" href="#5-投影片第三張不要硬背成pthreads-都只存在-user-space" title="Permanent link"></a></h4>
+<p>在現代 Linux / POSIX 實作裡，這種說法過度簡化；你前面學的 One-to-One model 才更接近現代系統。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</p>
+<hr />
+<h4 id="小結_6">小結<a class="headerlink" href="#小結_6" title="Permanent link"></a></h4>
+<p>你這三張投影片最精華的考試版可以壓成這樣：</p>
+<ul>
+<li><code>pthread_create()</code>：建立新 thread，指定它要跑的函式與參數，成功回傳 <code>0</code>。(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</li>
+<li><code>pthread_join()</code>：等待指定 thread 結束，並可取得其回傳值。(<a href="https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/functions/pthread_join.html?utm_source=chatgpt.com" title="pthread_join">開放組織出版物</a>)</li>
+<li>thread 結束可用 <code>return</code> 或 <code>pthread_exit()</code>；對一般 worker thread，<code>return</code> 等價於隱式 <code>pthread_exit()</code>。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</li>
+<li><code>exit()</code> 會結束整個 process；<code>pthread_exit()</code> 只結束呼叫它的 thread。(<a href="https://pubs.opengroup.org/onlinepubs/009696899/functions/pthread_exit.html?utm_source=chatgpt.com" title="pthread_exit">開放組織出版物</a>)</li>
+</ul>
+<hr />
+<h4 id="你現在最適合接著學的下一步">你現在最適合接著學的下一步<a class="headerlink" href="#你現在最適合接著學的下一步" title="Permanent link"></a></h4>
+<p>下一步我們最適合做的是：</p>
+<p><strong>直接寫一個最小可執行 pthread 範例，把 <code>create → join → exit</code> 串起來，並逐行解釋。</strong></p>
+<p>這樣你會從「概念懂」直接變成「程式也會寫」。</p>
 
 
 
@@ -7547,7 +11763,7 @@ stack：像每個員工自己的桌面草稿區</p>
       
       
         <a
-          href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html"
+          href="Pthread.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -7556,7 +11772,7 @@ stack：像每個員工自己的桌面草稿區</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              首頁
+              Pthread
             </div>
           </div>
           <div class="md-footer__button md-icon">
