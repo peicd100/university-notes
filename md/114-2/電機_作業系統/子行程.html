@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E5%AD%90%E8%A1%8C%E7%A8%8B.html">
       
       
-        <link rel="prev" href="vim.html">
+        <link rel="prev" href="Pthread.html">
       
       
-        <link rel="next" href="ch%201.html">
+        <link rel="next" href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>子行程 - PEICD100</title>
+        <title>fork() 到底在做什麼 - PEICD100</title>
       
     
     
@@ -1909,6 +1909,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#fork-到底在做什麼" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -2011,7 +2016,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              子行程
+              fork() 到底在做什麼
             
           </span>
         </div>
@@ -4038,8 +4043,6 @@ is now available!
       
         
       
-        
-      
     
     
     
@@ -4202,42 +4205,6 @@ is now available!
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    子行程
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
@@ -4322,10 +4289,14 @@ is now available!
                 
   
   
+    
   
   
+  
     
     
+      
+        
       
         
       
@@ -4336,14 +4307,14 @@ is now available!
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
             
   
   
@@ -4361,8 +4332,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4395,6 +4366,92 @@ is now available!
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fork() 到底在做什麼
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="%E5%AD%90%E8%A1%8C%E7%A8%8B.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fork() 到底在做什麼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#範例程式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        範例程式
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4999,6 +5056,27 @@ is now available!
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#範例程式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        範例程式
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -5016,54 +5094,68 @@ is now available!
 
 
 
-  <h1>子行程</h1>
+<h1 id="fork-到底在做什麼">fork() 到底在做什麼<a class="headerlink" href="#fork-到底在做什麼" title="Permanent link"></a></h1>
+<p>回傳值有三種</p>
+<ul>
+<li><code>-1</code>：失敗</li>
+<li><code>0</code>：現在這段程式是在 child</li>
+<li><code>&gt;0</code>：現在這段程式是在 parent，而且這個值是 child 的 PID</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
 
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
-<span class="w">    </span><span class="cm">/* fork another process */</span>
-<span class="w">    </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* error occurred */</span>
-<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fork Failed&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* child process */</span>
-<span class="w">        </span><span class="n">execlp</span><span class="p">(</span><span class="s">&quot;/bin/ls&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ls&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* parent process */</span>
-<span class="w">        </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child Complete&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// fork 失敗</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// child 走這裡</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// parent 走這裡，pid 是 child 的 PID</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<ul>
+<li>getpid() 自己的 id</li>
+<li>getppid() parent 的 id</li>
+</ul>
+<h3 id="範例程式">範例程式<a class="headerlink" href="#範例程式" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 
+<span class="w">    </span><span class="c1">// fork() 在子行程回傳 0，在父行程回傳子行程的 PID。</span>
 <span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// fork 失敗</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;fork failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//子行程</span>
 <span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child: x = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// self_pid: 目前子行程自己的 ID；parent_pid: 這個子行程的父行程 ID。</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child: x = %d (self_pid=%jd, parent_pid=%jd)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="n">x</span><span class="p">,</span>
+<span class="w">               </span><span class="p">(</span><span class="kt">intmax_t</span><span class="p">)</span><span class="n">getpid</span><span class="p">(),</span>
+<span class="w">               </span><span class="p">(</span><span class="kt">intmax_t</span><span class="p">)</span><span class="n">getppid</span><span class="p">());</span><span class="w">  </span><span class="c1">// Child: x = 15</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//父行程，此時 pid 是子行程的 ID。</span>
 <span class="w">        </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
 <span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Parent: x = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// self_pid: 目前父行程自己的 ID；parent_pid: 啟動此程式的上一層行程 ID；</span>
+<span class="w">        </span><span class="c1">// child_pid: fork() 在父行程回傳的子行程 ID。</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Parent: x = %d (self_pid=%jd, parent_pid=%jd, child_pid=%jd)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="n">x</span><span class="p">,</span>
+<span class="w">               </span><span class="p">(</span><span class="kt">intmax_t</span><span class="p">)</span><span class="n">getpid</span><span class="p">(),</span>
+<span class="w">               </span><span class="p">(</span><span class="kt">intmax_t</span><span class="p">)</span><span class="n">getppid</span><span class="p">(),</span>
+<span class="w">               </span><span class="p">(</span><span class="kt">intmax_t</span><span class="p">)</span><span class="n">pid</span><span class="p">);</span><span class="w"> </span><span class="c1">// Parent: x = 30</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">輸出</span><pre><span></span><code>Child: x = 15 (self_pid=5786, parent_pid=5785)
+Parent: x = 30 (self_pid=5785, parent_pid=3836, child_pid=5786)
 </code></pre></div>
 
 
@@ -5107,7 +5199,7 @@ is now available!
     >
       
         <a
-          href="vim.html"
+          href="Pthread.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -5119,14 +5211,14 @@ is now available!
               <span class="md-footer__direction">
                 Previous
               </span>
-              Vim
+              Pthread
             </div>
           </div>
         </a>
       
       
         <a
-          href="ch%201.html"
+          href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -5135,7 +5227,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              Ch 1
+              首頁
             </div>
           </div>
           <div class="md-footer__button md-icon">
