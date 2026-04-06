@@ -40,23 +40,34 @@ end
 
 ### MSB 優先
 
-```verilog
+```verilog title="使用?"
 always @(*) begin
-    out   = 2'd0;
-    valid = 1'b1;
+    out = 2'b00;
 
     casez (in)
         4'b1???: out = 2'd3;
         4'b01??: out = 2'd2;
         4'b001?: out = 2'd1;
         4'b0001: out = 2'd0;
-        default: begin
-            out   = 2'd0;
-            valid = 1'b0;
-        end
+        default: out = 2'd0;
     endcase
 end
 ```
+
+```verilog title="使用z"
+always @(*) begin
+    out = 2'b00;
+
+    casez (in)
+        4'b1zzz: out = 2'd3;
+        4'b01zz: out = 2'd2;
+        4'b001z: out = 2'd1;
+        4'b0001: out = 2'd0;
+        default: out = 2'd0;
+    endcase
+end
+```
+用 z 和 ? 是相同意思。
 
 ### `if / else if` 版本
 

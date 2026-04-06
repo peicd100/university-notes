@@ -313,6 +313,7 @@ nav:
         - 'md\Verilog\同步重置、非同步重置.md'
         - 'md\Verilog\dff.md'
         - 'md\Verilog\雙邊緣觸發.md'
+        - 'md\Verilog\1000Hz to 1Hz counter.md'
       
       
       
