@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/system%20tasks.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/Verilog/1000Hz%20to%201Hz%20counter.html">
       
       
-        <link rel="prev" href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html">
+        <link rel="prev" href="%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.html">
       
       
-        <link rel="next" href="priority%20encoder.html">
+        <link rel="next" href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>模擬控制與 System Tasks - PEICD100</title>
+        <title>1000Hz to 1Hz counter - PEICD100</title>
       
     
     
@@ -1910,7 +1910,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#模擬控制與-system-tasks" class="md-skip">
+        <a href="#1000hz-to-1hz-counter" class="md-skip">
           Skip to content
         </a>
       
@@ -2016,7 +2016,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              模擬控制與 System Tasks
+              1000Hz to 1Hz counter
             
           </span>
         </div>
@@ -3299,10 +3299,8 @@ is now available!
                 
   
   
-    
   
   
-  
     
     
       
@@ -3319,11 +3317,11 @@ is now available!
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
           <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
@@ -3344,7 +3342,7 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3359,37 +3357,10 @@ is now available!
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    模擬控制與 System Tasks
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="system%20tasks.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="system%20tasks.html" class="md-nav__link">
         
   
   
@@ -3405,142 +3376,6 @@ is now available!
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#一句話先懂" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一句話先懂
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#核心規則" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        核心規則
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常用模板或例子" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常用模板或例子
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常用模板或例子">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#timescale" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        `timescale
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delay" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        #delay
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $display
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monitor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $monitor
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#finish--stop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $finish / $stop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常見地雷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常見地雷
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#相關主題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        相關主題
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3614,8 +3449,10 @@ is now available!
                 
   
   
+    
   
   
+  
     
     
       
@@ -3652,11 +3489,11 @@ is now available!
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
         
           
           <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
@@ -3677,7 +3514,7 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4028,10 +3865,37 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="1000Hz%20to%201Hz%20counter.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1000Hz to 1Hz counter
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="1000Hz%20to%201Hz%20counter.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -4047,6 +3911,37 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#題解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        題解
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -5201,115 +5096,10 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#一句話先懂" class="md-nav__link">
+  <a href="#題解" class="md-nav__link">
     <span class="md-ellipsis">
       
-        一句話先懂
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#核心規則" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        核心規則
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常用模板或例子" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常用模板或例子
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="常用模板或例子">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#timescale" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        `timescale
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delay" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        #delay
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $display
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monitor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $monitor
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#finish--stop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        $finish / $stop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#常見地雷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        常見地雷
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#相關主題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        相關主題
+        題解
       
     </span>
   </a>
@@ -5334,72 +5124,37 @@ is now available!
 
 
 
-<h1 id="模擬控制與-system-tasks">模擬控制與 System Tasks<a class="headerlink" href="#模擬控制與-system-tasks" title="Permanent link"></a></h1>
-<h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
-<p><code>timescale</code>、<code>#delay</code> 與大多數 system tasks 都偏向模擬用途。<br />
-它們很重要，但和可綜合 RTL 主邏輯不是同一層事情。</p>
-<h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
-<ul>
-<li><code>`timescale</code> 是 compiler directive，不是 <code>always</code> 裡的敘述。</li>
-<li><code>`timescale 1ns/1ps</code> 代表時間單位是 <code>1ns</code>，模擬精度是 <code>1ps</code>。</li>
-<li><code>#delay</code> 是模擬延遲，常見於 testbench。</li>
-<li><code>$display</code>：立刻印一次。</li>
-<li><code>$monitor</code>：參數任一值改變時，自動印出最新值。</li>
-<li><code>$time</code>：取得目前模擬時間。</li>
-<li><code>$finish</code>：結束模擬。</li>
-<li><code>$stop</code>：暫停模擬，常用於除錯。</li>
-</ul>
-<h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
-<h3 id="timescale"><code>`timescale</code><a class="headerlink" href="#timescale" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<h1 id="1000hz-to-1hz-counter">1000Hz to 1Hz counter<a class="headerlink" href="#1000hz-to-1hz-counter" title="Permanent link"></a></h1>
+<p>題目：</p>
+<p><a href="https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q7b">https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q7b</a></p>
+<p><img alt="alt text" src="images/1000Hz%20to%201Hz%20counter.png" /></p>
+<h2 id="題解">題解<a class="headerlink" href="#題解" title="Permanent link"></a></h2>
+<p>他是要做一個 1000 Hz 轉為 1 Hz 的 counter ，所以每 1000 次 clk 之後要給一次 OneHertz 信號。</p>
+<p>BCD 計數器的用途是來執行 0~9 循環。</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">reset</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">OneHertz</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c_enable</span>
+<span class="p">);</span><span class="w"> </span><span class="c1">//</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">q0</span><span class="p">,</span><span class="n">q1</span><span class="p">,</span><span class="n">q2</span><span class="p">;</span><span class="w">                            </span><span class="c1">// 記錄個位、十位、百位數。</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w">                        </span><span class="c1">// 個位數永遠允許。</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">q0</span><span class="o">==</span><span class="mh">9</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 當個位數 = 9 時，十位數在下一個 clk 加一。</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">q1</span><span class="o">==</span><span class="mh">9</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">q0</span><span class="o">==</span><span class="mh">9</span><span class="p">);</span><span class="w">         </span><span class="c1">// 99 時百位加一</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">OneHertz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">q0</span><span class="o">==</span><span class="mh">9</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">q1</span><span class="o">==</span><span class="mh">9</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">q2</span><span class="o">==</span><span class="mh">9</span><span class="p">);</span><span class="w">   </span><span class="c1">// 999 時，OneHertz 為 1。</span>
+
+<span class="w">    </span><span class="n">bcdcount</span><span class="w"> </span><span class="n">counter0</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">reset</span><span class="p">,</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">q0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 當 clk 來的時候 q0 會 +1</span>
+<span class="w">    </span><span class="n">bcdcount</span><span class="w"> </span><span class="n">counter1</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">reset</span><span class="p">,</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="n">q1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 當 clk 來的時候 q1 會 +1</span>
+<span class="w">    </span><span class="n">bcdcount</span><span class="w"> </span><span class="n">counter2</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">reset</span><span class="p">,</span><span class="w"> </span><span class="n">c_enable</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="n">q2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 當 clk 來的時候 q2 會 +1</span>
+
+<span class="k">endmodule</span>
 </code></pre></div>
-<ul>
-<li><code>#1</code> 代表 <code>1ns</code></li>
-<li>模擬器能分辨到 <code>1ps</code></li>
-</ul>
-<h3 id="delay"><code>#delay</code><a class="headerlink" href="#delay" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
-<ul>
-<li>常用來安排 testbench 刺激時序。</li>
-</ul>
-<h3 id="display"><code>$display</code><a class="headerlink" href="#display" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-<span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;a=%b b=%b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="k">end</span>
-</code></pre></div>
-<h3 id="monitor"><code>$monitor</code><a class="headerlink" href="#monitor" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="nb">$monitor</span><span class="p">(</span><span class="s">&quot;time=%0t a=%b b=%b&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">$time</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="k">end</span>
-</code></pre></div>
-<h3 id="finish--stop"><code>$finish</code> / <code>$stop</code><a class="headerlink" href="#finish--stop" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="p">#</span><span class="mh">100</span><span class="w"> </span><span class="nb">$finish</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-<span class="w">        </span><span class="nb">$stop</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
-<h2 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h2>
-<ul>
-<li>把 <code>#delay</code> 當成一般可綜合 RTL 主力。</li>
-<li>忘記 <code>`timescale</code> 會影響你看到的 <code>#1</code> 到底代表多長。</li>
-<li>以為 <code>$display</code> 會一直更新，它其實只在執行到那一行時印一次。</li>
-<li>忘記在 testbench 結束時加 <code>$finish</code>，讓模擬一直跑下去。</li>
-</ul>
-<h2 id="相關主題">相關主題<a class="headerlink" href="#相關主題" title="Permanent link"></a></h2>
-<ul>
-<li><a href="always%E3%80%81initial%20%E8%88%87%E4%BA%8B%E4%BB%B6%E6%8E%A7%E5%88%B6.html">always、initial 與事件控制</a></li>
-<li><a href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html">迴圈與程序控制</a></li>
-</ul>
+<p>這三顆 BCD counter 串起來，本質上是在數：<br />
+<div class="highlight"><pre><span></span><code>000, 001, 002, ..., 998, 999, 000, 001, ...
+</code></pre></div></p>
+<p>所以是 1000 Hz (1000 個數字)，第 999 時輸出 1。</p>
 
 
 
@@ -5442,7 +5197,7 @@ is now available!
     >
       
         <a
-          href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html"
+          href="%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -5454,14 +5209,14 @@ is now available!
               <span class="md-footer__direction">
                 Previous
               </span>
-              迴圈與程序控制
+              雙邊緣觸發
             </div>
           </div>
         </a>
       
       
         <a
-          href="priority%20encoder.html"
+          href="../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -5470,7 +5225,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              Priority Encoder
+              教材
             </div>
           </div>
           <div class="md-footer__button md-icon">

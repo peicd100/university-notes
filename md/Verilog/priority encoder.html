@@ -3621,6 +3621,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3987,6 +3989,34 @@ is now available!
     
   
     雙邊緣觸發
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="1000Hz%20to%201Hz%20counter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1000Hz to 1Hz counter
   
 
     
@@ -5295,22 +5325,31 @@ is now available!
 <li><code>???1</code> 先出現，所以 bit0 優先。</li>
 </ul>
 <h3 id="msb-優先">MSB 優先<a class="headerlink" href="#msb-優先" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<div class="highlight"><span class="filename">使用?</span><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
 <span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1</span><span class="o">???:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
 <span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b01</span><span class="o">??:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
 <span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b001</span><span class="o">?:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
 <span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">            </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
-<span class="w">            </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
 </code></pre></div>
+<p><div class="highlight"><span class="filename">使用z</span><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1</span><span class="nl">zzz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b01</span><span class="nl">zz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b001</span><span class="nl">z:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="k">end</span>
+</code></pre></div><br />
+用 z 和 ? 是相同意思。</p>
 <h3 id="if--else-if-版本"><code>if / else if</code> 版本<a class="headerlink" href="#if--else-if-版本" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
