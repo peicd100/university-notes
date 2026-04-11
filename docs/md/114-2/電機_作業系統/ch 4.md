@@ -2321,7 +2321,7 @@ flowchart TB
 
 ![alt text](<images/ch 4-12.png>)
 ![alt text](<images/ch 4-13.png>)
-
+![alt text](<images/ch 4-16.png>)![alt text](<images/ch 4-17.png>)
 ### 講解
 
 已啟用教學模式
@@ -3411,3 +3411,332 @@ omp_set_num_threads(4);
 [1]: https://www.openmp.org/spec-html/5.0/openmpsu35.html "Determining the Number of Threads for a parallel Region"
 [2]: https://www.openmp.org/spec-html/5.0/openmpsu110.html "omp_set_num_threads"
 [3]: https://gcc.gnu.org/onlinedocs/libgomp/OMP_005fNUM_005fTHREADS.html "OMP_NUM_THREADS (GNU libgomp)"
+
+
+### 為何講義說"#pragma omp parallel for private(j)"可以解決
+
+已啟用教學模式
+
+#### 先直接回答
+
+這份講義說 `#pragma omp parallel for private(j)` 可以解決，是因為它想表達這個觀念：
+
+**如果 `j` 被多個 thread 共用(shared)，那大家會同時改同一個內層迴圈計數器，內層 `for(j=0; j<N; j++)` 就會互相干擾；把 `j` 設成 `private` 之後，每個 thread 都有自己的 `j`，這種干擾就不會發生。** `private` 的語意本來就是：為清單中的每個變數建立每個 thread 各自獨立的新副本。([OpenMP][1])
+
+---
+
+#### 但這裡有一個更重要的真相
+
+**照現在的 OpenMP 規範來看，這張投影片其實講得不夠精確。**
+
+OpenMP 官方規範明寫：
+
+* `parallel for` 的關聯迴圈(associated for-loop)迭代變數是 `private`。
+* 更關鍵的是：**在 `parallel` construct 裡面的 sequential loop，其 loop iteration variable 也是 `private`。**([OpenMP][2])
+
+也就是說，在你這個例子裡：
+
+```c
+int i, j;
+#pragma omp parallel for
+for (i=0; i<N; i++) {
+    for (j=0; j<N; j++) {
+        printf("i:%0d, j:%0d\n", i, j);
+    }
+}
+```
+
+外層的 `i` 當然是平行迴圈的迭代變數；而內層的 `j` 雖然不是 `parallel for` 直接關聯的那一層，但它是 **parallel construct 裡的 sequential loop variable**，依規範也屬於 `private`。這條規則不只是新版才有，OpenMP 4.5 也已經是這樣寫。([OpenMP][2])
+
+---
+
+#### 所以為什麼講義還是寫 `private(j)`？
+
+這通常有三種可能。
+
+#### 1. 它是在用「教學上的保守寫法」
+
+很多教材會先教你一個大原則：
+
+**平行區外面宣告的變數，進到 `parallel` 之後常常預設是 shared。**
+
+OpenMP 規範也確實說，若某變數不是預先決定(predetermined)資料屬性，而且沒有 `default` clause，則在 `parallel` construct 裡通常是 `shared`。([OpenMP][2])
+
+所以老師可能是用這個比較直覺的心智模型在教：
+
+* `i, j` 都在外面宣告
+* 外面宣告的東西常常會共享
+* 因此把 `j` 明寫成 `private(j)` 比較安全、比較好懂
+
+這種教法的優點是：**你會先學會「平行程式要主動想資料是不是共享」**。缺點是：它把 `j` 這種「其實已有特別規則的 loop variable」也一起簡化掉了。([OpenMP][2])
+
+---
+
+#### 2. 它是在強調「意圖」，不是強調「規範最低必要」
+
+就算依規範 `j` 已經是 private，明寫：
+
+```c
+#pragma omp parallel for private(j)
+```
+
+還是有價值，因為它讓讀程式的人一眼看出：
+
+**「我就是要每個 thread 都有自己的 `j`。」**
+
+在平行程式裡，很多 bug 都不是演算法錯，而是 **data-sharing attribute(資料共享屬性)** 沒想清楚。Cornell 的 OpenMP 教材也特別強調，`private` 這類 clause 的效果是作用在那個 OpenMP loop 上，用來清楚界定每個 thread 的資料副本。([康奈爾虛擬工作坊][3])
+
+---
+
+#### 3. 它可能是舊教材、舊習慣，或刻意簡化後的說法
+
+OpenMP 官方範例文件自己就寫得很清楚：
+**簡單平行迴圈的 loop iteration variable 預設就是 private，因此不必特別再寫進 `private` clause。**
+
+所以如果教材把「加 `private(j)` 才能解決」講成必要條件，那比較像是：
+
+* 舊習慣
+* 教學簡化
+* 或者是想用一個顯式寫法讓學生先建立正確直覺
+
+而不是最嚴格的規範表述。([OpenMP][2])
+
+---
+
+#### 這段程式真正平行了什麼
+
+你也要順便把另一件事分清楚：
+
+```c
+#pragma omp parallel for private(j)
+for (i=0; i<N; i++) {
+    for (j=0; j<N; j++) {
+        ...
+    }
+}
+```
+
+這裡 **只平行外層 `i` 迴圈**。
+OpenMP loop construct 的語意是：關聯迴圈(associated loops)的 logical iterations 可以並行執行，而每個 logical iteration 只會由一個 thread 執行一次。沒有 `collapse(2)` 時，你就把它理解成只分外層那一層。([OpenMP][4])
+
+所以 `private(j)` 做的事情不是「讓內層也平行」；它做的是：
+
+**確保每個 thread 跑自己那一份外層 `i` 時，內層使用的是自己的 `j` 副本。**([OpenMP][1])
+
+---
+
+#### 用生活化例子理解
+
+把它想成 4 個人一起抄表格。
+
+外層 `i` 是「第幾列」，內層 `j` 是「第幾欄」。
+
+* `parallel for`：把不同的列分給不同人
+* `private(j)`：每個人手上都有自己的一支筆和自己的欄位計數器
+
+如果 4 個人共用同一個 `j` 計數器，就會有人剛寫到第 1 欄，別人突然把計數器改成第 3 欄，整個流程亂掉。
+但依 OpenMP 規範，這個內層 loop 的 `j` 本來就屬於 thread-private 類型，所以標準上其實已經幫你避免這件事了。`private(j)` 在這裡通常是把這件事寫得更明白。([OpenMP][2])
+
+---
+
+#### 最後幫你下判斷
+
+這題最好的答案不是「講義對」或「講義錯」，而是：
+
+**更精確的說法應該是：**
+
+* 若從教學直覺出發，`private(j)` 的確是在防止多個 thread 共用同一個 `j`。
+* 但若從 OpenMP 規範出發，這個例子裡的 `j` 作為 `parallel` construct 中 sequential loop 的迭代變數，**本來就已經是 private**；因此 `private(j)` 在標準相容的實作上通常是**冗餘(redundant)**，不是必要條件。([OpenMP][2])
+
+---
+
+#### 小結
+
+你可以把這題背成一句話：
+
+**講義寫 `private(j)`，是在教你「資料要私有化」這個觀念；但依 OpenMP 規範，這個例子裡的 `j` 其實通常早就已經是 private，所以它比較像是顯式標註，不是唯一修正方法。** ([OpenMP][2])
+
+下一則我可以直接幫你畫一張表，分清楚 `i`、`j` 在這三種情況下各自是 `shared / private / lastprivate`：
+
+1. `#pragma omp parallel for`
+2. `#pragma omp parallel for private(j)`
+3. `#pragma omp parallel for collapse(2)`
+
+[1]: https://www.openmp.org/wp-content/uploads/OpenMPRefCard-5-2-web.pdf?utm_source=chatgpt.com "OpenMP 5.2 API Syntax Reference Guide Directives and ..."
+[2]: https://www.openmp.org/spec-html/5.0/openmpsu103.html "Data-Sharing Attribute Rules"
+[3]: https://cvw.cac.cornell.edu/openmp/openmp-constructs/loop-clauses "Cornell Virtual Workshop > OpenMP > OpenMP Constructs > Loop Clauses"
+[4]: https://www.openmp.org/spec-html/5.2/openmpse68.html "loop Construct"
+
+
+### 所以這也是相同道理嗎，把temp宣告在裡面的話就可以解決
+
+>![alt text](<images/ch 4-18.png>)
+
+
+已啟用教學模式
+
+#### 先直接回答
+
+✅ **對，這題大致上是同一個道理。**
+
+如果 `temp` 像投影片那樣宣告在外面：
+
+```c
+int temp;
+#pragma omp parallel for
+for (i = 0; i < N; i++) {
+    temp = AA[i];
+    AA[i] = BB[i];
+    BB[i] = temp;
+}
+```
+
+那在 `parallel` construct 裡，這種沒有另外指定資料共享屬性的外部變數，預設會依 data-sharing rules 被當成共享來處理；`shared` 的意思就是所有 threads 存取同一份 storage。這樣多個 threads 就可能同時改同一個 `temp`，造成 race condition。([OpenMP][1])
+
+所以投影片才會用：
+
+```c
+#pragma omp parallel for private(temp)
+```
+
+來修。`private(temp)` 的正式意思就是：每個 thread 會拿到自己的 `temp` 私有副本，而不是共用同一份。([OpenMP][1])
+
+---
+
+#### 把 `temp` 宣告在裡面，可不可以解決？
+
+✅ **通常可以，而且這其實是我更推薦的寫法。**
+
+因為 OpenMP 規範明寫：
+
+> **在 construct 內部作用域裡宣告、具有 automatic storage duration 的變數，是 private。** ([OpenMP][2])
+
+所以你可以直接改成：
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+#include <time.h>
+#define N 16
+
+int main() {
+    int i;
+    int A[N], B[N], AA[N], BB[N];
+
+    for (i = 0; i < N; i++) {
+        A[i] = rand() % 256;
+        B[i] = rand() % 256;
+        AA[i] = A[i];
+        BB[i] = B[i];
+    }
+
+    #pragma omp parallel for
+    for (i = 0; i < N; i++) {
+        int temp;   // 宣告在裡面
+        temp = AA[i];
+        AA[i] = BB[i];
+        BB[i] = temp;
+    }
+
+    return 0;
+}
+```
+
+這樣的 `temp` 就是每個 thread 各自使用的區域變數，不需要再額外寫 `private(temp)`。([OpenMP][2])
+
+---
+
+#### 這題和 `j` 那題，哪裡一樣、哪裡不一樣？
+
+#### 一樣的地方
+
+兩題都在處理同一個核心問題：
+
+**不要讓多個 threads 去共用一個本來應該是「每人自己用」的暫存變數。**
+
+* `j` 題：你實測環境下，外面宣告的 inner-loop `j` 不安全，要 `private(j)` 或寫成 `for (int j=...)`
+* `temp` 題：外面宣告的 `temp` 會被多個 threads 共用，所以要 `private(temp)` 或移到裡面宣告
+
+這兩題的思路都是：
+
+> **每個 thread 自己應該有一份獨立的工作紙。**
+
+---
+
+#### 不一樣的地方
+
+`temp` 這題其實比 `j` 更單純。
+
+因為：
+
+* `temp` **不是 loop iteration variable**
+* 它沒有 `i` 那種 associated loop variable 的特殊規則
+* 所以它更典型地就是一個「外面宣告的暫存變數」，如果不私有化，就很容易共享出事
+
+而 `j` 那題之所以會一直卡住，是因為它牽涉到 inner loop variable、C/Fortran、OpenMP 版本、編譯器實作差異；`temp` 沒有這些額外複雜度。([GNU Compiler Collection][3])
+
+---
+
+#### 為什麼 `temp` 共享會壞掉
+
+生活化講：
+
+原本每個 thread 都在做自己的交換：
+
+```c
+temp = AA[i];
+AA[i] = BB[i];
+BB[i] = temp;
+```
+
+如果 `temp` 是共享的，就可能變成：
+
+* Thread A 先把 `AA[3]` 放進 `temp`
+* Thread B 馬上把 `AA[7]` 蓋進同一個 `temp`
+* Thread A 再把 `temp` 寫回 `BB[3]`
+
+結果 `BB[3]` 寫回去的就不是原本 `AA[3]`，而是別人那份資料。
+這就是典型的 race condition。`private(temp)` 或把 `temp` 宣告在 loop body 裡，都能避免這件事。([OpenMP][1])
+
+---
+
+#### 最推薦你怎麼寫
+
+我會建議你優先用這種：
+
+```c
+#pragma omp parallel for
+for (i = 0; i < N; i++) {
+    int temp = AA[i];
+    AA[i] = BB[i];
+    BB[i] = temp;
+}
+```
+
+原因很簡單：
+
+* 可讀性高
+* 作用域(scope)最小
+* 不容易忘記 `private(temp)`
+* 也最符合「暫存變數就放在用到的地方」這個寫法習慣
+
+這種寫法會讓 `temp` 因為宣告在 construct 內部而自然成為 private。([OpenMP][2])
+
+---
+
+#### 小結
+
+所以這題你可以直接記成：
+
+**對，和投影片的核心道理一樣：`temp` 是每個 thread 自己要用的暫存變數，不應共用。寫 `private(temp)` 可以解決；把 `temp` 直接宣告在 loop 裡面，也可以解決，而且通常更乾淨。** ([OpenMP][2])
+
+#### 一句話背法
+
+**外面宣告的暫存變數要小心共享；能放進 loop body，就盡量放進去。**
+
+[1]: https://www.openmp.org/wp-content/uploads/OpenMPRefCard-5-2-web.pdf?utm_source=chatgpt.com "OpenMP 5.2 API Syntax Reference Guide Directives and ..."
+[2]: https://www.openmp.org/spec-html/5.2/openmpsu33.html?utm_source=chatgpt.com "Variables Referenced in a Construct"
+[3]: https://gcc.gnu.org/onlinedocs/gccint/OpenMP.html?utm_source=chatgpt.com "OpenMP (GNU Compiler Collection (GCC) Internals)"
+
+
