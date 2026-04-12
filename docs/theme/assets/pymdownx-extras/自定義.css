@@ -263,7 +263,7 @@ body {
   display: none;
 }
 
-/* h2~h6：用 flex 讓錨點與文字水平排列 */
+/* h2~h6：用 flex 讓錨點與文字排列，但保留標題內容正常換行 */
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4,
@@ -271,9 +271,8 @@ body {
 .md-typeset h6 {
   display: flex;
   flex-direction: row;
-  /* 水平排列 */
-  align-items: top;
-  /* 你原本希望圖示與文字上緣對齊（保留原意） */
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 /* 錨點圖示：改成你自訂的 mask SVG（並用背景色著色） */
@@ -964,6 +963,24 @@ body {
   /* 淡金框 */
   border-radius: 6px;
   padding: 0.05em 0.35em;
+}
+
+/* 標題內 inline code 降低膨脹感，並避免桌面版被拆成多行 */
+.md-typeset :is(h1, h2, h3, h4, h5, h6) code {
+  font-size: 0.84em;
+  line-height: 1.15;
+  padding: 0.02em 0.24em;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+@media screen and (max-width: 45rem) {
+  .md-typeset :is(h1, h2, h3, h4, h5, h6) code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }
 
 /* ==========================================================================

@@ -27,6 +27,7 @@ vbs_bat\university notes.vbs
 - 本機右鍵「開啟原文檔案 / 複製」由 `docs/theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py` 配合提供。
 - 為了讓 `mkdocs serve --dirty` 也能正常跳檔，`source_jump_hook.py` 會在 `on_files` 先建立 Markdown 索引，再由 `on_page_markdown` 用實際頁面內容覆寫精修。
 - 手動驗證若需要保留 `stdout/stderr`，統一用 `tools/run_logged.py`，輸出落在 `codex/tmp/`，不要再把 `.out.log` / `.err.log` 散在專案根目錄。
+- 標題錨點與標題內 inline code 的排版目前集中由 `docs/theme/assets/pymdownx-extras/自定義.css` 控制；若標題內使用 backticks 出現版面錯位，先檢查 `h2~h6` 的 flex 規則與 heading code 規則。
 
 ## 驗證輸出記錄
 ```bat

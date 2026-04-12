@@ -38,3 +38,22 @@
   - 確認 `codex/tmp/` 產生對應的 `.out.log`、`.err.log`、`.meta.json`
   - 確認專案根目錄不再殘留本次移動前的 `.out.log` / `.err.log`
 - 結果：後續需要保留的人工驗證輸出已有固定落點，根目錄可維持乾淨。
+
+## 2026-04-12 標題 inline code 排版修正
+- 使用者需求：`docs/md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md` 中，標題使用 backticks 後版面跑掉，要修正顯示。
+- 先讀目標 Markdown 與既有專案協作檔，確認這不是單一標題手誤，而是頁面上多個含 code 的標題都會踩到相同版面問題。
+- 查閱 CommonMark 規範、Python-Markdown TOC 官方文件，以及 Stack Overflow 上 heading 可含 inline code 的社群示例，確認 heading 內放 code span 本身是合法且常見的寫法。
+- 實際根因確認：
+  - 用 `mkdocs build -f mkdocs.preview.yml --clean --site-dir codex/tmp/preview-current` 重建預覽頁面。
+  - 用 Playwright CLI 檢查目標 heading 的 computed style，確認 `h2~h6` 被自訂 CSS 設成 `display:flex`，且 `align-items: top` 是無效值，實際回退造成 code flex item 被拉高。
+- 實際修改：
+  - 更新 `docs/theme/assets/pymdownx-extras/自定義.css`
+  - `h2~h6` 改成 `flex-wrap: wrap`、`align-items: flex-start`
+  - 新增 heading 內 `code` 的專屬字級 / padding / 換行規則
+  - `codex/README_PEICD100.md`、`codex/協作重要事項.md`、`codex/專案規格書.md` 同步補記這次決策
+- 驗證方式：
+  - `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean --site-dir codex/tmp/preview-current`
+  - `npx.cmd --yes @playwright/cli open http://127.0.0.1:8123/.../VHDL.html#3-...`
+  - `npx.cmd --yes @playwright/cli eval ...` 檢查 heading 與 code span 的實際 computed style / bounding box
+  - `npx.cmd --yes @playwright/cli run-code ...heading.screenshot(...)` 目視確認 code span 不再被拉成大方塊
+- 結果：標題中的 code span 已恢復正常高度，且不再在桌機寬度下被拆成異常巨型區塊；窄螢幕則允許較溫和的換行。

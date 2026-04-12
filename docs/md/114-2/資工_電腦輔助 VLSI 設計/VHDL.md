@@ -434,6 +434,9 @@ file output_data : text is out "output_data.txt";
 and or nand nor xor xnor not
 ```
 
+>注意都是英文，不是符號。
+
+
 Verilog 對照：
 
 ```verilog
@@ -481,6 +484,8 @@ Verilog 對照：
 ```
 
 這個你一定常用。
+
+> 要寫串接用 `'1' & '0'`，要 and 運算用 `'1' and '0'`
 
 ---
 
@@ -545,8 +550,9 @@ always @(posedge clock)
 
 另外教材也區分：
 
-* `S'ACTIVE`：有被指定新值，即使新舊一樣
-* `S'EVENT`：新值真的和舊值不同
+* S'EVENT：目前這個 delta 內，signal S 有沒有發生「值改變」
+* S'LAST_EVENT：距離 上一次 event 已經過了多少時間，它回傳的是一個 time 型別 的值，例如：10 ns、5 us，不是 true/false。
+* S'ACTIVE：目前這個 delta 內，signal S 有沒有被指定新值；即使新值和舊值一樣，也算 active
 
 這點很 VHDL，也很重要。
 
