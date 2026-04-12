@@ -7651,6 +7651,9 @@ is now available!
 <h3 id="71-邏輯運算">7.1 邏輯運算<a class="headerlink" href="#71-邏輯運算" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">and</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">nand</span><span class="w"> </span><span class="k">nor</span><span class="w"> </span><span class="k">xor</span><span class="w"> </span><span class="k">xnor</span><span class="w"> </span><span class="k">not</span>
 </code></pre></div>
+<blockquote>
+<p>注意都是英文，不是符號。</p>
+</blockquote>
 <p>Verilog 對照：</p>
 <div class="highlight"><pre><span></span><code><span class="o">&amp;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">~&amp;</span><span class="w"> </span><span class="o">~|</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">^~</span><span class="w"> </span><span class="o">~</span>
 </code></pre></div>
@@ -7677,6 +7680,9 @@ is now available!
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">}</span>
 </code></pre></div>
 <p>這個你一定常用。</p>
+<blockquote>
+<p>要寫串接用 <code>'1' &amp; '0'</code>，要 and 運算用 <code>'1' and '0'</code></p>
+</blockquote>
 <hr />
 <h3 id="75-其他">7.5 其他<a class="headerlink" href="#75-其他" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="k">abs</span><span class="w"> </span><span class="o">**</span>
@@ -7717,8 +7723,9 @@ Verilog 類比就是：</p>
 </code></pre></div>
 <p>另外教材也區分：</p>
 <ul>
-<li><code>S'ACTIVE</code>：有被指定新值，即使新舊一樣</li>
-<li><code>S'EVENT</code>：新值真的和舊值不同</li>
+<li>S'EVENT：目前這個 delta 內，signal S 有沒有發生「值改變」</li>
+<li>S'LAST_EVENT：距離 上一次 event 已經過了多少時間，它回傳的是一個 time 型別 的值，例如：10 ns、5 us，不是 true/false。</li>
+<li>S'ACTIVE：目前這個 delta 內，signal S 有沒有被指定新值；即使新值和舊值一樣，也算 active</li>
 </ul>
 <p>這點很 VHDL，也很重要。</p>
 <hr />
