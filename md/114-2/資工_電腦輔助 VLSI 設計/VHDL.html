@@ -6026,6 +6026,17 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#21-作業範例" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 作業範例
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7382,6 +7393,17 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#21-作業範例" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 作業範例
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7565,6 +7587,17 @@ is now available!
 <span class="kt">wire</span><span class="w"> </span><span class="n">CLOCK</span><span class="p">;</span>
 <span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">INIT_P</span><span class="p">;</span>
 </code></pre></div>
+<blockquote>
+<p>那<br />
+<div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">DATA_BUS</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">BIT_VECTOR</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">7</span><span class="p">);</span>
+<span class="k">signal</span><span class="w"> </span><span class="n">INIT_P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">STD_LOGIC_VECTOR</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div><br />
+有差嗎？<br />
+有差：<br />
+<div class="highlight"><pre><span></span><code>BIT_VECTOR       = 只有 0/1 的向量
+STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
+</code></pre></div></p>
+</blockquote>
 <p>VHDL 四種物件類別，教材列的是：</p>
 <ol>
 <li><code>constant</code></li>
@@ -8346,6 +8379,44 @@ default                   -&gt; others
 <p>你如果要，我下一則可以直接接著幫你做一份：</p>
 <p><strong>「Verilog 工程師專用的 VHDL 速查表＋10 個最常見範例（mux / decoder / comparator / DFF / counter / onehot count）」</strong></p>
 <p>讓你用最少時間把這些語法真的讀熟。</p>
+<h2 id="21-作業範例">21. 作業範例<a class="headerlink" href="#21-作業範例" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/VHDL-2.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">library</span><span class="w"> </span><span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span><span class="w"> </span><span class="nc">My_ckt_1</span><span class="w"> </span><span class="k">is</span>
+<span class="w">    </span><span class="k">port</span><span class="p">(</span>
+<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">D</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">My_ckt_1</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">simple</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">My_ckt_1</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="k">process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">)</span>
+<span class="w">    </span><span class="k">begin</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">to_unsigned</span><span class="p">(</span><span class="mi">47038</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;0000&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;01&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">));</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">simple</span><span class="p">;</span>
+</code></pre></div>
 
 
 
