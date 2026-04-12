@@ -967,6 +967,7 @@ body {
 
 /* 標題內 inline code 降低膨脹感，並避免桌面版被拆成多行 */
 .md-typeset :is(h1, h2, h3, h4, h5, h6) code {
+  align-self: center;
   font-size: 0.84em;
   line-height: 1.15;
   padding: 0.02em 0.24em;

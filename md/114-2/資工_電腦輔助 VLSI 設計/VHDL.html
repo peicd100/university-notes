@@ -4922,6 +4922,17 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#目錄" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目錄
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-先建立整體心智模型" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6267,6 +6278,17 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#目錄" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目錄
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-先建立整體心智模型" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7379,6 +7401,88 @@ is now available!
 
 
 <h1 id="vhdl">VHDL<a class="headerlink" href="#vhdl" title="Permanent link"></a></h1>
+<h2 id="目錄">目錄<a class="headerlink" href="#目錄" title="Permanent link"></a></h2>
+<ul>
+<li>1&#46; 先建立整體心智模型</li>
+<li>2&#46; 最基本的外觀：VHDL 長什麼樣</li>
+<li>2.1 entity + architecture</li>
+<li>2.2 註解、大小寫、命名</li>
+<li>3&#46; 物件宣告：VHDL 不是 <code>type name</code>，而是 <code>name : type</code></li>
+<li>3.1 常見宣告格式</li>
+<li>3.2 先用 Verilog 直覺理解 constant / variable / signal</li>
+<li>4&#46; 型別系統：VHDL 比 Verilog 更「強型別」</li>
+<li>4.1 枚舉型別 enumeration</li>
+<li>4.2 <code>BIT</code>、<code>BOOLEAN</code>、<code>STD_LOGIC</code></li>
+<li>4.3 integer 與 range</li>
+<li>4.4 physical type / TIME</li>
+<li>5&#46; 陣列與向量：這是你看懂 VHDL 電路描述的核心</li>
+<li>5.1 array type</li>
+<li>5.2 <code>BIT_VECTOR</code>、<code>STD_LOGIC_VECTOR</code></li>
+<li>5.3 <code>to</code> 與 <code>downto</code></li>
+<li>5.4 unconstrained array</li>
+<li>5.5 record type</li>
+<li>6&#46; 不常拿來綜合，但你要看得懂的型別</li>
+<li>6.1 subtype</li>
+<li>6.2 access type</li>
+<li>6.3 file type</li>
+<li>7&#46; 運算子：大致上跟 Verilog 很像，但名字有差</li>
+<li>7.1 邏輯運算</li>
+<li>7.2 比較運算</li>
+<li>7.3 位移與旋轉</li>
+<li>7.4 串接 <code>&amp;</code></li>
+<li>7.5 其他</li>
+<li>8&#46; Attributes：VHDL 很有特色的一塊</li>
+<li>8.1 範圍相關</li>
+<li>8.2 <code>'EVENT</code>、<code>'ACTIVE</code>、<code>'LAST_EVENT</code></li>
+<li>8.3 <code>'RANGE</code>、<code>'REVERSE_RANGE</code></li>
+<li>9&#46; Dataflow model：平行描述硬體</li>
+<li>9.1 基本 concurrent signal assignment</li>
+<li>9.2 conditional signal assignment</li>
+<li>9.3 selected signal assignment</li>
+<li>10&#46; Behavioral syntax：<code>process</code> 是 Ch3 的主角</li>
+<li>10.1 process = Verilog always block</li>
+<li>11&#46; <code>variable :=</code> 與 <code>signal &lt;=</code>：這是最大魔王</li>
+<li>11.1 為什麼 variable 很像 Verilog 的 blocking <code>=</code></li>
+<li>11.2 為什麼 signal 不適合拿來存 process 內中間值</li>
+<li>11.3 sequential signal assignment 與 concurrent signal assignment 的差別</li>
+<li>12&#46; <code>if</code>：組合邏輯與時序邏輯都靠它</li>
+<li>12.1 基本語法</li>
+<li>12.2 沒有 <code>else</code> 會保留前值 → 可能推導出 latch / FF</li>
+<li>12.3 D flip-flop：用 <code>'EVENT</code></li>
+<li>12.4 非同步 reset</li>
+<li>12.5 <code>if ... else</code> 做組合邏輯</li>
+<li>13&#46; <code>for loop</code>：硬體描述裡常拿來展開重複邏輯</li>
+<li>13.1 基本語法</li>
+<li>13.2 更漂亮的寫法：<code>d'RANGE</code></li>
+<li>14&#46; <code>case</code>：多工器/解碼器很常見</li>
+<li>14.1 基本語法</li>
+<li>14.2 範例：4-to-1 mux</li>
+<li>15&#46; <code>wait</code>：另一種控制 process 的方式</li>
+<li>15.1 <code>wait until</code> 類比 <code>@(posedge clk)</code></li>
+<li>15.2 不可以同時有 sensitivity list 和 wait</li>
+<li>15.3 沒有 sensitivity list 的 process，至少要有一個 wait</li>
+<li>16&#46; 你在 p.63 前一定要會辨識的三種模板</li>
+<li>16.1 Dataflow 組合邏輯</li>
+<li>16.2 process 組合邏輯</li>
+<li>16.3 process 時序邏輯</li>
+<li>17&#46; 這份教材脈絡下，你最容易踩的 8 個坑</li>
+<li>17.1 <code>signal</code> 不是單純等於 Verilog <code>wire</code></li>
+<li>17.2 <code>variable :=</code> 才是 process 內中間值的好朋友</li>
+<li>17.3 同一個 process 裡多次對同一個 signal <code>&lt;=</code></li>
+<li>17.4 <code>if</code> 少了 <code>else</code>，組合邏輯可能變 latch</li>
+<li>17.5 向量方向要看 <code>to</code> / <code>downto</code></li>
+<li>17.6 <code>when others</code> 很重要</li>
+<li>17.7 <code>out</code> 在這份教材的規則下是只寫不讀</li>
+<li>17.8 <code>library ieee; use ieee.std_logic_1164.all;</code></li>
+<li>18&#46; 給你一份超濃縮 Verilog → VHDL 速記</li>
+<li>19&#46; 你現在該怎麼讀 p.63 前的程式</li>
+<li>19.1 先看它在 architecture 外層，還是 process 裡</li>
+<li>19.2 看 <code>&lt;=</code> 還是 <code>:=</code></li>
+<li>19.3 看 sensitivity list 或 wait</li>
+<li>19.4 看 if/case 是否補齊</li>
+<li>19.5 看 vector 方向</li>
+<li>20&#46; 最後幫你下結論</li>
+</ul>
 <p>我先幫你定義範圍：這裡只教你 <strong>Ch2 全部</strong>，以及 <strong>Ch3 到 p.62 為止</strong> 的語法；也就是 <strong>Behavior Model and Simulation（p.63）之前</strong> 的內容，不含 p.63 之後。教材重點確實就是：<strong>基本型別/物件 → dataflow → process/sequential → if/loop/case/wait</strong>。 </p>
 <hr />
 <h2 id="1-先建立整體心智模型">1. 先建立整體心智模型<a class="headerlink" href="#1-先建立整體心智模型" title="Permanent link"></a></h2>
@@ -7860,7 +7964,7 @@ Verilog 類比就是：</p>
 <hr />
 <h3 id="112-為什麼-signal-不適合拿來存-process-內中間值">11.2 為什麼 signal 不適合拿來存 process 內中間值<a class="headerlink" href="#112-為什麼-signal-不適合拿來存-process-內中間值" title="Permanent link"></a></h3>
 <p>教材有一個反例：如果你把中間值也寫成 signal，像這樣：</p>
-<div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">TEMP1</span><span class="p">,</span><span class="w"> </span><span class="n">TEMP2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">;</span>
+<p><div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">TEMP1</span><span class="p">,</span><span class="w"> </span><span class="n">TEMP2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">;</span>
 <span class="p">...</span>
 <span class="k">process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">TEMP1</span><span class="p">,</span><span class="n">TEMP2</span><span class="p">)</span>
 <span class="k">begin</span>
@@ -7869,8 +7973,10 @@ Verilog 類比就是：</p>
 <span class="w">    </span><span class="n">TEMP1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">TEMP1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">TEMP2</span><span class="p">;</span>
 <span class="w">    </span><span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">TEMP1</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
-</code></pre></div>
-<p>結果不是你直覺想的那樣。<br />
+</code></pre></div><br />
+<img alt="alt text" src="images/VHDL.png" /><br />
+<img alt="alt text" src="images/VHDL-1.png" /><br />
+結果不是你直覺想的那樣。<br />
 因為同一次 process 裡對同一個 signal 多次指定，<strong>最後一次會生效</strong>；而且 signal 不會立即更新。教材甚至畫出等效電路，指出 <code>A</code>、<code>B</code> 被丟著沒用。</p>
 <p>這點完全可以用一句 Verilog 忠告記住：</p>
 <blockquote>
@@ -8009,12 +8115,27 @@ Verilog 類比就是：</p>
 </code></pre></div>
 <hr />
 <h3 id="132-更漂亮的寫法drange">13.2 更漂亮的寫法：<code>d'RANGE</code><a class="headerlink" href="#132-更漂亮的寫法drange" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">d</span><span class="na">&#39;RANGE</span><span class="w"> </span><span class="k">loop</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">d</span><span class="na">&#39;RANGE</span><span class="w"> </span><span class="k">loop</span><span class="w"> </span><span class="c1">-- 會被取代成 for i in 2 downto 0 loop ，因為 d&#39;RANGE = 2 downto 0。</span>
 <span class="w">    </span><span class="p">...</span>
 <span class="k">end</span><span class="w"> </span><span class="k">loop</span><span class="p">;</span>
 </code></pre></div>
 <p>這樣你不用自己硬寫 <code>2 downto 0</code>。<br />
 如果向量寬度改了，loop 也能跟著走，這是很 VHDL 的寫法。教材特別把這當作進階版例子。 </p>
+<blockquote>
+<p>d'RANGE 看的是 d 的「索引範圍」，<br />
+不是看 d 裡面目前存的資料值。<br />
+所以如果：<br />
+<div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div><br />
+那不管現在 d 是：<br />
+"110"<br />
+"000"<br />
+"101"<br />
+d'RANGE 都還是：<br />
+<div class="highlight"><pre><span></span><code><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div><br />
+所以 i 會是 2,1,0</p>
+</blockquote>
 <hr />
 <h2 id="14-case多工器解碼器很常見">14. <code>case</code>：多工器/解碼器很常見<a class="headerlink" href="#14-case多工器解碼器很常見" title="Permanent link"></a></h2>
 <h3 id="141-基本語法">14.1 基本語法<a class="headerlink" href="#141-基本語法" title="Permanent link"></a></h3>
@@ -8067,7 +8188,7 @@ Verilog 類比就是：</p>
 <h3 id="151-wait-until-類比-posedge-clk">15.1 <code>wait until</code> 類比 <code>@(posedge clk)</code><a class="headerlink" href="#151-wait-until-類比-posedge-clk" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span><span class="w"> </span><span class="o">//</span><span class="err">在這裡等待</span>
 <span class="w">    </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
@@ -8078,6 +8199,20 @@ Verilog 類比就是：</p>
 <span class="k">end</span>
 </code></pre></div>
 <p>教材直接把這當作另一種 DFF 寫法。</p>
+<p>所以 DFF 有這幾種寫法：</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+</code></pre></div><br />
+<div class="highlight"><pre><span></span><code><span class="k">process</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+</code></pre></div></p>
 <hr />
 <h3 id="152-不可以同時有-sensitivity-list-和-wait">15.2 不可以同時有 sensitivity list 和 wait<a class="headerlink" href="#152-不可以同時有-sensitivity-list-和-wait" title="Permanent link"></a></h3>
 <p>教材明講：<br />
