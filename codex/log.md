@@ -57,3 +57,33 @@
   - `npx.cmd --yes @playwright/cli eval ...` 檢查 heading 與 code span 的實際 computed style / bounding box
   - `npx.cmd --yes @playwright/cli run-code ...heading.screenshot(...)` 目視確認 code span 不再被拉成大方塊
 - 結果：標題中的 code span 已恢復正常高度，且不再在桌機寬度下被拆成異常巨型區塊；窄螢幕則允許較溫和的換行。
+
+## 2026-04-12 頁面內目錄標號修正
+- 使用者需求：頁面內 `## 目錄` 區塊的頂層序號顯示錯誤，畫面出現 `a.` 而不是 `1.`、`2.`。
+- 先比對靜態 HTML、右側 TOC 與頁面內目錄，確認右側 TOC 正常，只有手寫頁面內目錄有問題。
+- 查閱 CommonMark / Python-Markdown 的清單解析規則與社群經驗後，確認 `- 1. ...` 在無序清單中會被當成巢狀 ordered list，而不是單純文字。
+- 實際修改：
+  - 更新 `docs/md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md`
+  - 將頁面內目錄頂層條目的 `- N. ...` 全部改成 `- N&#46; ...`
+  - `codex/README_PEICD100.md`、`codex/協作重要事項.md`、`codex/專案規格書.md` 同步補記這個 Markdown 陷阱
+- 驗證方式：
+  - `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean --site-dir codex/tmp/preview-current`
+  - 檢查輸出的 `VHDL.html`，確認 `## 目錄` 區塊不再產生巢狀 `<ol>`
+  - 用 Playwright 重整頁面並截圖，確認頁面內目錄顯示為 `1.`、`2.`、`3.`
+- 結果：頁面內目錄的頂層標號已恢復正常，不再顯示成 `a.`。
+
+## 2026-04-12 標題 inline code 上下置中
+- 使用者需求：希望標題中的 backticks 不是只看起來自然，而是上下真正置中。
+- 先在預覽頁實測 `baseline`、`top` 微移、`align-self: center` 三種做法，最後以 `align-self: center` 效果最符合需求。
+- 查閱 MDN flexbox / `align-self` 文件與社群對 flex item 垂直置中的經驗後，採用 flex 原生 cross-axis 對齊，而不是再疊一層 `top` 微調。
+- 實際修改：
+  - 更新 `docs/theme/assets/pymdownx-extras/自定義.css`
+  - 在 heading code 規則改為 `align-self: center`
+  - 移除先前的 `top` 微位移
+  - `codex/README_PEICD100.md`、`codex/協作重要事項.md`、`codex/專案規格書.md` 同步補記這次做法
+- 驗證方式：
+  - `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean --site-dir codex/tmp/preview-current`
+  - `npx.cmd --yes @playwright/cli goto http://127.0.0.1:8123/.../VHDL.html?cb=20260412-center#123-d-flip-flop用-event`
+  - `npx.cmd --yes @playwright/cli eval ...` 檢查 code item 的 `align-self` 已生效、`top` 已不再介入
+  - `npx.cmd --yes @playwright/cli run-code ...heading.screenshot(...)` 比對 12.3 標題的最終顯示
+- 結果：標題內 inline code 已改成真正的 cross-axis 置中，且未影響既有 heading 佈局。

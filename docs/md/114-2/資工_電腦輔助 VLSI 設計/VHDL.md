@@ -1,5 +1,87 @@
 # VHDL
 
+## 目錄
+
+- 1&#46; 先建立整體心智模型
+- 2&#46; 最基本的外觀：VHDL 長什麼樣
+  - 2.1 entity + architecture
+  - 2.2 註解、大小寫、命名
+- 3&#46; 物件宣告：VHDL 不是 `type name`，而是 `name : type`
+  - 3.1 常見宣告格式
+  - 3.2 先用 Verilog 直覺理解 constant / variable / signal
+- 4&#46; 型別系統：VHDL 比 Verilog 更「強型別」
+  - 4.1 枚舉型別 enumeration
+  - 4.2 `BIT`、`BOOLEAN`、`STD_LOGIC`
+  - 4.3 integer 與 range
+  - 4.4 physical type / TIME
+- 5&#46; 陣列與向量：這是你看懂 VHDL 電路描述的核心
+  - 5.1 array type
+  - 5.2 `BIT_VECTOR`、`STD_LOGIC_VECTOR`
+  - 5.3 `to` 與 `downto`
+  - 5.4 unconstrained array
+  - 5.5 record type
+- 6&#46; 不常拿來綜合，但你要看得懂的型別
+  - 6.1 subtype
+  - 6.2 access type
+  - 6.3 file type
+- 7&#46; 運算子：大致上跟 Verilog 很像，但名字有差
+  - 7.1 邏輯運算
+  - 7.2 比較運算
+  - 7.3 位移與旋轉
+  - 7.4 串接 `&`
+  - 7.5 其他
+- 8&#46; Attributes：VHDL 很有特色的一塊
+  - 8.1 範圍相關
+  - 8.2 `'EVENT`、`'ACTIVE`、`'LAST_EVENT`
+  - 8.3 `'RANGE`、`'REVERSE_RANGE`
+- 9&#46; Dataflow model：平行描述硬體
+  - 9.1 基本 concurrent signal assignment
+  - 9.2 conditional signal assignment
+  - 9.3 selected signal assignment
+- 10&#46; Behavioral syntax：`process` 是 Ch3 的主角
+  - 10.1 process = Verilog always block
+- 11&#46; `variable :=` 與 `signal <=`：這是最大魔王
+  - 11.1 為什麼 variable 很像 Verilog 的 blocking `=`
+  - 11.2 為什麼 signal 不適合拿來存 process 內中間值
+  - 11.3 sequential signal assignment 與 concurrent signal assignment 的差別
+- 12&#46; `if`：組合邏輯與時序邏輯都靠它
+  - 12.1 基本語法
+  - 12.2 沒有 `else` 會保留前值 → 可能推導出 latch / FF
+  - 12.3 D flip-flop：用 `'EVENT`
+  - 12.4 非同步 reset
+  - 12.5 `if ... else` 做組合邏輯
+- 13&#46; `for loop`：硬體描述裡常拿來展開重複邏輯
+  - 13.1 基本語法
+  - 13.2 更漂亮的寫法：`d'RANGE`
+- 14&#46; `case`：多工器/解碼器很常見
+  - 14.1 基本語法
+  - 14.2 範例：4-to-1 mux
+- 15&#46; `wait`：另一種控制 process 的方式
+  - 15.1 `wait until` 類比 `@(posedge clk)`
+  - 15.2 不可以同時有 sensitivity list 和 wait
+  - 15.3 沒有 sensitivity list 的 process，至少要有一個 wait
+- 16&#46; 你在 p.63 前一定要會辨識的三種模板
+  - 16.1 Dataflow 組合邏輯
+  - 16.2 process 組合邏輯
+  - 16.3 process 時序邏輯
+- 17&#46; 這份教材脈絡下，你最容易踩的 8 個坑
+  - 17.1 `signal` 不是單純等於 Verilog `wire`
+  - 17.2 `variable :=` 才是 process 內中間值的好朋友
+  - 17.3 同一個 process 裡多次對同一個 signal `<=`
+  - 17.4 `if` 少了 `else`，組合邏輯可能變 latch
+  - 17.5 向量方向要看 `to` / `downto`
+  - 17.6 `when others` 很重要
+  - 17.7 `out` 在這份教材的規則下是只寫不讀
+  - 17.8 `library ieee; use ieee.std_logic_1164.all;`
+- 18&#46; 給你一份超濃縮 Verilog → VHDL 速記
+- 19&#46; 你現在該怎麼讀 p.63 前的程式
+  - 19.1 先看它在 architecture 外層，還是 process 裡
+  - 19.2 看 `<=` 還是 `:=`
+  - 19.3 看 sensitivity list 或 wait
+  - 19.4 看 if/case 是否補齊
+  - 19.5 看 vector 方向
+- 20&#46; 最後幫你下結論
+
 
 我先幫你定義範圍：這裡只教你 **Ch2 全部**，以及 **Ch3 到 p.62 為止** 的語法；也就是 **Behavior Model and Simulation（p.63）之前** 的內容，不含 p.63 之後。教材重點確實就是：**基本型別/物件 → dataflow → process/sequential → if/loop/case/wait**。 
 
@@ -761,7 +843,8 @@ begin
     Z <= TEMP1;
 end process;
 ```
-
+![alt text](images/VHDL.png)
+![alt text](images/VHDL-1.png)
 結果不是你直覺想的那樣。
 因為同一次 process 裡對同一個 signal 多次指定，**最後一次會生效**；而且 signal 不會立即更新。教材甚至畫出等效電路，指出 `A`、`B` 被丟著沒用。
 
@@ -964,13 +1047,31 @@ end process;
 ### 13.2 更漂亮的寫法：`d'RANGE`
 
 ```vhdl
-for i in d'RANGE loop
+for i in d'RANGE loop -- 會被取代成 for i in 2 downto 0 loop ，因為 d'RANGE = 2 downto 0。
     ...
 end loop;
 ```
 
 這樣你不用自己硬寫 `2 downto 0`。
 如果向量寬度改了，loop 也能跟著走，這是很 VHDL 的寫法。教材特別把這當作進階版例子。 
+
+
+>d'RANGE 看的是 d 的「索引範圍」，
+不是看 d 裡面目前存的資料值。
+所以如果：
+```vhdl
+signal d : std_logic_vector(2 downto 0);
+```
+那不管現在 d 是：
+"110"
+"000"
+"101"
+d'RANGE 都還是：
+```vhdl
+2 downto 0
+```
+所以 i 會是 2,1,0
+
 
 ---
 
@@ -1047,7 +1148,7 @@ wait for time_expression;
 ```vhdl
 process
 begin
-    wait until (clk'EVENT and clk = '1');
+    wait until (clk'EVENT and clk = '1'); //在這裡等待
     Qout <= Qin;
 end process;
 ```
@@ -1062,6 +1163,24 @@ end
 ```
 
 教材直接把這當作另一種 DFF 寫法。
+
+所以 DFF 有這幾種寫法：
+
+```vhdl
+process(Qin, clk)
+begin
+    if (clk'EVENT and clk = '1') then
+        Qout <= Qin;
+    end if;
+end process;
+```
+```vhdl
+process
+begin
+    wait until (clk'EVENT and clk = '1');
+    Qout <= Qin;
+end process;
+```
 
 ---
 
