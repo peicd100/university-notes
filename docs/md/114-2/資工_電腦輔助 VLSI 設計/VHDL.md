@@ -198,6 +198,20 @@ wire CLOCK;
 wire [7:0] INIT_P;
 ```
 
+>那
+```vhdl
+signal DATA_BUS : BIT_VECTOR(0 to 7);
+signal INIT_P : STD_LOGIC_VECTOR(7 downto 0);
+```
+有差嗎？
+有差：
+```
+BIT_VECTOR       = 只有 0/1 的向量
+STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
+```
+
+
+
 VHDL 四種物件類別，教材列的是：
 
 1. `constant`
@@ -1373,3 +1387,47 @@ default                   -> others
 **「Verilog 工程師專用的 VHDL 速查表＋10 個最常見範例（mux / decoder / comparator / DFF / counter / onehot count）」**
 
 讓你用最少時間把這些語法真的讀熟。
+
+
+## 21. 作業範例
+
+![alt text](images/VHDL-2.png)
+
+
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity My_ckt_1 is
+    port(
+        A : in  std_logic_vector(16 downto 0);
+        B : in  std_logic_vector(3 downto 0);
+        C : in  std_logic_vector(3 downto 0);
+        D : in  std_logic_vector(1 downto 0);
+        Y : out std_logic_vector(3 downto 0)
+    );
+end My_ckt_1;
+
+architecture simple of My_ckt_1 is
+begin
+    process(A,B,C,D)
+    begin
+        if unsigned(A) /= to_unsigned(47038,17) then
+            Y <= "0000";
+        elsif D = "00" then
+            if unsigned(B) <= unsigned(C) then
+                Y <= B;
+            else
+                Y <= C;
+            end if;
+        elsif D = "01" then
+            Y <= B and C;
+        elsif D = "10" then
+            Y <= std_logic_vector(unsigned(B) + unsigned(C));
+        else
+            Y <= B(2 downto 0) & B(3);
+        end if;
+    end process;
+end simple;
+```
