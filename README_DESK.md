@@ -8,7 +8,7 @@ mkdocs serve --dirty
 ```
 ```
 activate mkdocs_desk
-mkdocs serve
+mkdocs serve -f mkdocs.preview.yml --dirty
 
 ```
 

@@ -15,6 +15,7 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
+from mkdocs.plugins import event_priority
 
 
 log = logging.getLogger("mkdocs.hooks.source_jump")
@@ -56,16 +57,26 @@ def on_config(config: Any) -> Any:
     return config
 
 
+@event_priority(-100)
+def on_files(files: Any, /, *, config: Any) -> Any:
+    _PAGE_INDEX.clear()
+
+    for file_obj in _iter_documentation_files(files):
+        markdown = _read_markdown_content(file_obj)
+        if markdown is None:
+            continue
+
+        _index_page_markdown(markdown, file_obj)
+
+    return files
+
+
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
     file_obj = getattr(page, "file", None)
     if file_obj is None:
         return markdown
 
-    try:
-        record = _build_page_record(markdown, file_obj)
-        _PAGE_INDEX[record.dest_uri] = record
-    except Exception:
-        log.exception("Failed to index page source for %s", getattr(file_obj, "src_uri", "<unknown>"))
+    _index_page_markdown(markdown, file_obj)
 
     return markdown
 
@@ -192,6 +203,45 @@ def _normalize_page_key(page_path: str, mount_path: str) -> str:
     elif path.endswith("/"):
         path = f"{path}index.html"
     return posixpath.normpath("/" + path).lstrip("/")
+
+
+def _iter_documentation_files(files: Any) -> list[Any]:
+    documentation_pages = getattr(files, "documentation_pages", None)
+    if callable(documentation_pages):
+        return list(documentation_pages())
+
+    collected: list[Any] = []
+    for file_obj in files:
+        src_uri = str(getattr(file_obj, "src_uri", "") or "").lower()
+        if src_uri.endswith((".md", ".markdown")):
+            collected.append(file_obj)
+    return collected
+
+
+def _read_markdown_content(file_obj: Any) -> str | None:
+    try:
+        content = getattr(file_obj, "content_string")
+    except Exception:
+        content = None
+
+    if isinstance(content, bytes):
+        return content.decode("utf-8")
+    if isinstance(content, str):
+        return content
+
+    abs_src_path = getattr(file_obj, "abs_src_path", None)
+    if abs_src_path and os.path.exists(abs_src_path):
+        return Path(abs_src_path).read_text(encoding="utf-8")
+
+    return None
+
+
+def _index_page_markdown(markdown: str, file_obj: Any) -> None:
+    try:
+        record = _build_page_record(markdown, file_obj)
+        _PAGE_INDEX[record.dest_uri] = record
+    except Exception:
+        log.exception("Failed to index page source for %s", getattr(file_obj, "src_uri", "<unknown>"))
 
 
 def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:

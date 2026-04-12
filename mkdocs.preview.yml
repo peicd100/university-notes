@@ -1,0 +1,14 @@
+# mkdocs serve -f mkdocs.preview.yml --dirty
+
+INHERIT: mkdocs.yml
+
+site_name: Preview
+plugins: []
+
+nav:
+  - 'md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md'
+
+exclude_docs: |
+  *.md
+  !/md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md
+  !/index.md

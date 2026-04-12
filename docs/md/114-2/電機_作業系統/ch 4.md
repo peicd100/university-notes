@@ -3738,5 +3738,3 @@ for (i = 0; i < N; i++) {
 [1]: https://www.openmp.org/wp-content/uploads/OpenMPRefCard-5-2-web.pdf?utm_source=chatgpt.com "OpenMP 5.2 API Syntax Reference Guide Directives and ..."
 [2]: https://www.openmp.org/spec-html/5.2/openmpsu33.html?utm_source=chatgpt.com "Variables Referenced in a Construct"
 [3]: https://gcc.gnu.org/onlinedocs/gccint/OpenMP.html?utm_source=chatgpt.com "OpenMP (GNU Compiler Collection (GCC) Internals)"
-
-

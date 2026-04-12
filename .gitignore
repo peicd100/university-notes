@@ -56,9 +56,9 @@ Thumbs.db
 .idea/
 
 # 專案協作紀錄
-README_PEICD100.md
-專案規格書.md
-log.md
+/README_PEICD100.md
+/專案規格書.md
+/log.md
 
 # VS Code：沿用官方範本，保留可共享的工作區設定
 .vscode/*
@@ -68,3 +68,5 @@ log.md
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 !*.code-workspace
+*.out.log
+*.err.log
