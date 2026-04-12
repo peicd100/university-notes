@@ -22,3 +22,19 @@
   - `mkdocs serve -f mkdocs.preview.yml --dirty` 下對 `VHDL.html` 的 lookup endpoint 回傳 200，並可定位到 `VHDL.md:1:3`
   - `mkdocs serve --dirty` 下同一路徑 lookup endpoint 也回傳 200
 - 結果：preview 模式後端索引問題已修正，source jump lookup 可在主站與 preview 的 dirty serve 下正常定位 Markdown 原始檔。
+
+## 2026-04-12 驗證輸出整理
+- 使用者需求：之後人工驗證產生的 `.out.log` / `.err.log` 不要再散在專案根目錄，統一改放 `codex/tmp/`。
+- 查閱 Python `subprocess` 官方文件、Git `gitignore` 官方文件，以及社群對 `.gitkeep` / 空目錄保留的慣例後，採用較穩的專案內暫存目錄方案。
+- 實際修改：
+  - 新增 `tools/run_logged.py`
+  - 新增 `codex/tmp/.gitkeep`
+  - `.gitignore` 新增 `codex/tmp` 暫存忽略規則
+  - `codex/README_PEICD100.md` 補充驗證輸出使用方式
+  - `codex/專案規格書.md`、`codex/使用者要求.md`、`codex/協作重要事項.md` 同步記錄規則
+  - 將根目錄既有 `.out.log` / `.err.log` 移入 `codex/tmp/`
+- 驗證方式：
+  - `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name pycheck-source-jump -- Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py`
+  - 確認 `codex/tmp/` 產生對應的 `.out.log`、`.err.log`、`.meta.json`
+  - 確認專案根目錄不再殘留本次移動前的 `.out.log` / `.err.log`
+- 結果：後續需要保留的人工驗證輸出已有固定落點，根目錄可維持乾淨。
