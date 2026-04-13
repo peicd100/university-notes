@@ -10168,25 +10168,12 @@ to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左�
 
 <span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
 <span class="n">B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
+
+<span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span>
+<span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span>
 </code></pre></div>
-<p>那會變成：</p>
-<p>對 A : bit_vector(0 to 3)</p>
-<p>左邊第一個字元 '1' 會對到 leftmost index<br />
-而 0 to 3 的 leftmost index 是 0</p>
-<p>所以：<br />
-<div class="highlight"><pre><span></span><code>A(0) = &#39;1&#39;
-A(1) = &#39;0&#39;
-A(2) = &#39;0&#39;
-A(3) = &#39;0&#39;
-</code></pre></div></p>
-<p>對 B : bit_vector(3 downto 0)</p>
-<p>leftmost index 是 3</p>
-<p>所以：<br />
-<div class="highlight"><pre><span></span><code>B(3) = &#39;1&#39;
-B(2) = &#39;0&#39;
-B(1) = &#39;0&#39;
-B(0) = &#39;0&#39;
-</code></pre></div></p>
 
 
 
