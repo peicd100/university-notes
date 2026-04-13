@@ -703,3 +703,5 @@ addi  $t5, $t0, #5
 [6]: https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html "https://www.cs.umd.edu/~meesh/cmsc411/CourseResources/CA-online/chapter/handling-control-hazards/index.html"
 [7]: https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html "https://www.cs.umd.edu/~meesh/411/CA-online/chapter/handling-control-hazards/index.html"
 [8]: https://stackoverflow.com/questions/54724410/why-is-the-branch-delay-slot-deprecated-or-obsolete "https://stackoverflow.com/questions/54724410/why-is-the-branch-delay-slot-deprecated-or-obsolete"
+
+

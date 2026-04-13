@@ -2878,814 +2878,1276 @@ $s2 = $s1 + 0
 
 ![alt text](<images/ch 2-48.png>) ![alt text](<images/ch 2-50.png>) ![alt text](<images/ch 2-52.png>) ![alt text](<images/ch 2-54.png>) ![alt text](<images/ch 2-51.png>) ![alt text](<images/ch 2-49.png>) ![alt text](<images/ch 2-53.png>) ![alt text](<images/ch 2-55.png>) ![alt text](<images/ch 2-56.png>) ![alt text](<images/ch 2-57.png>)
 
-已啟用教學模式
 
 ### 講解
 
-#### 這幾頁在回答什麼問題
 
-這一段其實在回答兩個核心問題：
+#### 1. 先講這 10 張投影片背後真正要處理的規則
 
-1. **MIPS 指令在硬體裡到底長什麼樣子？**
-2. **一條組合語言，怎麼變成 32-bit 的機器碼？**
+這一段不是在叫我們死背 `R / I / J` 三種長相，而是在處理一個核心限制：
 
-你貼的第 104–113 頁，主線是：
+**CPU 最後只吃固定長度的位元欄位，所以我們必須把「人看得懂的組合語言」翻成「硬體看得懂的 32-bit 欄位」**。
 
-* 先告訴你 MIPS 有 **R / I / J** 三種格式
-* 再聚焦講 **R-type(Register 型)**
-* 最後示範把
-  `add $t0, $s1, $s2`
-  真的翻成機器指令。
+MIPS32 的指令固定是 **32 bit**，而且有 **32 個 general-purpose registers**；其中 **GPR0 固定為 0**，**GPR31 常用來放 return address**。R 型通常是 **2 個來源 + 1 個目的**，I 型則是把其中一個來源位置換成 **16-bit immediate**。這就是為什麼投影片一直在講欄位、位數、暫存器編號，而不是只講語法。 ([MIPS訓練][1])
 
 ---
 
-```mermaid id="yqtnqg"
+#### 2. 這幾頁其實在教你一個轉換流程
+
+```mermaid
 flowchart TB
-A[組合語言<br>add $t0, $s1, $s2] --> B[查暫存器編號<br>$s1=17, $s2=18, $t0=8]
-B --> C[決定指令格式<br>R-type]
-C --> D[填入欄位<br>op rs rt rd shamt funct]
-D --> E[十進位欄位<br>0 17 18 8 0 32]
-E --> F[二進位機器碼<br>000000 10001 10010 01000 00000 100000]
+A[組合語言<br/>add $t0,$s1,$s2] --> B[判斷指令格式<br/>R-type]
+B --> C[填欄位<br/>op rs rt rd shamt funct]
+C --> D[填十進位編號<br/>0 17 18 8 0 32]
+D --> E[轉成二進位<br/>000000 10001 10010 01000 00000 100000]
+D --> F[也可再寫成十六進位<br/>0x02324020]
 ```
 
----
+你可以把它想成「寄包裹」：
 
-#### 第 104 頁：MIPS 為什麼分成 R / I / J 三種
-
-這頁先給你大框架。
-
-MIPS 指令主要分成三類：
-
-* **R-type(Register 型)**
-  主要做「暫存器對暫存器」的運算
-* **I-type(Immediate 型)**
-  主要給「立即值、載入儲存、分支」這類指令
-* **J-type(Jump 型)**
-  主要給跳躍指令
-
-你可以先這樣直覺記：
-
-* **R**：重點在 register
-* **I**：重點在 immediate(常數)
-* **J**：重點在 jump address
-
-這一頁最重要不是背圖，而是先建立：
-
-> **不同用途的指令，會有不同欄位配置。**
+* `add` 告訴 CPU：你要做哪種事
+* `$s1`、`$s2` 告訴 CPU：資料從哪來
+* `$t0` 告訴 CPU：結果要放哪
+* 最後把這些資訊塞進固定格式的欄位中
 
 ---
 
-#### 先講直覺：為什麼不能全部都用同一種格式？
+#### 3. 三種格式，重點不是背圖，而是知道它們各自解決什麼問題
 
-因為不同指令需要的資訊不一樣。
+**3.1 R(Register) 型**
+適合「資料都在暫存器裡」的運算，像 `add`、`sub`、`and`、`or`、`slt`、`sll`。
+欄位是：
+
+`op | rs | rt | rd | shamt | funct`
+
+這代表：
+
+* `rs`：第一個來源
+* `rt`：第二個來源
+* `rd`：目的地
+* `shamt`：給 shift 類指令用
+* `funct`：因為很多 R 型指令的 `op` 都一樣，所以再靠 `funct` 細分
+
+你現在要抓一個最重要的不變量：
+
+> **組合語言的書寫順序，不等於機器欄位的排列順序。**
 
 例如：
-
-* `add $t0, $s1, $s2`
-  需要兩個來源、一個目的地
-* `addi $t0, $s1, 4`
-  需要一個來源、一個目的地、再加一個常數
-* `j target`
-  幾乎只需要跳躍位址
-
-所以硬體設計者會想：
-
-> **既然需求不同，那欄位就分成幾種固定樣板來裝。**
-
-這就是 instruction format(指令格式) 的概念。
-
----
-
-#### 第 105 頁：R-type 格式長什麼樣
-
-R-type 欄位長這樣：
-
-```text id="pan73g"
-op | rs | rt | rd | shamt | funct
-6    5    5    5     5       6
-```
-
-總長度是：
-
-```text id="0yffix"
-6 + 5 + 5 + 5 + 5 + 6 = 32 bits
-```
-
-這也是投影片一直強調的：
-
-> **所有 MIPS 指令固定都是 32 bits。**
-
-這是 RISC 很典型的設計哲學之一：格式規則、容易解碼。
-
----
-
-#### 第 105、109、110 頁：每個欄位到底在幹嘛
-
-我們一個一個拆。
-
-##### 1. `op` = opcode(運作碼)
-
-告訴 CPU：
-
-> **這大概是哪一類操作。**
-
-在經典 MIPS 的 R-type 算術指令裡，`op` 常常是 `0`。
-也就是說：
-
-* 光看 `op=0`，還不知道你是 add、sub、and、or
-* 要再看最後面的 `funct`
-
-所以對 R-type 來說，你可以把它理解成：
-
-> `op` 先說「我是 R-type」，
-> `funct` 再說「我具體是哪一種 R-type」。
-
-##### 2. `rs`
-
-第一個來源暫存器
-
-##### 3. `rt`
-
-第二個來源暫存器
-
-##### 4. `rd`
-
-目的地暫存器，也就是結果要寫去哪裡
-
-##### 5. `shamt` = shift amount(位移量)
-
-只在 shift 指令像 `sll`、`srl` 這種才真的有用。
-如果不是 shift 指令，通常放 `0`。
-
-##### 6. `funct` = function code(功能碼)
-
-在 `op=0` 的前提下，再進一步區分：
-
-* add
-* sub
-* and
-* or
-* slt
-* sll
-* srl
-* ...
-
-所以你可以先把 R-type 想成：
-
-```text id="7dmwmo"
-op 負責大分類
-funct 負責細分類
-```
-
----
-
-#### 為什麼 `rs / rt / rd` 都是 5 bits？
-
-因為 MIPS 有 **32 個通用暫存器**。
-
-而：
-
-```text id="umq4lu"
-2^5 = 32
-```
-
-所以 5 bits 剛好能編號：
-
-* 0 ~ 31
-
-這就是第 105 頁說的重點。
-也就是為什麼暫存器欄位統一都做成 5 bits。
-
----
-
-#### 第 106 頁：R-type 指令例子要怎麼看
-
-投影片列了很多常見 R-type，例如：
-
-* `add`
-* `sub`
-* `and`
-* `or`
-* `nor`
-* `slt`
-* `sltu`
-* `sll`
-* `srl`
-
-你可以先分成三群記。
-
-##### 第一群：算術
-
-* `add $d, $s, $t`
-* `sub $d, $s, $t`
-
-意思就是：
-
-```text id="7ywl4r"
-$d = $s op $t
-```
-
-##### 第二群：邏輯
-
-* `and`
-* `or`
-* `nor`
-
-這些是 bitwise(逐位元) 運算。
-
-##### 第三群：比較 / 位移
-
-* `slt` / `sltu`
-* `sll` / `srl`
-
----
-
-#### 這一頁我幫你抓兩個很重要的錯
-
-這頁其實有幾個內容錯誤，你一定要修正。
-
-##### 錯誤 1：`nor` 不是「異或」
-
-投影片把 `nor` 寫成「異或」，這是錯的。
-
-* **XOR(異或)** 是 `xor`
-* **NOR(非或)** 是 `nor`
-
-`nor` 的真正意思是：
-
-```text id="qgyl36"
-$d = ~($s | $t)
-```
-
-也就是先 OR，再整個反相。
-
-##### 錯誤 2：`nor` 那列的說明其實寫成了 `slt`
-
-投影片 `nor` 那行後面的說明：
-
-```text id="nkz6yb"
-if($2<$3) $1=1 else $1=0
-```
-
-這其實是在描述 **slt**，不是 nor。
-
-##### 錯誤 3：`sll / srl` 不該叫「迴圈左移 / 右移」
-
-`sll` 是 **logical shift left**
-`srl` 是 **logical shift right**
-
-它們是「邏輯位移」，不是 rotate(循環位移/迴圈位移)。
-
-所以這頁你應該修正成：
-
-* `nor` = 非或，不是異或
-* `sll/srl` = 邏輯位移，不是循環位移
-
-這個很值得你直接畫重點。
-
----
-
-#### 第 107–108 頁：什麼叫 machine language(機器語言)
-
-這兩頁在講一件事：
-
-> **組合語言只是給人類看的符號形式；真正進到 CPU 的，是一串數字位元。**
-
-例如：
-
-* 人類看：`add $t0, $s1, $s2`
-* CPU 看：`000000 10001 10010 01000 00000 100000`
-
-投影片把這種二進位形式叫：
-
-* **machine language instruction(機器語言指令)**
-* 一串這種指令叫 **machine code(機器碼)**
-
-這概念很重要，因為之後你學 assembler(組譯器)、compiler(編譯器)、ISA 時，全都建立在這個抽象上。
-
----
-
-#### 第 111–113 頁：`add $t0, $s1, $s2` 怎麼變成機器碼
-
-這是這幾頁最核心的例題。
-
-我們一步一步來。
-
----
-
-#### Step 1：先判斷它是哪一型
-
-指令是：
-
-```asm id="0q04p9"
-add $t0, $s1, $s2
-```
-
-`add` 是標準的三暫存器運算：
-
-* 兩個來源
-* 一個目的
-
-所以它是 **R-type**。
-
----
-
-#### Step 2：把暫存器名稱換成編號
-
-MIPS 暫存器編號：
-
-* `$t0 = 8`
-* `$s1 = 17`
-* `$s2 = 18`
-
-所以：
-
-* `rd = $t0 = 8`
-* `rs = $s1 = 17`
-* `rt = $s2 = 18`
-
-投影片第 112 頁就是在做這一步。
-
----
-
-#### Step 3：填 R-type 欄位
-
-R-type 格式：
-
-```text id="2dvcud"
-op rs rt rd shamt funct
-```
-
-對 `add` 來說：
-
-* `op = 0`
-* `rs = 17`
-* `rt = 18`
-* `rd = 8`
-* `shamt = 0`
-* `funct = 32`
-
-所以十進位欄位就是：
-
-```text id="u1xy7n"
-0   17   18   8   0   32
-```
-
-這就是第 112 頁的答案。
-
----
-
-#### Step 4：轉成二進位
-
-每個欄位依固定 bit 長度轉成二進位：
-
-* `op = 0` → 6 bits → `000000`
-* `rs = 17` → 5 bits → `10001`
-* `rt = 18` → 5 bits → `10010`
-* `rd = 8` → 5 bits → `01000`
-* `shamt = 0` → 5 bits → `00000`
-* `funct = 32` → 6 bits → `100000`
-
-組起來就是：
-
-```text id="xozq8r"
-000000 10001 10010 01000 00000 100000
-```
-
-這就是第 113 頁的機器碼。
-
----
-
-#### 這一題真正的邏輯，不是背答案，而是背流程
-
-你不要只背：
-
-```text id="6a0fgn"
-0 17 18 8 0 32
-```
-
-你要背的是：
-
-1. 先看指令屬於哪一型
-2. 再查每個暫存器的編號
-3. 再照格式填欄位
-4. 最後轉成二進位
-
-只要這個流程會了，之後你碰到：
-
-* `sub`
-* `and`
-* `or`
-* `slt`
-
-都能自己編。
-
----
-
-#### 我幫你再整理成一張表
-
-| 欄位      |  值 | 原因             |
-| ------- | -: | -------------- |
-| `op`    |  0 | R-type 的基本類別   |
-| `rs`    | 17 | `$s1`          |
-| `rt`    | 18 | `$s2`          |
-| `rd`    |  8 | `$t0`          |
-| `shamt` |  0 | `add` 不是 shift |
-| `funct` | 32 | `add` 的功能碼     |
-
-對應二進位：
-
-| 欄位      | 位數 | 二進位      |
-| ------- | -: | -------- |
-| `op`    |  6 | `000000` |
-| `rs`    |  5 | `10001`  |
-| `rt`    |  5 | `10010`  |
-| `rd`    |  5 | `01000`  |
-| `shamt` |  5 | `00000`  |
-| `funct` |  6 | `100000` |
-
----
-
-#### 額外送你一個更進一步的結果：十六進位表示
-
-把這 32-bit 再每 4 bits 分組：
-
-```text id="hczkij"
-0000 0010 0011 0010 0100 0000 0010 0000
-```
-
-轉成 hex(十六進位) 是：
-
-```text id="af9vk5"
-0x02324020
-```
-
-這不是投影片主題，但非常實用。
-因為之後看 machine code dump 時，常常會直接看到 hex。
-
----
-
-#### 最容易考 / 最容易混淆
-
-##### 1. `rs`、`rt`、`rd` 不要背反
-
-以 `add rd, rs, rt` 來說：
-
-* `rs` = 第一個來源
-* `rt` = 第二個來源
-* `rd` = 目的地
-
-也就是：
-
-```text id="ze3ati"
-rd = rs + rt
-```
-
-##### 2. `op=0` 不代表指令就是 add
-
-❌ 不是。
-`op=0` 只表示它進入某個 R-type 類別，
-真正是哪種運算，還要看 `funct`。
-
-##### 3. `shamt` 不是每條 R-type 都有意義
-
-只有 shift 指令才真的會用到。
-像 `add`、`sub` 通常都填 0。
-
-##### 4. 第 106 頁有內容錯誤
-
-這頁不要照單全收：
-
-* `nor` 不是 XOR
-* `nor` 的說明欄寫錯
-* `sll/srl` 不是循環位移
-
-##### 5. 第 113 頁把 immediate 寫成「最大可到 2^16」要小心
-
-更精準的說法是：
-
-> **I-type 有 16-bit immediate 欄位。**
-
-但它的數值解讀要看指令：
-
-* `addi` 常用 **signed immediate**
-* `andi/ori` 常用 **unsigned / zero-extended immediate**
-
-所以不是所有 I-type 都直接當「最大值 2^16」來理解。
-
----
-
-#### 小結
-
-把這幾頁濃縮成一句話就是：
-
-> **MIPS 為了讓硬體規則、容易解碼，把指令固定成 32-bit，並分成 R / I / J 三種格式；其中 R-type 透過 `op + rs + rt + rd + shamt + funct` 來表示暫存器型運算，而 `add $t0,$s1,$s2` 會被編成 `0 17 18 8 0 32`，也就是二進位 `000000 10001 10010 01000 00000 100000`。** 
-
----
-
-#### 超短背法
-
-* **R-type**：兩個來源 + 一個目的地
-* **`op`**：大分類
-* **`funct`**：細分類
-* **`shamt`**：給 shift 用
-* **`add $t0,$s1,$s2`**
-  → `0 17 18 8 0 32`
-  → `000000 10001 10010 01000 00000 100000`
-
-下一步最適合的是，我直接帶你手算一題
-**`sub $s0, $t1, $t2` 要怎麼轉成機器碼**。
-
-### shamt 要放啥
-
-已啟用教學模式
-
-#### 直接答案
-
-**`shamt` 通常放 `0`。**
-
-因為 `shamt` 是 **shift amount(位移量)**，只有在 **shift 指令** 才真的會用到；你這一段在講的 `add` 這類 R-type 指令，`shamt` 沒用，所以就填 **0**。教材第 110 頁直接寫到：`shamt` 是位移量，而且「在該節之前將不會被使用到，因此本節中該欄位內均含 0」；第 112 頁 `add $t0,$s1,$s2` 的例子也把第五欄填成 `0`。 
-
----
-
-#### 先講直覺
-
-你可以把 R-type 想成：
-
-```text
-op | rs | rt | rd | shamt | funct
-```
-
-其中：
-
-* `rs`、`rt`、`rd`：誰拿資料、誰放結果
-* `funct`：到底是 add、sub、and...
-* `shamt`：**只有做位移時才需要告訴 CPU 要移幾格**
-
-所以：
-
-* `add` 不位移 → `shamt = 0`
-* `sub` 不位移 → `shamt = 0`
-* `and` 不位移 → `shamt = 0`
-
----
-
-#### 什麼時候不是 0？
-
-只有像這種 **shift instruction(位移指令)** 才不是 0：
-
-```asm
-sll $1, $2, 10
-srl $1, $2, 10
-```
-
-這時：
-
-* `shamt = 10`
-
-因為 CPU 需要知道要左移或右移 **10 位**。教材第 106 頁的表格就有這種例子。
-
----
-
-#### 你現在這題最該怎麼記
-
-##### 一般 R-type
-
-* `add`
-* `sub`
-* `and`
-* `or`
-* `slt`
-
-這些都先記：
-
-> **`shamt = 0`**
-
-##### shift 類
-
-* `sll`
-* `srl`
-
-這些才記：
-
-> **`shamt = 你要移的位數`**
-
----
-
-#### 套回你剛剛那題
 
 `add $t0, $s1, $s2`
 
-對應欄位是：
+組合語言順序是：
 
-```text
-op rs rt rd shamt funct
-0  17 18  8   0    32
-```
+`目的地, 來源1, 來源2`
 
-所以這題的 `shamt` 就是 **0**。
+但機器欄位是：
 
----
+`op, rs, rt, rd, shamt, funct`
 
-#### 小結
-
-一句話背起來：
-
-> **`shamt` 是給位移指令用的；不是位移指令時就放 0。** 
-
-下一題如果你要，我可以直接帶你把
-**`sll $t0, $s1, 4`**
-完整拆成 `op rs rt rd shamt funct`。
-### sll和srl的機器碼會長怎樣
-
-已啟用教學模式
-
-#### 直接答案
-
-`sll` 和 `srl` 都是 **R-type(Register 型)** 指令，所以機器碼一樣是 **32 bits**，欄位排列都是：
-
-```text
-op | rs | rt | rd | shamt | funct
-```
-
-MIPS32 指令固定長度是 32 bits。([MIPS Training][1])
+所以 `$t0` 雖然寫在最前面，**它進的是 `rd`，不是 `rs`**。這是很多人第一次最容易搞混的地方。
 
 ---
 
-#### 1. `sll` 的機器碼格式
+#### 4. 你這組例子 `add $t0,$s1,$s2` 怎麼一步一步轉
 
-組合語言：
+從你投影片第 112、113 頁直接讀：
 
-```asm
-sll rd, rt, shamt
-```
+* `$s1 = 17`
+* `$s2 = 18`
+* `$t0 = 8`
+* `add` 的 R 型欄位是
+  `op=0, shamt=0, funct=32`
 
-機器碼欄位：
+所以欄位值就是：
 
-```text
-op     rs     rt     rd    shamt   funct
-000000 00000  ttttt  ddddd  hhhhh  000000
-```
+`0 | 17 | 18 | 8 | 0 | 32`
 
-重點是：
+轉二進位：
 
-* `op = 000000`
-* `rs = 00000`
-* `rt = 被拿來位移的來源暫存器`
-* `rd = 結果放入的目的暫存器`
-* `shamt = 要位移幾位`
-* `funct = 000000`
+* `0` → `000000`
+* `17` → `10001`
+* `18` → `10010`
+* `8` → `01000`
+* `0` → `00000`
+* `32` → `100000`
 
-`sll` 的標準編碼就是這種型態。([Phoenix][2])
+合起來就是：
 
----
+`000000 10001 10010 01000 00000 100000`
 
-#### 2. `srl` 的機器碼格式
+再轉十六進位會是：
 
-組合語言：
+`0x02324020`
 
-```asm
-srl rd, rt, shamt
-```
+這一題最該會的不是答案本身，而是這個因果鏈：
 
-機器碼欄位：
-
-```text
-op     rs     rt     rd    shamt   funct
-000000 00000  ttttt  ddddd  hhhhh  000010
-```
-
-重點只差在最後的 `funct`：
-
-* `sll` 的 `funct = 000000`
-* `srl` 的 `funct = 000010`
-
-`srl` 的標準編碼也是這樣。([Phoenix][2])
+> `add` 是 R 型
+> → R 型格式固定
+> → 查暫存器編號
+> → 非 shift，所以 `shamt=0`
+> → `add` 的功能碼是 `funct=32`
+> → 拼成 32 bit 機器碼
 
 ---
 
-#### 為什麼 `rs` 要放 0？
+#### 5. 這幾頁裡你要特別小心的觀念
 
-因為這兩條是「**固定位移量**」版本。
+**5.1 為什麼 R 型的 opcode 常常是 0？**
+因為 MIPS 想把所有指令都維持成 32-bit 固定長度，所以做了折衷：
+R 型先用共同的 `op=0`，再靠 `funct` 去區分到底是 `add`、`sub`、`and`、`or` 還是別的。這樣硬體和解碼都比較規律。
 
-也就是位移量不是放在某個來源暫存器，而是直接放在 `shamt` 欄位裡。
-所以這種情況下：
+**5.2 為什麼 `rs/rt/rd` 都是 5 bit？**
+因為 5 bit 最多表示 `2^5 = 32` 種可能，剛好對應 32 個暫存器。
 
-```text
-rs = 00000
-```
-
-你可以把它理解成：
-
-> `sll/srl` 不用第一個來源暫存器，改用 `shamt` 直接寫死位移量。
+**5.3 為什麼所有 MIPS 指令都做成 32 bit？**
+因為固定長度解碼比較簡單，硬體也比較快。這正是你投影片一直在呼應的設計原則：**regularity favors simplicity**。 ([MIPS訓練][1])
 
 ---
 
-#### 3. 具體例子：`sll $t0, $s1, 4`
+#### 6. 你第 106 頁那張 R 型指令表，有幾個地方要改
 
-先換成暫存器編號：
+這頁有幾個明顯錯誤，你報告或筆記最好修掉：
 
-* `$t0 = 8` → `01000`
-* `$s1 = 17` → `10001`
-* `4` → `00100`
+**6.1 `nor` 不是異或(XOR)**
+`nor` 是 **NOT OR**，也就是：
 
-代進去：
+`~($2 | $3)`
 
-```text
-op     rs     rt     rd     shamt  funct
-000000 00000  10001  01000  00100  000000
-```
+不是 XOR。官方訓練教材對 `NOR` 的描述是：只有兩個輸入位元都為 0，輸出位元才會是 1。 ([MIPS訓練][1])
 
-完整 32-bit 機器碼：
+**6.2 `if($2<$3) $1=1 else $1=0` 不是 `nor`，那其實是 `slt`**
+`set on less than` 的意思是：
+如果第一個來源 < 第二個來源，就把目的暫存器設成 1，否則設成 0。官方教材也是這樣說的。 ([MIPS訓練][1])
 
-```text
-000000 00000 10001 01000 00100 000000
-```
+**6.3 `sll / srl` 不是「迴圈左移 / 迴圈右移」**
+它們是 **logical shift(邏輯位移)**。
+`sll` 左移時右邊補 0；`srl` 右移時左邊補 0。
+真正的 rotate 是另一類指令，不應直接把 `sll/srl` 說成迴圈位移。官方教材把 `Shift Left Logical` 和 rotate 類指令分開講。 ([MIPS訓練][1])
 
-把空格拿掉就是：
+所以你那張表至少要改成：
 
-```text
-00000000000100010100000100000000
-```
-
-十六進位是：
-
-```text
-0x00114100
-```
-
-其中十進位數值可計成 1130752。([Phoenix][2])
+* `nor`：反或(NOR)，不是異或
+* `slt`：小於則設 1，不是三目運算
+* `sll/srl`：邏輯左移/邏輯右移，不是 rotate
 
 ---
 
-#### 4. 具體例子：`srl $t0, $s1, 4`
+#### 7. I 型、J 型你現在先抓到這樣就夠了
 
-前面都一樣，只差最後 `funct`：
+**7.1 I(Immediate) 型**
+當你需要常數、offset、位址差量時，用 I 型。
+格式：
 
-```text
-op     rs     rt     rd     shamt  funct
-000000 00000  10001  01000  00100  000010
-```
+`op | rs | rt | immediate`
 
-完整 32-bit 機器碼：
+所以像：
 
-```text
-000000 00000 10001 01000 00100 000010
-```
+* `addi`
+* `lw`
+* `sw`
+* `beq`
+* `bne`
 
-拿掉空格：
+都常放在這類。
 
-```text
-00000000000100010100000100000010
-```
-
-十六進位是：
-
-```text
-0x00114102
-```
-
-十進位數值是 1130754。([Phoenix][2])
+**7.2 J(Jump) 型**
+當你要大範圍跳轉，就把大部分空間留給位址。
+`j` 用 **26-bit immediate target**，而 `jal` 除了跳轉，還會把 **return address 存到 R31**。 ([MIPS訓練][1])
 
 ---
 
-#### 你可以這樣超短記
+#### 8. 你可以怎麼記，最不容易忘
 
-```text
-sll: op=0, rs=0, funct=0
-srl: op=0, rs=0, funct=2
-```
+直接記這一句：
 
-中間的：
+> **R 型：三個暫存器做運算**
+> **I 型：有立即值/位址差量**
+> **J 型：專心拿去跳**
 
-* `rt` = 來源
-* `rd` = 目的地
-* `shamt` = 位移量
+再補一句：
+
+> **組語看起來是「目的地先寫」，但機器碼不是照這個順序排。**
 
 ---
 
-#### 小結
+#### 9. 這段最容易出的考題型
 
-所以 `sll` 和 `srl` 的機器碼長相幾乎一樣，差別只有最後的 `funct`：
+最常考三種：
 
-```text
-sll = 000000 00000 rt rd shamt 000000
-srl = 000000 00000 rt rd shamt 000010
-```
+**9.1 給你組語，問你是哪一型**
+例如 `add` → R 型，`lw` → I 型，`j` → J 型
 
-如果你要，我下一則可以直接幫你把
-**`sll $t0,$s1,4`** 和 **`add $t0,$s1,$s2`**
-並排比較，讓你一眼看出為什麼 shift 指令一定要用 `shamt`。
+**9.2 給你組語，叫你填欄位**
+像你這題 `add $t0,$s1,$s2`
+
+**9.3 給你欄位，反推組語**
+例如看到：
+`op=0, rs=17, rt=18, rd=8, shamt=0, funct=32`
+就要能反推是：
+
+`add $t0,$s1,$s2`
+
+---
+
+#### 10. 一句總結
+
+這幾頁真正要你學會的是：
+
+**同一條指令，同時有三種樣子：**
+
+1. 人看的：`add $t0,$s1,$s2`
+2. 欄位看的：`0 | 17 | 18 | 8 | 0 | 32`
+3. 位元看的：`000000 10001 10010 01000 00000 100000`
+
+只要這三層你能互相來回轉換，這段就算真的學會了。
+
+如果你要，我下一則可以直接帶你做 3 題練習，包含：
+`sub`、`lw`、`j`，我們一題一題手算欄位。
 
 [1]: https://training.mips.com/basic_mips/PDF/Instruction_Set.pdf "Microsoft PowerPoint - 020 Instruction Set overview preR6.pptx"
-[2]: https://phoenix.goucher.edu/~kelliher/f2009/cs220/mipsir.html?utm_source=chatgpt.com "MIPS Instruction Reference"
 
+
+
+
+![alt text](<images/ch 2-69.png>) ![alt text](<images/ch 2-68.png>) ![alt text](<images/ch 2-72.png>) ![alt text](<images/ch 2-74.png>) ![alt text](<images/ch 2-73.png>) ![alt text](<images/ch 2-75.png>) ![alt text](<images/ch 2-71.png>) ![alt text](<images/ch 2-70.png>)
+
+
+### 講解
+
+#### 1. 這幾頁在講什麼
+
+這一組圖主要是在講 **I-type(立即值型)** 指令格式，以及怎麼把 MIPS assembly language(組合語言) 轉成 machine language(機器語言)，再從機器語言反解回組合語言。MIPS 的基本設計是：**所有指令固定都是 32-bit，而且主要分成 R-type、I-type、J-type 三種格式**。I-type 的欄位排列是 `op | rs | rt | immediate`。 ([CS Home Page][1])
 
 ---
+
+#### 2. I-type 的核心規則
+
+I-type 的重點不是「有個 immediate 欄位」而已，而是：
+
+* `op`：這是哪一種指令
+* `rs`：通常是來源暫存器，或 base register(基底暫存器)
+* `rt`：依指令不同，可能是 destination register(目的暫存器)，也可能是 source register(來源暫存器)
+* `immediate`：16-bit 的立即值、位移量、或 branch offset(分支位移)
+
+所以你不能把 `rt` 永遠理解成「目的地」。在 `addi`、`lw` 裡，`rt` 常是目的地；但在 `sw`、`beq`、`bne` 裡，`rt` 不是目的地，而是拿來提供資料或比較的暫存器。這也是很多初學者最容易卡住的地方。 ([CS Home Page][1])
+
+```mermaid
+flowchart TB
+    A[I-type 32-bit 指令] --> B[op 6-bit]
+    A --> C[rs 5-bit]
+    A --> D[rt 5-bit]
+    A --> E[immediate 16-bit]
+    B --> F[決定是哪種 I-type 指令]
+    C --> G[來源暫存器 / 基底暫存器]
+    D --> H[目的暫存器 或 第二來源暫存器]
+    E --> I[立即值 / offset / branch 位移]
+```
+
+---
+
+#### 3. 用 `lw $t0, 32($s3)` 來看最清楚
+
+你第 114 頁那張圖的例子其實很好，因為它把 I-type 的典型用法直接展示出來了：
+
+`lw $t0, 32($s3)`
+
+它的意思不是「把位址 32 載入 `$t0`」，而是：
+
+**從 memory[$s3 + 32] 讀一個 word(字)，放進 `$t0`**。
+所以這裡：
+
+* `rs = $s3`：base register(基底位址)
+* `rt = $t0`：destination register(接收載入資料)
+* `immediate = 32`：offset(位移量)
+
+如果 `$s3` 裡存的是陣列 `A` 的起始位址，那 `32` 代表偏移 32 bytes，而因為一個 word 是 4 bytes，所以 `32 = 8 × 4`，也就是 `A[8]`。這正是投影片上寫的 `lw $t0,32($s3) # 暫時暫存器$t0 得到 A[8]`。 ([凱斯西儲大學計算機科學部][2])
+
+---
+
+#### 4. 為什麼第 114 頁標成 `19($s3)`、`8($t0)` 是對的
+
+MIPS 有 32 個通用暫存器，所以每個 register 欄位要用 5-bit 表示，因為 `2^5 = 32`。而常見暫存器編號中：
+
+* `$t0 = 8`
+* `$s2 = 18`
+* `$s3 = 19`
+* `$t1 = 9`
+
+所以第 114 頁把 `lw $t0,32($s3)` 對應成：
+
+* `rs = 19`
+* `rt = 8`
+* `immediate = 32`
+
+這是正確的。 ([CS Home Page][1])
+
+---
+
+#### 5. 第 115 頁有一個地方要修正
+
+第 115 頁把 `immediate` 寫成「立即數（最大可到 `2^16`）」這句話**不夠精確，嚴格說有問題**。正確講法應該是：
+
+**I-type 有一個 16-bit immediate field(立即值欄位)**。
+但它能表示的數值範圍，要看指令怎麼解讀它：
+
+* `addi` 這類 arithmetic immediate(算術立即值) 會做 sign extension(符號延伸)，所以可表示的 signed 範圍是 `-2^15 ~ 2^15-1`
+* `andi`、`ori` 這類 logical immediate(邏輯立即值) 用的是 zero extension(零延伸)，所以 16-bit 欄位可表示 `0 ~ 2^16-1`
+
+所以不能直接籠統地說「最大可到 `2^16`」，比較正確應該說：
+**欄位寬度是 16-bit；實際可表示範圍依指令的 sign-extension / zero-extension 規則而定。**  ([Stack Overflow][3])
+
+| 指令      | immediate 怎麼延伸 | 用途重點                               |
+| ------- | -------------- | ---------------------------------- |
+| `addi`  | sign extension | 算術加法，可處理負數                         |
+| `addiu` | sign extension | 算術加法，可處理負數，不做 signed overflow trap |
+| `andi`  | zero extension | 位元 AND                             |
+| `ori`   | zero extension | 位元 OR                              |
+| `xori`  | zero extension | 位元 XOR                             |
+
+---
+
+#### 6. 第 114 頁「32 置入位址欄位」也需要改一下
+
+這句也容易讓人誤會。對 `lw $t0,32($s3)` 來說，最後那 16-bit 欄位不是「完整位址(address)」，而是 **offset/displacement(位移量)**。真正的 effective address(有效位址) 是：
+
+`$s3 + 32`
+
+所以更好的講法應該是：
+
+**32 置入 immediate / offset 欄位，不是直接當成完整記憶體位址。** ([凱斯西儲大學計算機科學部][2])
+
+---
+
+#### 7. 第 116 頁那張分類圖，概念上是對的
+
+你第 116 頁把 I-type 圈出來，包含：
+
+* `addi rt, rs, imm`
+* `slti rt, rs, imm`
+* `lw rt, imm(rs)`
+* `sw rt, imm(rs)`
+* `beq rs, rt, imm`
+
+這個分類方向是對的，因為 **I-type 的確常用在立即值運算、load/store(載入/儲存)、branch(分支)**。前面第 114 頁第一句只寫「立即值及資料轉移指令」，其實不夠完整，因為 **分支指令像 `beq`、`bne` 也是 I-type**。第 116 頁反而把這件事補齊了。 ([CS Home Page][1])
+
+---
+
+#### 8. 第 117~119 頁的例題，其實是在教你「同一段程式裡 R-type 與 I-type 混用」
+
+例題是：
+
+`A[300] = h + A[300];`
+
+已知：
+
+* `$t1` 放陣列 `A` 的 base address(基底位址)
+* `$s2` 放 `h`
+
+編譯後：
+
+* `lw  $t0, 1200($t1)`
+* `add $t0, $s2, $t0`
+* `sw  $t0, 1200($t1)`
+
+這裡最重要的不是背答案，而是看出：
+
+* 第 1 行 `lw`：I-type
+* 第 2 行 `add`：R-type
+* 第 3 行 `sw`：I-type
+
+也就是說，一個真實的小段程式，本來就會混合不同 instruction format(指令格式)。
+
+---
+
+#### 9. 為什麼 offset 是 1200
+
+因為 `A[300]` 是第 300 個 word，而 MIPS 的 `lw/sw` 對 word array(字組陣列) 取元素時，offset 要用 **byte address(位元組位址)** 算：
+
+`300 × 4 = 1200`
+
+所以：
+
+`lw $t0, 1200($t1)`
+
+表示從 `A` 的基底位址再往後偏移 1200 bytes 的地方取出 `A[300]`。這也是 slide 118、119 上為什麼 immediate 欄位填 1200，而不是 300。 ([凱斯西儲大學計算機科學部][2])
+
+---
+
+#### 10. 第 118 頁表格怎麼讀
+
+你那張表其實是在把三條指令拆欄位：
+
+##### 10.1 `lw $t0,1200($t1)`
+
+* `op = 35`
+* `rs = 9` (`$t1`)
+* `rt = 8` (`$t0`)
+* `immediate = 1200`
+
+##### 10.2 `add $t0,$s2,$t0`
+
+* `op = 0`
+* `rs = 18` (`$s2`)
+* `rt = 8` (`$t0`)
+* `rd = 8` (`$t0`)
+* `shamt = 0`
+* `funct = 32`
+
+##### 10.3 `sw $t0,1200($t1)`
+
+* `op = 43`
+* `rs = 9` (`$t1`)
+* `rt = 8` (`$t0`)
+* `immediate = 1200`
+
+其中 `lw` 的 opcode 是 35，`sw` 是 43，`add` 這種 R-type 指令 `op = 0`、`funct = 32`，這些都和標準 MIPS encoding(編碼) 一致。 ([凱斯西儲大學計算機科學部][4])
+
+---
+
+#### 11. 第 119 頁的二進位結果也是對的
+
+`1200₁₀ = 0000 0100 1011 0000₂`
+
+所以兩條 I-type 指令會變成：
+
+* `lw` → `100011 01001 01000 0000 0100 1011 0000`
+* `sw` → `101011 01001 01000 0000 0100 1011 0000`
+
+中間那條 `add` 是 R-type：
+
+* `000000 10010 01000 01000 00000 100000`
+
+這和 slide 119 的排列一致。 ([CS Home Page][1])
+
+---
+
+#### 12. 這裡最容易混淆的一點：assembly order(組語順序) 和 field order(欄位順序) 不同
+
+這點你一定要特別抓住。
+
+例如：
+
+* `add $t0,$s2,$t0` 的 assembly syntax(組語語法) 看起來像 `rd, rs, rt`
+* 但 R-type 欄位順序是 `op rs rt rd shamt funct`
+
+同理：
+
+* `lw $t0,1200($t1)` 的 assembly syntax 是 `rt, imm(rs)`
+* 但 I-type 欄位順序是 `op rs rt immediate`
+
+也就是說：
+
+**人類寫指令的順序，不等於機器欄位擺放的順序。**
+
+這正是解題時最常出錯的地方。([CS Home Page][1])
+
+---
+
+#### 13. 第 120 頁「反解碼」講得方向正確
+
+第 120 頁說要把機器語言逆向工程回組合語言，這在概念上是對的。實作上就是：
+
+1. 先看前 6-bit 的 `opcode`
+2. 判斷它是 R-type、I-type、還是 J-type
+3. 再按對應格式切欄位
+4. 最後把 register number(暫存器編號) 查回 `$t0`、`$s2` 這些名字
+
+所以第 123 頁整理成：
+
+* R-format：`op rs rt rd shamt funct`
+* I-format：`op rs rt address / immediate`
+* J-format：`op target`
+
+這張總表是正確的總結。 ([CS Home Page][1])
+
+---
+
+#### 14. 幫你總結：這幾張圖哪些地方正確，哪些地方要改
+
+##### 14.1 正確的地方
+
+* I-type 基本格式 `op rs rt immediate` 正確。([CS Home Page][1])
+* `lw $t0,32($s3)` 對應 `rs=19, rt=8, imm=32` 正確。([凱斯西儲大學計算機科學部][2])
+* `A[300]=h+A[300]` 例題的三條指令與其欄位值正確。 ([凱斯西儲大學計算機科學部][4])
+* 第 123 頁三大格式總表正確。 ([CS Home Page][1])
+
+##### 14.2 要修正或補強的地方
+
+* 第 114 頁「I型用於立即值及資料轉移」太窄，還應包含 branch instructions(分支指令)。([凱斯西儲大學計算機科學部][2])
+* 第 114 頁「32 置入位址欄位」應改成「32 置入 offset / immediate 欄位」。([凱斯西儲大學計算機科學部][2])
+* 第 115 頁「立即數最大可到 `2^16`」不精確；應講成「16-bit 欄位，範圍依 sign/zero extension 而定」。([Stack Overflow][3])
+* 第 115 頁把 `rt` 直接寫成目的地暫存器，對 `addi`、`lw` 可以，但對 `sw`、`beq`、`bne` 會誤導。([凱斯西儲大學計算機科學部][2])
+
+---
+
+#### 15. 你現在最該真正記住的不是表，而是這一句
+
+**I-type 的真正精神是：CPU 先用 `op` 判斷指令種類，再把 `rs`、`rt`、`immediate` 依照那條指令的語意去解讀；同樣叫 I-type，不代表 `rt` 和 `immediate` 在每條指令裡都扮演完全相同的角色。** ([CS Home Page][1])
+
+---
+
+#### 16. 你下一步最值得做的練習
+
+建議我們下一題直接手算這三種：
+
+1. `addi $t0,$s1,4`
+2. `lw $t0,32($s3)`
+3. `beq $s0,$s1,8`
+
+這樣你會一次把 **I-type 的三種常見語意：算術、訪存、分支** 全部打通。
+
+[1]: https://max.cs.kzoo.edu/cs230/Resources/MIPS/MachineXL/InstructionFormats.html?utm_source=chatgpt.com "MIPS Instruction Formats"
+[2]: https://www.cs.kzoo.edu/cs230/lectures/MIPS/MachineXL/FormatExceptions.html?utm_source=chatgpt.com "MIPS Format Exceptions"
+[3]: https://stackoverflow.com/questions/55290060/what-does-extend-immediate-to-32-bits-mean-in-mips?utm_source=chatgpt.com "cpu architecture - What does \"extend immediate to 32 bits\" mean in MIPS? - Stack Overflow"
+[4]: https://www.cs.kzoo.edu/cs230/Resources/MIPS/MachineXL/mipsOpFunctCodes.html?utm_source=chatgpt.com "MIPS Op/Funct Codes"
+
+
+
+/// details | 簡報
+
+
+
+![alt text](<images/ch 2-76.png>) ![alt text](<images/ch 2-82.png>) ![alt text](<images/ch 2-81.png>) ![alt text](<images/ch 2-79.png>) ![alt text](<images/ch 2-93.png>) ![alt text](<images/ch 2-77.png>) ![alt text](<images/ch 2-87.png>) ![alt text](<images/ch 2-89.png>) ![alt text](<images/ch 2-92.png>) ![alt text](<images/ch 2-94.png>) ![alt text](<images/ch 2-80.png>) ![alt text](<images/ch 2-84.png>) ![alt text](<images/ch 2-78.png>) ![alt text](<images/ch 2-86.png>) ![alt text](<images/ch 2-88.png>) ![alt text](<images/ch 2-83.png>) ![alt text](<images/ch 2-85.png>) ![alt text](<images/ch 2-91.png>) ![alt text](<images/ch 2-90.png>)
+
+///
+### 講解 
+
+#### 1. 這一串圖，其實是在把整個 Chapter 2 串起來
+
+你這次貼的第 126～144 頁，不是在講一堆分散的小知識；它其實是在講同一條主線：
+
+> **程式會被翻成數字形式的 instruction(指令)，放進 memory(記憶體)；CPU 再依照 instruction format(指令格式) 解碼，最後完成 arithmetic(算術)、logic(邏輯)、branch(分支) 這些行為。**
+
+而且你剛剛卡住的那個問題，也在第 140 頁被正式收束了：
+**`andi` / `ori` 是 zero-extend(零延伸)，`addi` 是 sign-extend(符號延伸)。** 這和教學資料、編碼表與社群常見解釋是一致的。([max.cs.kzoo.edu][1])
+
+---
+
+#### 2. 先抓這章背後的核心規則
+
+你不要把它背成：
+
+* 第 126 頁是編碼
+* 第 131 頁是 AND
+* 第 144 頁是 beq
+
+這樣會很碎。
+
+你應該把它抓成 3 個核心規則：
+
+1. **所有 MIPS instruction(指令) 都是 32-bit。**
+2. **前面的欄位先決定格式，後面的欄位再照格式解讀。**
+3. **同樣是 I-type(立即值型)，immediate(立即值欄位) 的語意不一定一樣。**
+
+這三條一抓住，後面幾十張投影片其實都在展開它。MIPS 教學資料也明確說明：所有指令 32-bit、第一個 6-bit 是 opcode(運作碼)、整體主要分成 R-format、I-format、J-format 三類。([max.cs.kzoo.edu][1])
+
+```mermaid
+flowchart TB
+    A[Memory 內放的是 32-bit 指令] --> B[CPU 先看 opcode]
+    B --> C[R-type<br>op rs rt rd shamt funct]
+    B --> D[I-type<br>op rs rt immediate]
+    B --> E[J-type<br>op address]
+    C --> F[算術 / 邏輯 / shift]
+    D --> G[立即值 / load store / branch]
+    E --> H[jump]
+```
+
+---
+
+#### 3. 第 126～127 頁：這兩張是「解碼規則總表」
+
+這兩張的主要內容是對的：
+
+* `add/sub` 是 R-type
+* `addi/lw/sw` 是 I-type
+* `add` 的 `funct = 32`
+* `sub` 的 `funct = 34`
+* `addi` 的 `opcode = 8`
+* `lw` 的 `opcode = 35`
+* `sw` 的 `opcode = 43` ([cs.kzoo.edu][2])
+
+但這兩頁有一個地方你要主動修正，不然後面很容易學歪：
+
+> 投影片把 I-type 最後一欄常寫成「address(位址)」，這不夠精確。
+
+更精確的說法應該是：
+
+* 對 `addi/andi/ori`，那 16-bit 是 **immediate value(立即值)**
+* 對 `lw/sw`，那 16-bit 是 **offset(位移量)**
+* 對 `beq/bne`，那 16-bit 是 **branch offset(分支位移)**
+
+也就是說，**I-type 最後 16-bit 不是永遠都叫位址。** 教學參考資料也特別把 I-format exceptions(例外) 分開講，因為 `lw/sw/beq` 的 immediate 是 offset，不是單純常數，更不是完整記憶體位址。([cs.kzoo.edu][3])
+
+---
+
+#### 4. 第 128～129 頁：這是在講 stored-program(內儲程式) 的真正意思
+
+這兩頁的重點不是背名詞，而是理解：
+
+> **程式本身也只是記憶體裡的一串資料。**
+
+所以同一塊 memory(記憶體) 裡，可以放：
+
+* compiler(編譯器)
+* editor(編輯器)
+* document text(文字)
+* payroll data(薪資資料)
+* executable machine code(可執行機器碼)
+
+這就是 stored-program concept(內儲程式概念)，也就是 von Neumann style(馮紐曼式) 的核心想法：**程式和資料都能存在記憶體裡，由 CPU 依序取出處理。** 這也是為什麼電腦不是「一出生就只能做一件事」；換一段 machine code(機器碼)，它就表現成另一個程式。([遊戲駭客][4])
+
+你可以把它想成：
+
+* 手機的儲存空間裡既可以放照片
+* 也可以放 App
+* CPU 並不是天生知道「這是記事本還是遊戲」
+* 它只是根據目前取到的 bit pattern(位元樣式) 去執行
+
+這樣看第 129 頁那張圖就會很自然了。
+
+---
+
+#### 5. 第 130 頁：這題你要學的是「assembly order(組語順序) 和 field order(欄位順序) 不一樣」
+
+題目給的是：
+
+* `op = 0`
+* `rs = 8`
+* `rt = 9`
+* `rd = 10`
+* `shamt = 0`
+* `funct = 34`
+
+因為：
+
+* `op = 0` 代表 R-type
+* `funct = 34` 代表 `sub`
+* register 8 是 `$t0`
+* register 9 是 `$t1`
+* register 10 是 `$t2` ([cs.kzoo.edu][2])
+
+所以答案是：
+
+```text
+sub $t2, $t0, $t1
+```
+
+也就是你投影片勾的第 4 個。這題最重要的不是背答案，而是記住：
+
+* 機器碼欄位順序：`op rs rt rd shamt funct`
+* 組語寫法順序：`sub rd, rs, rt`
+
+所以 `rd = 10` 才是第一個寫出來的 `$t2`。這是初學者最容易出錯的地方。([max.cs.kzoo.edu][1])
+
+---
+
+#### 6. 第 131～139 頁：這一段其實都在講 bitwise logic(逐位元邏輯)
+
+這一串頁面可以用一句話統整：
+
+> **ALU(算術邏輯單元) 不只會做整數加減，也會對每個 bit 逐位處理。**
+
+常見的就是：
+
+* `sll/srl`：位移
+* `and`：遮罩
+* `or`：設定位元
+* `nor`：OR 後再取反
+* `xor`：不同為 1，相同為 0
+
+這些都屬於標準 MIPS 邏輯/位移指令家族。常見編碼表中，`sll` 的 funct 是 0，`srl` 是 2，`and` 是 36，`or` 是 37，`nor` 是 39，而 `xor` 也確實存在於標準 MIPS R-format 裡。([cs.kzoo.edu][2])
+
+---
+
+#### 7. 第 131～133 頁：`sll/srl` 的本質不是數學，而是「位元搬家」
+
+這幾頁在講 shift(位移)。
+像：
+
+```text
+sll $t2, $s0, 4
+```
+
+意思不是神祕公式，而是：
+
+> 把 `$s0` 的 bit pattern(位元樣式) 全部往左移 4 格，右邊補 0，結果放進 `$t2`。
+
+教學資料也把 `sll` / `srl` 歸在 R-format 的 shift 指令，`shamt` 欄位就是 shift amount(位移量)。([student.cs.uwaterloo.ca][5])
+
+投影片說「左移 4 位等於乘以 16」，這句**在這個例子裡是對的**，但你心裡要加上一個隱藏前提：
+
+> **在沒有高位被丟掉、沒有 overflow(溢出) 問題時，左移 n 位可以視為乘上 `2^n`。**
+
+所以用小正數 9 當例子很合理；但不是所有情況都能無腦把 shift 當乘法。這個細節你要比投影片再多懂一步。
+
+---
+
+#### 8. 第 134～136 頁：`AND` 和 `OR` 最常見的真正用途
+
+這幾頁講得方向是對的，而且很實用。
+
+`AND` 的核心用途是 **masking(遮罩)**：
+你拿一個 mask(遮罩) 去和原數做 AND，mask 裡是 0 的位置會被強制清成 0。這也是 slide 135 在講的內容。社群和教材都把 AND 視為典型的 bit mask 工具。([max.cs.kzoo.edu][1])
+
+`OR` 的核心用途是 **bit set(設定位元)**：
+你想把某幾個位置打開成 1，就用 OR。只要遮罩某位是 1，結果那位就會變成 1。這也是 `ori` 很常見的用途。([max.cs.kzoo.edu][1])
+
+所以你可以這樣記：
+
+* `AND` 像濾網，把不要的位元蓋掉
+* `OR` 像開關，把某些位元打開
+
+---
+
+#### 9. 第 137～138 頁：為什麼 MIPS 用 `NOR` 來做 `NOT`
+
+這兩頁的觀念是對的：
+
+* Base MIPS(基礎 MIPS) 沒有獨立的 `not` 指令
+* 但可以用 `nor` 搭配 `$zero` 來實作 NOT
+
+因為：
+
+```text
+A NOR 0 = NOT(A OR 0) = NOT(A)
+```
+
+這就是第 137 頁那句的數學理由，而且和標準指令參考一致。([student.cs.uwaterloo.ca][5])
+
+所以像：
+
+```text
+nor $t0, $t1, $zero
+```
+
+本質上就是把 `$t1` 每一個 bit 全部反相後放進 `$t0`。
+
+這其實很漂亮，因為 MIPS 想維持簡潔的 R-type 格式，所以寧可少放一條專門的 `not`，而用現有的 `nor` 去表達。
+
+---
+
+#### 10. 第 139～140 頁：這兩頁正好回答你剛剛的疑問
+
+第 140 頁是這一串圖裡最重要的一頁之一，因為它把剛剛我們討論的 extension(延伸) 問題正式寫清楚了：
+
+* `andi` / `ori`：**zero-extend**
+* `addi`：**sign-extend** ([max.cs.kzoo.edu][1])
+
+這個差別不是死背規則，而是由「用途」決定的：
+
+##### 10.1 `andi` / `ori`
+
+它們是 logic instruction(邏輯指令)，重點是處理 bit pattern(位元樣式)。
+所以 immediate 要 zero-extend，避免高 16 位被亂補成 1，破壞 mask 或 bit-set 的意義。這也是很多社群解答反覆強調的原因。([Stack Overflow][6])
+
+##### 10.2 `addi`
+
+它是 arithmetic instruction(算術指令)，重點是處理 signed integer(有號整數) 的加減。
+所以 immediate 要 sign-extend，這樣像 `-1`、`-4` 這種負數才有意義。`addi` 可直接編碼的 immediate 範圍也是有號 16-bit，也就是 `-32768 ~ 32767`。([Stack Overflow][7])
+
+所以你剛剛那個問題，現在可以完全定案：
+
+> **不是 `addi` 做零延伸；是 `ori/andi` 做零延伸。**
+
+而第 140 頁這個表，整體上是正確的。([Stack Overflow][6])
+
+---
+
+#### 11. 第 141～144 頁：這一段在講 control flow(控制流程)
+
+這幾頁的主題是：
+
+> **電腦不是只能一條路一直往下跑，它可以根據比較結果改變下一條要執行的指令位置。**
+
+這就是 conditional branch(條件式分支)，典型就是：
+
+* `beq`：branch if equal
+* `bne`：branch if not equal
+
+而它們都屬於 I-type。標準編碼表裡 `beq` 的 opcode 是 4，`bne` 是 5。([cs.kzoo.edu][2])
+
+---
+
+#### 12. 但第 144 頁有一個很重要的錯誤，你一定要修正
+
+第 144 頁寫：
+
+> 「後面是 16bits 的儲存器位址」
+
+這句**不對**，或至少是嚴重不精確。
+
+對 `beq reg1, reg2, L1` 而言，最後 16-bit 不是完整的 memory address(記憶體位址)，而是：
+
+> **PC-relative signed offset(相對於 PC 的有號位移)**
+
+MIPS 分支的語意是：
+
+```text
+if (reg1 == reg2)
+    PC = PC + 4 + (offset << 2)
+else
+    PC = PC + 4
+```
+
+也就是說，branch immediate 表示的是「從下一條指令開始，要往前或往後跳幾個 word」，不是直接把 `L1` 的完整位址硬塞進那 16-bit。這點在教學網站與社群解釋都很一致。([Stack Overflow][8])
+
+所以第 144 頁應該改成：
+
+> **前兩個欄位是暫存器，後面 16-bit 是 branch offset(分支位移)。**
+
+這是這串圖裡我最建議你立刻修掉的一個地方。
+
+---
+
+#### 13. 第 143 頁也有一個小地方要精確一點
+
+第 143 頁把 `jr rs`、`beq rs,rt,imm`、`j addr` 全都放在「分支指令」那一列，這樣做在教學上可以接受，因為它們都會改變 control flow(控制流程)。([cs.kzoo.edu][3])
+
+但如果你要講得更精確：
+
+* `beq` / `bne` 是 **conditional branch(條件分支)**
+* `j` 是 **jump(跳躍)**
+* `jr` 是 **jump register(暫存器間接跳躍)**
+
+所以 `jr` 不算條件分支，它只是另一種 jump。這是分類精度的問題，不是大錯，但你知道這層會更紮實。
+
+---
+
+#### 14. 幫你把這一大段濃縮成一張腦中地圖
+
+你現在可以把這一整段想成：
+
+```mermaid
+flowchart TB
+    A[Stored-program<br>程式也是記憶體中的資料] --> B[CPU 取出 32-bit instruction]
+    B --> C[看 opcode 決定格式]
+    C --> D[R-type<br>add sub and or nor sll srl]
+    C --> E[I-type<br>addi andi ori lw sw beq bne]
+    C --> F[J-type<br>j]
+    D --> G[多數用 funct 細分]
+    E --> H[immediate 的語意依指令而變]
+    H --> I[addi: sign-extend]
+    H --> J[andi ori: zero-extend]
+    H --> K[beq bne: PC-relative offset]
+```
+
+這張圖其實就是第 126～144 頁最應該留下來的主骨架。
+
+---
+
+#### 15. 我幫你做最後的「正確 / 要修正」總表
+
+##### 15.1 這幾頁整體正確的地方
+
+* MIPS 指令固定 32-bit，分 R / I / J 三大格式。([max.cs.kzoo.edu][1])
+* `add/sub` 用 R-type，`addi/lw/sw/beq/bne` 用 I-type。([cs.kzoo.edu][2])
+* `AND/OR/NOR/XOR/shift` 這串邏輯操作的基本語意方向是對的。([student.cs.uwaterloo.ca][5])
+* `andi/ori` zero-extend、`addi` sign-extend，這點是對的。([Stack Overflow][6])
+* 第 130 頁練習題答案 `sub $t2,$t0,$t1` 是對的。([cs.kzoo.edu][2])
+
+##### 15.2 你要主動修正的地方
+
+* I-type 最後 16-bit 不能一律叫「位址」；應視指令叫 immediate / offset / branch offset。([cs.kzoo.edu][3])
+* 第 133 頁「左移 4 位等於乘以 16」要補上前提：在沒有高位截斷/溢出的情況下成立。這是數學理解上的精化。([student.cs.uwaterloo.ca][5])
+* 第 144 頁把 `beq` 的 16-bit 說成「儲存器位址」是錯的；正確是 PC-relative offset。([Stack Overflow][8])
+* 第 143 頁把 `jr` 放在「分支」那列可以接受，但更精確它是 jump register，不是 conditional branch。([cs.kzoo.edu][2])
+
+---
+
+#### 16. 一句話收掉這整段
+
+**這一大段不是在教你背指令表，而是在教你：CPU 如何把「記憶體中的 32-bit 數字」解讀成可執行的運算、邏輯操作與控制流程。**
+
+下一步最有幫助的是，我直接帶你手算兩題：
+一題 `ori` / `addi` 比較 zero-extend 與 sign-extend，另一題 `beq` 算 branch offset。
+
+[1]: https://max.cs.kzoo.edu/cs230/Resources/MIPS/MachineXL/InstructionFormats.html?utm_source=chatgpt.com "MIPS Instruction Formats"
+[2]: https://www.cs.kzoo.edu/cs230/Resources/MIPS/MachineXL/mipsOpFunctCodes.html?utm_source=chatgpt.com "MIPS Op/Funct Codes"
+[3]: https://www.cs.kzoo.edu/cs230/lectures/MIPS/MachineXL/FormatExceptions.html?utm_source=chatgpt.com "MIPS Format Exceptions"
+[4]: https://gamehacking.org/faqs/MIPS_Instruction_Reference.html?utm_source=chatgpt.com "MIPS Instruction Reference"
+[5]: https://student.cs.uwaterloo.ca/~isg/res/mips/opcodes?utm_source=chatgpt.com "MIPS Encoding Reference"
+[6]: https://stackoverflow.com/questions/29284428/in-mips-when-to-use-a-signed-extend-when-to-use-a-zero-extend?utm_source=chatgpt.com "assembly - In MIPS, when to use a signed-extend, when to use a zero-extend? - Stack Overflow"
+[7]: https://stackoverflow.com/questions/22960392/about-addi-instruction-in-mips?utm_source=chatgpt.com "sign extension - About addi instruction in MIPS - Stack Overflow"
+[8]: https://stackoverflow.com/questions/38473218/mips32-assembly-beq-instruction-explanation?utm_source=chatgpt.com "mips - MIPS32 assembly beq instruction explanation - Stack Overflow"
+
+
+
+/// details | 簡報
+
+![alt text](<images/ch 2-97.png>) ![alt text](<images/ch 2-102.png>) ![alt text](<images/ch 2-96.png>) ![alt text](<images/ch 2-99.png>) ![alt text](<images/ch 2-95.png>) ![alt text](<images/ch 2-100.png>) ![alt text](<images/ch 2-98.png>) ![alt text](<images/ch 2-101.png>) ![alt text](<images/ch 2-103.png>) ![alt text](<images/ch 2-104.png>) ![alt text](<images/ch 2-107.png>) ![alt text](<images/ch 2-106.png>) ![alt text](<images/ch 2-105.png>)
+
+///
+
+
+
+
+
+
+
+
+### 講解
+
+#### 1. 這一段的主軸是什麼
+
+這組投影片的主軸，已經從前面的「指令格式」往前走到 **control flow(控制流程)** 了。
+也就是說，前面在學的是：
+
+* 一條指令長什麼樣
+* CPU 怎麼解碼
+
+而這一段在學的是：
+
+* **CPU 怎麼改變「下一條要執行哪一行」**
+
+所以這裡主要在講 3 件事：
+
+1. **J-type(J 型指令)**：無條件跳躍
+2. **beq / bne**：條件式分支
+3. **if / while** 這些高階語言控制流程，怎麼翻成 MIPS 組合語言
+
+這正是 MIPS 裡 branch(分支) 與 jump(跳躍) 的基本內容。([asimplecpu.com][1])
+
+---
+
+#### 2. J 型指令到底在處理什麼
+
+J-type 最核心的概念是：
+
+> **不管條件，直接把 PC(program counter，程式計數器) 改成另一個目標位置。**
+
+所以 `j Exit` 的語意就是：
+
+* 不再往下一行
+* 直接去 `Exit` 那個 label(標籤)
+
+你可以把它想成走路時的兩種情況：
+
+* **branch**：如果下雨才右轉
+* **jump**：不管怎樣，直接右轉
+
+這就是 slide 145~147 在講的事。J-format 只有兩個欄位：
+
+* `op`
+* `address`
+
+也就是說，它把大部分空間都留給「目標位置」，因為它不像 `beq/bne` 那樣還要放兩個要比較的 register。([max.cs.kzoo.edu][2])
+
+---
+
+#### 3. 但這裡有一個很重要的修正：J 型不是「完整 32-bit 位址直接塞進去」
+
+你投影片第 145 頁寫「理想情況當然是可以直接 32bits 拿來表示位址」，這句是在鋪陳觀念，可以接受。
+但真正的 MIPS `j` 指令 **不是把完整 32-bit 位址原封不動塞進 instruction**。
+
+實際上，J-type instruction 裡只有 **26-bit target field**。組合出真正跳躍位址時，會：
+
+* 先把這 26-bit 左移 2 位，因為指令位址按 word 對齊，最低 2 bit 本來就是 `00`
+* 再把高 4 bit 從 `PC+4` 那邊補回來
+
+所以它不是「完整 absolute 32-bit address(絕對 32 位址)」，而是常說的 **pseudo-direct addressing(準直接定址)**。([維基百科][3])
+
+所以第 147 頁那句：
+
+```text
+j 10000   # 前往位址10000
+```
+
+在入門教學上可以先這樣讀，但你心裡要知道：
+
+> **instruction 裡存的不是完整 10000 這個 32-bit 位址本體，而是位址的一部分。**
+
+---
+
+#### 4. 分支指令和跳躍指令，最大的差別是什麼
+
+`beq`、`bne` 是 **conditional branch(條件式分支)**。
+它們會先比較兩個 register，再決定要不要改 PC。`j` 則是無條件直接改 PC。([cs.kzoo.edu][4])
+
+所以：
+
+* `beq $s0, $s1, L1`：如果相等，跳去 `L1`
+* `bne $s0, $s1, L1`：如果不相等，跳去 `L1`
+* `j Exit`：直接跳去 `Exit`
+
+這也是 slide 148~150 在講的重點。
+
+---
+
+#### 5. 第 148 頁有一個關鍵錯誤，你一定要修正
+
+第 148 頁下面那段話大意是：
+
+> 如果程式位址要能放進這個 16 位元欄位，就代表程式大小不能超過 `2^16` 條指令
+
+這句 **不對**。
+
+因為 `beq/bne` 的最後 16-bit 不是「完整位址」，而是 **PC-relative offset(相對於 PC 的位移量)**。
+也就是說，它不是在存「目的地完整地址」，而是在存：
+
+> **從下一條指令開始，要往前或往後跳幾個 instruction word**
+
+所以 branch 的核心公式，入門版可以記成：
+
+```text
+target = PC + 4 + (offset << 2)
+```
+
+因此 16-bit 的限制，不是「整個程式只能有 `2^16` 條指令」，而是：
+
+> **單一 branch 指令能跳到的範圍有限，它只適合跳去附近的 label。**
+
+這也是為什麼條件分支很適合 `if` 和 `while`，因為它們通常本來就只跳附近。([asimplecpu.com][1])
+
+---
+
+#### 6. 這組 if-then-else 範例其實很標準
+
+第 149~150 頁的 C 程式是：
+
+```c
+if (i == j) 
+    f = g + h;
+else
+    f = g - h;
+```
+
+投影片翻成：
+
+```text
+bne $s3, $s4, Else
+add $s0, $s1, $s2
+j Exit
+Else: sub $s0, $s1, $s2
+Exit:
+```
+
+這個寫法是對的，而且很典型。它不是先用 `beq` 去做 then，而是先用 **相反條件 `bne`** 直接跳去 `Else`。
+原因很簡單：
+
+> 這樣可以「跳過 then block」，控制流程比較乾淨。
+
+```mermaid
+flowchart TB
+    A[比較 i 和 j] --> B{ i != j ? }
+    B -->|是| C[Else:<br>f = g - h]
+    B -->|否| D[f = g + h]
+    D --> E[Exit]
+    C --> E
+```
+
+這種「先 branch 到 else，再用 `j Exit` 跳過 else」的寫法，是教材和常見教學裡非常標準的 if-else 編譯模式。([cs.kzoo.edu][4])
+
+---
+
+#### 7. while 迴圈那一題，你要看懂的是「控制流程骨架」
+
+第 152~153 頁的題目是：
+
+```c
+while (save[i] == k)
+    i = i + 1;
+```
+
+* $s3 放的是 i
+* $s6 放的是 save 的基底位址
+* $s5 放的是 k
+
+翻成 MIPS：
+
+```text
+Loop: sll $t1, $s3, 2
+      add $t1, $t1, $s6
+      lw  $t0, 0($t1)
+      bne $t0, $s5, Exit
+      addi $s3, $s3, 1
+      j Loop
+Exit:
+```
+
+這段的骨架非常經典：
+
+1. 先算 `save[i]` 的位址
+2. 把 `save[i]` 載入
+3. 如果 `save[i] != k`，跳出去
+4. 否則 `i = i + 1`
+5. 再跳回 `Loop`
+
+也就是：
+
+> **迴圈 = 條件判斷 + 回跳**
+
+這正是 slide 151 在講的「if 與 loop 的基本建構指令很像」。([cs.kzoo.edu][4])
+
+---
+
+#### 8. 第 153 頁每一行在做什麼
+
+這段你一定要真正拆懂，不然只是背答案。
+
+```text
+Loop: sll $t1, $s3, 2
+```
+
+因為 `i` 是 array index(陣列索引)，每個 word 4 bytes，所以 `i * 4`。([維基百科][3])
+
+```text
+add $t1, $t1, $s6
+```
+
+把 base address(基底位址) 加進去，得到 `save[i]` 的實際位址。([維基百科][3])
+
+```text
+lw $t0, 0($t1)
+```
+
+把 `save[i]` 取出來。`lw` 使用 base + displacement addressing。([維基百科][3])
+
+```text
+bne $t0, $s5, Exit
+```
+
+如果 `save[i] != k`，表示 while 條件失敗，跳去 `Exit`。([cs.kzoo.edu][4])
+
+```text
+addi $s3, $s3, 1
+```
+
+做 `i = i + 1`。`addi` 用來做整數加法。([max.cs.kzoo.edu][2])
+
+```text
+j Loop
+```
+
+回到迴圈開頭。([asimplecpu.com][1])
+
+---
+
+#### 9. 第 155 頁的 branch offset 範例，觀念上是對的
+
+你投影片裡那題把指令從位址 `80000` 開始排。
+`bne` 那一行在 `80012`，而 `Exit` 在 `80024`。
+
+所以 branch 要跳的不是從自己位置開始算，而是從 **下一條指令 `80016`** 開始算：
+
+* `80024 - 80016 = 8 bytes`
+* `8 bytes / 4 = 2 instructions`
+
+所以 offset = `2`
+
+這就是第 155 頁紅框中的 `2`。這個觀念是對的：
+**branch immediate 存的是相對位移，不是完整位址。** ([Stack Overflow][5])
+
+---
+
+#### 10. 同一頁的 `j Loop` 為什麼是 `20000`
+
+這題裡 `Loop` 在位址 `80000`。
+因為 jump target field 會省略最低 2 bit，所以：
+
+```text
+80000 / 4 = 20000   //  8000>>2=8000/4=2000
+```
+
+因此 instruction 裡的 26-bit 欄位會放對應的 index 值，也就是投影片寫的 `20000`。這和 J-type「低 2 bit 不存、由硬體補 `00`」的規則一致。([Stack Overflow][5])
+
+---
+
+#### 11. 第 156~157 頁在講什麼：`slt/slti` 是比較的積木
+
+這兩頁其實非常重要。它們在講：
+
+> **MIPS 不想把所有比較指令都硬做成很多種，而是提供一個基礎比較積木 `slt` / `slti`，再配合 `beq/bne` 去組出更多條件。**
+
+`slt rd, rs, rt` 的意思是：
+
+* 如果 `rs < rt`，則 `rd = 1`
+* 否則 `rd = 0`
+
+`slti rt, rs, imm` 則是和 immediate 比。這些都是標準 MIPS 指令。([維基百科][3])
+
+例如：
+
+```text
+slt $t0, $s3, $s4
+bne $t0, $zero, Less
+```
+
+意思就是：
+
+* 先判斷 `$s3 < $s4` 嗎
+* 如果是，`$t0 = 1`
+* 再用 `bne` 看 `$t0` 是否不等於 0
+
+所以 slide 157 那句話想表達的是：
+
+> **MIPS 用少量簡單指令去組出比較複雜的條件判斷，這符合 RISC(精簡指令集) 的設計精神。**
+
+這個方向是對的。([cs.kzoo.edu][6])
+
+---
+
+#### 12. 幫你把這整段濃縮成一張腦中地圖
+
+```mermaid
+flowchart TB
+    A[控制流程指令] --> B[條件式分支<br>beq / bne]
+    A --> C[無條件跳躍<br>j]
+    B --> D[用 PC-relative offset<br>跳附近]
+    C --> E[用 J-type target field<br>跳較遠]
+    A --> F[比較積木<br>slt / slti]
+    F --> B
+    B --> G[if / while]
+    C --> G
+```
+
+---
+
+#### 13. 這幾頁中，哪些地方你要特別記住
+
+最重要的不是背頁數，而是記這 4 句：
+
+1. **`j` 是無條件跳躍，直接改 PC。** ([asimplecpu.com][1])
+2. **`beq/bne` 用的是相對位移，不是完整絕對位址。** ([cs.kzoo.edu][7])
+3. **if-else 和 while，本質上都是 branch + jump 的組合。** ([cs.kzoo.edu][4])
+4. **`slt/slti` 是比較的基礎零件，配合 `beq/bne` 可以組出更多條件。** ([cs.kzoo.edu][6])
+
+---
+
+#### 14. 最後一句總結
+
+**這一段真正要你學會的，不是「哪條指令長什麼樣」而已，而是：CPU 如何用 branch、jump、slt 這些基本零件，把 if、else、while 這些程式控制流程跑出來。**
+
+下一步最值得做的是把第 155 頁手算一次：先算 `bne` 的 offset，再算 `j Loop` 的 26-bit target。
+
+[1]: https://asimplecpu.com/Mips/jump?utm_source=chatgpt.com "Conditional and Unconditional Jumps"
+[2]: https://max.cs.kzoo.edu/cs230/Resources/MIPS/MachineXL/InstructionFormats.html?utm_source=chatgpt.com "MIPS Instruction Formats"
+[3]: https://en.wikipedia.org/wiki/MIPS_architecture?utm_source=chatgpt.com "MIPS architecture"
+[4]: https://www.cs.kzoo.edu/cs230/Resources/MIPS/Conditions/ConditionsInMIPS.html?utm_source=chatgpt.com "MIPS Conditions"
+[5]: https://stackoverflow.com/questions/23727105/mips-how-to-find-the-address-value-of-branch-and-jump-instructions?utm_source=chatgpt.com "addressing - MIPS - How to find the address value of branch and jump instructions - Stack Overflow"
+[6]: https://www.cs.kzoo.edu/cs315/Resources/MIPS/Conditions/ConditionsInMIPS.html?utm_source=chatgpt.com "MIPS Conditions"
+[7]: https://www.cs.kzoo.edu/cs230/lectures/MIPS/MachineXL/FormatExceptions.html?utm_source=chatgpt.com "MIPS Format Exceptions"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------
+
+[檔案](file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(peicd100@gmail.com)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E8%AC%9B%E7%BE%A9/2026.3.20,27%20CH-02_%E5%85%A8.pdf)
 
 
 file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(peicd100@gmail.com)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E8%AC%9B%E7%BE%A9/2026.3.20,27%20CH-02_%E5%85%A8.pdf
 
-![alt text](<images/ch 2-58.png>)
+期中考到157(153/163)
 
-~113
+![alt text](<images/ch 2-59.png>)
