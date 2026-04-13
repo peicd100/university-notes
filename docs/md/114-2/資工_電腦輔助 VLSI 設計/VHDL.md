@@ -2062,3 +2062,43 @@ end process;
 
 ⭐ 你如果要，我下一則可以直接幫你畫一張
 **`=` vs `<=` 在 `always` 裡的時間線圖**，你會一眼看懂。
+
+## vector
+
+左邊的數字一定是 MSB ，右邊的數字一定是 LSB。
+to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左邊大用 downto。
+
+```vhdl
+signal A : bit_vector(0 to 3);      
+signal B : bit_vector(3 downto 0);
+
+A <= "1000";
+B <= "1000";
+```
+
+那會變成：
+
+對 A : bit_vector(0 to 3)
+
+左邊第一個字元 '1' 會對到 leftmost index
+而 0 to 3 的 leftmost index 是 0
+
+所以：
+```
+A(0) = '1'
+A(1) = '0'
+A(2) = '0'
+A(3) = '0'
+```
+
+對 B : bit_vector(3 downto 0)
+
+leftmost index 是 3
+
+所以：
+```
+B(3) = '1'
+B(2) = '0'
+B(1) = '0'
+B(0) = '0'
+```
