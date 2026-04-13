@@ -2074,31 +2074,10 @@ signal B : bit_vector(3 downto 0);
 
 A <= "1000";
 B <= "1000";
-```
 
-那會變成：
+A(0) A(1) A(2) A(3)
+ 1    0    0    0
+B(3) B(2) B(1) B(0)
+ 1    0    0    0
 
-對 A : bit_vector(0 to 3)
-
-左邊第一個字元 '1' 會對到 leftmost index
-而 0 to 3 的 leftmost index 是 0
-
-所以：
-```
-A(0) = '1'
-A(1) = '0'
-A(2) = '0'
-A(3) = '0'
-```
-
-對 B : bit_vector(3 downto 0)
-
-leftmost index 是 3
-
-所以：
-```
-B(3) = '1'
-B(2) = '0'
-B(1) = '0'
-B(0) = '0'
 ```
