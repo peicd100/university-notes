@@ -1431,3 +1431,421 @@ begin
     end process;
 end simple;
 ```
+
+
+## 22. 函數呼叫
+
+完整範例
+```vhdl
+entity test is
+    port(
+        A, B : in bit;
+        Y    : out std_logic
+    );
+end test;
+
+architecture behavior of test is
+
+    function my_fnc(A, B : bit) return std_logic is
+    begin
+        if A = '1' and B = '1' then
+            return '1';
+        else
+            return '0';
+        end if;
+    end function;
+
+begin
+
+    Y <= my_fnc(A, B);  // 呼叫函數
+
+end behavior;
+```
+
+
+可多載
+```vhdl
+function my_fnc(A,B: bit) return std_logic;
+function my_fnc(A,B,C: bit) return std_logic;
+function my_fnc(A,B,C,D: bit) return std_logic;
+```
+
+## 23. 呼叫電路
+
+
+
+3.1 小電路：AND_2
+
+```vhdl
+entity AND_2 is
+    port(
+        X, Y : in bit;
+        Z    : out bit
+    );
+end AND_2;
+
+architecture dataflow of AND_2 is
+begin
+    Z <= X and Y;
+end dataflow;
+```
+
+3.2 大電路：TOP，裡面呼叫 AND_2
+
+```vhdl
+entity TOP is
+    port(
+        A, B : in bit;
+        F    : out bit
+    );
+end TOP;
+
+architecture STRUCTURE of TOP is
+
+    component AND_2
+        port(
+            X, Y : in bit;
+            Z    : out bit
+        );
+    end component;
+
+begin
+
+    -- 以下兩種方法只會出現一個。
+
+    -- 方法1. 元件標籤 : component名稱 port map(...);
+    U1: AND_2 port map (A, B, F);
+    -- 方法2.
+    U1: AND_2 port map (X => A, Y => B, Z => F);
+
+end STRUCTURE;
+```
+
+
+## 24. sequential 、 concurrent ?
+
+### 講解
+
+#### 1. 先給你一張超短整理
+
+| 情況             | VHDL 寫法                        | `A / Z` 是什麼                             | 性質                            | 這次觸發時 `Z` 看到的是誰                   | 最像的 Verilog                           |
+| -------------- | ------------------------------ | --------------------------------------- | ----------------------------- | --------------------------------- | ------------------------------------- |
+| process 內 `:=` | `A_var := B;`<br>`Z <= A_var;` | `A_var` 是 **variable**，`Z` 是 **signal** | **sequential**                | **新的 `A_var`**，也就是 `B`            | `always @(*)` 裡的 **blocking** `=`     |
+| process 內 `<=` | `A <= B;`<br>`Z <= A;`         | `A`、`Z` 都是 **signal**                   | **sequential**（但 signal 更新延後） | **舊的 `A`**                        | `always @(*)` 裡的 **nonblocking** `<=` |
+| process 外 `<=` | `A <= B;`<br>`Z <= A;`         | `A`、`Z` 都是 **signal**                   | **concurrent**                | `Z` 最後會拿到 **新的 `A`**，但要再多一拍 delta | 兩條 `assign`                           |
+
+你這三種差異，課本剛好就是拿來對照講的：
+
+* variable assignment 是「executed and updated at the same time」
+* signal assignment 是先執行，之後在 `Δ` 才更新 
+* `A <= B; Z <= A;` 放在 process 內外，時間行為不同 
+
+---
+
+#### 2. 先提醒一個小地方
+
+你說想用 `A<=B, Z<=A` 來看三種情況，這在 **process 內 `:=`** 那一種要稍微改一下，因為：
+
+* `:=` 是給 **variable**
+* `<=` 是給 **signal**
+
+所以第一種不能原封不動寫成：
+
+```vhdl id="bad_example_1"
+A := B;
+Z := A;
+```
+
+我們要改成：
+
+```vhdl id="fix_example_1"
+A_var := B;
+Z <= A_var;
+```
+
+這樣才合法。
+
+---
+
+#### 3. process 內 `:=`：variable assignment
+
+##### 3.1 VHDL 寫法
+
+```vhdl id="vhdl_var_case"
+process(B)
+    variable A_var : bit;
+begin
+    A_var := B;
+    Z <= A_var;
+end process;
+```
+
+##### 3.2 怎麼運作
+
+當 `B` 在時間 `T` 改變時：
+
+1. process 被叫醒
+2. `A_var := B;`
+   `A_var` **立刻**變成 `B`
+3. `Z <= A_var;`
+   這時讀到的是**新的 `A_var`**
+4. 所以 `Z` 會在 `T + Δ` 更新成 `B`
+
+##### 3.3 重點
+
+這裡的關鍵是：
+
+**variable 在 process 裡是立刻更新的，所以後面那行看得到新值。**
+
+##### 3.4 Verilog 類比
+
+最像 Verilog 的 **blocking assignment**：
+
+```verilog id="verilog_var_case"
+always @(*) begin
+    A_var = B;
+    Z     = A_var;
+end
+```
+
+這裡也是：
+
+* `A_var = B;` 先立刻生效
+* 下一行 `Z = A_var;` 看到的是新 `A_var`
+
+##### 3.5 一句話記
+
+**process 內 `:=` 像 Verilog 的 `=`，後面馬上看得到新值。**
+
+---
+
+#### 4. process 內 `<=`：sequential signal assignment
+
+##### 4.1 VHDL 寫法
+
+```vhdl id="vhdl_seq_sig_case"
+process(B)
+begin
+    A <= B;
+    Z <= A;
+end process;
+```
+
+##### 4.2 怎麼運作
+
+當 `B` 在時間 `T` 改變時：
+
+1. process 被叫醒
+2. `A <= B;` 被執行
+   但 `A` **不會立刻更新**
+3. `Z <= A;` 被執行
+   這時讀到的還是**舊的 `A`**
+4. 到 `T + Δ`：
+
+   * `A` 更新成 `B`
+   * `Z` 更新成**舊的 `A`**
+
+##### 4.3 重點
+
+這裡最容易搞混：
+
+* 這兩行是 **sequential**
+* 但 `signal` 更新不是立刻發生
+
+所以雖然第二行寫在後面，
+它還是只看到**舊的 `A`**。
+
+##### 4.4 Verilog 類比
+
+最像 Verilog 在 `always` 裡用 **nonblocking assignment**：
+
+```verilog id="verilog_seq_sig_case"
+always @(*) begin
+    A <= B;
+    Z <= A;
+end
+```
+
+它的語意重點是：
+
+* 先排程更新 `A`
+* 再排程更新 `Z`
+* 但 `Z` 讀到的還是舊的 `A`
+
+##### 4.5 一句話記
+
+**process 內 `<=` 雖然是 sequential，但後面那行看到的通常還是舊 signal 值。**
+
+---
+
+#### 5. process 外 `<=`：concurrent signal assignment
+
+##### 5.1 VHDL 寫法
+
+```vhdl id="vhdl_con_sig_case"
+A <= B;
+Z <= A;
+```
+
+這是寫在 `architecture ... begin` 後、**process 外面**。
+
+##### 5.2 怎麼運作
+
+當 `B` 在時間 `T` 改變時：
+
+1. 第一條 `A <= B;` 因 `B` 的 event 被觸發
+2. `A` 在 `T + Δ` 更新成 `B`
+3. 因為 `A` 在 `T + Δ` 發生 event
+4. 第二條 `Z <= A;` 才被觸發
+5. 所以 `Z` 在 `T + 2Δ` 更新成**新的 `A`**
+
+##### 5.3 重點
+
+這裡和 process 內最大差別是：
+
+**這兩條不是同一個 sequential block 裡的兩行，而是兩個獨立的 concurrent 敘述。**
+
+所以第二條要等第一條真的把 `A` 改掉、產生 event，才會跟著動。
+
+##### 5.4 Verilog 類比
+
+最像兩條 **continuous assignment**：
+
+```verilog id="verilog_con_sig_case"
+assign A = B;
+assign Z = A;
+```
+
+你可以把它想成兩段連線串起來：
+
+```text id="chain_view_1"
+B -> A -> Z
+```
+
+##### 5.5 一句話記
+
+**process 外 `<=` 像兩條 `assign`，前一條輸出變了，下一條才跟著反應。**
+
+---
+
+#### 6. 三種放在一起看
+
+##### 6.1 process 內 `:=`
+
+```vhdl id="all_case_v1"
+process(B)
+    variable A_var : bit;
+begin
+    A_var := B;
+    Z <= A_var;
+end process;
+```
+
+```verilog id="all_case_v1_v"
+always @(*) begin
+    A_var = B;
+    Z     = A_var;
+end
+```
+
+結果：
+`Z` 拿到 **B**
+
+---
+
+##### 6.2 process 內 `<=`
+
+```vhdl id="all_case_v2"
+process(B)
+begin
+    A <= B;
+    Z <= A;
+end process;
+```
+
+```verilog id="all_case_v2_v"
+always @(*) begin
+    A <= B;
+    Z <= A;
+end
+```
+
+結果：
+`Z` 拿到 **舊的 A**
+
+---
+
+##### 6.3 process 外 `<=`
+
+```vhdl id="all_case_v3"
+A <= B;
+Z <= A;
+```
+
+```verilog id="all_case_v3_v"
+assign A = B;
+assign Z = A;
+```
+
+結果：
+`A` 先變，之後 `Z` 才跟著變成**新的 A**
+
+---
+
+#### 7. 最後幫你濃縮成背誦版
+
+##### 7.1 `:=`
+
+* 給 **variable**
+* 在 process 內
+* **sequential**
+* **立刻更新**
+* 最像 Verilog `=`
+
+##### 7.2 process 內 `<=`
+
+* 給 **signal**
+* 在 process 內
+* **sequential**
+* **不立刻更新**
+* 後面常看到**舊值**
+* 最像 Verilog `<=`
+
+##### 7.3 process 外 `<=`
+
+* 給 **signal**
+* 在 process 外
+* **concurrent**
+* 每條都是獨立電路
+* 前一條輸出 event 會再觸發下一條
+* 最像 Verilog `assign`
+
+---
+
+#### 8. 一張圖收尾
+
+```mermaid
+flowchart TB
+    A1[process內 :=] --> A2[sequential]
+    A2 --> A3[variable立刻更新]
+    A3 --> A4[像Verilog =]
+
+    B1[process內 <=] --> B2[sequential]
+    B2 --> B3[signal延後更新]
+    B3 --> B4[後面常看到舊A]
+    B4 --> B5[像Verilog <=]
+
+    C1[process外 <=] --> C2[concurrent]
+    C2 --> C3[每條都是獨立連線]
+    C3 --> C4[A先變 再觸發Z]
+    C4 --> C5[像Verilog assign]
+```
+
+#### 9. 你考前只要記這一句
+
+**`:=` 看成 Verilog `=`，process 內 `<=` 看成 Verilog `<=`，process 外 `<=` 看成 Verilog `assign`。**
+
+⭐ 你如果要，我下一則可以直接幫你把這份整理壓成「考前 10 秒速記版」。
+
+### 提問
+
