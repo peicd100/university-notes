@@ -1849,3 +1849,216 @@ flowchart TB
 
 ### 提問
 
+>"always @(*) begin
+    A <= B;
+    Z <= A;
+end"之所以是sequential是因為他先執行A<=B，再執行Z<=A，但是最後再一起更新，這個"先執行A<=B，再執行Z<=A"就是sequential對不對
+
+
+#### 對，你這句理解是對的，但要補兩個限定
+
+你這句：
+
+> 「先執行 `A <= B;`，再執行 `Z <= A;`，但是最後再一起更新，這個『先執行…再執行…』就是 sequential 對不對」
+
+**對。**
+
+這裡的 **sequential**，就是指：
+
+**在同一個 `process` / `always` 區塊裡，敘述是按照程式書寫順序，一句一句執行。**
+
+所以在
+
+```verilog
+always @(*) begin
+    A <= B;
+    Z <= A;
+end
+```
+
+裡面，的確是：
+
+1. 先執行 `A <= B;`
+2. 再執行 `Z <= A;`
+
+這個「先後執行順序」就是你說的 **sequential**。
+
+---
+
+#### 但要非常小心：這裡的 sequential 不是「sequential circuit（時序電路）」那個 sequential
+
+這是最容易混的地方。
+
+你現在這裡的 **sequential** 指的是：
+
+* **statement execution order（敘述執行順序）**
+
+不是指：
+
+* **flip-flop / register / clocked circuit（時序電路）**
+
+也就是說：
+
+```verilog
+always @(*) begin
+    ...
+end
+```
+
+裡面的敘述可以是 **sequential 執行**
+但整段邏輯仍然可能是 **combinational logic（組合邏輯）**
+
+---
+
+#### 為什麼它又是 sequential，又可能是 combinational
+
+因為這是兩個不同層面的詞。
+
+##### 1. sequential
+
+講的是：
+**區塊裡面的語句，是不是照順序跑**
+
+##### 2. combinational / sequential logic
+
+講的是：
+**這個硬體是不是有記憶、有 clock、有 FF**
+
+所以：
+
+```verilog
+always @(*) begin
+    A = B;
+    Z = A;
+end
+```
+
+這段：
+
+* 語句執行方式是 **sequential**
+* 但硬體類型通常是 **combinational**
+
+---
+
+#### 回到你這個 nonblocking 例子
+
+```verilog
+always @(*) begin
+    A <= B;
+    Z <= A;
+end
+```
+
+這段的意思是：
+
+* 先執行第一句，排程 `A` 要更新成 `B`
+* 再執行第二句，排程 `Z` 要更新成「目前看到的 `A`」
+* 因為 `A` 還沒真的更新，所以第二句看到的還是 **舊的 `A`**
+* 最後這兩個更新在區塊跑完後一起生效
+
+所以你這句話可以改寫成更精確版：
+
+> **這個 block 之所以是 sequential，是因為 block 內的 statements 依照程式順序執行；至於最後一起更新，則是因為 `<=` 是 nonblocking assignment 的語意。**
+
+---
+
+#### 把兩件事拆開你就不會混了
+
+##### 「先執行再執行」
+
+這是 **sequential**
+
+##### 「最後一起更新」
+
+這是 **nonblocking assignment (`<=`) 的特性**
+
+這兩件事是**同時成立**的，但不是同一件事。
+
+---
+
+#### 最好這樣記
+
+你可以把它拆成這個公式：
+
+```text
+always block 裡：
+先後執行順序  -> sequential
+更新時機      -> 看你用 = 還是 <=
+```
+
+---
+
+#### 用 `=` 和 `<=` 對照一次
+
+##### 1. blocking `=`
+
+```verilog
+always @(*) begin
+    A = B;
+    Z = A;
+end
+```
+
+* 先執行 `A = B`
+* `A` 立刻變成 `B`
+* 再執行 `Z = A`
+* 所以 `Z` 拿到新的 `A`
+
+##### 2. nonblocking `<=`
+
+```verilog
+always @(*) begin
+    A <= B;
+    Z <= A;
+end
+```
+
+* 先執行 `A <= B`
+* 只是先排程，不立刻改
+* 再執行 `Z <= A`
+* `Z` 看到的是舊的 `A`
+* 最後一起更新
+
+這兩段 **都是 sequential 執行**
+差別只在：
+
+* `=` 立刻更新
+* `<=` 延後更新
+
+---
+
+#### 對應回 VHDL 也是同一套邏輯
+
+你之前學的：
+
+```vhdl
+process(B)
+begin
+    A <= B;
+    Z <= A;
+end process;
+```
+
+也是一樣：
+
+* process 裡面是 **sequential**
+* `<=` 是 signal assignment
+* 所以 `Z` 看到舊的 `A`
+
+所以你現在這句理解，跟你前面 VHDL 筆記其實是同一件事。
+
+---
+
+#### 最後幫你濃縮成一句最準的版本
+
+**對，`先執行 A<=B，再執行 Z<=A` 這個「按順序執行 statements」就是 sequential；而「最後再一起更新」則是 nonblocking assignment `<=` 的語意。**
+
+---
+
+#### 你可以直接背這兩句
+
+* **sequential 看執行順序**
+* **nonblocking 看更新時機**
+
+⭐ 你如果要，我下一則可以直接幫你畫一張
+**`=` vs `<=` 在 `always` 裡的時間線圖**，你會一眼看懂。
