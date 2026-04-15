@@ -1,1 +1,12 @@
-幫我把 docs\md\Verilog 的筆記拆分、歸納，整理成主題式的筆記。也要同步修改 mkdocs.yml 中 Verilog Quick Reference 的部分，因為我覺得我寫的有點亂，很多地方有重複的東西。
+conda create -n mkdocs_desk python=3.11 -y
+activate mkdocs_desk
+conda install pip -y 
+conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
+pip install -r requirements.txt
+conda install git -y
+activate mkdocs
+mkdocs gh-deploy
+git add .
+git commit -m "PEICD100"
+git branch -M main
+git push -u origin main
