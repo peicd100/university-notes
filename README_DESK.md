@@ -15,7 +15,7 @@ activate mkdocs_desk
 ```
 ```
 activate mkdocs_desk
-mkdocs serve --dirty
+mkdocs serve
 
 ```
 ```
