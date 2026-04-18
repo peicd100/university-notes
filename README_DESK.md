@@ -11,6 +11,20 @@ activate mkdocs_desk
 mkdocs serve -f mkdocs.preview.yml --dirty
 
 ```
+```
+activate mkdocs_desk
+.\preview     docs\md\114-2\電機_作業系統\ch 4.md
+
+```
+
+## 單頁預覽快捷指令
+```bat
+activate mkdocs_desk
+.\preview     docs\md\114-2\電機_作業系統\ch 4.md
+```
+- 可接受 `docs\...` 或 `md\...` 路徑。
+- 如果目前終端是 PowerShell，請用 `.\preview ...`；若是 `cmd`，可直接用 `preview ...`。
+- 指令會自動更新 `mkdocs.preview.yml` 內的 preview 目標，然後啟用 `mkdocs_desk`，最後以 `python -m mkdocs serve -f mkdocs.preview.yml --dirty` 啟動預覽。
 
 ## 每次寫完
 ```

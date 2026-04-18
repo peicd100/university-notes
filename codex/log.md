@@ -87,3 +87,23 @@
   - `npx.cmd --yes @playwright/cli eval ...` 檢查 code item 的 `align-self` 已生效、`top` 已不再介入
   - `npx.cmd --yes @playwright/cli run-code ...heading.screenshot(...)` 比對 12.3 標題的最終顯示
 - 結果：標題內 inline code 已改成真正的 cross-axis 置中，且未影響既有 heading 佈局。
+
+## 2026-04-18 單頁 preview 快捷命令
+- 使用者需求：希望能在終端直接輸入一個命令加 Markdown 路徑，例如 `docs\md\114-2\科技_計算機結構\ch 2.md`，就自動更新 `mkdocs.preview.yml`，並執行 `activate mkdocs_desk` + `mkdocs serve -f mkdocs.preview.yml --dirty`。
+- 先查閱 MkDocs 官方 configuration / release notes，確認目前單頁 preview 做法可繼續沿用 `nav` + `exclude_docs`；同時查閱 Stack Overflow 上 Windows batch + Conda 啟用經驗，確認要用 `call activate.bat` 才不會中斷後續命令。
+- 後續實測發現這台機器把 `activate.bat` 包進正式入口時，Anaconda 會在轉發 `conda activate <base>` 時出現異常；改成直接走 `condabin\\conda.bat activate mkdocs_desk` 後穩定通過，因此正式方案採後者。
+- 另外實測發現，同一個已啟用的環境內，直接跑 `mkdocs serve` 的 console wrapper 沒有穩定拉起服務；改用 `python -m mkdocs serve` 後可正常啟動，因此正式入口也一併調整。
+- 實際修改：
+  - 新增 `preview.bat`
+  - 新增 `tools/update_preview_config.py`
+  - `mkdocs.preview.yml` 改成含 `preview-target` managed 區塊
+  - `.gitignore` 新增 `codex_tmp/`
+  - 更新 `README_DESK.md`
+  - `codex/README_PEICD100.md`、`codex/專案規格書.md`、`codex/使用者要求.md`、`codex/協作重要事項.md` 同步補記
+- 驗證方式：
+  - 直接執行 `python tools/update_preview_config.py docs\md\114-2\科技_計算機結構\ch 2.md`
+  - 用 `PREVIEW_SKIP_SERVE=1` 執行 `preview.bat ...`，確認可成功啟用 `mkdocs_desk` 並更新設定檔
+  - 在 `mkdocs_desk` 環境下執行 `mkdocs build -f mkdocs.preview.yml --clean`，確認更新後的 preview 設定可正常被 MkDocs 載入
+  - 直接執行 `.\preview.bat docs\md\114-2\科技_計算機結構\ch 2.md`，命令在 15 秒逾時前持續執行，代表 `serve` 未立即退出
+  - 背景啟動 `preview.bat` 8 秒後檢查 `127.0.0.1:8000`，確認 port 處於 listening 狀態
+- 結果：之後可直接用 `preview.bat <Markdown 路徑>`（PowerShell 用 `.\preview ...`）切換單頁 preview 並啟動預覽，不必再手改 `mkdocs.preview.yml`。

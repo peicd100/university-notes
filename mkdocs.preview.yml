@@ -5,10 +5,12 @@ INHERIT: mkdocs.yml
 site_name: Preview
 plugins: []
 
+# preview-target:start
 nav:
-  - 'md/114-2/科技_計算機結構/ch 2.md'
+  - 'md/114-2/電機_作業系統/ch 4.md'
 
 exclude_docs: |
   *.md
-  !/md/114-2/科技_計算機結構/ch 2.md
+  !/md/114-2/電機_作業系統/ch 4.md
   !/index.md
+# preview-target:end

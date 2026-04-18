@@ -36,6 +36,7 @@ test-results/
 site/
 output/
 .codex_tmp/
+codex_tmp/
 .codex_site_check/
 
 # MkDocs Encrypt Content 外掛快取 / 金鑰

@@ -20,10 +20,13 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs serve --dirty --livereload
 Y:\conda\envs\mkdocs\python.exe -m mkdocs serve -f mkdocs.preview.yml --dirty
 Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 vbs_bat\university notes.vbs
+preview.bat docs\md\114-2\科技_計算機結構\ch 2.md
 ```
 
 ## 常用操作補充
 - `mkdocs.preview.yml` 目前是單頁 preview 設定，實際預覽頁面以該檔 `nav` / `exclude_docs` 為準。
+- `preview.bat` 會自動把輸入的 `docs\...` 或 `md\...` 路徑正規化為 `docs_dir` 相對路徑，更新 `mkdocs.preview.yml` 的 managed 區塊，然後啟用 `mkdocs_desk` 並用 `python -m mkdocs serve -f mkdocs.preview.yml --dirty` 執行 preview serve。
+- `mkdocs.preview.yml` 的 `# preview-target:start` 到 `# preview-target:end` 區塊現在交由工具維護；若要保留額外 preview 設定，請放在區塊外。
 - 本機右鍵「開啟原文檔案 / 複製」由 `docs/theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py` 配合提供。
 - 為了讓 `mkdocs serve --dirty` 也能正常跳檔，`source_jump_hook.py` 會在 `on_files` 先建立 Markdown 索引，再由 `on_page_markdown` 用實際頁面內容覆寫精修。
 - 手動驗證若需要保留 `stdout/stderr`，統一用 `tools/run_logged.py`，輸出落在 `codex/tmp/`，不要再把 `.out.log` / `.err.log` 散在專案根目錄。
