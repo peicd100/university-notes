@@ -10,3 +10,10 @@ git add .
 git commit -m "PEICD100"
 git branch -M main
 git push -u origin main
+
+
+
+
+幫我想個辦法，讓我可以在終端輸入某指令+檔案位置(如:"docs\md\114-2\科技_計算機結構\ch 2.md")，就能夠幫我改"mkdocs.preview.yml"，並且執行"activate mkdocs_desk
+mkdocs serve -f mkdocs.preview.yml --dirty
+"
