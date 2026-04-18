@@ -1,6 +1,6 @@
 site_name: 'PEICD100'  # 網站名稱
 
-# ✅ MkDocs 只要設定 site_url，就會自動生成 /sitemap.xml（MkDocs 0.13+ 內建）：
+#    MkDocs 只要設定 site_url，就會自動生成 /sitemap.xml（MkDocs 0.13+ 內建）：
 #    GitHub Pages 專案站要包含 repository 子路徑，否則 canonical / sitemap / 首頁連結都會指到錯誤位置。
 site_url: https://peicd100.github.io/university-notes/  # GitHub Pages 專案站 URL
 use_directory_urls: false  # 保持目前 .html URL 風格（避免既有連結失效）；想用 /path/ 風格可改 true
