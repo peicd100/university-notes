@@ -2,6 +2,18 @@
 
 ## 預覽
 ```
+
+
+
+activate mkdocs_desk
+.\preview     docs\md\114-2\電機_作業系統\ch 4.md
+
+
+
+
+
+```
+```
 activate mkdocs_desk
 mkdocs serve --dirty
 
@@ -9,11 +21,6 @@ mkdocs serve --dirty
 ```
 activate mkdocs_desk
 mkdocs serve -f mkdocs.preview.yml --dirty
-
-```
-```
-activate mkdocs_desk
-.\preview     docs\md\114-2\電機_作業系統\ch 4.md
 
 ```
 
