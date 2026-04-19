@@ -107,3 +107,17 @@
   - 直接執行 `.\preview.bat docs\md\114-2\科技_計算機結構\ch 2.md`，命令在 15 秒逾時前持續執行，代表 `serve` 未立即退出
   - 背景啟動 `preview.bat` 8 秒後檢查 `127.0.0.1:8000`，確認 port 處於 listening 狀態
 - 結果：之後可直接用 `preview.bat <Markdown 路徑>`（PowerShell 用 `.\preview ...`）切換單頁 preview 並啟動預覽，不必再手改 `mkdocs.preview.yml`。
+
+## 2026-04-19 preview 短命令
+- 使用者需求：原本要執行 `.\preview docs\md\114-2\電機_作業系統\ch 4.md`，希望改成執行 `.\p docs\md\114-2\電機_作業系統\ch 4.md`。
+- 先依規則重新讀取 `AGENTS.md` 與 `codex/` 協作檔，確認這是既有單頁 preview 流程的短命令需求。
+- 查閱 Microsoft Windows `call` 官方文件與 Stack Overflow / Reddit 上 batch 參數轉送經驗，採用最小包裝檔方案。
+- 實際修改：
+  - 新增根目錄 `p.bat`
+  - `p.bat` 以 `call "%~dp0preview.bat" %*` 轉送所有參數給既有 `preview.bat`
+  - 更新 `codex/README_PEICD100.md`、`codex/專案規格書.md`、`codex/使用者要求.md`、`codex/協作重要事項.md`
+  - 依 AGENTS 專案規則在 `.gitignore` 補上 `/codex/`
+- 驗證方式：
+  - 使用 `Test-Path` 確認目標 `docs\md\114-2\電機_作業系統\ch 4.md` 存在
+  - 使用 `PREVIEW_SKIP_SERVE=1` 執行 `.\p docs\md\114-2\電機_作業系統\ch 4.md`，避免測試時常駐啟動 MkDocs server
+- 結果：`.\p ...` 可以走同一套 preview 流程並更新 `mkdocs.preview.yml`，短命令已可使用。

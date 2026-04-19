@@ -57,6 +57,7 @@ Thumbs.db
 .idea/
 
 # 專案協作紀錄
+/codex/
 /README_PEICD100.md
 /專案規格書.md
 /log.md

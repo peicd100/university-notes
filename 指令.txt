@@ -17,3 +17,5 @@ git push -u origin main
 幫我想個辦法，讓我可以在終端輸入某指令+檔案位置(如:"docs\md\114-2\科技_計算機結構\ch 2.md")，就能夠幫我改"mkdocs.preview.yml"，並且執行"activate mkdocs_desk
 mkdocs serve -f mkdocs.preview.yml --dirty
 "
+
+本來是執行".\preview     docs\md\114-2\電機_作業系統\ch 4.md"，我希望執行".\p     docs\md\114-2\電機_作業系統\ch 4.md"就好
