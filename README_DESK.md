@@ -6,7 +6,7 @@
 
 
 activate mkdocs_desk
-.\preview                                 docs\md\114-2\電機_作業系統\ch 4.md
+p              docs\md\114-2\電機_作業系統\ch 4.md
 
 
 
