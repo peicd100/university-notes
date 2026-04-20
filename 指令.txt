@@ -1,21 +1,5 @@
-conda create -n mkdocs_desk python=3.11 -y
-activate mkdocs_desk
-conda install pip -y 
-conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
-pip install -r requirements.txt
-conda install git -y
-activate mkdocs
-mkdocs gh-deploy
-git add .
-git commit -m "PEICD100"
-git branch -M main
-git push -u origin main
-
-
-
-
-幫我想個辦法，讓我可以在終端輸入某指令+檔案位置(如:"docs\md\114-2\科技_計算機結構\ch 2.md")，就能夠幫我改"mkdocs.preview.yml"，並且執行"activate mkdocs_desk
-mkdocs serve -f mkdocs.preview.yml --dirty
-"
-
-本來是執行".\preview     docs\md\114-2\電機_作業系統\ch 4.md"，我希望執行".\p     docs\md\114-2\電機_作業系統\ch 4.md"就好
+a(翻譯、講解一下)
+t(翻譯、講解一下)
+a
+a
+b
