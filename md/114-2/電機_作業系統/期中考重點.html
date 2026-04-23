@@ -5548,6 +5548,67 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#zombie-process僵屍行程-與-orphan-process孤兒行程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zombie Process(僵屍行程) 與 Orphan Process(孤兒行程)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zombie Process(僵屍行程) 與 Orphan Process(孤兒行程)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zombie-process-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zombie process 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orphan-process-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orphan process 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#環狀佇列問題生產者消費者共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        環狀佇列問題／生產者消費者共享資料
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7591,6 +7652,67 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#zombie-process僵屍行程-與-orphan-process孤兒行程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zombie Process(僵屍行程) 與 Orphan Process(孤兒行程)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zombie Process(僵屍行程) 與 Orphan Process(孤兒行程)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zombie-process-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zombie process 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orphan-process-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orphan process 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最容易混淆的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最容易混淆的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#環狀佇列問題生產者消費者共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        環狀佇列問題／生產者消費者共享資料
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9066,6 +9188,59 @@ B 印 4 次
 <span class="p">}</span>
 </code></pre></div>
 <p>這種情況只有 child 會印。</p>
+<h2 id="zombie-process僵屍行程-與-orphan-process孤兒行程">Zombie Process(僵屍行程) 與 Orphan Process(孤兒行程)<a class="headerlink" href="#zombie-process僵屍行程-與-orphan-process孤兒行程" title="Permanent link"></a></h2>
+<h3 id="zombie-process-是什麼">Zombie process 是什麼？<a class="headerlink" href="#zombie-process-是什麼" title="Permanent link"></a></h3>
+<p>當 <strong>child process 已經結束</strong>，但 <strong>parent process 還沒呼叫 <code>wait()</code> 來回收它的結束資訊</strong>，這個 child 就會變成 <strong>Zombie process</strong>。</p>
+<p>重點：</p>
+<blockquote>
+<p>child 已經死掉了，但 process table 裡還留著它的紀錄。</p>
+</blockquote>
+<p>生活化例子：<br />
+像學生已經畢業離校，但學校行政系統還沒辦退學／畢業手續，所以名單上還卡著一筆紀錄。</p>
+<hr />
+<h3 id="orphan-process-是什麼">Orphan process 是什麼？<a class="headerlink" href="#orphan-process-是什麼" title="Permanent link"></a></h3>
+<p>當 <strong>parent process 先結束</strong>，但 <strong>child process 還在執行</strong>，這個 child 就變成 <strong>Orphan process</strong>。</p>
+<p>之後它通常會被 <code>init</code> 或系統中的對應行程接管。</p>
+<p>重點：</p>
+<blockquote>
+<p>parent 先死，child 還活著。</p>
+</blockquote>
+<p>生活化例子：<br />
+像小朋友還在活動，但原本帶隊老師先離開了，所以改由另一位老師接手。</p>
+<hr />
+<h3 id="最容易混淆的差別">最容易混淆的差別<a class="headerlink" href="#最容易混淆的差別" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>parent 狀態</th>
+<th>child 狀態</th>
+<th>核心特徵</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zombie</td>
+<td>還活著，但沒 <code>wait()</code></td>
+<td>已結束</td>
+<td>child 留下殘存紀錄</td>
+</tr>
+<tr>
+<td>Orphan</td>
+<td>已結束</td>
+<td>還活著</td>
+<td>child 被別的 process 接管</td>
+</tr>
+</tbody>
+</table>
+<p>一句話記法：</p>
+<div class="admonition danger">
+<p class="admonition-title">重點</p>
+<p>Zombie = child terminated, parent still alive, but parent has not yet called wait().<br />
+Orphan = parent terminated, child still alive.</p>
+</div>
+<p>講義 Chapter 3 對 Zombie / Orphan 也有這個核心定義。</p>
+<h2 id="環狀佇列問題生產者消費者共享資料">環狀佇列問題／生產者消費者共享資料<a class="headerlink" href="#環狀佇列問題生產者消費者共享資料" title="Permanent link"></a></h2>
 
 
 
