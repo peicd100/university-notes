@@ -49,6 +49,7 @@
     
 <script src="../../../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
 <script src="../../../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+<script src="../../../../assets/pymdownx-extras/scroll-bottom.js" type="text/javascript"></script>
 
 <!-- google 朗讀和翻譯 -->
 <!--
@@ -4555,6 +4556,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -4753,6 +4756,34 @@ is now available!
     
   
     上傳電路板
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/114-2/%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E6%9C%9F%E4%B8%AD%E8%80%83.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期中考整理
   
 
     
@@ -5250,6 +5281,28 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#螢光筆" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        螢光筆
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#重點區塊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重點區塊
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#支持折疊程式碼塊" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5269,10 +5322,9 @@ is now available!
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="引用框">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#摺疊區塊" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5282,9 +5334,15 @@ is now available!
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#變更圖片大小" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        變更圖片大小
+      
+    </span>
+  </a>
   
 </li>
       
@@ -5393,6 +5451,27 @@ is now available!
 <h1 id="mkdocs-語法">mkdocs 語法<a class="headerlink" href="#mkdocs-語法" title="Permanent link"></a></h1>
 <!-- more -->
 
+<h2 id="螢光筆">螢光筆<a class="headerlink" href="#螢光筆" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>哈哈哈 ==重點== 哈哈哈
+</code></pre></div>
+<div class="result">
+<p>哈哈哈 <mark>重點</mark> 哈哈哈</p>
+</div>
+<h2 id="重點區塊">重點區塊<a class="headerlink" href="#重點區塊" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>!!! danger  &quot;重點&quot;
+    如果中間沒有條件限制，最後 process 數量是：
+    ```text
+    2^3 = 8 processes
+    ```
+</code></pre></div>
+<div class="result">
+<div class="admonition danger">
+<p class="admonition-title">重點</p>
+<p>如果中間沒有條件限制，最後 process 數量是：<br />
+<div class="highlight"><pre><span></span><code>2^3 = 8 processes
+</code></pre></div></p>
+</div>
+</div>
 <h2 id="支持折疊程式碼塊">支持折疊程式碼塊<a class="headerlink" href="#支持折疊程式碼塊" title="Permanent link"></a></h2>
 <div class="highlight"><span class="filename">程式塊</span><pre><span></span><code>/// collapse-code  
 ```cpp
@@ -5412,9 +5491,9 @@ using namespace std;
 </div>
 </div>
 <h2 id="引用框">引用框<a class="headerlink" href="#引用框" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>/// html | div.i
-
-
+<div class="highlight"><pre><span></span><code>背景
+/// html | div.i
+背景
 ///
 </code></pre></div>
 <div class="result">
@@ -5423,7 +5502,7 @@ using namespace std;
 <p>背景</p>
 </div>
 </div>
-<h3 id="摺疊區塊">摺疊區塊<a class="headerlink" href="#摺疊區塊" title="Permanent link"></a></h3>
+<h2 id="摺疊區塊">摺疊區塊<a class="headerlink" href="#摺疊區塊" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>/// details | 摺疊名稱
 
 摺疊內容
@@ -5435,6 +5514,16 @@ using namespace std;
 <summary>摺疊名稱</summary>
 <p>摺疊內容</p>
 </details>
+</div>
+<h2 id="變更圖片大小">變更圖片大小<a class="headerlink" href="#變更圖片大小" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>/// details | 摺疊名稱
+
+![alt text](&lt;images/mkdocs 語法.png&gt;){width=&quot;60%&quot;}
+
+///
+</code></pre></div>
+<div class="result">
+<p><img alt="alt text" src="../../../images/mkdocs%20%E8%AA%9E%E6%B3%95.png" width="60%" /></p>
 </div>
 
 
@@ -5471,6 +5560,7 @@ using namespace std;
         
       </main>
       
+  
         
 
 <footer class="md-footer">
@@ -5540,6 +5630,18 @@ using namespace std;
   </div>
 </footer>
       
+  <button
+  type="button"
+  class="peicd-scroll-bottom md-icon is-hidden"
+  data-peicd-scroll-bottom
+  aria-label="Back to bottom"
+  hidden
+>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  <span class="peicd-scroll-bottom__label">Back to bottom</span>
+</button>
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
