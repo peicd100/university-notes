@@ -15,6 +15,11 @@
 
 {% endblock %}
 
+{% block footer %}
+  {{ super() }}
+  {% include "partials/scroll-bottom.html" ignore missing %}
+{% endblock %}
+
 <!-- 贊助 -->
 <!-- {% block announce %}{% include "announce.html" ignore missing %}{% endblock %}
 

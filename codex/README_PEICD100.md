@@ -30,6 +30,7 @@ p.bat docs\md\114-2\電機_作業系統\ch 4.md
 - `p.bat` 是 `preview.bat` 的短命令包裝；PowerShell 可直接用 `.\p docs\md\114-2\電機_作業系統\ch 4.md`。
 - `mkdocs.preview.yml` 的 `# preview-target:start` 到 `# preview-target:end` 區塊現在交由工具維護；若要保留額外 preview 設定，請放在區塊外。
 - 本機右鍵「開啟原文檔案 / 複製」由 `docs/theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py` 配合提供。
+- 站點目前保留 Material 內建的頁首 `Back to top`，並額外提供右下角 `Back to bottom` 浮動按鈕；後者由 `docs/theme/partials/scroll-bottom.html`、`docs/theme/assets/pymdownx-extras/scroll-bottom.js` 與 `docs/theme/assets/pymdownx-extras/自定義.css` 共同控制。
 - 為了讓 `mkdocs serve --dirty` 也能正常跳檔，`source_jump_hook.py` 會在 `on_files` 先建立 Markdown 索引，再由 `on_page_markdown` 用實際頁面內容覆寫精修。
 - 手動驗證若需要保留 `stdout/stderr`，統一用 `tools/run_logged.py`，輸出落在 `codex/tmp/`，不要再把 `.out.log` / `.err.log` 散在專案根目錄。
 - 標題錨點與標題內 inline code 的排版目前集中由 `docs/theme/assets/pymdownx-extras/自定義.css` 控制；若標題內使用 backticks 出現版面錯位，先檢查 `h2~h6` 的 flex 規則與 heading code 規則。
@@ -40,6 +41,7 @@ p.bat docs\md\114-2\電機_作業系統\ch 4.md
 ```bat
 Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name pycheck-source-jump -- Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py
 Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name preview-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
+Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name build-scroll-bottom -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 ```
 - 每次執行都會在 `codex/tmp/` 產生 `*.out.log`、`*.err.log`、`*.meta.json`。
 - `codex/tmp/` 只保留 `.gitkeep` 供 Git 追蹤目錄，其他暫存輸出一律忽略。
