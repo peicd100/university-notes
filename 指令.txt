@@ -1,2 +1,226 @@
-b
-f
+## 1. 批改結果
+
+這輪 **5/5 全對 ✅**
+
+| 題號 |   你的答案 | 正確答案 | 結果 |
+| -- | -----: | ---: | -- |
+| 1  |      A |    A | ✅  |
+| 2  |   True | True | ✅  |
+| 3  |      A |    A | ✅  |
+| 4  |      A |    A | ✅  |
+| 5  | 英文簡答完整 |    ✅ |    |
+
+你的第 5 題已經可以直接當考古答案用。
+
+---
+
+## 2. 本知識點狀態更新
+
+目前知識點：**Zombie Process / Orphan Process**
+
+| 項目                       | 狀態            |
+| ------------------------ | ------------- |
+| Zombie process 定義        | 穩定            |
+| Orphan process 定義        | 穩定            |
+| `wait()` 和 zombie 的關係    | 穩定            |
+| `init` / 等效系統行程接管 orphan | 穩定            |
+| 英文簡答                     | 已完成           |
+| 是否練穩                     | **本知識點可暫定完成** |
+
+這題是 110 考古直接題型，Chapter 3 講義也明確寫了 `wait()`、zombie、orphan 的關係。 
+
+---
+
+## 3. Ch3 目前進度摘要
+
+| 類別     | 狀態                                                                                                                                                             |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 已完成    | Process concept / memory layout、Process states / PCB、Scheduling queues / schedulers、I/O-bound vs CPU-bound + context switch、fork / exec / wait、Zombie / Orphan |
+| 高頻     | Stack vs Heap、Process state diagram、Schedulers、Context switch、fork 題、Zombie / Orphan                                                                           |
+| 弱點     | 暫無                                                                                                                                                             |
+| 需回補    | 暫無                                                                                                                                                             |
+| 下一主線位置 | Circular queue / producer-consumer shared memory problem                                                                                                       |
+
+接下來最值得推進的是 **110 考古第 7 題 circular queue problem**，因為這是實際考題，而且你自己的作業筆記也有做過「用 tag 解掉浪費一格」的版本。 
+
+---
+
+## 4. 本輪知識點
+
+**Circular Queue Problem / Producer-Consumer Shared Data**
+**環狀佇列問題／生產者消費者共享資料**
+
+---
+
+## 5. ⭐核心原理與本輪必要知識包
+
+### 5.1 直覺版
+
+Producer(生產者) 一直往 buffer 放資料。
+Consumer(消費者) 一直從 buffer 拿資料。
+
+如果 buffer 是 circular queue(環狀佇列)，通常用兩個指標：
+
+* `in`：下一個要放的位置
+* `out`：下一個要拿的位置
+
+問題是：
+
+> 只看 `in` 和 `out`，有時候很難分辨 buffer 是 **empty(空)** 還是 **full(滿)**。
+
+因為兩種情況都可能出現：
+
+```text
+in == out
+```
+
+---
+
+### 5.2 原始寫法的問題
+
+考古題那種原始寫法通常是：
+
+* empty：`in == out`
+* full：`(in + 1) % BUFFER_SIZE == out`
+
+這種寫法是正確的，但會有一個代價：
+
+> **永遠浪費一格。**
+
+因為它故意保留一個空格，避免 full 和 empty 都變成 `in == out` 時無法區分。
+
+所以如果 `BUFFER_SIZE = 10`，實際只能放 **9** 個元素。
+如果 `N = 8`，實際只能放 **7** 個元素。
+
+---
+
+### 5.3 怎麼解？
+
+常見兩種解法：
+
+#### 5.3.1 用 count
+
+額外維護目前 buffer 裡有幾個元素。
+
+* `count == 0` → empty
+* `count == BUFFER_SIZE` → full
+
+#### 5.3.2 用 tag / flag
+
+額外用一個 `tag` 來區分：
+
+* `in == out && tag == 0` → empty
+* `in == out && tag == 1` → full
+
+你自己的筆記就是用 **tag** 來避免浪費一格，讓 `N = 8` 時真的能放滿 8 個元素。
+
+---
+
+### 5.4 考試最短答案骨架
+
+如果題目問：
+
+> What is the problem of the circular queue problem?
+
+可以先答：
+
+> **The original circular queue solution wastes one buffer slot, because it uses `(in + 1) % BUFFER_SIZE == out` to represent full and `in == out` to represent empty. Therefore, the buffer can use only BUFFER_SIZE − 1 slots.**
+
+如果題目再問：
+
+> How to solve it?
+
+可以答：
+
+> **Use an additional variable such as a count or a tag/flag to distinguish full from empty, so the queue can use all BUFFER_SIZE slots.**
+
+---
+
+## 6. 局部知識點地圖
+
+| 項目     | 狀態                                                              |
+| ------ | --------------------------------------------------------------- |
+| 知識點名稱  | Circular Queue / Producer-Consumer Problem                      |
+| 主線位置   | Chapter 3 IPC / Shared Memory；110 考古 Q7                         |
+| 子概念    | `in`、`out`、buffer full、buffer empty、wasting one slot、count、tag  |
+| 相關來源   | 110 考古、Ch3 講義、你的作業筆記                                            |
+| 相關來源題目 | 110 Q7 circular queue                                           |
+| 內容覆蓋狀態 | 剛開始                                                             |
+| 題目覆蓋狀態 | 即將第一輪練習                                                         |
+| 是否高頻   | **High-frequency Point**：110 考古直接出題                             |
+| 是否弱點   | 尚未發現                                                            |
+| 練習目標   | 能說出原問題、為什麼浪費一格、以及 count/tag 解法                                  |
+| 易錯概念   | 以為原始解法是錯的；其實它是正確但浪費一格。容易把「無法區分 full/empty」和「race condition」混為一談 |
+
+---
+
+## 7. 本輪 5 題練習
+
+請用格式作答：
+
+```text id="6oln2p"
+1. A
+2. False
+3. ...
+4. ...
+5. ...
+```
+
+---
+
+### Question 1 — Basic
+
+What is the main problem with the original circular queue solution that uses `in` and `out` only?
+
+A. It wastes one buffer slot to distinguish full from empty.
+B. It always causes a segmentation fault.
+C. It physically replaces the CPU.
+D. It deletes the operating system.
+
+[Source: 考古_110／Q7；講義_chapter 3_20240318／Circular queue]
+
+---
+
+### Question 2 — Basic
+
+True or False:
+In the original circular queue design, the condition `in == out` is commonly used to indicate an empty buffer.
+
+[Source: 講義_chapter 3_20240318／Circular queue]
+
+---
+
+### Question 3 — Variation
+
+In the original circular queue design, which condition is commonly used to indicate that the buffer is full?
+
+A. `(in + 1) % BUFFER_SIZE == out`
+B. `in == out`
+C. `count == 0`
+D. `tag == 0` only
+
+[Source: 考古_110／Q7；講義_chapter 3_20240318／Circular queue]
+
+---
+
+### Question 4 — Variation
+
+Which is a common way to solve the wasted-slot problem in a circular queue?
+
+A. Add an extra variable such as a count or a tag/flag to distinguish full from empty.
+B. Remove the buffer completely.
+C. Replace the queue with a cloud service.
+D. Disable all producer and consumer operations.
+
+[Source: 你的作業筆記／tag 解法；考古_110／Q7]
+
+---
+
+### Question 5 — Short Answer
+
+In 2–4 English sentences, explain:
+
+1. why the original circular queue wastes one slot
+2. one way to solve the problem
+
+[Adapted from: 考古_110／Q7]
