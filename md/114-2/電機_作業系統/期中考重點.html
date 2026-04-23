@@ -5607,6 +5607,683 @@ is now available!
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="環狀佇列問題／生產者消費者共享資料">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺版_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原始寫法的問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原始寫法的問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#怎麼解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        怎麼解？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="怎麼解？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-tag--flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 tag / flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#考試最短答案骨架" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        考試最短答案骨架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#看代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        看代碼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="看代碼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-代碼講解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 代碼講解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-原始-producer--consumer-核心代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 原始 Producer / Consumer 核心代碼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 原始 Producer / Consumer 核心代碼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-producer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Producer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-這段到底哪裡有問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 這段到底哪裡有問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-解法一count-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 解法一：count 解法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 解法一：count 解法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 共享資料
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-producer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Producer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-consumer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Consumer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-為什麼-count-解法可行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 為什麼 count 解法可行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-count-解法的優缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 count 解法的優缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-解法二tag--flag-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 解法二：tag / flag 解法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 解法二：tag / flag 解法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 共享資料
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-producer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Producer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-consumer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Consumer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-為什麼-tag-解法可行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 為什麼 tag 解法可行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-count-解法-vs-tag-解法怎麼選" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. count 解法 vs tag 解法，怎麼選？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. count 解法 vs tag 解法，怎麼選？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-如果是考試簡答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 如果是考試簡答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-如果是實作作業" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 如果是實作作業
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-考試可直接背的英文骨架" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 考試可直接背的英文骨架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-你要特別小心的一點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 你要特別小心的一點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-你現在先記這一句就夠了" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 你現在先記這一句就夠了
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag-太抽象了我們直接看詳細一點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tag 太抽象了，我們直接看詳細一點
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tag 太抽象了，我們直接看詳細一點">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先抓住核心tag-不是一直都重要" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先抓住核心：tag 不是一直都重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-不用-tag-時為什麼會浪費一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不用 tag 時，為什麼會浪費一格？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-有-tag-時規則改成什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 有 tag 時，規則改成什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個最小例子跑一次n--4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個最小例子跑一次：N = 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-一步一步看-producer-怎麼動" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 一步一步看 Producer 怎麼動
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 一步一步看 Producer 怎麼動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-放入第-1-個元素-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 放入第 1 個元素 A
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-放入第-2-個元素-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 放入第 2 個元素 B
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-放入第-3-個元素-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 放入第 3 個元素 C
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-放入第-4-個元素-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 放入第 4 個元素 D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-再看-consumer-怎麼動" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 再看 Consumer 怎麼動
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 再看 Consumer 怎麼動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-消費第-1-個元素-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 消費第 1 個元素 A
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-再消費-bc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 再消費 B、C
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-最後消費-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 最後消費 D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-你可以把-tag-理解成最後一次讓兩指標重合的是誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 你可以把 tag 理解成「最後一次讓兩指標重合的是誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-整個流程表看一次就通" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 整個流程表，看一次就通
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-對應到代碼哪兩行最關鍵" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 對應到代碼，哪兩行最關鍵？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 對應到代碼，哪兩行最關鍵？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-producer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Producer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-為什麼這樣就不浪費一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 為什麼這樣就不浪費一格？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-最容易卡住的誤解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 最容易卡住的誤解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 最容易卡住的誤解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-誤解一tag-一直都在描述狀態" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 誤解一：tag 一直都在描述狀態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-誤解二消費一個元素後-tag-沒改會不會錯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 誤解二：消費一個元素後 tag 沒改，會不會錯？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-誤解三tag-是不是在記錄元素數量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 誤解三：tag 是不是在記錄元素數量？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-你現在只要記這句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 你現在只要記這句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-一個超短版本總結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 一個超短版本總結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7711,6 +8388,683 @@ is now available!
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="環狀佇列問題／生產者消費者共享資料">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#直覺版_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        直覺版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#原始寫法的問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原始寫法的問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#怎麼解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        怎麼解？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="怎麼解？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#用-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-tag--flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 tag / flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#考試最短答案骨架" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        考試最短答案骨架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#看代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        看代碼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="看代碼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-代碼講解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 代碼講解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-原始-producer--consumer-核心代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 原始 Producer / Consumer 核心代碼
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 原始 Producer / Consumer 核心代碼">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-producer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Producer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-這段到底哪裡有問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 這段到底哪裡有問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-解法一count-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 解法一：count 解法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 解法一：count 解法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 共享資料
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-producer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Producer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-consumer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Consumer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-為什麼-count-解法可行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 為什麼 count 解法可行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-count-解法的優缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 count 解法的優缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-解法二tag--flag-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 解法二：tag / flag 解法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 解法二：tag / flag 解法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-共享資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 共享資料
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-producer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Producer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-consumer-重點代碼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Consumer 重點代碼
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-為什麼-tag-解法可行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 為什麼 tag 解法可行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-count-解法-vs-tag-解法怎麼選" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. count 解法 vs tag 解法，怎麼選？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. count 解法 vs tag 解法，怎麼選？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-如果是考試簡答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 如果是考試簡答
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-如果是實作作業" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 如果是實作作業
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-考試可直接背的英文骨架" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 考試可直接背的英文骨架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-你要特別小心的一點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 你要特別小心的一點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-你現在先記這一句就夠了" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 你現在先記這一句就夠了
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag-太抽象了我們直接看詳細一點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tag 太抽象了，我們直接看詳細一點
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tag 太抽象了，我們直接看詳細一點">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先抓住核心tag-不是一直都重要" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先抓住核心：tag 不是一直都重要
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-不用-tag-時為什麼會浪費一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 不用 tag 時，為什麼會浪費一格？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-有-tag-時規則改成什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 有 tag 時，規則改成什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個最小例子跑一次n--4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個最小例子跑一次：N = 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-一步一步看-producer-怎麼動" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 一步一步看 Producer 怎麼動
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 一步一步看 Producer 怎麼動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-放入第-1-個元素-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 放入第 1 個元素 A
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-放入第-2-個元素-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 放入第 2 個元素 B
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-放入第-3-個元素-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 放入第 3 個元素 C
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-放入第-4-個元素-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 放入第 4 個元素 D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-再看-consumer-怎麼動" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 再看 Consumer 怎麼動
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 再看 Consumer 怎麼動">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-消費第-1-個元素-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 消費第 1 個元素 A
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-再消費-bc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 再消費 B、C
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-最後消費-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 最後消費 D
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-你可以把-tag-理解成最後一次讓兩指標重合的是誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 你可以把 tag 理解成「最後一次讓兩指標重合的是誰」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-整個流程表看一次就通" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 整個流程表，看一次就通
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-對應到代碼哪兩行最關鍵" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 對應到代碼，哪兩行最關鍵？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 對應到代碼，哪兩行最關鍵？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-producer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Producer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-為什麼這樣就不浪費一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 為什麼這樣就不浪費一格？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-最容易卡住的誤解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 最容易卡住的誤解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. 最容易卡住的誤解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-誤解一tag-一直都在描述狀態" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 誤解一：tag 一直都在描述狀態
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-誤解二消費一個元素後-tag-沒改會不會錯" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 誤解二：消費一個元素後 tag 沒改，會不會錯？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-誤解三tag-是不是在記錄元素數量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 誤解三：tag 是不是在記錄元素數量？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-你現在只要記這句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 你現在只要記這句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-一個超短版本總結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 一個超短版本總結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -9241,6 +10595,700 @@ Orphan = parent terminated, child still alive.</p>
 </div>
 <p>講義 Chapter 3 對 Zombie / Orphan 也有這個核心定義。</p>
 <h2 id="環狀佇列問題生產者消費者共享資料">環狀佇列問題／生產者消費者共享資料<a class="headerlink" href="#環狀佇列問題生產者消費者共享資料" title="Permanent link"></a></h2>
+<h3 id="直覺版_1">直覺版<a class="headerlink" href="#直覺版_1" title="Permanent link"></a></h3>
+<p>Producer(生產者) 一直往 buffer 放資料。<br />
+Consumer(消費者) 一直從 buffer 拿資料。</p>
+<p>如果 buffer 是 circular queue(環狀佇列)，通常用兩個指標：</p>
+<ul>
+<li><code>in</code>：下一個要放的位置</li>
+<li><code>out</code>：下一個要拿的位置</li>
+</ul>
+<p>問題是：</p>
+<blockquote>
+<p>只看 <code>in</code> 和 <code>out</code>，有時候很難分辨 buffer 是 <strong>empty(空)</strong> 還是 <strong>full(滿)</strong>。</p>
+</blockquote>
+<p>因為兩種情況都可能出現：</p>
+<div class="highlight"><pre><span></span><code>in == out
+</code></pre></div>
+<hr />
+<h3 id="原始寫法的問題">原始寫法的問題<a class="headerlink" href="#原始寫法的問題" title="Permanent link"></a></h3>
+<p>考古題那種原始寫法通常是：</p>
+<ul>
+<li>empty：<code>in == out</code></li>
+<li>full：<code>(in + 1) % BUFFER_SIZE == out</code></li>
+</ul>
+<p>這種寫法是正確的，但會有一個代價：</p>
+<blockquote>
+<p><strong>永遠浪費一格。</strong></p>
+</blockquote>
+<p>因為它故意保留一個空格，避免 full 和 empty 都變成 <code>in == out</code> 時無法區分。</p>
+<p>所以如果 <code>BUFFER_SIZE = 10</code>，實際只能放 <strong>9</strong> 個元素。<br />
+如果 <code>N = 8</code>，實際只能放 <strong>7</strong> 個元素。</p>
+<hr />
+<h3 id="怎麼解">怎麼解？<a class="headerlink" href="#怎麼解" title="Permanent link"></a></h3>
+<p>常見兩種解法：</p>
+<h4 id="用-count">用 count<a class="headerlink" href="#用-count" title="Permanent link"></a></h4>
+<p>額外維護目前 buffer 裡有幾個元素。</p>
+<ul>
+<li><code>count == 0</code> → empty</li>
+<li><code>count == BUFFER_SIZE</code> → full</li>
+</ul>
+<h4 id="用-tag--flag">用 tag / flag<a class="headerlink" href="#用-tag--flag" title="Permanent link"></a></h4>
+<p>額外用一個 <code>tag</code> 來區分：</p>
+<ul>
+<li><code>in == out &amp;&amp; tag == 0</code> → empty</li>
+<li><code>in == out &amp;&amp; tag == 1</code> → full</li>
+</ul>
+<p>你自己的筆記就是用 <strong>tag</strong> 來避免浪費一格，讓 <code>N = 8</code> 時真的能放滿 8 個元素。</p>
+<hr />
+<h3 id="考試最短答案骨架">考試最短答案骨架<a class="headerlink" href="#考試最短答案骨架" title="Permanent link"></a></h3>
+<p>如果題目問：</p>
+<blockquote>
+<p>What is the problem of the circular queue problem?</p>
+</blockquote>
+<p>可以先答：</p>
+<blockquote>
+<p><strong>The original circular queue solution wastes one buffer slot, because it uses <code>(in + 1) % BUFFER_SIZE == out</code> to represent full and <code>in == out</code> to represent empty. Therefore, the buffer can use only BUFFER_SIZE − 1 slots.</strong></p>
+</blockquote>
+<p>如果題目再問：</p>
+<blockquote>
+<p>How to solve it?</p>
+</blockquote>
+<p>可以答：</p>
+<blockquote>
+<p><strong>Use an additional variable such as a count or a tag/flag to distinguish full from empty, so the queue can use all BUFFER_SIZE slots.</strong></p>
+</blockquote>
+<hr />
+<h3 id="看代碼">看代碼<a class="headerlink" href="#看代碼" title="Permanent link"></a></h3>
+<h4 id="1-代碼講解">1. 代碼講解<a class="headerlink" href="#1-代碼講解" title="Permanent link"></a></h4>
+<p>原始 circular queue 只有兩個指標：</p>
+<ul>
+<li><code>in</code>：下一個要放的位置</li>
+<li><code>out</code>：下一個要拿的位置</li>
+</ul>
+<p>原始寫法通常是：</p>
+<ul>
+<li><strong>empty</strong>：<code>in == out</code></li>
+<li><strong>full</strong>：<code>(in + 1) % N == out</code></li>
+</ul>
+<p>這樣的好處是簡單，但缺點是：</p>
+<blockquote>
+<p><strong>會浪費一格。</strong></p>
+</blockquote>
+<p>因為它必須故意保留一個空格，才能避免 full 和 empty 都變成 <code>in == out</code>。講義也明確寫了：這個解法正確，但只能用 <code>BUFFER_SIZE - 1</code> 個元素。</p>
+<hr />
+<h4 id="2-原始-producer--consumer-核心代碼">2. 原始 Producer / Consumer 核心代碼<a class="headerlink" href="#2-原始-producer--consumer-核心代碼" title="Permanent link"></a></h4>
+<p>這是考古題那種原始版核心：</p>
+<p><div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div><br />
+<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-4.png" /></p>
+<h5 id="21-producer">2.1 Producer<a class="headerlink" href="#21-producer" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* produce nextProduced */</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">((</span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer full</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="22-consumer">2.2 Consumer<a class="headerlink" href="#22-consumer" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextConsumed</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer empty</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">nextConsumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h4 id="3-這段到底哪裡有問題">3. 這段到底哪裡有問題？<a class="headerlink" href="#3-這段到底哪裡有問題" title="Permanent link"></a></h4>
+<p>關鍵不是它「錯」，而是它：</p>
+<blockquote>
+<p><strong>正確，但會浪費一格。</strong></p>
+</blockquote>
+<p>例如 <code>N = 8</code>：</p>
+<ul>
+<li>理論上 buffer 有 8 格</li>
+<li>但原始寫法最多只能放 <strong>7</strong> 個元素</li>
+</ul>
+<p>因為第 8 格必須保留，否則你無法區分：</p>
+<div class="highlight"><pre><span></span><code><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span>
+</code></pre></div>
+<p>到底代表：</p>
+<ul>
+<li>empty</li>
+<li>還是 full</li>
+</ul>
+<p>這就是 110 考古第 7 題的核心。</p>
+<hr />
+<h4 id="4-解法一count-解法">4. 解法一：count 解法<a class="headerlink" href="#4-解法一count-解法" title="Permanent link"></a></h4>
+<p>這是最直觀的作法：<br />
+額外加一個變數 <code>count</code>，表示目前 buffer 裡有幾個元素。</p>
+<hr />
+<h5 id="41-共享資料">4.1 共享資料<a class="headerlink" href="#41-共享資料" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-5.png" /></p>
+<h5 id="42-producer-重點代碼">4.2 Producer 重點代碼<a class="headerlink" href="#42-producer-重點代碼" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* produce nextProduced */</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer full</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+<span class="w">    </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h5 id="43-consumer-重點代碼">4.3 Consumer 重點代碼<a class="headerlink" href="#43-consumer-重點代碼" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextConsumed</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer empty</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">nextConsumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+<span class="w">    </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h5 id="44-為什麼-count-解法可行">4.4 為什麼 count 解法可行？<a class="headerlink" href="#44-為什麼-count-解法可行" title="Permanent link"></a></h5>
+<p>因為現在 full / empty 不再只靠 <code>in</code> 和 <code>out</code> 判斷，而是靠 <code>count</code>：</p>
+<ul>
+<li><code>count == 0</code> → empty</li>
+<li><code>count == N</code> → full</li>
+</ul>
+<p>所以 <code>N = 8</code> 就真的可以放滿 8 格。</p>
+<hr />
+<h5 id="45-count-解法的優缺點">4.5 count 解法的優缺點<a class="headerlink" href="#45-count-解法的優缺點" title="Permanent link"></a></h5>
+<p>優點：</p>
+<ul>
+<li>很直觀</li>
+<li>最容易講清楚</li>
+<li>考試好寫</li>
+</ul>
+<p>缺點：</p>
+<ul>
+<li>多一個共享變數 <code>count</code></li>
+<li>在真正並行環境下，<code>count++</code> / <code>count--</code> 也會有 <strong>race condition(競爭情況)</strong>，所以如果真的同時跑 producer / consumer，仍要搭配 synchronization，例如 mutex / semaphore。講義 Chapter 5 也正是用 producer-consumer 的 <code>count</code> 例子說明 race condition。</li>
+</ul>
+<hr />
+<h4 id="5-解法二tag--flag-解法">5. 解法二：tag / flag 解法<a class="headerlink" href="#5-解法二tag--flag-解法" title="Permanent link"></a></h4>
+<p>這就是你作業筆記裡用的版本。核心想法是：</p>
+<blockquote>
+<p>當 <code>in == out</code> 時，再多看一個 <code>tag</code> 來判斷到底是 empty 還是 full。</p>
+</blockquote>
+<hr />
+<h5 id="51-共享資料">5.1 共享資料<a class="headerlink" href="#51-共享資料" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 0: empty, 1: full (when in == out)</span>
+</code></pre></div>
+<hr />
+<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-3.png" /></p>
+<p>詳細請看：<a href="#tag-太抽象了我們直接看詳細一點">Tag 太抽象了，我們直接看詳細一點</a></p>
+<h5 id="52-producer-重點代碼">5.2 Producer 重點代碼<a class="headerlink" href="#52-producer-重點代碼" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* produce nextProduced */</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer full</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h5 id="53-consumer-重點代碼">5.3 Consumer 重點代碼<a class="headerlink" href="#53-consumer-重點代碼" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextConsumed</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// buffer empty</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">nextConsumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h5 id="54-為什麼-tag-解法可行">5.4 為什麼 tag 解法可行？<a class="headerlink" href="#54-為什麼-tag-解法可行" title="Permanent link"></a></h5>
+<p>因為現在：</p>
+<ul>
+<li><code>in == out &amp;&amp; tag == 0</code> → empty</li>
+<li><code>in == out &amp;&amp; tag == 1</code> → full</li>
+</ul>
+<p>這樣就不用再故意浪費一格，所以 <code>N = 8</code> 時可以真的放 8 個。<br />
+這也是你筆記中「原本只放到 [0]~[6]，修改後可放到 [0]~[7]」的重點。</p>
+<hr />
+<h4 id="6-count-解法-vs-tag-解法怎麼選">6. count 解法 vs tag 解法，怎麼選？<a class="headerlink" href="#6-count-解法-vs-tag-解法怎麼選" title="Permanent link"></a></h4>
+<h5 id="61-如果是考試簡答">6.1 如果是考試簡答<a class="headerlink" href="#61-如果是考試簡答" title="Permanent link"></a></h5>
+<p>我會建議你優先寫：</p>
+<ul>
+<li><strong>先講原始解法浪費一格</strong></li>
+<li>再講 <strong>count</strong> 或 <strong>tag</strong> 任一種解法</li>
+</ul>
+<p>因為老師要看的是你有沒有抓到核心：</p>
+<blockquote>
+<p>full 和 empty 會混淆，所以要多一個額外資訊。</p>
+</blockquote>
+<hr />
+<h5 id="62-如果是實作作業">6.2 如果是實作作業<a class="headerlink" href="#62-如果是實作作業" title="Permanent link"></a></h5>
+<p>兩個都能用：</p>
+<ul>
+<li><strong>count</strong>：直觀、好懂</li>
+<li><strong>tag</strong>：很貼近你作業寫法，也很適合拿來回答「如何不浪費一格」</li>
+</ul>
+<hr />
+<h4 id="7-考試可直接背的英文骨架">7. 考試可直接背的英文骨架<a class="headerlink" href="#7-考試可直接背的英文骨架" title="Permanent link"></a></h4>
+<p>如果考古問：</p>
+<blockquote>
+<p>What is the problem of the circular queue problem? How to solve it?</p>
+</blockquote>
+<p>你可以寫：</p>
+<div class="highlight"><pre><span></span><code>The original circular queue solution wastes one buffer slot.
+It uses in == out to represent an empty buffer and (in + 1) % N == out to represent a full buffer, so only N - 1 slots can be used.
+
+One solution is to add a count variable.
+Then count == 0 means empty and count == N means full.
+
+Another solution is to add a tag (or flag).
+When in == out, tag = 0 can mean empty and tag = 1 can mean full.
+</code></pre></div>
+<hr />
+<h4 id="8-你要特別小心的一點">8. 你要特別小心的一點<a class="headerlink" href="#8-你要特別小心的一點" title="Permanent link"></a></h4>
+<p>上面這些 code 主要是在解：</p>
+<blockquote>
+<p><strong>full / empty ambiguity(滿和空無法區分)</strong></p>
+</blockquote>
+<p>但如果題目進一步問真正的同步問題，那還要再處理：</p>
+<ul>
+<li>mutual exclusion(互斥)</li>
+<li>race condition(競爭情況)</li>
+</ul>
+<p>也就是 Producer / Consumer 真正並行時，要再搭配：</p>
+<ul>
+<li>mutex</li>
+<li>semaphore</li>
+</ul>
+<p>那就會接到 Chapter 5 的 bounded-buffer problem。</p>
+<hr />
+<h4 id="9-你現在先記這一句就夠了">9. 你現在先記這一句就夠了<a class="headerlink" href="#9-你現在先記這一句就夠了" title="Permanent link"></a></h4>
+<blockquote>
+<p><strong>原始 circular queue 不是錯，而是會浪費一格。</strong><br />
+<strong>解法就是多加一個資訊來區分 full 和 empty，例如 count 或 tag。</strong></p>
+</blockquote>
+<p>如果你要，我下一則可以直接幫你整理成「考古第 7 題可手寫版答案」，包含：<br />
+<strong>中文簡答 + 英文簡答 + Producer/Consumer 重點代碼</strong>。</p>
+<h3 id="tag-太抽象了我們直接看詳細一點">Tag 太抽象了，我們直接看詳細一點<a class="headerlink" href="#tag-太抽象了我們直接看詳細一點" title="Permanent link"></a></h3>
+<p>我把它拆成「<strong>你真的會在腦中看到它怎麼跑</strong>」的版本。</p>
+<p>先糾正一個小地方：這裡比較精確是 <strong>環狀佇列(circular queue)</strong>，不是圓盤。<br />
+但你說的「圓盤上怎麼轉」那個畫面其實很好用，我們就把 buffer 想成一圈格子。講義的原始 circular queue 與你作業的 tag 解法都在這個架構上。 </p>
+<hr />
+<h4 id="1-先抓住核心tag-不是一直都重要">1. 先抓住核心：tag 不是一直都重要<a class="headerlink" href="#1-先抓住核心tag-不是一直都重要" title="Permanent link"></a></h4>
+<p><strong>最重要的一句話：</strong></p>
+<blockquote>
+<p><code>tag</code> 只有在 <code>in == out</code> 的時候才有意義。</p>
+</blockquote>
+<p>因為：</p>
+<ul>
+<li>如果 <code>in != out</code>，我們光看 <code>in</code> 和 <code>out</code> 就知道現在不是「空到完全沒有東西」也不是「滿到完全繞一圈」。</li>
+<li>
+<p>只有當 <code>in == out</code> 時，才會出現歧義：</p>
+</li>
+<li>
+<p>可能是 <strong>空</strong></p>
+</li>
+<li>也可能是 <strong>滿</strong></li>
+</ul>
+<p>所以 <code>tag</code> 的工作不是「永遠描述整個 queue 狀態」，而是：</p>
+<blockquote>
+<p><strong>專門在 <code>in == out</code> 這個尷尬時刻，告訴你它到底是空還是滿。</strong></p>
+</blockquote>
+<hr />
+<h4 id="2-不用-tag-時為什麼會浪費一格">2. 不用 tag 時，為什麼會浪費一格？<a class="headerlink" href="#2-不用-tag-時為什麼會浪費一格" title="Permanent link"></a></h4>
+<p>原始設計：</p>
+<ul>
+<li>empty：<code>in == out</code></li>
+<li>full：<code>(in + 1) % N == out</code></li>
+</ul>
+<p>它故意不讓 <code>in</code> 真的追上 <code>out</code>，因為一旦追上去就分不出是空還是滿。</p>
+<p>所以它只好保留一格不使用。<br />
+這就是「浪費一格」。</p>
+<hr />
+<h4 id="3-有-tag-時規則改成什麼">3. 有 tag 時，規則改成什麼？<a class="headerlink" href="#3-有-tag-時規則改成什麼" title="Permanent link"></a></h4>
+<p>我們多一個變數：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>約定：</p>
+<ul>
+<li><code>in == out &amp;&amp; tag == 0</code> → <strong>empty</strong></li>
+<li><code>in == out &amp;&amp; tag == 1</code> → <strong>full</strong></li>
+</ul>
+<p>也就是說：</p>
+<ul>
+<li>指標重合時，tag 幫你判斷</li>
+<li>指標不重合時，tag 不重要</li>
+</ul>
+<hr />
+<h4 id="4-用一個最小例子跑一次n--4">4. 用一個最小例子跑一次：N = 4<a class="headerlink" href="#4-用一個最小例子跑一次n--4" title="Permanent link"></a></h4>
+<p>假設環狀 buffer 有 4 格：</p>
+<div class="highlight"><pre><span></span><code>index:   0   1   2   3
+</code></pre></div>
+<p>我們把它想成一圈：</p>
+<pre class="diagram"><code>flowchart TB
+    A["0"]
+    B["1"]
+    C["2"]
+    D["3"]
+
+    A --&gt; B --&gt; C --&gt; D --&gt; A</code></pre>
+<p>初始狀態：</p>
+<div class="highlight"><pre><span></span><code>in = 0
+out = 0
+tag = 0
+</code></pre></div>
+<p>因為 <code>in == out &amp;&amp; tag == 0</code>，所以這時候是 <strong>空</strong>。</p>
+<hr />
+<h4 id="5-一步一步看-producer-怎麼動">5. 一步一步看 Producer 怎麼動<a class="headerlink" href="#5-一步一步看-producer-怎麼動" title="Permanent link"></a></h4>
+<hr />
+<h5 id="51-放入第-1-個元素-a">5.1 放入第 1 個元素 A<a class="headerlink" href="#51-放入第-1-個元素-a" title="Permanent link"></a></h5>
+<p>Producer 做：</p>
+<ol>
+<li>把 A 放到 <code>buffer[in]</code>，也就是 <code>buffer[0]</code></li>
+<li><code>in = (in + 1) % 4 = 1</code></li>
+</ol>
+<p>現在：</p>
+<div class="highlight"><pre><span></span><code>buffer: [A, _, _, _]
+in = 1
+out = 0
+tag = 0
+</code></pre></div>
+<p>這時候 <code>in != out</code>，所以根本不用看 tag。<br />
+queue 顯然不是空，也不是滿。</p>
+<hr />
+<h5 id="52-放入第-2-個元素-b">5.2 放入第 2 個元素 B<a class="headerlink" href="#52-放入第-2-個元素-b" title="Permanent link"></a></h5>
+<p>放到 <code>buffer[1]</code>，然後 <code>in = 2</code></p>
+<div class="highlight"><pre><span></span><code>buffer: [A, B, _, _]
+in = 2
+out = 0
+tag = 0
+</code></pre></div>
+<hr />
+<h5 id="53-放入第-3-個元素-c">5.3 放入第 3 個元素 C<a class="headerlink" href="#53-放入第-3-個元素-c" title="Permanent link"></a></h5>
+<p>放到 <code>buffer[2]</code>，然後 <code>in = 3</code></p>
+<div class="highlight"><pre><span></span><code>buffer: [A, B, C, _]
+in = 3
+out = 0
+tag = 0
+</code></pre></div>
+<hr />
+<h5 id="54-放入第-4-個元素-d">5.4 放入第 4 個元素 D<a class="headerlink" href="#54-放入第-4-個元素-d" title="Permanent link"></a></h5>
+<p>放到 <code>buffer[3]</code>，然後：</p>
+<div class="highlight"><pre><span></span><code>in = (3 + 1) % 4 = 0
+</code></pre></div>
+<p>現在發現：</p>
+<div class="highlight"><pre><span></span><code>in == out
+</code></pre></div>
+<p>這就進入歧義區了。<br />
+到底是空還是滿？</p>
+<p>這時候 Producer 知道一件事：</p>
+<blockquote>
+<p>我剛剛明明是「成功放了一個元素」之後才變成 <code>in == out</code></p>
+</blockquote>
+<p>所以它要做：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>變成：</p>
+<div class="highlight"><pre><span></span><code>buffer: [A, B, C, D]
+in = 0
+out = 0
+tag = 1
+</code></pre></div>
+<p>現在因為 <code>in == out &amp;&amp; tag == 1</code>，所以這是 <strong>滿</strong>。</p>
+<hr />
+<h4 id="6-再看-consumer-怎麼動">6. 再看 Consumer 怎麼動<a class="headerlink" href="#6-再看-consumer-怎麼動" title="Permanent link"></a></h4>
+<p>現在 queue 是滿的：</p>
+<div class="highlight"><pre><span></span><code>buffer: [A, B, C, D]
+in = 0
+out = 0
+tag = 1
+</code></pre></div>
+<hr />
+<h5 id="61-消費第-1-個元素-a">6.1 消費第 1 個元素 A<a class="headerlink" href="#61-消費第-1-個元素-a" title="Permanent link"></a></h5>
+<p>Consumer 讀取：</p>
+<div class="highlight"><pre><span></span><code>buffer[out] = buffer[0] = A
+</code></pre></div>
+<p>然後：</p>
+<div class="highlight"><pre><span></span><code>out = (0 + 1) % 4 = 1
+</code></pre></div>
+<p>現在：</p>
+<div class="highlight"><pre><span></span><code>buffer: [A, B, C, D]   // 實體值還在，但邏輯上 A 已經被取走
+in = 0
+out = 1
+tag = 1
+</code></pre></div>
+<p>這時候你可能會問：</p>
+<blockquote>
+<p>奇怪，tag 還是 1，不會有問題嗎？</p>
+</blockquote>
+<p><strong>不會。</strong></p>
+<p>因為現在 <code>in != out</code>，所以 tag 根本不參與判斷。</p>
+<p>也就是說：</p>
+<blockquote>
+<p><strong>tag 可以暫時保持舊值，只要 <code>in != out</code> 就不會誤判。</strong></p>
+</blockquote>
+<p>這點很重要，很多人就是在這裡覺得抽象。</p>
+<hr />
+<h5 id="62-再消費-bc">6.2 再消費 B、C<a class="headerlink" href="#62-再消費-bc" title="Permanent link"></a></h5>
+<p>持續拿：</p>
+<ul>
+<li>拿 B：<code>out = 2</code></li>
+<li>拿 C：<code>out = 3</code></li>
+</ul>
+<p>都還是 <code>in != out</code>，所以不需要理 tag。</p>
+<hr />
+<h5 id="63-最後消費-d">6.3 最後消費 D<a class="headerlink" href="#63-最後消費-d" title="Permanent link"></a></h5>
+<p>拿掉最後一個元素 D 之後：</p>
+<div class="highlight"><pre><span></span><code>out = (3 + 1) % 4 = 0
+</code></pre></div>
+<p>現在又出現：</p>
+<div class="highlight"><pre><span></span><code>in == out
+</code></pre></div>
+<p>此時 Consumer 知道：</p>
+<blockquote>
+<p>我剛剛是「成功拿走一個元素」之後才變成 <code>in == out</code></p>
+</blockquote>
+<p>所以這次 <code>in == out</code> 代表的是 <strong>空</strong>，不是滿。</p>
+<p>因此它要做：</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>現在變成：</p>
+<div class="highlight"><pre><span></span><code>in = 0
+out = 0
+tag = 0
+</code></pre></div>
+<p>也就是：</p>
+<ul>
+<li><code>in == out &amp;&amp; tag == 0</code> → <strong>empty</strong></li>
+</ul>
+<hr />
+<h4 id="7-你可以把-tag-理解成最後一次讓兩指標重合的是誰">7. 你可以把 tag 理解成「最後一次讓兩指標重合的是誰」<a class="headerlink" href="#7-你可以把-tag-理解成最後一次讓兩指標重合的是誰" title="Permanent link"></a></h4>
+<p>這是最直覺的心法。</p>
+<p>當 <code>in == out</code> 時：</p>
+<ul>
+<li>如果是 <strong>Producer</strong> 最後讓它們重合，代表剛塞滿<br />
+  → <code>tag = 1</code></li>
+<li>如果是 <strong>Consumer</strong> 最後讓它們重合，代表剛拿空<br />
+  → <code>tag = 0</code></li>
+</ul>
+<p>所以 tag 很像一個「最後裁判紀錄」。</p>
+<hr />
+<h4 id="8-整個流程表看一次就通">8. 整個流程表，看一次就通<a class="headerlink" href="#8-整個流程表看一次就通" title="Permanent link"></a></h4>
+<p>以 <code>N = 4</code> 為例：</p>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th style="text-align: right;">in</th>
+<th style="text-align: right;">out</th>
+<th style="text-align: right;">tag</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>empty</td>
+</tr>
+<tr>
+<td>put A</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>有 1 個</td>
+</tr>
+<tr>
+<td>put B</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>有 2 個</td>
+</tr>
+<tr>
+<td>put C</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>有 3 個</td>
+</tr>
+<tr>
+<td>put D</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>full</td>
+</tr>
+<tr>
+<td>get A</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>有 3 個</td>
+</tr>
+<tr>
+<td>get B</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>有 2 個</td>
+</tr>
+<tr>
+<td>get C</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td>有 1 個</td>
+</tr>
+<tr>
+<td>get D</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>empty</td>
+</tr>
+</tbody>
+</table>
+<p>你會看到：</p>
+<ul>
+<li><code>tag = 1</code> 並不代表永遠是滿</li>
+<li><code>tag = 0</code> 也不代表永遠是空</li>
+</ul>
+<p><strong>只有 <code>in == out</code> 時，tag 才真正決定狀態。</strong></p>
+<hr />
+<h4 id="9-對應到代碼哪兩行最關鍵">9. 對應到代碼，哪兩行最關鍵？<a class="headerlink" href="#9-對應到代碼哪兩行最關鍵" title="Permanent link"></a></h4>
+<h5 id="91-producer">9.1 Producer<a class="headerlink" href="#91-producer" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">;</span><span class="w">   </span><span class="c1">// full</span>
+<span class="p">}</span>
+
+<span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
+<span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>意思是：</p>
+<ul>
+<li>如果兩指標重合而且 tag=1，表示滿，不能再放</li>
+<li>放完後如果又重合，代表現在是滿，所以把 tag 設成 1</li>
+</ul>
+<hr />
+<h5 id="92-consumer">9.2 Consumer<a class="headerlink" href="#92-consumer" title="Permanent link"></a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">;</span><span class="w">   </span><span class="c1">// empty</span>
+<span class="p">}</span>
+
+<span class="n">nextConsumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+<span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>意思是：</p>
+<ul>
+<li>如果兩指標重合而且 tag=0，表示空，不能再拿</li>
+<li>拿完後如果又重合，代表現在是空，所以把 tag 設成 0</li>
+</ul>
+<hr />
+<h4 id="10-為什麼這樣就不浪費一格">10. 為什麼這樣就不浪費一格？<a class="headerlink" href="#10-為什麼這樣就不浪費一格" title="Permanent link"></a></h4>
+<p>因為現在「滿」和「空」都允許出現：</p>
+<div class="highlight"><pre><span></span><code>in == out
+</code></pre></div>
+<p>但靠 <code>tag</code> 可以分開：</p>
+<ul>
+<li><code>in == out &amp;&amp; tag == 0</code> → 空</li>
+<li><code>in == out &amp;&amp; tag == 1</code> → 滿</li>
+</ul>
+<p>所以你不需要像原始版本那樣硬留一格空位來避開歧義。</p>
+<p>這就是你作業裡「N=8 可以真的放滿 8 個」的原因。</p>
+<hr />
+<h4 id="11-最容易卡住的誤解">11. 最容易卡住的誤解<a class="headerlink" href="#11-最容易卡住的誤解" title="Permanent link"></a></h4>
+<h5 id="111-誤解一tag-一直都在描述狀態">11.1 誤解一：tag 一直都在描述狀態<a class="headerlink" href="#111-誤解一tag-一直都在描述狀態" title="Permanent link"></a></h5>
+<p>不是。</p>
+<p>正確是：</p>
+<blockquote>
+<p>tag 只在 <code>in == out</code> 的時候才負責裁決。</p>
+</blockquote>
+<hr />
+<h5 id="112-誤解二消費一個元素後-tag-沒改會不會錯">11.2 誤解二：消費一個元素後 tag 沒改，會不會錯？<a class="headerlink" href="#112-誤解二消費一個元素後-tag-沒改會不會錯" title="Permanent link"></a></h5>
+<p>不會。</p>
+<p>因為只要 <code>in != out</code>，狀態就已經不模糊，tag 就算還保持舊值也沒關係。</p>
+<hr />
+<h5 id="113-誤解三tag-是不是在記錄元素數量">11.3 誤解三：tag 是不是在記錄元素數量？<a class="headerlink" href="#113-誤解三tag-是不是在記錄元素數量" title="Permanent link"></a></h5>
+<p>不是。</p>
+<p>它不告訴你「有幾個元素」，它只告訴你：</p>
+<blockquote>
+<p>當兩指標重疊時，現在是空還是滿。</p>
+</blockquote>
+<hr />
+<h4 id="12-你現在只要記這句話">12. 你現在只要記這句話<a class="headerlink" href="#12-你現在只要記這句話" title="Permanent link"></a></h4>
+<blockquote>
+<p><strong>tag 是專門用來解決 <code>in == out</code> 時「到底是空還是滿」的裁判。</strong></p>
+</blockquote>
+<hr />
+<h4 id="13-一個超短版本總結">13. 一個超短版本總結<a class="headerlink" href="#13-一個超短版本總結" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TB
+    A["in != out&lt;br&gt;直接看指標，不用管 tag"]
+    B["in == out&lt;br&gt;需要看 tag"]
+    C["tag = 0&lt;br&gt;empty"]
+    D["tag = 1&lt;br&gt;full"]
+
+    A --&gt; B
+    B --&gt; C
+    B --&gt; D</code></pre>
+<hr />
 
 
 
