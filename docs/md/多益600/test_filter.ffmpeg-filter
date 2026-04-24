@@ -1,0 +1,1 @@
+drawtext=font='Microsoft JhengHei':text='Hello\n你好':fontcolor=white:fontsize=44:x=(w-text_w)/2:y=108:enable='between(t\,0.000\,0.900)'

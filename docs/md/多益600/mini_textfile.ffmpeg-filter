@@ -1,0 +1,1 @@
+drawtext=font='Microsoft JhengHei':textfile='mini_eng.txt':reload=0:fontcolor=white:fontsize=44:x=(w-text_w)/2:y=108:enable='between(t\,0.000\,0.900)',drawtext=font='Microsoft JhengHei':textfile='mini_zh.txt':reload=0:fontcolor=white:fontsize=34:x=(w-text_w)/2:y=472:enable='between(t\,0.000\,0.900)'

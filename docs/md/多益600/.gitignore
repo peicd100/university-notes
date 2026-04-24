@@ -1,0 +1,42 @@
+# Generated review media
+產生複習檔案/
+產生複習檔案backup/
+產生複習音檔/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+.python_history
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.venv/
+
+# PyInstaller / local runtime
+user_data/
+
+# local temp file
+_orig.py
+
+
+# TTS cache
+_tts_sentence_cache/
+_tts_sentence_cache/*.tmp.mp3
+_convert_manifest.json
+_sentence_cache.json
+tts_tmp_*/
+產生複習檔案/_tts_sentence_cache/
+產生複習檔案/_convert_manifest.json
+產生複習檔案/_sentence_cache.json
+產生複習檔案/tts_tmp_*/
+
+# CLI/GUI monitor
+# (no additional generated files)
+# CLI 0.1-second 4-line status (braille bar/CPU/GPU/spinner+4 spaces, cached GPU query, auto temp cleanup on exit) generates no files.
+
+# Windows / Qt crash dumps
+*.dmp
