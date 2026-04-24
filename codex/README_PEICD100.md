@@ -22,6 +22,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 vbs_bat\university notes.vbs
 preview.bat docs\md\114-2\科技_計算機結構\ch 2.md
 p.bat docs\md\114-2\電機_作業系統\ch 4.md
+Y:\conda\envs\mkdocs\python.exe docs\md\多益600\紀錄.py --workspace docs\md\多益600 --run-once --rate 1.0 --gap 0.4 --mode both
 ```
 
 ## 常用操作補充
@@ -36,6 +37,7 @@ p.bat docs\md\114-2\電機_作業系統\ch 4.md
 - 標題錨點與標題內 inline code 的排版目前集中由 `docs/theme/assets/pymdownx-extras/自定義.css` 控制；若標題內使用 backticks 出現版面錯位，先檢查 `h2~h6` 的 flex 規則與 heading code 規則。
 - 手寫頁面內目錄若要顯示 `1.`、`2.` 這種序號，不要直接寫 `- 1. ...`；Python-Markdown 會把它解析成巢狀 `<ol>`。目前專案內較穩定的寫法是 `- 1&#46; ...`。
 - 若標題內 inline code 需要和文字上下置中，優先用 heading code 的 `align-self: center`，避免再用 `top` 微移去硬修。
+- `docs\md\多益600` 已作為主專案內的小專案管理：Git 保留筆記、圖片、includes、`紀錄.py`、工具 README 與轉換規則；生成影片、TTS 暫存、測試媒體與本機紀錄由 `.gitignore` 忽略，並由 `mkdocs.yml` 的 `exclude_docs` 排除出站點輸出。
 
 ## 驗證輸出記錄
 ```bat

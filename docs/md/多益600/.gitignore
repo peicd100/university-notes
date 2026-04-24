@@ -3,6 +3,30 @@
 產生複習檔案backup/
 產生複習音檔/
 
+# TTS / conversion cache and temp workspace
+del/
+tts_tmp_*/
+**/tts_tmp_*/
+_tts_sentence_cache/
+**/_tts_sentence_cache/
+_convert_manifest.json
+_sentence_cache.json
+**/_convert_manifest.json
+**/_sentence_cache.json
+
+# Generated media / subtitle / ffmpeg filter output
+*.mp3
+*.mp4
+*.ass
+*.ffmpeg-filter
+
+# Local test and scratch files
+mini_*
+test_filter.*
+note.txt
+指令.txt
+_orig.py
+
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -18,21 +42,6 @@ wheels/
 
 # PyInstaller / local runtime
 user_data/
-
-# local temp file
-_orig.py
-
-
-# TTS cache
-_tts_sentence_cache/
-_tts_sentence_cache/*.tmp.mp3
-_convert_manifest.json
-_sentence_cache.json
-tts_tmp_*/
-產生複習檔案/_tts_sentence_cache/
-產生複習檔案/_convert_manifest.json
-產生複習檔案/_sentence_cache.json
-產生複習檔案/tts_tmp_*/
 
 # CLI/GUI monitor
 # (no additional generated files)

@@ -273,6 +273,43 @@ markdown_extensions:
 # ======================================================
 # 自定義網站的導航結構
 # ======================================================
+exclude_docs: |
+  /md/多益600/README.md
+  /md/多益600/GPT網址.md
+  /md/多益600/貼給codex的轉換規則.md
+  /md/多益600/includes/tts.md
+  /md/多益600/includes/tts copy.md
+  /md/多益600/紀錄.py
+  /md/多益600/*.py
+  /md/多益600/**/*.py
+  /md/多益600/codex_discord通知/
+  /md/多益600/del/
+  /md/多益600/__pycache__/
+  /md/多益600/**/__pycache__/
+  /md/多益600/產生複習檔案/
+  /md/多益600/產生複習檔案backup/
+  /md/多益600/產生複習音檔/
+  /md/多益600/_tts_sentence_cache/
+  /md/多益600/**/_tts_sentence_cache/
+  /md/多益600/_convert_manifest.json
+  /md/多益600/_sentence_cache.json
+  /md/多益600/**/_convert_manifest.json
+  /md/多益600/**/_sentence_cache.json
+  /md/多益600/tts_tmp_*/
+  /md/多益600/**/tts_tmp_*/
+  /md/多益600/*.mp3
+  /md/多益600/**/*.mp3
+  /md/多益600/*.mp4
+  /md/多益600/**/*.mp4
+  /md/多益600/*.ass
+  /md/多益600/**/*.ass
+  /md/多益600/*.ffmpeg-filter
+  /md/多益600/**/*.ffmpeg-filter
+  /md/多益600/mini_*
+  /md/多益600/test_filter.*
+  /md/多益600/note.txt
+  /md/多益600/指令.txt
+
 not_in_nav: /index.md #忽略index.md，不會跳出警告
 
 nav:

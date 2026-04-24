@@ -39,6 +39,34 @@ output/
 codex_tmp/
 .codex_site_check/
 
+# 多益600 小專案：生成物、暫存檔、本機測試輸出
+/docs/md/多益600/del/
+/docs/md/多益600/__pycache__/
+/docs/md/多益600/**/__pycache__/
+/docs/md/多益600/產生複習檔案/
+/docs/md/多益600/產生複習檔案backup/
+/docs/md/多益600/產生複習音檔/
+/docs/md/多益600/_tts_sentence_cache/
+/docs/md/多益600/**/_tts_sentence_cache/
+/docs/md/多益600/_convert_manifest.json
+/docs/md/多益600/_sentence_cache.json
+/docs/md/多益600/**/_convert_manifest.json
+/docs/md/多益600/**/_sentence_cache.json
+/docs/md/多益600/tts_tmp_*/
+/docs/md/多益600/**/tts_tmp_*/
+/docs/md/多益600/*.mp3
+/docs/md/多益600/**/*.mp3
+/docs/md/多益600/*.mp4
+/docs/md/多益600/**/*.mp4
+/docs/md/多益600/*.ass
+/docs/md/多益600/**/*.ass
+/docs/md/多益600/*.ffmpeg-filter
+/docs/md/多益600/**/*.ffmpeg-filter
+/docs/md/多益600/mini_*
+/docs/md/多益600/test_filter.*
+/docs/md/多益600/note.txt
+/docs/md/多益600/指令.txt
+
 # MkDocs Encrypt Content 外掛快取 / 金鑰
 encryptcontent.cache
 encryptcontent.key
