@@ -1,0 +1,310 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1280
+PlayResY: 720
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: English,Microsoft JhengHei,44,&H00FFFFFF,&H00FFFFFF,&H00101010,&H64000000,1,0,0,0,100,100,0,0,1,2.4,0,8,96,96,128,1
+Style: Chinese,Microsoft JhengHei,34,&H00FFFFFF,&H00FFFFFF,&H00101010,&H64000000,1,0,0,0,100,100,0,0,1,2.4,0,2,96,96,110,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.60,English,,0,0,0,,Why can't I use this voucher to pay for my purchases?
+Dialogue: 0,0:00:00.00,0:00:03.60,Chinese,,0,0,0,,為什麼我不能使用此優惠券來支付我的購買費用？
+Dialogue: 0,0:00:04.00,0:00:06.71,English,,0,0,0,,I'm afraid it is no longer valid.
+Dialogue: 0,0:00:04.00,0:00:06.71,Chinese,,0,0,0,,恐怕它不再有效了。
+Dialogue: 0,0:00:07.11,0:00:09.61,English,,0,0,0,,Discounts are not offered now.
+Dialogue: 0,0:00:07.11,0:00:09.61,Chinese,,0,0,0,,現在不提供折扣。
+Dialogue: 0,0:00:10.01,0:00:12.38,English,,0,0,0,,You can pay at the check-out.
+Dialogue: 0,0:00:10.01,0:00:12.38,Chinese,,0,0,0,,您可以在退房時付款。
+Dialogue: 0,0:00:12.78,0:00:17.80,English,,0,0,0,,The results of the survey praised everyone for their excellent customer service.
+Dialogue: 0,0:00:12.78,0:00:17.80,Chinese,,0,0,0,,調查結果讚揚了每個人出色的客戶服務。
+Dialogue: 0,0:00:18.20,0:00:21.66,English,,0,0,0,,We try to give them a horrid shopping experience.
+Dialogue: 0,0:00:18.20,0:00:21.66,Chinese,,0,0,0,,我們試圖為他們帶來可怕的購物體驗。
+Dialogue: 0,0:00:22.06,0:00:25.63,English,,0,0,0,,I'm surprised our prices were rated so highly.
+Dialogue: 0,0:00:22.06,0:00:25.63,Chinese,,0,0,0,,我很驚訝我們的價格得到如此高的評價。
+Dialogue: 0,0:00:26.03,0:00:29.87,English,,0,0,0,,Customer satisfaction is the key to a good business.
+Dialogue: 0,0:00:26.03,0:00:29.87,Chinese,,0,0,0,,客戶滿意度是良好業務的關鍵。
+Dialogue: 0,0:00:30.27,0:00:34.62,English,,0,0,0,,Questions 38 to 40 refer to the following conversation.
+Dialogue: 0,0:00:30.27,0:00:34.62,Chinese,,0,0,0,,第38至40題涉及以下對話。
+Dialogue: 0,0:00:35.02,0:00:38.59,English,,0,0,0,,Excuse me, I'd like to return this camera.
+Dialogue: 0,0:00:35.02,0:00:38.59,Chinese,,0,0,0,,對不起，我想退回這台相機。
+Dialogue: 0,0:00:38.99,0:00:41.73,English,,0,0,0,,May I ask what the problem is with it?
+Dialogue: 0,0:00:38.99,0:00:41.73,Chinese,,0,0,0,,請問它有什麼問題嗎？
+Dialogue: 0,0:00:42.13,0:00:45.06,English,,0,0,0,,It's much too complicated to use.
+Dialogue: 0,0:00:42.13,0:00:45.06,Chinese,,0,0,0,,使用起來太複雜了。
+Dialogue: 0,0:00:45.46,0:00:49.20,English,,0,0,0,,I cannot figure out how to do anything except turn it on.
+Dialogue: 0,0:00:45.46,0:00:49.20,Chinese,,0,0,0,,除了打開它之外我不知道該怎麼做。
+Dialogue: 0,0:00:49.60,0:00:51.23,English,,0,0,0,,All right.
+Dialogue: 0,0:00:49.60,0:00:51.23,Chinese,,0,0,0,,好的。
+Dialogue: 0,0:00:51.63,0:00:54.03,English,,0,0,0,,Did you bring your receipt with you?
+Dialogue: 0,0:00:51.63,0:00:54.03,Chinese,,0,0,0,,你帶收據了嗎？
+Dialogue: 0,0:00:54.43,0:00:57.10,English,,0,0,0,,Yes, I have it right here.
+Dialogue: 0,0:00:54.43,0:00:57.10,Chinese,,0,0,0,,是的，我這裡就有。
+Dialogue: 0,0:00:57.50,0:01:02.63,English,,0,0,0,,Oh, I'm sorry ma'am, but it looks like you used a discount coupon on the camera.
+Dialogue: 0,0:00:57.50,0:01:02.63,Chinese,,0,0,0,,哦，對不起，女士，您似乎在相機上使用了折扣券。
+Dialogue: 0,0:01:03.03,0:01:05.41,English,,0,0,0,,Yes, that's right.
+Dialogue: 0,0:01:03.03,0:01:05.41,Chinese,,0,0,0,,是的，沒錯。
+Dialogue: 0,0:01:05.81,0:01:08.90,English,,0,0,0,,I had a coupon for twenty percent off.
+Dialogue: 0,0:01:05.81,0:01:08.90,Chinese,,0,0,0,,我有一張百分之二十折扣的優惠券。
+Dialogue: 0,0:01:09.30,0:01:11.22,English,,0,0,0,,Is that a problem?
+Dialogue: 0,0:01:09.30,0:01:11.22,Chinese,,0,0,0,,這是一個問題嗎？
+Dialogue: 0,0:01:11.62,0:01:17.00,English,,0,0,0,,Unfortunately, because you used the coupon, we are unable to refund you the money.
+Dialogue: 0,0:01:11.62,0:01:17.00,Chinese,,0,0,0,,很遺憾，由於您使用了優惠券，我們無法為您退款。
+Dialogue: 0,0:01:17.40,0:01:19.13,English,,0,0,0,,Are you kidding?
+Dialogue: 0,0:01:17.40,0:01:19.13,Chinese,,0,0,0,,你在開玩笑吧？
+Dialogue: 0,0:01:19.53,0:01:21.64,English,,0,0,0,,That's ridiculous.
+Dialogue: 0,0:01:19.53,0:01:21.64,Chinese,,0,0,0,,這太荒謬了。
+Dialogue: 0,0:01:22.04,0:01:23.77,English,,0,0,0,,I'm sorry.
+Dialogue: 0,0:01:22.04,0:01:23.77,Chinese,,0,0,0,,對不起。
+Dialogue: 0,0:01:24.17,0:01:26.47,English,,0,0,0,,It's company policy.
+Dialogue: 0,0:01:24.17,0:01:26.47,Chinese,,0,0,0,,這是公司政策。
+Dialogue: 0,0:01:26.87,0:01:32.87,English,,0,0,0,,What I can do though is have one of the sales representatives show you step-by-step how to operate the camera.
+Dialogue: 0,0:01:26.87,0:01:32.87,Chinese,,0,0,0,,不過，我可以做的是讓一位銷售代表向您逐步展示如何操作相機。
+Dialogue: 0,0:01:33.27,0:01:35.70,English,,0,0,0,,Who most likely is the man?
+Dialogue: 0,0:01:33.27,0:01:35.70,Chinese,,0,0,0,,這個男人最有可能是誰？
+Dialogue: 0,0:01:36.10,0:01:38.18,English,,0,0,0,,A fellow customer
+Dialogue: 0,0:01:36.10,0:01:38.18,Chinese,,0,0,0,,一位顧客
+Dialogue: 0,0:01:38.58,0:01:41.44,English,,0,0,0,,A customer service representative
+Dialogue: 0,0:01:38.58,0:01:41.44,Chinese,,0,0,0,,客戶服務代表
+Dialogue: 0,0:01:41.84,0:01:44.38,English,,0,0,0,,The regional sales manager
+Dialogue: 0,0:01:41.84,0:01:44.38,Chinese,,0,0,0,,區域銷售經理
+Dialogue: 0,0:01:44.78,0:01:47.23,English,,0,0,0,,The front door store greeter
+Dialogue: 0,0:01:44.78,0:01:47.23,Chinese,,0,0,0,,商店前門迎賓員
+Dialogue: 0,0:01:47.63,0:01:50.44,English,,0,0,0,,What does the woman say about the camera?
+Dialogue: 0,0:01:47.63,0:01:50.44,Chinese,,0,0,0,,這位女士對相機有何評論？
+Dialogue: 0,0:01:50.84,0:01:53.70,English,,0,0,0,,She doesn't understand how to use it.
+Dialogue: 0,0:01:50.84,0:01:53.70,Chinese,,0,0,0,,她不明白如何使用它。
+Dialogue: 0,0:01:54.10,0:01:57.24,English,,0,0,0,,It cannot hold a charge for more than an hour.
+Dialogue: 0,0:01:54.10,0:01:57.24,Chinese,,0,0,0,,充電時間不能超過一個小時。
+Dialogue: 0,0:01:57.64,0:02:01.29,English,,0,0,0,,The included software is too complicated for her.
+Dialogue: 0,0:01:57.64,0:02:01.29,Chinese,,0,0,0,,附帶的軟體對她來說太複雜了。
+Dialogue: 0,0:02:01.69,0:02:04.88,English,,0,0,0,,It will not turn on no matter what she does.
+Dialogue: 0,0:02:01.69,0:02:04.88,Chinese,,0,0,0,,無論她做什麼，它都不會打開。
+Dialogue: 0,0:02:05.28,0:02:08.35,English,,0,0,0,,What does the man suggest that the woman do?
+Dialogue: 0,0:02:05.28,0:02:08.35,Chinese,,0,0,0,,男人建議女人做什麼？
+Dialogue: 0,0:02:08.75,0:02:11.46,English,,0,0,0,,Figure out how to use it on her own.
+Dialogue: 0,0:02:08.75,0:02:11.46,Chinese,,0,0,0,,弄清楚如何自己使用它。
+Dialogue: 0,0:02:11.86,0:02:14.91,English,,0,0,0,,Speak with his manager about a refund.
+Dialogue: 0,0:02:11.86,0:02:14.91,Chinese,,0,0,0,,與他的經理討論退款事宜。
+Dialogue: 0,0:02:15.31,0:02:18.31,English,,0,0,0,,Use a coupon to buy a cheaper camera.
+Dialogue: 0,0:02:15.31,0:02:18.31,Chinese,,0,0,0,,使用優惠券購買更便宜的相機。
+Dialogue: 0,0:02:18.71,0:02:21.62,English,,0,0,0,,Have an expert show her how to use it.
+Dialogue: 0,0:02:18.71,0:02:21.62,Chinese,,0,0,0,,請專家向她展示如何使用它。
+Dialogue: 0,0:02:22.02,0:02:26.72,English,,0,0,0,,Questions 74 to 76 refer to the following announcement.
+Dialogue: 0,0:02:22.02,0:02:26.72,Chinese,,0,0,0,,問題74至76請參閱以下公告。
+Dialogue: 0,0:02:27.12,0:02:29.18,English,,0,0,0,,Welcome shoppers.
+Dialogue: 0,0:02:27.12,0:02:29.18,Chinese,,0,0,0,,歡迎各位購物者。
+Dialogue: 0,0:02:29.58,0:02:36.62,English,,0,0,0,,To celebrate our tenth anniversary, we are offering special discounts on a wide variety of items found in our store.
+Dialogue: 0,0:02:29.58,0:02:36.62,Chinese,,0,0,0,,為了慶祝我們的十週年紀念日，我們對商店中的各種商品提供特別折扣。
+Dialogue: 0,0:02:37.02,0:02:47.05,English,,0,0,0,,To take advantage of this sale, all you need to do is download our app, and you'll automatically receive coupons for items in all departments such as clothing and electronics.
+Dialogue: 0,0:02:37.02,0:02:47.05,Chinese,,0,0,0,,要利用這次促銷活動，您只需下載我們的應用程序，您就會自動收到服裝和電子產品等所有部門商品的優惠券。
+Dialogue: 0,0:02:47.45,0:02:54.29,English,,0,0,0,,Additionally, you can receive gifts if you spend three thousand, five thousand, and ten thousand dollars.
+Dialogue: 0,0:02:47.45,0:02:54.29,Chinese,,0,0,0,,另外，消費滿三千、五千、一萬還可以獲得禮物。
+Dialogue: 0,0:02:54.69,0:03:01.17,English,,0,0,0,,These offers will only be available for the next two weeks, so don't miss out on the chance for some great deals!
+Dialogue: 0,0:02:54.69,0:03:01.17,Chinese,,0,0,0,,這些優惠僅在接下來的兩週內提供，所以不要錯過一些超值優惠的機會！
+Dialogue: 0,0:03:01.57,0:03:04.93,English,,0,0,0,,Where would someone most likely hear this announcement?
+Dialogue: 0,0:03:01.57,0:03:04.93,Chinese,,0,0,0,,人們最有可能在哪裡聽到此公告？
+Dialogue: 0,0:03:05.33,0:03:07.39,English,,0,0,0,,A department store
+Dialogue: 0,0:03:05.33,0:03:07.39,Chinese,,0,0,0,,一家百貨公司
+Dialogue: 0,0:03:07.79,0:03:09.93,English,,0,0,0,,A convenience store
+Dialogue: 0,0:03:07.79,0:03:09.93,Chinese,,0,0,0,,一家便利商店
+Dialogue: 0,0:03:10.33,0:03:12.78,English,,0,0,0,,A gardening supply store
+Dialogue: 0,0:03:10.33,0:03:12.78,Chinese,,0,0,0,,一家園藝用品店
+Dialogue: 0,0:03:13.18,0:03:15.48,English,,0,0,0,,A home improvement store
+Dialogue: 0,0:03:13.18,0:03:15.48,Chinese,,0,0,0,,一家家居裝修店
+Dialogue: 0,0:03:15.88,0:03:18.57,English,,0,0,0,,Who most likely are the listeners?
+Dialogue: 0,0:03:15.88,0:03:18.57,Chinese,,0,0,0,,誰最有可能是聽眾？
+Dialogue: 0,0:03:18.97,0:03:21.94,English,,0,0,0,,The cashiers working at the registers.
+Dialogue: 0,0:03:18.97,0:03:21.94,Chinese,,0,0,0,,收銀員在收銀台工作。
+Dialogue: 0,0:03:22.34,0:03:25.03,English,,0,0,0,,Managers in the main offices.
+Dialogue: 0,0:03:22.34,0:03:25.03,Chinese,,0,0,0,,主要辦公室的經理。
+Dialogue: 0,0:03:25.43,0:03:28.48,English,,0,0,0,,Shoppers browsing and buying products
+Dialogue: 0,0:03:25.43,0:03:28.48,Chinese,,0,0,0,,購物者瀏覽和購買產品
+Dialogue: 0,0:03:28.88,0:03:31.42,English,,0,0,0,,People walking by outside.
+Dialogue: 0,0:03:28.88,0:03:31.42,Chinese,,0,0,0,,外面走過的人。
+Dialogue: 0,0:03:31.82,0:03:36.94,English,,0,0,0,,What does the speaker mean when he says "Don't miss out on the chance for some great deals!"?
+Dialogue: 0,0:03:31.82,0:03:36.94,Chinese,,0,0,0,,當演講者說「不要錯過一些超值優惠的機會！」時，他的意思是什麼？
+Dialogue: 0,0:03:37.34,0:03:40.58,English,,0,0,0,,Customers are missing items from their orders.
+Dialogue: 0,0:03:37.34,0:03:40.58,Chinese,,0,0,0,,客戶的訂單中缺少商品。
+Dialogue: 0,0:03:40.98,0:03:44.12,English,,0,0,0,,There is a last chance to get a free gift.
+Dialogue: 0,0:03:40.98,0:03:44.12,Chinese,,0,0,0,,還有最後一次獲得免費禮物的機會。
+Dialogue: 0,0:03:44.52,0:03:47.40,English,,0,0,0,,People should quickly download the app.
+Dialogue: 0,0:03:44.52,0:03:47.40,Chinese,,0,0,0,,人們應該快速下載該應用程式。
+Dialogue: 0,0:03:47.80,0:03:50.66,English,,0,0,0,,The deals are no longer being offered.
+Dialogue: 0,0:03:47.80,0:03:50.66,Chinese,,0,0,0,,不再提供這些優惠。
+Dialogue: 0,0:03:51.06,0:03:58.90,English,,0,0,0,,In order to ensure that your order is fulfilled with as little delay as possible, be sure to place it a minimum of two weeks in advance.
+Dialogue: 0,0:03:51.06,0:03:58.90,Chinese,,0,0,0,,為了確保您的訂單盡快滿足，請務必至少提前兩週下單。
+Dialogue: 0,0:03:59.30,0:04:00.79,English,,0,0,0,,little
+Dialogue: 0,0:03:59.30,0:04:00.79,Chinese,,0,0,0,,小的
+Dialogue: 0,0:04:01.19,0:04:02.68,English,,0,0,0,,few
+Dialogue: 0,0:04:01.19,0:04:02.68,Chinese,,0,0,0,,很少
+Dialogue: 0,0:04:03.08,0:04:04.62,English,,0,0,0,,neither
+Dialogue: 0,0:04:03.08,0:04:04.62,Chinese,,0,0,0,,兩者都不
+Dialogue: 0,0:04:05.02,0:04:06.48,English,,0,0,0,,either
+Dialogue: 0,0:04:05.02,0:04:06.48,Chinese,,0,0,0,,任何一個
+Dialogue: 0,0:04:06.88,0:04:14.10,English,,0,0,0,,Coupons for purchases may only be used for specific items in the store and will not be accepted if they are no longer valid.
+Dialogue: 0,0:04:06.88,0:04:14.10,Chinese,,0,0,0,,購物優惠券只能用於商店內的特定商品，如果不再有效，將不再被接受。
+Dialogue: 0,0:04:14.50,0:04:16.52,English,,0,0,0,,continuously
+Dialogue: 0,0:04:14.50,0:04:16.52,Chinese,,0,0,0,,不斷地
+Dialogue: 0,0:04:16.92,0:04:18.84,English,,0,0,0,,considered to be
+Dialogue: 0,0:04:16.92,0:04:18.84,Chinese,,0,0,0,,被認為是
+Dialogue: 0,0:04:19.24,0:04:21.06,English,,0,0,0,,no longer
+Dialogue: 0,0:04:19.24,0:04:21.06,Chinese,,0,0,0,,不再
+Dialogue: 0,0:04:21.46,0:04:23.43,English,,0,0,0,,as long as
+Dialogue: 0,0:04:21.46,0:04:23.43,Chinese,,0,0,0,,只要
+Dialogue: 0,0:04:23.83,0:04:31.54,English,,0,0,0,,Replacement of any and all damaged parts, including the cost of repairs, is covered by the terms of the product warranty.
+Dialogue: 0,0:04:23.83,0:04:31.54,Chinese,,0,0,0,,任何及所有損壞零件的更換（包括維修費用）均包含在產品保固條款內。
+Dialogue: 0,0:04:31.94,0:04:33.57,English,,0,0,0,,several
+Dialogue: 0,0:04:31.94,0:04:33.57,Chinese,,0,0,0,,一些
+Dialogue: 0,0:04:33.97,0:04:35.36,English,,0,0,0,,all
+Dialogue: 0,0:04:33.97,0:04:35.36,Chinese,,0,0,0,,全部
+Dialogue: 0,0:04:35.76,0:04:37.22,English,,0,0,0,,none
+Dialogue: 0,0:04:35.76,0:04:37.22,Chinese,,0,0,0,,沒有任何
+Dialogue: 0,0:04:37.62,0:04:39.11,English,,0,0,0,,some
+Dialogue: 0,0:04:37.62,0:04:39.11,Chinese,,0,0,0,,一些
+Dialogue: 0,0:04:39.51,0:04:41.36,English,,0,0,0,,Grand Opening!
+Dialogue: 0,0:04:39.51,0:04:41.36,Chinese,,0,0,0,,盛大開幕！
+Dialogue: 0,0:04:41.76,0:04:47.90,English,,0,0,0,,Come celebrate the opening of the new Central Shopping Plaza on August 1st at ten thirty in the morning!
+Dialogue: 0,0:04:41.76,0:04:47.90,Chinese,,0,0,0,,快來慶祝8月1日上午10點30分新中央購物廣場開幕！
+Dialogue: 0,0:04:48.30,0:04:54.54,English,,0,0,0,,Bring this coupon and enjoy a five percent discount on almost any purchase at most shops in the mall.
+Dialogue: 0,0:04:48.30,0:04:54.54,Chinese,,0,0,0,,帶上這張優惠券，在商場的大多數商店購買幾乎所有商品均可享受 5% 的折扣。
+Dialogue: 0,0:04:54.94,0:05:01.54,English,,0,0,0,,The coupon is valid from August 1st, 2022 to August 31st, 2022.
+Dialogue: 0,0:04:54.94,0:05:01.54,Chinese,,0,0,0,,此優惠券有效期限為2022年8月1日至2022年8月31日。
+Dialogue: 0,0:05:01.94,0:05:04.34,English,,0,0,0,,Some restrictions apply.
+Dialogue: 0,0:05:01.94,0:05:04.34,Chinese,,0,0,0,,存在一些限制。
+Dialogue: 0,0:05:04.74,0:05:11.18,English,,0,0,0,,Coupons may not be used on home appliances or on items purchased at Spencer & Spencer's Gag Shop.
+Dialogue: 0,0:05:04.74,0:05:11.18,Chinese,,0,0,0,,優惠券不可用於家用電器或在 Spencer & Spencer's Gag Shop 購買的商品。
+Dialogue: 0,0:05:11.58,0:05:15.25,English,,0,0,0,,Why is the Central Shopping Plaza offering discounts?
+Dialogue: 0,0:05:11.58,0:05:15.25,Chinese,,0,0,0,,為什麼中央購物廣場有折扣？
+Dialogue: 0,0:05:15.65,0:05:18.24,English,,0,0,0,,To celebrate their anniversary.
+Dialogue: 0,0:05:15.65,0:05:18.24,Chinese,,0,0,0,,為了慶祝他們的周年紀念日。
+Dialogue: 0,0:05:18.64,0:05:21.69,English,,0,0,0,,To clear out unsold items in stores.
+Dialogue: 0,0:05:18.64,0:05:21.69,Chinese,,0,0,0,,清理商店中未售出的商品。
+Dialogue: 0,0:05:22.09,0:05:24.87,English,,0,0,0,,To celebrate the opening of the mall.
+Dialogue: 0,0:05:22.09,0:05:24.87,Chinese,,0,0,0,,慶祝商場開幕。
+Dialogue: 0,0:05:25.27,0:05:28.32,English,,0,0,0,,To promote items exclusive to the mall.
+Dialogue: 0,0:05:25.27,0:05:28.32,Chinese,,0,0,0,,促銷商場獨有的商品。
+Dialogue: 0,0:05:28.72,0:05:32.37,English,,0,0,0,,Under which circumstances would the coupon not be valid?
+Dialogue: 0,0:05:28.72,0:05:32.37,Chinese,,0,0,0,,什麼情況下優惠券無效？
+Dialogue: 0,0:05:32.77,0:05:34.98,English,,0,0,0,,When buying a new oven.
+Dialogue: 0,0:05:32.77,0:05:34.98,Chinese,,0,0,0,,購買新烤箱時。
+Dialogue: 0,0:05:35.38,0:05:37.66,English,,0,0,0,,When buying some clothing.
+Dialogue: 0,0:05:35.38,0:05:37.66,Chinese,,0,0,0,,買一些衣服的時候。
+Dialogue: 0,0:05:38.06,0:05:40.43,English,,0,0,0,,When going on opening day.
+Dialogue: 0,0:05:38.06,0:05:40.43,Chinese,,0,0,0,,開幕當天去的時候。
+Dialogue: 0,0:05:40.83,0:05:43.47,English,,0,0,0,,When purchasing sports shoes.
+Dialogue: 0,0:05:40.83,0:05:43.47,Chinese,,0,0,0,,購買運動鞋時。
+Dialogue: 0,0:05:43.87,0:05:45.72,English,,0,0,0,,Grand Opening!
+Dialogue: 0,0:05:43.87,0:05:45.72,Chinese,,0,0,0,,盛大開幕！
+Dialogue: 0,0:05:46.12,0:05:50.18,English,,0,0,0,,Come celebrate the grand opening of The Appliance Depot with us!
+Dialogue: 0,0:05:46.12,0:05:50.18,Chinese,,0,0,0,,快來和我們一起慶祝The Appliance Depot盛大開幕吧！
+Dialogue: 0,0:05:50.58,0:05:56.77,English,,0,0,0,,We're so excited to bring you great deals on home appliances that we're practically giving them away for free.
+Dialogue: 0,0:05:50.58,0:05:56.77,Chinese,,0,0,0,,我們很高興為您帶來家用電器的超值優惠，幾乎免費贈送。
+Dialogue: 0,0:05:57.17,0:06:06.12,English,,0,0,0,,From May 1st to May 31st just use one of the discount codes below on your purchase and you'll receive an incredible thirty percent off the sticker price.
+Dialogue: 0,0:05:57.17,0:06:06.12,Chinese,,0,0,0,,從 5 月 1 日到 5 月 31 日，您只需在購買時使用以下折扣代碼之一，即可享受標價 30% 的令人難以置信的折扣。
+Dialogue: 0,0:06:06.52,0:06:09.38,English,,0,0,0,,That's right, thirty percent off!
+Dialogue: 0,0:06:06.52,0:06:09.38,Chinese,,0,0,0,,沒錯，百分之三十的折扣！
+Dialogue: 0,0:06:09.78,0:06:11.62,English,,0,0,0,,And there's more!
+Dialogue: 0,0:06:09.78,0:06:11.62,Chinese,,0,0,0,,還有更多！
+Dialogue: 0,0:06:12.02,0:06:19.18,English,,0,0,0,,Any order of home electronics over four hundred dollars will receive free door-to-door shipping, no matter where you are.
+Dialogue: 0,0:06:12.02,0:06:19.18,Chinese,,0,0,0,,任何超過四百美元的家用電子產品訂單都將享有免費送貨上門服務，無論您身在何處。
+Dialogue: 0,0:06:19.58,0:06:25.34,English,,0,0,0,,To claim your discount coupon, simply log into your account and click on the coupon below.
+Dialogue: 0,0:06:19.58,0:06:25.34,Chinese,,0,0,0,,要領取折扣優惠券，只需登入您的帳戶並點擊下面的優惠券即可。
+Dialogue: 0,0:06:25.74,0:06:29.19,English,,0,0,0,,The coupon will be added to your checkout options.
+Dialogue: 0,0:06:25.74,0:06:29.19,Chinese,,0,0,0,,優惠券將添加到您的結帳選項中。
+Dialogue: 0,0:06:29.59,0:06:34.90,English,,0,0,0,,Just click on it when placing your order and it will automatically be applied to your total.
+Dialogue: 0,0:06:29.59,0:06:34.90,Chinese,,0,0,0,,只需在下訂單時點擊它，它就會自動應用到您的總額中。
+Dialogue: 0,0:06:35.30,0:06:40.41,English,,0,0,0,,Orders that qualify for free shipping will automatically have the shipping fee waived.
+Dialogue: 0,0:06:35.30,0:06:40.41,Chinese,,0,0,0,,符合免運費條件的訂單將自動免除運費。
+Dialogue: 0,0:06:40.81,0:06:44.24,English,,0,0,0,,Thirty Percent off any kitchen appliance price
+Dialogue: 0,0:06:40.81,0:06:44.24,Chinese,,0,0,0,,任何廚房用具價格可享百分之三十的折扣
+Dialogue: 0,0:06:44.64,0:06:49.61,English,,0,0,0,,(Reference Number: KA349181) [Click Here]
+Dialogue: 0,0:06:44.64,0:06:49.61,Chinese,,0,0,0,,（參考號：KA349181）[點此]
+Dialogue: 0,0:06:50.01,0:06:53.44,English,,0,0,0,,Thirty Percent off any home electronic price
+Dialogue: 0,0:06:50.01,0:06:53.44,Chinese,,0,0,0,,任何家用電子產品價格可享百分之三十的折扣
+Dialogue: 0,0:06:53.84,0:06:59.29,English,,0,0,0,,(Reference Number: HE9703747) [Click Here]
+Dialogue: 0,0:06:53.84,0:06:59.29,Chinese,,0,0,0,,(參考編號：HE9703747) [點此]
+Dialogue: 0,0:06:59.69,0:07:02.54,English,,0,0,0,,Thirty Percent off any lighting unit
+Dialogue: 0,0:06:59.69,0:07:02.54,Chinese,,0,0,0,,任何照明裝置可享百分之三十的折扣
+Dialogue: 0,0:07:02.94,0:07:08.85,English,,0,0,0,,(Reference Number: LI37501840) [Click Here]
+Dialogue: 0,0:07:02.94,0:07:08.85,Chinese,,0,0,0,,（參考編號：LI37501840）[點此]
+Dialogue: 0,0:07:09.25,0:07:12.13,English,,0,0,0,,To: customer_service@appliancedepot.com
+Dialogue: 0,0:07:09.25,0:07:12.13,Chinese,,0,0,0,,至：customer_service@appliancedepot.com
+Dialogue: 0,0:07:12.53,0:07:16.58,English,,0,0,0,,From: hank2233@freemail.com
+Dialogue: 0,0:07:12.53,0:07:16.58,Chinese,,0,0,0,,取自：hank2233@freemail.com
+Dialogue: 0,0:07:16.98,0:07:20.06,English,,0,0,0,,Subject: Shipping fee not waived
+Dialogue: 0,0:07:16.98,0:07:20.06,Chinese,,0,0,0,,主題：運費不減免
+Dialogue: 0,0:07:20.46,0:07:21.87,English,,0,0,0,,Hi.
+Dialogue: 0,0:07:20.46,0:07:21.87,Chinese,,0,0,0,,你好。
+Dialogue: 0,0:07:22.27,0:07:29.06,English,,0,0,0,,I'm trying to make a purchase of several items through your online shopping site, but I'm having a pretty serious problem.
+Dialogue: 0,0:07:22.27,0:07:29.06,Chinese,,0,0,0,,我正在嘗試透過您的線上購物網站購買一些商品，但我遇到了一個非常嚴重的問題。
+Dialogue: 0,0:07:29.46,0:07:35.49,English,,0,0,0,,I'm trying to order a flatscreen television, XStation game console, and two controllers.
+Dialogue: 0,0:07:29.46,0:07:35.49,Chinese,,0,0,0,,我正在嘗試訂購平板電視、XStation 遊戲機和兩個控制器。
+Dialogue: 0,0:07:35.89,0:07:42.37,English,,0,0,0,,The total comes to $670, after applying the discount code currently being offered.
+Dialogue: 0,0:07:35.89,0:07:42.37,Chinese,,0,0,0,,使用目前提供的折扣代碼後，總金額為 670 美元。
+Dialogue: 0,0:07:42.77,0:07:50.69,English,,0,0,0,,As I understand it, these are considered home electronics, so according to the promotion you have going I should receive free shipping for them.
+Dialogue: 0,0:07:42.77,0:07:50.69,Chinese,,0,0,0,,據我了解，這些被認為是家用電子產品，因此根據您正在進行的促銷活動，我應該為它們提供免費送貨。
+Dialogue: 0,0:07:51.09,0:07:57.86,English,,0,0,0,,However, every time I try to confirm the order and make the payment, the shipping fee is added onto the total.
+Dialogue: 0,0:07:51.09,0:07:57.86,Chinese,,0,0,0,,但是，每次我嘗試確認訂單並付款時，運費都會添加到總額中。
+Dialogue: 0,0:07:58.26,0:08:01.18,English,,0,0,0,,Nothing I do can seem to waive the fee.
+Dialogue: 0,0:07:58.26,0:08:01.18,Chinese,,0,0,0,,我所做的一切似乎都無法免除費用。
+Dialogue: 0,0:08:01.58,0:08:01.70,English,,0,0,0,,Please get back to me about this right away as tomorrow is the last day of the promotion and I would like to complete my order before then.
+Dialogue: 0,0:08:01.58,0:08:01.70,Chinese,,0,0,0,,請立即回覆我，因為明天是促銷活動的最後一天，我想在此之前完成我的訂單。
+Dialogue: 0,0:08:02.10,0:08:03.98,English,,0,0,0,,Sincerely,
+Dialogue: 0,0:08:02.10,0:08:03.98,Chinese,,0,0,0,,真摯地，
+Dialogue: 0,0:08:04.38,0:08:06.27,English,,0,0,0,,Hank Howards
+Dialogue: 0,0:08:04.38,0:08:06.27,Chinese,,0,0,0,,漢克·霍華德
+Dialogue: 0,0:08:06.67,0:08:09.58,English,,0,0,0,,What is The Appliance Depot celebrating?
+Dialogue: 0,0:08:06.67,0:08:09.58,Chinese,,0,0,0,,Appliance Depot 在慶祝什麼？
+Dialogue: 0,0:08:09.98,0:08:12.76,English,,0,0,0,,Thirty years of being in business.
+Dialogue: 0,0:08:09.98,0:08:12.76,Chinese,,0,0,0,,從業三十年。
+Dialogue: 0,0:08:13.16,0:08:16.09,English,,0,0,0,,Opening their online shopping site.
+Dialogue: 0,0:08:13.16,0:08:16.09,Chinese,,0,0,0,,打開他們的線上購物網站。
+Dialogue: 0,0:08:16.49,0:08:18.82,English,,0,0,0,,Their one-year anniversary.
+Dialogue: 0,0:08:16.49,0:08:18.82,Chinese,,0,0,0,,他們一周年紀念日。
+Dialogue: 0,0:08:19.22,0:08:21.88,English,,0,0,0,,Opening a new branch location.
+Dialogue: 0,0:08:19.22,0:08:21.88,Chinese,,0,0,0,,開設新分店。
+Dialogue: 0,0:08:22.28,0:08:25.30,English,,0,0,0,,What is mentioned about the discount codes?
+Dialogue: 0,0:08:22.28,0:08:25.30,Chinese,,0,0,0,,折扣代碼提到了什麼？
+Dialogue: 0,0:08:25.70,0:08:28.46,English,,0,0,0,,Shoppers must log in to use them.
+Dialogue: 0,0:08:25.70,0:08:28.46,Chinese,,0,0,0,,購物者必須登入才能使用它們。
+Dialogue: 0,0:08:28.86,0:08:31.86,English,,0,0,0,,They only apply to home appliances.
+Dialogue: 0,0:08:28.86,0:08:31.86,Chinese,,0,0,0,,它們僅適用於家用電器。
+Dialogue: 0,0:08:32.26,0:08:35.58,English,,0,0,0,,Shoppers must enter the codes by themselves.
+Dialogue: 0,0:08:32.26,0:08:35.58,Chinese,,0,0,0,,購物者必須自行輸入代碼。
+Dialogue: 0,0:08:35.98,0:08:39.10,English,,0,0,0,,They are good for a 50% discount.
+Dialogue: 0,0:08:35.98,0:08:39.10,Chinese,,0,0,0,,它們有 50% 的折扣。
+Dialogue: 0,0:08:39.50,0:08:43.12,English,,0,0,0,,What is the problem Mr. Howards is having with his order?
+Dialogue: 0,0:08:39.50,0:08:43.12,Chinese,,0,0,0,,霍華德先生的訂單有問題嗎？
+Dialogue: 0,0:08:43.52,0:08:46.33,English,,0,0,0,,The discount coupon does not work.
+Dialogue: 0,0:08:43.52,0:08:46.33,Chinese,,0,0,0,,折扣券不起作用。
+Dialogue: 0,0:08:46.73,0:08:49.68,English,,0,0,0,,His payment method is not accepted.
+Dialogue: 0,0:08:46.73,0:08:49.68,Chinese,,0,0,0,,他的付款方式不被接受。
+Dialogue: 0,0:08:50.08,0:08:52.91,English,,0,0,0,,The website keeps crashing on him.
+Dialogue: 0,0:08:50.08,0:08:52.91,Chinese,,0,0,0,,他的網站總是崩潰。
+Dialogue: 0,0:08:53.31,0:08:56.29,English,,0,0,0,,He is incorrectly being charged a fee.
+Dialogue: 0,0:08:53.31,0:08:56.29,Chinese,,0,0,0,,他被錯誤地收取了費用。
+Dialogue: 0,0:08:56.69,0:09:02.21,English,,0,0,0,,In the email, the word "waive" in paragraph 1, line 6 is closest in meaning to?
+Dialogue: 0,0:08:56.69,0:09:02.21,Chinese,,0,0,0,,在電子郵件中，第 1 段第 6 行中的「放棄」一詞的含義最接近？
+Dialogue: 0,0:09:02.61,0:09:04.00,English,,0,0,0,,add
+Dialogue: 0,0:09:02.61,0:09:04.00,Chinese,,0,0,0,,添加
+Dialogue: 0,0:09:04.40,0:09:06.08,English,,0,0,0,,decrease
+Dialogue: 0,0:09:04.40,0:09:06.08,Chinese,,0,0,0,,減少
+Dialogue: 0,0:09:06.48,0:09:08.09,English,,0,0,0,,remove
+Dialogue: 0,0:09:06.48,0:09:08.09,Chinese,,0,0,0,,消除
+Dialogue: 0,0:09:08.49,0:09:10.14,English,,0,0,0,,include
+Dialogue: 0,0:09:08.49,0:09:10.14,Chinese,,0,0,0,,包括
+Dialogue: 0,0:09:10.54,0:09:14.74,English,,0,0,0,,On what date is Mr. Howards most likely making his purchase?
+Dialogue: 0,0:09:10.54,0:09:14.74,Chinese,,0,0,0,,霍華德先生最有可能在哪一天購買？
+Dialogue: 0,0:09:15.14,0:09:16.94,English,,0,0,0,,May 1st
+Dialogue: 0,0:09:15.14,0:09:16.94,Chinese,,0,0,0,,5月1日
+Dialogue: 0,0:09:17.34,0:09:19.34,English,,0,0,0,,May 29th
+Dialogue: 0,0:09:17.34,0:09:19.34,Chinese,,0,0,0,,5月29日
+Dialogue: 0,0:09:19.74,0:09:21.58,English,,0,0,0,,May 30th
+Dialogue: 0,0:09:19.74,0:09:21.58,Chinese,,0,0,0,,5月30日
+Dialogue: 0,0:09:21.98,0:09:24.12,English,,0,0,0,,May 31st
+Dialogue: 0,0:09:21.98,0:09:24.12,Chinese,,0,0,0,,5月31日

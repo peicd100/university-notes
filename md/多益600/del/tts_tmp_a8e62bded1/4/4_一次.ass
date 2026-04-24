@@ -1,0 +1,422 @@
+[Script Info]
+ScriptType: v4.00+
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+PlayResX: 1280
+PlayResY: 720
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: English,Microsoft JhengHei,44,&H00FFFFFF,&H00FFFFFF,&H00101010,&H64000000,1,0,0,0,100,100,0,0,1,2.4,0,8,96,96,128,1
+Style: Chinese,Microsoft JhengHei,34,&H00FFFFFF,&H00FFFFFF,&H00101010,&H64000000,1,0,0,0,100,100,0,0,1,2.4,0,2,96,96,110,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:02.64,English,,0,0,0,,Several fishing boats are docked.
+Dialogue: 0,0:00:00.00,0:00:02.64,Chinese,,0,0,0,,停靠著幾艘漁船。
+Dialogue: 0,0:00:03.04,0:00:05.68,English,,0,0,0,,A boat is receiving maintenance.
+Dialogue: 0,0:00:03.04,0:00:05.68,Chinese,,0,0,0,,一艘船正在接受維修。
+Dialogue: 0,0:00:06.08,0:00:08.96,English,,0,0,0,,The boats are being rocked by a storm.
+Dialogue: 0,0:00:06.08,0:00:08.96,Chinese,,0,0,0,,船隻因暴風雨而搖晃。
+Dialogue: 0,0:00:09.36,0:00:12.12,English,,0,0,0,,The dock is empty of any boats.
+Dialogue: 0,0:00:09.36,0:00:12.12,Chinese,,0,0,0,,碼頭上沒有任何船隻。
+Dialogue: 0,0:00:12.52,0:00:15.78,English,,0,0,0,,Several pedestrians are crossing the street.
+Dialogue: 0,0:00:12.52,0:00:15.78,Chinese,,0,0,0,,幾個行人正在過馬路。
+Dialogue: 0,0:00:16.18,0:00:19.71,English,,0,0,0,,Traffic congestion is blocking the intersection.
+Dialogue: 0,0:00:16.18,0:00:19.71,Chinese,,0,0,0,,交通堵塞堵塞了十字路口。
+Dialogue: 0,0:00:20.11,0:00:22.90,English,,0,0,0,,A sign in the road is being removed.
+Dialogue: 0,0:00:20.11,0:00:22.90,Chinese,,0,0,0,,路上的一個標誌正在拆除。
+Dialogue: 0,0:00:23.30,0:00:26.34,English,,0,0,0,,There are many traffic lights on the street.
+Dialogue: 0,0:00:23.30,0:00:26.34,Chinese,,0,0,0,,街上有很多紅綠燈。
+Dialogue: 0,0:00:26.74,0:00:29.46,English,,0,0,0,,Passengers are boarding an airplane.
+Dialogue: 0,0:00:26.74,0:00:29.46,Chinese,,0,0,0,,乘客正在登機。
+Dialogue: 0,0:00:29.86,0:00:32.76,English,,0,0,0,,The boarding gate has not opened yet.
+Dialogue: 0,0:00:29.86,0:00:32.76,Chinese,,0,0,0,,登機口還沒打開。
+Dialogue: 0,0:00:33.16,0:00:35.94,English,,0,0,0,,People are checking in their luggage.
+Dialogue: 0,0:00:33.16,0:00:35.94,Chinese,,0,0,0,,人們正在托運行李。
+Dialogue: 0,0:00:36.34,0:00:39.18,English,,0,0,0,,People are shopping for souvenirs.
+Dialogue: 0,0:00:36.34,0:00:39.18,Chinese,,0,0,0,,人們正在購買紀念品。
+Dialogue: 0,0:00:39.58,0:00:42.41,English,,0,0,0,,Where should we go to check in our luggage?
+Dialogue: 0,0:00:39.58,0:00:42.41,Chinese,,0,0,0,,我們該去哪裡托運行李？
+Dialogue: 0,0:00:42.81,0:00:45.78,English,,0,0,0,,The counter is located right over there.
+Dialogue: 0,0:00:42.81,0:00:45.78,Chinese,,0,0,0,,櫃檯就在那邊。
+Dialogue: 0,0:00:46.18,0:00:48.97,English,,0,0,0,,Your luggage has already been loaded.
+Dialogue: 0,0:00:46.18,0:00:48.97,Chinese,,0,0,0,,您的行李已經裝載完畢。
+Dialogue: 0,0:00:49.37,0:00:52.01,English,,0,0,0,,You check it any time you want to.
+Dialogue: 0,0:00:49.37,0:00:52.01,Chinese,,0,0,0,,您可以隨時查看。
+Dialogue: 0,0:00:52.41,0:00:55.62,English,,0,0,0,,What time does the shuttle depart from the hotel?
+Dialogue: 0,0:00:52.41,0:00:55.62,Chinese,,0,0,0,,接駁車幾點從飯店出發？
+Dialogue: 0,0:00:56.02,0:00:58.50,English,,0,0,0,,The time has not yet come.
+Dialogue: 0,0:00:56.02,0:00:58.50,Chinese,,0,0,0,,時機尚未到來。
+Dialogue: 0,0:00:58.90,0:01:01.46,English,,0,0,0,,Every hour, on the hour.
+Dialogue: 0,0:00:58.90,0:01:01.46,Chinese,,0,0,0,,每個小時，整點。
+Dialogue: 0,0:01:01.86,0:01:04.67,English,,0,0,0,,The shuttle bus will arrive shortly.
+Dialogue: 0,0:01:01.86,0:01:04.67,Chinese,,0,0,0,,接駁巴士很快就會到達。
+Dialogue: 0,0:01:05.07,0:01:09.68,English,,0,0,0,,I have the tickets for the Chicago Philharmonic performance next month.
+Dialogue: 0,0:01:05.07,0:01:09.68,Chinese,,0,0,0,,我有下個月芝加哥愛樂樂團演出的門票。
+Dialogue: 0,0:01:10.08,0:01:17.74,English,,0,0,0,,That's great. I was worried you wouldn't be able to get any. Their concerts are really popular now.
+Dialogue: 0,0:01:10.08,0:01:17.74,Chinese,,0,0,0,,那太棒了。我還擔心你拿不到。他們的演唱會現在很受歡迎。
+Dialogue: 0,0:01:18.14,0:01:25.26,English,,0,0,0,,It wasn't easy, that's for sure. But we have them. Chicago is a bit far though.
+Dialogue: 0,0:01:18.14,0:01:25.26,Chinese,,0,0,0,,這並不容易，這是肯定的。但我們有它們。不過芝加哥有點遠。
+Dialogue: 0,0:01:25.66,0:01:30.92,English,,0,0,0,,That's true. I don't think we'll be able to get there and back in one day.
+Dialogue: 0,0:01:25.66,0:01:30.92,Chinese,,0,0,0,,這是真的。我不認為我們能夠在一天之內到達那裡並返回。
+Dialogue: 0,0:01:31.32,0:01:38.16,English,,0,0,0,,Well, we could always book a flight and stay the night in Chicago. It is on a weekend after all.
+Dialogue: 0,0:01:31.32,0:01:38.16,Chinese,,0,0,0,,好吧，我們總是可以預訂航班並在芝加哥過夜。畢竟是周末。
+Dialogue: 0,0:01:38.56,0:01:44.44,English,,0,0,0,,That sounds like a great idea. We could also take in some sights while we're there.
+Dialogue: 0,0:01:38.56,0:01:44.44,Chinese,,0,0,0,,這聽起來是個好主意。我們還可以在那裡參觀一些景點。
+Dialogue: 0,0:01:44.84,0:01:50.58,English,,0,0,0,,That's settled then. I'll check flights and see what's available for that weekend.
+Dialogue: 0,0:01:44.84,0:01:50.58,Chinese,,0,0,0,,那就這麼定了。我會查一下航班，看看那個週末有哪些航班。
+Dialogue: 0,0:01:50.98,0:01:53.59,English,,0,0,0,,What are the speakers planning to do?
+Dialogue: 0,0:01:50.98,0:01:53.59,Chinese,,0,0,0,,演講者打算做什麼？
+Dialogue: 0,0:01:53.99,0:01:56.49,English,,0,0,0,,Go to see a popular movie.
+Dialogue: 0,0:01:53.99,0:01:56.49,Chinese,,0,0,0,,去看一部熱門電影。
+Dialogue: 0,0:01:56.89,0:01:59.53,English,,0,0,0,,Take in a musical performance.
+Dialogue: 0,0:01:56.89,0:01:59.53,Chinese,,0,0,0,,觀賞音樂表演。
+Dialogue: 0,0:01:59.93,0:02:02.59,English,,0,0,0,,Check out a museum exhibition.
+Dialogue: 0,0:01:59.93,0:02:02.59,Chinese,,0,0,0,,參觀博物館展覽。
+Dialogue: 0,0:02:02.99,0:02:05.85,English,,0,0,0,,Attend an auction for works of art.
+Dialogue: 0,0:02:02.99,0:02:05.85,Chinese,,0,0,0,,參加藝術品拍賣會。
+Dialogue: 0,0:02:06.25,0:02:09.34,English,,0,0,0,,Why does the man say "It wasn't easy."?
+Dialogue: 0,0:02:06.25,0:02:09.34,Chinese,,0,0,0,,為什麼男人說「這不容易」？
+Dialogue: 0,0:02:09.74,0:02:12.60,English,,0,0,0,,It's hard to get tickets for the event.
+Dialogue: 0,0:02:09.74,0:02:12.60,Chinese,,0,0,0,,很難獲得該活動的門票。
+Dialogue: 0,0:02:13.00,0:02:15.64,English,,0,0,0,,He failed to reserve their seats.
+Dialogue: 0,0:02:13.00,0:02:15.64,Chinese,,0,0,0,,他未能保留他們的座位。
+Dialogue: 0,0:02:16.04,0:02:18.63,English,,0,0,0,,He has to work on the weekend.
+Dialogue: 0,0:02:16.04,0:02:18.63,Chinese,,0,0,0,,他週末必須工作。
+Dialogue: 0,0:02:19.03,0:02:21.94,English,,0,0,0,,The hotel is likely fully booked.
+Dialogue: 0,0:02:19.03,0:02:21.94,Chinese,,0,0,0,,酒店可能已經訂滿了。
+Dialogue: 0,0:02:22.34,0:02:24.78,English,,0,0,0,,What does the man offer to do?
+Dialogue: 0,0:02:22.34,0:02:24.78,Chinese,,0,0,0,,男人願意做什麼？
+Dialogue: 0,0:02:25.18,0:02:27.78,English,,0,0,0,,Book the accommodation for them.
+Dialogue: 0,0:02:25.18,0:02:27.78,Chinese,,0,0,0,,為他們預訂住宿。
+Dialogue: 0,0:02:28.18,0:02:30.62,English,,0,0,0,,Check trains to Chicago.
+Dialogue: 0,0:02:28.18,0:02:30.62,Chinese,,0,0,0,,檢查前往芝加哥的火車。
+Dialogue: 0,0:02:31.02,0:02:33.69,English,,0,0,0,,Look into flights to Chicago.
+Dialogue: 0,0:02:31.02,0:02:33.69,Chinese,,0,0,0,,查看飛往 芝加哥 的航班。
+Dialogue: 0,0:02:34.09,0:02:36.82,English,,0,0,0,,Find out the best way to get there.
+Dialogue: 0,0:02:34.09,0:02:36.82,Chinese,,0,0,0,,找出到達那裡的最佳方式。
+Dialogue: 0,0:02:37.22,0:02:41.71,English,,0,0,0,,Questions 95 to 97 refer to the following speech.
+Dialogue: 0,0:02:37.22,0:02:41.71,Chinese,,0,0,0,,問題95至97涉及以下演講。
+Dialogue: 0,0:02:42.11,0:02:51.23,English,,0,0,0,,Good morning, folks. I hear you are looking to see some sights tomorrow morning. It just so happens I can help you out with that.
+Dialogue: 0,0:02:42.11,0:02:51.23,Chinese,,0,0,0,,早安，夥計們。我聽說你明天早上想去參觀一些景點。碰巧我可以幫你解決這個問題。
+Dialogue: 0,0:02:51.63,0:02:55.57,English,,0,0,0,,We actually partner with several of the attractions nearby,
+Dialogue: 0,0:02:51.63,0:02:55.57,Chinese,,0,0,0,,我們實際上與附近的幾個景點合作，
+Dialogue: 0,0:02:55.97,0:02:59.83,English,,0,0,0,,and we have a shuttle to each that leaves every thirty minutes.
+Dialogue: 0,0:02:55.97,0:02:59.83,Chinese,,0,0,0,,我們有前往每個地點的接駁車，每三十分鐘一班。
+Dialogue: 0,0:03:00.23,0:03:05.10,English,,0,0,0,,Due to the weather, I don't think you'll want to go swimming or to the picnic grounds.
+Dialogue: 0,0:03:00.23,0:03:05.10,Chinese,,0,0,0,,由於天氣原因，我認為您不會想去游泳或去野餐。
+Dialogue: 0,0:03:05.50,0:03:09.51,English,,0,0,0,,That leaves the hot air balloon ride or a boat tour of the lake.
+Dialogue: 0,0:03:05.50,0:03:09.51,Chinese,,0,0,0,,剩下的就是乘坐熱氣球或乘船遊覽湖泊。
+Dialogue: 0,0:03:09.91,0:03:16.30,English,,0,0,0,,Personally, I'd recommend the boat tour. The balloon ride is pretty short for the price.
+Dialogue: 0,0:03:09.91,0:03:16.30,Chinese,,0,0,0,,就我个人而言，我推荐乘船游览。就價格而言，熱氣球之旅的時間相當短。
+Dialogue: 0,0:03:16.70,0:03:21.71,English,,0,0,0,,If you'd like to join the tour, the first shuttle will leave at 10 tomorrow morning.
+Dialogue: 0,0:03:16.70,0:03:21.71,Chinese,,0,0,0,,如果您想參加這個旅遊團，首班車將於明天早上 10 點出發。
+Dialogue: 0,0:03:22.11,0:03:26.79,English,,0,0,0,,Guests are asked to meet right here in the lobby ten minutes before to sign up.
+Dialogue: 0,0:03:22.11,0:03:26.79,Chinese,,0,0,0,,請客人提前十分鐘在大廳集合登記。
+Dialogue: 0,0:03:27.19,0:03:29.78,English,,0,0,0,,Who most likely is the speaker?
+Dialogue: 0,0:03:27.19,0:03:29.78,Chinese,,0,0,0,,說話者最有可能是誰？
+Dialogue: 0,0:03:30.18,0:03:32.42,English,,0,0,0,,The hotel managers.
+Dialogue: 0,0:03:30.18,0:03:32.42,Chinese,,0,0,0,,酒店經理們。
+Dialogue: 0,0:03:32.82,0:03:34.95,English,,0,0,0,,Guests of the hotel.
+Dialogue: 0,0:03:32.82,0:03:34.95,Chinese,,0,0,0,,飯店的客人。
+Dialogue: 0,0:03:35.35,0:03:38.04,English,,0,0,0,,Diners at the hotel restaurant.
+Dialogue: 0,0:03:35.35,0:03:38.04,Chinese,,0,0,0,,客人在飯店餐廳用餐。
+Dialogue: 0,0:03:38.44,0:03:40.72,English,,0,0,0,,The front desk staff.
+Dialogue: 0,0:03:38.44,0:03:40.72,Chinese,,0,0,0,,前台工作人員。
+Dialogue: 0,0:03:41.12,0:03:46.74,English,,0,0,0,,Look at the graphic. Where will the listeners likely go for tomorrow's excursion?
+Dialogue: 0,0:03:41.12,0:03:46.74,Chinese,,0,0,0,,看圖。聽眾明天的旅行可能會去哪裡？
+Dialogue: 0,0:03:47.14,0:03:51.43,English,,0,0,0,,What are the listeners requested to do if they wish to join the activity?
+Dialogue: 0,0:03:47.14,0:03:51.43,Chinese,,0,0,0,,如果聽眾想要參加活動，他們需要做些什麼？
+Dialogue: 0,0:03:51.83,0:03:54.66,English,,0,0,0,,Meet in the lobby ten minutes early.
+Dialogue: 0,0:03:51.83,0:03:54.66,Chinese,,0,0,0,,提前十分鐘在大廳集合。
+Dialogue: 0,0:03:55.06,0:03:58.16,English,,0,0,0,,Sign up for the activity the night before.
+Dialogue: 0,0:03:55.06,0:03:58.16,Chinese,,0,0,0,,前一天晚上報名參加活動。
+Dialogue: 0,0:03:58.56,0:04:01.58,English,,0,0,0,,Pay a deposit for the shuttle bus ride.
+Dialogue: 0,0:03:58.56,0:04:01.58,Chinese,,0,0,0,,搭乘接駁車需支付押金。
+Dialogue: 0,0:04:01.98,0:04:05.34,English,,0,0,0,,Reserve spots on the shuttle bus an hour early.
+Dialogue: 0,0:04:01.98,0:04:05.34,Chinese,,0,0,0,,提前一小時預訂接駁車座位。
+Dialogue: 0,0:04:05.74,0:04:13.40,English,,0,0,0,,Guests of the hotel may make use of the free housekeeping and laundry services by dialing "5" on the phones located in each room.
+Dialogue: 0,0:04:05.74,0:04:13.40,Chinese,,0,0,0,,飯店的房客可以透過每間客房的電話撥打「5」來使用免費的家事和洗衣服務。
+Dialogue: 0,0:04:13.80,0:04:15.31,English,,0,0,0,,reading
+Dialogue: 0,0:04:13.80,0:04:15.31,Chinese,,0,0,0,,閱讀
+Dialogue: 0,0:04:15.71,0:04:17.34,English,,0,0,0,,dialing
+Dialogue: 0,0:04:15.71,0:04:17.34,Chinese,,0,0,0,,撥號
+Dialogue: 0,0:04:17.74,0:04:19.42,English,,0,0,0,,observing
+Dialogue: 0,0:04:17.74,0:04:19.42,Chinese,,0,0,0,,觀察
+Dialogue: 0,0:04:19.82,0:04:21.72,English,,0,0,0,,communicating
+Dialogue: 0,0:04:19.82,0:04:21.72,Chinese,,0,0,0,,溝通
+Dialogue: 0,0:04:22.12,0:04:29.46,English,,0,0,0,,Regarding the cost of the package, it includes the cost of a week-long stay at the ski resort and complimentary breakfast.
+Dialogue: 0,0:04:22.12,0:04:29.46,Chinese,,0,0,0,,關於套餐費用，包括滑雪場一週的住宿費用和免費早餐。
+Dialogue: 0,0:04:29.86,0:04:31.54,English,,0,0,0,,Despite
+Dialogue: 0,0:04:29.86,0:04:31.54,Chinese,,0,0,0,,儘管
+Dialogue: 0,0:04:31.94,0:04:33.62,English,,0,0,0,,Regarding
+Dialogue: 0,0:04:31.94,0:04:33.62,Chinese,,0,0,0,,關於
+Dialogue: 0,0:04:34.02,0:04:35.80,English,,0,0,0,,So as to
+Dialogue: 0,0:04:34.02,0:04:35.80,Chinese,,0,0,0,,以便
+Dialogue: 0,0:04:36.20,0:04:37.71,English,,0,0,0,,Once
+Dialogue: 0,0:04:36.20,0:04:37.71,Chinese,,0,0,0,,一次
+Dialogue: 0,0:04:38.11,0:04:44.81,English,,0,0,0,,If the airplane had remained on the runway any longer, the passengers aboard would have missed their connecting flight.
+Dialogue: 0,0:04:38.11,0:04:44.81,Chinese,,0,0,0,,如果飛機繼續留在跑道上，機上的乘客就會錯過轉機航班。
+Dialogue: 0,0:04:45.21,0:04:46.89,English,,0,0,0,,misses
+Dialogue: 0,0:04:45.21,0:04:46.89,Chinese,,0,0,0,,錯過
+Dialogue: 0,0:04:47.29,0:04:48.78,English,,0,0,0,,missed
+Dialogue: 0,0:04:47.29,0:04:48.78,Chinese,,0,0,0,,錯過了
+Dialogue: 0,0:04:49.18,0:04:50.88,English,,0,0,0,,would miss
+Dialogue: 0,0:04:49.18,0:04:50.88,Chinese,,0,0,0,,會想念
+Dialogue: 0,0:04:51.28,0:04:53.18,English,,0,0,0,,would have missed
+Dialogue: 0,0:04:51.28,0:04:53.18,Chinese,,0,0,0,,會錯過的
+Dialogue: 0,0:04:53.58,0:05:02.31,English,,0,0,0,,Sunnyvale Spa and Resort is pleased to introduce our Summer Spa Special, the best choice for you to relax and reenergize yourself this coming summer.
+Dialogue: 0,0:04:53.58,0:05:02.31,Chinese,,0,0,0,,桑尼維爾水療度假村很高興推出我們的夏季水療特惠，這是您在即將到來的夏季放鬆身心、恢復活力的最佳選擇。
+Dialogue: 0,0:05:02.71,0:05:09.43,English,,0,0,0,,Located next to beautiful Crystal Lake, Sunnyvale is of the leading providers of spa services in the area,
+Dialogue: 0,0:05:02.71,0:05:09.43,Chinese,,0,0,0,,森尼維耳市毗鄰美麗的水晶湖，是該地區領先的水療服務提供者之一，
+Dialogue: 0,0:05:09.83,0:05:14.49,English,,0,0,0,,with a professional and courteous staff ready to take care of your every need.
+Dialogue: 0,0:05:09.83,0:05:14.49,Chinese,,0,0,0,,專業且彬彬有禮的員工隨時準備滿足您的每個需求。
+Dialogue: 0,0:05:14.89,0:05:24.92,English,,0,0,0,,Our services include full-body massage, facial care, hot stone spas, steam wraps, and mud baths, all designed to help you relax and recharge.
+Dialogue: 0,0:05:14.89,0:05:24.92,Chinese,,0,0,0,,我們的服務包括全身按摩、臉部護理、熱石水療、蒸氣包裹和泥浴，所有這些都是為了幫助您放鬆和恢復活力。
+Dialogue: 0,0:05:25.32,0:05:35.18,English,,0,0,0,,For more information, visit our website at www.sunnyvalespa.com, or call us at 555-2254.
+Dialogue: 0,0:05:25.32,0:05:35.18,Chinese,,0,0,0,,欲了解更多信息，請訪問我們的網站 www.sunnyvalespa.com，或致電 555-2254。
+Dialogue: 0,0:05:35.58,0:05:47.87,English,,0,0,0,,*The Summer Spa Special is available on weekdays only and is not available on holidays. Offer ends August 31st. Hours of operation are 7 am to 9 pm.*
+Dialogue: 0,0:05:35.58,0:05:47.87,Chinese,,0,0,0,,*夏季水療特惠僅在工作日提供，假日不提供。優惠於 8 月 31 日結束。營業時間為上午 7 點至晚上 9 點。 *
+Dialogue: 0,0:05:48.27,0:05:52.47,English,,0,0,0,,Which service is NOT mentioned as being provided by Sunnyvale Spa?
+Dialogue: 0,0:05:48.27,0:05:52.47,Chinese,,0,0,0,,桑尼維爾水療中心未提及哪一項服務？
+Dialogue: 0,0:05:52.87,0:05:54.74,English,,0,0,0,,Facial care
+Dialogue: 0,0:05:52.87,0:05:54.74,Chinese,,0,0,0,,臉部護理
+Dialogue: 0,0:05:55.14,0:05:56.99,English,,0,0,0,,Hair removal
+Dialogue: 0,0:05:55.14,0:05:56.99,Chinese,,0,0,0,,除毛
+Dialogue: 0,0:05:57.39,0:05:59.58,English,,0,0,0,,Hot stone spas
+Dialogue: 0,0:05:57.39,0:05:59.58,Chinese,,0,0,0,,熱石溫泉
+Dialogue: 0,0:05:59.98,0:06:01.82,English,,0,0,0,,Massages
+Dialogue: 0,0:05:59.98,0:06:01.82,Chinese,,0,0,0,,按摩
+Dialogue: 0,0:06:02.22,0:06:05.73,English,,0,0,0,,How can customers learn more about the special offer?
+Dialogue: 0,0:06:02.22,0:06:05.73,Chinese,,0,0,0,,客戶如何了解更多優惠資訊？
+Dialogue: 0,0:06:06.13,0:06:08.65,English,,0,0,0,,Contact the spa by email.
+Dialogue: 0,0:06:06.13,0:06:08.65,Chinese,,0,0,0,,透過電子郵件聯絡水療中心。
+Dialogue: 0,0:06:09.05,0:06:11.45,English,,0,0,0,,Go to the spa's website.
+Dialogue: 0,0:06:09.05,0:06:11.45,Chinese,,0,0,0,,造訪水療中心的網站。
+Dialogue: 0,0:06:11.85,0:06:14.51,English,,0,0,0,,Find the spa on social media.
+Dialogue: 0,0:06:11.85,0:06:14.51,Chinese,,0,0,0,,在社群媒體上尋找水療中心。
+Dialogue: 0,0:06:14.91,0:06:17.07,English,,0,0,0,,Use a messaging app.
+Dialogue: 0,0:06:14.91,0:06:17.07,Chinese,,0,0,0,,使用訊息應用程式。
+Dialogue: 0,0:06:17.47,0:06:19.78,English,,0,0,0,,Name: Betty Banner
+Dialogue: 0,0:06:17.47,0:06:19.78,Chinese,,0,0,0,,姓名：貝蒂·班納
+Dialogue: 0,0:06:20.18,0:06:23.39,English,,0,0,0,,Date of Flight: September 23
+Dialogue: 0,0:06:20.18,0:06:23.39,Chinese,,0,0,0,,飛行日期：9月23日
+Dialogue: 0,0:06:23.79,0:06:26.48,English,,0,0,0,,Departing: Los Angeles
+Dialogue: 0,0:06:23.79,0:06:26.48,Chinese,,0,0,0,,出發地： 洛杉磯
+Dialogue: 0,0:06:26.88,0:06:29.26,English,,0,0,0,,Arriving: Tokyo
+Dialogue: 0,0:06:26.88,0:06:29.26,Chinese,,0,0,0,,到達地： 東京
+Dialogue: 0,0:06:29.66,0:06:32.68,English,,0,0,0,,Reason for Complaint: Booking Error
+Dialogue: 0,0:06:29.66,0:06:32.68,Chinese,,0,0,0,,投訴原因： 預訂錯誤
+Dialogue: 0,0:06:33.08,0:06:36.32,English,,0,0,0,,Date of Submission: October 20
+Dialogue: 0,0:06:33.08,0:06:36.32,Chinese,,0,0,0,,提交日期：10月20日
+Dialogue: 0,0:06:36.72,0:06:39.58,English,,0,0,0,,Please explain the issue you encountered
+Dialogue: 0,0:06:36.72,0:06:39.58,Chinese,,0,0,0,,請解釋您遇到的問題
+Dialogue: 0,0:06:39.98,0:06:44.37,English,,0,0,0,,I recently took an international flight to Tokyo with your company,
+Dialogue: 0,0:06:39.98,0:06:44.37,Chinese,,0,0,0,,我最近搭乘貴公司的國際航班飛往東京，
+Dialogue: 0,0:06:44.77,0:06:48.51,English,,0,0,0,,and I am thoroughly unsatisfied with the experience.
+Dialogue: 0,0:06:44.77,0:06:48.51,Chinese,,0,0,0,,我對這次經驗非常不滿意。
+Dialogue: 0,0:06:48.91,0:06:52.73,English,,0,0,0,,When booking my flight through your online booking service,
+Dialogue: 0,0:06:48.91,0:06:52.73,Chinese,,0,0,0,,透過線上預訂服務預訂航班時，
+Dialogue: 0,0:06:53.13,0:07:00.86,English,,0,0,0,,I reserved a seat in business class. I paid for this with my credit card and can show the booking fee on my statement.
+Dialogue: 0,0:06:53.13,0:07:00.86,Chinese,,0,0,0,,我預訂了商務艙的座位。我用信用卡支付了費用，並且可以在我的帳單上顯示預訂費。
+Dialogue: 0,0:07:01.26,0:07:08.62,English,,0,0,0,,However, when I checked in for the flight, I was told that the counter staff could not find my reservation for business class.
+Dialogue: 0,0:07:01.26,0:07:08.62,Chinese,,0,0,0,,然而，當我辦理登機手續時，櫃檯工作人員告訴我找不到我的商務艙預訂。
+Dialogue: 0,0:07:09.02,0:07:14.69,English,,0,0,0,,Since the flight was leaving soon, I had no other choice but to accept a seat in economy.
+Dialogue: 0,0:07:09.02,0:07:14.69,Chinese,,0,0,0,,由於航班即將起飛，我只好選了經濟艙座位。
+Dialogue: 0,0:07:15.09,0:07:21.42,English,,0,0,0,,The person at the counter said they would have someone contact me after I arrived in Tokyo about the mistake.
+Dialogue: 0,0:07:15.09,0:07:21.42,Chinese,,0,0,0,,櫃檯人員說，我到達東京後，他們會派人聯絡我，告知我這個錯誤。
+Dialogue: 0,0:07:21.82,0:07:21.94,English,,0,0,0,,Even after we had taken off, the flight attendants refused to allow me to move to business class,
+Dialogue: 0,0:07:21.82,0:07:21.94,Chinese,,0,0,0,,起飛後，空服員也不讓我轉商務艙，
+Dialogue: 0,0:07:22.34,0:07:26.59,English,,0,0,0,,saying my ticket showed economy and that there was nothing they could do.
+Dialogue: 0,0:07:22.34,0:07:26.59,Chinese,,0,0,0,,說我的機票顯示經濟並且他們無能為力。
+Dialogue: 0,0:07:26.99,0:07:32.44,English,,0,0,0,,When I arrived in Tokyo, I had to rush to the conference I was supposed to be attending.
+Dialogue: 0,0:07:26.99,0:07:32.44,Chinese,,0,0,0,,當我到達東京時，我必須趕去參加我應該參加的會議。
+Dialogue: 0,0:07:32.84,0:07:40.23,English,,0,0,0,,It has been almost one month and I still have not heard anything. I would like this issue resolved as soon as possible.
+Dialogue: 0,0:07:32.84,0:07:40.23,Chinese,,0,0,0,,已經過去快一個月了，我仍然沒有任何消息。我希望這個問題能盡快解決。
+Dialogue: 0,0:07:40.63,0:07:48.22,English,,0,0,0,,Please have a member of your company contact me as soon as possible, either through email or after 6pm at my phone number.
+Dialogue: 0,0:07:40.63,0:07:48.22,Chinese,,0,0,0,,請讓貴公司的成員盡快透過電子郵件或下午 6 點後撥打我的電話號碼與我聯繫。
+Dialogue: 0,0:07:48.62,0:08:02.97,English,,0,0,0,,For your reference, my credit card number is 5555 8899 0989 4399 and my booking number was R593908-43G.
+Dialogue: 0,0:07:48.62,0:08:02.97,Chinese,,0,0,0,,供您參考，我的信用卡號碼是 5555 8899 0989 4399，我的預訂號碼是 R593908-43G。
+Dialogue: 0,0:08:03.37,0:08:12.92,English,,0,0,0,,I also have a frequent flier membership with your company. The membership number is 3028903893.
+Dialogue: 0,0:08:03.37,0:08:12.92,Chinese,,0,0,0,,我也是貴公司的飛行常客會員。會員編號為3028903893。
+Dialogue: 0,0:08:13.32,0:08:16.49,English,,0,0,0,,Subject: Your complaint submission
+Dialogue: 0,0:08:13.32,0:08:16.49,Chinese,,0,0,0,,主題：您提交的投訴
+Dialogue: 0,0:08:16.89,0:08:19.67,English,,0,0,0,,Date: October 23rd
+Dialogue: 0,0:08:16.89,0:08:19.67,Chinese,,0,0,0,,日期：10月23日
+Dialogue: 0,0:08:20.07,0:08:21.97,English,,0,0,0,,Dear Ms. Banner,
+Dialogue: 0,0:08:20.07,0:08:21.97,Chinese,,0,0,0,,親愛的班納女士，
+Dialogue: 0,0:08:22.37,0:08:30.24,English,,0,0,0,,We recently received your complaint regarding the mistake with your flight. We would like to sincerely apologize for the error.
+Dialogue: 0,0:08:22.37,0:08:30.24,Chinese,,0,0,0,,我們最近收到了您關於航班錯誤的投訴。對於這個錯誤，我們深表歉意。
+Dialogue: 0,0:08:30.64,0:08:36.69,English,,0,0,0,,We have reviewed your initial reservation and found that you did indeed pay for a seat in business class.
+Dialogue: 0,0:08:30.64,0:08:36.69,Chinese,,0,0,0,,我們審查了您的初始預訂，發現您確實支付了商務艙座位的費用。
+Dialogue: 0,0:08:37.09,0:08:44.94,English,,0,0,0,,Unfortunately, it seems there was a problem with our servers at the time of your reservation and some information was incorrectly saved.
+Dialogue: 0,0:08:37.09,0:08:44.94,Chinese,,0,0,0,,不幸的是，在您預訂時我們的伺服器似乎出現問題，並且某些資訊保存不正確。
+Dialogue: 0,0:08:45.34,0:08:51.12,English,,0,0,0,,As this mistake was entirely our fault, we will be refunding you the cost of your flight.
+Dialogue: 0,0:08:45.34,0:08:51.12,Chinese,,0,0,0,,由於這個錯誤完全是我們的過錯，我們將退還您的航班費用。
+Dialogue: 0,0:08:51.52,0:08:55.72,English,,0,0,0,,This refund will be sent to the credit card used to make the booking.
+Dialogue: 0,0:08:51.52,0:08:55.72,Chinese,,0,0,0,,這筆退款將退至用於預訂的信用卡。
+Dialogue: 0,0:08:56.12,0:09:03.03,English,,0,0,0,,Additionally, we will provide you with an upgrade to business class on your next flight, completely free of charge.
+Dialogue: 0,0:08:56.12,0:09:03.03,Chinese,,0,0,0,,此外，我們將在您的下一個航班上為您免費升級至商務艙。
+Dialogue: 0,0:09:03.43,0:09:08.42,English,,0,0,0,,Again, we apologize for the mistake and any inconvenience it caused.
+Dialogue: 0,0:09:03.43,0:09:08.42,Chinese,,0,0,0,,再次，我們對錯誤及其造成的不便表示歉意。
+Dialogue: 0,0:09:08.82,0:09:13.43,English,,0,0,0,,Sincerely, Dave Parker Department Head, Customer Service
+Dialogue: 0,0:09:08.82,0:09:13.43,Chinese,,0,0,0,,此致，戴夫帕克 (Dave Parker) 客戶服務部門主管
+Dialogue: 0,0:09:13.83,0:09:19.14,English,,0,0,0,,According to the complaint report, what happened at the airport on September 23?
+Dialogue: 0,0:09:13.83,0:09:19.14,Chinese,,0,0,0,,根據投訴報告，9月23日機場發生了什麼事？
+Dialogue: 0,0:09:19.54,0:09:22.39,English,,0,0,0,,Ms. Banner missed boarding her flight.
+Dialogue: 0,0:09:19.54,0:09:22.39,Chinese,,0,0,0,,班納女士錯過了登機。
+Dialogue: 0,0:09:22.79,0:09:26.25,English,,0,0,0,,The airline canceled the flight unexpectedly.
+Dialogue: 0,0:09:22.79,0:09:26.25,Chinese,,0,0,0,,航空公司意外取消了航班。
+Dialogue: 0,0:09:26.65,0:09:29.96,English,,0,0,0,,Ms. Banner was not allowed to get on the plane.
+Dialogue: 0,0:09:26.65,0:09:29.96,Chinese,,0,0,0,,班納女士不被允許登機。
+Dialogue: 0,0:09:30.36,0:09:33.82,English,,0,0,0,,The airline could not find her booking information.
+Dialogue: 0,0:09:30.36,0:09:33.82,Chinese,,0,0,0,,航空公司找不到她的預訂資訊。
+Dialogue: 0,0:09:34.22,0:09:37.74,English,,0,0,0,,How long did the airline take to respond to the issue?
+Dialogue: 0,0:09:34.22,0:09:37.74,Chinese,,0,0,0,,航空公司花了多久時間回應這個問題？
+Dialogue: 0,0:09:38.14,0:09:39.85,English,,0,0,0,,One week
+Dialogue: 0,0:09:38.14,0:09:39.85,Chinese,,0,0,0,,一週
+Dialogue: 0,0:09:40.25,0:09:42.00,English,,0,0,0,,Two weeks
+Dialogue: 0,0:09:40.25,0:09:42.00,Chinese,,0,0,0,,兩週
+Dialogue: 0,0:09:42.40,0:09:44.10,English,,0,0,0,,One month
+Dialogue: 0,0:09:42.40,0:09:44.10,Chinese,,0,0,0,,一個月
+Dialogue: 0,0:09:44.50,0:09:46.64,English,,0,0,0,,Almost two months
+Dialogue: 0,0:09:44.50,0:09:46.64,Chinese,,0,0,0,,快兩個月了
+Dialogue: 0,0:09:47.04,0:09:50.64,English,,0,0,0,,What is indicated about Ms. Banner's trip to Tokyo?
+Dialogue: 0,0:09:47.04,0:09:50.64,Chinese,,0,0,0,,班納女士的東京之行說明了什麼？
+Dialogue: 0,0:09:51.04,0:09:54.30,English,,0,0,0,,She was not allowed to move to business class.
+Dialogue: 0,0:09:51.04,0:09:54.30,Chinese,,0,0,0,,她不被允許轉至商務艙。
+Dialogue: 0,0:09:54.70,0:09:58.59,English,,0,0,0,,She was given a seat in first class as an apology.
+Dialogue: 0,0:09:54.70,0:09:58.59,Chinese,,0,0,0,,作為道歉，她得到了頭等艙的座位。
+Dialogue: 0,0:09:58.99,0:10:02.38,English,,0,0,0,,The flight attendants tried to upgrade her seat.
+Dialogue: 0,0:09:58.99,0:10:02.38,Chinese,,0,0,0,,空服員試圖為她升級座位。
+Dialogue: 0,0:10:02.78,0:10:05.37,English,,0,0,0,,She was late for the conference.
+Dialogue: 0,0:10:02.78,0:10:05.37,Chinese,,0,0,0,,她參加會議遲到了。
+Dialogue: 0,0:10:05.77,0:10:11.50,English,,0,0,0,,In the email, the word "servers" in paragraph 1, line 3 is closest in meaning to?
+Dialogue: 0,0:10:05.77,0:10:11.50,Chinese,,0,0,0,,在電子郵件中，第 1 段第 3 行中的「伺服器」一詞的含義最接近？
+Dialogue: 0,0:10:11.90,0:10:13.66,English,,0,0,0,,computers
+Dialogue: 0,0:10:11.90,0:10:13.66,Chinese,,0,0,0,,電腦
+Dialogue: 0,0:10:14.06,0:10:15.86,English,,0,0,0,,attendants
+Dialogue: 0,0:10:14.06,0:10:15.86,Chinese,,0,0,0,,服務生
+Dialogue: 0,0:10:16.26,0:10:18.08,English,,0,0,0,,employees
+Dialogue: 0,0:10:16.26,0:10:18.08,Chinese,,0,0,0,,僱員
+Dialogue: 0,0:10:18.48,0:10:20.09,English,,0,0,0,,waiters
+Dialogue: 0,0:10:18.48,0:10:20.09,Chinese,,0,0,0,,服務生
+Dialogue: 0,0:10:20.49,0:10:24.02,English,,0,0,0,,What can be inferred about Ms. Banner's next flight?
+Dialogue: 0,0:10:20.49,0:10:24.02,Chinese,,0,0,0,,關於班納女士的下一趟航班可以推斷出什麼？
+Dialogue: 0,0:10:24.42,0:10:27.37,English,,0,0,0,,She will not have to pay anything for it.
+Dialogue: 0,0:10:24.42,0:10:27.37,Chinese,,0,0,0,,她無需為此支付任何費用。
+Dialogue: 0,0:10:27.77,0:10:30.67,English,,0,0,0,,She will receive better seating for free.
+Dialogue: 0,0:10:27.77,0:10:30.67,Chinese,,0,0,0,,她將免費獲得更好的座位。
+Dialogue: 0,0:10:31.07,0:10:34.05,English,,0,0,0,,She will receive a discount on the fare.
+Dialogue: 0,0:10:31.07,0:10:34.05,Chinese,,0,0,0,,她將獲得票價折扣。
+Dialogue: 0,0:10:34.45,0:10:37.28,English,,0,0,0,,She will be given priority treatment.
+Dialogue: 0,0:10:34.45,0:10:37.28,Chinese,,0,0,0,,她將得到優先治療。
+Dialogue: 0,0:10:37.68,0:10:41.42,English,,0,0,0,,Have Your Next Conference Meeting at the Lakeview Hotel
+Dialogue: 0,0:10:37.68,0:10:41.42,Chinese,,0,0,0,,在湖景酒店舉行您的下一次會議
+Dialogue: 0,0:10:41.82,0:10:50.25,English,,0,0,0,,The Lakeview Hotel, one of the top-rated hotels in the area, is now offering a two-day, one-night conference package for businesses.
+Dialogue: 0,0:10:41.82,0:10:50.25,Chinese,,0,0,0,,湖景酒店是該地區最受好評的酒店之一，現為企業提供兩天一晚的會議套餐。
+Dialogue: 0,0:10:50.65,0:10:59.55,English,,0,0,0,,The package includes accommodation for one night, use of our fully equipped conference rooms, and a complimentary breakfast and dinner for each guest.
+Dialogue: 0,0:10:50.65,0:10:59.55,Chinese,,0,0,0,,套餐包括一晚住宿、使用我們設備齊全的會議室以及每位客人的免費早餐和晚餐。
+Dialogue: 0,0:10:59.95,0:11:10.80,English,,0,0,0,,It also includes access to all of the hotel's facilities, such as the sauna, swimming pool, and golf course. Wi-fi is provided for free throughout the hotel.
+Dialogue: 0,0:10:59.95,0:11:10.80,Chinese,,0,0,0,,還可以使用飯店的所有設施，如桑拿浴室、游泳池和高爾夫球場。飯店各處提供免費無線上網。
+Dialogue: 0,0:11:11.20,0:11:15.06,English,,0,0,0,,Our conference rooms are perfect for any business meeting.
+Dialogue: 0,0:11:11.20,0:11:15.06,Chinese,,0,0,0,,我們的會議室非常適合舉辦任何商務會議。
+Dialogue: 0,0:11:15.46,0:11:22.95,English,,0,0,0,,Provided equipment includes five wireless microphones, one projector and screen, and two laser pointers.
+Dialogue: 0,0:11:15.46,0:11:22.95,Chinese,,0,0,0,,提供的設備包括五個無線麥克風、一台投影機和螢幕以及兩個雷射筆。
+Dialogue: 0,0:11:23.35,0:11:30.65,English,,0,0,0,,We have rooms for any size of meeting, with a seating capacity of 15, 30, 50, or 100.
+Dialogue: 0,0:11:23.35,0:11:30.65,Chinese,,0,0,0,,我們擁有適合各種規模會議的會議室，可容納 15、30、50 或 100 人。
+Dialogue: 0,0:11:31.05,0:11:39.23,English,,0,0,0,,This offer is only available to groups of 15 or more and only from Monday to Friday, and is not valid on weekends or holidays.
+Dialogue: 0,0:11:31.05,0:11:39.23,Chinese,,0,0,0,,此優惠僅適用於 15 人或以上的團體，且僅限週一至週五，週末或假日無效。
+Dialogue: 0,0:11:39.63,0:11:49.28,English,,0,0,0,,Additional equipment can be provided, for a fee. Conference rooms will open thirty minutes before the scheduled start time to allow guests to set up.
+Dialogue: 0,0:11:39.63,0:11:49.28,Chinese,,0,0,0,,可以提供額外的設備，但需付費。會議室將在預定開始時間前三十分鐘開放，以便客人做好準備。
+Dialogue: 0,0:11:49.68,0:11:57.70,English,,0,0,0,,To make a reservation, click [here] or call us at 1-800-555-2222.
+Dialogue: 0,0:11:49.68,0:11:57.70,Chinese,,0,0,0,,如需預訂，請點擊 [此處] 或致電 1-800-555-2222。
+Dialogue: 0,0:11:58.10,0:12:01.05,English,,0,0,0,,Subject: Annual Conference
+Dialogue: 0,0:11:58.10,0:12:01.05,Chinese,,0,0,0,,主題：年會
+Dialogue: 0,0:12:01.45,0:12:08.22,English,,0,0,0,,Good morning, everyone. I hope you had a relaxing weekend and are ready to get back to work.
+Dialogue: 0,0:12:01.45,0:12:08.22,Chinese,,0,0,0,,大家早安。我希望您度過了一個輕鬆的周末，並準備好回去工作。
+Dialogue: 0,0:12:08.62,0:12:15.94,English,,0,0,0,,I'm sending you this email to let you know our annual conference has been booked for December 1st and 2nd at the Lakeview Hotel.
+Dialogue: 0,0:12:08.62,0:12:15.94,Chinese,,0,0,0,,我向您發送這封電子郵件是為了通知您我們的年度會議已預訂於 12 月 1 日至 2 日在湖景酒店舉行。
+Dialogue: 0,0:12:16.34,0:12:25.79,English,,0,0,0,,As you are no doubt aware, we will be discussing the sales for this past year, in addition to planned marketing campaigns and upcoming models for next year.
+Dialogue: 0,0:12:16.34,0:12:25.79,Chinese,,0,0,0,,您無疑知道，除了計劃的營銷活動和明年即將推出的車型之外，我們還將討論去年的銷售情況。
+Dialogue: 0,0:12:26.19,0:12:33.37,English,,0,0,0,,We will be arriving at the hotel at 9am on the 1st, and the meetings are scheduled to last until 1pm.
+Dialogue: 0,0:12:26.19,0:12:33.37,Chinese,,0,0,0,,我們將於1號上午9點到達飯店，會議預計持續到下午1點。
+Dialogue: 0,0:12:33.77,0:12:39.77,English,,0,0,0,,The hotel offers quite a few amenities for guests, so please feel free to make use of them.
+Dialogue: 0,0:12:33.77,0:12:39.77,Chinese,,0,0,0,,飯店為房客提供了多種便利設施，請隨意使用。
+Dialogue: 0,0:12:40.17,0:12:49.94,English,,0,0,0,,As I understand it, there is going to be a live musical performance by an up-and-coming pop star that night that is supposed to be quite popular and is highly recommended.
+Dialogue: 0,0:12:40.17,0:12:49.94,Chinese,,0,0,0,,據我了解，當晚將會有一位新晉流行歌星的現場音樂表演，應該會很受歡迎，強烈推薦。
+Dialogue: 0,0:12:50.34,0:12:55.47,English,,0,0,0,,If you have any questions about the conference, please feel free to send me an email.
+Dialogue: 0,0:12:50.34,0:12:55.47,Chinese,,0,0,0,,如果您對會議有任何疑問，請隨時給我發電子郵件。
+Dialogue: 0,0:12:55.87,0:13:01.18,English,,0,0,0,,Sincerely, Grant Gustav National Manager, Marketing and Sales
+Dialogue: 0,0:12:55.87,0:13:01.18,Chinese,,0,0,0,,此致 格蘭特古斯塔夫 全國行銷與銷售經理
+Dialogue: 0,0:13:01.58,0:13:05.68,English,,0,0,0,,Scheduled Lakeview Hotel Performances for December 1st
+Dialogue: 0,0:13:01.58,0:13:05.68,Chinese,,0,0,0,,12月1日湖景飯店演出預定
+Dialogue: 0,0:13:06.08,0:13:07.93,English,,0,0,0,,Talent Show
+Dialogue: 0,0:13:06.08,0:13:07.93,Chinese,,0,0,0,,才藝表演
+Dialogue: 0,0:13:08.33,0:13:17.04,English,,0,0,0,,Come and watch would-be stars show off their talents. Includes a wide range of performances, including acrobatics and magic.
+Dialogue: 0,0:13:08.33,0:13:17.04,Chinese,,0,0,0,,來觀看未來的明星展示他們的才華。包括雜技和魔術等各種表演。
+Dialogue: 0,0:13:17.44,0:13:20.06,English,,0,0,0,,Live Show: Missy Zee
+Dialogue: 0,0:13:17.44,0:13:20.06,Chinese,,0,0,0,,現場表演：Missy Zee
+Dialogue: 0,0:13:20.46,0:13:27.37,English,,0,0,0,,One of the hottest new singers on the scene will be giving a one-night-only live performance for guests of the Lakeview Hotel.
+Dialogue: 0,0:13:20.46,0:13:27.37,Chinese,,0,0,0,,現場最炙手可熱的新歌手之一將為湖景酒店的客人帶來一場僅限一晚的現場表演。
+Dialogue: 0,0:13:27.77,0:13:30.65,English,,0,0,0,,*Seats must be reserved in advance*
+Dialogue: 0,0:13:27.77,0:13:30.65,Chinese,,0,0,0,,*座位需提前預約*
+Dialogue: 0,0:13:31.05,0:13:32.87,English,,0,0,0,,Māori Haka
+Dialogue: 0,0:13:31.05,0:13:32.87,Chinese,,0,0,0,,毛利哈卡舞
+Dialogue: 0,0:13:33.27,0:13:39.30,English,,0,0,0,,Be amazed by the traditional war dance of the Māori, as performed by actual Māori warriors.
+Dialogue: 0,0:13:33.27,0:13:39.30,Chinese,,0,0,0,,由真正的毛利戰士表演的毛利傳統戰舞會讓您驚嘆不已。
+Dialogue: 0,0:13:39.70,0:13:42.10,English,,0,0,0,,Classical Piano Live
+Dialogue: 0,0:13:39.70,0:13:42.10,Chinese,,0,0,0,,古典鋼琴現場表演
+Dialogue: 0,0:13:42.50,0:13:48.52,English,,0,0,0,,Enjoy the music of several classical pianists as you dine in our luxurious buffet restaurant.
+Dialogue: 0,0:13:42.50,0:13:48.52,Chinese,,0,0,0,,在我們豪華的自助餐廳用餐時，您可以欣賞幾位古典鋼琴家的音樂。
+Dialogue: 0,0:13:48.92,0:13:51.97,English,,0,0,0,,What is the information on the website about?
+Dialogue: 0,0:13:48.92,0:13:51.97,Chinese,,0,0,0,,網站上的資訊是關於什麼的？
+Dialogue: 0,0:13:52.37,0:13:55.54,English,,0,0,0,,How to book a limited vacation package.
+Dialogue: 0,0:13:52.37,0:13:55.54,Chinese,,0,0,0,,如何預訂有限的假期套餐。
+Dialogue: 0,0:13:55.94,0:13:59.03,English,,0,0,0,,An offer for a weeklong stay at a villa.
+Dialogue: 0,0:13:55.94,0:13:59.03,Chinese,,0,0,0,,提供一週的別墅住宿優惠。
+Dialogue: 0,0:13:59.43,0:14:02.58,English,,0,0,0,,A special offer for short conferences.
+Dialogue: 0,0:13:59.43,0:14:02.58,Chinese,,0,0,0,,短期會議特別優惠。
+Dialogue: 0,0:14:02.98,0:14:06.58,English,,0,0,0,,Purchasing an all-access pass to the facilities.
+Dialogue: 0,0:14:02.98,0:14:06.58,Chinese,,0,0,0,,購買設施的所有通行證。
+Dialogue: 0,0:14:06.98,0:14:11.18,English,,0,0,0,,According to the email, how long will the people stay in the hotel?
+Dialogue: 0,0:14:06.98,0:14:11.18,Chinese,,0,0,0,,根據電子郵件，人們將在酒店停留多長時間？
+Dialogue: 0,0:14:11.58,0:14:13.23,English,,0,0,0,,One day
+Dialogue: 0,0:14:11.58,0:14:13.23,Chinese,,0,0,0,,一天
+Dialogue: 0,0:14:13.63,0:14:15.38,English,,0,0,0,,Two days
+Dialogue: 0,0:14:13.63,0:14:15.38,Chinese,,0,0,0,,兩天
+Dialogue: 0,0:14:15.78,0:14:17.49,English,,0,0,0,,One week
+Dialogue: 0,0:14:15.78,0:14:17.49,Chinese,,0,0,0,,一週
+Dialogue: 0,0:14:17.89,0:14:19.64,English,,0,0,0,,Two weeks
+Dialogue: 0,0:14:17.89,0:14:19.64,Chinese,,0,0,0,,兩週
+Dialogue: 0,0:14:20.04,0:14:22.90,English,,0,0,0,,What is NOT mentioned about the package?
+Dialogue: 0,0:14:20.04,0:14:22.90,Chinese,,0,0,0,,包裝中沒有提到什麼？
+Dialogue: 0,0:14:23.30,0:14:25.98,English,,0,0,0,,The method to make a reservation.
+Dialogue: 0,0:14:23.30,0:14:25.98,Chinese,,0,0,0,,預訂方法。
+Dialogue: 0,0:14:26.38,0:14:29.34,English,,0,0,0,,The price for each individual guest.
+Dialogue: 0,0:14:26.38,0:14:29.34,Chinese,,0,0,0,,每位客人的價格。
+Dialogue: 0,0:14:29.74,0:14:32.66,English,,0,0,0,,What equipment is available to use.
+Dialogue: 0,0:14:29.74,0:14:32.66,Chinese,,0,0,0,,有哪些設備可以使用。
+Dialogue: 0,0:14:33.06,0:14:35.85,English,,0,0,0,,Any restrictions that may apply.
+Dialogue: 0,0:14:33.06,0:14:35.85,Chinese,,0,0,0,,任何可能適用的限制。
+Dialogue: 0,0:14:36.25,0:14:40.93,English,,0,0,0,,Which performance is the manager most likely encouraging the people to see?
+Dialogue: 0,0:14:36.25,0:14:40.93,Chinese,,0,0,0,,經理最有可能鼓勵員工看到哪一種表現？
+Dialogue: 0,0:14:41.33,0:14:43.18,English,,0,0,0,,Talent Show
+Dialogue: 0,0:14:41.33,0:14:43.18,Chinese,,0,0,0,,才藝表演
+Dialogue: 0,0:14:43.58,0:14:46.19,English,,0,0,0,,Live Show: Missy Z
+Dialogue: 0,0:14:43.58,0:14:46.19,Chinese,,0,0,0,,現場表演：Missy Z
+Dialogue: 0,0:14:46.59,0:14:48.42,English,,0,0,0,,Māori Haka
+Dialogue: 0,0:14:46.59,0:14:48.42,Chinese,,0,0,0,,毛利哈卡舞
+Dialogue: 0,0:14:48.82,0:14:51.22,English,,0,0,0,,Classical Piano Live
+Dialogue: 0,0:14:48.82,0:14:51.22,Chinese,,0,0,0,,古典鋼琴現場表演
+Dialogue: 0,0:14:51.62,0:14:54.57,English,,0,0,0,,What can be inferred about the performance?
+Dialogue: 0,0:14:51.62,0:14:54.57,Chinese,,0,0,0,,關於性能可以推斷出什麼？
+Dialogue: 0,0:14:54.97,0:14:57.78,English,,0,0,0,,It will be a highly popular show.
+Dialogue: 0,0:14:54.97,0:14:57.78,Chinese,,0,0,0,,這將是一個非常受歡迎的節目。
+Dialogue: 0,0:14:58.18,0:15:00.91,English,,0,0,0,,The performer is past their prime.
+Dialogue: 0,0:14:58.18,0:15:00.91,Chinese,,0,0,0,,表演者已經過了巔峰期。
+Dialogue: 0,0:15:01.31,0:15:04.41,English,,0,0,0,,It is only open to VIP guests.
+Dialogue: 0,0:15:01.31,0:15:04.41,Chinese,,0,0,0,,它只對 VIP 客人開放。
+Dialogue: 0,0:15:04.81,0:15:08.00,English,,0,0,0,,People not staying at the hotel may attend.
+Dialogue: 0,0:15:04.81,0:15:08.00,Chinese,,0,0,0,,不住在飯店的人也可以參加。

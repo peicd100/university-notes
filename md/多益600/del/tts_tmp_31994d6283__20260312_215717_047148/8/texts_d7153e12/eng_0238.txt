@@ -1,0 +1,4 @@
+However, every time I try to
+confirm the order and make the
+payment, the shipping fee is added
+onto the total.
