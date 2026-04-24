@@ -20,6 +20,11 @@
   {% include "partials/scroll-bottom.html" ignore missing %}
 {% endblock %}
 
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'assets/pymdownx-extras/scroll-bottom.js?v=20260424-3' | url }}" type="text/javascript"></script>
+{% endblock %}
+
 <!-- 贊助 -->
 <!-- {% block announce %}{% include "announce.html" ignore missing %}{% endblock %}
 
