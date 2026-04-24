@@ -6,6 +6,7 @@
   const HIDE_THRESHOLD_PX = 24;
   let listenersBound = false;
   let frameRequested = false;
+  let documentSubscribed = false;
 
   function getButton() {
     return document.querySelector(BUTTON_SELECTOR);
@@ -91,13 +92,24 @@
     requestSync();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initScrollBottomButton, { once: true });
-  } else {
-    initScrollBottomButton();
-  }
+  function subscribeToMaterialNavigation() {
+    if (documentSubscribed) return;
+    if (!window.document$?.subscribe) return;
 
-  if (window.document$?.subscribe) {
+    documentSubscribed = true;
     window.document$.subscribe(initScrollBottomButton);
   }
+
+  function init() {
+    initScrollBottomButton();
+    subscribeToMaterialNavigation();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+
+  window.addEventListener("load", subscribeToMaterialNavigation, { once: true });
 })();
