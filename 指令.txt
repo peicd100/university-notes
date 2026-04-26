@@ -1,5 +1,123 @@
-a
-t
-a
-a
-a
+
+## Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)
+
+這是 Chapter 4 後半接 Chapter 5 Synchronization 的重要橋接點。
+
+你前面已經學過：
+
+* threads 共享 code / data / heap / files
+* 多個 threads 可以同時執行
+* thread 太多會有 overhead
+
+接下來要處理：
+
+> 多個 threads 同時改同一個 shared variable 時，可能會發生錯誤結果。
+
+###   Race Condition 是什麼？
+
+**Race condition(競爭情況)** 是指：
+
+> 多個 threads / processes 同時存取並修改 shared data，最後結果取決於執行順序。
+
+例如：
+
+```c
+counter++;
+```
+
+看起來是一行，但底層大概可拆成三步：
+
+```text
+1. read counter
+2. counter + 1
+3. write counter back
+```
+
+如果兩個 threads 同時做 `counter++`，可能發生：
+
+```text
+counter 原本是 0
+
+Thread A 讀到 0
+Thread B 讀到 0
+Thread A 算出 1 並寫回
+Thread B 算出 1 並寫回
+
+最後 counter = 1
+```
+
+但正確應該是：
+
+```text
+counter = 2
+```
+
+這就是 race condition。
+
+---
+
+### 為什麼需要 Mutex Lock？
+
+**Mutex Lock(互斥鎖)** 的目的：
+
+> 讓同一時間只有一個 thread 可以進入 critical section(臨界區間)。
+
+Critical section 是：
+
+> 會存取 shared data 的程式區段。
+
+例如：
+
+```c
+pthread_mutex_lock(&mutex);
+counter++;
+pthread_mutex_unlock(&mutex);
+```
+
+意思是：
+
+1. 先拿鎖
+2. 修改 shared variable
+3. 放鎖
+
+這樣其他 thread 要改 `counter` 時，就必須等目前這個 thread 改完。
+
+---
+
+###  沒有 mutex vs 有 mutex
+
+#### 沒有 mutex
+
+```c
+counter++;
+```
+
+可能兩個 threads 同時改，造成結果錯誤。
+
+#### 有 mutex
+
+```c
+pthread_mutex_lock(&mutex);
+counter++;
+pthread_mutex_unlock(&mutex);
+```
+
+一次只允許一個 thread 改，所以結果比較安全。
+
+---
+
+##   局部知識點地圖
+
+| 項目     | 狀態                                                                   |
+| ------ | -------------------------------------------------------------------- |
+| 知識點名稱  | Race Condition and Mutex Lock                                        |
+| 主線位置   | Chapter 4／Race condition；Chapter 5／Synchronization 前置                |
+| 子概念    | shared data、race condition、critical section、mutex lock、lock / unlock |
+| 相關來源   | Ch4 講義、Ch5 講義                                                        |
+| 相關來源題目 | Race condition code、mutex solution                                   |
+| 內容覆蓋狀態 | 剛開始                                                                  |
+| 題目覆蓋狀態 | 即將第一輪練習                                                              |
+| 是否高頻   | 暫定 High-frequency Point：同步章節核心概念                                     |
+| 是否弱點   | 尚未發現                                                                 |
+| 練習目標   | 能判斷 race condition 發生原因，並知道 mutex 如何修正                               |
+| 易錯概念   | 以為 `counter++` 是不可分割的一步；忘記 lock 和 unlock 要包住 shared data 修改區         |

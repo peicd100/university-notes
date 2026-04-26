@@ -5,7 +5,8 @@ set "ROOT=%~dp0"
 set "PREVIEW_ENV=mkdocs_desk"
 set "CONDA_ROOT="
 
-if "%~1"=="" goto :usage
+if "%~1"=="/?" goto :usage
+if /i "%~1"=="--help" goto :usage
 
 cd /d "%ROOT%"
 
@@ -28,7 +29,7 @@ python "%ROOT%tools\update_preview_config.py" %*
 if errorlevel 1 exit /b %errorlevel%
 
 if /i "%PREVIEW_SKIP_SERVE%"=="1" (
-    echo Updated mkdocs.preview.yml. Skipped mkdocs serve because PREVIEW_SKIP_SERVE=1.
+    echo Prepared preview target. Skipped mkdocs serve because PREVIEW_SKIP_SERVE=1.
     exit /b 0
 )
 
@@ -54,6 +55,7 @@ for %%D in (
 goto :eof
 
 :usage
-echo Usage: preview.bat ^<Markdown path^>
+echo Usage: preview.bat [Markdown path]
 echo Example: preview.bat docs\md\...\file.md
+echo Without a path, preview.bat uses the previous target in mkdocs.preview.yml.
 exit /b 1

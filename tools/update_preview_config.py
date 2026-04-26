@@ -22,8 +22,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "path_parts",
-        nargs="+",
-        help="目標 Markdown 路徑，可用 docs/... 或 docs_dir 相對路徑。",
+        nargs="*",
+        help="目標 Markdown 路徑，可用 docs/... 或 docs_dir 相對路徑。省略時沿用上一次 preview 目標。",
     )
     return parser.parse_args()
 
@@ -95,6 +95,32 @@ def build_managed_block(relative_markdown_path: str) -> str:
     )
 
 
+def _yaml_unquote_scalar(value: str) -> str:
+    value = value.strip()
+    if len(value) >= 2 and value.startswith("'") and value.endswith("'"):
+        return value[1:-1].replace("''", "'")
+    if len(value) >= 2 and value.startswith('"') and value.endswith('"'):
+        return value[1:-1]
+    return value
+
+
+def read_current_preview_target(config_text: str) -> str:
+    if MANAGED_START not in config_text or MANAGED_END not in config_text:
+        raise SystemExit("mkdocs.preview.yml 缺少 preview managed 區塊，請先用 preview.bat <Markdown path> 設定一次。")
+
+    start = config_text.index(MANAGED_START) + len(MANAGED_START)
+    end = config_text.index(MANAGED_END, start)
+    managed_block = config_text[start:end]
+    nav_match = re.search(r"(?m)^[ \t]*-[ \t]*(.+?)\s*$", managed_block)
+    if nav_match is None:
+        raise SystemExit("mkdocs.preview.yml 找不到上一次 preview 目標。")
+
+    target = _yaml_unquote_scalar(nav_match.group(1))
+    if not target:
+        raise SystemExit("mkdocs.preview.yml 的上一次 preview 目標是空值。")
+    return target
+
+
 def replace_managed_block(config_text: str, managed_block: str) -> str:
     if MANAGED_START in config_text and MANAGED_END in config_text:
         start = config_text.index(MANAGED_START)
@@ -112,15 +138,22 @@ def replace_managed_block(config_text: str, managed_block: str) -> str:
 def main() -> int:
     args = parse_args()
     raw_path = _clean_input(args.path_parts)
-    absolute_target, relative_markdown_path = normalize_markdown_path(raw_path)
 
     config_text = PREVIEW_CONFIG.read_text(encoding="utf-8")
-    updated = replace_managed_block(config_text, build_managed_block(relative_markdown_path))
-    PREVIEW_CONFIG.write_text(updated, encoding="utf-8", newline="\n")
+    if raw_path:
+        absolute_target, relative_markdown_path = normalize_markdown_path(raw_path)
+        updated = replace_managed_block(config_text, build_managed_block(relative_markdown_path))
+        PREVIEW_CONFIG.write_text(updated, encoding="utf-8", newline="\n")
+        print(f"preview target: {relative_markdown_path}")
+        print(f"absolute file:  {absolute_target}")
+        print(f"updated config: {PREVIEW_CONFIG}")
+        return 0
 
+    relative_markdown_path = read_current_preview_target(config_text)
+    absolute_target, relative_markdown_path = normalize_markdown_path(relative_markdown_path)
     print(f"preview target: {relative_markdown_path}")
     print(f"absolute file:  {absolute_target}")
-    print(f"updated config: {PREVIEW_CONFIG}")
+    print(f"using config:   {PREVIEW_CONFIG}")
     return 0
 
 

@@ -17,12 +17,14 @@ int pthread_create(
 );
 ```
 
-| 名稱                            | 用途                                                                                                                                          |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| pthread_t *thread,              | 給 Thread，<br>當建立成功的話 Thread 會把 ID 存進去                                                                                           |
-| pthread_attr_t *attr,           | (比較沒用)最常見入門寫法都是傳 NULL，表示用預設值。像 stack size、detach state 之類才會用到自訂 attributes。這是 POSIX 與實務教學的一般用法。 |
-| void *(*start_routine)(void *), | 執行的函數的名稱                                                                                                                              |
-| void *arg                       | 傳給函數的數值                    也就是void *(*start_routine)(void *)裡面的  void *                                                                                                    |
+| 參數                                 | 意思                       |
+| ---------------------------------- | ------------------------ |
+| `pthread_t *thread`                | 存放建立出來的 thread ID        |
+| `pthread_attr_t *attr`             | thread 屬性；可用 `NULL` 表示預設 |
+| `void *(*thread_function)(void *)` | thread 要執行的 function     |
+| `void *arg`                        | 傳給 thread function 的參數   |
+
+
 
 以圖片為例
 
@@ -72,7 +74,19 @@ void *runner(void *param) {   // param = argv[1]
 在 terminal 輸入：
 
 ```txt
-./test 5
+./test 10
+```
+
+
+會計算：
+```
+sum = 1 + 2 + 3 + ... + 10 = 55
+```
+
+會輸出：
+
+```txt
+sum: 55
 ```
 
 那麼：
@@ -132,3 +146,21 @@ void *runner(void *param) {
 ```
 
 pthread_create 把數字 `argv[1]` 傳給了 void *runner(void *param) ，最後計算結果return，被`pthread_join(tid, &result); `接收，`&result`是創建數值別名，所以最後 result 是結果。
+
+
+如果輸入：
+
+```txt
+./test 3
+```
+
+會計算：
+
+```txt
+1² + 2² + 3² = 1 + 4 + 9 = 14
+```
+
+最後輸出：
+```
+平方總和 = 14
+```

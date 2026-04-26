@@ -22,13 +22,14 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
 vbs_bat\university notes.vbs
 preview.bat docs\md\114-2\科技_計算機結構\ch 2.md
 p.bat docs\md\114-2\電機_作業系統\ch 4.md
+p.bat
 Y:\conda\envs\mkdocs\python.exe docs\md\多益600\紀錄.py --workspace docs\md\多益600 --run-once --rate 1.0 --gap 0.4 --mode both
 ```
 
 ## 常用操作補充
 - `mkdocs.preview.yml` 目前是單頁 preview 設定，實際預覽頁面以該檔 `nav` / `exclude_docs` 為準。
 - `preview.bat` 會自動把輸入的 `docs\...` 或 `md\...` 路徑正規化為 `docs_dir` 相對路徑，更新 `mkdocs.preview.yml` 的 managed 區塊，然後啟用 `mkdocs_desk` 並用 `python -m mkdocs serve -f mkdocs.preview.yml --dirty` 執行 preview serve。
-- `p.bat` 是 `preview.bat` 的短命令包裝；PowerShell 可直接用 `.\p docs\md\114-2\電機_作業系統\ch 4.md`。
+- `p.bat` 是 `preview.bat` 的短命令包裝；PowerShell 可直接用 `.\p docs\md\114-2\電機_作業系統\ch 4.md`。若只輸入 `.\p`，會沿用 `mkdocs.preview.yml` 目前 managed 區塊中的上一次 preview 目標。
 - `mkdocs.preview.yml` 的 `# preview-target:start` 到 `# preview-target:end` 區塊現在交由工具維護；若要保留額外 preview 設定，請放在區塊外。
 - 本機右鍵「開啟原文檔案 / 複製」由 `docs/theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py` 配合提供。
 - 站點目前保留 Material 內建的頁首 `Back to top`，並額外提供右下角 `Back to bottom` 浮動按鈕；後者由 `docs/theme/partials/scroll-bottom.html`、`docs/theme/assets/pymdownx-extras/scroll-bottom.js` 與 `docs/theme/assets/pymdownx-extras/自定義.css` 共同控制。`scroll-bottom.js` 現在由 `docs/theme/main.html` 的 `scripts` block 在 Material bundle 後載入，並帶 `?v=20260424-3` 破快取；JS 內部仍會在 `DOMContentLoaded` / `load` 後補訂閱 `window.document$`，避免 `navigation.instant` 切頁後按鈕未重新綁定。
