@@ -5652,26 +5652,26 @@ is now available!
 <table>
 <thead>
 <tr>
-<th>名稱</th>
-<th>用途</th>
+<th>參數</th>
+<th>意思</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>pthread_t *thread,</td>
-<td>給 Thread，<br>當建立成功的話 Thread 會把 ID 存進去</td>
+<td><code>pthread_t *thread</code></td>
+<td>存放建立出來的 thread ID</td>
 </tr>
 <tr>
-<td>pthread_attr_t *attr,</td>
-<td>(比較沒用)最常見入門寫法都是傳 NULL，表示用預設值。像 stack size、detach state 之類才會用到自訂 attributes。這是 POSIX 與實務教學的一般用法。</td>
+<td><code>pthread_attr_t *attr</code></td>
+<td>thread 屬性；可用 <code>NULL</code> 表示預設</td>
 </tr>
 <tr>
-<td>void <em>(</em>start_routine)(void *),</td>
-<td>執行的函數的名稱</td>
+<td><code>void *(*thread_function)(void *)</code></td>
+<td>thread 要執行的 function</td>
 </tr>
 <tr>
-<td>void *arg</td>
-<td>傳給函數的數值                    也就是void <em>(</em>start_routine)(void *)裡面的  void *</td>
+<td><code>void *arg</code></td>
+<td>傳給 thread function 的參數</td>
 </tr>
 </tbody>
 </table>
@@ -5716,7 +5716,13 @@ is now available!
 <span class="p">}</span>
 </code></pre></div>
 <p>在 terminal 輸入：</p>
-<div class="highlight"><pre><span></span><code>./test 5
+<div class="highlight"><pre><span></span><code>./test 10
+</code></pre></div>
+<p>會計算：<br />
+<div class="highlight"><pre><span></span><code>sum = 1 + 2 + 3 + ... + 10 = 55
+</code></pre></div></p>
+<p>會輸出：</p>
+<div class="highlight"><pre><span></span><code>sum: 55
 </code></pre></div>
 <p>那麼：</p>
 <table>
@@ -5785,6 +5791,15 @@ is now available!
 <span class="p">}</span>
 </code></pre></div>
 <p>pthread_create 把數字 <code>argv[1]</code> 傳給了 void *runner(void *param) ，最後計算結果return，被<code>pthread_join(tid, &amp;result);</code>接收，<code>&amp;result</code>是創建數值別名，所以最後 result 是結果。</p>
+<p>如果輸入：</p>
+<div class="highlight"><pre><span></span><code>./test 3
+</code></pre></div>
+<p>會計算：</p>
+<div class="highlight"><pre><span></span><code>1² + 2² + 3² = 1 + 4 + 9 = 14
+</code></pre></div>
+<p>最後輸出：<br />
+<div class="highlight"><pre><span></span><code>平方總和 = 14
+</code></pre></div></p>
 
 
 
