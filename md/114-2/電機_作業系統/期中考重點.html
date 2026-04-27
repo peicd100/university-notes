@@ -7703,6 +7703,750 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#openmp-的-privatejcollapse2-比較" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenMP 的 private(j)、collapse(2) 比較
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenMP 的 private(j)、collapse(2) 比較">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-小筆記privatej-vs-collapse2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 小筆記：private(j) vs collapse(2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 小筆記：private(j) vs collapse(2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-privatej-的用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 private(j) 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-collapse2-的用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 collapse(2) 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-你的主要盲點修正" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 你的主要盲點修正
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 你的主要盲點修正">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-盲點一把-collapse2-當成解決-j-共用問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 盲點一：把 collapse(2) 當成解決 j 共用問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 盲點二：把 n × m 個 iteration pairs 說成 n × m 個 threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-對照表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 對照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最終記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最終記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-英文考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 英文考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#race-condition競爭情況-與-mutex-lock互斥鎖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#race-condition-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race Condition 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼需要-mutex-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼需要 Mutex Lock？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#沒有-mutex-vs-有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沒有 mutex vs 有 mutex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="沒有 mutex vs 有 mutex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#沒有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沒有 mutex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有 mutex
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-section-problem-requirements臨界區間問題的三個要求" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical-Section Problem Requirements(臨界區間問題的三個要求)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Critical-Section Problem Requirements(臨界區間問題的三個要求)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#什麼是-critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼是 Critical Section？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutual-exclusion互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutual Exclusion(互斥)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress進行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Progress(進行)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting限制等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded Waiting(限制等待)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三個要求最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三個要求最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starvation-是啥意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        starvation 是啥意思
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#petersons-solutionpeterson-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solution(Peterson 解法)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Peterson’s Solution(Peterson 解法)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flagi-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flag[i] 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#turn-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        turn 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#petersons-solution-的基本結構" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solution 的基本結構
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼可以互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼可以互斥？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#petersons-solutio-nand-critical-section-problem-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solutio nand Critical-Section Problem Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Peterson’s Solutio nand Critical-Section Problem Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#程式骨架再看一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程式骨架再看一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-mutual-exclusion互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Mutual Exclusion(互斥)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-progress進行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Progress(進行)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-bounded-waiting限制等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Bounded Waiting(限制等待)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronization-hardware-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronization Hardware Code Reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronization Hardware Code Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testandset-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet code reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TestAndSet code reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testandset-定義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet 定義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-testandset-做-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 TestAndSet 做 lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況一lock-原本是-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：lock 原本是 false
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二lock-原本是-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：lock 原本是 true
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testandset-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap code reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="compare_and_swap code reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-定義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap 定義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-compare_and_swap-做-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 compare_and_swap 做 lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況一lock-原本是-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：lock 原本是 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二lock-原本是-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：lock 原本是 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testandset-vs-compare_and_swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet vs compare_and_swap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常見陷阱_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見陷阱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#到底為何要說是硬體原子化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        到底為何要說是硬體原子化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="到底為何要說是硬體原子化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#你的理解很接近正確" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你的理解很接近正確
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#組合語言到底扮演什麼角色" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組合語言到底扮演什麼角色？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#電路一條龍可以這樣想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        「電路一條龍」可以這樣想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼普通-c-code-做不到" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼普通 C code 做不到？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最終記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最終記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bounded-waiting-mutual-exclusion-with-testandset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded-waiting Mutual Exclusion with TestAndSet()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bounded-waiting Mutual Exclusion with TestAndSet()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#本輪必要知識快速複習" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本輪必要知識快速複習
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting-版本的核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded-waiting 版本的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關鍵-code-先看一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關鍵 code 先看一次
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="關鍵 code 先看一次">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#入口等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        入口等待
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#離開時找下一位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        離開時找下一位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -12081,6 +12825,750 @@ is now available!
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openmp-的-privatejcollapse2-比較" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenMP 的 private(j)、collapse(2) 比較
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenMP 的 private(j)、collapse(2) 比較">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-小筆記privatej-vs-collapse2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 小筆記：private(j) vs collapse(2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 小筆記：private(j) vs collapse(2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-privatej-的用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 private(j) 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-collapse2-的用途" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 collapse(2) 的用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-你的主要盲點修正" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 你的主要盲點修正
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 你的主要盲點修正">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-盲點一把-collapse2-當成解決-j-共用問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 盲點一：把 collapse(2) 當成解決 j 共用問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 盲點二：把 n × m 個 iteration pairs 說成 n × m 個 threads
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-對照表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 對照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最終記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最終記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-英文考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 英文考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#race-condition競爭情況-與-mutex-lock互斥鎖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#race-condition-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race Condition 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼需要-mutex-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼需要 Mutex Lock？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#沒有-mutex-vs-有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沒有 mutex vs 有 mutex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="沒有 mutex vs 有 mutex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#沒有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        沒有 mutex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#有-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有 mutex
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-section-problem-requirements臨界區間問題的三個要求" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical-Section Problem Requirements(臨界區間問題的三個要求)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Critical-Section Problem Requirements(臨界區間問題的三個要求)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#什麼是-critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什麼是 Critical Section？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutual-exclusion互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutual Exclusion(互斥)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress進行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Progress(進行)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting限制等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded Waiting(限制等待)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三個要求最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三個要求最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starvation-是啥意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        starvation 是啥意思
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#petersons-solutionpeterson-解法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solution(Peterson 解法)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Peterson’s Solution(Peterson 解法)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flagi-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flag[i] 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#turn-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        turn 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#petersons-solution-的基本結構" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solution 的基本結構
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼可以互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼可以互斥？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#petersons-solutio-nand-critical-section-problem-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peterson’s Solutio nand Critical-Section Problem Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Peterson’s Solutio nand Critical-Section Problem Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#程式骨架再看一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        程式骨架再看一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-mutual-exclusion互斥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Mutual Exclusion(互斥)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-progress進行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Progress(進行)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼滿足-bounded-waiting限制等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼滿足 Bounded Waiting(限制等待)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronization-hardware-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronization Hardware Code Reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronization Hardware Code Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testandset-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet code reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TestAndSet code reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testandset-定義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet 定義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-testandset-做-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 TestAndSet 做 lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況一lock-原本是-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：lock 原本是 false
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二lock-原本是-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：lock 原本是 true
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testandset-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-code-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap code reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="compare_and_swap code reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-定義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap 定義
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#用-compare_and_swap-做-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用 compare_and_swap 做 lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況一lock-原本是-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況一：lock 原本是 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#情況二lock-原本是-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        情況二：lock 原本是 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_and_swap-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_and_swap 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testandset-vs-compare_and_swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TestAndSet vs compare_and_swap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#常見陷阱_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常見陷阱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#到底為何要說是硬體原子化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        到底為何要說是硬體原子化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="到底為何要說是硬體原子化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#你的理解很接近正確" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        你的理解很接近正確
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#組合語言到底扮演什麼角色" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組合語言到底扮演什麼角色？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#電路一條龍可以這樣想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        「電路一條龍」可以這樣想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為什麼普通-c-code-做不到" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼普通 C code 做不到？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最終記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最終記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bounded-waiting-mutual-exclusion-with-testandset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded-waiting Mutual Exclusion with TestAndSet()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bounded-waiting Mutual Exclusion with TestAndSet()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#本輪必要知識快速複習" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本輪必要知識快速複習
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting-版本的核心" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounded-waiting 版本的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#關鍵-code-先看一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        關鍵 code 先看一次
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="關鍵 code 先看一次">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#入口等待" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        入口等待
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#離開時找下一位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        離開時找下一位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -16537,42 +18025,145 @@ collapse(2) = 把 2 層巢狀 for 合併成一個大迭代空間再平行化。
 </tr>
 </tbody>
 </table>
-<!-- 
+<h2 id="openmp-的-privatejcollapse2-比較">OpenMP 的 private(j)、collapse(2) 比較<a class="headerlink" href="#openmp-的-privatejcollapse2-比較" title="Permanent link"></a></h2>
+<h3 id="1-小筆記privatej-vs-collapse2">1. 小筆記：<code>private(j)</code> vs <code>collapse(2)</code><a class="headerlink" href="#1-小筆記privatej-vs-collapse2" title="Permanent link"></a></h3>
+<h4 id="11-privatej-的用途">1.1 <code>private(j)</code> 的用途<a class="headerlink" href="#11-privatej-的用途" title="Permanent link"></a></h4>
+<p><code>private(j)</code> 是在處理 <strong>變數共用問題</strong>。</p>
+<p>如果 <code>j</code> 宣告在平行區外面：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
 
-## Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)
+<span class="cp">#pragma omp parallel for</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">work</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>這裡多個 threads 可能會同時修改同一個 <code>j</code>，導致 <code>j</code> 的值互相干擾。</p>
+<p>所以加上：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for private(j)</span>
+</code></pre></div>
+<p>意思是：</p>
+<blockquote>
+<p>每個 thread 都有自己的 <code>j</code>，避免多個 threads 共用同一個 <code>j</code>。</p>
+</blockquote>
+<p>一句話：</p>
+<blockquote>
+<p><strong><code>private(j)</code> 解決的是 j 被共用造成的變數干擾問題。</strong></p>
+</blockquote>
+<hr />
+<h4 id="12-collapse2-的用途">1.2 <code>collapse(2)</code> 的用途<a class="headerlink" href="#12-collapse2-的用途" title="Permanent link"></a></h4>
+<p><code>collapse(2)</code> 是在處理 <strong>巢狀迴圈的工作分配問題</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for collapse(2)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">work</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>collapse(2)</code> 的意思是：</p>
+<blockquote>
+<p>把兩層 nested loops(巢狀迴圈) 合併成一個大的 iteration space(迭代空間)。</p>
+</blockquote>
+<p>如果外層有 <code>N</code> 次、內層有 <code>M</code> 次，概念上會產生：</p>
+<div class="highlight"><pre><span></span><code>N × M 個 iteration pairs
+</code></pre></div>
+<p>例如 <code>N = 4</code>、<code>M = 5</code>：</p>
+<div class="highlight"><pre><span></span><code>4 × 5 = 20 個 (i, j) iteration pairs
+</code></pre></div>
+<p>然後 OpenMP 再把這些 iteration pairs 分配給現有 threads。</p>
+<p>一句話：</p>
+<blockquote>
+<p><strong><code>collapse(2)</code> 解決的是兩層迴圈一起平行化與工作分配的問題。</strong></p>
+</blockquote>
+<hr />
+<h3 id="2-你的主要盲點修正">2. 你的主要盲點修正<a class="headerlink" href="#2-你的主要盲點修正" title="Permanent link"></a></h3>
+<h4 id="21-盲點一把-collapse2-當成解決-j-共用問題">2.1 盲點一：把 <code>collapse(2)</code> 當成解決 <code>j</code> 共用問題<a class="headerlink" href="#21-盲點一把-collapse2-當成解決-j-共用問題" title="Permanent link"></a></h4>
+<p>錯誤理解：</p>
+<div class="highlight"><pre><span></span><code>collapse(2) 讓 j 不再共用，所以數值不會錯。
+</code></pre></div>
+<p>正確理解：</p>
+<div class="highlight"><pre><span></span><code>private(j) 才是讓每個 thread 有自己的 j。
+collapse(2) 是把兩層迴圈合併成一個大迭代空間。
+</code></pre></div>
+<hr />
+<h4 id="22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads">2.2 盲點二：把 <code>n × m</code> 個 iteration pairs 說成 <code>n × m</code> 個 threads<a class="headerlink" href="#22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads" title="Permanent link"></a></h4>
+<p>錯誤理解：</p>
+<div class="highlight"><pre><span></span><code>collapse(2) 會產生 n × m 個 threads。
+</code></pre></div>
+<p>正確理解：</p>
+<div class="highlight"><pre><span></span><code>collapse(2) 會產生 n × m 個 iteration pairs，
+再把這些工作分配給目前可用的 threads。
+</code></pre></div>
+<p>thread 數量不是由 <code>collapse(2)</code> 決定，而是由 OpenMP runtime、<code>omp_set_num_threads()</code>、環境變數或系統可用核心數決定。</p>
+<hr />
+<h3 id="3-對照表">3. 對照表<a class="headerlink" href="#3-對照表" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>解決的問題</th>
+<th>核心意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>private(j)</code></td>
+<td>變數 <code>j</code> 被多個 threads 共用</td>
+<td>每個 thread 有自己的 <code>j</code></td>
+</tr>
+<tr>
+<td><code>collapse(2)</code></td>
+<td>只平行化外層 loop 可能工作分配不夠細</td>
+<td>把兩層 loop 攤平成 <code>N × M</code> 個 iteration pairs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-最終記法">4. 最終記法<a class="headerlink" href="#4-最終記法" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code>private(j)
+= variable scope problem
+= 每個 thread 一份 j
+= 避免 j 共用干擾
 
-這是 Chapter 4 後半接 Chapter 5 Synchronization 的重要橋接點。
+collapse(2)
+= loop distribution problem
+= 把兩層巢狀迴圈攤平成 N × M 個 iteration pairs
+= 再分配給現有 threads
+</code></pre></div>
+<hr />
+<h3 id="5-英文考試版">5. 英文考試版<a class="headerlink" href="#5-英文考試版" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code>private(j) gives each thread its own private copy of j, so the threads do not interfere with each other when updating j.
 
-你前面已經學過：
-
-* threads 共享 code / data / heap / files
-* 多個 threads 可以同時執行
-* thread 太多會有 overhead
-
-接下來要處理：
-
-> 多個 threads 同時改同一個 shared variable 時，可能會發生錯誤結果。
-
-###   Race Condition 是什麼？
-
-**Race condition(競爭情況)** 是指：
-
-> 多個 threads / processes 同時存取並修改 shared data，最後結果取決於執行順序。
-
-例如：
-
+collapse(2) collapses two nested loops into one larger iteration space. For an N × M nested loop, it creates N × M iteration pairs that can be distributed among the available threads. It does not create N × M threads.
+</code></pre></div>
+<p>這兩個概念在講義 OpenMP 巢狀迴圈範例中是分開出現的：<code>private(j)</code> 用來修正內層變數共享問題，而 <code>collapse(2)</code> 用來平行化內外兩層迴圈。</p>
+<h2 id="race-condition競爭情況-與-mutex-lock互斥鎖">Race Condition(競爭情況) 與 Mutex Lock(互斥鎖)<a class="headerlink" href="#race-condition競爭情況-與-mutex-lock互斥鎖" title="Permanent link"></a></h2>
+<p>這是 Chapter 4 後半接 Chapter 5 Synchronization 的重要橋接點。</p>
+<p>你前面已經學過：</p>
+<ul>
+<li>threads 共享 code / data / heap / files</li>
+<li>多個 threads 可以同時執行</li>
+<li>thread 太多會有 overhead</li>
+</ul>
+<p>接下來要處理：</p>
+<blockquote>
+<p>多個 threads 同時改同一個 shared variable 時，可能會發生錯誤結果。</p>
+</blockquote>
+<h3 id="race-condition-是什麼">Race Condition 是什麼？<a class="headerlink" href="#race-condition-是什麼" title="Permanent link"></a></h3>
+<p><strong>Race condition(競爭情況)</strong> 是指：</p>
+<blockquote>
+<p>多個 threads / processes 同時存取並修改 shared data，最後結果取決於執行順序。</p>
+</blockquote>
+<p>例如：</p>
 <div class="highlight"><pre><span></span><code><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
 </code></pre></div>
-
-看起來是一行，但底層大概可拆成三步：
-
+<p>看起來是一行，但底層大概可拆成三步：</p>
 <div class="highlight"><pre><span></span><code>1. read counter
 2. counter + 1
 3. write counter back
 </code></pre></div>
-
-如果兩個 threads 同時做 `counter++`，可能發生：
-
+<p>如果兩個 threads 同時做 <code>counter++</code>，可能發生：</p>
 <div class="highlight"><pre><span></span><code>counter 原本是 0
 
 Thread A 讀到 0
@@ -16582,220 +18173,183 @@ Thread B 算出 1 並寫回
 
 最後 counter = 1
 </code></pre></div>
-
-但正確應該是：
-
+<p>但正確應該是：</p>
 <div class="highlight"><pre><span></span><code>counter = 2
 </code></pre></div>
-
-這就是 race condition。
-
----
-
-### 為什麼需要 Mutex Lock？
-
-**Mutex Lock(互斥鎖)** 的目的：
-
-> 讓同一時間只有一個 thread 可以進入 critical section(臨界區間)。
-
-Critical section 是：
-
-> 會存取 shared data 的程式區段。
-
-例如：
-
+<p>這就是 race condition。</p>
+<hr />
+<h3 id="為什麼需要-mutex-lock">為什麼需要 Mutex Lock？<a class="headerlink" href="#為什麼需要-mutex-lock" title="Permanent link"></a></h3>
+<p><strong>Mutex Lock(互斥鎖)</strong> 的目的：</p>
+<blockquote>
+<p>讓同一時間只有一個 thread 可以進入 critical section(臨界區間)。</p>
+</blockquote>
+<p>Critical section 是：</p>
+<blockquote>
+<p>會存取 shared data 的程式區段。</p>
+</blockquote>
+<p>例如：</p>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
 <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 </code></pre></div>
-
-意思是：
-
-1. 先拿鎖
-2. 修改 shared variable
-3. 放鎖
-
-這樣其他 thread 要改 `counter` 時，就必須等目前這個 thread 改完。
-
----
-
-###  沒有 mutex vs 有 mutex
-
-#### 沒有 mutex
-
+<p>意思是：</p>
+<ol>
+<li>先拿鎖</li>
+<li>修改 shared variable</li>
+<li>放鎖</li>
+</ol>
+<p>這樣其他 thread 要改 <code>counter</code> 時，就必須等目前這個 thread 改完。</p>
+<hr />
+<h3 id="沒有-mutex-vs-有-mutex">沒有 mutex vs 有 mutex<a class="headerlink" href="#沒有-mutex-vs-有-mutex" title="Permanent link"></a></h3>
+<h4 id="沒有-mutex">沒有 mutex<a class="headerlink" href="#沒有-mutex" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
 </code></pre></div>
-
-可能兩個 threads 同時改，造成結果錯誤。
-
-#### 有 mutex
-
+<p>可能兩個 threads 同時改，造成結果錯誤。</p>
+<h4 id="有-mutex">有 mutex<a class="headerlink" href="#有-mutex" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
 <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 </code></pre></div>
-
-一次只允許一個 thread 改，所以結果比較安全。
-
-
-
-
-
-
-## Critical-Section Problem Requirements(臨界區間問題的三個要求)
-
-這是 Chapter 5 Synchronization 的核心。講義明確列出 critical-section problem 的解法必須滿足三個要求：
-
-1. Mutual Exclusion(互斥)
-2. Progress(進行)
-3. Bounded Waiting(限制等待) 
-
-### 什麼是 Critical Section？
-
-**Critical section(臨界區間)** 是會存取 shared data(共享資料) 的程式區段。
-
-例如：
-
+<p>一次只允許一個 thread 改，所以結果比較安全。</p>
+<h2 id="critical-section-problem-requirements臨界區間問題的三個要求">Critical-Section Problem Requirements(臨界區間問題的三個要求)<a class="headerlink" href="#critical-section-problem-requirements臨界區間問題的三個要求" title="Permanent link"></a></h2>
+<p>這是 Chapter 5 Synchronization 的核心。講義明確列出 critical-section problem 的解法必須滿足三個要求：</p>
+<ol>
+<li>Mutual Exclusion(互斥)</li>
+<li>Progress(進行)</li>
+<li>Bounded Waiting(限制等待) </li>
+</ol>
+<h3 id="什麼是-critical-section">什麼是 Critical Section？<a class="headerlink" href="#什麼是-critical-section" title="Permanent link"></a></h3>
+<p><strong>Critical section(臨界區間)</strong> 是會存取 shared data(共享資料) 的程式區段。</p>
+<p>例如：</p>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 
 <span class="n">counter</span><span class="o">++</span><span class="p">;</span><span class="w">   </span><span class="c1">// critical section</span>
 
 <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 </code></pre></div>
-
-真正危險的是 `counter++`，因為它會讀取、修改、寫回 shared variable。
-
----
-
-### Mutual Exclusion(互斥)
-
-意思是：
-
-> 如果一個 thread / process 正在 critical section 裡，其他 thread / process 不能同時進入自己的 critical section。
-
-生活例子：
-
-> 廁所一次只能一個人使用。有人在裡面，其他人要等。
-
-這是最基本條件。
-如果沒有 mutual exclusion，就可能發生 race condition。
-
----
-
-### Progress(進行)
-
-意思是：
-
-> 如果現在沒有人在 critical section，而有一些 thread 想進去，那系統應該能決定下一個誰進去，不能無限拖延。
-
-生活例子：
-
-> 廁所空著，而且有人在外面排隊，不能一直不讓任何人進去。
-
-Progress 主要避免：
-
-> 明明 critical section 是空的，但大家都卡住進不去。
-
----
-
-### Bounded Waiting(限制等待)
-
-意思是：
-
-> 一個 thread 提出進入 critical section 的請求後，其他 thread 能插隊進入的次數必須有限。
-
-生活例子：
-
-> 你排廁所，別人可以先用幾次，但不能永遠讓別人插隊，害你永遠進不去。
-
-Bounded waiting 是為了避免 starvation(飢餓)。
-
----
-
-### 三個要求最短記法
-
-!!! danger "背"
-
-    | Requirement      | 中文   | 核心問題                     |
-    | ---------------- | ---- | ------------------------ |
-    | Mutual Exclusion | 互斥   | 不能兩個同時進 critical section |
-    | Progress         | 進行   | 沒人在裡面時，要能選出下一個           |
-    | Bounded Waiting  | 限制等待 | 不能讓某個 thread 永遠等不到       |
-
-### starvation 是啥意思
-
-starvation：飢餓狀態；飢餓；資源長期得不到的狀態
-├─ starv：挨餓、缺乏到無法維持
-│  └─ starve：挨餓；使缺乏；使餓死
-└─ ation：名詞字尾，表示行為、結果或狀態
-   ├─ at：形成動作或狀態概念的連接成分
-   └─ ion：名詞化，表示行為、結果或狀態
-
-**Starvation(飢餓)** 是指：
-
-> 一個 process / thread 一直想取得某個資源或進入 critical section(臨界區間)，但因為其他 process / thread 一直被優先處理，導致它可能永遠等不到。
-
-注意：  
-這裡的「餓死」不是程式真的死亡，而是：
-
-> **它一直等、一直等、一直沒有機會執行。**
-
-I felt worried when the lost dog began to starve.
-當那隻走失的狗開始挨餓時，我很擔心。
-
-
-
-
-
-## Peterson’s Solution(Peterson 解法)
-
-這是 Chapter 5 的 software solution(軟體解法)。
-
-
-!!! danger "背"
-    用來解兩個 process 的 critical-section problem。
-
-
-Peterson’s Solution 用兩個共享變數：
-
+<p>真正危險的是 <code>counter++</code>，因為它會讀取、修改、寫回 shared variable。</p>
+<hr />
+<h3 id="mutual-exclusion互斥">Mutual Exclusion(互斥)<a class="headerlink" href="#mutual-exclusion互斥" title="Permanent link"></a></h3>
+<p>意思是：</p>
+<blockquote>
+<p>如果一個 thread / process 正在 critical section 裡，其他 thread / process 不能同時進入自己的 critical section。</p>
+</blockquote>
+<p>生活例子：</p>
+<blockquote>
+<p>廁所一次只能一個人使用。有人在裡面，其他人要等。</p>
+</blockquote>
+<p>這是最基本條件。<br />
+如果沒有 mutual exclusion，就可能發生 race condition。</p>
+<hr />
+<h3 id="progress進行">Progress(進行)<a class="headerlink" href="#progress進行" title="Permanent link"></a></h3>
+<p>意思是：</p>
+<blockquote>
+<p>如果現在沒有人在 critical section，而有一些 thread 想進去，那系統應該能決定下一個誰進去，不能無限拖延。</p>
+</blockquote>
+<p>生活例子：</p>
+<blockquote>
+<p>廁所空著，而且有人在外面排隊，不能一直不讓任何人進去。</p>
+</blockquote>
+<p>Progress 主要避免：</p>
+<blockquote>
+<p>明明 critical section 是空的，但大家都卡住進不去。</p>
+</blockquote>
+<hr />
+<h3 id="bounded-waiting限制等待">Bounded Waiting(限制等待)<a class="headerlink" href="#bounded-waiting限制等待" title="Permanent link"></a></h3>
+<p>意思是：</p>
+<blockquote>
+<p>一個 thread 提出進入 critical section 的請求後，其他 thread 能插隊進入的次數必須有限。</p>
+</blockquote>
+<p>生活例子：</p>
+<blockquote>
+<p>你排廁所，別人可以先用幾次，但不能永遠讓別人插隊，害你永遠進不去。</p>
+</blockquote>
+<p>Bounded waiting 是為了避免 starvation(飢餓)。</p>
+<hr />
+<h3 id="三個要求最短記法">三個要求最短記法<a class="headerlink" href="#三個要求最短記法" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">背</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>中文</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mutual Exclusion</td>
+<td>互斥</td>
+<td>不能兩個同時進 critical section</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>進行</td>
+<td>沒人在裡面時，要能選出下一個</td>
+</tr>
+<tr>
+<td>Bounded Waiting</td>
+<td>限制等待</td>
+<td>不能讓某個 thread 永遠等不到</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="starvation-是啥意思">starvation 是啥意思<a class="headerlink" href="#starvation-是啥意思" title="Permanent link"></a></h3>
+<p>starvation：飢餓狀態；飢餓；資源長期得不到的狀態<br />
+├─ starv：挨餓、缺乏到無法維持<br />
+│  └─ starve：挨餓；使缺乏；使餓死<br />
+└─ ation：名詞字尾，表示行為、結果或狀態<br />
+   ├─ at：形成動作或狀態概念的連接成分<br />
+   └─ ion：名詞化，表示行為、結果或狀態</p>
+<p><strong>Starvation(飢餓)</strong> 是指：</p>
+<blockquote>
+<p>一個 process / thread 一直想取得某個資源或進入 critical section(臨界區間)，但因為其他 process / thread 一直被優先處理，導致它可能永遠等不到。</p>
+</blockquote>
+<p>注意：<br />
+這裡的「餓死」不是程式真的死亡，而是：</p>
+<blockquote>
+<p><strong>它一直等、一直等、一直沒有機會執行。</strong></p>
+</blockquote>
+<p>I felt worried when the lost dog began to starve.<br />
+當那隻走失的狗開始挨餓時，我很擔心。</p>
+<h2 id="petersons-solutionpeterson-解法">Peterson’s Solution(Peterson 解法)<a class="headerlink" href="#petersons-solutionpeterson-解法" title="Permanent link"></a></h2>
+<p>這是 Chapter 5 的 software solution(軟體解法)。</p>
+<div class="admonition danger">
+<p class="admonition-title">背</p>
+<p>用來解兩個 process 的 critical-section problem。</p>
+</div>
+<p>Peterson’s Solution 用兩個共享變數：</p>
 <div class="highlight"><pre><span></span><code><span class="n">boolean</span><span class="w"> </span><span class="n">flag</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">turn</span><span class="p">;</span>
 </code></pre></div>
-
-###  `flag[i]` 是什麼？
-
+<h3 id="flagi-是什麼"><code>flag[i]</code> 是什麼？<a class="headerlink" href="#flagi-是什麼" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
-意思是：
-
-> Process `Pi` 想要進入 critical section。
-
-生活化比喻：
-
-> 你舉手說：「我想進廁所。」
-
----
-
-###  `turn` 是什麼？
-
+<p>意思是：</p>
+<blockquote>
+<p>Process <code>Pi</code> 想要進入 critical section。</p>
+</blockquote>
+<p>生活化比喻：</p>
+<blockquote>
+<p>你舉手說：「我想進廁所。」</p>
+</blockquote>
+<hr />
+<h3 id="turn-是什麼"><code>turn</code> 是什麼？<a class="headerlink" href="#turn-是什麼" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
 </code></pre></div>
-
-意思是：
-
-> 如果兩個 process 都想進入 critical section，就讓對方 `Pj` 優先。
-
-生活化比喻：
-
-> 你跟對方都想進廁所時，你說：「如果我們同時想進，那先讓你。」
-
----
-
-### Peterson’s Solution 的基本結構
-
-對 process `Pi` 來說，另一個 process 是 `Pj`：
-
+<p>意思是：</p>
+<blockquote>
+<p>如果兩個 process 都想進入 critical section，就讓對方 <code>Pj</code> 優先。</p>
+</blockquote>
+<p>生活化比喻：</p>
+<blockquote>
+<p>你跟對方都想進廁所時，你說：「如果我們同時想進，那先讓你。」</p>
+</blockquote>
+<hr />
+<h3 id="petersons-solution-的基本結構">Peterson’s Solution 的基本結構<a class="headerlink" href="#petersons-solution-的基本結構" title="Permanent link"></a></h3>
+<p>對 process <code>Pi</code> 來說，另一個 process 是 <code>Pj</code>：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">                 </span><span class="c1">// 說自己要</span>
 <span class="w">    </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">                       </span><span class="c1">// 權限給對方，先讓對方 (可達到 bounded waiting)</span>
@@ -16810,40 +18364,27 @@ Peterson’s Solution 用兩個共享變數：
 <span class="w">    </span><span class="cm">/* remainder section */</span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
-
----
-
-###  為什麼可以互斥？
-
-如果 `Pi` 和 `Pj` 同時想進去：
-
+<hr />
+<h3 id="為什麼可以互斥">為什麼可以互斥？<a class="headerlink" href="#為什麼可以互斥" title="Permanent link"></a></h3>
+<p>如果 <code>Pi</code> 和 <code>Pj</code> 同時想進去：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
-這時候看 `turn`。
-
-* 如果 `turn == j`，代表 `Pi` 讓 `Pj` 先進，`Pi` 等。
-* 如果 `turn == i`，代表 `Pj` 讓 `Pi` 先進，`Pj` 等。
-
-所以不會兩個同時進 critical section。
-
-
-
-##  Peterson’s Solution and  Critical-Section Problem Requirements
-
-它是要解兩個 process 的 **critical-section problem(臨界區間問題)**。
-
-也就是：
-
-> 兩個 process 都可能想進入 critical section，但同一時間只能讓一個進去。
-
----
-
-###  程式骨架再看一次
-
-對 `Pi` 來說，另一個 process 是 `Pj`：
-
+<p>這時候看 <code>turn</code>。</p>
+<ul>
+<li>如果 <code>turn == j</code>，代表 <code>Pi</code> 讓 <code>Pj</code> 先進，<code>Pi</code> 等。</li>
+<li>如果 <code>turn == i</code>，代表 <code>Pj</code> 讓 <code>Pi</code> 先進，<code>Pj</code> 等。</li>
+</ul>
+<p>所以不會兩個同時進 critical section。</p>
+<h2 id="petersons-solutio-nand-critical-section-problem-requirements">Peterson’s Solutio nand  Critical-Section Problem Requirements<a class="headerlink" href="#petersons-solutio-nand-critical-section-problem-requirements" title="Permanent link"></a></h2>
+<p>它是要解兩個 process 的 <strong>critical-section problem(臨界區間問題)</strong>。</p>
+<p>也就是：</p>
+<blockquote>
+<p>兩個 process 都可能想進入 critical section，但同一時間只能讓一個進去。</p>
+</blockquote>
+<hr />
+<h3 id="程式骨架再看一次">程式骨架再看一次<a class="headerlink" href="#程式骨架再看一次" title="Permanent link"></a></h3>
+<p>對 <code>Pi</code> 來說，另一個 process 是 <code>Pj</code>：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">      </span><span class="c1">// Pi wants to enter</span>
 <span class="w">    </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">            </span><span class="c1">// give Pj priority</span>
@@ -16858,62 +18399,573 @@ Peterson’s Solution 用兩個共享變數：
 <span class="w">    </span><span class="cm">/* remainder section */</span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
-
----
-
-###  為什麼滿足 Mutual Exclusion(互斥)？
-
-如果 `Pi` 和 `Pj` 都想進去：
-
+<hr />
+<h3 id="為什麼滿足-mutual-exclusion互斥">為什麼滿足 Mutual Exclusion(互斥)？<a class="headerlink" href="#為什麼滿足-mutual-exclusion互斥" title="Permanent link"></a></h3>
+<p>如果 <code>Pi</code> 和 <code>Pj</code> 都想進去：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 </code></pre></div>
-
-這時候只看 `turn`。
-
-* 如果 `turn == j`，`Pi` 會等，`Pj` 可以進。
-* 如果 `turn == i`，`Pj` 會等，`Pi` 可以進。
-
-`turn` 不可能同時等於 `i` 又等於 `j`，所以兩個 process 不會同時進 critical section。
-
----
-
-### 為什麼滿足 Progress(進行)？
-
-如果 `Pi` 想進，而 `Pj` 不想進：
-
+<p>這時候只看 <code>turn</code>。</p>
+<ul>
+<li>如果 <code>turn == j</code>，<code>Pi</code> 會等，<code>Pj</code> 可以進。</li>
+<li>如果 <code>turn == i</code>，<code>Pj</code> 會等，<code>Pi</code> 可以進。</li>
+</ul>
+<p><code>turn</code> 不可能同時等於 <code>i</code> 又等於 <code>j</code>，所以兩個 process 不會同時進 critical section。</p>
+<hr />
+<h3 id="為什麼滿足-progress進行">為什麼滿足 Progress(進行)？<a class="headerlink" href="#為什麼滿足-progress進行" title="Permanent link"></a></h3>
+<p>如果 <code>Pi</code> 想進，而 <code>Pj</code> 不想進：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">false</span>
 </code></pre></div>
-
-那麼 `Pi` 的等待條件：
-
+<p>那麼 <code>Pi</code> 的等待條件：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
 </code></pre></div>
-
-會變成 false，所以 `Pi` 可以進入 critical section。
-
-直覺：
-
-> 如果對方沒有要進，就不需要等對方。
-
----
-
-###  為什麼滿足 Bounded Waiting(限制等待)？
-
-如果兩個都想進，`turn` 會決定誰先進。
-
-當一個 process 離開 critical section 時，它會設定：
-
+<p>會變成 false，所以 <code>Pi</code> 可以進入 critical section。</p>
+<p>直覺：</p>
+<blockquote>
+<p>如果對方沒有要進，就不需要等對方。</p>
+</blockquote>
+<hr />
+<h3 id="為什麼滿足-bounded-waiting限制等待">為什麼滿足 Bounded Waiting(限制等待)？<a class="headerlink" href="#為什麼滿足-bounded-waiting限制等待" title="Permanent link"></a></h3>
+<p>如果兩個都想進，<code>turn</code> 會決定誰先進。</p>
+<p>當一個 process 離開 critical section 時，它會設定：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 </code></pre></div>
+<p>這會讓另一方有機會進入。</p>
+<p>所以不會出現某個 process 永遠被插隊。</p>
+<p>直覺：</p>
+<blockquote>
+<p>如果兩人都想進，<code>turn</code> 會讓其中一人先進；出去後會放下 <code>flag</code>，另一人就能進。</p>
+</blockquote>
+<h2 id="synchronization-hardware-code-reading">Synchronization Hardware Code Reading<a class="headerlink" href="#synchronization-hardware-code-reading" title="Permanent link"></a></h2>
+<p>前面 Peterson’s Solution 是用軟體變數 <code>flag[]</code> 和 <code>turn</code> 來協調。</p>
+<p>Synchronization Hardware(同步硬體) 的想法是：</p>
+<blockquote>
+<p>直接靠硬體提供一個 atomic instruction(原子指令)，讓「檢查 lock」和「修改 lock」不能被中斷。</p>
+</blockquote>
+<p>生活例子：</p>
+<blockquote>
+<p>不是大家自己寫紙條排隊，而是門鎖本身保證「看門有沒有鎖」和「把門鎖上」是同一個不可插隊的動作。</p>
+</blockquote>
+<hr />
+<h3 id="testandset-code-reading"><code>TestAndSet</code> code reading<a class="headerlink" href="#testandset-code-reading" title="Permanent link"></a></h3>
+<h4 id="testandset-定義"><code>TestAndSet</code> 定義<a class="headerlink" href="#testandset-定義" title="Permanent link"></a></h4>
+<p>講義概念如下，我把語法修成正常 C-like pseudo-code：</p>
+<div class="highlight"><pre><span></span><code><span class="n">boolean</span><span class="w"> </span><span class="nf">TestAndSet</span><span class="p">(</span><span class="n">boolean</span><span class="w"> </span><span class="o">*</span><span class="n">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">boolean</span><span class="w"> </span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">target</span><span class="p">;</span>
+<span class="w">    </span><span class="o">*</span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">rv</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>逐行看：</p>
+<table>
+<thead>
+<tr>
+<th>程式碼</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean rv = *target;</code></td>
+<td>先讀取 <code>target</code> 原本的值</td>
+</tr>
+<tr>
+<td><code>*target = true;</code></td>
+<td>把 <code>target</code> 設成 <code>true</code></td>
+</tr>
+<tr>
+<td><code>return rv;</code></td>
+<td>回傳原本的值</td>
+</tr>
+</tbody>
+</table>
+<p>最重要：</p>
+<blockquote>
+<p>這三步必須是 atomic(原子) 的。<br />
+也就是不能做到一半被別的 thread / process 插進來。</p>
+</blockquote>
+<hr />
+<h4 id="用-testandset-做-lock">用 <code>TestAndSet</code> 做 lock<a class="headerlink" href="#用-testandset-做-lock" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// do nothing</span>
 
-這會讓另一方有機會進入。
+<span class="w">    </span><span class="cm">/* critical section */</span>
 
-所以不會出現某個 process 永遠被插隊。
+<span class="w">    </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
-直覺：
+<span class="w">    </span><span class="cm">/* remainder section */</span>
+<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+<p>假設：</p>
+<div class="highlight"><pre><span></span><code>lock = false 代表 lock 可用
+lock = true 代表 lock 被占用
+</code></pre></div>
+<hr />
+<h4 id="情況一lock-原本是-false">情況一：lock 原本是 <code>false</code><a class="headerlink" href="#情況一lock-原本是-false" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>lock = false
+</code></pre></div>
+<p>執行：</p>
+<div class="highlight"><pre><span></span><code><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">)</span>
+</code></pre></div>
+<p>會做：</p>
+<div class="highlight"><pre><span></span><code>1. rv = false
+2. lock = true
+3. return false
+</code></pre></div>
+<p>所以：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+</code></pre></div>
+<p>不會等待，process 可以進入 critical section。</p>
+<p>結果是：</p>
+<div class="highlight"><pre><span></span><code>這個 process 成功拿到 lock。
+</code></pre></div>
+<hr />
+<h4 id="情況二lock-原本是-true">情況二：lock 原本是 <code>true</code><a class="headerlink" href="#情況二lock-原本是-true" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>lock = true
+</code></pre></div>
+<p>執行：</p>
+<div class="highlight"><pre><span></span><code><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">)</span>
+</code></pre></div>
+<p>會做：</p>
+<div class="highlight"><pre><span></span><code>1. rv = true
+2. lock = true
+3. return true
+</code></pre></div>
+<p>所以：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</code></pre></div>
+<p>process 會一直卡在迴圈裡。</p>
+<p>這叫：</p>
+<blockquote>
+<p><code>busy waiting(忙碌等待)</code> 或 <code>spinlock(自旋鎖)</code>。</p>
+</blockquote>
+<hr />
+<h4 id="testandset-最短記法"><code>TestAndSet</code> 最短記法<a class="headerlink" href="#testandset-最短記法" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>TestAndSet = 回傳 lock 舊值，並把 lock 設成 true。
+回傳 false → 原本沒人拿 lock → 可以進 critical section。
+回傳 true → 原本有人拿 lock → 繼續等。
+</code></pre></div>
+<hr />
+<h3 id="compare_and_swap-code-reading"><code>compare_and_swap</code> code reading<a class="headerlink" href="#compare_and_swap-code-reading" title="Permanent link"></a></h3>
+<h4 id="compare_and_swap-定義"><code>compare_and_swap</code> 定義<a class="headerlink" href="#compare_and_swap-定義" title="Permanent link"></a></h4>
+<p>講義概念如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">compare_and_swap</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">new_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">;</span>
 
-> 如果兩人都想進，`turn` 會讓其中一人先進；出去後會放下 `flag`，另一人就能進。 -->
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span>
+<span class="w">        </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>逐行看：</p>
+<table>
+<thead>
+<tr>
+<th>程式碼</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int temp = *value;</code></td>
+<td>先記住 <code>value</code> 原本的值</td>
+</tr>
+<tr>
+<td><code>if (*value == expected)</code></td>
+<td>如果目前值等於期待值</td>
+</tr>
+<tr>
+<td><code>*value = new_value;</code></td>
+<td>就把它改成新值</td>
+</tr>
+<tr>
+<td><code>return temp;</code></td>
+<td>回傳原本的值</td>
+</tr>
+</tbody>
+</table>
+<p>重點：</p>
+<blockquote>
+<p><code>compare + update</code> 必須 atomic。<br />
+也就是「比較」和「修改」中間不能被插隊。</p>
+</blockquote>
+<hr />
+<h4 id="用-compare_and_swap-做-lock">用 <code>compare_and_swap</code> 做 lock<a class="headerlink" href="#用-compare_and_swap-做-lock" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">;</span><span class="w">   </span><span class="c1">// do nothing</span>
+
+<span class="w">    </span><span class="cm">/* critical section */</span>
+
+<span class="w">    </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* remainder section */</span>
+<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+<p>假設：</p>
+<div class="highlight"><pre><span></span><code>lock = 0 代表 lock 可用
+lock = 1 代表 lock 被占用
+</code></pre></div>
+<hr />
+<h4 id="情況一lock-原本是-0">情況一：lock 原本是 <code>0</code><a class="headerlink" href="#情況一lock-原本是-0" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>lock = 0
+</code></pre></div>
+<p>執行：</p>
+<div class="highlight"><pre><span></span><code><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>意思是：</p>
+<blockquote>
+<p>如果 <code>lock</code> 現在是 <code>0</code>，就改成 <code>1</code>。</p>
+</blockquote>
+<p>過程：</p>
+<div class="highlight"><pre><span></span><code>1. temp = 0
+2. lock == expected，所以 lock = 1
+3. return 0
+</code></pre></div>
+<p>所以：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>是 false，不等待，可以進入 critical section。</p>
+<hr />
+<h4 id="情況二lock-原本是-1">情況二：lock 原本是 <code>1</code><a class="headerlink" href="#情況二lock-原本是-1" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>lock = 1
+</code></pre></div>
+<p>執行：</p>
+<div class="highlight"><pre><span></span><code><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>過程：</p>
+<div class="highlight"><pre><span></span><code>1. temp = 1
+2. lock != expected，所以不修改
+3. return 1
+</code></pre></div>
+<p>所以：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>是 true，繼續等待。</p>
+<hr />
+<h4 id="compare_and_swap-最短記法"><code>compare_and_swap</code> 最短記法<a class="headerlink" href="#compare_and_swap-最短記法" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>compare_and_swap(&amp;lock, 0, 1)
+= 如果 lock 是 0，就改成 1
+= 回傳 lock 舊值
+
+回傳 0 → 成功拿到 lock
+回傳非 0 → lock 原本被占用，繼續等
+</code></pre></div>
+<hr />
+<h3 id="testandset-vs-compare_and_swap"><code>TestAndSet</code> vs <code>compare_and_swap</code><a class="headerlink" href="#testandset-vs-compare_and_swap" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>比較</th>
+<th><code>TestAndSet</code></th>
+<th><code>compare_and_swap</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心動作</td>
+<td>讀舊值，然後設成 <code>true</code></td>
+<td>如果舊值等於 expected，才改成 new value</td>
+</tr>
+<tr>
+<td>回傳值</td>
+<td>舊的 <code>lock</code> 值</td>
+<td>舊的 <code>lock</code> 值</td>
+</tr>
+<tr>
+<td>成功拿 lock 條件</td>
+<td>回傳 <code>false</code></td>
+<td>回傳 <code>0</code></td>
+</tr>
+<tr>
+<td>等待條件</td>
+<td><code>while (TestAndSet(&amp;lock))</code></td>
+<td><code>while (compare_and_swap(&amp;lock, 0, 1) != 0)</code></td>
+</tr>
+<tr>
+<td>共同點</td>
+<td>都需要 atomic</td>
+<td>都需要 atomic</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="常見陷阱_1">常見陷阱<a class="headerlink" href="#常見陷阱_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤想法</th>
+<th>正確觀念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TestAndSet</code> 回傳新值</td>
+<td>它回傳舊值</td>
+</tr>
+<tr>
+<td><code>compare_and_swap</code> 一定會修改值</td>
+<td>只有目前值等於 <code>expected</code> 才修改</td>
+</tr>
+<tr>
+<td><code>while (...) ;</code> 代表 process 睡覺</td>
+<td>不是，是 busy waiting，仍可能消耗 CPU</td>
+</tr>
+<tr>
+<td>這只是普通 C function</td>
+<td>講義寫成 function 是方便理解；真正重點是硬體保證 atomic</td>
+</tr>
+<tr>
+<td><code>lock = false</code> / <code>lock = 0</code> 不重要</td>
+<td>很重要，這是 release lock</td>
+</tr>
+</tbody>
+</table>
+<h3 id="到底為何要說是硬體原子化">到底為何要說是硬體原子化<a class="headerlink" href="#到底為何要說是硬體原子化" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">背</p>
+<p>這一章節很重要，究竟為何叫做硬體原子化</p>
+<blockquote>
+<p>提問：<br />
+所以實際上不是透過組合語言，那所以組合語言也會呼叫一個原子化指令的意思嗎，然後那個指令就會直接執行原子化的電路，那個電路會直接讀取、修改、回傳一條龍服務。</p>
+</blockquote>
+</div>
+<h4 id="你的理解很接近正確">你的理解很接近正確<a class="headerlink" href="#你的理解很接近正確" title="Permanent link"></a></h4>
+<p>可以這樣理解：</p>
+<blockquote>
+<p><strong>組合語言本身不是原子化的來源；組合語言只是寫出／呼叫 CPU 提供的 atomic instruction(原子指令)。真正保證原子化的是 CPU 硬體與記憶體一致性機制。</strong></p>
+</blockquote>
+<p>所以你的「一條龍服務」比喻是對的，但要稍微修正成：</p>
+<div class="highlight"><pre><span></span><code>Assembly instruction
+→ CPU 解碼成硬體操作
+→ CPU / cache coherence 保證這個 read-modify-write 對其他 core 看起來不可分割
+→ 回傳舊值或結果
+</code></pre></div>
+<p>講義層級只說「現代機器提供 special atomic hardware instructions」以及 <code>Atomic = non-interruptable</code>，沒有再深入到 CPU 電路怎麼實作。</p>
+<hr />
+<h4 id="組合語言到底扮演什麼角色">組合語言到底扮演什麼角色？<a class="headerlink" href="#組合語言到底扮演什麼角色" title="Permanent link"></a></h4>
+<p>假設高階語言概念上寫：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span>
+<span class="w">    </span><span class="p">;</span>
+</code></pre></div>
+<p>實際上可能會被轉成類似：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">atomic_test_and_set</span><span class="w"> </span><span class="no">lock</span>
+</code></pre></div>
+<p>或某種 CPU 架構支援的 atomic instruction。</p>
+<p>但這裡要注意：</p>
+<blockquote>
+<p>組合語言不是「呼叫函式」那種 call，而是直接寫出 CPU 指令。<br />
+CPU 看到那條指令後，就用硬體規則執行它。</p>
+</blockquote>
+<p>所以更精準地說：</p>
+<div class="highlight"><pre><span></span><code>C / pseudo-code：描述我要 TestAndSet
+Assembly：用某條 CPU atomic instruction 表達這件事
+CPU hardware：真正執行不可分割的 read-modify-write
+</code></pre></div>
+<hr />
+<h4 id="電路一條龍可以這樣想">「電路一條龍」可以這樣想<a class="headerlink" href="#電路一條龍可以這樣想" title="Permanent link"></a></h4>
+<p>你可以想成：</p>
+<pre class="diagram"><code>flowchart TB
+    A["程式想做 TestAndSet(&amp;lock)"] --&gt; B["編譯器或組合語言產生 atomic instruction"]
+    B --&gt; C["CPU 執行這條 atomic instruction"]
+    C --&gt; D["硬體取得 lock 所在記憶體位置或 cache line 的控制權"]
+    D --&gt; E["讀取舊值"]
+    E --&gt; F["寫入新值"]
+    F --&gt; G["回傳舊值"]
+    G --&gt; H["其他 core 不能在中間插入衝突修改"]</code></pre>
+<p>你的說法：</p>
+<blockquote>
+<p>那個指令就會直接執行原子化的電路，那個電路會直接讀取、修改、回傳一條龍服務。</p>
+</blockquote>
+<p>大方向正確。更精準一點是：</p>
+<blockquote>
+<p>它不一定是一個單純的「單一電路」瞬間完成，可能牽涉 CPU 指令、cache line ownership、cache coherence protocol、memory bus 或 lock prefix 等機制；但對程式來說，它呈現出來的效果就是一個不可分割的一條龍操作。</p>
+</blockquote>
+<hr />
+<h4 id="為什麼普通-c-code-做不到">為什麼普通 C code 做不到？<a class="headerlink" href="#為什麼普通-c-code-做不到" title="Permanent link"></a></h4>
+<p>普通 C code：</p>
+<div class="highlight"><pre><span></span><code><span class="n">boolean</span><span class="w"> </span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">target</span><span class="p">;</span>
+<span class="o">*</span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="k">return</span><span class="w"> </span><span class="n">rv</span><span class="p">;</span>
+</code></pre></div>
+<p>這三步對 CPU 來說可能是多個普通 load / store 指令：</p>
+<div class="highlight"><pre><span></span><code>load target
+store true to target
+return old value
+</code></pre></div>
+<p>中間別的 thread 可能插進來。</p>
+<p>但 atomic instruction 會讓這整段對外看起來像：</p>
+<div class="highlight"><pre><span></span><code>atomic {
+    old = lock;
+    lock = true;
+    return old;
+}
+</code></pre></div>
+<p>也就是「中間狀態不開放給別人插隊」。</p>
+<hr />
+<h4 id="最終記法">最終記法<a class="headerlink" href="#最終記法" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code>TestAndSet 的 pseudo-code：
+描述它做什麼。
+
+Assembly：
+可能用來表示 CPU 的 atomic instruction。
+
+真正的 atomic：
+由 CPU / hardware / cache coherence 保證。
+
+效果：
+讀舊值 + 寫新值 + 回傳舊值
+對其他 threads / cores 來說不可被切開。
+</code></pre></div>
+<p>一句話：</p>
+<blockquote>
+<p><strong>組合語言不是原子化的原因；組合語言只是寫出那條原子指令。真正讓它原子化的是 CPU 硬體對那條指令的保證。</strong></p>
+</blockquote>
+<h2 id="bounded-waiting-mutual-exclusion-with-testandset">Bounded-waiting Mutual Exclusion with TestAndSet()<a class="headerlink" href="#bounded-waiting-mutual-exclusion-with-testandset" title="Permanent link"></a></h2>
+<h3 id="本輪必要知識快速複習">本輪必要知識快速複習<a class="headerlink" href="#本輪必要知識快速複習" title="Permanent link"></a></h3>
+<p>普通 <code>TestAndSet</code> lock 像是大家一起搶門：</p>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span>
+<span class="w">    </span><span class="p">;</span>
+
+<span class="cm">/* critical section */</span>
+
+<span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</code></pre></div>
+<p>它可以保證：</p>
+<div class="highlight"><pre><span></span><code>mutual exclusion：同一時間只有一個 process 進 critical section
+</code></pre></div>
+<p>但它<strong>不保證</strong>：</p>
+<div class="highlight"><pre><span></span><code>bounded waiting：每個等待者都會在有限次內輪到
+</code></pre></div>
+<p>因為 lock 一釋放，所有 process 又一起搶，某個 process 可能一直被插隊。</p>
+<hr />
+<h3 id="bounded-waiting-版本的核心">Bounded-waiting 版本的核心<a class="headerlink" href="#bounded-waiting-版本的核心" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">背</p>
+<p>這邊變數搞懂應該就可以了</p>
+<p>這頁多了兩個變數：</p>
+<table>
+<thead>
+<tr>
+<th>變數</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>waiting[i]</code></td>
+<td><code>Pi</code> 是否正在等待進 critical section</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>Pi</code> 自己本地變數，用來記錄是否「還沒取得進入權」</td>
+</tr>
+<tr>
+<td><code>lock</code></td>
+<td>shared lock，<code>false</code> 表示可用，<code>true</code> 表示被占用</td>
+</tr>
+<tr>
+<td><code>j</code></td>
+<td>離開 critical section 時，用來找下一個等待者</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>核心概念：</p>
+<div class="highlight"><pre><span></span><code>不是讓大家亂搶 lock，
+而是離開 critical section 的 process 會沿著環狀順序找下一個 waiting[j] == true 的 process，
+然後指定它可以進入。
+</code></pre></div>
+<hr />
+<h3 id="關鍵-code-先看一次">關鍵 code 先看一次<a class="headerlink" href="#關鍵-code-先看一次" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">waiting</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">waiting</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">key</span><span class="p">)</span>
+<span class="w">        </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">waiting</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* critical section */</span>
+
+<span class="w">    </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">j</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">waiting</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">        </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">waiting</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* remainder section */</span>
+
+<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</code></pre></div>
+<p>最重要的兩段：</p>
+<h4 id="入口等待">入口等待<a class="headerlink" href="#入口等待" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">waiting</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">key</span><span class="p">)</span>
+<span class="w">    </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_and_set</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+</code></pre></div>
+<p>停止等待有兩種可能：</p>
+<div class="admonition danger">
+<p class="admonition-title">背(先看下面的)</p>
+<table>
+<thead>
+<tr>
+<th>停止原因</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key == false</code></td>
+<td>自己成功用 <code>test_and_set</code> 拿到 lock</td>
+</tr>
+<tr>
+<td><code>waiting[i] == false</code></td>
+<td>前一個離開 critical section 的 process 指定輪到自己</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h4 id="離開時找下一位">離開時找下一位<a class="headerlink" href="#離開時找下一位" title="Permanent link"></a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">j</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">waiting</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+<span class="w">    </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">waiting</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</code></pre></div>
+<p>意思是：</p>
+<div class="admonition danger">
+<p class="admonition-title">背</p>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>找不到任何等待者</td>
+<td><code>lock = false</code>，直接釋放 lock (讓所有之後觸發<code>while (waiting[i] &amp;&amp; key)key = test_and_set(&amp;lock);</code>的人可以進入，透過<code>test_and_set(&amp;lock)</code>從 lock 拿到 0 ，丟給 key，然後阻止 <code>while (waiting[i] &amp;&amp; key)</code>觸發)</td>
+</tr>
+<tr>
+<td>找到下一個等待者 <code>Pj</code></td>
+<td><code>waiting[j] = false</code>，指定 <code>Pj</code> 可以進入(那個正在等待的人原本卡在<code>while (waiting[i] &amp;&amp; key)</code>，<code>waiting[j] = false</code>之後就解鎖了，這樣目的是在不解鎖 <code>lock</code> 的情況下直接指定下一個人，防止其他人拿到 <code>lock</code>)</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 
