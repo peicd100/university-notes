@@ -1,0 +1,5 @@
+因為第一個 reader 使用了 rw_mutex 把 writer 擋住了，沒有人會修改資料，所以所有的 reader 都可以隨意閱讀。
+
+read_count 是用來判斷此 process 是否是第一個 reader，如果是，就要負責鎖 rw_mutex，和解鎖 rw_mutex。如果不是第一個 reader 就直接閱讀就好。
+
+因為只要有 reader 在碰資料，就要把資料鎖住，防止 writer 進來改資料導致資料有問題。
