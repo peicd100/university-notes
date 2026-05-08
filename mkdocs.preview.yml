@@ -7,10 +7,10 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/Verilog/Fork.md'
+  - 'md/114-2/科技_計算機結構/ch 3.md'
 
 exclude_docs: |
   *.md
-  !/md/Verilog/Fork.md
+  !/md/114-2/科技_計算機結構/ch 3.md
   !/index.md
 # preview-target:end
