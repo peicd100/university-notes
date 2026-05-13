@@ -3538,3 +3538,1399 @@ binary point 往左移 3 位：
 | 「常規化時往右移，所以 exponent 是正」 | 不一定。要看你寫成 `normalized form` 後，乘上什麼才能回到原數。小於 1 的數通常會是負指數。 |
 | 「浮點就是小數」                 | 不精準。浮點是用 `significand × base^exponent` 表示小數點可變位置的數。      |
 | 「2³ 是把數字本身右移」            | 更精準是：`×2³` 等價於把 binary point 往右移 3 位。                    |
+
+
+
+
+## IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？
+
+前面我們一直寫：
+
+`1.xxxxx₂ × 2^E`
+
+p.126 開始把它變成真正的 bit layout。浮點數不是直接把整串 `1.xxxxx × 2^E` 存進去，而是拆成三個欄位：
+
+| 欄位   | English    | 功能                    |
+| ---- | ---------- | --------------------- |
+| 符號位元 | `Sign bit` | 決定正負號                 |
+| 指數   | `Exponent` | 控制 binary point 移動多少  |
+| 分數   | `Fraction` | 保存 `1.xxxxx` 小數點右邊的部分 |
+
+---
+
+### 1. Single Precision(單精確度)：32-bit
+
+p.126 圖中 single precision 的欄位是：
+
+| 欄位            |   bit 數 |
+| ------------- | ------: |
+| `Sign bit`    |   1 bit |
+| `Exponent, E` |  8 bits |
+| `Fraction, F` | 23 bits |
+| 總共            | 32 bits |
+
+講義右邊公式寫成：
+
+`(±)1.F × 2^(E−127)`
+
+這裡的 `127` 是 `bias(偏移值)`。現在先記住：**Exponent 欄位存的不是直接的真實指數，而是加過 bias 的值。**
+
+---
+
+### 2. Double Precision(雙精確度)：64-bit
+
+double precision 的欄位是：
+
+| 欄位            |   bit 數 |
+| ------------- | ------: |
+| `Sign bit`    |   1 bit |
+| `Exponent, E` | 11 bits |
+| `Fraction, F` | 52 bits |
+| 總共            | 64 bits |
+
+講義右邊公式寫成：
+
+`(±)1.F × 2^(E−1023)`
+
+double precision 有更多 exponent bits 與 fraction bits，所以能表示更大的範圍，也能保留更高精度。
+
+---
+
+### 3. 為什麼 Fraction 只存 `.F`，不是存完整 `1.F`？
+
+因為 normalized binary number 的小數點左邊一定是 `1`。
+既然永遠知道它是 `1`，就不用真的存，這個 1 之後會叫做 `implicit leading 1(隱含前導 1)`。
+
+現在先抓住：
+
+| 實際數學形式  | 儲存時                       |
+| ------- | ------------------------- |
+| `1.F`   | 只存 `F`                    |
+| 前面的 `1` | 由 normalized rule 隱含，不額外存 |
+
+
+### 4. 要注意
+
+!!! danger "PEICD"
+
+    Sign,Exponent,Fraction
+    1,8,23 = 32  ,-127  , (±)1.F × 2^(E−127)
+    1,11,52 = 64  ,-1023 , (±)1.F × 2^(E−1023)
+    
+    要注意 Fraction 欄位是小數點後的，不包含 1 ，如：(±)1. ==F== × 2^(E−127)。因為小數點前面一定是 1 ，不需要寫。
+    
+    
+    
+    
+    
+## Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？
+
+### 1. 先照 IEEE 754 single precision 切欄位
+
+Single precision 的格式是：
+
+| 欄位         | bit 數 |
+| ---------- | ----: |
+| `Sign`     |     1 |
+| `Exponent` |     8 |
+| `Fraction` |    23 |
+
+所以看到 32-bit 浮點數時，第一步不是直接算，而是先切成：
+
+| 欄位         | 位置         |
+| ---------- | ---------- |
+| 第 1 bit    | `Sign`     |
+| 接下來 8 bits | `Exponent` |
+| 最後 23 bits | `Fraction` |
+
+以 p.127 的例子：
+
+```text
+11010110101101101011000000000000
+```
+
+切成：
+
+```text
+Sign     = 1
+Exponent = 10101101
+Fraction = 01101101011000000000000
+```
+
+---
+
+### 2. Sign bit 決定正負
+
+`Sign = 1` 代表這個數是負數。
+`Sign = 0` 才是正數。
+
+所以這題最後一定會是負值。
+
+---
+
+### 3. Exponent 欄位要扣掉 bias
+
+Single precision 的公式是：
+
+```text
+value = (-1)^S × 1.F × 2^(E - 127)
+```
+
+這裡的 `E` 不是直接拿 bit pattern 當真實指數，而是要先把 exponent bits 轉成 unsigned integer。
+
+本例：
+
+```text
+Exponent bits = 10101101₂
+```
+
+轉成十進位：
+
+```text
+10101101₂ = 173
+```
+
+所以真實指數是：
+
+```text
+173 - 127 = 46
+```
+
+---
+
+### 4. Fraction 要補回隱含前導 1
+
+Fraction 欄位是：
+
+```text
+01101101011000000000000
+```
+
+但 normalized floating point 的 significand 是：
+
+```text
+1.01101101011000000000000₂
+```
+
+注意：前面的 `1.` 沒有存，但解碼時要補回來。
+
+所以這個數的形式是：
+
+```text
+-1.01101101011000000000000₂ × 2^46
+```
+
+這已經是正確的解碼形式。若題目要求十進位值，下一步才把 significand 和 `2^46` 展開。
+
+---
+
+### 5. 最短流程
+
+| 步驟 | 做什麼                           |
+| -- | ----------------------------- |
+| 1  | 切成 `S / E / F`                |
+| 2  | `S` 判斷正負                      |
+| 3  | `E` 轉十進位後扣 bias               |
+| 4  | `F` 前面補 `1.`                  |
+| 5  | 寫成 `(-1)^S × 1.F × 2^(E−127)` |
+
+
+
+### 為何要偏移 127 和 1023
+
+
+對，`127` 和 `1023` 的核心目的就是：**用 unsigned bits(無號位元) 來方便地表示 signed exponent(有正負的真實指數)**。
+
+講義後面會正式說這叫 `biased notation(偏移表示法)`，並提到 IEEE 754 single precision 使用 `127` 作為偏移值；前面 p.126 的公式也已經先出現 single 用 `E−127`、double 用 `E−1023`。 
+
+---
+
+#### 1. 為什麼 exponent 需要偏移？
+
+浮點數的真實指數可能是正的，也可能是負的：
+
+| 數字形式           | 真實指數 |
+| -------------- | ---: |
+| `1.01₂ × 2³`   | `+3` |
+| `1.01₂ × 2⁰`   |  `0` |
+| `1.01₂ × 2^-3` | `-3` |
+
+但硬體欄位裡的 `Exponent field(指數欄位)` 是一串 bits。如果直接用 signed representation(有號表示法)，比較與硬體處理會比較麻煩。
+
+所以 IEEE 754 採用偏移表示法：
+
+```text
+stored exponent = true exponent + bias
+true exponent = stored exponent - bias
+```
+
+這樣 exponent 欄位本身可以當作 unsigned integer 來存。
+
+---
+
+#### 2. 為什麼 single 是 127？
+
+Single precision 的 exponent 欄位有 8 bits。
+
+8 bits 可以表示：
+
+```text
+0 ~ 255
+```
+
+IEEE 754 選擇 bias：
+
+```text
+2^(8−1) − 1 = 2^7 − 1 = 127
+```
+
+所以：
+
+| 真實指數 | 儲存的 E | E bits 概念 |
+| ---: | ----: | --------- |
+| `-1` | `126` | 比 127 小   |
+|  `0` | `127` | 中間基準點     |
+| `+1` | `128` | 比 127 大   |
+
+也就是說，`127` 讓真實指數 `0` 可以剛好落在 exponent 編碼範圍中間附近。
+
+---
+
+#### 3. 為什麼 double 是 1023？
+
+Double precision 的 exponent 欄位有 11 bits。
+
+11 bits 可以表示：
+
+```text
+0 ~ 2047
+```
+
+IEEE 754 選擇 bias：
+
+```text
+2^(11−1) − 1 = 2^10 − 1 = 1023
+```
+
+所以：
+
+| 真實指數 |  儲存的 E |
+| ---: | -----: |
+| `-1` | `1022` |
+|  `0` | `1023` |
+| `+1` | `1024` |
+
+概念和 single 完全一樣，只是 double 的 exponent 欄位比較長，所以 bias 也比較大。
+
+---
+
+#### 4. 為什麼不是 128 或 1024？
+
+因為 IEEE 754 通常用：
+
+```text
+bias = 2^(k−1) − 1
+```
+
+其中 `k` 是 exponent 欄位 bit 數。
+
+| 格式     | exponent bits k |              bias |
+| ------ | --------------: | ----------------: |
+| Single |               8 |   `2^7 − 1 = 127` |
+| Double |              11 | `2^10 − 1 = 1023` |
+
+這樣做可以讓真實指數大致以 0 為中心，而且保留特殊 exponent 編碼：
+
+| Exponent field | 用途                                    |
+| -------------- | ------------------------------------- |
+| 全 0            | `zero(零)` 或 `subnormal number(非正規數)`  |
+| 一般值            | normalized number                     |
+| 全 1            | `infinity(無限大)` 或 `NaN(Not a Number)` |
+
+所以正常 normalized single 的真實 exponent 範圍不是 `-127 ~ +128`，而是主要使用：
+
+```text
+1 ~ 254 stored exponent
+=> 1 − 127 ~ 254 − 127
+=> -126 ~ +127
+```
+
+Double 則是：
+
+```text
+1 ~ 2046 stored exponent
+=> 1 − 1023 ~ 2046 − 1023
+=> -1022 ~ +1023
+```
+
+---
+
+#### 5. 最短記法
+
+| 問題              | 答案                                    |
+| --------------- | ------------------------------------- |
+| 為什麼要 bias？      | 用 unsigned exponent field 表示正負指數      |
+| single 為何 127？  | exponent 8 bits，所以 bias = `2^7 − 1`   |
+| double 為何 1023？ | exponent 11 bits，所以 bias = `2^10 − 1` |
+| 解碼怎麼做？          | `true exponent = stored E − bias`     |
+| 直覺              | 把真實指數 0 放到編碼範圍中間附近                    |
+
+一句話：**127 和 1023 是 IEEE 754 用來把有正負的 exponent 平移成無號欄位的偏移量。**
+
+
+
+
+
+
+## Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？
+
+### 1. 編碼和解碼剛好反過來
+
+剛剛 p.127 是 decoding(解碼)：
+已知 32-bit pattern，拆成 `S / E / F`，再還原成數值。
+
+p.128 開始是 encoding(編碼)：
+已知一個二進位數，要把它塞進 single precision 的三個欄位：
+
+| 欄位         | 要決定什麼                            |
+| ---------- | -------------------------------- |
+| `Sign`     | 正數還是負數                           |
+| `Exponent` | 真實指數加上 bias 後的 8-bit 值           |
+| `Fraction` | normalized form 中 `1.F` 的 `F` 部分 |
+
+---
+
+### 2. 第一步：先把原數常規化
+
+講義給的數是：
+
+`0.000000110110100101₂`
+
+第一個 `1` 出現在小數點後第 7 位，所以要把 binary point 往右移 7 位，變成：
+
+`1.10110100101₂ × 2^-7`
+
+注意這裡最容易錯：
+binary point「為了常規化」是往右移 7 位，但為了保持原值不變，指數要寫成 `−7`。
+
+---
+
+### 3. 第二步：決定 Sign 和 Exponent
+
+這個數是正數，所以：
+
+`Sign = 0`
+
+真實指數是：
+
+`−7`
+
+single precision bias 是 `127`，所以 stored exponent 是：
+
+`−7 + 127 = 120`
+
+`120₁₀ = 01111000₂`
+
+所以：
+
+`Exponent = 01111000`
+
+---
+
+### 4. 第三步：決定 Fraction
+
+常規化後是：
+
+`1.10110100101₂ × 2^-7`
+
+IEEE 754 normalized number 不存前面的 `1.`，只存小數點右邊的部分。
+
+所以先拿：
+
+`F = 10110100101`
+
+但 single precision fraction 欄位要 23 bits，所以右邊補 0：
+
+`Fraction = 10110100101000000000000`
+
+---
+
+### 5. 最後組合成 32 bits
+
+| 欄位         | 結果                        |
+| ---------- | ------------------------- |
+| `Sign`     | `0`                       |
+| `Exponent` | `01111000`                |
+| `Fraction` | `10110100101000000000000` |
+
+所以完整 single precision bit pattern 是：
+
+`00111100010110100101000000000000`
+
+
+
+## Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？
+
+### 1. 第一個好處：簡化資料交換
+
+如果每台機器都用自己的浮點格式，那同一串 bits 在不同電腦上可能代表不同數值。
+
+IEEE 754 這類 standardized format(標準化格式) 的價值是：大家都知道 `sign / exponent / fraction` 怎麼切、bias 怎麼扣、fraction 怎麼補 implicit leading 1。
+
+生活化例子：
+就像大家約定身分證格式或日期格式。如果有人寫 `2026-05-13`，大家比較容易知道它是年月日；但如果每個國家、每個系統都自己定義格式，資料交換就會變得很麻煩。
+
+### 2. 第二個好處：簡化浮點算術演算法
+
+浮點數若都被整理成類似 `1.F × 2^E` 的 normalized form(常規化形式)，硬體做加、減、乘、除時就比較有固定流程可依循。
+
+例如浮點加法通常要先對齊 exponent，再處理 significand。若格式固定，硬體不需要每次猜測「這串 bits 到底哪裡是指數、哪裡是有效數字」。
+
+所以標準格式不是只為了儲存，也是在幫硬體演算法建立共同規則。
+
+### 3. 第三個好處：提高字組中存放數字的準確度
+
+講義說，因為不需要的 0 都被小數點右方的實際數字取代，所以能增加 word(字組) 中存放數字的 accuracy(準確度)。
+
+直覺上，normalized form 會把有效數字盡量推到前面，例如：
+
+| 未常規化           | 常規化             |
+| -------------- | --------------- |
+| `0.000001101₂` | `1.101₂ × 2^-6` |
+
+原本前面一堆 0 很浪費位置；常規化後，我們把真正有資訊量的 `1101...` 放進 fraction，讓有限 bits 儘量拿來存有效數字。
+
+
+
+## Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？
+
+### 1. 固定 word size(字組大小) 代表資源有限
+
+浮點數通常要塞進固定長度的 word，例如 single precision 是 32 bits。
+扣掉 `sign bit(符號位元)` 後，剩下的 bits 要分給：
+
+| 欄位             | 作用          |
+| -------------- | ----------- |
+| `Exponent(指數)` | 決定可表示的數值範圍  |
+| `Fraction(分數)` | 決定有效數字的精細程度 |
+
+所以這是一個資源分配問題：
+如果 exponent 多拿一些 bits，fraction 就會少一些；如果 fraction 多拿一些 bits，exponent 就會少一些。
+
+### 2. 增加 fraction 會提高 precision(精度)
+
+`Fraction(分數)` 越長，能保留的有效位元越多。
+這代表數字可以表示得更細、更接近原本的實數。
+
+例如你用尺量長度：
+
+| 尺的刻度 | 效果  |
+| ---- | --- |
+| 只有公分 | 粗略  |
+| 有毫米  | 更精細 |
+| 有微米  | 更精細 |
+
+fraction bits 就像刻度細緻度。fraction 越多，數字越不容易因為位元不夠而被截斷或四捨五入得太粗。
+
+### 3. 增加 exponent 會擴大 range(範圍)
+
+`Exponent(指數)` 越長，可以表示的小數點移動範圍越大。
+也就是可以表示更大的數，也可以表示更接近 0 的小數。
+
+但 exponent 多不代表數字更精細；它只是讓可表示的尺度變廣。
+
+| 增加欄位          | 主要改善         |
+| ------------- | ------------ |
+| 增加 `fraction` | precision 更高 |
+| 增加 `exponent` | range 更大     |
+
+所以 single / double precision 的欄位配置本質上就是在問：我們要把有限 bits 拿去換更大的範圍，還是更高的精度？
+
+
+
+## Floating-Point General Formula — `(-1)^S × F × 2^E` 在說什麼？
+
+### 1. `(-1)^S` 負責正負號
+
+公式中的 `S` 是 sign bit(符號位元)。
+
+|  S | `(-1)^S` | 數值符號 |
+| -: | -------: | ---- |
+|  0 |       +1 | 正數   |
+|  1 |       -1 | 負數   |
+
+所以 `S` 不負責大小，也不負責小數點位置；它只負責正負號。
+
+### 2. `F` 負責有效數字長什麼樣
+
+公式中的 `F` 可以先理解成 significand(有效數字)。
+它決定「這個數字本體長什麼樣」。
+
+例如：
+
+`1.101₂ × 2^3`
+
+裡面的 `1.101₂` 就是有效數字部分。
+
+這裡要小心：p.132 公式中的 `F` 是比較一般化的有效數字；但 IEEE 754 欄位中的 `Fraction` 是實際儲存的小數部分。對 normalized number 來說，真正的 significand 是 `1.Fraction`，前面的 `1` 是 implicit leading 1(隱含前導 1)。
+
+### 3. `2^E` 負責尺度大小
+
+`E` 是 exponent(指數)，負責控制 binary point 移動，也就是數字的尺度。
+
+|  E | 效果                               |
+| -: | -------------------------------- |
+|  正 | binary point 往右移，數值 magnitude 變大 |
+|  0 | 尺度不變                             |
+|  負 | binary point 往左移，數值 magnitude 變小 |
+
+所以這個公式可以用一句話記：
+
+**Sign 決定正負，F 決定有效數字，E 決定尺度。**
+
+
+
+## Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？
+
+### 1. Overflow(滿溢)：指數太大，超出 exponent field 可表示範圍
+
+浮點數的大小主要由 `exponent(指數)` 控制。
+如果一個數太大，需要的 exponent 超過 exponent field 能表示的最大值，就會發生 `overflow(滿溢)`。
+
+直覺例子：
+如果格式只能表示到 `×2^127`，但計算結果需要 `×2^200`，那 exponent 欄位裝不下，這就是 overflow。
+
+所以 floating-point overflow 不是 fraction 不夠精細，而是「尺度太大」。
+
+### 2. Underflow(短值)：負指數太大，太接近 0 而裝不下
+
+`Underflow(短值)` 是另一個方向：數字太小、太接近 0。
+如果一個數需要非常大的負 exponent，例如 `×2^-200`，但 exponent field 最小只能表示到大約 `×2^-126`，那也裝不下。
+
+講義中文寫「當負的指數大到指數欄位無法容納時」，意思就是：需要表示的負 exponent 太極端，導致數字小到格式無法正常表示。
+
+生活化例子：
+overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量不到。
+
+### 3. 為什麼更大的 exponent field 可以降低 overflow / underflow？
+
+因為 exponent field 越大，可表示的 exponent 範圍越廣。
+
+| 增加的欄位              | 主要改善                                |
+| ------------------ | ----------------------------------- |
+| 增加 `exponent bits` | 可表示更大與更小的尺度，降低 overflow / underflow |
+| 增加 `fraction bits` | 可表示更多有效數字，提高 precision              |
+
+這也呼應前一頁的 trade-off：
+如果我們把更多 bits 給 exponent，就能擴大 range；如果把更多 bits 給 fraction，就能提高 precision。
+
+### 4. Double precision(雙精確度) 的角色
+
+講義 p.133 接著說，降低 short value 或 overflow 可能性的一種方式，是提供更大的 exponent field；C 語言中這類數字稱為 `double`，對應 `double precision floating-point arithmetic(雙精確度浮點算術)`。
+
+重點不是「double 永遠不會 overflow / underflow」，而是：
+
+**double 的 exponent field 比 single 大，所以能表示的 range 更廣，發生 overflow / underflow 的機率較低。**
+
+
+
+
+
+## Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？
+
+### 1. 浮點加法不是直接把兩個 significand 相加
+
+!!! danger "PEICD"
+    
+    significand 翻譯成 「有效數字」
+    
+    就是 `-1.101 * 2^9` 的 `-1.101`
+    也就是說科學記號可以寫成 `significand × 2^exponent`
+    
+    
+浮點數長得像：
+
+`significand × 2^exponent`
+
+所以兩個浮點數相加前，必須先讓它們的 exponent 相同。
+這就像十進位加法中，不能直接把「幾百」和「幾十分之一」的數字位數亂加；要先對齊位值。
+
+p.137 的例子是：
+
+`0.5₁₀ + (−0.4375₁₀)`
+
+先轉成二進位 normalized form：
+
+| 十進位         | 二進位浮點形式          |
+| ----------- | ---------------- |
+| `0.5₁₀`     | `1.000₂ × 2^-1`  |
+| `−0.4375₁₀` | `−1.110₂ × 2^-2` |
+
+### 2. 對齊 exponent：把較小 exponent 的數右移
+
+!!! danger "PEICD"
+        
+    兩個 exponent 分別是 `-1` 和 `-2`。
+    加法時要對齊到較大的 exponent，也就是 `-1`。
+
+所以把：
+
+`−1.110₂ × 2^-2`
+
+改寫成：
+
+`−0.111₂ × 2^-1`
+
+注意：這不是改變數值，而是換一種等價表示，讓兩個數都用 `2^-1` 作尺度。
+
+### 3. 相加 significand，再 normalize
+
+對齊後：
+
+`1.000₂ × 2^-1 + (−0.111₂ × 2^-1)`
+
+因為 exponent 相同，可以加 significand：
+
+`1.000₂ + (−0.111₂) = 0.001₂`
+
+所以得到：
+
+`0.001₂ × 2^-1`
+
+接著 normalize：
+
+`0.001₂ × 2^-1 = 1.000₂ × 2^-4`
+
+所以結果是：
+
+`1.000₂ × 2^-4 = 0.0001₂ = 1/16 = 0.0625₁₀`
+
+這也符合原本十進位：
+
+`0.5 − 0.4375 = 0.0625`
+
+
+
+
+## Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？
+
+### 1. 第一步：先比較 exponent，對齊尺度
+
+浮點數不是單純的整數 bit string，而是：
+
+`significand × 2^exponent`
+
+所以加法第一步通常是比較兩個 exponent，把 exponent 較小的 operand 右移，直到兩個 exponent 相同。
+
+直覺上，這像十進位加法要先對齊個位、十分位、百分位；沒有對齊就相加，位值會錯。
+
+
+### 2. 第二步：帶著 sign 做 signed addition
+
+當 exponent 對齊後，就可以處理 significand。
+
+重點是：**不是把兩個正的 significand 直接相加，而是帶著 sign 做 signed addition**。
+
+例如：
+
+`(+1.000₂) + (−0.111₂) = +0.001₂`
+
+得到結果後，再做 normalize / round。
+
+
+### 3. 第三步：normalize 結果
+
+相加後的結果可能不是 normalized form。
+
+例如：
+
+`0.001₂ × 2^-1`
+
+小數點左邊不是 `1`，所以要 normalize 成：
+
+`1.000₂ × 2^-4`
+
+也就是把 significand 左移，同時調整 exponent。
+
+若相加產生進位，例如 `1.111₂ + 1.001₂ = 11.000₂`，那也需要把 significand 右移並增加 exponent。
+
+### 4. 第四步：round，必要時再次 normalize
+
+實際硬體的 fraction bits 有限，所以結果可能需要 `rounding(捨入)`。
+
+講義 p.143 的圖 3.14 提到，正常路徑會執行步驟三與步驟四各一次；但如果進位處理讓總和變成非常規化，就必須再重複 normalize。
+
+所以浮點加法的最短流程可以記成：
+
+| 步驟 | 動作                          |
+| -- | --------------------------- |
+| 1  | Align exponents             |
+| 2  | Add / subtract significands |
+| 3  | Normalize result            |
+| 4  | Round result，必要時再 normalize |
+
+
+!!! danger "PEICD"
+    
+    round 指的是"捨入"，就像是二進制的四捨五入。
+    
+    假設原本是
+    
+    1.111 * 2^4，如果捨入(+0.001)之後變成了 10.000 * 2^4，這樣不是標準的，所以要再標準化一次，變成 1.0000 * 2^5
+
+### 如果是 round 到 8 bit ，所以原本在 round 的之前會有更多空間的意思嗎？
+
+假設是 float，計算過程中可能會產生超過 24-bit significand 能表示的中間結果；但最後 single precision 只能存回 1-bit sign、8-bit exponent、23-bit fraction，所以必須把中間結果 round 到 23-bit fraction 能存的長度。
+
+### significand 是啥
+
+Significand(有效數字) 可以理解成：浮點數裡真正拿來表示「數字長相」的那一段。
+
+在浮點數形式：
+
+±1.xxx₂ × 2^E
+
+裡面：
+
+| 部分       | 作用                  |
+| -------- | ------------------- |
+| `±`      | 正負號                 |
+| `1.xxx₂` (包含`1.`) | `Significand(有效數字)` |
+| `2^E`    | 尺度，也就是小數點移動多少       |
+
+
+例如：
+
+1.101₂ × 2^3
+
+其中 1.101₂ 就是 significand(有效數字)。
+
+
+
+
+
+
+
+## Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？
+
+### 1. 先用小 ALU 比較兩個 exponent
+
+浮點加法第一步是 align exponents(對齊指數)。
+硬體要先知道兩個 operand 哪一個 exponent 比較大、差多少。
+
+所以圖 3.15 先用一個小 `ALU(算術邏輯單元)` 去做：
+
+`Exponent A − Exponent B`
+
+這個差值有兩個用途：
+
+| 差值用途           | 意思                                 |
+| -------------- | ---------------------------------- |
+| 決定較大的 exponent | 最後結果通常先沿用較大的尺度                     |
+| 決定要右移幾位        | 較小 exponent 那邊的 significand 要右移來對齊 |
+
+生活化例子：
+像你要把「公尺」和「公分」加起來，不能直接把數字相加，要先知道單位差多少，先換成同一個單位。
+
+### 2. 差值控制 multiplexers(多工器)
+
+講義說這個差值會控制三個 `multiplexer(多工器)`。
+多工器可以想成「選擇器」，根據控制訊號選其中一路資料輸出。
+
+三個多工器大致負責選：
+
+| 多工器選什麼           | 目的       |
+| ---------------- | -------- |
+| 較大的 exponent     | 決定共同尺度   |
+| 較小數的 significand | 送去右移對齊   |
+| 較大數的 significand | 直接送去準備相加 |
+
+也就是說，硬體不是用人眼判斷誰大誰小，而是用 exponent subtraction 的結果控制資料走哪條路。
+
+### 3. 將較小數的 significand 右移後再做 signed addition
+
+前面我們已經修正過記法：
+浮點加法不是永遠把兩個正的 significand 直接相加，而是：
+
+**帶著 sign 做 signed significand addition。**
+
+在硬體流程中，較小 exponent 的那個 significand 會先右移，對齊到較大的 exponent。
+接著大 ALU 才處理 significand operation。
+
+例如概念上是：
+
+`(+1.000₂) + (−0.111₂)`
+
+而不是：
+
+`1.000₂ + 0.111₂`
+
+### 4. 相加後還要 normalize / round
+
+significand 做完 signed addition 後，結果可能不是 normalized form。
+
+例如：
+
+`0.001₂ × 2^-1`
+
+這不是 normalized form，因為小數點左邊不是 `1`。
+所以要 normalize 成：
+
+`1.000₂ × 2^-4`
+
+講義圖 3.15 也說，normalize 會把總和左移或右移，並對 exponent 做遞增或遞減；rounding 後得到最後結果，但如果 rounding 又讓結果變成非常規化，可能還需要再 normalize 一次。
+
+---
+
+### 最短記法
+
+圖 3.15 的硬體流程可以記成：
+
+| 階段 | 硬體在做什麼                                                  |
+| -- | ------------------------------------------------------- |
+| 1  | 小 ALU 比較 exponent                                       |
+| 2  | multiplexers 選較大 exponent、較小 significand、較大 significand |
+| 3  | 右移較小 significand 來對齊                                    |
+| 4  | 大 ALU 做 signed significand addition                     |
+| 5  | normalize / round，必要時再 normalize                        |
+
+
+
+### 三個多工器到底是啥
+
+![alt text](<images/ch 3-6.png>)
+
+這三個多工器要來選擇誰是較大的 exponent 、較小數的 significand、較大數的 significand
+
+#### 1. 多工器到底在幹嘛？
+
+`Multiplexer(多工器)` 不是拿來算加法的。
+
+它只是在做這件事：
+
+```text
+如果 A 的 exponent 比較大，就選 A
+否則就選 B
+```
+
+所以你可以先記：
+
+**多工器 = 硬體版的選擇器。**
+
+---
+
+#### 2. 用例子看會比較清楚
+
+假設有兩個浮點數：
+
+| operand | 數值              |
+| ------- | --------------- |
+| A       | `+1.100₂ × 2^5` |
+| B       | `+1.010₂ × 2^3` |
+
+硬體先比較 exponent：
+
+```text
+5 > 3
+```
+
+所以 A 的 exponent 比較大，B 的 exponent 比較小。
+
+接下來三個多工器要做的事情就是：
+
+| 多工器選什麼           | 在這個例子選誰        | 為什麼                  |
+| ---------------- | -------------- | -------------------- |
+| 較大的 exponent     | 選 `2^5`        | 最後先用大的尺度當共同 exponent |
+| 較小數的 significand | 選 B 的 `1.010₂` | B 要右移 2 位來對齊 A       |
+| 較大數的 significand | 選 A 的 `1.100₂` | A 已經是大 exponent，不用右移 |
+
+所以 B 要被右移：
+
+```text
++1.010₂ × 2^3
+= +0.01010₂ × 2^5
+```
+
+然後才可以相加：
+
+```text
+(+1.100₂ × 2^5) + (+0.01010₂ × 2^5)
+```
+
+---
+
+#### 3. 那張表其實可以改成這樣記
+
+| 選擇器   | 它要選誰                       | 選完要幹嘛        |
+| ----- | -------------------------- | ------------ |
+| MUX 1 | exponent 較大的那邊             | 當共同 exponent |
+| MUX 2 | exponent 較小那邊的 significand | 送去右移對齊       |
+| MUX 3 | exponent 較大那邊的 significand | 直接送去加法器      |
+
+所以最重要的是：
+
+**不是三個多工器各自亂選，而是同一個 exponent 比較結果，同時告訴三個多工器該選 A 還是 B。**
+
+---
+
+#### 4. 最短記法
+
+圖 3.15 這段你可以只記：
+
+> 先比較 exponent。
+> exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。
+> 多工器只是負責幫硬體選出「誰大、誰小」。
+
+
+## Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？
+
+### 1. 浮點加法要先 align exponents，但乘法不用
+
+浮點加法麻煩在：兩個數要先對齊 exponent，significand 才能相加。
+
+但浮點乘法不一樣。
+如果兩個數是：
+
+`A × 10^x` 和 `B × 10^y`
+
+相乘時會變成：
+
+`(A × B) × 10^(x+y)`
+
+所以乘法的第一個核心規則是：
+
+| 部分          | 浮點乘法怎麼做          |
+| ----------- | ---------------- |
+| exponent    | 相加               |
+| significand | 相乘               |
+| sign        | 看兩個 operand 是否同號 |
+
+講義範例第一步就是把指數相加：
+
+`10 + (-5) = 5`
+
+所以新 exponent 先得到 `5`。
+
+---
+
+### 2. 若用 biased exponent，要記得只扣一次 bias
+
+這裡很容易錯。
+
+如果你直接拿 true exponent 做乘法：
+
+`10 + (-5) = 5`
+
+很直覺。
+
+但 IEEE 754 裡面 exponent field 存的是 biased exponent。以 single precision 為例：
+
+`true exponent + 127`
+
+所以：
+
+`10` 存成 `10 + 127 = 137`
+`-5` 存成 `-5 + 127 = 122`
+
+如果直接相加：
+
+`137 + 122 = 259`
+
+這會多加了一次 bias，因為兩邊各自都已經含有 `+127`。
+
+正確做法是：
+
+`137 + 122 - 127 = 132`
+
+而 `132 = 5 + 127`，代表 true exponent 還是 `5`。
+
+最短記法：
+
+| 情況                | exponent 怎麼算 |
+| ----------------- | ------------ |
+| 用 true exponent   | 直接相加         |
+| 用 biased exponent | 相加後扣一次 bias  |
+
+---
+
+### 3. 接著把 significands 相乘
+
+講義範例的有效數字相乘是：
+
+`1.110 × 9.200 = 10.212000`
+
+因為假設每個 operand 小數點右方都有三位，所以乘完後小數點右方會有六位。
+如果只能保留小數點右方三位，會先寫成：
+
+`10.212 × 10^5`
+
+這時注意：`10.212` 還不是 normalized form，因為科學記號左邊應該只留一位非零數字。
+
+---
+
+### 4. Normalize：乘完後可能需要把 significand 右移
+
+`10.212 × 10^5`
+
+要 normalize 成：
+
+`1.0212 × 10^6`
+
+因為 significand 從 `10.212` 右移成 `1.0212`，所以 exponent 要加 `1`。
+
+這和浮點加法一樣：最後結果必須回到 normalized form。
+
+但乘法常見情況是：兩個 normalized significand 相乘後，結果可能介於 `1.x` 到接近 `4` 之間，所以有時需要右移一位並讓 exponent 加 1。
+
+---
+
+### 5. Round，再決定 sign
+
+講義範例假設有效數字只保留四位，所以：
+
+`1.0212 × 10^6`
+
+round 成：
+
+`1.021 × 10^6`
+
+最後 sign 的規則和整數乘法一樣：
+
+| 兩數符號 | 結果 |
+| ---- | -- |
+| 同號   | 正  |
+| 異號   | 負  |
+
+講義範例兩個 operand 都是正，所以結果是：
+
+`+1.021 × 10^6`
+
+---
+
+### 最短記法
+
+浮點乘法流程：
+
+| 步驟 | 動作                    |
+| -- | --------------------- |
+| 1  | Add exponents         |
+| 2  | Multiply significands |
+| 3  | Normalize             |
+| 4  | Round                 |
+| 5  | Determine sign        |
+
+跟浮點加法最大的差異：
+
+| 浮點加法                          | 浮點乘法                  |
+| ----------------------------- | --------------------- |
+| exponent 要先對齊                 | exponent 直接相加         |
+| significand 做 signed addition | significand 相乘        |
+| 結果再 normalize / round         | 結果再 normalize / round |
+
+
+
+## Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？
+
+![alt text](<images/ch 3-7.png>)
+
+### 1. Exponent path(指數路徑)：先加 exponent，再修正 bias
+
+浮點乘法中，指數部分不是對齊，而是相加。
+
+如果用 true exponent：
+
+`E_result = E_A + E_B`
+
+但 IEEE 754 exponent field 存的是 biased exponent，所以若直接拿 stored exponent 算，會多算一次 bias。以 single precision 為例：
+
+`E_result_stored = E_A_stored + E_B_stored − 127`
+
+所以硬體的 exponent path 需要做兩件事：
+
+| 動作            | 意義                            |
+| ------------- | ----------------------------- |
+| add exponents | 乘法時尺度相乘，所以指數相加                |
+| subtract bias | 修正 biased notation 多加的一次 bias |
+
+### 2. Significand path(有效數字路徑)：把兩個 significands 相乘
+
+浮點乘法的主體是：
+
+`significand_A × significand_B`
+
+這和浮點加法不同。加法是對齊後做 signed significand addition；乘法則是直接做 significand multiplication。
+
+因為兩個 normalized binary significands 通常長得像：
+
+`1.x₂`
+
+所以兩個相乘後，結果可能落在：
+
+`1.x₂` 到接近 `4.0₂`
+
+如果乘完變成 `10.x₂` 或更高，就需要 normalize，讓它回到 `1.x₂ × 2^E`。
+
+### 3. Sign path(符號路徑)：用 XOR 決定結果正負
+
+乘法的 sign 很簡單：
+
+`result sign = sign A xor sign B`
+
+| sign A | sign B | result sign |
+| -----: | -----: | ----------: |
+|      0 |      0 |         0，正 |
+|      1 |      1 |         0，正 |
+|      0 |      1 |         1，負 |
+|      1 |      0 |         1，負 |
+
+所以硬體可以一開始就算好 sign，只是最後才和 exponent、fraction 組合回完整 floating-point result。
+
+### 4. Normalize / Round：最後仍然要塞回固定格式
+
+乘完 significands 後，結果可能不是 normalized form，所以要 normalize。
+Normalize 後，因為 fraction field 長度固定，所以還要 round。
+
+講義圖 3.16 特別提醒：正常路徑會執行 normalize 與 round 各一次；但如果 rounding 造成結果又變成非常規化，就必須再次 normalize。
+
+最短理解：
+
+| 階段               | 硬體在做什麼                         |
+| ---------------- | ------------------------------ |
+| exponent path    | exponent 相加，並扣 bias            |
+| significand path | significand 相乘                 |
+| sign path        | sign bits 做 XOR                |
+| final path       | normalize、round，必要時再 normalize |
+
+
+
+
+## Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？
+
+### 1. 浮點數常常只是近似值
+
+很多 real numbers(實數) 沒辦法被有限 bits 完全表示。
+例如十進位的 `0.1` 在二進位中通常無法有限表示，所以電腦裡存的會是很接近 `0.1` 的某個值，而不一定是數學上完全精確的 `0.1`。
+
+所以浮點運算的核心問題不是只有「怎麼算」，還有：
+
+**算完以後，如何把結果近似成格式能存的值，而且誤差盡量小。**
+
+### 2. Guard bit 和 round bit 是中間計算用的額外位元
+
+講義說，為了精準 rounding，硬體在計算中會使用額外 bits。
+在加法過程中，右邊會多帶兩個額外位元：
+
+| 額外位元        | 中文        | 作用                |
+| ----------- | --------- | ----------------- |
+| `guard bit` | 保護位元      | 保留被截掉區域的第一個重要 bit |
+| `round bit` | 進位位元／捨入位元 | 幫助判斷是否要進位捨入       |
+
+直覺例子：
+你最後只能存到小數點後三位，但中間先多算到小數點後五位，這樣才能判斷 `1.2349` 應該存成 `1.235`，而不是粗暴切成 `1.234`。
+
+在 IEEE 754 裡也是同樣概念，只是十進位小數位換成二進位 bits。
+
+### 3. `ulp` 是用來衡量浮點誤差的單位
+
+`ulp(units in the last place，最後位置的單元數)` 可以理解成：
+
+**最後一個可儲存位元所代表的間距。**
+
+如果兩個可表示浮點數很接近，它們之間的最小間距就和 ulp 有關。
+講義說，在沒有 overflow(滿溢)、underflow(短值)、invalid operation exception(無效運算例外) 的情況下，IEEE 754 保證誤差在半個 `ulp` 之內。
+
+最短理解：
+
+| 概念                    | 重點               |
+| --------------------- | ---------------- |
+| floating-point number | 通常是近似值           |
+| rounding modes        | 決定怎麼近似           |
+| guard / round bits    | 中間多算幾位，幫助精準捨入    |
+| ulp                   | 衡量最後儲存位置誤差的單位    |
+| half ulp guarantee    | 正常情況下誤差不超過半個 ulp |
+
+
+
+## MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？
+
+講義位置：PDF viewer page 150／輔助：投影片內頁碼 154
+
+### 1. 浮點加減乘除：用 `.s` 和 `.d` 區分精度
+
+MIPS 的浮點指令會用 suffix(後綴) 來表示資料精度：
+
+| 後綴   | English          | 中文   | 資料大小          |
+| ---- | ---------------- | ---- | ------------- |
+| `.s` | single precision | 單精確度 | 32-bit float  |
+| `.d` | double precision | 雙精確度 | 64-bit double |
+
+所以常見指令是：
+
+| 運算 | Single precision | Double precision |
+| -- | ---------------- | ---------------- |
+| 加法 | `add.s`          | `add.d`          |
+| 減法 | `sub.s`          | `sub.d`          |
+| 乘法 | `mul.s`          | `mul.d`          |
+| 除法 | `div.s`          | `div.d`          |
+
+最短記法：
+**`.s` 是 float，`.d` 是 double。**
+
+---
+
+### 2. 浮點數不是放在一般 `$s0`、`$t0`，而是放在 `$f0`、`$f1`...
+
+講義說 MIPS 另外加入 floating-point registers(浮點暫存器)：
+
+`$f0, $f1, $f2, ...`
+
+所以浮點加法通常長這樣：
+
+```asm
+add.s $f0, $f1, $f2   # $f0 = $f1 + $f2, single precision
+add.d $f0, $f2, $f4   # $f0 = $f2 + $f4, double precision
+```
+
+注意：
+這裡不能寫成：
+
+```asm
+add.s $s0, $s1, $s2
+```
+
+因為 `$s0`、`$s1`、`$s2` 是 general-purpose registers(一般用途暫存器)，不是浮點暫存器。
+
+
+
+
+
+#### 為什麼要分開放到 f 暫存器？
+
+核心原因是：**浮點運算硬體和整數運算硬體差很多。**
+
+整數加法像是在做 32-bit 二補數加法。
+
+浮點加法則要做：
+
+1. 拆 sign / exponent / significand
+    
+2. 對齊 exponent
+    
+3. 做 signed significand addition
+    
+4. normalize
+    
+5. round
+    
+6. 檢查特殊值，例如 overflow、underflow、NaN、infinity
+    
+
+所以硬體通常會把它分成另一套 FPU。既然 FPU 是另一套運算硬體，讓它有自己的暫存器 `$f0 ~ $f31`，就可以讓資料直接待在 FPU 附近，不用每次都從一般 register 搬來搬去。
+
+
+
+---
+
+### 3. 浮點 load/store：用 `lwc1` 和 `swc1`
+
+浮點資料如果在 memory(記憶體) 裡，要先載入到 floating-point register，算完再存回去。
+
+| 指令     | 意思                                                       |
+| ------ | -------------------------------------------------------- |
+| `lwc1` | load word to coprocessor 1，把 32-bit float 載入浮點暫存器        |
+| `swc1` | store word from coprocessor 1，把 32-bit float 從浮點暫存器存回記憶體 |
+
+簡單記：
+
+| 你要做的事                  | 指令     |
+| ---------------------- | ------ |
+| memory → `$f` register | `lwc1` |
+| `$f` register → memory | `swc1` |
+
+---
+
+### 4. 浮點比較與分支
+
+講義列出 floating-point comparison(浮點比較) 指令，可以寫成：
+
+| 類型                | 格式           | 意思                         |
+| ----------------- | ------------ | -------------------------- |
+| single comparison | `c.<cond>.s` | 比較 single precision float  |
+| double comparison | `c.<cond>.d` | 比較 double precision double |
+
+其中 `<cond>` 是 condition(比較條件) 的佔位符，實際寫指令時要換成下面其中一種：
+
+| `<cond>` | 意思                    | 範例        |
+| -------- | --------------------- | --------- |
+| `eq`     | equal                 | `c.eq.s`  |
+| `neq`    | not equal             | `c.neq.s` |
+| `lt`     | less than             | `c.lt.s`  |
+| `le`     | less than or equal    | `c.le.s`  |
+| `gt`     | greater than          | `c.gt.s`  |
+| `ge`     | greater than or equal | `c.ge.s`  |
+
+比較完之後，再用：
+
+| 指令     | 意思                                          |
+| ------ | ------------------------------------------- |
+| `bc1t` | branch if floating-point condition is true  |
+| `bc1f` | branch if floating-point condition is false |
+
+這裡的 `c1` 可以先記成：浮點相關的 coprocessor 1。
+
+---
+
+### 最短記法
+
+| 功能          | 指令記法                            |
+| ----------- | ------------------------------- |
+| float 加減乘除  | `add.s / sub.s / mul.s / div.s` |
+| double 加減乘除 | `add.d / sub.d / mul.d / div.d` |
+| 浮點暫存器       | `$f0, $f1, $f2, ...`            |
+| 載入 float    | `lwc1`                          |
+| 儲存 float    | `swc1`                          |
+| 浮點比較        | `c.x.s / c.x.d`                 |
+| 浮點分支        | `bc1t / bc1f`                   |
+
+
+
+
+## 給我一串簡短的範例指令，把 PDF viewer page 150 提到的指令串起來(同種類的只要一個)
+
+可以，下面這串用 **single precision(單精確度)** 示範，把 `PDF viewer page 150` 提到的同類指令各挑一個串起來：`lwc1`、`add.s`、`c.<cond>.s`、`bc1f`、`swc1`。講義這頁列出浮點加減乘除、浮點比較、浮點分支、`$f` 浮點暫存器，以及 `lwc1 / swc1`。
+
+```asm
+# 假設：
+# $s0 = address of a
+# $s1 = address of b
+# $s2 = address of limit
+# $s3 = address of result
+
+lwc1  $f0, 0($s0)        # $f0 = a
+lwc1  $f2, 0($s1)        # $f2 = b
+
+add.s $f4, $f0, $f2      # $f4 = a + b
+
+lwc1  $f6, 0($s2)        # $f6 = limit
+c.lt.s $f4, $f6          # compare: is $f4 < $f6 ?
+
+bc1f  done               # if comparison is false, skip storing
+
+swc1  $f4, 0($s3)        # result = $f4
+
+done:
+```
+
+這串的意思是：
+
+| 指令       | 類型       | 做什麼                               |
+| -------- | -------- | --------------------------------- |
+| `lwc1`   | 浮點 load  | 從 memory 載入 float 到 `$f` register |
+| `add.s`  | 浮點算術     | 做 single precision float 加法       |
+| `c.lt.s` | 浮點比較     | 比較 `$f4 < $f6`                    |
+| `bc1f`   | 浮點分支     | 如果剛才比較結果是 false，就跳到 `done`        |
+| `swc1`   | 浮點 store | 把 `$f4` 存回 memory                 |
+
+最短理解：
+**memory → `$f` 暫存器 → 浮點運算 → 浮點比較 → 浮點分支 → 存回 memory。**
+
