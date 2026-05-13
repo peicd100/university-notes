@@ -7644,6 +7644,1054 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ieee-754-format--浮點數實際上怎麼塞進-32-bit-或-64-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-single-precision單精確度32-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Single Precision(單精確度)：32-bit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-double-precision雙精確度64-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Double Precision(雙精確度)：64-bit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-fraction-只存-f不是存完整-1f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 Fraction 只存 .F，不是存完整 1.F？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-要注意" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 要注意
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-decoding--看到-32-bit-浮點數時怎麼拆成-signexponentfraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先照-ieee-754-single-precision-切欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先照 IEEE 754 single precision 切欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sign-bit-決定正負" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sign bit 決定正負
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-exponent-欄位要扣掉-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Exponent 欄位要扣掉 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fraction-要補回隱含前導-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fraction 要補回隱含前導 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何要偏移-127-和-1023" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何要偏移 127 和 1023
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何要偏移 127 和 1023">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-為什麼-exponent-需要偏移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 為什麼 exponent 需要偏移？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-single-是-127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 single 是 127？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-double-是-1023" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 double 是 1023？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼不是-128-或-1024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼不是 128 或 1024？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-編碼和解碼剛好反過來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 編碼和解碼剛好反過來
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一步先把原數常規化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一步：先把原數常規化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二步決定-sign-和-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二步：決定 Sign 和 Exponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三步決定-fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三步：決定 Fraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最後組合成-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最後組合成 32 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-representation-advantages--為什麼固定成標準浮點格式有幫助" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-第一個好處簡化資料交換" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 第一個好處：簡化資料交換
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第二個好處簡化浮點算術演算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第二個好處：簡化浮點算術演算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第三個好處提高字組中存放數字的準確度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第三個好處：提高字組中存放數字的準確度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-固定-word-size字組大小-代表資源有限" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 固定 word size(字組大小) 代表資源有限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-增加-fraction-會提高-precision精度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 增加 fraction 會提高 precision(精度)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-增加-exponent-會擴大-range範圍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 增加 exponent 會擴大 range(範圍)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-general-formula---1s--f--2e-在說什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point General Formula — (-1)^S × F × 2^E 在說什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point General Formula — (-1)^S × F × 2^E 在說什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1--1s-負責正負號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. (-1)^S 負責正負號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-f-負責有效數字長什麼樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. F 負責有效數字長什麼樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2e-負責尺度大小" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 2^E 負責尺度大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-overflow滿溢指數太大超出-exponent-field-可表示範圍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overflow(滿溢)：指數太大，超出 exponent field 可表示範圍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-underflow短值負指數太大太接近-0-而裝不下" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Underflow(短值)：負指數太大，太接近 0 而裝不下
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼更大的-exponent-field-可以降低-overflow--underflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼更大的 exponent field 可以降低 overflow / underflow？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-double-precision雙精確度-的角色" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Double precision(雙精確度) 的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-floating-point-addition--浮點加法為什麼要先對齊-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加法不是直接把兩個-significand-相加" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加法不是直接把兩個 significand 相加
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-對齊-exponent把較小-exponent-的數右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 對齊 exponent：把較小 exponent 的數右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-相加-significand再-normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 相加 significand，再 normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-addition-algorithm--浮點加法的一般流程為什麼比整數加法麻煩" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-第一步先比較-exponent對齊尺度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 第一步：先比較 exponent，對齊尺度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第二步帶著-sign-做-signed-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第二步：帶著 sign 做 signed addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第三步normalize-結果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第三步：normalize 結果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第四步round必要時再次-normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第四步：round，必要時再次 normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如果是-round-到-8-bit-所以原本在-round-的之前會有更多空間的意思嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如果是 round 到 8 bit ，所以原本在 round 的之前會有更多空間的意思嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#significand-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        significand 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-addition-datapath--浮點加法流程怎麼變成硬體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先用小-alu-比較兩個-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先用小 ALU 比較兩個 exponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-差值控制-multiplexers多工器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 差值控制 multiplexers(多工器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-將較小數的-significand-右移後再做-signed-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 將較小數的 significand 右移後再做 signed addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-相加後還要-normalize--round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 相加後還要 normalize / round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三個多工器到底是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三個多工器到底是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三個多工器到底是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-多工器到底在幹嘛" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 多工器到底在幹嘛？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-用例子看會比較清楚" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用例子看會比較清楚
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-那張表其實可以改成這樣記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 那張表其實可以改成這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-multiplication--浮點乘法和浮點加法到底差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加法要先-align-exponents但乘法不用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加法要先 align exponents，但乘法不用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-若用-biased-exponent要記得只扣一次-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 若用 biased exponent，要記得只扣一次 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-接著把-significands-相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 接著把 significands 相乘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalize乘完後可能需要把-significand-右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalize：乘完後可能需要把 significand 右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-round再決定-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Round，再決定 sign
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-exponent-path指數路徑先加-exponent再修正-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Exponent path(指數路徑)：先加 exponent，再修正 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-significand-path有效數字路徑把兩個-significands-相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Significand path(有效數字路徑)：把兩個 significands 相乘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sign-path符號路徑用-xor-決定結果正負" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sign path(符號路徑)：用 XOR 決定結果正負
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalize--round最後仍然要塞回固定格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalize / Round：最後仍然要塞回固定格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點數常常只是近似值" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點數常常只是近似值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-guard-bit-和-round-bit-是中間計算用的額外位元" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Guard bit 和 round bit 是中間計算用的額外位元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ulp-是用來衡量浮點誤差的單位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ulp 是用來衡量浮點誤差的單位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mips-floating-point-instructions--mips-怎麼用指令操作浮點數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加減乘除用-s-和-d-區分精度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加減乘除：用 .s 和 .d 區分精度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-浮點數不是放在一般-s0t0而是放在-f0f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 浮點數不是放在一般 $s0、$t0，而是放在 $f0、$f1&hellip;
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 浮點數不是放在一般 $s0、$t0，而是放在 $f0、$f1…">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要分開放到-f-暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要分開放到 f 暫存器？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-浮點-loadstore用-lwc1-和-swc1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 浮點 load/store：用 lwc1 和 swc1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-浮點比較與分支" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 浮點比較與分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#給我一串簡短的範例指令把-pdf-viewer-page-150-提到的指令串起來同種類的只要一個" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        給我一串簡短的範例指令，把 PDF viewer page 150 提到的指令串起來(同種類的只要一個)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -10174,6 +11222,1054 @@ is now available!
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ieee-754-format--浮點數實際上怎麼塞進-32-bit-或-64-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-single-precision單精確度32-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Single Precision(單精確度)：32-bit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-double-precision雙精確度64-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Double Precision(雙精確度)：64-bit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-fraction-只存-f不是存完整-1f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 Fraction 只存 .F，不是存完整 1.F？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-要注意" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 要注意
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-decoding--看到-32-bit-浮點數時怎麼拆成-signexponentfraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先照-ieee-754-single-precision-切欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先照 IEEE 754 single precision 切欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sign-bit-決定正負" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sign bit 決定正負
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-exponent-欄位要扣掉-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Exponent 欄位要扣掉 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fraction-要補回隱含前導-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fraction 要補回隱含前導 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何要偏移-127-和-1023" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何要偏移 127 和 1023
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何要偏移 127 和 1023">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-為什麼-exponent-需要偏移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 為什麼 exponent 需要偏移？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-single-是-127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 single 是 127？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-double-是-1023" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 double 是 1023？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼不是-128-或-1024" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼不是 128 或 1024？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-編碼和解碼剛好反過來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 編碼和解碼剛好反過來
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一步先把原數常規化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一步：先把原數常規化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二步決定-sign-和-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二步：決定 Sign 和 Exponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三步決定-fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三步：決定 Fraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最後組合成-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最後組合成 32 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-representation-advantages--為什麼固定成標準浮點格式有幫助" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-第一個好處簡化資料交換" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 第一個好處：簡化資料交換
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第二個好處簡化浮點算術演算法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第二個好處：簡化浮點算術演算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第三個好處提高字組中存放數字的準確度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第三個好處：提高字組中存放數字的準確度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-固定-word-size字組大小-代表資源有限" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 固定 word size(字組大小) 代表資源有限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-增加-fraction-會提高-precision精度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 增加 fraction 會提高 precision(精度)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-增加-exponent-會擴大-range範圍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 增加 exponent 會擴大 range(範圍)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-general-formula---1s--f--2e-在說什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point General Formula — (-1)^S × F × 2^E 在說什麼？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point General Formula — (-1)^S × F × 2^E 在說什麼？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1--1s-負責正負號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. (-1)^S 負責正負號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-f-負責有效數字長什麼樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. F 負責有效數字長什麼樣
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2e-負責尺度大小" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 2^E 負責尺度大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-overflow滿溢指數太大超出-exponent-field-可表示範圍" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overflow(滿溢)：指數太大，超出 exponent field 可表示範圍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-underflow短值負指數太大太接近-0-而裝不下" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Underflow(短值)：負指數太大，太接近 0 而裝不下
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼更大的-exponent-field-可以降低-overflow--underflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼更大的 exponent field 可以降低 overflow / underflow？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-double-precision雙精確度-的角色" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Double precision(雙精確度) 的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-floating-point-addition--浮點加法為什麼要先對齊-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加法不是直接把兩個-significand-相加" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加法不是直接把兩個 significand 相加
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-對齊-exponent把較小-exponent-的數右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 對齊 exponent：把較小 exponent 的數右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-相加-significand再-normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 相加 significand，再 normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-addition-algorithm--浮點加法的一般流程為什麼比整數加法麻煩" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-第一步先比較-exponent對齊尺度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 第一步：先比較 exponent，對齊尺度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第二步帶著-sign-做-signed-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第二步：帶著 sign 做 signed addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第三步normalize-結果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第三步：normalize 結果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第四步round必要時再次-normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第四步：round，必要時再次 normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如果是-round-到-8-bit-所以原本在-round-的之前會有更多空間的意思嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如果是 round 到 8 bit ，所以原本在 round 的之前會有更多空間的意思嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#significand-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        significand 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-addition-datapath--浮點加法流程怎麼變成硬體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先用小-alu-比較兩個-exponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先用小 ALU 比較兩個 exponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-差值控制-multiplexers多工器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 差值控制 multiplexers(多工器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-將較小數的-significand-右移後再做-signed-addition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 將較小數的 significand 右移後再做 signed addition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-相加後還要-normalize--round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 相加後還要 normalize / round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#三個多工器到底是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三個多工器到底是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三個多工器到底是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-多工器到底在幹嘛" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 多工器到底在幹嘛？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-用例子看會比較清楚" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用例子看會比較清楚
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-那張表其實可以改成這樣記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 那張表其實可以改成這樣記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-multiplication--浮點乘法和浮點加法到底差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加法要先-align-exponents但乘法不用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加法要先 align exponents，但乘法不用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-若用-biased-exponent要記得只扣一次-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 若用 biased exponent，要記得只扣一次 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-接著把-significands-相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 接著把 significands 相乘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalize乘完後可能需要把-significand-右移" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalize：乘完後可能需要把 significand 右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-round再決定-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Round，再決定 sign
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-exponent-path指數路徑先加-exponent再修正-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Exponent path(指數路徑)：先加 exponent，再修正 bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-significand-path有效數字路徑把兩個-significands-相乘" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Significand path(有效數字路徑)：把兩個 significands 相乘
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sign-path符號路徑用-xor-決定結果正負" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sign path(符號路徑)：用 XOR 決定結果正負
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-normalize--round最後仍然要塞回固定格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normalize / Round：最後仍然要塞回固定格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點數常常只是近似值" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點數常常只是近似值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-guard-bit-和-round-bit-是中間計算用的額外位元" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Guard bit 和 round bit 是中間計算用的額外位元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ulp-是用來衡量浮點誤差的單位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ulp 是用來衡量浮點誤差的單位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mips-floating-point-instructions--mips-怎麼用指令操作浮點數" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-浮點加減乘除用-s-和-d-區分精度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮點加減乘除：用 .s 和 .d 區分精度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-浮點數不是放在一般-s0t0而是放在-f0f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 浮點數不是放在一般 $s0、$t0，而是放在 $f0、$f1&hellip;
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 浮點數不是放在一般 $s0、$t0，而是放在 $f0、$f1…">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼要分開放到-f-暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼要分開放到 f 暫存器？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-浮點-loadstore用-lwc1-和-swc1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 浮點 load/store：用 lwc1 和 swc1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-浮點比較與分支" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 浮點比較與分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#給我一串簡短的範例指令把-pdf-viewer-page-150-提到的指令串起來同種類的只要一個" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        給我一串簡短的範例指令，把 PDF viewer page 150 提到的指令串起來(同種類的只要一個)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -13889,6 +15985,1755 @@ else:
 </tr>
 </tbody>
 </table>
+<h2 id="ieee-754-format--浮點數實際上怎麼塞進-32-bit-或-64-bit">IEEE 754 Format — 浮點數實際上怎麼塞進 32-bit 或 64-bit？<a class="headerlink" href="#ieee-754-format--浮點數實際上怎麼塞進-32-bit-或-64-bit" title="Permanent link"></a></h2>
+<p>前面我們一直寫：</p>
+<p><code>1.xxxxx₂ × 2^E</code></p>
+<p>p.126 開始把它變成真正的 bit layout。浮點數不是直接把整串 <code>1.xxxxx × 2^E</code> 存進去，而是拆成三個欄位：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>English</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>符號位元</td>
+<td><code>Sign bit</code></td>
+<td>決定正負號</td>
+</tr>
+<tr>
+<td>指數</td>
+<td><code>Exponent</code></td>
+<td>控制 binary point 移動多少</td>
+</tr>
+<tr>
+<td>分數</td>
+<td><code>Fraction</code></td>
+<td>保存 <code>1.xxxxx</code> 小數點右邊的部分</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="1-single-precision單精確度32-bit">1. Single Precision(單精確度)：32-bit<a class="headerlink" href="#1-single-precision單精確度32-bit" title="Permanent link"></a></h3>
+<p>p.126 圖中 single precision 的欄位是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">bit 數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sign bit</code></td>
+<td style="text-align: right;">1 bit</td>
+</tr>
+<tr>
+<td><code>Exponent, E</code></td>
+<td style="text-align: right;">8 bits</td>
+</tr>
+<tr>
+<td><code>Fraction, F</code></td>
+<td style="text-align: right;">23 bits</td>
+</tr>
+<tr>
+<td>總共</td>
+<td style="text-align: right;">32 bits</td>
+</tr>
+</tbody>
+</table>
+<p>講義右邊公式寫成：</p>
+<p><code>(±)1.F × 2^(E−127)</code></p>
+<p>這裡的 <code>127</code> 是 <code>bias(偏移值)</code>。現在先記住：<strong>Exponent 欄位存的不是直接的真實指數，而是加過 bias 的值。</strong></p>
+<hr />
+<h3 id="2-double-precision雙精確度64-bit">2. Double Precision(雙精確度)：64-bit<a class="headerlink" href="#2-double-precision雙精確度64-bit" title="Permanent link"></a></h3>
+<p>double precision 的欄位是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">bit 數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sign bit</code></td>
+<td style="text-align: right;">1 bit</td>
+</tr>
+<tr>
+<td><code>Exponent, E</code></td>
+<td style="text-align: right;">11 bits</td>
+</tr>
+<tr>
+<td><code>Fraction, F</code></td>
+<td style="text-align: right;">52 bits</td>
+</tr>
+<tr>
+<td>總共</td>
+<td style="text-align: right;">64 bits</td>
+</tr>
+</tbody>
+</table>
+<p>講義右邊公式寫成：</p>
+<p><code>(±)1.F × 2^(E−1023)</code></p>
+<p>double precision 有更多 exponent bits 與 fraction bits，所以能表示更大的範圍，也能保留更高精度。</p>
+<hr />
+<h3 id="3-為什麼-fraction-只存-f不是存完整-1f">3. 為什麼 Fraction 只存 <code>.F</code>，不是存完整 <code>1.F</code>？<a class="headerlink" href="#3-為什麼-fraction-只存-f不是存完整-1f" title="Permanent link"></a></h3>
+<p>因為 normalized binary number 的小數點左邊一定是 <code>1</code>。<br />
+既然永遠知道它是 <code>1</code>，就不用真的存，這個 1 之後會叫做 <code>implicit leading 1(隱含前導 1)</code>。</p>
+<p>現在先抓住：</p>
+<table>
+<thead>
+<tr>
+<th>實際數學形式</th>
+<th>儲存時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1.F</code></td>
+<td>只存 <code>F</code></td>
+</tr>
+<tr>
+<td>前面的 <code>1</code></td>
+<td>由 normalized rule 隱含，不額外存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-要注意">4. 要注意<a class="headerlink" href="#4-要注意" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">PEICD</p>
+<p>Sign,Exponent,Fraction<br />
+1,8,23 = 32  ,-127  , (±)1.F × 2^(E−127)<br />
+1,11,52 = 64  ,-1023 , (±)1.F × 2^(E−1023)</p>
+<p>要注意 Fraction 欄位是小數點後的，不包含 1 ，如：(±)1. <mark>F</mark> × 2^(E−127)。因為小數點前面一定是 1 ，不需要寫。</p>
+</div>
+<h2 id="floating-point-decoding--看到-32-bit-浮點數時怎麼拆成-signexponentfraction">Floating-Point Decoding — 看到 32-bit 浮點數時，怎麼拆成 sign、exponent、fraction？<a class="headerlink" href="#floating-point-decoding--看到-32-bit-浮點數時怎麼拆成-signexponentfraction" title="Permanent link"></a></h2>
+<h3 id="1-先照-ieee-754-single-precision-切欄位">1. 先照 IEEE 754 single precision 切欄位<a class="headerlink" href="#1-先照-ieee-754-single-precision-切欄位" title="Permanent link"></a></h3>
+<p>Single precision 的格式是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">bit 數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sign</code></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>Exponent</code></td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td><code>Fraction</code></td>
+<td style="text-align: right;">23</td>
+</tr>
+</tbody>
+</table>
+<p>所以看到 32-bit 浮點數時，第一步不是直接算，而是先切成：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 bit</td>
+<td><code>Sign</code></td>
+</tr>
+<tr>
+<td>接下來 8 bits</td>
+<td><code>Exponent</code></td>
+</tr>
+<tr>
+<td>最後 23 bits</td>
+<td><code>Fraction</code></td>
+</tr>
+</tbody>
+</table>
+<p>以 p.127 的例子：</p>
+<div class="highlight"><pre><span></span><code>11010110101101101011000000000000
+</code></pre></div>
+<p>切成：</p>
+<div class="highlight"><pre><span></span><code>Sign     = 1
+Exponent = 10101101
+Fraction = 01101101011000000000000
+</code></pre></div>
+<hr />
+<h3 id="2-sign-bit-決定正負">2. Sign bit 決定正負<a class="headerlink" href="#2-sign-bit-決定正負" title="Permanent link"></a></h3>
+<p><code>Sign = 1</code> 代表這個數是負數。<br />
+<code>Sign = 0</code> 才是正數。</p>
+<p>所以這題最後一定會是負值。</p>
+<hr />
+<h3 id="3-exponent-欄位要扣掉-bias">3. Exponent 欄位要扣掉 bias<a class="headerlink" href="#3-exponent-欄位要扣掉-bias" title="Permanent link"></a></h3>
+<p>Single precision 的公式是：</p>
+<div class="highlight"><pre><span></span><code>value = (-1)^S × 1.F × 2^(E - 127)
+</code></pre></div>
+<p>這裡的 <code>E</code> 不是直接拿 bit pattern 當真實指數，而是要先把 exponent bits 轉成 unsigned integer。</p>
+<p>本例：</p>
+<div class="highlight"><pre><span></span><code>Exponent bits = 10101101₂
+</code></pre></div>
+<p>轉成十進位：</p>
+<div class="highlight"><pre><span></span><code>10101101₂ = 173
+</code></pre></div>
+<p>所以真實指數是：</p>
+<div class="highlight"><pre><span></span><code>173 - 127 = 46
+</code></pre></div>
+<hr />
+<h3 id="4-fraction-要補回隱含前導-1">4. Fraction 要補回隱含前導 1<a class="headerlink" href="#4-fraction-要補回隱含前導-1" title="Permanent link"></a></h3>
+<p>Fraction 欄位是：</p>
+<div class="highlight"><pre><span></span><code>01101101011000000000000
+</code></pre></div>
+<p>但 normalized floating point 的 significand 是：</p>
+<div class="highlight"><pre><span></span><code>1.01101101011000000000000₂
+</code></pre></div>
+<p>注意：前面的 <code>1.</code> 沒有存，但解碼時要補回來。</p>
+<p>所以這個數的形式是：</p>
+<div class="highlight"><pre><span></span><code>-1.01101101011000000000000₂ × 2^46
+</code></pre></div>
+<p>這已經是正確的解碼形式。若題目要求十進位值，下一步才把 significand 和 <code>2^46</code> 展開。</p>
+<hr />
+<h3 id="5-最短流程">5. 最短流程<a class="headerlink" href="#5-最短流程" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>切成 <code>S / E / F</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>S</code> 判斷正負</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>E</code> 轉十進位後扣 bias</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>F</code> 前面補 <code>1.</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>寫成 <code>(-1)^S × 1.F × 2^(E−127)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="為何要偏移-127-和-1023">為何要偏移 127 和 1023<a class="headerlink" href="#為何要偏移-127-和-1023" title="Permanent link"></a></h3>
+<p>對，<code>127</code> 和 <code>1023</code> 的核心目的就是：<strong>用 unsigned bits(無號位元) 來方便地表示 signed exponent(有正負的真實指數)</strong>。</p>
+<p>講義後面會正式說這叫 <code>biased notation(偏移表示法)</code>，並提到 IEEE 754 single precision 使用 <code>127</code> 作為偏移值；前面 p.126 的公式也已經先出現 single 用 <code>E−127</code>、double 用 <code>E−1023</code>。 </p>
+<hr />
+<h4 id="1-為什麼-exponent-需要偏移">1. 為什麼 exponent 需要偏移？<a class="headerlink" href="#1-為什麼-exponent-需要偏移" title="Permanent link"></a></h4>
+<p>浮點數的真實指數可能是正的，也可能是負的：</p>
+<table>
+<thead>
+<tr>
+<th>數字形式</th>
+<th style="text-align: right;">真實指數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1.01₂ × 2³</code></td>
+<td style="text-align: right;"><code>+3</code></td>
+</tr>
+<tr>
+<td><code>1.01₂ × 2⁰</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>1.01₂ × 2^-3</code></td>
+<td style="text-align: right;"><code>-3</code></td>
+</tr>
+</tbody>
+</table>
+<p>但硬體欄位裡的 <code>Exponent field(指數欄位)</code> 是一串 bits。如果直接用 signed representation(有號表示法)，比較與硬體處理會比較麻煩。</p>
+<p>所以 IEEE 754 採用偏移表示法：</p>
+<div class="highlight"><pre><span></span><code>stored exponent = true exponent + bias
+true exponent = stored exponent - bias
+</code></pre></div>
+<p>這樣 exponent 欄位本身可以當作 unsigned integer 來存。</p>
+<hr />
+<h4 id="2-為什麼-single-是-127">2. 為什麼 single 是 127？<a class="headerlink" href="#2-為什麼-single-是-127" title="Permanent link"></a></h4>
+<p>Single precision 的 exponent 欄位有 8 bits。</p>
+<p>8 bits 可以表示：</p>
+<div class="highlight"><pre><span></span><code>0 ~ 255
+</code></pre></div>
+<p>IEEE 754 選擇 bias：</p>
+<div class="highlight"><pre><span></span><code>2^(8−1) − 1 = 2^7 − 1 = 127
+</code></pre></div>
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">真實指數</th>
+<th style="text-align: right;">儲存的 E</th>
+<th>E bits 概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><code>-1</code></td>
+<td style="text-align: right;"><code>126</code></td>
+<td>比 127 小</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>127</code></td>
+<td>中間基準點</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>+1</code></td>
+<td style="text-align: right;"><code>128</code></td>
+<td>比 127 大</td>
+</tr>
+</tbody>
+</table>
+<p>也就是說，<code>127</code> 讓真實指數 <code>0</code> 可以剛好落在 exponent 編碼範圍中間附近。</p>
+<hr />
+<h4 id="3-為什麼-double-是-1023">3. 為什麼 double 是 1023？<a class="headerlink" href="#3-為什麼-double-是-1023" title="Permanent link"></a></h4>
+<p>Double precision 的 exponent 欄位有 11 bits。</p>
+<p>11 bits 可以表示：</p>
+<div class="highlight"><pre><span></span><code>0 ~ 2047
+</code></pre></div>
+<p>IEEE 754 選擇 bias：</p>
+<div class="highlight"><pre><span></span><code>2^(11−1) − 1 = 2^10 − 1 = 1023
+</code></pre></div>
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">真實指數</th>
+<th style="text-align: right;">儲存的 E</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><code>-1</code></td>
+<td style="text-align: right;"><code>1022</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>1023</code></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>+1</code></td>
+<td style="text-align: right;"><code>1024</code></td>
+</tr>
+</tbody>
+</table>
+<p>概念和 single 完全一樣，只是 double 的 exponent 欄位比較長，所以 bias 也比較大。</p>
+<hr />
+<h4 id="4-為什麼不是-128-或-1024">4. 為什麼不是 128 或 1024？<a class="headerlink" href="#4-為什麼不是-128-或-1024" title="Permanent link"></a></h4>
+<p>因為 IEEE 754 通常用：</p>
+<div class="highlight"><pre><span></span><code>bias = 2^(k−1) − 1
+</code></pre></div>
+<p>其中 <code>k</code> 是 exponent 欄位 bit 數。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th style="text-align: right;">exponent bits k</th>
+<th style="text-align: right;">bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;"><code>2^7 − 1 = 127</code></td>
+</tr>
+<tr>
+<td>Double</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;"><code>2^10 − 1 = 1023</code></td>
+</tr>
+</tbody>
+</table>
+<p>這樣做可以讓真實指數大致以 0 為中心，而且保留特殊 exponent 編碼：</p>
+<table>
+<thead>
+<tr>
+<th>Exponent field</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全 0</td>
+<td><code>zero(零)</code> 或 <code>subnormal number(非正規數)</code></td>
+</tr>
+<tr>
+<td>一般值</td>
+<td>normalized number</td>
+</tr>
+<tr>
+<td>全 1</td>
+<td><code>infinity(無限大)</code> 或 <code>NaN(Not a Number)</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以正常 normalized single 的真實 exponent 範圍不是 <code>-127 ~ +128</code>，而是主要使用：</p>
+<div class="highlight"><pre><span></span><code>1 ~ 254 stored exponent
+=&gt; 1 − 127 ~ 254 − 127
+=&gt; -126 ~ +127
+</code></pre></div>
+<p>Double 則是：</p>
+<div class="highlight"><pre><span></span><code>1 ~ 2046 stored exponent
+=&gt; 1 − 1023 ~ 2046 − 1023
+=&gt; -1022 ~ +1023
+</code></pre></div>
+<hr />
+<h4 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>為什麼要 bias？</td>
+<td>用 unsigned exponent field 表示正負指數</td>
+</tr>
+<tr>
+<td>single 為何 127？</td>
+<td>exponent 8 bits，所以 bias = <code>2^7 − 1</code></td>
+</tr>
+<tr>
+<td>double 為何 1023？</td>
+<td>exponent 11 bits，所以 bias = <code>2^10 − 1</code></td>
+</tr>
+<tr>
+<td>解碼怎麼做？</td>
+<td><code>true exponent = stored E − bias</code></td>
+</tr>
+<tr>
+<td>直覺</td>
+<td>把真實指數 0 放到編碼範圍中間附近</td>
+</tr>
+</tbody>
+</table>
+<p>一句話：<strong>127 和 1023 是 IEEE 754 用來把有正負的 exponent 平移成無號欄位的偏移量。</strong></p>
+<h2 id="floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision">Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？<a class="headerlink" href="#floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision" title="Permanent link"></a></h2>
+<h3 id="1-編碼和解碼剛好反過來">1. 編碼和解碼剛好反過來<a class="headerlink" href="#1-編碼和解碼剛好反過來" title="Permanent link"></a></h3>
+<p>剛剛 p.127 是 decoding(解碼)：<br />
+已知 32-bit pattern，拆成 <code>S / E / F</code>，再還原成數值。</p>
+<p>p.128 開始是 encoding(編碼)：<br />
+已知一個二進位數，要把它塞進 single precision 的三個欄位：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>要決定什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sign</code></td>
+<td>正數還是負數</td>
+</tr>
+<tr>
+<td><code>Exponent</code></td>
+<td>真實指數加上 bias 後的 8-bit 值</td>
+</tr>
+<tr>
+<td><code>Fraction</code></td>
+<td>normalized form 中 <code>1.F</code> 的 <code>F</code> 部分</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-第一步先把原數常規化">2. 第一步：先把原數常規化<a class="headerlink" href="#2-第一步先把原數常規化" title="Permanent link"></a></h3>
+<p>講義給的數是：</p>
+<p><code>0.000000110110100101₂</code></p>
+<p>第一個 <code>1</code> 出現在小數點後第 7 位，所以要把 binary point 往右移 7 位，變成：</p>
+<p><code>1.10110100101₂ × 2^-7</code></p>
+<p>注意這裡最容易錯：<br />
+binary point「為了常規化」是往右移 7 位，但為了保持原值不變，指數要寫成 <code>−7</code>。</p>
+<hr />
+<h3 id="3-第二步決定-sign-和-exponent">3. 第二步：決定 Sign 和 Exponent<a class="headerlink" href="#3-第二步決定-sign-和-exponent" title="Permanent link"></a></h3>
+<p>這個數是正數，所以：</p>
+<p><code>Sign = 0</code></p>
+<p>真實指數是：</p>
+<p><code>−7</code></p>
+<p>single precision bias 是 <code>127</code>，所以 stored exponent 是：</p>
+<p><code>−7 + 127 = 120</code></p>
+<p><code>120₁₀ = 01111000₂</code></p>
+<p>所以：</p>
+<p><code>Exponent = 01111000</code></p>
+<hr />
+<h3 id="4-第三步決定-fraction">4. 第三步：決定 Fraction<a class="headerlink" href="#4-第三步決定-fraction" title="Permanent link"></a></h3>
+<p>常規化後是：</p>
+<p><code>1.10110100101₂ × 2^-7</code></p>
+<p>IEEE 754 normalized number 不存前面的 <code>1.</code>，只存小數點右邊的部分。</p>
+<p>所以先拿：</p>
+<p><code>F = 10110100101</code></p>
+<p>但 single precision fraction 欄位要 23 bits，所以右邊補 0：</p>
+<p><code>Fraction = 10110100101000000000000</code></p>
+<hr />
+<h3 id="5-最後組合成-32-bits">5. 最後組合成 32 bits<a class="headerlink" href="#5-最後組合成-32-bits" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Sign</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>Exponent</code></td>
+<td><code>01111000</code></td>
+</tr>
+<tr>
+<td><code>Fraction</code></td>
+<td><code>10110100101000000000000</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以完整 single precision bit pattern 是：</p>
+<p><code>00111100010110100101000000000000</code></p>
+<h2 id="floating-point-representation-advantages--為什麼固定成標準浮點格式有幫助">Floating-Point Representation Advantages — 為什麼固定成標準浮點格式有幫助？<a class="headerlink" href="#floating-point-representation-advantages--為什麼固定成標準浮點格式有幫助" title="Permanent link"></a></h2>
+<h3 id="1-第一個好處簡化資料交換">1. 第一個好處：簡化資料交換<a class="headerlink" href="#1-第一個好處簡化資料交換" title="Permanent link"></a></h3>
+<p>如果每台機器都用自己的浮點格式，那同一串 bits 在不同電腦上可能代表不同數值。</p>
+<p>IEEE 754 這類 standardized format(標準化格式) 的價值是：大家都知道 <code>sign / exponent / fraction</code> 怎麼切、bias 怎麼扣、fraction 怎麼補 implicit leading 1。</p>
+<p>生活化例子：<br />
+就像大家約定身分證格式或日期格式。如果有人寫 <code>2026-05-13</code>，大家比較容易知道它是年月日；但如果每個國家、每個系統都自己定義格式，資料交換就會變得很麻煩。</p>
+<h3 id="2-第二個好處簡化浮點算術演算法">2. 第二個好處：簡化浮點算術演算法<a class="headerlink" href="#2-第二個好處簡化浮點算術演算法" title="Permanent link"></a></h3>
+<p>浮點數若都被整理成類似 <code>1.F × 2^E</code> 的 normalized form(常規化形式)，硬體做加、減、乘、除時就比較有固定流程可依循。</p>
+<p>例如浮點加法通常要先對齊 exponent，再處理 significand。若格式固定，硬體不需要每次猜測「這串 bits 到底哪裡是指數、哪裡是有效數字」。</p>
+<p>所以標準格式不是只為了儲存，也是在幫硬體演算法建立共同規則。</p>
+<h3 id="3-第三個好處提高字組中存放數字的準確度">3. 第三個好處：提高字組中存放數字的準確度<a class="headerlink" href="#3-第三個好處提高字組中存放數字的準確度" title="Permanent link"></a></h3>
+<p>講義說，因為不需要的 0 都被小數點右方的實際數字取代，所以能增加 word(字組) 中存放數字的 accuracy(準確度)。</p>
+<p>直覺上，normalized form 會把有效數字盡量推到前面，例如：</p>
+<table>
+<thead>
+<tr>
+<th>未常規化</th>
+<th>常規化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0.000001101₂</code></td>
+<td><code>1.101₂ × 2^-6</code></td>
+</tr>
+</tbody>
+</table>
+<p>原本前面一堆 0 很浪費位置；常規化後，我們把真正有資訊量的 <code>1101...</code> 放進 fraction，讓有限 bits 儘量拿來存有效數字。</p>
+<h2 id="floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大">Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？<a class="headerlink" href="#floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大" title="Permanent link"></a></h2>
+<h3 id="1-固定-word-size字組大小-代表資源有限">1. 固定 word size(字組大小) 代表資源有限<a class="headerlink" href="#1-固定-word-size字組大小-代表資源有限" title="Permanent link"></a></h3>
+<p>浮點數通常要塞進固定長度的 word，例如 single precision 是 32 bits。<br />
+扣掉 <code>sign bit(符號位元)</code> 後，剩下的 bits 要分給：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Exponent(指數)</code></td>
+<td>決定可表示的數值範圍</td>
+</tr>
+<tr>
+<td><code>Fraction(分數)</code></td>
+<td>決定有效數字的精細程度</td>
+</tr>
+</tbody>
+</table>
+<p>所以這是一個資源分配問題：<br />
+如果 exponent 多拿一些 bits，fraction 就會少一些；如果 fraction 多拿一些 bits，exponent 就會少一些。</p>
+<h3 id="2-增加-fraction-會提高-precision精度">2. 增加 fraction 會提高 precision(精度)<a class="headerlink" href="#2-增加-fraction-會提高-precision精度" title="Permanent link"></a></h3>
+<p><code>Fraction(分數)</code> 越長，能保留的有效位元越多。<br />
+這代表數字可以表示得更細、更接近原本的實數。</p>
+<p>例如你用尺量長度：</p>
+<table>
+<thead>
+<tr>
+<th>尺的刻度</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只有公分</td>
+<td>粗略</td>
+</tr>
+<tr>
+<td>有毫米</td>
+<td>更精細</td>
+</tr>
+<tr>
+<td>有微米</td>
+<td>更精細</td>
+</tr>
+</tbody>
+</table>
+<p>fraction bits 就像刻度細緻度。fraction 越多，數字越不容易因為位元不夠而被截斷或四捨五入得太粗。</p>
+<h3 id="3-增加-exponent-會擴大-range範圍">3. 增加 exponent 會擴大 range(範圍)<a class="headerlink" href="#3-增加-exponent-會擴大-range範圍" title="Permanent link"></a></h3>
+<p><code>Exponent(指數)</code> 越長，可以表示的小數點移動範圍越大。<br />
+也就是可以表示更大的數，也可以表示更接近 0 的小數。</p>
+<p>但 exponent 多不代表數字更精細；它只是讓可表示的尺度變廣。</p>
+<table>
+<thead>
+<tr>
+<th>增加欄位</th>
+<th>主要改善</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增加 <code>fraction</code></td>
+<td>precision 更高</td>
+</tr>
+<tr>
+<td>增加 <code>exponent</code></td>
+<td>range 更大</td>
+</tr>
+</tbody>
+</table>
+<p>所以 single / double precision 的欄位配置本質上就是在問：我們要把有限 bits 拿去換更大的範圍，還是更高的精度？</p>
+<h2 id="floating-point-general-formula---1s--f--2e-在說什麼">Floating-Point General Formula — <code>(-1)^S × F × 2^E</code> 在說什麼？<a class="headerlink" href="#floating-point-general-formula---1s--f--2e-在說什麼" title="Permanent link"></a></h2>
+<h3 id="1--1s-負責正負號">1. <code>(-1)^S</code> 負責正負號<a class="headerlink" href="#1--1s-負責正負號" title="Permanent link"></a></h3>
+<p>公式中的 <code>S</code> 是 sign bit(符號位元)。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">S</th>
+<th style="text-align: right;"><code>(-1)^S</code></th>
+<th>數值符號</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+1</td>
+<td>正數</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1</td>
+<td>負數</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>S</code> 不負責大小，也不負責小數點位置；它只負責正負號。</p>
+<h3 id="2-f-負責有效數字長什麼樣">2. <code>F</code> 負責有效數字長什麼樣<a class="headerlink" href="#2-f-負責有效數字長什麼樣" title="Permanent link"></a></h3>
+<p>公式中的 <code>F</code> 可以先理解成 significand(有效數字)。<br />
+它決定「這個數字本體長什麼樣」。</p>
+<p>例如：</p>
+<p><code>1.101₂ × 2^3</code></p>
+<p>裡面的 <code>1.101₂</code> 就是有效數字部分。</p>
+<p>這裡要小心：p.132 公式中的 <code>F</code> 是比較一般化的有效數字；但 IEEE 754 欄位中的 <code>Fraction</code> 是實際儲存的小數部分。對 normalized number 來說，真正的 significand 是 <code>1.Fraction</code>，前面的 <code>1</code> 是 implicit leading 1(隱含前導 1)。</p>
+<h3 id="3-2e-負責尺度大小">3. <code>2^E</code> 負責尺度大小<a class="headerlink" href="#3-2e-負責尺度大小" title="Permanent link"></a></h3>
+<p><code>E</code> 是 exponent(指數)，負責控制 binary point 移動，也就是數字的尺度。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">E</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">正</td>
+<td>binary point 往右移，數值 magnitude 變大</td>
+</tr>
+<tr>
+<td style="text-align: right;">0</td>
+<td>尺度不變</td>
+</tr>
+<tr>
+<td style="text-align: right;">負</td>
+<td>binary point 往左移，數值 magnitude 變小</td>
+</tr>
+</tbody>
+</table>
+<p>所以這個公式可以用一句話記：</p>
+<p><strong>Sign 決定正負，F 決定有效數字，E 決定尺度。</strong></p>
+<h2 id="floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小">Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？<a class="headerlink" href="#floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小" title="Permanent link"></a></h2>
+<h3 id="1-overflow滿溢指數太大超出-exponent-field-可表示範圍">1. Overflow(滿溢)：指數太大，超出 exponent field 可表示範圍<a class="headerlink" href="#1-overflow滿溢指數太大超出-exponent-field-可表示範圍" title="Permanent link"></a></h3>
+<p>浮點數的大小主要由 <code>exponent(指數)</code> 控制。<br />
+如果一個數太大，需要的 exponent 超過 exponent field 能表示的最大值，就會發生 <code>overflow(滿溢)</code>。</p>
+<p>直覺例子：<br />
+如果格式只能表示到 <code>×2^127</code>，但計算結果需要 <code>×2^200</code>，那 exponent 欄位裝不下，這就是 overflow。</p>
+<p>所以 floating-point overflow 不是 fraction 不夠精細，而是「尺度太大」。</p>
+<h3 id="2-underflow短值負指數太大太接近-0-而裝不下">2. Underflow(短值)：負指數太大，太接近 0 而裝不下<a class="headerlink" href="#2-underflow短值負指數太大太接近-0-而裝不下" title="Permanent link"></a></h3>
+<p><code>Underflow(短值)</code> 是另一個方向：數字太小、太接近 0。<br />
+如果一個數需要非常大的負 exponent，例如 <code>×2^-200</code>，但 exponent field 最小只能表示到大約 <code>×2^-126</code>，那也裝不下。</p>
+<p>講義中文寫「當負的指數大到指數欄位無法容納時」，意思就是：需要表示的負 exponent 太極端，導致數字小到格式無法正常表示。</p>
+<p>生活化例子：<br />
+overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量不到。</p>
+<h3 id="3-為什麼更大的-exponent-field-可以降低-overflow--underflow">3. 為什麼更大的 exponent field 可以降低 overflow / underflow？<a class="headerlink" href="#3-為什麼更大的-exponent-field-可以降低-overflow--underflow" title="Permanent link"></a></h3>
+<p>因為 exponent field 越大，可表示的 exponent 範圍越廣。</p>
+<table>
+<thead>
+<tr>
+<th>增加的欄位</th>
+<th>主要改善</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增加 <code>exponent bits</code></td>
+<td>可表示更大與更小的尺度，降低 overflow / underflow</td>
+</tr>
+<tr>
+<td>增加 <code>fraction bits</code></td>
+<td>可表示更多有效數字，提高 precision</td>
+</tr>
+</tbody>
+</table>
+<p>這也呼應前一頁的 trade-off：<br />
+如果我們把更多 bits 給 exponent，就能擴大 range；如果把更多 bits 給 fraction，就能提高 precision。</p>
+<h3 id="4-double-precision雙精確度-的角色">4. Double precision(雙精確度) 的角色<a class="headerlink" href="#4-double-precision雙精確度-的角色" title="Permanent link"></a></h3>
+<p>講義 p.133 接著說，降低 short value 或 overflow 可能性的一種方式，是提供更大的 exponent field；C 語言中這類數字稱為 <code>double</code>，對應 <code>double precision floating-point arithmetic(雙精確度浮點算術)</code>。</p>
+<p>重點不是「double 永遠不會 overflow / underflow」，而是：</p>
+<p><strong>double 的 exponent field 比 single 大，所以能表示的 range 更廣，發生 overflow / underflow 的機率較低。</strong></p>
+<h2 id="binary-floating-point-addition--浮點加法為什麼要先對齊-exponent">Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？<a class="headerlink" href="#binary-floating-point-addition--浮點加法為什麼要先對齊-exponent" title="Permanent link"></a></h2>
+<h3 id="1-浮點加法不是直接把兩個-significand-相加">1. 浮點加法不是直接把兩個 significand 相加<a class="headerlink" href="#1-浮點加法不是直接把兩個-significand-相加" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">PEICD</p>
+<p>significand 翻譯成 「有效數字」</p>
+<p>就是 <code>-1.101 * 2^9</code> 的 <code>-1.101</code><br />
+也就是說科學記號可以寫成 <code>significand × 2^exponent</code></p>
+</div>
+<p>浮點數長得像：</p>
+<p><code>significand × 2^exponent</code></p>
+<p>所以兩個浮點數相加前，必須先讓它們的 exponent 相同。<br />
+這就像十進位加法中，不能直接把「幾百」和「幾十分之一」的數字位數亂加；要先對齊位值。</p>
+<p>p.137 的例子是：</p>
+<p><code>0.5₁₀ + (−0.4375₁₀)</code></p>
+<p>先轉成二進位 normalized form：</p>
+<table>
+<thead>
+<tr>
+<th>十進位</th>
+<th>二進位浮點形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0.5₁₀</code></td>
+<td><code>1.000₂ × 2^-1</code></td>
+</tr>
+<tr>
+<td><code>−0.4375₁₀</code></td>
+<td><code>−1.110₂ × 2^-2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-對齊-exponent把較小-exponent-的數右移">2. 對齊 exponent：把較小 exponent 的數右移<a class="headerlink" href="#2-對齊-exponent把較小-exponent-的數右移" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">PEICD</p>
+<p>兩個 exponent 分別是 <code>-1</code> 和 <code>-2</code>。<br />
+加法時要對齊到較大的 exponent，也就是 <code>-1</code>。</p>
+</div>
+<p>所以把：</p>
+<p><code>−1.110₂ × 2^-2</code></p>
+<p>改寫成：</p>
+<p><code>−0.111₂ × 2^-1</code></p>
+<p>注意：這不是改變數值，而是換一種等價表示，讓兩個數都用 <code>2^-1</code> 作尺度。</p>
+<h3 id="3-相加-significand再-normalize">3. 相加 significand，再 normalize<a class="headerlink" href="#3-相加-significand再-normalize" title="Permanent link"></a></h3>
+<p>對齊後：</p>
+<p><code>1.000₂ × 2^-1 + (−0.111₂ × 2^-1)</code></p>
+<p>因為 exponent 相同，可以加 significand：</p>
+<p><code>1.000₂ + (−0.111₂) = 0.001₂</code></p>
+<p>所以得到：</p>
+<p><code>0.001₂ × 2^-1</code></p>
+<p>接著 normalize：</p>
+<p><code>0.001₂ × 2^-1 = 1.000₂ × 2^-4</code></p>
+<p>所以結果是：</p>
+<p><code>1.000₂ × 2^-4 = 0.0001₂ = 1/16 = 0.0625₁₀</code></p>
+<p>這也符合原本十進位：</p>
+<p><code>0.5 − 0.4375 = 0.0625</code></p>
+<h2 id="floating-point-addition-algorithm--浮點加法的一般流程為什麼比整數加法麻煩">Floating-Point Addition Algorithm — 浮點加法的一般流程為什麼比整數加法麻煩？<a class="headerlink" href="#floating-point-addition-algorithm--浮點加法的一般流程為什麼比整數加法麻煩" title="Permanent link"></a></h2>
+<h3 id="1-第一步先比較-exponent對齊尺度">1. 第一步：先比較 exponent，對齊尺度<a class="headerlink" href="#1-第一步先比較-exponent對齊尺度" title="Permanent link"></a></h3>
+<p>浮點數不是單純的整數 bit string，而是：</p>
+<p><code>significand × 2^exponent</code></p>
+<p>所以加法第一步通常是比較兩個 exponent，把 exponent 較小的 operand 右移，直到兩個 exponent 相同。</p>
+<p>直覺上，這像十進位加法要先對齊個位、十分位、百分位；沒有對齊就相加，位值會錯。</p>
+<h3 id="2-第二步帶著-sign-做-signed-addition">2. 第二步：帶著 sign 做 signed addition<a class="headerlink" href="#2-第二步帶著-sign-做-signed-addition" title="Permanent link"></a></h3>
+<p>當 exponent 對齊後，就可以處理 significand。</p>
+<p>重點是：<strong>不是把兩個正的 significand 直接相加，而是帶著 sign 做 signed addition</strong>。</p>
+<p>例如：</p>
+<p><code>(+1.000₂) + (−0.111₂) = +0.001₂</code></p>
+<p>得到結果後，再做 normalize / round。</p>
+<h3 id="3-第三步normalize-結果">3. 第三步：normalize 結果<a class="headerlink" href="#3-第三步normalize-結果" title="Permanent link"></a></h3>
+<p>相加後的結果可能不是 normalized form。</p>
+<p>例如：</p>
+<p><code>0.001₂ × 2^-1</code></p>
+<p>小數點左邊不是 <code>1</code>，所以要 normalize 成：</p>
+<p><code>1.000₂ × 2^-4</code></p>
+<p>也就是把 significand 左移，同時調整 exponent。</p>
+<p>若相加產生進位，例如 <code>1.111₂ + 1.001₂ = 11.000₂</code>，那也需要把 significand 右移並增加 exponent。</p>
+<h3 id="4-第四步round必要時再次-normalize">4. 第四步：round，必要時再次 normalize<a class="headerlink" href="#4-第四步round必要時再次-normalize" title="Permanent link"></a></h3>
+<p>實際硬體的 fraction bits 有限，所以結果可能需要 <code>rounding(捨入)</code>。</p>
+<p>講義 p.143 的圖 3.14 提到，正常路徑會執行步驟三與步驟四各一次；但如果進位處理讓總和變成非常規化，就必須再重複 normalize。</p>
+<p>所以浮點加法的最短流程可以記成：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Align exponents</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Add / subtract significands</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Normalize result</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Round result，必要時再 normalize</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">PEICD</p>
+<p>round 指的是"捨入"，就像是二進制的四捨五入。</p>
+<p>假設原本是</p>
+<p>1.111 * 2^4，如果捨入(+0.001)之後變成了 10.000 * 2^4，這樣不是標準的，所以要再標準化一次，變成 1.0000 * 2^5</p>
+</div>
+<h3 id="如果是-round-到-8-bit-所以原本在-round-的之前會有更多空間的意思嗎">如果是 round 到 8 bit ，所以原本在 round 的之前會有更多空間的意思嗎？<a class="headerlink" href="#如果是-round-到-8-bit-所以原本在-round-的之前會有更多空間的意思嗎" title="Permanent link"></a></h3>
+<p>假設是 float，計算過程中可能會產生超過 24-bit significand 能表示的中間結果；但最後 single precision 只能存回 1-bit sign、8-bit exponent、23-bit fraction，所以必須把中間結果 round 到 23-bit fraction 能存的長度。</p>
+<h3 id="significand-是啥">significand 是啥<a class="headerlink" href="#significand-是啥" title="Permanent link"></a></h3>
+<p>Significand(有效數字) 可以理解成：浮點數裡真正拿來表示「數字長相」的那一段。</p>
+<p>在浮點數形式：</p>
+<p>±1.xxx₂ × 2^E</p>
+<p>裡面：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>±</code></td>
+<td>正負號</td>
+</tr>
+<tr>
+<td><code>1.xxx₂</code> (包含<code>1.</code>)</td>
+<td><code>Significand(有效數字)</code></td>
+</tr>
+<tr>
+<td><code>2^E</code></td>
+<td>尺度，也就是小數點移動多少</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<p>1.101₂ × 2^3</p>
+<p>其中 1.101₂ 就是 significand(有效數字)。</p>
+<h2 id="floating-point-addition-datapath--浮點加法流程怎麼變成硬體">Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？<a class="headerlink" href="#floating-point-addition-datapath--浮點加法流程怎麼變成硬體" title="Permanent link"></a></h2>
+<h3 id="1-先用小-alu-比較兩個-exponent">1. 先用小 ALU 比較兩個 exponent<a class="headerlink" href="#1-先用小-alu-比較兩個-exponent" title="Permanent link"></a></h3>
+<p>浮點加法第一步是 align exponents(對齊指數)。<br />
+硬體要先知道兩個 operand 哪一個 exponent 比較大、差多少。</p>
+<p>所以圖 3.15 先用一個小 <code>ALU(算術邏輯單元)</code> 去做：</p>
+<p><code>Exponent A − Exponent B</code></p>
+<p>這個差值有兩個用途：</p>
+<table>
+<thead>
+<tr>
+<th>差值用途</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>決定較大的 exponent</td>
+<td>最後結果通常先沿用較大的尺度</td>
+</tr>
+<tr>
+<td>決定要右移幾位</td>
+<td>較小 exponent 那邊的 significand 要右移來對齊</td>
+</tr>
+</tbody>
+</table>
+<p>生活化例子：<br />
+像你要把「公尺」和「公分」加起來，不能直接把數字相加，要先知道單位差多少，先換成同一個單位。</p>
+<h3 id="2-差值控制-multiplexers多工器">2. 差值控制 multiplexers(多工器)<a class="headerlink" href="#2-差值控制-multiplexers多工器" title="Permanent link"></a></h3>
+<p>講義說這個差值會控制三個 <code>multiplexer(多工器)</code>。<br />
+多工器可以想成「選擇器」，根據控制訊號選其中一路資料輸出。</p>
+<p>三個多工器大致負責選：</p>
+<table>
+<thead>
+<tr>
+<th>多工器選什麼</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>較大的 exponent</td>
+<td>決定共同尺度</td>
+</tr>
+<tr>
+<td>較小數的 significand</td>
+<td>送去右移對齊</td>
+</tr>
+<tr>
+<td>較大數的 significand</td>
+<td>直接送去準備相加</td>
+</tr>
+</tbody>
+</table>
+<p>也就是說，硬體不是用人眼判斷誰大誰小，而是用 exponent subtraction 的結果控制資料走哪條路。</p>
+<h3 id="3-將較小數的-significand-右移後再做-signed-addition">3. 將較小數的 significand 右移後再做 signed addition<a class="headerlink" href="#3-將較小數的-significand-右移後再做-signed-addition" title="Permanent link"></a></h3>
+<p>前面我們已經修正過記法：<br />
+浮點加法不是永遠把兩個正的 significand 直接相加，而是：</p>
+<p><strong>帶著 sign 做 signed significand addition。</strong></p>
+<p>在硬體流程中，較小 exponent 的那個 significand 會先右移，對齊到較大的 exponent。<br />
+接著大 ALU 才處理 significand operation。</p>
+<p>例如概念上是：</p>
+<p><code>(+1.000₂) + (−0.111₂)</code></p>
+<p>而不是：</p>
+<p><code>1.000₂ + 0.111₂</code></p>
+<h3 id="4-相加後還要-normalize--round">4. 相加後還要 normalize / round<a class="headerlink" href="#4-相加後還要-normalize--round" title="Permanent link"></a></h3>
+<p>significand 做完 signed addition 後，結果可能不是 normalized form。</p>
+<p>例如：</p>
+<p><code>0.001₂ × 2^-1</code></p>
+<p>這不是 normalized form，因為小數點左邊不是 <code>1</code>。<br />
+所以要 normalize 成：</p>
+<p><code>1.000₂ × 2^-4</code></p>
+<p>講義圖 3.15 也說，normalize 會把總和左移或右移，並對 exponent 做遞增或遞減；rounding 後得到最後結果，但如果 rounding 又讓結果變成非常規化，可能還需要再 normalize 一次。</p>
+<hr />
+<h3 id="最短記法_5">最短記法<a class="headerlink" href="#最短記法_5" title="Permanent link"></a></h3>
+<p>圖 3.15 的硬體流程可以記成：</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>硬體在做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>小 ALU 比較 exponent</td>
+</tr>
+<tr>
+<td>2</td>
+<td>multiplexers 選較大 exponent、較小 significand、較大 significand</td>
+</tr>
+<tr>
+<td>3</td>
+<td>右移較小 significand 來對齊</td>
+</tr>
+<tr>
+<td>4</td>
+<td>大 ALU 做 signed significand addition</td>
+</tr>
+<tr>
+<td>5</td>
+<td>normalize / round，必要時再 normalize</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三個多工器到底是啥">三個多工器到底是啥<a class="headerlink" href="#三個多工器到底是啥" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%203-6.png" /></p>
+<p>這三個多工器要來選擇誰是較大的 exponent 、較小數的 significand、較大數的 significand</p>
+<h4 id="1-多工器到底在幹嘛">1. 多工器到底在幹嘛？<a class="headerlink" href="#1-多工器到底在幹嘛" title="Permanent link"></a></h4>
+<p><code>Multiplexer(多工器)</code> 不是拿來算加法的。</p>
+<p>它只是在做這件事：</p>
+<div class="highlight"><pre><span></span><code>如果 A 的 exponent 比較大，就選 A
+否則就選 B
+</code></pre></div>
+<p>所以你可以先記：</p>
+<p><strong>多工器 = 硬體版的選擇器。</strong></p>
+<hr />
+<h4 id="2-用例子看會比較清楚">2. 用例子看會比較清楚<a class="headerlink" href="#2-用例子看會比較清楚" title="Permanent link"></a></h4>
+<p>假設有兩個浮點數：</p>
+<table>
+<thead>
+<tr>
+<th>operand</th>
+<th>數值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>+1.100₂ × 2^5</code></td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>+1.010₂ × 2^3</code></td>
+</tr>
+</tbody>
+</table>
+<p>硬體先比較 exponent：</p>
+<div class="highlight"><pre><span></span><code>5 &gt; 3
+</code></pre></div>
+<p>所以 A 的 exponent 比較大，B 的 exponent 比較小。</p>
+<p>接下來三個多工器要做的事情就是：</p>
+<table>
+<thead>
+<tr>
+<th>多工器選什麼</th>
+<th>在這個例子選誰</th>
+<th>為什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>較大的 exponent</td>
+<td>選 <code>2^5</code></td>
+<td>最後先用大的尺度當共同 exponent</td>
+</tr>
+<tr>
+<td>較小數的 significand</td>
+<td>選 B 的 <code>1.010₂</code></td>
+<td>B 要右移 2 位來對齊 A</td>
+</tr>
+<tr>
+<td>較大數的 significand</td>
+<td>選 A 的 <code>1.100₂</code></td>
+<td>A 已經是大 exponent，不用右移</td>
+</tr>
+</tbody>
+</table>
+<p>所以 B 要被右移：</p>
+<div class="highlight"><pre><span></span><code>+1.010₂ × 2^3
+= +0.01010₂ × 2^5
+</code></pre></div>
+<p>然後才可以相加：</p>
+<div class="highlight"><pre><span></span><code>(+1.100₂ × 2^5) + (+0.01010₂ × 2^5)
+</code></pre></div>
+<hr />
+<h4 id="3-那張表其實可以改成這樣記">3. 那張表其實可以改成這樣記<a class="headerlink" href="#3-那張表其實可以改成這樣記" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>選擇器</th>
+<th>它要選誰</th>
+<th>選完要幹嘛</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MUX 1</td>
+<td>exponent 較大的那邊</td>
+<td>當共同 exponent</td>
+</tr>
+<tr>
+<td>MUX 2</td>
+<td>exponent 較小那邊的 significand</td>
+<td>送去右移對齊</td>
+</tr>
+<tr>
+<td>MUX 3</td>
+<td>exponent 較大那邊的 significand</td>
+<td>直接送去加法器</td>
+</tr>
+</tbody>
+</table>
+<p>所以最重要的是：</p>
+<p><strong>不是三個多工器各自亂選，而是同一個 exponent 比較結果，同時告訴三個多工器該選 A 還是 B。</strong></p>
+<hr />
+<h4 id="4-最短記法">4. 最短記法<a class="headerlink" href="#4-最短記法" title="Permanent link"></a></h4>
+<p>圖 3.15 這段你可以只記：</p>
+<blockquote>
+<p>先比較 exponent。<br />
+exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<br />
+多工器只是負責幫硬體選出「誰大、誰小」。</p>
+</blockquote>
+<h2 id="floating-point-multiplication--浮點乘法和浮點加法到底差在哪">Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？<a class="headerlink" href="#floating-point-multiplication--浮點乘法和浮點加法到底差在哪" title="Permanent link"></a></h2>
+<h3 id="1-浮點加法要先-align-exponents但乘法不用">1. 浮點加法要先 align exponents，但乘法不用<a class="headerlink" href="#1-浮點加法要先-align-exponents但乘法不用" title="Permanent link"></a></h3>
+<p>浮點加法麻煩在：兩個數要先對齊 exponent，significand 才能相加。</p>
+<p>但浮點乘法不一樣。<br />
+如果兩個數是：</p>
+<p><code>A × 10^x</code> 和 <code>B × 10^y</code></p>
+<p>相乘時會變成：</p>
+<p><code>(A × B) × 10^(x+y)</code></p>
+<p>所以乘法的第一個核心規則是：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>浮點乘法怎麼做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exponent</td>
+<td>相加</td>
+</tr>
+<tr>
+<td>significand</td>
+<td>相乘</td>
+</tr>
+<tr>
+<td>sign</td>
+<td>看兩個 operand 是否同號</td>
+</tr>
+</tbody>
+</table>
+<p>講義範例第一步就是把指數相加：</p>
+<p><code>10 + (-5) = 5</code></p>
+<p>所以新 exponent 先得到 <code>5</code>。</p>
+<hr />
+<h3 id="2-若用-biased-exponent要記得只扣一次-bias">2. 若用 biased exponent，要記得只扣一次 bias<a class="headerlink" href="#2-若用-biased-exponent要記得只扣一次-bias" title="Permanent link"></a></h3>
+<p>這裡很容易錯。</p>
+<p>如果你直接拿 true exponent 做乘法：</p>
+<p><code>10 + (-5) = 5</code></p>
+<p>很直覺。</p>
+<p>但 IEEE 754 裡面 exponent field 存的是 biased exponent。以 single precision 為例：</p>
+<p><code>true exponent + 127</code></p>
+<p>所以：</p>
+<p><code>10</code> 存成 <code>10 + 127 = 137</code><br />
+<code>-5</code> 存成 <code>-5 + 127 = 122</code></p>
+<p>如果直接相加：</p>
+<p><code>137 + 122 = 259</code></p>
+<p>這會多加了一次 bias，因為兩邊各自都已經含有 <code>+127</code>。</p>
+<p>正確做法是：</p>
+<p><code>137 + 122 - 127 = 132</code></p>
+<p>而 <code>132 = 5 + 127</code>，代表 true exponent 還是 <code>5</code>。</p>
+<p>最短記法：</p>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>exponent 怎麼算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用 true exponent</td>
+<td>直接相加</td>
+</tr>
+<tr>
+<td>用 biased exponent</td>
+<td>相加後扣一次 bias</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-接著把-significands-相乘">3. 接著把 significands 相乘<a class="headerlink" href="#3-接著把-significands-相乘" title="Permanent link"></a></h3>
+<p>講義範例的有效數字相乘是：</p>
+<p><code>1.110 × 9.200 = 10.212000</code></p>
+<p>因為假設每個 operand 小數點右方都有三位，所以乘完後小數點右方會有六位。<br />
+如果只能保留小數點右方三位，會先寫成：</p>
+<p><code>10.212 × 10^5</code></p>
+<p>這時注意：<code>10.212</code> 還不是 normalized form，因為科學記號左邊應該只留一位非零數字。</p>
+<hr />
+<h3 id="4-normalize乘完後可能需要把-significand-右移">4. Normalize：乘完後可能需要把 significand 右移<a class="headerlink" href="#4-normalize乘完後可能需要把-significand-右移" title="Permanent link"></a></h3>
+<p><code>10.212 × 10^5</code></p>
+<p>要 normalize 成：</p>
+<p><code>1.0212 × 10^6</code></p>
+<p>因為 significand 從 <code>10.212</code> 右移成 <code>1.0212</code>，所以 exponent 要加 <code>1</code>。</p>
+<p>這和浮點加法一樣：最後結果必須回到 normalized form。</p>
+<p>但乘法常見情況是：兩個 normalized significand 相乘後，結果可能介於 <code>1.x</code> 到接近 <code>4</code> 之間，所以有時需要右移一位並讓 exponent 加 1。</p>
+<hr />
+<h3 id="5-round再決定-sign">5. Round，再決定 sign<a class="headerlink" href="#5-round再決定-sign" title="Permanent link"></a></h3>
+<p>講義範例假設有效數字只保留四位，所以：</p>
+<p><code>1.0212 × 10^6</code></p>
+<p>round 成：</p>
+<p><code>1.021 × 10^6</code></p>
+<p>最後 sign 的規則和整數乘法一樣：</p>
+<table>
+<thead>
+<tr>
+<th>兩數符號</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同號</td>
+<td>正</td>
+</tr>
+<tr>
+<td>異號</td>
+<td>負</td>
+</tr>
+</tbody>
+</table>
+<p>講義範例兩個 operand 都是正，所以結果是：</p>
+<p><code>+1.021 × 10^6</code></p>
+<hr />
+<h3 id="最短記法_6">最短記法<a class="headerlink" href="#最短記法_6" title="Permanent link"></a></h3>
+<p>浮點乘法流程：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Add exponents</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Multiply significands</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Normalize</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Round</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Determine sign</td>
+</tr>
+</tbody>
+</table>
+<p>跟浮點加法最大的差異：</p>
+<table>
+<thead>
+<tr>
+<th>浮點加法</th>
+<th>浮點乘法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exponent 要先對齊</td>
+<td>exponent 直接相加</td>
+</tr>
+<tr>
+<td>significand 做 signed addition</td>
+<td>significand 相乘</td>
+</tr>
+<tr>
+<td>結果再 normalize / round</td>
+<td>結果再 normalize / round</td>
+</tr>
+</tbody>
+</table>
+<h2 id="floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體">Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？<a class="headerlink" href="#floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%203-7.png" /></p>
+<h3 id="1-exponent-path指數路徑先加-exponent再修正-bias">1. Exponent path(指數路徑)：先加 exponent，再修正 bias<a class="headerlink" href="#1-exponent-path指數路徑先加-exponent再修正-bias" title="Permanent link"></a></h3>
+<p>浮點乘法中，指數部分不是對齊，而是相加。</p>
+<p>如果用 true exponent：</p>
+<p><code>E_result = E_A + E_B</code></p>
+<p>但 IEEE 754 exponent field 存的是 biased exponent，所以若直接拿 stored exponent 算，會多算一次 bias。以 single precision 為例：</p>
+<p><code>E_result_stored = E_A_stored + E_B_stored − 127</code></p>
+<p>所以硬體的 exponent path 需要做兩件事：</p>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add exponents</td>
+<td>乘法時尺度相乘，所以指數相加</td>
+</tr>
+<tr>
+<td>subtract bias</td>
+<td>修正 biased notation 多加的一次 bias</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-significand-path有效數字路徑把兩個-significands-相乘">2. Significand path(有效數字路徑)：把兩個 significands 相乘<a class="headerlink" href="#2-significand-path有效數字路徑把兩個-significands-相乘" title="Permanent link"></a></h3>
+<p>浮點乘法的主體是：</p>
+<p><code>significand_A × significand_B</code></p>
+<p>這和浮點加法不同。加法是對齊後做 signed significand addition；乘法則是直接做 significand multiplication。</p>
+<p>因為兩個 normalized binary significands 通常長得像：</p>
+<p><code>1.x₂</code></p>
+<p>所以兩個相乘後，結果可能落在：</p>
+<p><code>1.x₂</code> 到接近 <code>4.0₂</code></p>
+<p>如果乘完變成 <code>10.x₂</code> 或更高，就需要 normalize，讓它回到 <code>1.x₂ × 2^E</code>。</p>
+<h3 id="3-sign-path符號路徑用-xor-決定結果正負">3. Sign path(符號路徑)：用 XOR 決定結果正負<a class="headerlink" href="#3-sign-path符號路徑用-xor-決定結果正負" title="Permanent link"></a></h3>
+<p>乘法的 sign 很簡單：</p>
+<p><code>result sign = sign A xor sign B</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">sign A</th>
+<th style="text-align: right;">sign B</th>
+<th style="text-align: right;">result sign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0，正</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0，正</td>
+</tr>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1，負</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1，負</td>
+</tr>
+</tbody>
+</table>
+<p>所以硬體可以一開始就算好 sign，只是最後才和 exponent、fraction 組合回完整 floating-point result。</p>
+<h3 id="4-normalize--round最後仍然要塞回固定格式">4. Normalize / Round：最後仍然要塞回固定格式<a class="headerlink" href="#4-normalize--round最後仍然要塞回固定格式" title="Permanent link"></a></h3>
+<p>乘完 significands 後，結果可能不是 normalized form，所以要 normalize。<br />
+Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
+<p>講義圖 3.16 特別提醒：正常路徑會執行 normalize 與 round 各一次；但如果 rounding 造成結果又變成非常規化，就必須再次 normalize。</p>
+<p>最短理解：</p>
+<table>
+<thead>
+<tr>
+<th>階段</th>
+<th>硬體在做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exponent path</td>
+<td>exponent 相加，並扣 bias</td>
+</tr>
+<tr>
+<td>significand path</td>
+<td>significand 相乘</td>
+</tr>
+<tr>
+<td>sign path</td>
+<td>sign bits 做 XOR</td>
+</tr>
+<tr>
+<td>final path</td>
+<td>normalize、round，必要時再 normalize</td>
+</tr>
+</tbody>
+</table>
+<h2 id="accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入">Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？<a class="headerlink" href="#accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入" title="Permanent link"></a></h2>
+<h3 id="1-浮點數常常只是近似值">1. 浮點數常常只是近似值<a class="headerlink" href="#1-浮點數常常只是近似值" title="Permanent link"></a></h3>
+<p>很多 real numbers(實數) 沒辦法被有限 bits 完全表示。<br />
+例如十進位的 <code>0.1</code> 在二進位中通常無法有限表示，所以電腦裡存的會是很接近 <code>0.1</code> 的某個值，而不一定是數學上完全精確的 <code>0.1</code>。</p>
+<p>所以浮點運算的核心問題不是只有「怎麼算」，還有：</p>
+<p><strong>算完以後，如何把結果近似成格式能存的值，而且誤差盡量小。</strong></p>
+<h3 id="2-guard-bit-和-round-bit-是中間計算用的額外位元">2. Guard bit 和 round bit 是中間計算用的額外位元<a class="headerlink" href="#2-guard-bit-和-round-bit-是中間計算用的額外位元" title="Permanent link"></a></h3>
+<p>講義說，為了精準 rounding，硬體在計算中會使用額外 bits。<br />
+在加法過程中，右邊會多帶兩個額外位元：</p>
+<table>
+<thead>
+<tr>
+<th>額外位元</th>
+<th>中文</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>guard bit</code></td>
+<td>保護位元</td>
+<td>保留被截掉區域的第一個重要 bit</td>
+</tr>
+<tr>
+<td><code>round bit</code></td>
+<td>進位位元／捨入位元</td>
+<td>幫助判斷是否要進位捨入</td>
+</tr>
+</tbody>
+</table>
+<p>直覺例子：<br />
+你最後只能存到小數點後三位，但中間先多算到小數點後五位，這樣才能判斷 <code>1.2349</code> 應該存成 <code>1.235</code>，而不是粗暴切成 <code>1.234</code>。</p>
+<p>在 IEEE 754 裡也是同樣概念，只是十進位小數位換成二進位 bits。</p>
+<h3 id="3-ulp-是用來衡量浮點誤差的單位">3. <code>ulp</code> 是用來衡量浮點誤差的單位<a class="headerlink" href="#3-ulp-是用來衡量浮點誤差的單位" title="Permanent link"></a></h3>
+<p><code>ulp(units in the last place，最後位置的單元數)</code> 可以理解成：</p>
+<p><strong>最後一個可儲存位元所代表的間距。</strong></p>
+<p>如果兩個可表示浮點數很接近，它們之間的最小間距就和 ulp 有關。<br />
+講義說，在沒有 overflow(滿溢)、underflow(短值)、invalid operation exception(無效運算例外) 的情況下，IEEE 754 保證誤差在半個 <code>ulp</code> 之內。</p>
+<p>最短理解：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>floating-point number</td>
+<td>通常是近似值</td>
+</tr>
+<tr>
+<td>rounding modes</td>
+<td>決定怎麼近似</td>
+</tr>
+<tr>
+<td>guard / round bits</td>
+<td>中間多算幾位，幫助精準捨入</td>
+</tr>
+<tr>
+<td>ulp</td>
+<td>衡量最後儲存位置誤差的單位</td>
+</tr>
+<tr>
+<td>half ulp guarantee</td>
+<td>正常情況下誤差不超過半個 ulp</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mips-floating-point-instructions--mips-怎麼用指令操作浮點數">MIPS Floating-Point Instructions — MIPS 怎麼用指令操作浮點數？<a class="headerlink" href="#mips-floating-point-instructions--mips-怎麼用指令操作浮點數" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 150／輔助：投影片內頁碼 154</p>
+<h3 id="1-浮點加減乘除用-s-和-d-區分精度">1. 浮點加減乘除：用 <code>.s</code> 和 <code>.d</code> 區分精度<a class="headerlink" href="#1-浮點加減乘除用-s-和-d-區分精度" title="Permanent link"></a></h3>
+<p>MIPS 的浮點指令會用 suffix(後綴) 來表示資料精度：</p>
+<table>
+<thead>
+<tr>
+<th>後綴</th>
+<th>English</th>
+<th>中文</th>
+<th>資料大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.s</code></td>
+<td>single precision</td>
+<td>單精確度</td>
+<td>32-bit float</td>
+</tr>
+<tr>
+<td><code>.d</code></td>
+<td>double precision</td>
+<td>雙精確度</td>
+<td>64-bit double</td>
+</tr>
+</tbody>
+</table>
+<p>所以常見指令是：</p>
+<table>
+<thead>
+<tr>
+<th>運算</th>
+<th>Single precision</th>
+<th>Double precision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>加法</td>
+<td><code>add.s</code></td>
+<td><code>add.d</code></td>
+</tr>
+<tr>
+<td>減法</td>
+<td><code>sub.s</code></td>
+<td><code>sub.d</code></td>
+</tr>
+<tr>
+<td>乘法</td>
+<td><code>mul.s</code></td>
+<td><code>mul.d</code></td>
+</tr>
+<tr>
+<td>除法</td>
+<td><code>div.s</code></td>
+<td><code>div.d</code></td>
+</tr>
+</tbody>
+</table>
+<p>最短記法：<br />
+<strong><code>.s</code> 是 float，<code>.d</code> 是 double。</strong></p>
+<hr />
+<h3 id="2-浮點數不是放在一般-s0t0而是放在-f0f1">2. 浮點數不是放在一般 <code>$s0</code>、<code>$t0</code>，而是放在 <code>$f0</code>、<code>$f1</code>&hellip;<a class="headerlink" href="#2-浮點數不是放在一般-s0t0而是放在-f0f1" title="Permanent link"></a></h3>
+<p>講義說 MIPS 另外加入 floating-point registers(浮點暫存器)：</p>
+<p><code>$f0, $f1, $f2, ...</code></p>
+<p>所以浮點加法通常長這樣：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">add.s</span><span class="w"> </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="no">$f1</span><span class="p">,</span><span class="w"> </span><span class="no">$f2</span><span class="w">   </span><span class="c1"># $f0 = $f1 + $f2, single precision</span>
+<span class="nf">add.d</span><span class="w"> </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="no">$f2</span><span class="p">,</span><span class="w"> </span><span class="no">$f4</span><span class="w">   </span><span class="c1"># $f0 = $f2 + $f4, double precision</span>
+</code></pre></div>
+<p>注意：<br />
+這裡不能寫成：</p>
+<div class="highlight"><pre><span></span><code><span class="nf">add.s</span><span class="w"> </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$s1</span><span class="p">,</span><span class="w"> </span><span class="no">$s2</span>
+</code></pre></div>
+<p>因為 <code>$s0</code>、<code>$s1</code>、<code>$s2</code> 是 general-purpose registers(一般用途暫存器)，不是浮點暫存器。</p>
+<h4 id="為什麼要分開放到-f-暫存器">為什麼要分開放到 f 暫存器？<a class="headerlink" href="#為什麼要分開放到-f-暫存器" title="Permanent link"></a></h4>
+<p>核心原因是：<strong>浮點運算硬體和整數運算硬體差很多。</strong></p>
+<p>整數加法像是在做 32-bit 二補數加法。</p>
+<p>浮點加法則要做：</p>
+<ol>
+<li>
+<p>拆 sign / exponent / significand</p>
+</li>
+<li>
+<p>對齊 exponent</p>
+</li>
+<li>
+<p>做 signed significand addition</p>
+</li>
+<li>
+<p>normalize</p>
+</li>
+<li>
+<p>round</p>
+</li>
+<li>
+<p>檢查特殊值，例如 overflow、underflow、NaN、infinity</p>
+</li>
+</ol>
+<p>所以硬體通常會把它分成另一套 FPU。既然 FPU 是另一套運算硬體，讓它有自己的暫存器 <code>$f0 ~ $f31</code>，就可以讓資料直接待在 FPU 附近，不用每次都從一般 register 搬來搬去。</p>
+<hr />
+<h3 id="3-浮點-loadstore用-lwc1-和-swc1">3. 浮點 load/store：用 <code>lwc1</code> 和 <code>swc1</code><a class="headerlink" href="#3-浮點-loadstore用-lwc1-和-swc1" title="Permanent link"></a></h3>
+<p>浮點資料如果在 memory(記憶體) 裡，要先載入到 floating-point register，算完再存回去。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lwc1</code></td>
+<td>load word to coprocessor 1，把 32-bit float 載入浮點暫存器</td>
+</tr>
+<tr>
+<td><code>swc1</code></td>
+<td>store word from coprocessor 1，把 32-bit float 從浮點暫存器存回記憶體</td>
+</tr>
+</tbody>
+</table>
+<p>簡單記：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>memory → <code>$f</code> register</td>
+<td><code>lwc1</code></td>
+</tr>
+<tr>
+<td><code>$f</code> register → memory</td>
+<td><code>swc1</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-浮點比較與分支">4. 浮點比較與分支<a class="headerlink" href="#4-浮點比較與分支" title="Permanent link"></a></h3>
+<p>講義列出 floating-point comparison(浮點比較) 指令，可以寫成：</p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>格式</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>single comparison</td>
+<td><code>c.&lt;cond&gt;.s</code></td>
+<td>比較 single precision float</td>
+</tr>
+<tr>
+<td>double comparison</td>
+<td><code>c.&lt;cond&gt;.d</code></td>
+<td>比較 double precision double</td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>&lt;cond&gt;</code> 是 condition(比較條件) 的佔位符，實際寫指令時要換成下面其中一種：</p>
+<table>
+<thead>
+<tr>
+<th><code>&lt;cond&gt;</code></th>
+<th>意思</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eq</code></td>
+<td>equal</td>
+<td><code>c.eq.s</code></td>
+</tr>
+<tr>
+<td><code>neq</code></td>
+<td>not equal</td>
+<td><code>c.neq.s</code></td>
+</tr>
+<tr>
+<td><code>lt</code></td>
+<td>less than</td>
+<td><code>c.lt.s</code></td>
+</tr>
+<tr>
+<td><code>le</code></td>
+<td>less than or equal</td>
+<td><code>c.le.s</code></td>
+</tr>
+<tr>
+<td><code>gt</code></td>
+<td>greater than</td>
+<td><code>c.gt.s</code></td>
+</tr>
+<tr>
+<td><code>ge</code></td>
+<td>greater than or equal</td>
+<td><code>c.ge.s</code></td>
+</tr>
+</tbody>
+</table>
+<p>比較完之後，再用：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bc1t</code></td>
+<td>branch if floating-point condition is true</td>
+</tr>
+<tr>
+<td><code>bc1f</code></td>
+<td>branch if floating-point condition is false</td>
+</tr>
+</tbody>
+</table>
+<p>這裡的 <code>c1</code> 可以先記成：浮點相關的 coprocessor 1。</p>
+<hr />
+<h3 id="最短記法_7">最短記法<a class="headerlink" href="#最短記法_7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>指令記法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float 加減乘除</td>
+<td><code>add.s / sub.s / mul.s / div.s</code></td>
+</tr>
+<tr>
+<td>double 加減乘除</td>
+<td><code>add.d / sub.d / mul.d / div.d</code></td>
+</tr>
+<tr>
+<td>浮點暫存器</td>
+<td><code>$f0, $f1, $f2, ...</code></td>
+</tr>
+<tr>
+<td>載入 float</td>
+<td><code>lwc1</code></td>
+</tr>
+<tr>
+<td>儲存 float</td>
+<td><code>swc1</code></td>
+</tr>
+<tr>
+<td>浮點比較</td>
+<td><code>c.x.s / c.x.d</code></td>
+</tr>
+<tr>
+<td>浮點分支</td>
+<td><code>bc1t / bc1f</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="給我一串簡短的範例指令把-pdf-viewer-page-150-提到的指令串起來同種類的只要一個">給我一串簡短的範例指令，把 PDF viewer page 150 提到的指令串起來(同種類的只要一個)<a class="headerlink" href="#給我一串簡短的範例指令把-pdf-viewer-page-150-提到的指令串起來同種類的只要一個" title="Permanent link"></a></h2>
+<p>可以，下面這串用 <strong>single precision(單精確度)</strong> 示範，把 <code>PDF viewer page 150</code> 提到的同類指令各挑一個串起來：<code>lwc1</code>、<code>add.s</code>、<code>c.&lt;cond&gt;.s</code>、<code>bc1f</code>、<code>swc1</code>。講義這頁列出浮點加減乘除、浮點比較、浮點分支、<code>$f</code> 浮點暫存器，以及 <code>lwc1 / swc1</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 假設：</span>
+<span class="c1"># $s0 = address of a</span>
+<span class="c1"># $s1 = address of b</span>
+<span class="c1"># $s2 = address of limit</span>
+<span class="c1"># $s3 = address of result</span>
+
+<span class="nf">lwc1</span><span class="w">  </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$s0</span><span class="p">)</span><span class="w">        </span><span class="c1"># $f0 = a</span>
+<span class="nf">lwc1</span><span class="w">  </span><span class="no">$f2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$s1</span><span class="p">)</span><span class="w">        </span><span class="c1"># $f2 = b</span>
+
+<span class="nf">add.s</span><span class="w"> </span><span class="no">$f4</span><span class="p">,</span><span class="w"> </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="no">$f2</span><span class="w">      </span><span class="c1"># $f4 = a + b</span>
+
+<span class="nf">lwc1</span><span class="w">  </span><span class="no">$f6</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$s2</span><span class="p">)</span><span class="w">        </span><span class="c1"># $f6 = limit</span>
+<span class="nf">c.lt.s</span><span class="w"> </span><span class="no">$f4</span><span class="p">,</span><span class="w"> </span><span class="no">$f6</span><span class="w">          </span><span class="c1"># compare: is $f4 &lt; $f6 ?</span>
+
+<span class="nf">bc1f</span><span class="w">  </span><span class="no">done</span><span class="w">               </span><span class="c1"># if comparison is false, skip storing</span>
+
+<span class="nf">swc1</span><span class="w">  </span><span class="no">$f4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">(</span><span class="no">$s3</span><span class="p">)</span><span class="w">        </span><span class="c1"># result = $f4</span>
+
+<span class="nl">done:</span>
+</code></pre></div>
+<p>這串的意思是：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>類型</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lwc1</code></td>
+<td>浮點 load</td>
+<td>從 memory 載入 float 到 <code>$f</code> register</td>
+</tr>
+<tr>
+<td><code>add.s</code></td>
+<td>浮點算術</td>
+<td>做 single precision float 加法</td>
+</tr>
+<tr>
+<td><code>c.lt.s</code></td>
+<td>浮點比較</td>
+<td>比較 <code>$f4 &lt; $f6</code></td>
+</tr>
+<tr>
+<td><code>bc1f</code></td>
+<td>浮點分支</td>
+<td>如果剛才比較結果是 false，就跳到 <code>done</code></td>
+</tr>
+<tr>
+<td><code>swc1</code></td>
+<td>浮點 store</td>
+<td>把 <code>$f4</code> 存回 memory</td>
+</tr>
+</tbody>
+</table>
+<p>最短理解：<br />
+<strong>memory → <code>$f</code> 暫存器 → 浮點運算 → 浮點比較 → 浮點分支 → 存回 memory。</strong></p>
 
 
 
