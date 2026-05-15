@@ -37,6 +37,7 @@ site/
 output/
 .codex_tmp/
 codex_tmp/
+codex/
 .codex_site_check/
 
 # 多益600 小專案：生成物、暫存檔、本機測試輸出
