@@ -110,6 +110,7 @@ extra_javascript:
   - assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1  # Mermaid 圖卡化與放大檢視
   - assets/pymdownx-extras/toc-fold.js  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
+  - assets/pymdownx-extras/markdown-embed.js?v=20260516-1  # Markdown 頁面嵌入框全螢幕控制
   - assets/pymdownx-extras/folder-path-bar.js?v=20260320-3  # H1 上方檔案總管式路徑列（加版本參數避免手機快取吃舊版）
   - assets/pymdownx-extras/legacy-image-width.js  # 舊圖片百分比語法相容
   - assets/pymdownx-extras/source-jump.js?v=20260404-1  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
@@ -117,6 +118,7 @@ extra_javascript:
 hooks:
   - tools/fence_id_cleanup_hook.py
   - tools/latex_bracket_math_hook.py
+  - tools/markdown_embed_hook.py
   - tools/source_jump_hook.py
 
 # Markdown 擴展設置
