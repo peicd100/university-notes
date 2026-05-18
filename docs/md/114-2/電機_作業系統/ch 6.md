@@ -743,7 +743,7 @@ Throughput 越高，代表系統整體完成工作速度越高。
 
 ### 4. Turnaround Time(回復時間)：從提交到完成總共花多久？
 
-==也就是一個程式從「想被執行」到「真正被執行完」花的時間==
+==也就是一個程式從「進到 Ready queue 中」到「真正被執行完」花的時間==
 
 `Turnaround Time(回復時間)` 是某個 process 從進入系統到完成的總時間。講義說它包含：等待進主記憶體、在 ready queue 等待、CPU 執行、I/O 執行等時間總和。
 
@@ -756,6 +756,41 @@ Turnaround time = Completion time - Arrival time
 直覺：
 
 **你從拿號碼牌開始，到事情完全辦完離開，總共花多少時間。**
+
+!!! danger "PEICD"
+    ```text
+    0      2      5      7      10
+    |  P2  |  P1  |  P3  |  P1  |
+    ```
+
+    假設 P1：
+
+    * `Arrival Time = 0`
+    * 第一次執行：t=2 到 t=5
+    * 第二次執行：t=7 到 t=10
+    * `Completion Time = 10`
+
+    那：
+
+    `Turnaround Time(P1) = Completion Time - Arrival Time = 10 - 0 = 10`
+
+    重點：
+
+    **Turnaround Time 不用分段累加，直接看 P1 從到達到完成總共花多久。**
+
+
+
+!!! danger "PEICD100"
+    Q：
+    Arrival time 是啥
+
+    ANS：
+    Arrival Time(到達時間) 在 CPU scheduling 題目裡，通常指：
+    
+    process 進入 Ready Queue(就緒佇列)，開始有資格被 CPU scheduler 選來執行的 ==時間點== 。
+    
+    也就是說，它不是「程式被寫好」或「使用者想到要執行」的時間，而是題目模型中這個 process 已經到達排班系統、可以開始排隊等 CPU 的時間。
+    
 
 
 #### 為何 Turnaround Time 叫做 Turnaround 
@@ -794,7 +829,7 @@ process 完成 / complete
 
 ### 5. Waiting Time(等候時間)：在 ready queue 裡等 CPU 花多久？
 
-`Waiting Time(等候時間)` 是 process 在 ready queue 裡等待所花的時間總和。
+`Waiting Time(等候時間)` 是 process 在 ready queue 裡等待所花的 ==時間總和== ，所以如果一個 Process 進入很多次 Ready queue ，同一個 Process 的 Waiting Time 就會一直增加。
 
 它不包含正在 CPU 上跑的時間，也不包含 I/O 自己執行的時間。
 只看：
@@ -809,7 +844,32 @@ Waiting time = Turnaround time - CPU burst time
 
 如果有多段 CPU burst / I/O burst，waiting time 是所有 ready queue 等待片段加總。
 
-!!! danger "PEC"
+!!! danger "PEICD100"
+
+    ```text
+    0      2      5      7      10
+    |  P2  |  P1  |  P3  |  P1  |
+    ```
+
+    假設 P1：
+
+    * `Arrival Time = 0`
+    * 第一次執行：t=2 到 t=5
+    * 第二次執行：t=7 到 t=10
+    * `Completion Time = 10`
+
+    P1 在 ready queue 裡等 CPU 的時間有兩段：
+
+    * 第一次等待：t=0 到 t=2
+    * 第二次等待：t=5 到 t=7
+
+    所以：
+
+    `Waiting Time(P1) = (2 - 0) + (7 - 5) = 2 + 2 = 4`
+
+    重點：
+
+    **Waiting Time 要累加所有「已經 ready，但還沒拿到 CPU」的時間。**
 
 
 ### 6. Response Time(反應時間)：從發出要求到第一次回應多久？
@@ -827,7 +887,77 @@ Waiting time = Turnaround time - CPU burst time
 | `Response time`   | 到第一次反應 |
 | `Turnaround time` | 到全部完成  |
 
-### 7. Page 11 的最佳化方向
+!!! danger "PEICD100"
+    
+
+    ```text
+    0      2      5      7      10
+    |  P2  |  P1  |  P3  |  P1  |
+    ```
+
+    假設 P1：
+
+    * `Arrival Time = 0`
+    * 第一次拿到 CPU：t=2
+    * 第一次執行：t=2 到 t=5
+    * 第二次執行：t=7 到 t=10
+    * `Completion Time = 10`
+
+    Response Time 只看：
+
+    **P1 從 arrival 到第一次拿到 CPU，等了多久。**
+
+    所以：
+
+    `Response Time(P1) = First CPU Start Time - Arrival Time = 2 - 0 = 2`
+
+    重點：
+
+    **Response Time 只算第一次等待，不會把後面 t=5 到 t=7 的等待再加進去。**
+
+
+
+### 7. 三個綜合版本
+
+```text
+0      2      5      7      10
+|  P2  |  P1  |  P3  |  P1  |
+```
+
+假設 P1：
+
+* `Arrival Time = 0`
+* 第一次拿到 CPU：t=2
+* 第一次執行：t=2 到 t=5
+* 被切走後再次等待：t=5 到 t=7
+* 第二次執行：t=7 到 t=10
+* `Completion Time = 10`
+
+三個指標分別是：
+
+`Response Time(P1) = 2 - 0 = 2`
+
+`Waiting Time(P1) = (2 - 0) + (7 - 5) = 4`
+
+`Turnaround Time(P1) = 10 - 0 = 10`
+
+可以整理成：
+
+| 指標                | 算法                             |                      結果 |
+| ----------------- | ------------------------------ | ----------------------: |
+| `Response Time`   | 第一次拿到 CPU - Arrival Time       |             `2 - 0 = 2` |
+| `Waiting Time`    | 所有在 ready queue 裡等 CPU 的時間總和   | `(2 - 0) + (7 - 5) = 4` |
+| `Turnaround Time` | Completion Time - Arrival Time |           `10 - 0 = 10` |
+
+最短記法：
+
+**Response Time：第一次等多久。**
+**Waiting Time：總共等 CPU 多久。**
+**Turnaround Time：整個 process 從到達到完成花多久。**
+
+
+
+### 8. Page 11 的最佳化方向
 
 講義 page 11 把五個 criteria 整理成最佳化目標：
 
@@ -844,7 +974,7 @@ Waiting time = Turnaround time - CPU burst time
 **兩個越大越好：CPU utilization、throughput。
 三個越小越好：turnaround time、waiting time、response time。**
 
-### 8. 考試常見陷阱
+### 9. 考試常見陷阱
 
 第一，`Waiting time` 和 `Turnaround time` 不要混。
 Waiting 只算 ready queue 等 CPU；turnaround 是整個從 arrival 到 completion。
@@ -854,3 +984,4 @@ Response 只看第一個反應，不看全部完成。
 
 第三，criteria 會互相衝突。
 例如非常頻繁切換 process 可能讓 response time 變好，但 dispatch latency / context switch overhead 變多，CPU utilization 可能變差。期末考古 Q1 就直接問這種 trade-off。
+

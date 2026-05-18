@@ -1,1 +1,2 @@
-﻿
+﻿1. 因為 waiting time = turnaround time - cpu burst time，turnaround time 下降，waiting time也會下降。
+2. 看不懂

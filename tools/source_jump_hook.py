@@ -21,9 +21,12 @@ from mkdocs.plugins import event_priority
 log = logging.getLogger("mkdocs.hooks.source_jump")
 
 _LOCAL_ENDPOINT_SUFFIX = "/__peicd/source-jump"
+_CONTEXT_FALLBACK_MIN_SCORE = 2500.0
 _MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 _PAGE_INDEX: dict[str, "PageRecord"] = {}
 _VSCODE_COMMAND: str | None = None
+_MARK_EXTENSION_RE = re.compile(r"==([^\s=](?:[^=\n]*?[^\s=])?)==")
+_CARET_EXTENSION_RE = re.compile(r"\^\^([^\s^](?:[^^\n]*?[^\s^])?)\^\^")
 
 
 @dataclass
@@ -31,6 +34,7 @@ class BlockRecord:
     kind: str
     tag: str
     order_index: int
+    section_index: int
     start_line: int
     end_line: int
     visible_text: str
@@ -116,11 +120,21 @@ def _handle_lookup_request(environ, start_response, server):
     next_block = params.get("next_block", [""])[0]
     block_tag = params.get("block_tag", [""])[0]
     block_index_raw = params.get("block_index", [""])[0]
+    section_index_raw = params.get("section_index", [""])[0]
+    block_progress_raw = params.get("block_progress", [""])[0]
     action = params.get("action", ["lookup"])[0].strip().lower()
     try:
         block_index = int(block_index_raw)
     except (TypeError, ValueError):
         block_index = None
+    try:
+        section_index = int(section_index_raw)
+    except (TypeError, ValueError):
+        section_index = None
+    try:
+        block_progress = float(block_progress_raw)
+    except (TypeError, ValueError):
+        block_progress = None
 
     if selection == "__probe__":
         return _json_response(
@@ -155,6 +169,8 @@ def _handle_lookup_request(environ, start_response, server):
         next_block,
         block_tag,
         block_index,
+        section_index,
+        block_progress,
     )
     if result.get("ok") and action == "open":
         opened, message = _open_in_vscode(
@@ -289,7 +305,7 @@ def _build_block_record(
     if not token.map:
         return None
 
-    visible_text = _visible_text_from_token(token)
+    visible_text = _strip_rendered_extension_markers(_visible_text_from_token(token))
     if not visible_text.strip():
         return None
 
@@ -309,6 +325,7 @@ def _build_block_record(
         kind=kind,
         tag=tag,
         order_index=-1,
+        section_index=-1,
         start_line=start_line0 + 1,
         end_line=max(start_line0 + 1, end_line0),
         visible_text=visible_text,
@@ -347,6 +364,20 @@ def _visible_text_from_inline_children(children: Any) -> str:
         elif child_type == "html_inline":
             parts.append(_html_to_text(getattr(child, "content", "")))
     return "".join(parts)
+
+
+def _strip_rendered_extension_markers(text: str) -> str:
+    if not text:
+        return ""
+
+    stripped = text
+    for _ in range(4):
+        previous = stripped
+        stripped = _MARK_EXTENSION_RE.sub(r"\1", stripped)
+        stripped = _CARET_EXTENSION_RE.sub(r"\1", stripped)
+        if stripped == previous:
+            break
+    return stripped
 
 
 def _html_to_text(html: str) -> str:
@@ -418,8 +449,20 @@ def _normalize_heading_path(parts: tuple[str, ...]) -> str:
 
 
 def _attach_neighbor_context(blocks: list[BlockRecord]) -> None:
+    current_section_path: str | None = None
+    current_section_index = 0
     for index, block in enumerate(blocks):
         block.order_index = index
+        if block.kind == "heading":
+            block.section_index = 0
+            current_section_path = block.normalized_heading_path
+            current_section_index = 1
+        else:
+            if block.normalized_heading_path != current_section_path:
+                current_section_path = block.normalized_heading_path
+                current_section_index = 0
+            block.section_index = current_section_index
+            current_section_index += 1
         block.prev_text = blocks[index - 1].normalized_text if index > 0 else ""
         block.next_text = blocks[index + 1].normalized_text if index + 1 < len(blocks) else ""
 
@@ -504,6 +547,8 @@ def _locate_selection(
     next_block: str,
     block_tag: str,
     block_index: int | None,
+    section_index: int | None,
+    block_progress: float | None,
 ) -> dict[str, Any]:
     selection_norm = _normalize_text(selection)
     container_norm = _normalize_text(container)
@@ -534,17 +579,31 @@ def _locate_selection(
                 next_block_norm,
                 block_tag_norm,
                 block_index,
+                section_index,
+                block_progress,
+                len(record.blocks),
             ),
         )
-        if best_block.normalized_source_offsets:
-            source_offset = best_block.normalized_source_offsets[0]
-            line, column = _offset_to_line_column(record.line_starts, source_offset)
-        else:
-            line, column = best_block.start_line, 1
+        line, column = _block_start_line_column(record, best_block)
         return _success_payload(record, line, column)
 
     candidates = [block for block in record.blocks if selection_norm in block.normalized_text]
     if not candidates:
+        contextual_match = _contextual_fallback_match(
+            record,
+            container_norm,
+            heading_path_norm,
+            prev_block_norm,
+            next_block_norm,
+            block_tag_norm,
+            block_index,
+            section_index,
+            block_progress,
+        )
+        if contextual_match is not None:
+            line, column = _block_start_line_column(record, contextual_match)
+            return _success_payload(record, line, column)
+
         raw_match_offset = record.markdown.find(selection)
         if raw_match_offset == -1:
             return {
@@ -567,6 +626,9 @@ def _locate_selection(
             next_block_norm,
             block_tag_norm,
             block_index,
+            section_index,
+            block_progress,
+            len(record.blocks),
         ),
     )
     match_index = _choose_match_index(best_block.normalized_text, selection_norm, prefix_norm)
@@ -576,6 +638,63 @@ def _locate_selection(
     source_offset = best_block.normalized_source_offsets[match_index]
     line, column = _offset_to_line_column(record.line_starts, source_offset)
     return _success_payload(record, line, column)
+
+
+def _contextual_fallback_match(
+    record: PageRecord,
+    container_norm: str,
+    heading_path_norm: str,
+    prev_block_norm: str,
+    next_block_norm: str,
+    block_tag_norm: str,
+    block_index: int | None,
+    section_index: int | None,
+    block_progress: float | None,
+) -> BlockRecord | None:
+    if not record.blocks:
+        return None
+    if not any(
+        [
+            container_norm,
+            heading_path_norm,
+            prev_block_norm,
+            next_block_norm,
+            block_tag_norm,
+            block_index is not None,
+            section_index is not None,
+            block_progress is not None,
+        ]
+    ):
+        return None
+
+    scored_blocks = [
+        (
+            _container_only_score(
+                block,
+                container_norm,
+                heading_path_norm,
+                prev_block_norm,
+                next_block_norm,
+                block_tag_norm,
+                block_index,
+                section_index,
+                block_progress,
+                len(record.blocks),
+            ),
+            block,
+        )
+        for block in record.blocks
+    ]
+    best_score, best_block = max(scored_blocks, key=lambda item: item[0])
+    if best_score < _CONTEXT_FALLBACK_MIN_SCORE:
+        return None
+    return best_block
+
+
+def _block_start_line_column(record: PageRecord, block: BlockRecord) -> tuple[int, int]:
+    if block.normalized_source_offsets:
+        return _offset_to_line_column(record.line_starts, block.normalized_source_offsets[0])
+    return block.start_line, 1
 
 
 def _success_payload(record: PageRecord, line: int, column: int) -> dict[str, Any]:
@@ -599,6 +718,9 @@ def _block_score(
     next_block_norm: str,
     block_tag_norm: str,
     block_index: int | None,
+    section_index: int | None,
+    block_progress: float | None,
+    total_blocks: int,
 ) -> float:
     score = 0.0
 
@@ -644,6 +766,8 @@ def _block_score(
     )
     score += _block_tag_score(block, block_tag_norm)
     score += _block_order_score(block.order_index, block_index)
+    score += _section_order_score(block.section_index, section_index)
+    score += _block_progress_score(block.order_index, total_blocks, block_progress)
 
     score += max(0, 300 - (block.end_line - block.start_line))
     score += max(0, 200 - block.start_line / 10)
@@ -658,6 +782,9 @@ def _container_only_score(
     next_block_norm: str,
     block_tag_norm: str,
     block_index: int | None,
+    section_index: int | None,
+    block_progress: float | None,
+    total_blocks: int,
 ) -> float:
     score = 0.0
 
@@ -697,6 +824,8 @@ def _container_only_score(
     )
     score += _block_tag_score(block, block_tag_norm)
     score += _block_order_score(block.order_index, block_index)
+    score += _section_order_score(block.section_index, section_index)
+    score += _block_progress_score(block.order_index, total_blocks, block_progress)
 
     score += max(0, 300 - (block.end_line - block.start_line))
     score += max(0, 200 - block.start_line / 10)
@@ -755,6 +884,21 @@ def _block_order_score(order_index: int, block_index: int | None) -> float:
         return 0.0
     delta = abs(order_index - block_index)
     return max(0.0, 900.0 - delta * 35.0)
+
+
+def _section_order_score(section_index: int, observed_section_index: int | None) -> float:
+    if observed_section_index is None or observed_section_index < 0 or section_index < 0:
+        return 0.0
+    delta = abs(section_index - observed_section_index)
+    return max(0.0, 1200.0 - delta * 90.0)
+
+
+def _block_progress_score(order_index: int, total_blocks: int, observed_progress: float | None) -> float:
+    if observed_progress is None or observed_progress < 0 or order_index < 0 or total_blocks <= 1:
+        return 0.0
+    progress = order_index / max(total_blocks - 1, 1)
+    delta = abs(progress - min(max(observed_progress, 0.0), 1.0))
+    return max(0.0, 900.0 - delta * 3600.0)
 
 
 def _choose_match_index(text: str, needle: str, prefix_norm: str) -> int:
