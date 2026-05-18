@@ -5644,7 +5644,9 @@ is now available!
 <p class="admonition-title">重點</p>
 <p>注意下列的 18-26 ，要注意的只有這邊。</p>
 <p>只有這邊是跟著 clk 變動，其他都是直接改，反正 clk 來才會跟著 18-26 更新。</p>
-<p>然後同一個 reg 只能在同一個 always 中更新，所以 20-22 的 reset 也要寫在</p>
+<p>然後同一個 reg 只能在同一個 always 中更新，所以 20-22 的 reset 也要寫在同一個 always 中。</p>
+<p>另外看到第 11 行：<br />
+parameter 像是 C++ 的 "const int S0 = 0;"，就是不可更改的變數，更改會報錯。</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mh">1</span><span class="n">ps</span>
 <span class="linenos" data-linenos=" 2 "></span>
@@ -5656,81 +5658,82 @@ is now available!
 <span class="linenos" data-linenos=" 8 "></span><span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">state</span>
 <span class="linenos" data-linenos=" 9 "></span><span class="p">);</span>
 <span class="linenos" data-linenos="10 "></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">S00</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">,</span><span class="w"> </span><span class="n">S01</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">,</span><span class="w"> </span><span class="n">S10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">,</span><span class="w"> </span><span class="n">S11</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span>
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">present_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="14 "></span><span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">next_state</span><span class="p">;</span>
-<span class="linenos" data-linenos="15 "></span>
-<span class="linenos" data-linenos="16 "></span><span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present_state</span><span class="p">;</span>
-<span class="linenos" data-linenos="17 "></span>
-<span class="hll"><span class="linenos" data-linenos="18 "></span><span class="w">    </span><span class="c1">// state register</span>
-</span><span class="hll"><span class="linenos" data-linenos="19 "></span><span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-</span><span class="hll"><span class="linenos" data-linenos="20 "></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-</span><span class="hll"><span class="linenos" data-linenos="21 "></span><span class="w">            </span><span class="n">present_state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-</span><span class="hll"><span class="linenos" data-linenos="22 "></span><span class="w">        </span><span class="k">end</span>
-</span><span class="hll"><span class="linenos" data-linenos="23 "></span><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-</span><span class="hll"><span class="linenos" data-linenos="24 "></span><span class="w">            </span><span class="n">present_state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">next_state</span><span class="p">;</span>
-</span><span class="hll"><span class="linenos" data-linenos="25 "></span><span class="w">        </span><span class="k">end</span>
-</span><span class="hll"><span class="linenos" data-linenos="26 "></span><span class="w">    </span><span class="k">end</span>
-</span><span class="linenos" data-linenos="27 "></span>
-<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="c1">// next state logic and output logic</span>
-<span class="linenos" data-linenos="29 "></span><span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="30 "></span><span class="w">        </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present_state</span><span class="p">;</span>
-<span class="linenos" data-linenos="31 "></span><span class="w">        </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="32 "></span>
-<span class="linenos" data-linenos="33 "></span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">present_state</span><span class="p">)</span>
-<span class="linenos" data-linenos="34 "></span><span class="w">            </span><span class="nl">S00:</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="35 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="36 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="37 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="38 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="39 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="40 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S01</span><span class="p">;</span>
-<span class="linenos" data-linenos="41 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="42 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="43 "></span><span class="w">            </span><span class="k">end</span>
-<span class="linenos" data-linenos="44 "></span>
-<span class="linenos" data-linenos="45 "></span><span class="w">            </span><span class="nl">S01:</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="46 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="47 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="48 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-<span class="linenos" data-linenos="49 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="50 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="51 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S11</span><span class="p">;</span>
-<span class="linenos" data-linenos="52 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="53 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="54 "></span><span class="w">            </span><span class="k">end</span>
-<span class="linenos" data-linenos="55 "></span>
-<span class="linenos" data-linenos="56 "></span><span class="w">            </span><span class="nl">S10:</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="57 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="58 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="59 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-<span class="linenos" data-linenos="60 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="61 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="62 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S10</span><span class="p">;</span>
-<span class="linenos" data-linenos="63 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="64 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="65 "></span><span class="w">            </span><span class="k">end</span>
-<span class="linenos" data-linenos="66 "></span>
-<span class="linenos" data-linenos="67 "></span><span class="w">            </span><span class="nl">S11:</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="68 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="69 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="70 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
-<span class="linenos" data-linenos="71 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="72 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="73 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S10</span><span class="p">;</span>
-<span class="linenos" data-linenos="74 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="75 "></span><span class="w">                </span><span class="k">end</span>
-<span class="linenos" data-linenos="76 "></span><span class="w">            </span><span class="k">end</span>
-<span class="linenos" data-linenos="77 "></span>
-<span class="linenos" data-linenos="78 "></span><span class="w">            </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
-<span class="linenos" data-linenos="79 "></span><span class="w">                </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
-<span class="linenos" data-linenos="80 "></span><span class="w">                </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
-<span class="linenos" data-linenos="81 "></span><span class="w">            </span><span class="k">end</span>
-<span class="linenos" data-linenos="82 "></span><span class="w">        </span><span class="k">endcase</span>
-<span class="linenos" data-linenos="83 "></span><span class="w">    </span><span class="k">end</span>
-<span class="linenos" data-linenos="84 "></span>
-<span class="linenos" data-linenos="85 "></span><span class="k">endmodule</span>
+<span class="linenos" data-linenos="11 "></span><span class="w">    </span><span class="c1">// parameter 像是 C++ 的 &quot;const int S0 = 0;&quot;，就是不可更改的變數，更改會報錯。</span>
+<span class="hll"><span class="linenos" data-linenos="12 "></span><span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">S00</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">,</span><span class="w"> </span><span class="n">S01</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">,</span><span class="w"> </span><span class="n">S10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">,</span><span class="w"> </span><span class="n">S11</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="p">;</span>
+</span><span class="linenos" data-linenos="13 "></span>
+<span class="linenos" data-linenos="14 "></span><span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">present_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="15 "></span><span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">next_state</span><span class="p">;</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present_state</span><span class="p">;</span>
+<span class="hll"><span class="linenos" data-linenos="18 "></span>
+</span><span class="hll"><span class="linenos" data-linenos="19 "></span><span class="w">    </span><span class="c1">// state register</span>
+</span><span class="hll"><span class="linenos" data-linenos="20 "></span><span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+</span><span class="hll"><span class="linenos" data-linenos="21 "></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+</span><span class="hll"><span class="linenos" data-linenos="22 "></span><span class="w">            </span><span class="n">present_state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+</span><span class="hll"><span class="linenos" data-linenos="23 "></span><span class="w">        </span><span class="k">end</span>
+</span><span class="hll"><span class="linenos" data-linenos="24 "></span><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+</span><span class="hll"><span class="linenos" data-linenos="25 "></span><span class="w">            </span><span class="n">present_state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">next_state</span><span class="p">;</span>
+</span><span class="hll"><span class="linenos" data-linenos="26 "></span><span class="w">        </span><span class="k">end</span>
+</span><span class="linenos" data-linenos="27 "></span><span class="w">    </span><span class="k">end</span>
+<span class="linenos" data-linenos="28 "></span>
+<span class="linenos" data-linenos="29 "></span><span class="w">    </span><span class="c1">// next state logic and output logic</span>
+<span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="31 "></span><span class="w">        </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present_state</span><span class="p">;</span>
+<span class="linenos" data-linenos="32 "></span><span class="w">        </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="33 "></span>
+<span class="linenos" data-linenos="34 "></span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">present_state</span><span class="p">)</span>
+<span class="linenos" data-linenos="35 "></span><span class="w">            </span><span class="nl">S00:</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="36 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="37 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="38 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="39 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="40 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="41 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S01</span><span class="p">;</span>
+<span class="linenos" data-linenos="42 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="43 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="44 "></span><span class="w">            </span><span class="k">end</span>
+<span class="linenos" data-linenos="45 "></span>
+<span class="linenos" data-linenos="46 "></span><span class="w">            </span><span class="nl">S01:</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="47 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="49 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="linenos" data-linenos="50 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="51 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="52 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S11</span><span class="p">;</span>
+<span class="linenos" data-linenos="53 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="54 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="55 "></span><span class="w">            </span><span class="k">end</span>
+<span class="linenos" data-linenos="56 "></span>
+<span class="linenos" data-linenos="57 "></span><span class="w">            </span><span class="nl">S10:</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="58 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="59 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="60 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="linenos" data-linenos="61 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="62 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="63 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S10</span><span class="p">;</span>
+<span class="linenos" data-linenos="64 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="65 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="66 "></span><span class="w">            </span><span class="k">end</span>
+<span class="linenos" data-linenos="67 "></span>
+<span class="linenos" data-linenos="68 "></span><span class="w">            </span><span class="nl">S11:</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="69 "></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="70 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="71 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="linenos" data-linenos="72 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="73 "></span><span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="74 "></span><span class="w">                    </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S10</span><span class="p">;</span>
+<span class="linenos" data-linenos="75 "></span><span class="w">                    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="76 "></span><span class="w">                </span><span class="k">end</span>
+<span class="linenos" data-linenos="77 "></span><span class="w">            </span><span class="k">end</span>
+<span class="linenos" data-linenos="78 "></span>
+<span class="linenos" data-linenos="79 "></span><span class="w">            </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos" data-linenos="80 "></span><span class="w">                </span><span class="n">next_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S00</span><span class="p">;</span>
+<span class="linenos" data-linenos="81 "></span><span class="w">                </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="linenos" data-linenos="82 "></span><span class="w">            </span><span class="k">end</span>
+<span class="linenos" data-linenos="83 "></span><span class="w">        </span><span class="k">endcase</span>
+<span class="linenos" data-linenos="84 "></span><span class="w">    </span><span class="k">end</span>
+<span class="linenos" data-linenos="85 "></span>
+<span class="linenos" data-linenos="86 "></span><span class="k">endmodule</span>
 </code></pre></div>
 
 
