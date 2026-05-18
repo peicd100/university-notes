@@ -3555,6 +3555,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -3949,6 +3951,34 @@ is now available!
     
   
     1000Hz to 1Hz counter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Verilog/%E6%8C%89%E9%88%95%E5%8E%BB%E5%BD%88%E8%B7%B3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    按鈕去彈跳
   
 
     
@@ -5089,10 +5119,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-page-11-的最佳化方向" class="md-nav__link">
+  <a href="#7-三個綜合版本" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Page 11 的最佳化方向
+        7. 三個綜合版本
       
     </span>
   </a>
@@ -5100,10 +5130,21 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#8-考試常見陷阱" class="md-nav__link">
+  <a href="#8-page-11-的最佳化方向" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. 考試常見陷阱
+        8. Page 11 的最佳化方向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-考試常見陷阱" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 考試常見陷阱
       
     </span>
   </a>
@@ -6831,10 +6872,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-page-11-的最佳化方向" class="md-nav__link">
+  <a href="#7-三個綜合版本" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Page 11 的最佳化方向
+        7. 三個綜合版本
       
     </span>
   </a>
@@ -6842,10 +6883,21 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#8-考試常見陷阱" class="md-nav__link">
+  <a href="#8-page-11-的最佳化方向" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. 考試常見陷阱
+        8. Page 11 的最佳化方向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-考試常見陷阱" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 考試常見陷阱
       
     </span>
   </a>
@@ -7559,13 +7611,39 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <p>Throughput 越高，代表系統整體完成工作速度越高。<br />
 但如果只偏好短工作，長工作可能一直卡住，後面會牽涉 starvation。</p>
 <h3 id="4-turnaround-time回復時間從提交到完成總共花多久">4. Turnaround Time(回復時間)：從提交到完成總共花多久？<a class="headerlink" href="#4-turnaround-time回復時間從提交到完成總共花多久" title="Permanent link"></a></h3>
-<p><mark>也就是一個程式從「想被執行」到「真正被執行完」花的時間</mark></p>
+<p><mark>也就是一個程式從「進到 Ready queue 中」到「真正被執行完」花的時間</mark></p>
 <p><code>Turnaround Time(回復時間)</code> 是某個 process 從進入系統到完成的總時間。講義說它包含：等待進主記憶體、在 ready queue 等待、CPU 執行、I/O 執行等時間總和。</p>
 <p>最常用公式：</p>
 <div class="highlight"><pre><span></span><code>Turnaround time = Completion time - Arrival time
 </code></pre></div>
 <p>直覺：</p>
 <p><strong>你從拿號碼牌開始，到事情完全辦完離開，總共花多少時間。</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">PEICD</p>
+<div class="highlight"><pre><span></span><code>0      2      5      7      10
+|  P2  |  P1  |  P3  |  P1  |
+</code></pre></div>
+<p>假設 P1：</p>
+<ul>
+<li><code>Arrival Time = 0</code></li>
+<li>第一次執行：t=2 到 t=5</li>
+<li>第二次執行：t=7 到 t=10</li>
+<li><code>Completion Time = 10</code></li>
+</ul>
+<p>那：</p>
+<p><code>Turnaround Time(P1) = Completion Time - Arrival Time = 10 - 0 = 10</code></p>
+<p>重點：</p>
+<p><strong>Turnaround Time 不用分段累加，直接看 P1 從到達到完成總共花多久。</strong></p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">PEICD100</p>
+<p>Q：<br />
+Arrival time 是啥</p>
+<p>ANS：<br />
+Arrival Time(到達時間) 在 CPU scheduling 題目裡，通常指：</p>
+<p>process 進入 Ready Queue(就緒佇列)，開始有資格被 CPU scheduler 選來執行的 <mark>時間點</mark> 。</p>
+<p>也就是說，它不是「程式被寫好」或「使用者想到要執行」的時間，而是題目模型中這個 process 已經到達排班系統、可以開始排隊等 CPU 的時間。</p>
+</div>
 <h4 id="為何-turnaround-time-叫做-turnaround">為何 Turnaround Time 叫做 Turnaround<a class="headerlink" href="#為何-turnaround-time-叫做-turnaround" title="Permanent link"></a></h4>
 <p><code>Turnaround Time</code> 叫 <strong>turnaround</strong>，重點不是「轉身」，而是 <strong>周轉一圈、從送進去到拿回結果的總時間</strong>。</p>
 <div class="highlight"><pre><span></span><code>turnaround：周轉時間、好轉、轉身、整備時間
@@ -7587,7 +7665,7 @@ process 完成 / complete
 <p><strong>這個 process 從進入系統開始，到最後完成離開，整個周轉一輪花了多久？</strong></p>
 <p>講義 page 10 也把它定義成 process 從進入系統到完成所花的總時間，包含等待進入記憶體、ready queue 等待、CPU 執行、I/O 執行等時間。 其他 OS 教材也常寫成 <code>Turnaround Time = Completion Time - Arrival Time</code>。(<a href="https://www.csie.ntu.edu.tw/~ktw/uos/uos2005-Chp5.pdf?utm_source=chatgpt.com" title="Chapter 5 Process Scheduling">Baeldung on Kotlin</a>)</p>
 <h3 id="5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久">5. Waiting Time(等候時間)：在 ready queue 裡等 CPU 花多久？<a class="headerlink" href="#5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久" title="Permanent link"></a></h3>
-<p><code>Waiting Time(等候時間)</code> 是 process 在 ready queue 裡等待所花的時間總和。</p>
+<p><code>Waiting Time(等候時間)</code> 是 process 在 ready queue 裡等待所花的 <mark>時間總和</mark> ，所以如果一個 Process 進入很多次 Ready queue ，同一個 Process 的 Waiting Time 就會一直增加。</p>
 <p>它不包含正在 CPU 上跑的時間，也不包含 I/O 自己執行的時間。<br />
 只看：</p>
 <p><strong>我已經 ready 了，但 CPU 還沒輪到我。</strong></p>
@@ -7595,6 +7673,28 @@ process 完成 / complete
 <div class="highlight"><pre><span></span><code>Waiting time = Turnaround time - CPU burst time
 </code></pre></div>
 <p>如果有多段 CPU burst / I/O burst，waiting time 是所有 ready queue 等待片段加總。</p>
+<div class="admonition danger">
+<p class="admonition-title">PEICD100</p>
+<div class="highlight"><pre><span></span><code>0      2      5      7      10
+|  P2  |  P1  |  P3  |  P1  |
+</code></pre></div>
+<p>假設 P1：</p>
+<ul>
+<li><code>Arrival Time = 0</code></li>
+<li>第一次執行：t=2 到 t=5</li>
+<li>第二次執行：t=7 到 t=10</li>
+<li><code>Completion Time = 10</code></li>
+</ul>
+<p>P1 在 ready queue 裡等 CPU 的時間有兩段：</p>
+<ul>
+<li>第一次等待：t=0 到 t=2</li>
+<li>第二次等待：t=5 到 t=7</li>
+</ul>
+<p>所以：</p>
+<p><code>Waiting Time(P1) = (2 - 0) + (7 - 5) = 2 + 2 = 4</code></p>
+<p>重點：</p>
+<p><strong>Waiting Time 要累加所有「已經 ready，但還沒拿到 CPU」的時間。</strong></p>
+</div>
 <h3 id="6-response-time反應時間從發出要求到第一次回應多久">6. Response Time(反應時間)：從發出要求到第一次回應多久？<a class="headerlink" href="#6-response-time反應時間從發出要求到第一次回應多久" title="Permanent link"></a></h3>
 <p><code>Response Time(反應時間)</code> 在互動式系統很重要。講義定義為：從提出要求到第一個反應出現的間隔時間。</p>
 <p>直覺：</p>
@@ -7618,7 +7718,75 @@ process 完成 / complete
 </tr>
 </tbody>
 </table>
-<h3 id="7-page-11-的最佳化方向">7. Page 11 的最佳化方向<a class="headerlink" href="#7-page-11-的最佳化方向" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">PEICD100</p>
+<div class="highlight"><pre><span></span><code>0      2      5      7      10
+|  P2  |  P1  |  P3  |  P1  |
+</code></pre></div>
+<p>假設 P1：</p>
+<ul>
+<li><code>Arrival Time = 0</code></li>
+<li>第一次拿到 CPU：t=2</li>
+<li>第一次執行：t=2 到 t=5</li>
+<li>第二次執行：t=7 到 t=10</li>
+<li><code>Completion Time = 10</code></li>
+</ul>
+<p>Response Time 只看：</p>
+<p><strong>P1 從 arrival 到第一次拿到 CPU，等了多久。</strong></p>
+<p>所以：</p>
+<p><code>Response Time(P1) = First CPU Start Time - Arrival Time = 2 - 0 = 2</code></p>
+<p>重點：</p>
+<p><strong>Response Time 只算第一次等待，不會把後面 t=5 到 t=7 的等待再加進去。</strong></p>
+</div>
+<h3 id="7-三個綜合版本">7. 三個綜合版本<a class="headerlink" href="#7-三個綜合版本" title="Permanent link"></a></h3>
+<div class="highlight"><pre><span></span><code>0      2      5      7      10
+|  P2  |  P1  |  P3  |  P1  |
+</code></pre></div>
+<p>假設 P1：</p>
+<ul>
+<li><code>Arrival Time = 0</code></li>
+<li>第一次拿到 CPU：t=2</li>
+<li>第一次執行：t=2 到 t=5</li>
+<li>被切走後再次等待：t=5 到 t=7</li>
+<li>第二次執行：t=7 到 t=10</li>
+<li><code>Completion Time = 10</code></li>
+</ul>
+<p>三個指標分別是：</p>
+<p><code>Response Time(P1) = 2 - 0 = 2</code></p>
+<p><code>Waiting Time(P1) = (2 - 0) + (7 - 5) = 4</code></p>
+<p><code>Turnaround Time(P1) = 10 - 0 = 10</code></p>
+<p>可以整理成：</p>
+<table>
+<thead>
+<tr>
+<th>指標</th>
+<th>算法</th>
+<th style="text-align: right;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Response Time</code></td>
+<td>第一次拿到 CPU - Arrival Time</td>
+<td style="text-align: right;"><code>2 - 0 = 2</code></td>
+</tr>
+<tr>
+<td><code>Waiting Time</code></td>
+<td>所有在 ready queue 裡等 CPU 的時間總和</td>
+<td style="text-align: right;"><code>(2 - 0) + (7 - 5) = 4</code></td>
+</tr>
+<tr>
+<td><code>Turnaround Time</code></td>
+<td>Completion Time - Arrival Time</td>
+<td style="text-align: right;"><code>10 - 0 = 10</code></td>
+</tr>
+</tbody>
+</table>
+<p>最短記法：</p>
+<p><strong>Response Time：第一次等多久。</strong><br />
+<strong>Waiting Time：總共等 CPU 多久。</strong><br />
+<strong>Turnaround Time：整個 process 從到達到完成花多久。</strong></p>
+<h3 id="8-page-11-的最佳化方向">8. Page 11 的最佳化方向<a class="headerlink" href="#8-page-11-的最佳化方向" title="Permanent link"></a></h3>
 <p>講義 page 11 把五個 criteria 整理成最佳化目標：</p>
 <table>
 <thead>
@@ -7653,7 +7821,7 @@ process 完成 / complete
 <p>最短記法：</p>
 <p><strong>兩個越大越好：CPU utilization、throughput。<br />
 三個越小越好：turnaround time、waiting time、response time。</strong></p>
-<h3 id="8-考試常見陷阱">8. 考試常見陷阱<a class="headerlink" href="#8-考試常見陷阱" title="Permanent link"></a></h3>
+<h3 id="9-考試常見陷阱">9. 考試常見陷阱<a class="headerlink" href="#9-考試常見陷阱" title="Permanent link"></a></h3>
 <p>第一，<code>Waiting time</code> 和 <code>Turnaround time</code> 不要混。<br />
 Waiting 只算 ready queue 等 CPU；turnaround 是整個從 arrival 到 completion。</p>
 <p>第二，<code>Response time</code> 不等於完成時間。<br />
@@ -7815,7 +7983,7 @@ Response 只看第一個反應，不看全部完成。</p>
       
         <script src="../../../assets/pymdownx-extras/legacy-image-width.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/source-jump.js?v=20260404-1"></script>
+        <script src="../../../assets/pymdownx-extras/source-jump.js?v=20260518-1"></script>
       
     
   <script src="../../../assets/pymdownx-extras/scroll-bottom.js?v=20260424-3" type="text/javascript"></script>

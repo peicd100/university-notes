@@ -313,6 +313,8 @@
       return {
         blockTag: "",
         blockIndex: -1,
+        sectionBlockIndex: -1,
+        blockProgress: -1,
         headingPath: "",
         prevBlock: "",
         nextBlock: ""
@@ -321,22 +323,40 @@
 
     var blocks = getContentBlocks();
     var blockIndex = blocks.indexOf(block);
+    var sectionBlockIndex = -1;
+    var blockProgress = -1;
     var prevBlock = "";
     var nextBlock = "";
 
-    for (var prevIndex = blockIndex - 1; prevIndex >= 0; prevIndex -= 1) {
-      prevBlock = sanitizeText(blocks[prevIndex].innerText || blocks[prevIndex].textContent || "", MAX_NEIGHBOR_CHARS);
-      if (prevBlock) break;
+    if (blockIndex >= 0) {
+      var nearestHeadingIndex = -1;
+      for (var headingIndex = blockIndex; headingIndex >= 0; headingIndex -= 1) {
+        if (/^H[1-6]$/.test(blocks[headingIndex].tagName || "")) {
+          nearestHeadingIndex = headingIndex;
+          break;
+        }
+      }
+      sectionBlockIndex = nearestHeadingIndex >= 0 ? blockIndex - nearestHeadingIndex : blockIndex;
+      blockProgress = blocks.length > 1 ? blockIndex / (blocks.length - 1) : 0;
     }
 
-    for (var nextIndex = blockIndex + 1; nextIndex < blocks.length; nextIndex += 1) {
-      nextBlock = sanitizeText(blocks[nextIndex].innerText || blocks[nextIndex].textContent || "", MAX_NEIGHBOR_CHARS);
-      if (nextBlock) break;
+    if (blockIndex >= 0) {
+      for (var prevIndex = blockIndex - 1; prevIndex >= 0; prevIndex -= 1) {
+        prevBlock = sanitizeText(blocks[prevIndex].innerText || blocks[prevIndex].textContent || "", MAX_NEIGHBOR_CHARS);
+        if (prevBlock) break;
+      }
+
+      for (var nextIndex = blockIndex + 1; nextIndex < blocks.length; nextIndex += 1) {
+        nextBlock = sanitizeText(blocks[nextIndex].innerText || blocks[nextIndex].textContent || "", MAX_NEIGHBOR_CHARS);
+        if (nextBlock) break;
+      }
     }
 
     return {
       blockTag: (block.tagName || "").toLowerCase(),
       blockIndex: blockIndex,
+      sectionBlockIndex: sectionBlockIndex,
+      blockProgress: blockProgress,
       headingPath: getHeadingPath(block),
       prevBlock: prevBlock,
       nextBlock: nextBlock
@@ -380,7 +400,9 @@
       prevBlock: blockMeta.prevBlock,
       nextBlock: blockMeta.nextBlock,
       blockTag: blockMeta.blockTag,
-      blockIndex: blockMeta.blockIndex
+      blockIndex: blockMeta.blockIndex,
+      sectionBlockIndex: blockMeta.sectionBlockIndex,
+      blockProgress: blockMeta.blockProgress
     };
   }
 
@@ -402,7 +424,9 @@
       prevBlock: blockMeta.prevBlock,
       nextBlock: blockMeta.nextBlock,
       blockTag: blockMeta.blockTag,
-      blockIndex: blockMeta.blockIndex
+      blockIndex: blockMeta.blockIndex,
+      sectionBlockIndex: blockMeta.sectionBlockIndex,
+      blockProgress: blockMeta.blockProgress
     };
   }
 
@@ -419,6 +443,12 @@
     if (typeof context.blockIndex === "number" && context.blockIndex >= 0) {
       url.searchParams.set("block_index", String(context.blockIndex));
     }
+    if (typeof context.sectionBlockIndex === "number" && context.sectionBlockIndex >= 0) {
+      url.searchParams.set("section_index", String(context.sectionBlockIndex));
+    }
+    if (typeof context.blockProgress === "number" && context.blockProgress >= 0) {
+      url.searchParams.set("block_progress", context.blockProgress.toFixed(6));
+    }
     return url.toString();
   }
 
@@ -432,7 +462,9 @@
       prevBlock: "",
       nextBlock: "",
       blockTag: "",
-      blockIndex: -1
+      blockIndex: -1,
+      sectionBlockIndex: -1,
+      blockProgress: -1
     });
   }
 
