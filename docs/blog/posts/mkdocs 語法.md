@@ -51,15 +51,18 @@ readtime: 100
 ///
 
 
-##   支持折疊程式碼塊
+##   程式碼塊
 
 
 ````tex title="程式塊"
 
 /// collapse-code  
-```cpp
-#include<bits/stdc++.h>
-using namespace std;
+``` cpp linenums="1" hl_lines="3-5"  title="code"
+def bubble_sort(items):
+    for i in range(len(items)):
+        for j in range(len(items) - 1 - i):
+            if items[j] > items[j + 1]:
+                items[j], items[j + 1] = items[j + 1], items[j]
 ```
 ///
 
@@ -67,13 +70,13 @@ using namespace std;
 //// html | div.result
 
 /// collapse-code  
-````cpp
-#include<bits/stdc++.h>
-using namespace std;
-int main(){
-    //...//
-}
-
+``` cpp linenums="1" hl_lines="3-5"  title="code"
+def bubble_sort(items):
+    for i in range(len(items)):
+        for j in range(len(items) - 1 - i):
+            if items[j] > items[j + 1]:
+                items[j], items[j + 1] = items[j + 1], items[j]
+```
 ````
 ///
 
