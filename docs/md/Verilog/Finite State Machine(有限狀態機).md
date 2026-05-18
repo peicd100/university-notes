@@ -9,9 +9,12 @@
     
     只有這邊是跟著 clk 變動，其他都是直接改，反正 clk 來才會跟著 18-26 更新。
     
-    然後同一個 reg 只能在同一個 always 中更新，所以 20-22 的 reset 也要寫在
+    然後同一個 reg 只能在同一個 always 中更新，所以 20-22 的 reset 也要寫在同一個 always 中。
+    
+    另外看到第 11 行：
+    parameter 像是 C++ 的 "const int S0 = 0;"，就是不可更改的變數，更改會報錯。
 
-```v  linenums="1" hl_lines="18-26" 
+```v  linenums="1" hl_lines="18-26 12" 
 `timescale 1ns / 1ps
 
 module FSM_image(
@@ -22,6 +25,7 @@ module FSM_image(
     output [1:0] state
 );
 
+    // parameter 像是 C++ 的 "const int S0 = 0;"，就是不可更改的變數，更改會報錯。
     parameter S00 = 2'b00, S01 = 2'b01, S10 = 2'b10, S11 = 2'b11;
 
     reg [1:0] present_state = S00;

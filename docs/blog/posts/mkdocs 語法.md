@@ -53,16 +53,40 @@ readtime: 100
 
 ##   程式碼塊
 
+> hl_lines 中與順序無關，像是 27 可以放最前面
 
 ````tex title="程式塊"
 
 /// collapse-code  
-``` cpp linenums="1" hl_lines="3-5"  title="code"
-def bubble_sort(items):
-    for i in range(len(items)):
-        for j in range(len(items) - 1 - i):
-            if items[j] > items[j + 1]:
-                items[j], items[j + 1] = items[j + 1], items[j]
+``` cpp linenums="1" hl_lines="27 6-8 13-13 16"  title="code"
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+signed main() {
+    int n;
+    cin >> n;
+
+    vector<int> v(n + 1);
+
+    for (int i = 1; i <= n; i++) {
+        cin >> v[i];
+    }
+
+    vector<int> dp(n + 1);
+
+    for (int i = 0; i <= n; i++) {
+        if (i <= 2)
+            dp[i] = v[i];
+        else
+            dp[i] = min(dp[i - 1], dp[i - 2]) + v[i];
+    }
+
+    cout << dp[n];
+
+    return 0;
+}
 ```
 ///
 
@@ -70,14 +94,36 @@ def bubble_sort(items):
 //// html | div.result
 
 /// collapse-code  
-``` cpp linenums="1" hl_lines="3-5"  title="code"
-def bubble_sort(items):
-    for i in range(len(items)):
-        for j in range(len(items) - 1 - i):
-            if items[j] > items[j + 1]:
-                items[j], items[j + 1] = items[j + 1], items[j]
+``` cpp linenums="1" hl_lines="27 6-8 13-13 16"  title="code"
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+signed main() {
+    int n;
+    cin >> n;
+
+    vector<int> v(n + 1);
+
+    for (int i = 1; i <= n; i++) {
+        cin >> v[i];
+    }
+
+    vector<int> dp(n + 1);
+
+    for (int i = 0; i <= n; i++) {
+        if (i <= 2)
+            dp[i] = v[i];
+        else
+            dp[i] = min(dp[i - 1], dp[i - 2]) + v[i];
+    }
+
+    cout << dp[n];
+
+    return 0;
+}
 ```
-````
 ///
 
 ////
