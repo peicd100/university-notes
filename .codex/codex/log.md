@@ -19,10 +19,13 @@
 
 - 修正 Mermaid flowchart htmlLabels 英文字母 descender 被裁切：
   - `docs/theme/assets/pymdownx-extras/自定義.css` 將 `foreignObject > div` 行高從 `1.4` 改為 `1.18`，並明確保留 `overflow: visible`。
-  - `mkdocs.yml` 將 `自定義.css` cache 版本更新為 `20260522-1`。
+  - 使用者回報底部 `Higher priority` / `Lower priority` 的 `y` 仍像被切成 `v` 後，新增 `mermaid-render-fix.js` 渲染後補強：每個 `g.label > foreignObject` 高度額外加 5px，並把 `foreignObject` overflow 設成 visible。
+  - `mkdocs.yml` 將 `自定義.css` cache 版本更新為 `20260522-2`，`mermaid-render-fix.js` 更新為 `20260522-1`。
 - 驗證：
   - `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`
+  - `node --check docs\theme\assets\pymdownx-extras\mermaid-render-fix.js`
   - 以本機靜態預覽檢查 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係圖；目標節點 `divHeight <= foreignObject height`，瀏覽器 console error/warn 為空。
+  - 再次截圖確認 `Higher priority`、`Lower priority` 的 `y` 下緣完整；單行 label `foreignObject` 由 19px 增為 24px。
   - `Y:\conda\envs\mkdocs\python.exe -m py_compile tools\run_logged.py`
   - `tools\run_logged.py --name run-logged-smoke`，確認輸出落在 `.codex/codex/tmp/`。
 

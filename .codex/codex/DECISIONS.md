@@ -40,12 +40,12 @@
 - 後果：後續協作記憶只更新 `.codex/codex/`；根目錄 `codex/` 不再作為主記憶位置。
 - 相關檔案：`.codex/AGENTS.md`、`.codex/codex/00_START_HERE.md`、`.gitignore`
 
-## ADR-0005：Mermaid htmlLabels 行高跟隨 foreignObject 量測
+## ADR-0005：Mermaid htmlLabels 行高與裁切框補強
 
 - 狀態：accepted
 - 日期：2026-05-22
 - 背景：Mermaid flowchart 使用 htmlLabels 時，SVG `foreignObject` 高度由 Mermaid 量測產生；外部 CSS 若把 label 行高放大，文字實際高度會超過裁切框，造成 `g`、`p`、`y` 下緣被切。
-- 決策：將 Mermaid htmlLabels 的 `foreignObject > div` 行高固定為 `1.18`，並保留 `overflow: visible`。
-- 原因：`1.18` 讓 16px 字體的一行高度約 18.88px，符合 Mermaid 產生的一行 19px `foreignObject`，可避免下緣裁切。
-- 後果：Mermaid 節點內多行文字行距較緊，但字母下緣完整且不需要改每個 Markdown 圖表。
-- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+- 決策：將 Mermaid htmlLabels 的 `foreignObject > div` 行高固定為 `1.18`，並在 `mermaid-render-fix.js` 渲染後把每個 `g.label > foreignObject` 高度額外加 5px、設為 visible overflow。
+- 原因：`1.18` 讓 16px 字體的一行高度約 18.88px，接近 Mermaid 產生的一行 19px `foreignObject`；但實測最底部 `priority` 的 `y` 仍可能貼到底線，因此必須補大實際 SVG 裁切框。
+- 後果：Mermaid 節點內多行文字行距較緊，label 裁切框略高但仍在節點矩形內；不需要改每個 Markdown 圖表。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`docs/theme/assets/pymdownx-extras/mermaid-render-fix.js`、`mkdocs.yml`

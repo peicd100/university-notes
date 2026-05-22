@@ -37,8 +37,8 @@
 
 - Mermaid 由 `mkdocs.yml` 載入 `mermaid@10.6.1`、`mermaid-config-override.js`、`mermaid-render-fix.js` 與 `mermaid-zoom.js`。
 - `mermaid-config-override.js` 強制 flowchart 使用 `htmlLabels`，讓節點內 `<br>` 正常換行。
-- `mermaid-render-fix.js` 負責把 `pre.diagram` 渲染成 `.peicd-mermaid-host`，並支援主題切換與 Material instant navigation。
-- `docs/theme/assets/pymdownx-extras/自定義.css` 控制 `.peicd-mermaid-host` 圖卡外觀與 htmlLabels 行高；行高不可大於 Mermaid 的 `foreignObject` 量測高度，否則英文字母 descender 會被裁切。
+- `mermaid-render-fix.js` 負責把 `pre.diagram` 渲染成 `.peicd-mermaid-host`，支援主題切換與 Material instant navigation，並在渲染後把 htmlLabels 的 `foreignObject` 高度加大 5px，避免 descender 被裁切。
+- `docs/theme/assets/pymdownx-extras/自定義.css` 控制 `.peicd-mermaid-host` 圖卡外觀與 htmlLabels 行高；行高不可大於 Mermaid 的 `foreignObject` 量測高度，且 `foreignObject` 需要允許 visible overflow，否則英文字母 descender 會被裁切。
 
 ## 多益600 小專案
 

@@ -36,9 +36,9 @@
 - 證據：verified
 - 日期：2026-05-22
 - 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、Mermaid flowchart htmlLabels。
-- 正確做法：Mermaid htmlLabels 的 `foreignObject > div` 行高必須貼近 Mermaid 量測高度；目前使用 `line-height: 1.18 !important` 與 `overflow: visible !important`，讓 `g`、`p`、`y` 等 descender 不被 SVG 裁切。
-- 不要做：不要把 Mermaid htmlLabels 行高調到 `1.4` 或套用全站較大的 line-height；Mermaid 產生的 `foreignObject` 高度仍是一行約 19px，文字真實高度超過就會被切。
-- 驗證方式：開啟 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係 Mermaid 圖，量測 label `divHeight <= foreignObject height`，並用截圖確認 `Scheduling`、`period`、`priority` 下緣完整。
+- 正確做法：Mermaid htmlLabels 的 `foreignObject > div` 行高必須貼近 Mermaid 量測高度；同時 `mermaid-render-fix.js` 必須在渲染後把 `g.label > foreignObject` 高度額外加 5px，並把 `foreignObject` overflow 設成 visible。只檢查 `divHeight <= foreignObject height` 不夠，因為字型實際墨跡可能仍貼到底部。
+- 不要做：不要只靠降低 line-height，也不要把 Mermaid htmlLabels 行高調到 `1.4` 或套用全站較大的 line-height；Mermaid 產生的單行 `foreignObject` 原始高度約 19px，`y` 的 descender 容易在最下方被切成像 `v`。
+- 驗證方式：開啟 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係 Mermaid 圖，確認 `Higher priority`、`Lower priority` 最後的 `y` 下緣完整；瀏覽器量測單行 label `foreignObject` 應從 19px 增為 24px，且 console error/warn 為空。
 
 ## .codex/ Git 忽略策略
 
