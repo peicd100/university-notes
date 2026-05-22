@@ -1885,7 +1885,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260404-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260522-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -12879,11 +12879,14 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p><strong>p 越小 → rate 越大 → priority 越高。</strong></p>
 <hr />
 <h3 id="3-為什麼叫-rate-monotonic">3. 為什麼叫 Rate-Monotonic？<a class="headerlink" href="#3-為什麼叫-rate-monotonic" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">PEICD100</p>
 <p><code>Rate(速率)</code> 是 <code>1/p</code>，代表 task 出現頻率。</p>
 <p><code>Monotonic(單調)</code> 的意思是：</p>
 <p><strong>priority 會隨著 rate 單調變化。</strong></p>
 <p>更白話：</p>
 <p><strong>rate 越高，priority 就越高。</strong></p>
+</div>
 <p>所以 <code>Rate-Monotonic Scheduling</code> 不是「看 deadline 誰早」，而是：</p>
 <p><strong>看 period 誰短，也就是看 rate 誰高。</strong></p>
 <p>這點很重要，因為下一頁的 <code>EDF(Earliest Deadline First)</code> 才是看 deadline。</p>
