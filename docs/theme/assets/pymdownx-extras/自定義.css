@@ -2100,11 +2100,12 @@ html.peicd-image-viewer-open body {
   z-index: 0;
 }
 
-/* Mermaid htmlLabels 會用 foreignObject 包 div；若吃到頁面較大的全域 line-height，
-   節點框高仍按 Mermaid 內部預估值計算，最後一行就會被裁掉。 */
+/* Mermaid htmlLabels 會用 foreignObject 包 div；外部行高若大於 Mermaid
+   量測出的裁切框，g/p/y 這類 descender 會被 SVG 裁掉。 */
 :is(.peicd-mermaid-svg, .peicd-mermaid-viewer__svg) foreignObject > div {
   letter-spacing: normal !important;
-  line-height: 1.4 !important;
+  line-height: 1.18 !important;
+  overflow: visible !important;
 }
 
 :is(.peicd-mermaid-svg, .peicd-mermaid-viewer__svg) .nodeLabel {

@@ -1,6 +1,6 @@
 @echo off
 setlocal
-set "ROOT=%~dp0.."
+set "ROOT=%~dp0..\.."
 set "PYTHON=Y:\conda\envs\mkdocs\python.exe"
 
 if not exist "%PYTHON%" exit /b 1

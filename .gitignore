@@ -35,9 +35,20 @@ test-results/
 # MkDocs 產生物
 site/
 output/
-.codex_tmp/
-codex_tmp/
-codex/
+/.codex_tmp/
+/codex_tmp/
+/codex/
+.codex/codex/tmp/*
+!.codex/codex/tmp/.gitkeep
+.codex/codex/private/*
+!.codex/codex/private/.gitkeep
+.codex/codex/artifacts/*
+!.codex/codex/artifacts/.gitkeep
+.codex/codex_tmp/
+.codex/tmp/
+.codex/private/
+.codex/artifacts/
+.codex/codex_compressed/
 .codex_site_check/
 
 # 多益600 小專案：生成物、暫存檔、本機測試輸出

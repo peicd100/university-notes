@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(os.path.abspath(__file__)).parent.parent
-LOG_DIR = ROOT / "codex" / "tmp"
+LOG_DIR = ROOT / ".codex" / "codex" / "tmp"
 
 
 def _slugify(value: str) -> str:
@@ -22,7 +22,7 @@ def _slugify(value: str) -> str:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="執行命令並把 stdout/stderr 統一寫到 codex/tmp。",
+        description="執行命令並把 stdout/stderr 統一寫到 .codex/codex/tmp。",
     )
     parser.add_argument(
         "--name",

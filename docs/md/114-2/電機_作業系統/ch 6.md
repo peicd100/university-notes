@@ -3164,15 +3164,17 @@ ANS:
 
 ### 3. 為什麼叫 Rate-Monotonic？
 
-`Rate(速率)` 是 `1/p`，代表 task 出現頻率。
+!!! danger "PEICD100"
 
-`Monotonic(單調)` 的意思是：
+    `Rate(速率)` 是 `1/p`，代表 task 出現頻率。
 
-**priority 會隨著 rate 單調變化。**
+    `Monotonic(單調)` 的意思是：
 
-更白話：
+    **priority 會隨著 rate 單調變化。**
 
-**rate 越高，priority 就越高。**
+    更白話：
+
+    **rate 越高，priority 就越高。**
 
 所以 `Rate-Monotonic Scheduling` 不是「看 deadline 誰早」，而是：
 
