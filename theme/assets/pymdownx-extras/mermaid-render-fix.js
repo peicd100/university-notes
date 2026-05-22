@@ -4,6 +4,7 @@
   const HOST_CLASS = "peicd-mermaid-host";
   const PRE_SELECTOR = "pre.diagram";
   const UPDATE_EVENT = "peicd:mermaid-updated";
+  const HTML_LABEL_DESCENDER_PAD = 5;
   let renderToken = 0;
   let observerBound = false;
 
@@ -36,6 +37,19 @@
     return (code?.textContent || pre.textContent || "").trim();
   }
 
+  function expandHtmlLabelClipBoxes(svg) {
+    svg.querySelectorAll("g.label > foreignObject").forEach((labelBox) => {
+      labelBox.style.overflow = "visible";
+      if (labelBox.getAttribute("data-peicd-descender-pad") === "true") return;
+
+      const height = Number.parseFloat(labelBox.getAttribute("height"));
+      if (!Number.isFinite(height) || height <= 0) return;
+
+      labelBox.setAttribute("height", String(height + HTML_LABEL_DESCENDER_PAD));
+      labelBox.setAttribute("data-peicd-descender-pad", "true");
+    });
+  }
+
   function decorateHost(host) {
     host.classList.add("peicd-zoomable-mermaid");
     host.setAttribute("role", "button");
@@ -48,6 +62,7 @@
     svg.classList.add("peicd-mermaid-svg");
     svg.setAttribute("focusable", "false");
     svg.setAttribute("aria-hidden", "true");
+    expandHtmlLabelClipBoxes(svg);
     if (!svg.getAttribute("preserveAspectRatio")) {
       svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     }
