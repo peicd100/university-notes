@@ -22,6 +22,7 @@ log = logging.getLogger("mkdocs.hooks.source_jump")
 
 _LOCAL_ENDPOINT_SUFFIX = "/__peicd/source-jump"
 _CONTEXT_FALLBACK_MIN_SCORE = 2500.0
+_VSCODE_OPEN_TIMEOUT_SECONDS = 8
 _MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 _PAGE_INDEX: dict[str, "PageRecord"] = {}
 _VSCODE_COMMAND: str | None = None
@@ -960,27 +961,32 @@ def _open_in_vscode(abs_path: str, line: int, column: int) -> tuple[bool, str]:
     if not command:
         return False, "找不到 VS Code 命令列程式，無法自動開啟檔案。"
 
-    cmdline: list[str]
-    if command.lower().endswith(".cmd"):
-        cmdline = ["cmd.exe", "/c", command, "--reuse-window", "--goto", target]
-    else:
-        cmdline = [command, "--reuse-window", "--goto", target]
-
+    cmdline = [command, "--reuse-window", "--goto", target]
     creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
     try:
-        subprocess.Popen(
+        completed = subprocess.run(
             cmdline,
             cwd=str(Path(abs_path).parent),
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=_VSCODE_OPEN_TIMEOUT_SECONDS,
             creationflags=creationflags,
         )
+    except subprocess.TimeoutExpired:
+        return True, "已送出 VS Code 開啟命令。"
     except Exception as exc:
         log.exception("Failed to open file in VS Code: %s", abs_path)
         return False, f"無法自動開啟 VS Code：{exc}"
 
-    return True, ""
+    if completed.returncode != 0:
+        detail = (completed.stderr or completed.stdout or "").strip()
+        if detail:
+            return False, f"VS Code 開啟失敗：{detail}"
+        return False, f"VS Code 開啟失敗，結束碼 {completed.returncode}。"
+
+    return True, "已送出 VS Code 開啟命令。"
 
 
 def _offset_to_line_column(line_starts: list[int], offset: int) -> tuple[int, int]:

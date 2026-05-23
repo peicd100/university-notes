@@ -1,5 +1,15 @@
 # log
 
+## 2026-05-23 12:39：Source Jump 開檔回饋修正
+
+- 任務類型：bugfix
+- 修改範圍：`docs/theme/assets/pymdownx-extras/source-jump.js`、`tools/source_jump_hook.py`、`mkdocs.yml`、`.codex/codex/` 交接文件。
+- 主要決策：VS Code 開檔改為等待 CLI 回傳並檢查 exit code；前端成功時短暫顯示狀態再收起選單，右鍵事件先阻止原生選單競態。
+- 驗證結果：`py_compile`、`node --check`、`mkdocs build -f mkdocs.preview.yml --clean` 均通過；本機 preview 右鍵 `ready queue 像 FCFS 一樣排隊` 可送出開檔，endpoint 回傳 `opened: true`、line 1564 column 4，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`GOTCHAS.md` 的 Source Jump 條目、`VERIFY.md` 的 Source Jump 驗證。
+- 相關檔案：`tools/source_jump_hook.py`、`docs/theme/assets/pymdownx-extras/source-jump.js`、`mkdocs.yml`。
+
 ## 2026-05-22：`.codex/` 集中式協作目錄遷移
 
 - 狀態：completed

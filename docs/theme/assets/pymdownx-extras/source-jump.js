@@ -21,6 +21,7 @@
   var endpointProbe = null;
   var endpointAvailable = false;
   var endpointChecked = false;
+  var hideMenuTimer = null;
 
   function isLocalPreview() {
     return LOCAL_HOSTS.has(window.location.hostname);
@@ -164,6 +165,10 @@
   }
 
   function hideMenu() {
+    if (hideMenuTimer) {
+      window.clearTimeout(hideMenuTimer);
+      hideMenuTimer = null;
+    }
     var menu = getMenu();
     if (!menu) return;
     menu.classList.remove("is-open");
@@ -174,6 +179,10 @@
   }
 
   function showMenu(clientX, clientY, context) {
+    if (hideMenuTimer) {
+      window.clearTimeout(hideMenuTimer);
+      hideMenuTimer = null;
+    }
     var menu = ensureMenu();
     activeContext = context;
     updateStatus("");
@@ -515,7 +524,9 @@
         return;
       }
 
-      hideMenu();
+      updateStatus(payload.message || "已送出 VS Code 開啟命令。");
+      setJumpBusy(false);
+      hideMenuTimer = window.setTimeout(hideMenu, 900);
     } catch (error) {
       updateStatus("開檔失敗，請確認目前是用 mkdocs serve 預覽。");
       setJumpBusy(false);
@@ -549,13 +560,14 @@
     var menu = getMenu();
     if (menu && menu.contains(event.target)) return;
 
-    if (!(await probeEndpoint())) return;
-
     var context = buildSelectionContext(event.target) || buildBlockContext(event.target);
     if (!context) return;
 
     event.preventDefault();
     event.stopPropagation();
+
+    if (!(await probeEndpoint())) return;
+
     showMenu(event.clientX, event.clientY, context);
   }
 

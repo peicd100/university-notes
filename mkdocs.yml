@@ -113,7 +113,7 @@ extra_javascript:
   - assets/pymdownx-extras/markdown-embed.js?v=20260516-1  # Markdown 頁面嵌入框全螢幕控制
   - assets/pymdownx-extras/folder-path-bar.js?v=20260320-3  # H1 上方檔案總管式路徑列（加版本參數避免手機快取吃舊版）
   - assets/pymdownx-extras/legacy-image-width.js  # 舊圖片百分比語法相容
-  - assets/pymdownx-extras/source-jump.js?v=20260518-1  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
+  - assets/pymdownx-extras/source-jump.js?v=20260523-1  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
 
 hooks:
   - tools/fence_id_cleanup_hook.py

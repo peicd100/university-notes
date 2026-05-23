@@ -2,6 +2,7 @@
 
 ## 目前狀態
 
+- 2026-05-23 已修正 Source Jump「開啟原文檔案」看似沒反應的問題：後端會等待 VS Code CLI 回傳並把錯誤傳回前端；前端成功時會顯示短暫狀態，且右鍵事件會先阻止原生選單競態。
 - 2026-05-22 已將根目錄 `codex/`、`codex_tmp/`、`.codex_tmp/`、`vbs_bat/` 遷移到 `.codex/` 集中式協作目錄。
 - 2026-05-22 已修正 Mermaid htmlLabels 英文字母 descender 被切到的問題：`docs/theme/assets/pymdownx-extras/自定義.css` 將 Mermaid label 行高調整為 `1.18`，`docs/theme/assets/pymdownx-extras/mermaid-render-fix.js` 會在渲染後把每個 label `foreignObject` 高度加大 5px，並更新 `mkdocs.yml` CSS/JS cache 版本。
 - `mkdocs.preview.yml` 目前 preview 目標是 `md/114-2/電機_作業系統/ch 6.md`。
@@ -18,6 +19,10 @@
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py`
+- 已完成：`node --check docs\theme\assets\pymdownx-extras\source-jump.js`
+- 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`
+- 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8028`，以瀏覽器右鍵 `ready queue 像 FCFS 一樣排隊` 並點「開啟原文檔案」，確認按鈕會進入「開啟中...」、endpoint 回傳 line 1564 column 4、`opened: true` 與成功訊息；console error/warn 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py`
 - 已完成：`node --check docs\theme\assets\pymdownx-extras\source-jump.js`
 - 已完成：以 `ch 6.md` line 746 的 `==...==` 段落做定位函式 smoke test，回傳 line 746 column 3。

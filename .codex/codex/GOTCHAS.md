@@ -10,6 +10,16 @@
 - 不要做：不要只用 `record.markdown.find(selection)` 或第一個 container 命中位置當結果。
 - 驗證方式：用重複短句、`==...==` 標記與同頁不同章節測試右鍵定位。
 
+## Source Jump 開檔不可只看子程序送出
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-23
+- 影響範圍：`tools/source_jump_hook.py`、`docs/theme/assets/pymdownx-extras/source-jump.js`
+- 正確做法：開 VS Code 時要等待 CLI 回傳並檢查 exit code；前端成功或失敗都要顯示狀態，避免使用者以為按鈕沒反應。
+- 不要做：不要只用 `subprocess.Popen(...)` 成功建立子程序就回報 `opened: true`，也不要成功後立刻無聲關閉選單。
+- 驗證方式：用 preview server 右鍵段落並點「開啟原文檔案」，確認按鈕先顯示「開啟中...」，HTTP 回傳含 `opened: true` 與成功訊息；VS Code CLI 失敗時應顯示錯誤。
+
 ## MkDocs Preview 需支援 serve --dirty
 
 - 狀態：active

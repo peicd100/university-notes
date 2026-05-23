@@ -3419,3 +3419,470 @@ flowchart TD
 最重要陷阱：
 
 **CPU utilization < 1 不保證 RM 一定不會 miss deadline。**
+
+
+## ⭐Earliest Deadline First Scheduling — 為什麼 deadline 越早，priority 越高？
+
+講義位置：PDF viewer page 37
+
+### 1. 這個概念在解決什麼問題？
+
+前面 `Rate-Monotonic Scheduling(RM)` 是用 **period 長短** 來決定 priority：
+
+**period 越短 → rate 越高 → priority 越高**
+
+但 RM 的問題是：
+它固定讓 period 短的 task 優先，所以即使 CPU utilization < 1，低 priority task 還是可能 miss deadline。
+
+所以 p.37 接著介紹另一種方法：
+
+**不要固定看 period，而是動態看誰的 deadline 最早。**
+
+這就是：
+
+`Earliest Deadline First Scheduling(EDF，最早期限優先排程)`
+
+講義 p.37 說，EDF 是根據 deadline 先後訂定 priority；期限越早，priority 越高；期限越晚，priority 越低。
+
+---
+
+### 2. EDF 的核心規則
+
+EDF 的規則非常直覺：
+
+**誰最急，誰先跑。**
+
+也就是：
+
+| 條件          | priority |
+| ----------- | -------- |
+| deadline 最早 | 最高       |
+| deadline 較晚 | 較低       |
+
+所以 EDF 的 priority 不是固定的。
+
+同一個 task 在不同時間 release 出不同 job 時，priority 可能會變。
+
+---
+
+### 3. RM 和 EDF 最大差別
+
+| 排程法   | priority 根據什麼決定   | priority 是否固定 |
+| ----- | ----------------- | ------------- |
+| `RM`  | period / rate     | 通常固定          |
+| `EDF` | absolute deadline | 動態改變          |
+
+`RM` 看的是：
+
+**這個 task 多常來一次。**
+
+`EDF` 看的是：
+
+**現在 ready 的 jobs 裡，誰最接近 deadline。**
+
+所以 EDF 更像現實生活中的「趕死線」：
+
+你不一定永遠先做每週作業。
+如果明天有報告要交，就算它不是最常出現的任務，你也會先做報告。
+
+---
+
+### 4. 套講義 p.37 的例子
+
+講義 p.37 用的資料是：
+
+| Task | period | processing time |
+| ---- | -----: | --------------: |
+| P1   |     50 |              25 |
+| P2   |     80 |              35 |
+
+這組資料跟 p.36 RM miss deadline 的例子一樣。差別是：
+
+* p.36 用 RM，所以 P1 因為 period 比較短，永遠 priority 高。
+* p.37 用 EDF，所以每次都看「目前哪個 job 的 deadline 較早」。
+
+講義 p.37 特別列出：
+
+* `@50`，P2 繼續執行，因為 P2 的 deadline 是 80，P1 的 deadline 是 100。
+* `@80`，P1 繼續執行，因為 P1 的 deadline 是 100，P2 的 deadline 是 160。
+* `@100`，P1 取代 P2，因為 P1 的 deadline 是 150，P2 的 deadline 是 160。
+
+
+![alt text](<images/ch 6-6.png>)
+
+
+---
+
+### 5. 用時間線看 EDF 怎麼排
+
+先假設每個 task 的 deadline = period。
+
+在 t = 0：
+
+* P1 第一次 job deadline = 50
+* P2 第一次 job deadline = 80
+
+所以 P1 先跑。
+
+```text
+0        25        50        60        80 85      100       125      145
+|   P1   |    P2    |   P2   |    P1    |P1|  P2   |   P1   |   P2   |
+```
+
+更清楚地拆開：
+
+|        時間 | 執行       | 原因                                          |
+| --------: | -------- | ------------------------------------------- |
+|    0 ~ 25 | P1       | P1 deadline = 50，比 P2 deadline = 80 早       |
+|   25 ~ 50 | P2       | P1 做完，P2 開始跑                                |
+|    t = 50 | P2 繼續    | P2 deadline = 80，比新來的 P1 deadline = 100 早   |
+|   50 ~ 60 | P2       | P2 跑完第一次 job                                |
+|   60 ~ 80 | P1       | P1 第二次 job deadline = 100                   |
+|    t = 80 | P1 繼續    | P1 deadline = 100，比新來的 P2 deadline = 160 早  |
+|   80 ~ 85 | P1       | P1 第二次 job 跑完                               |
+|  85 ~ 100 | P2       | P2 第二次 job 開始跑                              |
+|   t = 100 | P1 搶先 P2 | 新來的 P1 deadline = 150，比 P2 deadline = 160 早 |
+| 100 ~ 125 | P1       | P1 第三次 job 跑完                               |
+| 125 ~ 145 | P2       | P2 第二次 job 跑完                               |
+
+重點是：
+
+**EDF 不是看 P1 period 比較短就永遠讓 P1 插隊。**
+它每次都重新比較 deadline。
+
+---
+
+### 6. 為什麼 p.36 RM 會 miss，但 p.37 EDF 可以改善？
+
+p.36 的 RM 是這樣：
+
+```text
+0        25       50       75        85
+|   P1   |   P2   |   P1   |   P2   |
+                              ↑
+                         P2 deadline = 80
+                         P2 尚未完成
+```
+
+RM 在 t = 50 時讓 P1 搶先，因為 P1 period 短，所以 P1 priority 固定比較高。結果 P2 deadline = 80，但 P2 到 85 才完成。
+
+EDF 在 t = 50 時不會讓 P1 搶先 P2，因為：
+
+* P2 目前 deadline = 80
+* 新來的 P1 deadline = 100
+
+所以 EDF 會說：
+
+**P2 比較急，P2 繼續跑。**
+
+這就是 EDF 的核心精神：
+
+**不是誰本來 priority 高誰先跑，而是誰 deadline 最近誰先跑。**
+
+---
+
+### 7. 最短記法
+
+`EDF(Earliest Deadline First)`：
+
+**deadline 越早，priority 越高。**
+
+`RM`：
+
+**period 越短，priority 越高。**
+
+差別：
+
+**RM 看週期，EDF 看期限。**
+
+考試最常寫：
+
+`EDF assigns priorities according to deadlines. The task with the earliest deadline has the highest priority.`
+
+
+
+## ⭐Algorithm Evaluation — 排班演算法到底要怎麼比較？
+
+講義位置：PDF viewer page 38 ~ 40
+
+### 1. 這個概念在解決什麼問題？
+
+前面我們學了很多 scheduling algorithms(排班演算法)：
+
+FCFS、SJF、Priority、RR、Multilevel Queue、Multilevel Feedback Queue、RM、EDF。
+
+但接下來會遇到一個問題：
+
+**哪一個演算法比較好？**
+
+不能只說「SJF 好」或「RR 好」，因為「好」要看你在乎什麼：
+
+| 你在乎的目標      | 可能適合的方向                          |
+| ----------- | -------------------------------- |
+| 平均等待時間短     | SJF 常常很好                         |
+| 互動反應快       | RR 常常比較適合                        |
+| 即時 deadline | RM / EDF 這類 real-time scheduling |
+| 公平性         | RR 或 aging-based priority        |
+
+所以 `5.7 Algorithm Evaluation(演算法的評估)` 是在處理：
+
+**如何用比較正式的方法評估 scheduling algorithm 的效能。**
+
+講義 p.38 先介紹 `5.7.1 Deterministic Modeling(定量模式)`，p.40 接著介紹 `5.7.2 Queueing Model(佇列模式)` 和 `Little’s Formula`。 
+
+---
+
+### 2. Deterministic Modeling(定量模式)：拿一組固定工作量來比較
+
+講義說，`deterministic modeling` 是取一個「特殊預定的工作量」，然後針對那一組 workload(工作量) 比較每種演算法的效能。
+
+白話說：
+
+**給你一組固定 process，然後叫你用 FCFS、SJF、RR、Priority 各排一次，再比較 average waiting time、turnaround time 等。**
+
+也就是我們前面一直做的這種題目：
+
+```text
+Process   Burst Time   Priority
+P1        2            2
+P2        1            1
+P3        8            4
+P4        4            2
+P5        5            3
+```
+
+然後題目問：
+
+* 畫 Gantt chart
+* 算 waiting time
+* 算 turnaround time
+* 比較哪個 average waiting time 最小
+
+這種就是很典型的 `deterministic modeling`。
+
+---
+
+### 3. Deterministic Modeling 的優點與限制
+
+`Deterministic Modeling(定量模式)` 的優點是：
+
+**很具體，很適合考試。**
+
+因為資料都給定了：
+
+* arrival time
+* burst time
+* priority
+* quantum
+* scheduling rule
+
+所以答案通常可以一步一步算出來。
+
+但它的限制是：
+
+**它只代表那一組 workload，不一定代表真實系統每天的情況。**
+
+生活化例子：
+
+如果你只拿「今天早上 9 點便利商店的客人」來比較兩種排隊方式，可能很精準，但它不一定代表晚上、假日、下雨天的人流。
+
+所以 deterministic modeling 很適合：
+
+**小範例、考試題、演算法規則比較。**
+
+但不一定能完整代表真實系統。
+
+---
+
+### 4. Queueing Model(佇列模式)：不固定某一組 process，而是看平均行為
+
+講義 p.40 說，很多系統每天執行的行程都不一樣，因此沒有固定的一組 process 和時間可以用 deterministic modeling；但可以定出 CPU burst 和 I/O burst 的分佈情形。這就進入 `Queueing Model(佇列模式)`。
+
+也就是說：
+
+`Deterministic Modeling` 問的是：
+
+**這一組 process 怎麼排比較好？**
+
+`Queueing Model` 問的是：
+
+**長期平均來看，queue 裡大概會有幾個 process？平均等多久？到達率是多少？**
+
+---
+
+### 5. Little’s Formula 是什麼？
+
+講義 p.40 給三個符號：
+
+| 符號  | 意思                                       |
+| --- | ---------------------------------------- |
+| `n` | average queue length(平均佇列長度)             |
+| `W` | average waiting time in queue(平均在佇列等待時間) |
+| `λ` | average arrival rate into queue(平均到達率)   |
+
+!!! danger "PEICD100"
+
+    λ = 平均 process 到達 queue 的速率。
+    
+    也就是
+    
+    每單位時間有多少 process 進入 queue。
+
+然後給出 `Little’s Law`：
+
+!!! danger "PEICD100"
+
+    `n = λ × W`
+
+    意思是：
+
+    **平均排隊人數 = 每秒進來幾個 × 每個平均等多久**
+
+講義也說，在 steady state(穩定狀態) 下，離開 queue 的 process 數量會等於進入 queue 的 process 數量，因此有 `n = λ × W`，而且它對任何 scheduling algorithm 和 arrival distribution 都有效。
+
+---
+
+### 6. 為什麼 `n = λ × W` 很合理？
+
+用生活例子想：
+
+假設一家飲料店：
+
+* 平均每分鐘來 3 個客人，也就是 `λ = 3 customers/min`
+* 每個客人平均排隊 4 分鐘，也就是 `W = 4 min`
+
+那平均隊伍裡會有幾個人？
+
+就是：
+
+`n = λ × W = 3 × 4 = 12`
+
+直覺是：
+
+**如果客人來得很快，而且每個人又等很久，那隊伍一定會很長。**
+
+反過來：
+
+如果你看到隊伍平均有 12 人，而且每分鐘來 3 人，那平均等待時間就是：
+
+`W = n / λ = 12 / 3 = 4 min`
+
+---
+
+### 7. 套講義 p.40 的例子
+
+!!! danger "PEICD100"
+
+    講義例子是：
+
+    * 平均每秒有 7 個 process arrive
+    * queue 裡平均有 14 個 process
+
+    所以：
+
+    `λ = 7 processes/second`
+    `n = 14 processes`
+
+    由 `n = λ × W`：
+
+    `W = n / λ = 14 / 7 = 2 seconds`
+
+    所以：
+
+    **每個 process 平均在 queue 裡等 2 秒。**
+
+這正是講義 p.40 的例子。
+
+---
+
+### 8. Deterministic Modeling vs Queueing Model
+
+| 比較點  | Deterministic Modeling(定量模式)             | Queueing Model(佇列模式)      |
+| ---- | ---------------------------------------- | ------------------------- |
+| 核心想法 | 固定一組 process 來算                          | 用平均到達率、平均等待時間、平均佇列長度描述系統  |
+| 常見輸出 | Gantt chart、waiting time、turnaround time | `n = λW`、平均等待時間           |
+| 適合情境 | 考試計算題、小型範例                               | 真實系統長期平均分析                |
+| 缺點   | 只代表特定 workload                           | 較抽象，不一定給出每個 process 的具體順序 |
+
+最重要的差別是：
+
+**Deterministic Modeling 是「給定一組 process，直接排一次」。**
+**Queueing Model 是「不固定某一組 process，而是看長期平均」。**
+
+
+!!! danger "PEICD100"
+
+    Deterministic Modeling(定量模式) 是用同一組固定 workload，套用不同 scheduling algorithms 來比較效能。Queueing Model(佇列模式) 則不是固定一組 process 來排一次，而是用平均到達率、平均等待時間、平均 queue 長度等統計量，分析系統的長期平均行為。
+
+---
+
+### 9. 關係圖
+
+```mermaid
+flowchart TD
+    A["Algorithm Evaluation<br>演算法的評估"] --> B["Deterministic Modeling<br>定量模式"]
+    A --> C["Queueing Model<br>佇列模式"]
+
+    B --> B1["固定 workload<br>固定 process / burst time / arrival time"]
+    B --> B2["畫 Gantt chart<br>算 waiting / turnaround"]
+
+    C --> C1["不固定某一組 process<br>看長期平均行為"]
+    C --> C2["Little's Law<br>n = λ × W"]
+
+    C2 --> D["n: average queue length"]
+    C2 --> E["λ: average arrival rate"]
+    C2 --> F["W: average waiting time"]
+```
+
+---
+
+### 10. 最短記法
+
+`Deterministic Modeling(定量模式)`：
+
+**給一組固定 process，實際排一次，算效能。**
+
+`Queueing Model(佇列模式)`：
+
+**不固定某一組 process，而是用平均值描述 queue。**
+
+`Little’s Law`：
+
+**n = λ × W**
+
+也就是：
+
+**平均排隊數量 = 平均到達率 × 平均等待時間**
+
+
+
+### workload 是啥
+
+`Workload(工作負載)` 就是：
+
+**丟給系統處理的一整組工作。**
+
+在 CPU scheduling(中央處理器排班) 裡，`workload` 通常指：
+
+**一組 processes，以及它們的相關條件。**
+
+
+### 為何 Little’s Law 叫做 Little’s Law
+
+`Little’s Law` 叫這個名字，不是因為它「很 little(小)」，而是因為它是由 **John D. C. Little** 證明並推廣成排隊理論中的重要定律，所以用他的姓氏 `Little` 命名。這類名稱叫做 `eponymous law(人名命名定律)`，就像 `Amdahl’s Law` 是用 Amdahl 命名、`Gustafson’s Law` 是用 Gustafson 命名。John Little 在 1961 年發表了 `A Proof for the Queuing Formula: L = λW`，也就是這個公式的證明。
+
+
+
+
+### 錯題
+
+!!! danger "PEICD100"
+
+    Q:
+    Explain how average turnaround time and maximum waiting time can conflict in CPU scheduling.
+
+    ANS:
+    如果一個排程演算法想讓 average turnaround time(平均回復時間) 變小，它可能會優先處理短工作，讓很多短 process 很快完成。可是這樣可能讓某些長 process 一直等待，導致 maximum waiting time(最大等待時間) 變大。因此，降低平均 turnaround time 可能和降低最大 waiting time 發生衝突。
+    
+    
+    
