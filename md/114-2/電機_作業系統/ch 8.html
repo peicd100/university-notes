@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260524-9">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260525-4">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -5133,6 +5133,360 @@ is now available!
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#load-time載入時決定執行期間不能改載入是指什麼時候" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Load time：載入時決定，執行期間不能改。"載入是指什麼時候
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-loading--dynamic-linking--程式一定要一開始全部載入嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Dynamic Loading / Dynamic Linking — 程式一定要一開始全部載入嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Dynamic Loading / Dynamic Linking — 程式一定要一開始全部載入嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dynamic-loading動態載入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dynamic Loading(動態載入)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dynamic-loading-的優缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Dynamic Loading 的優缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-linking鏈結是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Linking(鏈結)是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-static-linking靜態鏈結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Static Linking(靜態鏈結)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Static Linking(靜態鏈結)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executable-file-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executable file 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-dynamic-linking動態鏈結--shared-library共用函式庫" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dynamic Linking(動態鏈結) / Shared Library(共用函式庫)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Dynamic Linking(動態鏈結) / Shared Library(共用函式庫)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#library-copy-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        library copy 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-dynamic-loading-vs-dynamic-linking-差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Dynamic Loading vs Dynamic Linking 差在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#我覺得好混亂從-p3-開始到底有哪些是被存到-main-memory-中到底有哪些只是映射而已映射是指複製到-main-memory-中嗎還是只是知道實體位置之後直接讀取實體位置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我覺得好混亂，從 p.3 開始，到底有哪些是被存到 main memory 中，到底有哪些只是映射而已？映射是指複製到 main memory 中嗎？還是只是知道實體位置之後直接讀取實體位置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="我覺得好混亂，從 p.3 開始，到底有哪些是被存到 main memory 中，到底有哪些只是映射而已？映射是指複製到 main memory 中嗎？還是只是知道實體位置之後直接讀取實體位置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-loading載入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Loading(載入)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-linking鏈結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Linking(鏈結)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mapping映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Mapping(映射)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-mapping-本身不是複製" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Mapping 本身不是複製
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-但真的執行時內容必須在-main-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 但真的執行時，內容必須在 main memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-pdf-viewer-page-3program-must-be-brought-into-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 PDF viewer page 3：Program must be brought into memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-pdf-viewer-page-56address-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 PDF viewer page 5～6：Address Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-pdf-viewer-page-7logical-address--physical-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 PDF viewer page 7：Logical Address / Physical Address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-pdf-viewer-page-89dynamic-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 PDF viewer page 8～9：Dynamic Loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-pdf-viewer-page-10static-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 PDF viewer page 10：Static Linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-pdf-viewer-page-11dynamic-linking--shared-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 PDF viewer page 11：Dynamic Linking / Shared Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61-disk-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Disk 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-process-address-space-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Process address space 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-physical-memory-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Physical memory 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#71-cpu-執行程式時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 CPU 執行程式時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-如果內容還在-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 如果內容還在 disk
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6467,6 +6821,360 @@ is now available!
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#load-time載入時決定執行期間不能改載入是指什麼時候" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Load time：載入時決定，執行期間不能改。"載入是指什麼時候
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-loading--dynamic-linking--程式一定要一開始全部載入嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Dynamic Loading / Dynamic Linking — 程式一定要一開始全部載入嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Dynamic Loading / Dynamic Linking — 程式一定要一開始全部載入嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dynamic-loading動態載入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Dynamic Loading(動態載入)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dynamic-loading-的優缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Dynamic Loading 的優缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-linking鏈結是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Linking(鏈結)是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-static-linking靜態鏈結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Static Linking(靜態鏈結)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Static Linking(靜態鏈結)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executable-file-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        executable file 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-dynamic-linking動態鏈結--shared-library共用函式庫" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dynamic Linking(動態鏈結) / Shared Library(共用函式庫)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Dynamic Linking(動態鏈結) / Shared Library(共用函式庫)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#library-copy-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        library copy 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-dynamic-loading-vs-dynamic-linking-差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Dynamic Loading vs Dynamic Linking 差在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#我覺得好混亂從-p3-開始到底有哪些是被存到-main-memory-中到底有哪些只是映射而已映射是指複製到-main-memory-中嗎還是只是知道實體位置之後直接讀取實體位置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我覺得好混亂，從 p.3 開始，到底有哪些是被存到 main memory 中，到底有哪些只是映射而已？映射是指複製到 main memory 中嗎？還是只是知道實體位置之後直接讀取實體位置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="我覺得好混亂，從 p.3 開始，到底有哪些是被存到 main memory 中，到底有哪些只是映射而已？映射是指複製到 main memory 中嗎？還是只是知道實體位置之後直接讀取實體位置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-loading載入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Loading(載入)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-linking鏈結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Linking(鏈結)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mapping映射" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Mapping(映射)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-mapping-本身不是複製" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Mapping 本身不是複製
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-但真的執行時內容必須在-main-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 但真的執行時，內容必須在 main memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#41-pdf-viewer-page-3program-must-be-brought-into-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 PDF viewer page 3：Program must be brought into memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-pdf-viewer-page-56address-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 PDF viewer page 5～6：Address Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-pdf-viewer-page-7logical-address--physical-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 PDF viewer page 7：Logical Address / Physical Address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-pdf-viewer-page-89dynamic-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 PDF viewer page 8～9：Dynamic Loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-pdf-viewer-page-10static-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 PDF viewer page 10：Static Linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-pdf-viewer-page-11dynamic-linking--shared-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 PDF viewer page 11：Dynamic Linking / Shared Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61-disk-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Disk 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-process-address-space-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Process address space 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-physical-memory-世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Physical memory 世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#71-cpu-執行程式時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 CPU 執行程式時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-如果內容還在-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 如果內容還在 disk
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6722,6 +7430,577 @@ d. 15000</p>
 <li><code>Load time</code>：載入時決定，執行期間不能改。</li>
 <li><code>Execution time</code>：執行時動態決定，最彈性，需要 MMU，效能較差。</li>
 </ol>
+<h3 id="load-time載入時決定執行期間不能改載入是指什麼時候">"Load time：載入時決定，執行期間不能改。"載入是指什麼時候<a class="headerlink" href="#load-time載入時決定執行期間不能改載入是指什麼時候" title="Permanent link"></a></h3>
+<p>程式已經編譯好之後，準備被放進 main memory(主記憶體)、建立成 process(行程)、即將開始執行的那段時間。</p>
+<h2 id="dynamic-loading--dynamic-linking--程式一定要一開始全部載入嗎">⭐Dynamic Loading / Dynamic Linking — 程式一定要一開始全部載入嗎？<a class="headerlink" href="#dynamic-loading--dynamic-linking--程式一定要一開始全部載入嗎" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 8 ~ PDF viewer page 11</p>
+<h3 id="1-這個概念在解決什麼問題_1">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_1" title="Permanent link"></a></h3>
+<p>前面 <code>Load-time binding(載入時間連結)</code> 比較像是在問：</p>
+<p><strong>整個程式這次從記憶體哪裡開始執行？</strong></p>
+<p>現在 <code>Dynamic Loading(動態載入)</code> 和 <code>Dynamic Linking(動態鏈結)</code> 問的是另一件事：</p>
+<p><strong>程式裡不是每段 code、每個 library 都一定會用到，那可不可以等真的用到再載入或連結？</strong></p>
+<p>生活化例子：<br />
+你去考試不會把整個書櫃搬進考場，你只會帶這次可能會用的筆記。Dynamic Loading / Linking 的精神也是：<strong>不要一開始把所有東西都放進 main memory，等真的需要時再處理。</strong></p>
+<hr />
+<h3 id="2-dynamic-loading動態載入">2. Dynamic Loading(動態載入)<a class="headerlink" href="#2-dynamic-loading動態載入" title="Permanent link"></a></h3>
+<p><code>Dynamic Loading(動態載入)</code> 是：</p>
+<p><strong>主程式先在 main memory 執行；某個 subroutine(副程式) 真的被呼叫時，才把那個副程式從 disk / auxiliary storage 載入 main memory。</strong></p>
+<p>講義 page 8 說，Dynamic Loading 是主程式呼叫副程式時，才將副程式由輔助記憶體載入主記憶體。</p>
+<p>直覺例子：</p>
+<p>你寫一個程式有：</p>
+<ol>
+<li>正常流程。</li>
+<li>錯誤處理流程。</li>
+<li>罕見功能流程。</li>
+</ol>
+<p>如果錯誤處理流程 99% 時候不會用到，那一開始就把它載入 memory 可能浪費空間。Dynamic Loading 就是等真的發生錯誤、真的呼叫那段 code 時，再把它載入。</p>
+<hr />
+<h3 id="3-dynamic-loading-的優缺點">3. Dynamic Loading 的優缺點<a class="headerlink" href="#3-dynamic-loading-的優缺點" title="Permanent link"></a></h3>
+<p>優點：節省 <code>main memory(主記憶體)</code> 空間。講義 page 9 明確列出優點是節省 main memory 空間。</p>
+<p>缺點：<code>programmer(程式設計者)</code> 負擔較大，因為要自己規劃什麼時候載入，而且可能拖長執行時間。講義 page 9 也說缺點是 programmer 的負擔、拖長執行時間。</p>
+<p>最短理解：</p>
+<p><strong>Dynamic Loading 省 memory，但比較麻煩，且用到時會有額外載入成本。</strong></p>
+<hr />
+<h3 id="4-linking鏈結是什麼">4. Linking(鏈結)是什麼？<a class="headerlink" href="#4-linking鏈結是什麼" title="Permanent link"></a></h3>
+<p><code>Linking(鏈結)</code> 是把 library(函式庫) 或 object file(目的檔) 接到程式裡，讓程式可以呼叫那些 library code。</p>
+<p>講義 page 10 說，函式庫是向其他程式提供服務的 code；library linking 是把一個或多個函式庫包括到程式中，分成 <code>Static Linking(靜態鏈結)</code> 與 <code>Dynamic Linking(動態鏈結)</code>。</p>
+<hr />
+<h3 id="5-static-linking靜態鏈結">5. Static Linking(靜態鏈結)<a class="headerlink" href="#5-static-linking靜態鏈結" title="Permanent link"></a></h3>
+<p><code>Static Linking(靜態鏈結)</code> 是：</p>
+<p><strong>在產生 executable file(可執行檔) 時，就把 library 的內容複製／整合進可執行檔。</strong></p>
+<p>優點是執行時比較直接。<br />
+缺點是 executable file 會變大，需要更多系統資源，載入記憶體時也比較花時間。講義 page 10 明確列出靜態連結最大缺點是可執行檔太大，需要更多系統資源，裝入記憶體也消耗更多時間。</p>
+<p>生活化例子：<br />
+你把整本工具書影印進自己的筆記本，筆記本就會很厚。</p>
+<h4 id="executable-file-是啥">executable file 是啥<a class="headerlink" href="#executable-file-是啥" title="Permanent link"></a></h4>
+<p>executable file 裡面大概有什麼？</p>
+<p>你可以把 executable file 想成「已經打包好的程式搬家箱」。</p>
+<p>裡面通常包含：</p>
+<ol>
+<li>
+<p><code>text section / code section(程式碼區段)</code><br />
+    已經變成 CPU 能執行的 machine instructions(機器指令)。講義 Chapter 3 也說 text section contains the executable code，並且是從 program's executable file mapped into memory。</p>
+<p>講義_chapter 3_20240318</p>
+</li>
+<li>
+<p><code>data section(資料區段)</code><br />
+    已初始化的 global/static variables。</p>
+</li>
+<li>
+<p><code>metadata(中繼資訊)</code><br />
+    告訴 OS loader 怎麼把這個檔案放進 memory，例如入口點在哪、哪些段要載入、需要哪些 shared libraries。</p>
+</li>
+<li>
+<p><code>relocation / linking information(重定位／鏈結資訊)</code><br />
+    有些 executable file 需要 loader 在載入時修正位址或接上 library。</p>
+</li>
+</ol>
+<hr />
+<h3 id="6-dynamic-linking動態鏈結--shared-library共用函式庫">6. Dynamic Linking(動態鏈結) / Shared Library(共用函式庫)<a class="headerlink" href="#6-dynamic-linking動態鏈結--shared-library共用函式庫" title="Permanent link"></a></h3>
+<p><code>Dynamic Linking(動態鏈結)</code> 是：</p>
+<p><strong>程式執行期間，某個 library module 真的被呼叫時，才由 OS 的 loader 把它載入 main memory。</strong></p>
+<p>講義 page 11 說，Dynamic Linking 又稱 Shared Library，在程式執行期間，當某個模組真正被呼叫到時，才由 OS 裝載程式將其載入 main memory。</p>
+<p><code>Shared Library(共用函式庫)</code> 的重點是：</p>
+<p><strong>多個 process 可以共用同一份 library copy，不需要每個 process 都載入一份。</strong></p>
+<p>講義 page 11 也說，大多數情況下，同一時間多個應用可以使用一個函式庫的同一份拷貝，OS 不需要載入多個實例。</p>
+<h4 id="library-copy-是啥">library copy 是啥<a class="headerlink" href="#library-copy-是啥" title="Permanent link"></a></h4>
+<hr />
+<h3 id="7-dynamic-loading-vs-dynamic-linking-差在哪">7. Dynamic Loading vs Dynamic Linking 差在哪？<a class="headerlink" href="#7-dynamic-loading-vs-dynamic-linking-差在哪" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>比較</th>
+<th>Dynamic Loading</th>
+<th>Dynamic Linking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要對象</td>
+<td>程式自己的 subroutine / module</td>
+<td>library / shared library</td>
+</tr>
+<tr>
+<td>誰負擔較明顯</td>
+<td>programmer 自己規劃</td>
+<td>OS / loader 支援較多</td>
+</tr>
+<tr>
+<td>核心精神</td>
+<td>用到副程式才載入</td>
+<td>用到函式庫才鏈結／載入</td>
+</tr>
+<tr>
+<td>目的</td>
+<td>節省 memory</td>
+<td>節省 memory、支援 library sharing</td>
+</tr>
+</tbody>
+</table>
+<p>最容易混淆的地方是：<br />
+兩者都很像「用到才載入」，但 <strong>Dynamic Loading 偏向程式模組載入策略；Dynamic Linking 偏向函式庫連結策略</strong>。</p>
+<hr />
+<h3 id="8-流程圖">8. 流程圖<a class="headerlink" href="#8-流程圖" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart TD
+    A["Program starts&lt;br&gt;主程式開始執行"] --&gt; B{"Does it need&lt;br&gt;a subroutine/module?"}
+    B -- "Yes, dynamic loading" --&gt; C["Load subroutine&lt;br&gt;from disk to memory"]
+    B -- "No" --&gt; D["Do not load it yet&lt;br&gt;節省 memory"]
+
+    A --&gt; E{"Does it call&lt;br&gt;a library function?"}
+    E -- "Yes, dynamic linking" --&gt; F["OS/loader loads or links&lt;br&gt;shared library"]
+    E -- "No" --&gt; G["Library not loaded yet&lt;br&gt;or not linked yet"]</code></pre>
+<hr />
+<h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
+<p><code>Dynamic Loading</code>：<strong>副程式用到才載入。</strong></p>
+<p><code>Static Linking</code>：<strong>函式庫先塞進 executable，檔案大。</strong></p>
+<p><code>Dynamic Linking / Shared Library</code>：<strong>函式庫用到才載入，而且多個 process 可共用同一份。</strong></p>
+<h2 id="我覺得好混亂從-p3-開始到底有哪些是被存到-main-memory-中到底有哪些只是映射而已映射是指複製到-main-memory-中嗎還是只是知道實體位置之後直接讀取實體位置">我覺得好混亂，從 p.3 開始，到底有哪些是被存到 main memory 中，到底有哪些只是映射而已？映射是指複製到 main memory 中嗎？還是只是知道實體位置之後直接讀取實體位置<a class="headerlink" href="#我覺得好混亂從-p3-開始到底有哪些是被存到-main-memory-中到底有哪些只是映射而已映射是指複製到-main-memory-中嗎還是只是知道實體位置之後直接讀取實體位置" title="Permanent link"></a></h2>
+<ol>
+<li>先把最關鍵的結論講清楚</li>
+</ol>
+<p>你現在混亂是正常的，因為這幾頁把三件不同層次的事混在一起講：</p>
+<ol>
+<li><code>Loading(載入)</code>：把程式碼／資料從 disk 帶進 <code>main memory(主記憶體)</code>，或建立之後可被帶進 memory 的關係。</li>
+<li><code>Linking(鏈結)</code>：把程式裡「我要呼叫某函式」這種 reference(引用)，接到真正的 code / library。</li>
+<li><code>Mapping(映射)</code>：建立「process 看到的 logical / virtual address」到「實體記憶體位置或 backing file」的對應關係。</li>
+</ol>
+<p>最短答案：</p>
+<p><strong>Mapping(映射)本身不是複製。</strong><br />
+它是「建立地址對照關係」。</p>
+<p>但：</p>
+<p><strong>如果 CPU 真的要執行或讀取某段 code/data，<mark>那段內容最後一定要在 main memory 裡；如果還不在，就會由 OS 載入進 RAM 後再讀。</mark></strong></p>
+<p>所以不是：</p>
+<p>「知道 disk 實體位置後，CPU 直接讀 disk」。</p>
+<p>而是：</p>
+<p>「CPU 只能直接讀 main memory/registers；如果資料目前只在 disk，OS 必須先把它帶進 main memory。」講義 page 3 明確說 program must be brought from disk into memory 才能 run，且 CPU 能直接存取的 storage 只有 main memory 和 registers。</p>
+<hr />
+<ol>
+<li>三個詞分開定義</li>
+</ol>
+<h3 id="21-loading載入">2.1 Loading(載入)<a class="headerlink" href="#21-loading載入" title="Permanent link"></a></h3>
+<p><code>Loading</code> 解決的是：</p>
+<p><strong>東西有沒有進入 main memory，或有沒有準備好被放進 process 可用的記憶體空間。</strong></p>
+<p>例如：</p>
+<ul>
+<li>executable file 從 disk 載入 memory。</li>
+<li>dynamic loading 時，副程式被呼叫才從 auxiliary storage 載入 main memory。</li>
+<li>dynamic linking 時，shared library 被需要時才由 OS loader 載入 main memory。</li>
+</ul>
+<p>講義 page 8 說 <code>Dynamic Loading(動態載入)</code> 是主程式呼叫副程式時，才將副程式由輔助記憶體載入主記憶體；同頁也說所有副程式以 relocatable load format 存在磁碟中，需要時載入主記憶體並更新行程位址表。</p>
+<hr />
+<h3 id="22-linking鏈結">2.2 Linking(鏈結)<a class="headerlink" href="#22-linking鏈結" title="Permanent link"></a></h3>
+<p><code>Linking</code> 解決的是：</p>
+<p><strong>程式裡的函式名稱／外部符號／library reference 要接到哪一段真正的 code。</strong></p>
+<p>例如你的程式呼叫：</p>
+<p><code>printf()</code></p>
+<p>Linking 要處理的是：</p>
+<p>「<code>printf</code> 這個名字到底接到哪個 library 裡的哪段機器碼？」</p>
+<p>講義 page 10 說，library linking 是把一個或多個函式庫包括到程式中，分為 static linking 與 dynamic linking。</p>
+<p>所以：</p>
+<p><strong>Linking 不是等於載入 main memory。</strong><br />
+它的核心是「接引用」。</p>
+<hr />
+<h3 id="23-mapping映射">2.3 Mapping(映射)<a class="headerlink" href="#23-mapping映射" title="Permanent link"></a></h3>
+<p><code>Mapping</code> 解決的是：</p>
+<p><strong>process 看到的 address，要對應到哪個 physical memory 或哪個 file-backed object。</strong></p>
+<p>它不是直接複製。</p>
+<p>比較精準地說，mapping 是 OS / MMU 建立一份對照：</p>
+<table>
+<thead>
+<tr>
+<th>process 看到</th>
+<th>OS / MMU 對應到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>virtual address 0x400000</td>
+<td>physical frame A，或某 executable file 的某段</td>
+</tr>
+<tr>
+<td>virtual address 0x7f&hellip;</td>
+<td>shared library 的某段 code</td>
+</tr>
+<tr>
+<td>virtual address stack area</td>
+<td>process 自己的 stack pages</td>
+</tr>
+</tbody>
+</table>
+<p>Linux <code>mmap()</code> 的官方手冊也把 mapping 描述成「在 process 的 address space 建立 mapping」，而且 <code>munmap()</code> 是刪除指定 address range 的 mapping；這表示 mapping 是 address-space 關係，不是單純複製檔案。(<a href="https://man7.org/linux/man-pages/man2/mmap.2.html?utm_source=chatgpt.com" title="mmap(2) - Linux manual page">man7.org</a>)</p>
+<hr />
+<ol>
+<li>你問的核心：映射是複製到 main memory 嗎？</li>
+</ol>
+<p>答案要分兩層：</p>
+<h3 id="31-mapping-本身不是複製">3.1 Mapping 本身不是複製<a class="headerlink" href="#31-mapping-本身不是複製" title="Permanent link"></a></h3>
+<p>當 OS 說：</p>
+<p>「把 shared library map 到 process address space」</p>
+<p>意思不是立刻把整個 library 複製一份給這個 process。</p>
+<p>它的意思是：</p>
+<p><strong>這個 process 的某段 virtual address，之後如果被存取，應該對應到這個 library 的某些 code/data。</strong></p>
+<p>也就是先建立關係。</p>
+<hr />
+<h3 id="32-但真的執行時內容必須在-main-memory">3.2 但真的執行時，內容必須在 main memory<a class="headerlink" href="#32-但真的執行時內容必須在-main-memory" title="Permanent link"></a></h3>
+<p>CPU 不能直接從 disk 執行 library code。<br />
+所以如果那一頁 library code 還不在 RAM，通常會發生 page fault，OS 再把那一頁從 disk 載入 RAM，更新 page table / mapping，然後 CPU 繼續執行。</p>
+<p>因此比較正確的流程是：</p>
+<pre class="diagram"><code>flowchart TD
+    A["Process accesses virtual address&lt;br&gt;例如呼叫 library function"] --&gt; B{"Is the mapped page&lt;br&gt;already in main memory?"}
+    B -- "Yes" --&gt; C["MMU translates virtual/logical address&lt;br&gt;to physical address"]
+    C --&gt; D["CPU reads instruction/data&lt;br&gt;from main memory/cache"]
+    B -- "No" --&gt; E["Page fault&lt;br&gt;OS loads needed page from disk to RAM"]
+    E --&gt; F["Update mapping / page table"]
+    F --&gt; C</code></pre>
+<p>所以不是：</p>
+<p><strong>mapping = 複製。</strong></p>
+<p>也不是：</p>
+<p><strong>mapping = 知道 disk 位置後 CPU 直接讀 disk。</strong></p>
+<p>而是：</p>
+<p><strong>mapping = 建立地址對應；真正被 CPU 使用的 bytes 最後必須在 RAM。</strong></p>
+<hr />
+<ol>
+<li>從 p.3 開始逐頁整理：哪些真的在 main memory？哪些只是關係？</li>
+</ol>
+<h3 id="41-pdf-viewer-page-3program-must-be-brought-into-memory">4.1 PDF viewer page 3：Program must be brought into memory<a class="headerlink" href="#41-pdf-viewer-page-3program-must-be-brought-into-memory" title="Permanent link"></a></h3>
+<p>這頁的意思最硬：</p>
+<p><strong>程式要 run，就必須從 disk 被 brought into memory，而且 placed within a process。</strong></p>
+<p>也就是：</p>
+<table>
+<thead>
+<tr>
+<th>東西</th>
+<th>是否在 main memory？</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>即將執行的 program code / data</td>
+<td>至少需要的部分要在 main memory</td>
+<td>CPU 只能直接存取 main memory 和 registers</td>
+</tr>
+<tr>
+<td>disk 上的 executable file</td>
+<td>不算正在被 CPU 直接執行</td>
+<td>它只是來源</td>
+</tr>
+<tr>
+<td>process</td>
+<td>需要有 memory image / address space</td>
+<td>才能被 CPU 執行</td>
+</tr>
+</tbody>
+</table>
+<p>講義 page 3 的核心就是：CPU 不能直接跑 disk 上的程式檔。</p>
+<hr />
+<h3 id="42-pdf-viewer-page-56address-binding">4.2 PDF viewer page 5～6：Address Binding<a class="headerlink" href="#42-pdf-viewer-page-56address-binding" title="Permanent link"></a></h3>
+<p>這裡不是在講「又載入了什麼新東西」，而是在講：</p>
+<p><strong>程式位址什麼時候決定。</strong></p>
+<table>
+<thead>
+<tr>
+<th>Binding 類型</th>
+<th>main memory 發生什麼？</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Compile-time binding</code></td>
+<td>執行前已假設固定 physical address</td>
+<td>位址太早固定</td>
+</tr>
+<tr>
+<td><code>Load-time binding</code></td>
+<td>載入 main memory 時決定起始位置</td>
+<td>載入時 relocation</td>
+</tr>
+<tr>
+<td><code>Execution-time binding</code></td>
+<td>執行中靠 MMU 動態轉換</td>
+<td>logical address 加 base / 或透過 MMU 轉 physical address</td>
+</tr>
+</tbody>
+</table>
+<p>page 6 說 <code>Base Register</code> 記錄目前程式起始位址，<code>local address</code> 要和 base register 相加才會得到 physical address。</p>
+<p>所以 page 5～6 重點不是「copy 哪個檔案」，而是：</p>
+<p><strong>process 內部位址要如何變成 main memory 的真正位置。</strong></p>
+<hr />
+<h3 id="43-pdf-viewer-page-7logical-address--physical-address">4.3 PDF viewer page 7：Logical Address / Physical Address<a class="headerlink" href="#43-pdf-viewer-page-7logical-address--physical-address" title="Permanent link"></a></h3>
+<p>這頁純粹是在定義兩種位址：</p>
+<table>
+<thead>
+<tr>
+<th>位址</th>
+<th>是誰看到？</th>
+<th>是否代表東西被複製？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>logical address</code></td>
+<td>CPU / process 產生</td>
+<td>❌ 不是複製，只是 process 視角的位址</td>
+</tr>
+<tr>
+<td><code>physical address</code></td>
+<td>memory unit 看到</td>
+<td>❌ 不是複製，是 RAM 真正被存取的位置</td>
+</tr>
+</tbody>
+</table>
+<p>講義 page 7 說 CPU 產生的是 logical address，memory unit 看到的是 physical address。</p>
+<p>所以這頁的「映射／轉換」是地址關係，不是搬資料。</p>
+<hr />
+<h3 id="44-pdf-viewer-page-89dynamic-loading">4.4 PDF viewer page 8～9：Dynamic Loading<a class="headerlink" href="#44-pdf-viewer-page-89dynamic-loading" title="Permanent link"></a></h3>
+<p>這裡就真的有「載入到 main memory」。</p>
+<table>
+<thead>
+<tr>
+<th>東西</th>
+<th>一開始在 main memory 嗎？</th>
+<th>什麼時候進 main memory？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主程式</td>
+<td>是，主程式在 main memory 執行</td>
+<td>program start 時</td>
+</tr>
+<tr>
+<td>很少用到的 subroutine</td>
+<td>不一定</td>
+<td>被呼叫時才載入</td>
+</tr>
+<tr>
+<td>relocatable load format 的 subroutine</td>
+<td>一開始在 disk / auxiliary storage</td>
+<td>需要時由 loader 載入 main memory</td>
+</tr>
+</tbody>
+</table>
+<p>講義 page 8 說，Dynamic Loading 是主程式執行中，需要呼叫其他程式時，先看它是否已在 memory；如果不是，就呼叫 relocatable linking loader，把所需程式載入 main memory，並更新行程位址表。</p>
+<p>這句很重要：</p>
+<p><strong>Dynamic Loading 不是只有 mapping，它真的會在需要時把副程式載入 main memory。</strong></p>
+<hr />
+<h3 id="45-pdf-viewer-page-10static-linking">4.5 PDF viewer page 10：Static Linking<a class="headerlink" href="#45-pdf-viewer-page-10static-linking" title="Permanent link"></a></h3>
+<p><code>Static Linking(靜態鏈結)</code> 是：</p>
+<p><strong>library code 在產生 executable file 時，就被放進 executable file。</strong></p>
+<p>所以流程是：</p>
+<pre class="diagram"><code>flowchart LR
+    A["main program object file"] --&gt; C["static linking"]
+    B["static library code"] --&gt; C
+    C --&gt; D["larger executable file&lt;br&gt;library code already included"]
+    D --&gt; E["loaded into process memory&lt;br&gt;when program starts"]</code></pre>
+<p>所以 static linking 下：</p>
+<table>
+<thead>
+<tr>
+<th>東西</th>
+<th>何時進 executable file？</th>
+<th>何時進 main memory？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>library code</td>
+<td>link time 就放進 executable file</td>
+<td>executable 被載入時一起進 memory</td>
+</tr>
+</tbody>
+</table>
+<p>講義 page 10 說 static linking 會讓可執行檔太大，需要更多系統資源，裝入記憶體也消耗更多時間。</p>
+<hr />
+<h3 id="46-pdf-viewer-page-11dynamic-linking--shared-library">4.6 PDF viewer page 11：Dynamic Linking / Shared Library<a class="headerlink" href="#46-pdf-viewer-page-11dynamic-linking--shared-library" title="Permanent link"></a></h3>
+<p><code>Dynamic Linking(動態鏈結)</code> 比較微妙，因為它同時有 mapping 和 loading。</p>
+<p>講義 page 11 說：當某個模組被真正呼叫到時，才由 OS loader 將其載入 main memory；而多個應用可以使用一個函式庫的同一份拷貝，OS 不需要載入多個實例。</p>
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th>層次</th>
+<th>發生什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>process 視角</td>
+<td>shared library 被 map 到 process 的 address space</td>
+</tr>
+<tr>
+<td>physical memory 視角</td>
+<td>library code pages 可以只有一份，被多個 process 共用</td>
+</tr>
+<tr>
+<td>disk 視角</td>
+<td>library file 原本在 disk 上，例如 <code>.so</code> 或 <code>.dll</code></td>
+</tr>
+<tr>
+<td>執行時</td>
+<td>真的需要的 pages 會在 RAM 中被 CPU 執行</td>
+</tr>
+</tbody>
+</table>
+<p>官方 Linux <code>ld.so</code> 文件也說 dynamic linker 會找出並載入程式需要的 shared objects，準備程式執行後再執行它。(<a href="https://man7.org/linux/man-pages/man8/ld.so.8.html?utm_source=chatgpt.com" title="ld.so(8) - Linux manual page">man7.org</a>)</p>
+<hr />
+<ol>
+<li>用一張總表把「在 memory」和「映射」分清楚</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>章節頁面</th>
+<th>名詞</th>
+<th style="text-align: right;">是複製／載入到 main memory 嗎？</th>
+<th style="text-align: right;">是 mapping 嗎？</th>
+<th>精準理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p.3</td>
+<td>program brought into memory</td>
+<td style="text-align: right;">✅ 是，至少必要部分要進 RAM</td>
+<td style="text-align: right;">也會有 process address space</td>
+<td>不進 memory 不能跑</td>
+</tr>
+<tr>
+<td>p.5</td>
+<td>compile-time binding</td>
+<td style="text-align: right;">❌ 不是載入重點</td>
+<td style="text-align: right;">❌ 主要不是 mapping</td>
+<td>編譯時就固定位址</td>
+</tr>
+<tr>
+<td>p.5</td>
+<td>load-time binding</td>
+<td style="text-align: right;">✅ 載入時決定位址</td>
+<td style="text-align: right;">可能建立位址配置</td>
+<td>載入時 relocation</td>
+</tr>
+<tr>
+<td>p.6</td>
+<td>execution-time binding</td>
+<td style="text-align: right;">不一定搬新資料</td>
+<td style="text-align: right;">✅ 是地址轉換</td>
+<td>執行中 logical → physical</td>
+</tr>
+<tr>
+<td>p.7</td>
+<td>logical / physical address</td>
+<td style="text-align: right;">❌ 不是搬資料</td>
+<td style="text-align: right;">✅ 是位址視角／轉換</td>
+<td>CPU 產生 logical，memory 看 physical</td>
+</tr>
+<tr>
+<td>p.8</td>
+<td>dynamic loading</td>
+<td style="text-align: right;">✅ 需要時真的載入副程式</td>
+<td style="text-align: right;">✅ 也會更新行程位址表</td>
+<td>用到才載入 subroutine</td>
+</tr>
+<tr>
+<td>p.10</td>
+<td>static linking</td>
+<td style="text-align: right;">executable 載入時一起進 RAM</td>
+<td style="text-align: right;">較少強調 sharing</td>
+<td>library code 已塞進 executable</td>
+</tr>
+<tr>
+<td>p.11</td>
+<td>dynamic linking / shared library</td>
+<td style="text-align: right;">✅ 需要時 library pages 會進 RAM</td>
+<td style="text-align: right;">✅ map 到多個 process</td>
+<td>多 process 共用同一份 physical code pages</td>
+</tr>
+<tr>
+<td>p.12</td>
+<td>swapping</td>
+<td style="text-align: right;">✅/❌ process 可被搬出 RAM、再搬回 RAM</td>
+<td style="text-align: right;">可涉及 address space 狀態</td>
+<td>不在 RAM 就不能直接執行</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<ol>
+<li>你可以用「三層世界」理解</li>
+</ol>
+<h3 id="61-disk-世界">6.1 Disk 世界<a class="headerlink" href="#61-disk-世界" title="Permanent link"></a></h3>
+<p>這裡放：</p>
+<ul>
+<li>executable file</li>
+<li>shared library file</li>
+<li>relocatable load format 的 subroutine</li>
+<li>backing store / swap area</li>
+</ul>
+<p>這些東西躺在 disk 上時，CPU 不能直接執行。</p>
+<hr />
+<h3 id="62-process-address-space-世界">6.2 Process address space 世界<a class="headerlink" href="#62-process-address-space-世界" title="Permanent link"></a></h3>
+<p>這是 process 自己看到的世界。</p>
+<p>裡面可能有：</p>
+<ul>
+<li>code segment</li>
+<li>data segment</li>
+<li>heap</li>
+<li>stack</li>
+<li>mapped shared library region</li>
+</ul>
+<p>注意：<br />
+<strong>process address space 裡「看得到」某段 library，不代表每個 process 都真的有一份獨立 physical copy。</strong></p>
+<hr />
+<h3 id="63-physical-memory-世界">6.3 Physical memory 世界<a class="headerlink" href="#63-physical-memory-世界" title="Permanent link"></a></h3>
+<p>這是 RAM 真正存放 bytes 的地方。</p>
+<p>裡面可能有：</p>
+<ul>
+<li>process 的 code/data/heap/stack pages</li>
+<li>shared library 的 code pages</li>
+<li>kernel 管理的 page cache</li>
+<li>page frames</li>
+</ul>
+<p>真正 CPU 執行時，最後要靠 MMU 把 process 的 logical / virtual address 轉成 physical address，memory unit 才能存取。講義 page 7 的 logical / physical address 定義就是在講這個視角差異。</p>
+<hr />
+<ol>
+<li>回答你最後那句：「知道實體位置之後直接讀取實體位置」嗎？</li>
+</ol>
+<p>要分成 CPU 視角和 OS/MMU 視角。</p>
+<h3 id="71-cpu-執行程式時">7.1 CPU 執行程式時<a class="headerlink" href="#71-cpu-執行程式時" title="Permanent link"></a></h3>
+<p>程式通常產生 logical / virtual address。<br />
+CPU 搭配 MMU 轉成 physical address。<br />
+memory unit 用 physical address 存取 RAM。</p>
+<p>這部分可以說：</p>
+<p><strong>最後是讀 RAM 的 physical address。</strong></p>
+<hr />
+<h3 id="72-如果內容還在-disk">7.2 如果內容還在 disk<a class="headerlink" href="#72-如果內容還在-disk" title="Permanent link"></a></h3>
+<p>不能直接讀 disk 的 physical location 來執行。</p>
+<p>正確流程是：</p>
+<ol>
+<li>process 存取某個 virtual address。</li>
+<li>MMU 查 mapping。</li>
+<li>如果 page 不在 RAM，觸發 page fault。</li>
+<li>OS 從 disk 把對應 page 載入 RAM。</li>
+<li>更新 mapping。</li>
+<li>CPU 重新執行該指令，這次從 RAM 讀 physical address。</li>
+</ol>
+<p>所以：</p>
+<p><strong>mapping 可以先存在，但真正使用時資料必須在 RAM。</strong></p>
+<hr />
+<ol>
+<li>最短總結</li>
+</ol>
+<p>你先記這三句就好：</p>
+<ol>
+<li><code>Loading</code>：把 code/data 從 disk 帶進 main memory，或讓它可被 process 使用。</li>
+<li><code>Linking</code>：把函式／library 的名字或引用，接到真正 code 的位置。</li>
+<li><code>Mapping</code>：建立 process address 到 physical memory / file-backed object 的對應；mapping 本身不是複製，但被 CPU 真正用到的內容最後必須在 RAM。</li>
+</ol>
+<p>最重要的修正：</p>
+<p><strong>shared library 不是「放在 process 外面，process 知道實體位置後直接去讀」。</strong><br />
+它是：</p>
+<p><strong>被 map 到每個 process 的 address space；底層 physical memory 裡的 code pages 可以只有一份，由 OS/MMU 讓多個 process 共用。</strong></p>
+<p>第 11 次對話</p>
 
 
 

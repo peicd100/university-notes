@@ -4156,6 +4156,11 @@ html.peicd-image-viewer-open body {
   [data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap,
   [data-md-color-scheme="dracula"] .md-sidebar--primary .md-sidebar__scrollwrap {
     border-right: 1px solid rgba(114, 227, 253, 0.16) !important;
+    box-shadow: none !important;
+  }
+
+  [data-md-color-scheme="slate"] [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary .md-sidebar__scrollwrap,
+  [data-md-color-scheme="dracula"] [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary .md-sidebar__scrollwrap {
     box-shadow: 14px 0 30px rgba(0, 0, 0, 0.72) !important;
   }
 }
