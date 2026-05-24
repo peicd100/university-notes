@@ -2,6 +2,7 @@
 
 ## 目前狀態
 
+- 2026-05-24 已修正中/窄版側邊欄開啟時的藍灰底：`自定義.css` 讓 primary drawer 的 sidebar/inner/scrollwrap/nav/list/item 都強制為 `#000000`，overlay 改為黑色半透明，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-7`。
 - 2026-05-24 已改良 TTS 面板與路徑下拉選單視覺：`tts.html` 的語音面板改為純黑薄線、緊湊控制列與固定 cyan 重點色；`自定義.css` 讓深色路徑 dropdown 取消厚重四角框，改為小圓角薄選取底色；`folder-path-bar.js` 開啟頁面選單時會自動捲到目前頁，`mkdocs.yml` 更新 CSS/JS cache 版本。
 - 2026-05-24 已修正中版面深色側欄目前頁重複：`自定義.css` 在 `max-width: 76.249em` 隱藏 primary sidebar 的 `label[for="__toc"]`，只保留真正頁面連結；同時提高深色路徑列目前資料夾/頁面的文字對比，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-5`。
 - 2026-05-24 已限制文章圖片寬度：`自定義.css` 使用 `--peicd-article-img-max-width`，桌機文章圖片最多佔內容寬度 70%，小圖不放大；窄螢幕回到 100%，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-4`。
@@ -28,6 +29,8 @@
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name drawer-black-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8043/` 開啟 `ch 8.html`；1212px 中版面打開 drawer 後，`.md-sidebar--primary`、`.md-sidebar__scrollwrap`、`.md-nav`、`.md-nav__list` 均為 `rgb(0, 0, 0)`，`.md-overlay` 為 `rgba(0, 0, 0, 0.78)`，console error 為空。
 - 已完成：`node --check docs\theme\assets\pymdownx-extras\folder-path-bar.js`。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name ui-polish-tts-pathbar-build-2 -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
 - 已完成：本機 `http://127.0.0.1:8042/` 開啟 `ch 8.html`；TTS 面板背景為 `rgb(5, 6, 7)`、邊框 `rgba(114, 227, 253, 0.22)`、重點色 `#72e3fd`；路徑頁面選單開啟後目前 `Ch 8` 可見、選取背景 `rgba(114, 227, 253, 0.12)`、無角框 background-image，console error/warn 為空。

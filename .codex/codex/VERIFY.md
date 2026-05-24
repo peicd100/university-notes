@@ -25,6 +25,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 - Mermaid htmlLabels 可用瀏覽器量測：目標圖表每個 `g.node foreignObject` 都應帶 `data-peicd-descender-pad="true"`；單行 label 高度應從原始 19px 增到約 24px，且 `Higher priority`、`Lower priority` 最後的 `y` 必須可見。
 - 若修改 Mermaid 暗色對比，開啟 `docs/md/114-2/電機_作業系統/ch 7.md` 的 deadlock flowchart；`dracula` 主題下 node label 應接近白色、node fill 應為深紫、node stroke 應為 `#72e3fd`，edge label 應為深底白字，console error/warn 應為空。
 - 若修改深色背景，量測 `ch 7.html`：body/container/main/content 應為 `rgb(0, 0, 0)`，header/tabs 應為 `rgba(0, 0, 0, 0.98)`；Mermaid 圖卡與右側 TOC 可為黑底漸層，console error/warn 應為空。
+- 若修改中/窄版側邊欄 drawer 背景，開啟 `ch 8.html` 並用約 1212px 寬度打開左側 drawer；`.md-sidebar--primary`、`.md-sidebar__scrollwrap`、`.md-nav`、`.md-nav__list` 應為 `rgb(0, 0, 0)`，`.md-overlay` 應為黑色半透明，console error/warn 應為空。
 - 若修改標題錨點樣式，開啟 `ch 7.html` 的 `⭐Resource-Allocation Graph Algorithm` h2，量測 `.headerlink` 與標題文字第一行應維持同一行，且長標題不應讓 `#` 獨立換到上一行。
 - 若修改中版面左側導覽或路徑列，開啟 `ch 1.html` 並用約 1212px 寬度測試：目前頁的 `label.md-nav__link[for="__toc"]` 應為 `display:none`、左側目前頁只剩一個可見連結；深色路徑列的目前資料夾與頁面文字需有清楚對比。再用約 766px 寬度確認窄版 select 文字同樣清楚。若修改頁面 dropdown，打開 `ch 8.html` 的頁面選單時目前 `Ch 8` 應在選單可視範圍內。
 - 若修改 TTS 面板，開啟 header 喇叭按鈕，確認深色面板使用黑底薄線、slider 與選取狀態使用 cyan、控制文字不擠壓，且 console error/warn 為空。

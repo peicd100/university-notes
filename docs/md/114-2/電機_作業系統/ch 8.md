@@ -87,3 +87,111 @@ Memory management is needed because a program must be loaded from disk into main
 ### 8. 最短記法
 
 **Program must be in memory to run. Base = start, Limit = legal range, CPU checks every user-mode memory access.**
+
+
+
+### 為何叫做 logical ， logical 本身意義是什麼，和這裡有啥關聯
+
+1.`logical` 本身的意思
+    
+
+`logical` 原本是 `logic(邏輯)` 的形容詞，基本意思是「跟推理規則、形式規則、抽象結構有關」。Merriam-Webster 對 `logical` 的定義包含「relating to logic」以及「formally true or valid」這類意思，也就是它不只是在說「合理」，而是在說「依某套規則成立」。[梅里亞姆-韋伯斯特詞典](https://www.merriam-webster.com/dictionary/logical?utm_source=chatgpt.com)
+
+所以 `logical` 在電腦科學裡常常帶有這種語感：
+
+**不是物理世界中的真實位置，而是某個抽象模型、規則系統、程式視角裡成立的位置或關係。**
+
+---
+
+2.跟 `logical address(邏輯位址)` 的關聯
+    
+
+講義說，CPU 產生的位址叫 `logical address(邏輯位址)`；memory unit(記憶體單元) 看到、真正送進 memory-address register 的位址叫 `physical address(實體位址)`。
+
+講義\_chapter 8\_20240520
+
+所以這裡的 `logical` 不是在說「這個 address 很合理」，而是在說：
+
+**這個 address 是 process / program 的抽象位址規則裡的編號。**
+
+也就是：
+
+- `logical address`：程式世界裡的位址。
+    
+- `physical address`：RAM 硬體世界裡的位址。
+    
+
+社群問答裡也常用同一種說法：CPU 產生的 address 稱為 logical address，memory unit 看到的 address 稱為 physical address；若是 execution-time binding，兩者會不同，並透過 MMU 做轉換。[Stack Overflow](https://stackoverflow.com/questions/3697729/difference-between-logical-addresses-and-physical-addresses?utm_source=chatgpt.com)
+
+
+
+### 錯題
+
+!!! danger "PEICD100"
+
+    #### 1
+
+    ##### Q:
+    Explain why a program must be brought from disk into main memory before it can be executed by the CPU. Your answer must mention what the CPU can directly access.
+
+    ##### 我寫的:
+    必需要在 main memory 是因為如果在 disk 太慢了。
+
+    ##### ANS:
+    你說「disk 太慢」方向對，但考試版要更精準：CPU 不能直接從 disk 執行程式，CPU 可直接存取的是 registers(暫存器) 與 main memory(主記憶體)；disk 慢是原因之一，但不是唯一關鍵。講義 page 3 明確寫到程式必須從 disk 載入 memory 才能執行，而且 CPU 可直接存取的 storage 是 main memory 和 registers。
+
+    #### 2
+
+    ##### Q:
+    Suppose a process has base = 30000 and limit = 12000. For each logical address, determine whether the access is legal or illegal, and briefly explain why:
+    a. 0
+    b. 11999
+    c. 12000
+    d. 15000
+
+
+    ##### 我寫的：
+    允許的範圍： 30000~41999，共 12000，都不合法，因為不在範圍30000~41999中
+
+
+    ##### ANS：
+    第 2 題錯在哪裡？
+        
+
+    你寫：
+
+    「允許的範圍：30000～41999，共 12000，都不合法，因為不在範圍 30000～41999 中」
+
+    這句其實抓到 **physical memory range(實體記憶體範圍)**，但題目問的是 **logical address(邏輯位址)**。
+
+    在 base/limit 模型中：
+
+    - `base = 30000`：這個 process 在 physical memory 的起點。
+        
+    - `limit = 12000`：這個 process 的 logical address 合法範圍大小。
+        
+    - 合法的 `logical address` 是 `0 ~ 11999`。
+        
+    - 轉成 physical address 時才加 base。
+        
+
+    所以正確判斷是：
+
+    | logical address | 是否合法 | physical address | 原因 |
+    | --- | --- | --- | --- |
+    | 0 | ✅ legal | 30000 | 0 < 12000 |
+    | 11999 | ✅ legal | 41999 | 11999 < 12000，是最後一格合法位址 |
+    | 12000 | ❌ illegal | 不轉換 | 12000 不小於 limit，剛好越界 |
+    | 15000 | ❌ illegal | 不轉換 | 15000 超過 limit |
+
+    更精準地說：  
+    **logical address 先檢查是否 `< limit`；合法後才做 `physical address = base + logical address`。**
+
+    這也和講義 page 6 的說法一致：`local address` 必須與 `base register` 相加才會得到 `physical address`；page 7 則定義 CPU 產生的是 logical address，memory unit 看到的是 physical address。
+
+    講義\_chapter 8\_20240520
+
+    
+    外部課程講義也用同樣定義：logical address 是 CPU 產生，也叫 virtual address；physical address 是 memory module 看到的位址。[ocw.nthu.edu.tw](https://ocw.nthu.edu.tw/ocw/upload/141/news/%E5%91%A8%E5%BF%97%E9%81%A0%E6%95%99%E6%8E%88%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1_chap%EF%BC%908%EF%BC%BFOperating%20System%20Chap8%20Memory%20Management%EF%BC%BF.pdf?utm_source=chatgpt.com) 社群討論裡常見的混淆也正是「程式看到的位址」和「RAM 實際位置」混在一起。
+    
+    

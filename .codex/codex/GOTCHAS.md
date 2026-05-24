@@ -110,6 +110,16 @@
 - 不要做：不要只改 `--md-default-bg-color` 後留下 header、tabs、Mermaid 圖卡或右側 TOC 仍是 `#1e2029` 這類藍灰底。
 - 驗證方式：瀏覽器量測 `ch 7.html` 深色主題，body/container/main/content 為 `rgb(0, 0, 0)`，header/tabs 為 `rgba(0, 0, 0, 0.98)`，console error/warn 為空。
 
+## 中/窄版 primary drawer 不可漏掉多層背景
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-24
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、MkDocs Material primary sidebar drawer。
+- 正確做法：深色模式下要同時覆寫 `.md-sidebar--primary`、`.md-sidebar__inner`、`.md-sidebar__scrollwrap`、`.md-nav`、`.md-nav__list`、`.md-nav__item` 與 `.md-overlay`；drawer 本體維持 `#000000`，只用少量 cyan 邊界與目前項目提示。
+- 不要做：不要只把 `.md-nav__title[for]` 或連結背景改黑；Material 的 drawer 由多層容器組成，漏一層就會在開啟側欄時露出藍灰底。
+- 驗證方式：以約 1212px 寬度開啟 `ch 8.html` 並打開左側 drawer，量測 primary sidebar/scrollwrap/nav/list 應為 `rgb(0, 0, 0)`，overlay 應為黑色半透明，console error/warn 為空。
+
 ## .codex/ Git 忽略策略
 
 - 狀態：active

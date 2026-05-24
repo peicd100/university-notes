@@ -25,7 +25,7 @@
 - 單頁 preview：先讀 `PROJECT.md`、`COMMANDS.md`，再看 `preview.bat`、`p.bat`、`tools/update_preview_config.py`、`mkdocs.preview.yml`。
 - MkDocs 外觀或前端互動：看 `docs/theme/`、`mkdocs.yml`、`ARCHITECTURE.md`。
 - 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的標題錨點條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
-- 中版面左側導覽或路徑列對比：先看 `GOTCHAS.md` 的中版面左側目前頁條目與 `VERIFY.md` 的前端互動清單，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
+- 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的中版面左側目前頁與 primary drawer 背景條目、`VERIFY.md` 的前端互動清單，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
 - 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的文章圖片寬度條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
 - 深色主題背景：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的深色主題條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
 - Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid 條目，再改 `docs/theme/assets/pymdownx-extras/mermaid-config-override.js` 與 `docs/theme/assets/pymdownx-extras/自定義.css`。

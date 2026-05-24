@@ -1,5 +1,15 @@
 # log
 
+## 2026-05-24 19:29：中版面側邊欄 drawer 黑底修正
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：深色模式 primary drawer 的 sidebar/inner/scrollwrap/nav/list/item 一起強制為 `#000000`，overlay 改黑色半透明，保留少量 cyan 邊界與目前項目提示；CSS cache 版本更新為 `20260524-7`。
+- 驗證結果：`mkdocs build --clean` 通過；本機 `ch 8.html` 在 1212px 打開 drawer 後，primary sidebar/scrollwrap/nav/list 均為 `rgb(0, 0, 0)`，overlay 為 `rgba(0, 0, 0, 0.78)`，console error 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的中/窄版 primary drawer 條目、`VERIFY.md` 的前端互動。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/artifacts/drawer-black-20260524-1929.png`。
+
 ## 2026-05-24 19:19：TTS 面板與路徑下拉選單視覺改良
 
 - 任務類型：ui
