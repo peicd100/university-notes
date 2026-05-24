@@ -2,6 +2,7 @@
 
 ## 目前狀態
 
+- 2026-05-24 已修正中版面深色側欄目前頁重複：`自定義.css` 在 `max-width: 76.249em` 隱藏 primary sidebar 的 `label[for="__toc"]`，只保留真正頁面連結；同時提高深色路徑列目前資料夾/頁面的文字對比，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-5`。
 - 2026-05-24 已限制文章圖片寬度：`自定義.css` 使用 `--peicd-article-img-max-width`，桌機文章圖片最多佔內容寬度 70%，小圖不放大；窄螢幕回到 100%，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-4`。
 - 2026-05-24 已修正標題錨點換行：`自定義.css` 將 h2~h6 從可換行 flex 改為 block + 左側預留錨點空間，`.headerlink` 用 absolute 定位在同一行，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-2`。
 - 2026-05-24 已改善深色主題 `==mark==` 高亮：`自定義.css` 將深色模式 mark 改為暖黃色漸層、細外框與微光，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-1`。
@@ -26,6 +27,8 @@
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name sidebar-pathbar-contrast-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8041/` 開啟 `ch 1.html`；1212px 中版面確認 `.md-sidebar--primary label.md-nav__link[for="__toc"]` 為 `display:none`、目前頁只剩一個可見 `Ch 1` 連結、路徑列目前段落為 `rgb(226, 251, 255)`；766px 窄版確認兩個 pathbar select 也為 `rgb(226, 251, 255)`，console error/warn 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`。
 - 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8037`，開啟 `ch 7.html`，桌機 1440px 量測文章圖片 `maxRatio=0.7`、`maxWidth=70%`；手機 390px 量測 `maxRatio=1`、`maxWidth=100%`，console error/warn 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`。

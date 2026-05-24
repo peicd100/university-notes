@@ -80,6 +80,16 @@
 - 不要做：不要把 h2~h6 設為 `display:flex` 且 `flex-wrap:wrap`；長標題會把 `.headerlink` 當成獨立 flex item 擠到上一行。
 - 驗證方式：開啟 `docs/md/114-2/電機_作業系統/ch 7.md` 的 `⭐Resource-Allocation Graph Algorithm` h2，量測 `.headerlink` 與標題文字第一行應為同一行，console error/warn 為空。
 
+## 中版面左側目前頁不可同時顯示 TOC label 與頁面連結
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-24
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、MkDocs Material primary sidebar。
+- 正確做法：中版面已把 primary sidebar 內嵌的 `.md-nav--secondary` TOC 隱藏，因此也要隱藏 `.md-sidebar--primary label.md-nav__link[for="__toc"]`，只保留同一頁真正的 `<a>` 頁面連結。
+- 不要做：不要只隱藏 `.md-nav--secondary`；Material 仍會輸出目前頁的 TOC toggle label，視覺上會變成兩個相同文章標題。
+- 驗證方式：以約 1212px 寬度開啟 `docs/md/114-2/電機_作業系統/ch 1.md`，左側抽屜中目前頁應只剩一個可見 `Ch 1`；`label.md-nav__link[for="__toc"]` 應為 `display:none`，console error/warn 為空。
+
 ## 文章圖片寬度限制不可影響放大檢視
 
 - 狀態：active

@@ -1,5 +1,15 @@
 # log
 
+## 2026-05-24 19:01：中版面側欄重複目前頁與路徑列對比修正
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：中版面隱藏 primary sidebar 的目前頁 TOC toggle label，只保留真正頁面連結；深色路徑列目前段落改為高對比淺青白，CSS cache 版本更新為 `20260524-5`。
+- 驗證結果：`mkdocs build --clean` 通過；本機 `ch 1.html` 在 1212px 與 766px 實測左側不再重複目前頁，路徑列目前文字為 `rgb(226, 251, 255)`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`GOTCHAS.md` 的中版面左側目前頁條目、`VERIFY.md` 的前端互動清單。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
 ## 2026-05-24 13:02：文章圖片桌機寬度改為 70%
 
 - 任務類型：ui

@@ -866,6 +866,30 @@ body {
   color: var(--md-primary-fg-color) !important;
 }
 
+[data-md-color-scheme="slate"] .peicd-folder-pathbar,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar {
+  color: rgba(235, 242, 247, 0.9);
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__prefix,
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__separator,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__prefix,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__separator {
+  color: rgba(235, 242, 247, 0.54);
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__mobile-select,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__item--current .peicd-folder-pathbar__mobile-select {
+  color: #e2fbff !important;
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__caret,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__caret {
+  color: rgba(114, 227, 253, 0.78);
+}
+
 .peicd-folder-pathbar--hidden {
   opacity: 0;
   pointer-events: none;
@@ -3805,6 +3829,10 @@ html.peicd-image-viewer-open body {
 
 @media (max-width: 76.249em) {
   .md-sidebar--primary .md-nav--secondary {
+    display: none !important;
+  }
+
+  .md-sidebar--primary label.md-nav__link[for="__toc"] {
     display: none !important;
   }
 
