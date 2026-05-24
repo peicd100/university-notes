@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260524-8">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260524-9">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6324,11 +6324,19 @@ Limit Register(界限暫存器) 可以想成「這個 process 合法使用的範
 <h3 id="4-核心流程cpu-每次記憶體存取都要過守門員">4. 核心流程：CPU 每次記憶體存取都要過守門員<a class="headerlink" href="#4-核心流程cpu-每次記憶體存取都要過守門員" title="Permanent link"></a></h3>
 <p>Base/Limit 的精神不是「相信程式自己守規矩」，而是硬體協助 OS 做檢查。</p>
 <pre class="diagram"><code>flowchart LR
-    A["Process in user mode&lt;br&gt;產生 logical address"] --&gt; B{"Is address within&lt;br&gt;base + limit range?"}
-    B -- "Yes" --&gt; C["Allow memory access&lt;br&gt;轉成合法 physical memory access"]
-    B -- "No" --&gt; D["Trap / addressing error&lt;br&gt;交給 OS 處理"]</code></pre>
+    A["Process in user mode&lt;br&gt;CPU generates logical address LA"] --&gt; B{"Is LA within&lt;br&gt;0 &lt;= LA &lt; limit?"}
+    B -- "No" --&gt; E["Trap / addressing error&lt;br&gt;交給 OS 處理"]
+    B -- "Yes" --&gt; C["Translate address&lt;br&gt;PA = base + LA"]
+    C --&gt; D["Allow memory access&lt;br&gt;Memory uses physical address PA"]</code></pre>
 <p>重點是：<br />
 <strong>user mode 的 process 每次要碰 memory，都要先確認沒有越過自己的合法 logical address space(邏輯位址空間)。</strong></p>
+<p>也就是：</p>
+<p><strong>先檢查 logical address，再加 base 變 physical address。</strong></p>
+<ol>
+<li><code>LA &lt; limit ?</code></li>
+<li>若合法：<code>PA = base + LA</code></li>
+<li>若不合法：trap to OS</li>
+</ol>
 <hr />
 <h3 id="5-最容易混淆的地方">5. 最容易混淆的地方<a class="headerlink" href="#5-最容易混淆的地方" title="Permanent link"></a></h3>
 <p>第一個常見錯法是把 base 當成 limit。<br />
