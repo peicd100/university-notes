@@ -3826,16 +3826,34 @@ html.peicd-image-viewer-open body {
 
 [data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar,
 [data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar {
-  --peicd-toc-card-bg: linear-gradient(180deg, rgba(8, 8, 8, 0.98) 0%, rgba(0, 0, 0, 0.97) 100%);
-  --peicd-toc-card-border: rgba(114, 227, 253, 0.14);
-  --peicd-toc-card-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.24);
-  --peicd-toc-head-bg: linear-gradient(180deg, rgba(8, 8, 8, 0.995) 0%, rgba(2, 2, 2, 0.97) 82%, rgba(2, 2, 2, 0.94) 100%);
+  --peicd-toc-card-bg: #000000;
+  --peicd-toc-card-border: rgba(114, 227, 253, 0.16);
+  --peicd-toc-card-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.42);
+  --peicd-toc-head-bg: #000000;
   --peicd-toc-track: rgba(114, 227, 253, 0.12);
   --peicd-toc-track-strong: rgba(114, 227, 253, 0.18);
   --peicd-toc-text-soft: rgba(219, 229, 236, 0.76);
   --peicd-toc-text-strong: rgba(235, 242, 247, 0.96);
-  --peicd-toc-surface-bg: rgba(14, 17, 22, 0.92);
-  --peicd-toc-surface-bg-strong: rgba(19, 24, 31, 0.96);
+  --peicd-toc-surface-bg: #000000;
+  --peicd-toc-surface-bg-strong: #050505;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-sidebar__inner,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-sidebar__scrollwrap,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav--secondary,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav__list,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav__item,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-sidebar__inner,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-sidebar__scrollwrap,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav--secondary,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav__list,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .md-nav__item {
+  background: #000000 !important;
+  background-color: #000000 !important;
 }
 
 [data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .md-sidebar__inner,
@@ -3856,6 +3874,8 @@ html.peicd-image-viewer-open body {
 [data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control,
 [data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toggle,
 [data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toggle,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close,
 [data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .md-nav__link,
 [data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .md-nav__link {
   background: var(--peicd-toc-surface-bg) !important;
@@ -3991,6 +4011,37 @@ html.peicd-image-viewer-open body {
   .md-sidebar--primary .md-nav__link--active::after,
   .md-sidebar--primary .md-nav__item--active > .md-nav__link::after {
     content: none !important;
+  }
+}
+
+/* 深色側邊抽屜：Material 的中/窄版 drawer 由多層 nav surface 組成，
+   需要一起壓成純黑，避免開啟側欄時露出藍灰底。 */
+[data-md-color-scheme="slate"] .md-sidebar--primary,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__inner,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__list,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item,
+[data-md-color-scheme="dracula"] .md-sidebar--primary,
+[data-md-color-scheme="dracula"] .md-sidebar--primary .md-sidebar__inner,
+[data-md-color-scheme="dracula"] .md-sidebar--primary .md-sidebar__scrollwrap,
+[data-md-color-scheme="dracula"] .md-sidebar--primary .md-nav,
+[data-md-color-scheme="dracula"] .md-sidebar--primary .md-nav__list,
+[data-md-color-scheme="dracula"] .md-sidebar--primary .md-nav__item {
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
+
+[data-md-color-scheme="slate"] .md-overlay,
+[data-md-color-scheme="dracula"] .md-overlay {
+  background: rgba(0, 0, 0, 0.78) !important;
+}
+
+@media (max-width: 76.249em) {
+  [data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap,
+  [data-md-color-scheme="dracula"] .md-sidebar--primary .md-sidebar__scrollwrap {
+    border-right: 1px solid rgba(114, 227, 253, 0.16) !important;
+    box-shadow: 14px 0 30px rgba(0, 0, 0, 0.72) !important;
   }
 }
 
