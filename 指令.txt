@@ -1,4 +1,1 @@
-﻿a,b 是合法的，c,d 不合法。a 實體位置在 5000，b 實體位置在 5299。
-
-
-valid logical address range： 0~299，valid physical address range： 5000~5299
+﻿

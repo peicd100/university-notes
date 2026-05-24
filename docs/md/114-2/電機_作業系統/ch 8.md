@@ -205,3 +205,99 @@ Memory management is needed because a program must be loaded from disk into main
     外部課程講義也用同樣定義：logical address 是 CPU 產生，也叫 virtual address；physical address 是 memory module 看到的位址。[ocw.nthu.edu.tw](https://ocw.nthu.edu.tw/ocw/upload/141/news/%E5%91%A8%E5%BF%97%E9%81%A0%E6%95%99%E6%8E%88%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1_chap%EF%BC%908%EF%BC%BFOperating%20System%20Chap8%20Memory%20Management%EF%BC%BF.pdf?utm_source=chatgpt.com) 社群討論裡常見的混淆也正是「程式看到的位址」和「RAM 實際位置」混在一起。
     
     
+
+
+## ⭐Address Binding — 程式的位址到底什麼時候變成真正的記憶體位置？
+
+講義位置：PDF viewer page 5 ~ PDF viewer page 7
+
+### 1. 這個概念在解決什麼問題？
+
+程式寫出來時，裡面會有很多 address(位址)：例如某個變數在哪裡、某段 code 從哪裡開始執行。
+
+但問題是：
+
+**程式還沒真的執行前，我們不一定知道它會被放到 main memory(主記憶體) 的哪個位置。**
+
+所以 `Address Binding(位址連結)` 在問：
+
+**程式中的位址，要在什麼時候綁定成真正可執行／可存取的記憶體位置？**
+
+講義 page 5 直接定義：Address Binding 是決定程式起始位置，也就是程式要在記憶體哪個地方開始執行。
+
+---
+
+### 2. 三種 Binding Time(連結時機)
+
+### 2.1 Compile Time Binding(編譯時間連結)
+
+在 compile time(編譯時間)，compiler(編譯器) 就決定程式將來執行的起始位址。
+
+直覺例子：
+像你在搬家前就指定「我一定要住 5000 號房」。如果到時候 5000 號房已經有人住，你就麻煩了。
+
+缺點是：
+如果那個位址被其他程式佔用，或之後想換位置，就要 recompile(重新編譯)。講義 page 5 也明確列這個缺點。
+
+---
+
+### 2.2 Load Time Binding(載入時間連結)
+
+在 load time(載入時間)，由 linking loader / linkage editor 決定程式載入 memory 的起始位置。
+
+直覺例子：
+你不是一開始就指定房號，而是到飯店 check-in 時，櫃台看哪間空房再安排你。
+
+優點是比 compile time 彈性高。
+但缺點是：程式一旦載入並開始執行，起始位址仍不能在執行期間改變。講義 page 5 也說，load time binding 支援 relocation(重定位)，但程式執行期間仍不可以改變起始位址。
+
+---
+
+### 2.3 Execution Time Binding(執行時間連結)
+
+在 execution time(執行時間)，OS 可以在程式執行期間動態決定或調整程式起始位置，所以又稱 `dynamic binding(動態連結／動態位址綁定)`。
+
+這需要額外硬體支援：`MMU(Memory-Management Unit，記憶體管理單元)`。
+
+講義 page 6 說，execution time binding 由 OS 動態決定，需要 MMU；`Base Register(基底暫存器)` 記錄目前程式起始位址，`Local Address(區域位址)` 要和 base register 相加才會得到 physical address。
+
+---
+
+### 3. 為什麼 page 7 要接在 Address Binding 後面？
+
+因為如果位址可以被轉換，我們就要分清楚兩種位址：
+
+1. `Logical Address(邏輯位址)`：CPU / process 產生的位址。
+2. `Physical Address(實體位址)`：memory unit 真正看到、真正拿去存取 RAM 的位址。
+
+講義 page 7 明確定義：CPU 產生的位址通常稱為 logical address；記憶體單元看到的位址，也就是載入到 memory-address register 的數值，稱為 physical address。
+
+所以 page 5～7 其實在講同一條故事：
+
+**程式的位址何時決定？如果執行時才決定，就會出現 logical address 到 physical address 的轉換問題。**
+
+---
+
+### 4. 核心流程圖
+
+```mermaid
+flowchart LR
+    A["Program uses address<br>程式中的位址"] --> B{"When is the address<br>bound to memory?"}
+    B --> C["Compile time<br>編譯時就固定"]
+    B --> D["Load time<br>載入時決定"]
+    B --> E["Execution time<br>執行時動態決定"]
+    E --> F["MMU translates<br>logical address to physical address"]
+    F --> G["Memory unit accesses<br>physical address"]
+```
+
+---
+
+### 5. 最短記法
+
+`Address Binding` = **程式位址什麼時候變成記憶體位置**。
+
+三種時機：
+
+1. `Compile time`：編譯時固定，最不彈性。
+2. `Load time`：載入時決定，執行期間不能改。
+3. `Execution time`：執行時動態決定，最彈性，需要 MMU，效能較差。
