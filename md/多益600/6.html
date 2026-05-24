@@ -65,22 +65,28 @@
    句子 TTS：文字 + 按鈕（避免 st/nd 跑位）
    ========================= */
 :root{
-  --tts-accent: var(--md-primary-fg-color, #7ad3ff);
-  --tts-accent-strong: var(--md-accent-fg-color, var(--tts-accent));
-  --tts-surface: var(--peicd-card, rgba(22, 28, 38, 0.96));
-  --tts-surface-strong: var(--peicd-surface-2, rgba(20, 25, 35, 0.98));
-  --tts-border: rgba(122, 211, 255, 0.32);
-  --tts-border-soft: rgba(255, 255, 255, 0.08);
-  --tts-muted: rgba(255, 255, 255, 0.6);
-  --tts-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --tts-accent: #72e3fd;
+  --tts-accent-strong: #7ad3ff;
+  --tts-surface: #050607;
+  --tts-surface-strong: #090b0e;
+  --tts-surface-control: #0d1116;
+  --tts-surface-control-hover: #101820;
+  --tts-border: rgba(114, 227, 253, 0.34);
+  --tts-border-soft: rgba(151, 188, 202, 0.18);
+  --tts-muted: rgba(224, 234, 241, 0.64);
+  --tts-text: rgba(239, 246, 249, 0.9);
+  --tts-shadow: 0 1.1rem 2.6rem rgba(0, 0, 0, 0.56);
 }
 [data-md-color-scheme="default"],
 [data-md-color-scheme="light"]{
   --tts-surface: #ffffff;
   --tts-surface-strong: #ffffff;
+  --tts-surface-control: #ffffff;
+  --tts-surface-control-hover: rgba(19, 73, 97, 0.06);
   --tts-border: rgba(0, 0, 0, 0.16);
   --tts-border-soft: rgba(0, 0, 0, 0.08);
   --tts-muted: rgba(0, 0, 0, 0.6);
+  --tts-text: rgba(0, 0, 0, 0.87);
   --tts-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
 }
 
@@ -241,16 +247,16 @@
   z-index: 9998;
   display: none;
 
-  min-width: min(520px, 92vw);
-  padding: 12px 14px;
-  border-radius: 16px;
+  min-width: min(500px, 92vw);
+  padding: 14px 16px 16px;
+  border-radius: 10px;
 
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), var(--tts-surface);
-  border: 1px solid var(--tts-border-soft);
+  background: var(--tts-surface);
+  border: 1px solid rgba(114, 227, 253, 0.22);
   box-shadow: var(--tts-shadow);
-  backdrop-filter: blur(12px);
+  color: var(--tts-text);
 
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: normal;
 
   max-width: calc(100vw - 16px);
@@ -271,35 +277,47 @@
 
 .tts-vp-row{
   display: grid;
-  grid-template-columns: 36px 1fr;
-  align-items: start;
-  gap: 10px;
-  margin: 6px 0;
-  padding: 6px 2px;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 7px 0;
 }
 .tts-vp-row + .tts-vp-row{
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 7px;
+}
+.tts-vp-row:first-child{
+  grid-template-columns: 32px minmax(0, 1fr);
+  border-bottom: 1px solid var(--tts-border-soft);
+  margin-bottom: 5px;
+  padding-bottom: 12px;
+}
+.tts-vp-row:has(#tts-autoscroll-toggle),
+.tts-vp-row:has(.tts-dd[data-kind="en"]){
   border-top: 1px solid var(--tts-border-soft);
-  margin-top: 10px;
-  padding-top: 12px;
+  margin-top: 8px;
+  padding-top: 13px;
 }
 .tts-vp-row .lbl{
   color: var(--tts-muted);
-  padding-top: 6px;
   user-select: none;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  font-size: 0.58rem;
+  font-weight: 700;
 }
 
 /* =========================
    Auto（自動朗讀）按鈕：放在語言選擇左側
    ========================= */
 #tts-autoread-toggle{
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
+  width: 27px;
+  height: 27px;
+  border-radius: 7px;
   border: 1px solid var(--tts-border-soft);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tts-surface-control);
   color: inherit;
   cursor: pointer;
   display: inline-grid;
@@ -313,27 +331,33 @@
   outline-offset: 2px;
 }
 #tts-autoread-toggle .dot{
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: currentColor;
-  opacity: .75;
+  opacity: .56;
+  transition: background 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
 }
 #tts-autoread-toggle[data-mode="armed"]{
   border-color: var(--md-accent-fg-color, rgba(255,255,255,.45));
 }
 #tts-autoread-toggle[data-mode="armed"] .dot{
+  background: var(--tts-accent);
+  box-shadow: 0 0 0.65rem rgba(114, 227, 253, 0.32);
   opacity: 1;
 }
 #tts-autoread-toggle[data-mode="running"]{
   border-color: var(--md-accent-fg-color, rgba(255,255,255,.55));
+  background: rgba(114, 227, 253, 0.12);
 }
 #tts-autoread-toggle[data-mode="running"] .dot{
+  background: var(--tts-accent);
+  box-shadow: 0 0 0.75rem rgba(114, 227, 253, 0.42);
   opacity: 1;
 }
 #tts-autoread-hint{
-  padding-top: 4px;
-  font-size: 0.88rem;
+  font-size: 0.76rem;
+  font-weight: 700;
   opacity: .85;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -346,17 +370,53 @@
 .tts-kv{
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
 }
 .tts-kv input[type="range"]{
   width: 100%;
-  accent-color: var(--md-primary-fg-color);
+  min-width: 0;
+  appearance: none;
+  background: transparent;
+  accent-color: var(--tts-accent);
+  cursor: pointer;
+}
+.tts-kv input[type="range"]::-webkit-slider-runnable-track{
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(224, 234, 241, 0.28);
+  border: 1px solid rgba(224, 234, 241, 0.18);
+}
+.tts-kv input[type="range"]::-webkit-slider-thumb{
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: var(--tts-accent);
+  border: 2px solid var(--tts-surface);
+  box-shadow: 0 0 0 1px rgba(114, 227, 253, 0.55), 0 0 0.7rem rgba(114, 227, 253, 0.22);
+}
+.tts-kv input[type="range"]::-moz-range-track{
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(224, 234, 241, 0.28);
+  border: 1px solid rgba(224, 234, 241, 0.18);
+}
+.tts-kv input[type="range"]::-moz-range-thumb{
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--tts-accent);
+  border: 2px solid var(--tts-surface);
+  box-shadow: 0 0 0 1px rgba(114, 227, 253, 0.55);
 }
 .tts-kv .val{
-  min-width: 74px;
+  min-width: 64px;
   text-align: right;
-  opacity: .85;
+  color: rgba(239, 246, 249, 0.86);
+  font-size: 0.82rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   user-select: none;
 }
@@ -370,12 +430,13 @@
   gap: 10px;
 
   font: inherit;
-  font-size: 1rem;
-  padding: 10px 12px;
-  border-radius: 12px;
+  font-size: 0.9rem;
+  min-height: 2.28rem;
+  padding: 0.48rem 0.62rem;
+  border-radius: 8px;
 
   border: 1px solid var(--tts-border-soft);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tts-surface-control);
   color: inherit;
   cursor: pointer;
 
@@ -383,7 +444,7 @@
 }
 .tts-toggle-btn:hover{
   border-color: var(--tts-border);
-  background: rgba(122, 211, 255, 0.08);
+  background: var(--tts-surface-control-hover);
 }
 .tts-toggle-btn:focus-visible{
   outline: 2px solid var(--md-accent-fg-color, currentColor);
@@ -392,12 +453,17 @@
 .tts-toggle-btn .state{
   opacity: .9;
   user-select: none;
-  padding: 0 8px;
+  padding: 0.08rem 0.42rem;
   border-radius: 999px;
   border: 1px solid var(--tts-border-soft);
+  color: var(--tts-muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
 }
 .tts-toggle-btn[data-on="true"] .state{
   border-color: var(--tts-border);
+  color: #dff8ff;
+  background: rgba(114, 227, 253, 0.1);
 }
 
 /* =========================
@@ -411,11 +477,12 @@
   gap: 10px;
 
   font: inherit;
-  font-size: 1rem;
-  padding: 10px 12px;
-  border-radius: 12px;
+  font-size: 0.9rem;
+  min-height: 2.28rem;
+  padding: 0.48rem 0.62rem;
+  border-radius: 8px;
   border: 1px solid var(--tts-border-soft);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tts-surface-control);
   color: inherit;
   cursor: pointer;
 
@@ -423,7 +490,7 @@
 }
 .tts-dd-btn:hover{
   border-color: var(--tts-border);
-  background: rgba(122, 211, 255, 0.08);
+  background: var(--tts-surface-control-hover);
 }
 .tts-dd-btn:focus-visible{
   outline: 2px solid var(--md-accent-fg-color, currentColor);
@@ -440,8 +507,8 @@
 }
 
 .tts-dd-list{
-  margin-top: 8px;
-  border-radius: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
   border: 1px solid var(--tts-border-soft);
   background: var(--tts-surface-strong);
   overflow: auto;
@@ -452,29 +519,33 @@
 .tts-dd.open .tts-dd-list{ display: block; }
 
 .tts-dd-item{
-  padding: 10px 10px;
+  padding: 0.48rem 0.6rem;
   cursor: pointer;
   user-select: none;
   line-height: 1.25;
   border-bottom: 1px solid var(--tts-border-soft);
+  color: rgba(239, 246, 249, 0.78);
+  font-size: 0.86rem;
 }
 .tts-dd-item:last-child{ border-bottom: 0; }
 .tts-dd-item:hover{
-  background: rgba(122, 211, 255, 0.08);
+  color: #e2fbff;
+  background: rgba(114, 227, 253, 0.08);
 }
 .tts-dd-item.active{
-  background: rgba(122, 211, 255, 0.14);
-  outline: 1px solid rgba(122, 211, 255, 0.35);
+  color: #e2fbff;
+  background: rgba(114, 227, 253, 0.12);
+  outline: 1px solid rgba(114, 227, 253, 0.28);
 }
 
-/* dracula：更黑（暗色不動） */
+/* dracula：維持黑底工具面板 */
 [data-md-color-scheme="dracula"] #tts-voice-panel-portal{
-  background: #1b1d24;
-  border-color: rgba(255,255,255,.18);
+  background: var(--tts-surface);
+  border-color: rgba(114, 227, 253, 0.22);
 }
 [data-md-color-scheme="dracula"] .tts-dd-list{
-  background: #13151b;
-  border-color: rgba(255,255,255,.18);
+  background: var(--tts-surface-strong);
+  border-color: var(--tts-border-soft);
 }
 
 /* =========================
@@ -1885,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260524-5">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260524-6">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6506,7 +6577,7 @@ is now available!
       
         <script src="../../assets/pymdownx-extras/markdown-embed.js?v=20260516-1"></script>
       
-        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260320-3"></script>
+        <script src="../../assets/pymdownx-extras/folder-path-bar.js?v=20260524-1"></script>
       
         <script src="../../assets/pymdownx-extras/legacy-image-width.js"></script>
       

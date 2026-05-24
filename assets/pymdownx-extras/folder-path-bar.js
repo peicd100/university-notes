@@ -72,6 +72,18 @@
     });
   }
 
+  function scrollCurrentOptionIntoView(menu) {
+    const current = menu && menu.querySelector("." + BAR_CLASS + "__option--current");
+    if (!current) return;
+    requestAnimationFrame(() => {
+      try {
+        current.scrollIntoView({ block: "center", inline: "nearest" });
+      } catch (_) {
+        current.scrollIntoView(false);
+      }
+    });
+  }
+
   function bindGlobalClose() {
     if (outsideBound) return;
     outsideBound = true;
@@ -161,6 +173,7 @@
       closeMenus(item);
       item.classList.toggle(OPEN_CLASS, nextOpen);
       button.setAttribute("aria-expanded", String(nextOpen));
+      if (nextOpen) scrollCurrentOptionIntoView(menu);
     });
 
     item.appendChild(button);

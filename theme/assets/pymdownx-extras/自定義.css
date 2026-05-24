@@ -890,6 +890,53 @@ body {
   color: rgba(114, 227, 253, 0.78);
 }
 
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__toggle:hover,
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__toggle:focus-visible,
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__toggle:hover,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__toggle:focus-visible,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__item.is-open .peicd-folder-pathbar__toggle {
+  background: rgba(114, 227, 253, 0.08) !important;
+  background-image: none !important;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(114, 227, 253, 0.28), 0 0 0.75rem rgba(0, 0, 0, 0.24) !important;
+  color: #e2fbff !important;
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__menu,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__menu {
+  background: #050607;
+  border-color: rgba(114, 227, 253, 0.26);
+  border-radius: 8px;
+  box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.46);
+  padding: 0.28rem;
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__option,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__option {
+  border-radius: 5px;
+  color: rgba(224, 234, 241, 0.72) !important;
+  padding: 0.5rem 0.62rem;
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__option:hover,
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__option:focus-visible,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__option:hover,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__option:focus-visible {
+  background: rgba(114, 227, 253, 0.08) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: #e2fbff !important;
+}
+
+[data-md-color-scheme="slate"] .peicd-folder-pathbar__option--current,
+[data-md-color-scheme="dracula"] .peicd-folder-pathbar__option--current {
+  background: rgba(114, 227, 253, 0.12) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px rgba(114, 227, 253, 0.28) !important;
+  color: #e2fbff !important;
+}
+
 .peicd-folder-pathbar--hidden {
   opacity: 0;
   pointer-events: none;
