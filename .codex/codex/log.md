@@ -1,5 +1,25 @@
 # log
 
+## 2026-05-24 19:49：首頁 blog 方塊黑底風格調整
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：深色 blog excerpt 移除藍灰玻璃漸層、網格掃描線與大面積 glow，改純黑底、薄 cyan 邊界、低調角標與淺青白標題；CSS cache 版本更新為 `20260524-9`。
+- 驗證結果：`mkdocs build --clean` 通過；本機 `blog/index.html` 桌機量測 3 張 blog cards 為 `rgb(0, 0, 0)` 且 `background-image:none`；390px 窄版無水平 overflow，console error 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的 Blog excerpt 條目、`VERIFY.md` 的前端互動。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/artifacts/blog-cards-black-20260524-1949.png`。
+
+## 2026-05-24 19:42：右側 TOC 黑底修正
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：深色右側 TOC 的 card/head/link/control surface 改成純黑，current/active 只用 `#050505` 與細 cyan 內框；移除藍灰 surface 與明顯外光，CSS cache 版本更新為 `20260524-8`。
+- 驗證結果：`mkdocs build --clean` 通過；本機 `ch 8.html` 在 1212px 量測右側 TOC inner/scrollwrap/head/control/一般章節 link 為 `rgb(0, 0, 0)`，目前項目為 `rgb(5, 5, 5)`，console error 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的右側 TOC 深色模式條目、`VERIFY.md` 的前端互動。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/artifacts/right-toc-black-20260524-1942.png`。
+
 ## 2026-05-24 19:29：中版面側邊欄 drawer 黑底修正
 
 - 任務類型：ui

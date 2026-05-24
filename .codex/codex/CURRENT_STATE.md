@@ -2,6 +2,8 @@
 
 ## 目前狀態
 
+- 2026-05-24 已調整首頁 blog 方塊風格：`自定義.css` 在深色模式移除 blog excerpt 的藍灰玻璃底、網格與大面積 glow，改為純黑底、薄 cyan 邊界與低調角標；`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-9`。
+- 2026-05-24 已修正右側 TOC 深色背景：`自定義.css` 將深色 `peicd-toc-sidebar` 的 card/head/link/control surface 改為純黑或極深近黑，移除藍灰 surface 與外光，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-8`。
 - 2026-05-24 已修正中/窄版側邊欄開啟時的藍灰底：`自定義.css` 讓 primary drawer 的 sidebar/inner/scrollwrap/nav/list/item 都強制為 `#000000`，overlay 改為黑色半透明，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-7`。
 - 2026-05-24 已改良 TTS 面板與路徑下拉選單視覺：`tts.html` 的語音面板改為純黑薄線、緊湊控制列與固定 cyan 重點色；`自定義.css` 讓深色路徑 dropdown 取消厚重四角框，改為小圓角薄選取底色；`folder-path-bar.js` 開啟頁面選單時會自動捲到目前頁，`mkdocs.yml` 更新 CSS/JS cache 版本。
 - 2026-05-24 已修正中版面深色側欄目前頁重複：`自定義.css` 在 `max-width: 76.249em` 隱藏 primary sidebar 的 `label[for="__toc"]`，只保留真正頁面連結；同時提高深色路徑列目前資料夾/頁面的文字對比，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-5`。
@@ -29,6 +31,10 @@
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name blog-card-black-style-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8045/blog/index.html`；972px 桌機量測 3 張 blog cards 為 `rgb(0, 0, 0)`、`background-image:none`、標題 `rgb(226, 251, 255)`；390px 窄版無水平 overflow，標題寬度小於卡片寬度，console error 為空。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name right-toc-black-build-2 -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8044/` 開啟 `ch 8.html`；1212px 右側 TOC 的 inner/scrollwrap/head/control/一般章節 link 為 `rgb(0, 0, 0)`，目前項目為 `rgb(5, 5, 5)` 與細 cyan 內框，console error 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name drawer-black-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
 - 已完成：本機 `http://127.0.0.1:8043/` 開啟 `ch 8.html`；1212px 中版面打開 drawer 後，`.md-sidebar--primary`、`.md-sidebar__scrollwrap`、`.md-nav`、`.md-nav__list` 均為 `rgb(0, 0, 0)`，`.md-overlay` 為 `rgba(0, 0, 0, 0.78)`，console error 為空。
 - 已完成：`node --check docs\theme\assets\pymdownx-extras\folder-path-bar.js`。

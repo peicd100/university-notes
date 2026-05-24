@@ -3087,6 +3087,98 @@ html.peicd-image-viewer-open body {
   }
 }
 
+/* Blog cards：深色模式跟隨目前黑底筆記風格，移除藍灰玻璃底與網格。 */
+[data-md-color-scheme="slate"] .md-post--excerpt,
+[data-md-color-scheme="dracula"] .md-post--excerpt {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  border: 1px solid rgba(114, 227, 253, 0.16) !important;
+  border-radius: 0 !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.035) inset,
+    0 16px 32px rgba(0, 0, 0, 0.48) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  min-height: 9.2rem;
+  padding: 1.1rem 1.25rem 1rem !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
+}
+
+[data-md-color-scheme="slate"] .md-post--excerpt::before,
+[data-md-color-scheme="dracula"] .md-post--excerpt::before {
+  filter: none !important;
+  opacity: 0.72 !important;
+}
+
+[data-md-color-scheme="slate"] .md-post--excerpt::after,
+[data-md-color-scheme="dracula"] .md-post--excerpt::after {
+  content: none !important;
+  display: none !important;
+}
+
+[data-md-color-scheme="slate"] .md-post--excerpt:hover,
+[data-md-color-scheme="slate"] .md-post--excerpt:focus-within,
+[data-md-color-scheme="dracula"] .md-post--excerpt:hover,
+[data-md-color-scheme="dracula"] .md-post--excerpt:focus-within {
+  border-color: rgba(114, 227, 253, 0.28) !important;
+  box-shadow:
+    0 0 0 1px rgba(114, 227, 253, 0.14) inset,
+    0 18px 36px rgba(0, 0, 0, 0.58) !important;
+  filter: none !important;
+  transform: translateY(-1px) !important;
+}
+
+[data-md-color-scheme="slate"] .md-post--excerpt:hover::before,
+[data-md-color-scheme="dracula"] .md-post--excerpt:hover::before {
+  filter: none !important;
+  opacity: 0.95 !important;
+  transform: none !important;
+}
+
+[data-md-color-scheme="slate"] .md-post__meta,
+[data-md-color-scheme="dracula"] .md-post__meta {
+  color: rgba(219, 229, 236, 0.58) !important;
+  letter-spacing: 0 !important;
+}
+
+[data-md-color-scheme="slate"] .md-post__content h2,
+[data-md-color-scheme="dracula"] .md-post__content h2 {
+  margin: 0.12rem 0 0.24rem !important;
+}
+
+[data-md-color-scheme="slate"] .md-post__content h2 a,
+[data-md-color-scheme="dracula"] .md-post__content h2 a {
+  color: rgb(226, 251, 255) !important;
+  font-size: 1.22rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  text-decoration-color: rgba(114, 227, 253, 0.58) !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+[data-md-color-scheme="slate"] .md-post__content h2 a:hover,
+[data-md-color-scheme="dracula"] .md-post__content h2 a:hover {
+  color: #72e3fd !important;
+}
+
+[data-md-color-scheme="slate"] .md-post__action,
+[data-md-color-scheme="dracula"] .md-post__action {
+  margin-top: auto;
+}
+
+[data-md-color-scheme="slate"] .md-post__action a,
+[data-md-color-scheme="dracula"] .md-post__action a {
+  color: #72e3fd !important;
+  font-size: 0.64rem;
+  letter-spacing: 0 !important;
+  text-decoration-color: rgba(114, 227, 253, 0.62) !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
 /* ==========================================================================
    33) LaTeX（歷史設定：漸層版本；後面會被透明版覆蓋）
    - 這些片段保留不刪除
@@ -3892,6 +3984,29 @@ html.peicd-image-viewer-open body {
 [data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-toc-link--proxy-current {
   background: var(--peicd-toc-surface-bg-strong) !important;
   color: var(--peicd-nav-text) !important;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control:hover,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control:focus-visible,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control[aria-pressed="true"],
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control--active,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toggle:hover,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close:hover,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close:focus-visible,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .md-nav__item > .md-nav__link:hover,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-toc-link--current,
+[data-md-color-scheme="slate"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-toc-link--proxy-current,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control:hover,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control:focus-visible,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control[aria-pressed="true"],
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control--active,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toggle:hover,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close:hover,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-close:focus-visible,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .md-nav__item > .md-nav__link:hover,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-toc-link--current,
+[data-md-color-scheme="dracula"] .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-toc-link--proxy-current {
+  box-shadow: 0 0 0 1px rgba(114, 227, 253, 0.18) inset !important;
 }
 
 @media (max-width: 76.249em) {

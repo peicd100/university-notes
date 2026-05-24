@@ -1,7 +1,4 @@
-﻿必需要在 main memory 是因為如果在 disk 太慢了。
+﻿a,b 是合法的，c,d 不合法。a 實體位置在 5000，b 實體位置在 5299。
 
 
-
-允許的範圍： 30000~41999，共 12000，都不合法，因為不在範圍30000~41999中
-
-base register 是一個 process 允許存取的起點，limit register 是 process 允許存取的範圍，process 要存取資料時，OS 要先判斷 process 要存取的位置是否在 base ~ base + limit -1
+valid logical address range： 0~299，valid physical address range： 5000~5299

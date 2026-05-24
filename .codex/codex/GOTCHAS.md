@@ -120,6 +120,25 @@
 - 不要做：不要只把 `.md-nav__title[for]` 或連結背景改黑；Material 的 drawer 由多層容器組成，漏一層就會在開啟側欄時露出藍灰底。
 - 驗證方式：以約 1212px 寬度開啟 `ch 8.html` 並打開左側 drawer，量測 primary sidebar/scrollwrap/nav/list 應為 `rgb(0, 0, 0)`，overlay 應為黑色半透明，console error/warn 為空。
 
+## 右側 TOC 深色模式不可留下藍灰 surface
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-24
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`peicd-toc-sidebar`。
+- 正確做法：深色 TOC 的 `--peicd-toc-card-bg`、`--peicd-toc-head-bg`、`--peicd-toc-surface-bg` 應為 `#000000`，目前項目只用 `#050505` 加細 cyan 內框；inner/scrollwrap/nav/list/item 也要保底為黑色。
+- 不要做：不要只改外層 `.md-sidebar__inner`；章節 link、控制按鈕、toggle、mobile close 仍可能用藍灰 surface 或外光，會讓右側欄看起來不是黑色。
+- 驗證方式：以約 1212px 寬度開啟 `ch 8.html`，量測右側 TOC inner/scrollwrap/head/control/一般章節 link 應為 `rgb(0, 0, 0)`，目前項目可為 `rgb(5, 5, 5)`，console error/warn 為空。
+
+## Blog excerpt 深色模式不可回到藍灰玻璃卡
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-24
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、MkDocs Material blog index。
+- 正確做法：深色 `article.md-post--excerpt` 應使用 `#000000`、薄 cyan 邊界與低調角標；一般卡片不可有 background image，標題維持高對比淺青白。
+- 不要做：不要保留原本的 radial/linear 玻璃漸層、掃描線、網格或大面積外光；首頁會和目前黑底筆記/TOC 風格不一致。
+- 驗證方式：開啟 `blog/index.html`，桌機量測 blog card 為 `rgb(0, 0, 0)` 且 `background-image:none`；390px 窄版無水平 overflow，標題寬度應小於卡片寬度，console error/warn 為空。
+
 ## .codex/ Git 忽略策略
 
 - 狀態：active

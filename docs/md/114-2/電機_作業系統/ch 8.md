@@ -53,13 +53,23 @@ Base/Limit 的精神不是「相信程式自己守規矩」，而是硬體協助
 
 ```mermaid
 flowchart LR
-    A["Process in user mode<br>產生 logical address"] --> B{"Is address within<br>base + limit range?"}
-    B -- "Yes" --> C["Allow memory access<br>轉成合法 physical memory access"]
-    B -- "No" --> D["Trap / addressing error<br>交給 OS 處理"]
+    A["Process in user mode<br>CPU generates logical address LA"] --> B{"Is LA within<br>0 <= LA < limit?"}
+    B -- "No" --> E["Trap / addressing error<br>交給 OS 處理"]
+    B -- "Yes" --> C["Translate address<br>PA = base + LA"]
+    C --> D["Allow memory access<br>Memory uses physical address PA"]
 ```
 
 重點是：
 **user mode 的 process 每次要碰 memory，都要先確認沒有越過自己的合法 logical address space(邏輯位址空間)。**
+
+也就是：
+
+**先檢查 logical address，再加 base 變 physical address。**
+
+1. `LA < limit ?`
+2. 若合法：`PA = base + LA`
+3. 若不合法：trap to OS
+    
 
 ---
 
