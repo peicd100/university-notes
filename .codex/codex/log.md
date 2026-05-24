@@ -1,5 +1,15 @@
 # log
 
+## 2026-05-24 19:19：TTS 面板與路徑下拉選單視覺改良
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/tts.html`、`docs/theme/assets/pymdownx-extras/自定義.css`、`docs/theme/assets/pymdownx-extras/folder-path-bar.js`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：TTS 面板改為純黑薄線工具面板、控制列更緊湊並固定 cyan 重點色；路徑 dropdown 移除厚重四角框，改小圓角與薄選取底色，且開啟時自動捲到目前頁。
+- 驗證結果：`folder-path-bar.js` node check 通過；`mkdocs build --clean` 通過；本機 `ch 8.html` 實測 TTS 面板與路徑 dropdown 色彩/目前頁可視狀態，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`ARCHITECTURE.md` 的 Folder Path Bar、`VERIFY.md` 的前端互動。
+- 相關檔案：`docs/theme/tts.html`、`docs/theme/assets/pymdownx-extras/自定義.css`、`docs/theme/assets/pymdownx-extras/folder-path-bar.js`、`mkdocs.yml`。
+
 ## 2026-05-24 19:01：中版面側欄重複目前頁與路徑列對比修正
 
 - 任務類型：ui

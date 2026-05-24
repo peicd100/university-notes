@@ -33,6 +33,13 @@
 - 載入位置：`docs/theme/main.html` 的 `scripts` block，位於 `{{ super() }}` 後。
 - Material `navigation.instant` 啟用時，要使用 `DOMContentLoaded`、`load` 與 `window.document$.subscribe(...)` 補初始化。
 
+## Folder Path Bar
+
+- 邏輯：`docs/theme/assets/pymdownx-extras/folder-path-bar.js`
+- 樣式：`docs/theme/assets/pymdownx-extras/自定義.css`
+- 功能：在文章 H1 上方插入檔案總管式路徑列，提供章節與頁面下拉切換。
+- 互動：桌機/中版面使用自製 dropdown；開啟頁面 dropdown 時會把目前頁 `.peicd-folder-pathbar__option--current` 捲入可視範圍。窄版使用 native select。
+
 ## Dark Theme
 
 - `docs/theme/assets/pymdownx-extras/自定義.css` 在 `slate` 與 `dracula` 主題下覆寫 Material 背景變數。
