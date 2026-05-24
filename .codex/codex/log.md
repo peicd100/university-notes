@@ -1,5 +1,35 @@
 # log
 
+## 2026-05-25 01:08：中型版面左緣文字暗邊修正
+
+- 任務類型：bugfix
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`
+- 主要決策：不改字體；將中型版面收起的 primary drawer 陰影改為 `box-shadow:none`，只在 drawer checked/open 時加回原本右向陰影；CSS cache 版本更新為 `20260525-4`。
+- 驗證結果：`mkdocs build --clean` 成功；Chrome/Playwright 於 1200px 量測 drawer 收起時 `box-shadow:none`、打開時恢復 `rgba(0, 0, 0, 0.72) 14px 0px 30px`，`body` 字體仍為 `"Cascadia Mono", monospace`。
+- 尚未完成：無。
+- 下次建議先讀：`GOTCHAS.md` 的「中型版面文章左緣被收起 drawer 陰影壓暗」。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
+## 2026-05-25 00:55：恢復原本正文字體
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`
+- 主要決策：依使用者要求撤回 CJK fallback 與正文可讀性字體實驗，正文回到原本 `var(--md-text-font), "Cascadia Mono", monospace`；CSS cache 版本更新為 `20260525-3`。
+- 驗證結果：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name restore-original-font-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean` 成功，returncode 0。
+- 尚未完成：無。
+- 下次建議先讀：`00_START_HERE.md` 的 UI 字體提示與 `GOTCHAS.md` 的「深色模式中文字左側暗邊」已取代條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
+## 2026-05-25 00:34：深色模式中文字清晰度改善
+
+- 任務類型：bugfix
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`
+- 主要決策：正文加入 CJK fallback、深色正文亮度提升到 `#f7faff`、字重 500、字距歸零，並加左向極淡補光與 0.32rem 行首安全距離降低黑底抗鋸齒暗邊。
+- 驗證結果：`mkdocs build --clean` 成功；Playwright 檢查「優點：節省」段落套用新字體棧、`rgb(247, 250, 255)`、`font-weight: 500`、`padding-inline-start: 6.4px`。
+- 尚未完成：無。
+- 下次建議先讀：`GOTCHAS.md` 的「深色模式中文字左側暗邊」。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
 ## 2026-05-24 19:49：首頁 blog 方塊黑底風格調整
 
 - 任務類型：ui

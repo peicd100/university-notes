@@ -1,5 +1,8 @@
 # CURRENT STATE
 
+- 2026-05-25 已修正中型版面文章左緣被 drawer 陰影壓暗：`自定義.css` 讓收起的 primary drawer scrollwrap 預設 `box-shadow:none`，只在 `[data-md-toggle="drawer"]:checked` 時加回陰影；`mkdocs.yml` CSS cache 版本更新到 `20260525-4`。
+- 2026-05-25 已依使用者要求撤回正文 CJK fallback 與可讀性字體實驗：`自定義.css` 回到原本 `var(--md-text-font), "Cascadia Mono", monospace` 字體棧與既有字距設定；`mkdocs.yml` CSS cache 版本更新到 `20260525-3`。
+
 ## 目前狀態
 
 - 2026-05-24 已調整首頁 blog 方塊風格：`自定義.css` 在深色模式移除 blog excerpt 的藍灰玻璃底、網格與大面積 glow，改為純黑底、薄 cyan 邊界與低調角標；`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-9`。

@@ -1,5 +1,7 @@
 # 00 START HERE
 
+> UI 字體相關任務：正文預設維持原本 `var(--md-text-font), "Cascadia Mono", monospace`；不要再把全站正文改成 CJK fallback，除非使用者重新明確指定。
+
 ## 讀取順序
 
 1. `AGENTS.md`：每次新任務都先重新定位並完整讀取。

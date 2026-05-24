@@ -1,1 +1,5 @@
-﻿
+﻿因為error-handling routine很少用到，所以需要的時候再載入就好，可以節省 main memory 空間。
+
+static linking 是函式在執行之前就放在executable file中，然後也會一開始就載入到 main memory ，而dynamic linking是函式在需要時才會載入，所以不會一開始就放到 main memory 中。
+
+因為 dynamic linking 可以共用 libraries，也就是三個 process 共同使用一個位置的函式，可以節省 main memory空間。而如果是三個 process 都分別載入 libraries 的話會浪費空間，會用三倍的空間。

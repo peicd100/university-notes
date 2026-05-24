@@ -1,5 +1,27 @@
 # GOTCHAS
 
+## 中型版面文章左緣被收起 drawer 陰影壓暗
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-05-25
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css` 的 `max-width: 76.249em` primary drawer 樣式。
+- 正確做法：收起的 `.md-sidebar--primary .md-sidebar__scrollwrap` 不應有右向陰影；只在 `[data-md-toggle="drawer"]:checked ~ .md-container` 狀態下加回 drawer 陰影。
+- 不要做：不要用改字體、加正文 padding、正文 text-shadow 或 CJK fallback 解這個問題；也不要讓藏在 `left:-242px; right:0` 的 drawer 持續投影到文章前 1～2 個字。
+- 驗證方式：1212px 左右寬度開啟 `ch 8.html`，drawer 收起時 primary scrollwrap computed `box-shadow` 應為 `none`；點 hamburger 打開 drawer 後才應為 `rgba(0, 0, 0, 0.72) 14px 0px 30px`。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
+## 深色模式中文字左側暗邊
+
+- 狀態：superseded
+- 證據：user-requested
+- 日期：2026-05-25
+- 影響範圍：`docs/theme/assets/pymdownx-extras/自定義.css` 的正文閱讀樣式。
+- 正確做法：此條原本嘗試用 CJK fallback、較亮文字、字重 500、行首 padding 與左向 text-shadow 改善黑底中文字左側暗邊；但使用者不喜歡改後字體，已撤回。正文預設維持原本 `var(--md-text-font), "Cascadia Mono", monospace`。
+- 不要做：不要再把全站正文改成 CJK fallback 或額外調整正文 `font-weight`、行首 padding、補光 shadow，除非使用者重新要求。
+- 驗證方式：建置後確認 `body` 字體棧仍為 `var(--md-text-font), "Cascadia Mono", monospace`，且沒有全站 `.md-typeset` CJK fallback 覆蓋。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
 ## Source Jump 不可只靠頁面文字首次命中
 
 - 狀態：active
