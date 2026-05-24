@@ -2,6 +2,12 @@
 
 ## 目前狀態
 
+- 2026-05-24 已限制文章圖片寬度：`自定義.css` 使用 `--peicd-article-img-max-width`，桌機文章圖片最多佔內容寬度 70%，小圖不放大；窄螢幕回到 100%，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-4`。
+- 2026-05-24 已修正標題錨點換行：`自定義.css` 將 h2~h6 從可換行 flex 改為 block + 左側預留錨點空間，`.headerlink` 用 absolute 定位在同一行，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-2`。
+- 2026-05-24 已改善深色主題 `==mark==` 高亮：`自定義.css` 將深色模式 mark 改為暖黃色漸層、細外框與微光，`mkdocs.yml` 將 CSS cache 版本更新為 `20260524-1`。
+- 2026-05-23 已簡化 Source Jump 右鍵選單：只保留「開啟原文檔案」，移除「複製」按鈕與 clipboard 相關程式碼，`mkdocs.yml` 將 `source-jump.js` cache 版本更新為 `20260523-2`。
+- 2026-05-23 已將深色主題背景調成接近 ChatGPT 的黑底：body/container/main/content 為 `#000000`，header/tabs 為近黑透明底，Mermaid 圖卡與右側 TOC 改成黑底漸層。
+- 2026-05-23 已改善深色主題 Mermaid flowchart 對比：`mermaid-config-override.js` 合併高對比暗色 themeVariables/themeCSS，`自定義.css` 加外層保底樣式，`mkdocs.yml` 更新 cache 版本。
 - 2026-05-23 已修正 Source Jump「開啟原文檔案」看似沒反應的問題：後端會等待 VS Code CLI 回傳並把錯誤傳回前端；前端成功時會顯示短暫狀態，且右鍵事件會先阻止原生選單競態。
 - 2026-05-22 已將根目錄 `codex/`、`codex_tmp/`、`.codex_tmp/`、`vbs_bat/` 遷移到 `.codex/` 集中式協作目錄。
 - 2026-05-22 已修正 Mermaid htmlLabels 英文字母 descender 被切到的問題：`docs/theme/assets/pymdownx-extras/自定義.css` 將 Mermaid label 行高調整為 `1.18`，`docs/theme/assets/pymdownx-extras/mermaid-render-fix.js` 會在渲染後把每個 label `foreignObject` 高度加大 5px，並更新 `mkdocs.yml` CSS/JS cache 版本。
@@ -15,10 +21,25 @@
 
 ## 既有工作樹注意
 
-- 本次 Mermaid 修正未改動 `docs/md/114-2/電機_作業系統/ch 6.md` 筆記內容，只改共用樣式與協作目錄。
+- Mermaid 對比修正只改共用樣式、Mermaid config 與協作目錄；未改動 `docs/md/114-2/電機_作業系統/ch 7.md` 筆記內容。
+- `mkdocs.yml` 另有既有工作樹變更加入 `docs/md/114-2/電機_作業系統/ch 7.md` 導覽，非本次對比修正新增。
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`。
+- 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8037`，開啟 `ch 7.html`，桌機 1440px 量測文章圖片 `maxRatio=0.7`、`maxWidth=70%`；手機 390px 量測 `maxRatio=1`、`maxWidth=100%`，console error/warn 為空。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`。
+- 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8035`，開啟 `ch 7.html` 的 `⭐Resource-Allocation Graph Algorithm` h2，量測 `.headerlink` 與標題文字第一行 `sameLine=true`，console error/warn 為空。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name dark-mark-contrast-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`，returncode 0。
+- 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8035`，開啟 `ch 7.html` 目標 `==等它能重新取得舊資源和新資源時==`，確認 mark 套用暖黃色漸層、`rgb(255, 246, 207)` 文字、黑底 `rgb(0, 0, 0)`，console error/warn 為空。
+- 已完成：`node --check docs/theme/assets/pymdownx-extras/source-jump.js`。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name source-jump-menu-single-action-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機啟動 `mkdocs serve -f mkdocs.preview.yml --dirty -a 127.0.0.1:8034`，開啟 `ch 7.html` 後右鍵段落，確認 `#peicd-source-jump-menu` 只有 1 顆 `data-role="jump"` 按鈕，文字為「開啟原文檔案」，`hasCopy=false`，console error/warn 為空。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name dark-background-black-build-2 -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8033/` 開啟 `ch 7.html`，量測 `dracula` 主題下 body/container/main/content 均為 `rgb(0, 0, 0)`，header/tabs 為 `rgba(0, 0, 0, 0.98)`，Mermaid 圖卡與右側 TOC 為黑底漸層，console error/warn 為空。
+- 已完成：`node --check docs/theme/assets/pymdownx-extras/mermaid-config-override.js`。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name mermaid-dark-contrast-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：以本機靜態 server `http://127.0.0.1:8033/` 開啟 `ch 7.html` 的 deadlock Mermaid 圖，確認 `dracula` 主題下 node label 為 `rgb(248, 251, 255)`、node fill 為 `rgb(49, 40, 77)`、node stroke 為 `rgb(114, 227, 253)`、edge label 背景為 `rgb(20, 27, 42)`，console error/warn 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py`
 - 已完成：`node --check docs\theme\assets\pymdownx-extras\source-jump.js`
 - 已完成：`Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`

@@ -129,7 +129,6 @@
     menu.id = MENU_ID;
     menu.innerHTML = [
       '<button type="button" class="peicd-source-jump-btn" data-role="jump">開啟原文檔案</button>',
-      '<button type="button" class="peicd-source-jump-btn" data-role="copy">複製</button>',
       '<div class="peicd-source-jump-status" data-role="status"></div>'
     ].join("");
 
@@ -139,29 +138,12 @@
       openSourceLocation();
     });
 
-    menu.querySelector('[data-role="copy"]').addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      copySelectionText();
-    });
-
     document.body.appendChild(menu);
     return menu;
   }
 
   function getMenu() {
     return document.getElementById(MENU_ID);
-  }
-
-  function getCopyButton() {
-    var menu = getMenu();
-    return menu ? menu.querySelector('[data-role="copy"]') : null;
-  }
-
-  function setCopyVisible(isVisible) {
-    var button = getCopyButton();
-    if (!button) return;
-    button.hidden = !isVisible;
   }
 
   function hideMenu() {
@@ -187,7 +169,6 @@
     activeContext = context;
     updateStatus("");
     setJumpBusy(false);
-    setCopyVisible(!!(context && context.hasSelection && context.selection));
 
     menu.style.display = "block";
     menu.classList.add("is-open");
@@ -531,25 +512,6 @@
       updateStatus("開檔失敗，請確認目前是用 mkdocs serve 預覽。");
       setJumpBusy(false);
       console.error("[source-jump] lookup failed:", error);
-    }
-  }
-
-  async function copySelectionText() {
-    var text = activeContext && activeContext.selection ? activeContext.selection : getSelectionText();
-    if (!text) {
-      hideMenu();
-      return;
-    }
-
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        document.execCommand("copy");
-      }
-      hideMenu();
-    } catch (_) {
-      updateStatus("複製失敗，請改用 Ctrl+C。");
     }
   }
 

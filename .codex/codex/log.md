@@ -1,5 +1,75 @@
 # log
 
+## 2026-05-24 13:02：文章圖片桌機寬度改為 70%
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：文章圖片桌機最大寬度從 60% 改為 70%，窄螢幕仍回到 100%，且不限制 image viewer；`自定義.css` cache 版本更新為 `20260524-4`。
+- 驗證結果：`mkdocs build -f mkdocs.preview.yml --clean` 通過；本機 preview `ch 7.html` 桌機量測 `maxRatio=0.7`、`maxWidth=70%`，手機量測 `maxRatio=1`、`maxWidth=100%`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的文章圖片寬度條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-24 12:56：文章圖片寬度限制
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：文章圖片新增 `--peicd-article-img-max-width`，桌機最多 60%，小圖不放大；窄螢幕回到 100%，且不限制 image viewer；`自定義.css` cache 版本更新為 `20260524-3`。
+- 驗證結果：`mkdocs build -f mkdocs.preview.yml --clean` 通過；本機 preview `ch 7.html` 桌機量測 `maxRatio=0.6`、手機量測 `maxRatio=1`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的文章圖片寬度條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-24 12:39：標題錨點同行修正
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：h2~h6 不再使用可換行 flex；改成 block + 左側預留錨點空間，`.headerlink` 用 absolute 定位在同一行開頭；`自定義.css` cache 版本更新為 `20260524-2`。
+- 驗證結果：`mkdocs build -f mkdocs.preview.yml --clean` 通過；本機 preview 開啟 `ch 7.html`，量測 `⭐Resource-Allocation Graph Algorithm` h2 的 `.headerlink` 與標題文字第一行 `sameLine=true`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的標題錨點條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-24 00:19：深色 mark 高亮對比改善
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：深色模式 `==mark==` 改用暖黃色漸層、細外框、微光與淺暖色文字，提高黑底辨識度；`自定義.css` cache 版本更新為 `20260524-1`。
+- 驗證結果：`mkdocs build -f mkdocs.preview.yml --clean` 透過 `tools/run_logged.py` returncode 0；本機 `ch 7.html` 量測目標 mark 已套用新漸層、文字 `rgb(255, 246, 207)`、黑底 `rgb(0, 0, 0)`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`CURRENT_STATE.md` 的深色 mark 驗證。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/artifacts/dark-mark-contrast-20260524.png`。
+
+## 2026-05-23 22:48：Source Jump 右鍵選單移除複製
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/source-jump.js`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：右鍵選單只保留「開啟原文檔案」，移除「複製」按鈕、事件處理、顯示切換與 clipboard fallback；`source-jump.js` cache 版本更新為 `20260523-2`。
+- 驗證結果：`node --check` 通過；`mkdocs build --clean` 透過 `tools/run_logged.py` returncode 0；本機 preview 右鍵段落後選單只有 1 顆 `data-role="jump"` 按鈕，`hasCopy=false`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的 Source Jump 右鍵選單條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/source-jump.js`、`mkdocs.yml`。
+
+## 2026-05-23 21:02：深色主題黑底調整
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`docs/theme/assets/pymdownx-extras/mermaid-config-override.js`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：深色主題主背景改為接近 ChatGPT 的黑底；header/tabs、Mermaid 圖卡與右側 TOC 同步改為近黑或黑底漸層，保留 `#72e3fd` 作重點色。
+- 驗證結果：`node --check` 通過；`mkdocs build --clean` 透過 `tools/run_logged.py` returncode 0；本機 `ch 7.html` 量測 body/container/main/content 為 `rgb(0, 0, 0)`、header/tabs 為 `rgba(0, 0, 0, 0.98)`，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`GOTCHAS.md` 的深色主題不要回到藍灰底。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-23 20:20：Mermaid 深色對比改善
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/mermaid-config-override.js`、`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：暗色 flowchart 同時用 Mermaid themeVariables/themeCSS 與外層 CSS 保底，避免節點、edge label、SVG text 或放大檢視漏套高對比色。
+- 驗證結果：`node --check` 通過；`mkdocs build --clean` 透過 `tools/run_logged.py` returncode 0；本機 `http://127.0.0.1:8033/` 開啟 `ch 7.html`，deadlock 圖文字與 edge label 為高對比，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`GOTCHAS.md` 的 Mermaid 深色主題文字對比、`VERIFY.md` 的前端互動。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/mermaid-config-override.js`、`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
 ## 2026-05-23 12:39：Source Jump 開檔回饋修正
 
 - 任務類型：bugfix
