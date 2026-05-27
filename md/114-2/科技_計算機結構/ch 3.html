@@ -12831,7 +12831,7 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 下一步：回到第 20 頁練習題，確認你能完整說出 EPC → <code>mfc0</code> → register jump 的流程</p>
 <h2 id="saturating-operation--overflow-時不要繞回而是卡在最大或最小值">Saturating Operation — overflow 時不要繞回，而是卡在最大或最小值<a class="headerlink" href="#saturating-operation--overflow-時不要繞回而是卡在最大或最小值" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>英文：Saturating Operation (飽和運算)</p>
 </div>
 <p>前面我們講過一般 fixed-width arithmetic(固定位寬算術) 發生 overflow 時，常見結果可能會變成看起來「繞回去」的 bit pattern。</p>
@@ -13138,7 +13138,7 @@ Binary arithmetic is preferred in hardware because electronic devices naturally 
 <p>也就是硬體內部用 0 / 1 來表示與運算。</p>
 <h2 id="hardware-multiplication-flow--為什麼不要先列完所有-partial-products">Hardware Multiplication Flow — 為什麼不要先列完所有 partial products？<a class="headerlink" href="#hardware-multiplication-flow--為什麼不要先列完所有-partial-products" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>英文：<br />
 Multiplication 乘法<br />
 Multiplicand 被乘數    (and：來自 Latin gerundive，表示「將被……的」，被動型態)<br />
@@ -13251,7 +13251,7 @@ Multiplier 乘數</p>
 <hr />
 <h3 id="每一輪硬體做什麼">每一輪硬體做什麼？<a class="headerlink" href="#每一輪硬體做什麼" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>least significant bit ： LSB，</p>
 </div>
 <p>最小流程可以記成：</p>
@@ -13331,7 +13331,7 @@ Multiplier 乘數</p>
 <h3 id="這個改良到底省在哪">這個改良到底省在哪？<a class="headerlink" href="#這個改良到底省在哪" title="Permanent link"></a></h3>
 <p>改良版主要省兩個地方：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -13600,7 +13600,7 @@ Multiplier 乘數</p>
 <hr />
 <h4 id="兩者到底差在哪">兩者到底差在哪？<a class="headerlink" href="#兩者到底差在哪" title="Permanent link"></a></h4>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -13799,7 +13799,7 @@ Product_register 整體右移
 <h3 id="為什麼要先轉成正數">為什麼要先轉成正數？<a class="headerlink" href="#為什麼要先轉成正數" title="Permanent link"></a></h3>
 <p>因為前面學的硬體乘法流程比較直覺地處理「正的 magnitude(大小)」。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>英文：<br />
 magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 先不看正負號，只看這個數的大小。</p>
@@ -13911,7 +13911,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <hr />
 <h4 id="mermaid-流程圖">Mermaid 流程圖<a class="headerlink" href="#mermaid-流程圖" title="Permanent link"></a></h4>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>下面流程圖可以看</p>
 </div>
 <pre class="diagram"><code>flowchart TB
@@ -14179,7 +14179,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <li>最後 product 是 8-bit</li>
 </ul>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>下面圖表可以仔細看。</p>
 <p>為何是 <code>log₂(乘數的bit數)</code> ？ 因為就算全部展開了，還是需要全部加在一起，加法只能兩兩相加，所以就是兩個一組，再兩個一組，最後就變成了 Log₂。</p>
 <p>下圖之所以寫 AND 其實是 &amp; 的意思，也就是 verilog 的 M &amp; b1 。</p>
@@ -14310,7 +14310,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>常見流程：</p>
 <div class="highlight"><pre><span></span><code><span class="nf">mult</span><span class="w">  </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$s1</span><span class="w">      </span><span class="c1"># Hi:Lo = $s0 * $s1</span>
 <span class="nf">mflo</span><span class="w">  </span><span class="no">$t0</span><span class="w">           </span><span class="c1"># $t0 = Lo，取得低 32-bit product</span>
@@ -14385,7 +14385,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 mflo  $t0     # $t0 = Lo
 </code></pre></div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <h3 id="所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎">所以這邊講的 overflow 不是指計算有沒有錯誤，而是指計算有沒有超過 32 bit 嗎<a class="headerlink" href="#所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎" title="Permanent link"></a></h3>
 <p>對，這裡講的 overflow(滿溢) 不是指乘法硬體算錯，而是指：</p>
 <p>完整 64-bit product 能不能被正確縮成一個 32-bit result。</p>
@@ -15822,7 +15822,7 @@ else:
 <h2 id="binary-arithmetic-summary--加減乘除其實各自在重複什麼基本動作">Binary Arithmetic Summary — 加減乘除其實各自在重複什麼基本動作？<a class="headerlink" href="#binary-arithmetic-summary--加減乘除其實各自在重複什麼基本動作" title="Permanent link"></a></h2>
 <p>p.120 是 3.4 <code>Division(除法)</code> 結尾前的總結頁，把二進位四則運算壓成四句話：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>可以背下來 ↓</p>
 <table>
 <thead>
@@ -16293,7 +16293,7 @@ else:
 </table>
 <h3 id="4-要注意">4. 要注意<a class="headerlink" href="#4-要注意" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>Sign,Exponent,Fraction<br />
 1,8,23 = 32  ,-127  , (±)1.F × 2^(E−127)<br />
 1,11,52 = 64  ,-1023 , (±)1.F × 2^(E−1023)</p>
@@ -16901,7 +16901,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <h2 id="binary-floating-point-addition--浮點加法為什麼要先對齊-exponent">Binary Floating-Point Addition — 浮點加法為什麼要先對齊 exponent？<a class="headerlink" href="#binary-floating-point-addition--浮點加法為什麼要先對齊-exponent" title="Permanent link"></a></h2>
 <h3 id="1-浮點加法不是直接把兩個-significand-相加">1. 浮點加法不是直接把兩個 significand 相加<a class="headerlink" href="#1-浮點加法不是直接把兩個-significand-相加" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>significand 翻譯成 「有效數字」</p>
 <p>就是 <code>-1.101 * 2^9</code> 的 <code>-1.101</code><br />
 也就是說科學記號可以寫成 <code>significand × 2^exponent</code></p>
@@ -16933,7 +16933,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </table>
 <h3 id="2-對齊-exponent把較小-exponent-的數右移">2. 對齊 exponent：把較小 exponent 的數右移<a class="headerlink" href="#2-對齊-exponent把較小-exponent-的數右移" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>兩個 exponent 分別是 <code>-1</code> 和 <code>-2</code>。<br />
 加法時要對齊到較大的 exponent，也就是 <code>-1</code>。</p>
 </div>
@@ -17006,7 +17006,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>round 指的是"捨入"，就像是二進制的四捨五入。</p>
 <p>假設原本是</p>
 <p>1.111 * 2^4，如果捨入(+0.001)之後變成了 10.000 * 2^4，這樣不是標準的，所以要再標準化一次，變成 1.0000 * 2^5</p>

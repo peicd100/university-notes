@@ -461,6 +461,10 @@ body {
 
   /* 內光暈：用 inset 做細緻的邊緣發光 */
   --peicd-glow: 0 0 0 1px rgba(122, 211, 255, 0.25) inset;
+
+  /* Markdown --- 分隔線 */
+  --peicd-hr-line: rgba(0, 121, 153, 0.82);
+  --peicd-hr-subline: rgba(0, 30, 44, 0.18);
 }
 
 /* 深色方案：接近 ChatGPT 黑底，保留少量層級色避免內容糊在一起 */
@@ -511,6 +515,8 @@ body {
   --peicd-surface-2: #0b0d10;
   --peicd-surface-3: #11161c;
   --peicd-card: #07090c;
+  --peicd-hr-line: rgba(114, 227, 253, 0.76);
+  --peicd-hr-subline: rgba(255, 255, 255, 0.12);
 }
 
 /* 深色模式的 ==mark==：提高黑底辨識度，同時保留筆記標記感 */
@@ -1227,13 +1233,17 @@ body {
 }
 
 /* ==========================================================================
-   21) hr：漸層分隔線
+   21) hr：明顯的 Markdown --- 分隔線
    ========================================================================== */
 
 .md-typeset hr {
+  background: none;
   border: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(122, 211, 255, 0.35), transparent);
+  border-bottom: 1px solid var(--peicd-hr-subline);
+  border-top: 2px solid var(--peicd-hr-line);
+  height: 0;
+  margin: 2.2rem 0;
+  opacity: 1;
 }
 
 /* ==========================================================================

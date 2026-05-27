@@ -7978,7 +7978,7 @@ P3 又等 P1 手上的資源。</p>
 <hr />
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>死結四個必要條件：</p>
 <ol>
 <li><code>Mutual Exclusion(互斥)</code>：資源不能共享。</li>
@@ -8165,7 +8165,7 @@ P3 又等 P1 手上的資源。</p>
 </ol>
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Q：<br />
 In a resource-allocation graph, what do Pi → Rj and Rj → Pi mean?</p>
 <p>ANS：<br />
@@ -8204,7 +8204,7 @@ In a resource-allocation graph, what do Pi → Rj and Rj → Pi mean?</p>
 </table>
 <p>講義 p.9 說，<code>prevention</code> 是 <mark>確保死結必要條件至少有一項不會發生</mark> ；<code>avoidance</code> 則 <mark>要求 OS 預先知道 process 一生中會要求與使用哪些資源</mark> ，再決定每個 request 是否該等待。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>也就是說，Deadlock Prevention(死結預防) 不需要追蹤每個 process 一生中的最大資源需求，而是直接制定資源請求或資源分配規則，破壞 deadlock 的四個必要條件之一，讓 deadlock 無法形成。</p>
 <p>而 Deadlock Avoidance(死結避免) 是在 process 被 OS 接納並納入資源分配管理時，先取得或記錄它的最大可能資源需求。之後當 process 提出 resource request 時，OS 會根據目前的 available resources、allocation、need 等資訊，判斷如果現在分配資源，系統是否仍然維持 safe state。如果分配後仍 safe，就給資源；如果會變成 unsafe，就讓該 process 等待。</p>
 </div>
@@ -8383,7 +8383,7 @@ Thread 2：先拿 second，再拿 first。</p>
 <p><strong>破壞 circular wait：規定所有 process 都照固定資源順序拿資源。</strong></p>
 <h3 id="破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡">破壞 Hold and Wait 和 破壞 No Preemption 到底差在哪裡？<a class="headerlink" href="#破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>這兩個看起來都會「放掉資源」，但重點不同。</p>
 <table>
 <thead>
@@ -8698,7 +8698,7 @@ P0 完成後釋放 5 個：</p>
 <p><strong>找不到保證安全的完成順序；不一定已經 deadlock，但可能導向 deadlock。</strong></p>
 <h3 id="為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock">為何 <code>Unsafe state(不安全狀態)</code> 說可能會 deadlock，但不代表一定會 deadlock。<a class="headerlink" href="#為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>在 <code>Deadlock Avoidance(死結避免)</code> 裡，OS 不只看 process 現在實際要求多少資源，而是用一種保守分析來判斷：</p>
 <p>如果每個 process 未來都可能要求到它的 <code>remaining maximum need(剩餘最大需求)</code>，也就是 <code>Need = Max - Allocation</code>，系統是否仍然能安排出一個 <code>safe sequence(安全序列)</code>。</p>
 <p>所以 <code>safe state(安全狀態)</code> 的意思是：</p>
@@ -8899,7 +8899,7 @@ Why should the OS deny a resource request if converting the request edge to an a
 如果把 request edge 轉成 assignment edge 會形成 cycle，OS 應該拒絕這次 request，讓 process 等待。因為 cycle 代表可能形成 circular wait，進而導致 deadlock 風險；deadlock avoidance 的目的就是在分配前避免進入這種危險狀態。</p>
 <h3 id="問問題">問問題<a class="headerlink" href="#問問題" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Q：<br />
 所以防止 create a cycle 只是防只達到構成要素之一的 circular wait ，並不等於一定會 block，要 block 要其他的條件也達到才會對不對？</p>
 <p>A：<br />
@@ -9016,7 +9016,7 @@ Why should the OS deny a resource request if converting the request edge to an a
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Allocation：分配；配置；撥款；配置量；資源分派</p>
 <p>Allocation：分配、配置<br />
 ├─ al：加強、朝向<br />
@@ -9617,7 +9617,7 @@ Why should the OS deny a resource request if converting the request edge to an a
 <hr />
 <h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Banker’s Algorithm 表格題：</p>
 <p><strong>先算 Need，再用 Work 找 safe sequence。</strong></p>
 <p>Request 題：</p>

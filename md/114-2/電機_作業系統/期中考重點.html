@@ -14115,7 +14115,7 @@ is now available!
 </li>
 </ol>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>5.<strong>Interrupt vector(中斷向量)</strong><br />
     Interrupt vector 是一張表，裡面放不同 <mark>interrupt service routine(中斷服務程序)</mark>  的位址。</p>
 <p>Interrupt 是中斷事件或通知本身，例如 I/O 完成後通知 CPU。<br />
@@ -14402,7 +14402,7 @@ OS 要記錄哪些 memory 正在被使用、誰在使用、何時分配與回收
 OS 將實體儲存裝置抽象成 logical storage unit，也就是 File(檔案)，並負責檔案與目錄建立、刪除、備份、磁碟排班等。</p>
 <p>講義_chapter 1_20240218</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p><strong>I/O System(I/O 系統)</strong>  </p>
 <p>I/O subsystem(I/O 子系統) 是 OS(作業系統) 裡面專門負責管理 input/output devices(輸入／輸出裝置) 的一整組機制。</p>
 <p>包含 buffering(緩衝)、caching(快取)、spooling、device-driver interface、specific device drivers。</p>
@@ -14410,7 +14410,7 @@ OS 將實體儲存裝置抽象成 logical storage unit，也就是 File(檔案)�
 <p>Device controller 是硬體控制器；device driver 是 OS 裡負責操作這個控制器的軟體。</p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Device controller 是硬體，device driver 才是軟體！！</p>
 </div>
 <p><strong>Protection and Security(保護與安全)</strong><br />
@@ -14449,7 +14449,7 @@ PDF 要印 3 頁<br />
 </table>
 <h2 id="l1l2l3差異">L1、L2、L3差異。<a class="headerlink" href="#l1l2l3差異" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>L1 cache 最靠近 CPU core，容量最小、速度最快，通常每個 core 私有，且常分成 instruction cache 和 data cache。L2 cache 容量比 L1 大、速度比 L1 慢，通常也是每個 core 私有或少數核心共享。L3 cache 容量最大、速度最慢，通常是多核心共享的 last-level cache，用來減少存取 main memory 的次數。</p>
 <p>如果資料不在 L1 cache，CPU 通常會往下一層 L2 cache 查找；如果 L2 miss，再查 L3；如果 L3 也 miss，才會到 main memory 取資料，並把資料區塊複製回較高層 cache。</p>
 <h3 id="為何-l1-比l2快構造上有差異嗎還是只是單純距離問題">為何 L1 比L2快，構造上有差異嗎？還是只是單純距離問題<a class="headerlink" href="#為何-l1-比l2快構造上有差異嗎還是只是單純距離問題" title="Permanent link"></a></h3>
@@ -14490,7 +14490,7 @@ PDF 要印 3 頁<br />
 <p>cache 容量有限，如果 cache 滿了，又有新的 block 要放進來，要把哪一個舊 block 移出去？</p>
 <p>生活化例子：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -14521,7 +14521,7 @@ PDF 要印 3 頁<br />
 <h2 id="不同層級的搬資料不一定是同一個人負責">不同層級的搬資料，不一定是同一個人負責<a class="headerlink" href="#不同層級的搬資料不一定是同一個人負責" title="Permanent link"></a></h2>
 <p>這裡最容易混的是：不是所有資料搬移都由 OS 親手搬。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -14552,7 +14552,7 @@ PDF 要印 3 頁<br />
 <p>可以說 Device controller 是控制裝置的裝置</p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">"EICD100</p>
+<p class="admonition-title">Danger</p>
 <p>有幾種controller，只有一種"device controller"還是很多種？</p>
 <table>
 <thead>
@@ -14763,7 +14763,7 @@ PDF 要印 3 頁<br />
 <p>Describe three general methods used to pass parameters to the operating system during system calls.</p>
 </blockquote>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>要背三種：</p>
 <table>
 <thead>
@@ -15517,7 +15517,7 @@ B 印 4 次
 <hr />
 <h3 id="fork-回傳值再提醒">fork 回傳值再提醒<a class="headerlink" href="#fork-回傳值再提醒" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -15594,7 +15594,7 @@ B 印 4 次
 </table>
 <p>一句話記法：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Zombie = child terminated, parent still alive, but parent has not yet called wait().<br />
 Orphan = parent terminated, child still alive.</p>
 </div>
@@ -16331,7 +16331,7 @@ Thread(執行緒) 像公司裡的員工。</p>
 <h3 id="thread-是什麼">Thread 是什麼？<a class="headerlink" href="#thread-是什麼" title="Permanent link"></a></h3>
 <p>Thread(執行緒) 是 CPU 使用的基本單位。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>一個 thread 通常包含：</p>
 <ol>
 <li>Thread ID</li>
@@ -16523,7 +16523,7 @@ Distinguish between data and task parallelism. </p>
 <hr />
 <h3 id="最容易混淆的地方">最容易混淆的地方<a class="headerlink" href="#最容易混淆的地方" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -16557,7 +16557,7 @@ Distinguish between data and task parallelism. </p>
 <p>Four benefits of multithreaded programming<br />
 Five challenges of multicore programming</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <h3 id="0-口訣">0. 口訣<a class="headerlink" href="#0-口訣" title="Permanent link"></a></h3>
 <p>優點：應資經擴 （影子經過）<br />
 挑戰：切平分依測 （切平分一側）</p>
@@ -17322,7 +17322,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <span class="p">);</span>
 </code></pre></div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -17880,7 +17880,7 @@ Hello world!
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>基本上是會盡量平均分配的連續區間</p>
 </div>
 <p>這和前面 Pthreads 的 vector addition 很像，但差別是：</p>
@@ -18018,7 +18018,7 @@ Hello world!
 </code></pre></div>
 <p>問題在 <code>j</code>。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p><code>i</code> 是 OpenMP 平行化迴圈的 index，通常每個 thread 會自己處理不同的 <code>i</code>。<br />
 但 <code>j</code> 是外面宣告的 shared variable，如果多個 threads 同時改同一個 <code>j</code>，就可能互相干擾。</p>
 </div>
@@ -18036,7 +18036,7 @@ Hello world!
 </blockquote>
 <p>講義也用這個 <code>Find the error</code> 例子示範，錯誤版沒有 <code>private(j)</code>，解法是加上 <code>private(j)</code>。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>但其實就是把 j 宣告為區域變數 (int j)，也就是：<br />
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -18460,7 +18460,7 @@ collapse(2) 是把兩層迴圈合併成一個大迭代空間。
 <hr />
 <h3 id="4-最終記法">4. 最終記法<a class="headerlink" href="#4-最終記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <div class="highlight"><pre><span></span><code>private(j)
 = variable scope problem
 = 每個 thread 一份 j
@@ -18554,7 +18554,7 @@ Thread B 算出 1 並寫回
 <p>一次只允許一個 thread 改，所以結果比較安全。</p>
 <h2 id="ch5">ch5<a class="headerlink" href="#ch5" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>在 ch5 中，提到了很多鎖，這些鎖用來處理 process 或是 thread 都是可以的，重點是在於原子化的實作。</p>
 </div>
 <h2 id="critical-section-problem-requirements臨界區間問題的三個要求">Critical-Section Problem Requirements(臨界區間問題的三個要求)<a class="headerlink" href="#critical-section-problem-requirements臨界區間問題的三個要求" title="Permanent link"></a></h2>
@@ -18614,7 +18614,7 @@ Thread B 算出 1 並寫回
 <hr />
 <h3 id="三個要求最短記法">三個要求最短記法<a class="headerlink" href="#三個要求最短記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -18663,7 +18663,7 @@ Thread B 算出 1 並寫回
 <h2 id="petersons-solutionpeterson-解法">Peterson’s Solution(Peterson 解法)<a class="headerlink" href="#petersons-solutionpeterson-解法" title="Permanent link"></a></h2>
 <p>這是 Chapter 5 的 software solution(軟體解法)。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>用來解兩個 process 的 critical-section problem。</p>
 </div>
 <p>Peterson’s Solution 用兩個共享變數：</p>
@@ -19071,7 +19071,7 @@ lock = 1 代表 lock 被占用
 </table>
 <h3 id="到底為何要說是硬體原子化">到底為何要說是硬體原子化<a class="headerlink" href="#到底為何要說是硬體原子化" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>這一章節很重要，究竟為何叫做硬體原子化</p>
 <blockquote>
 <p>提問：<br />
@@ -19189,7 +19189,7 @@ Assembly：
 <hr />
 <h3 id="bounded-waiting-版本的核心">Bounded-waiting 版本的核心<a class="headerlink" href="#bounded-waiting-版本的核心" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>這邊變數搞懂應該就可以了</p>
 <p>這頁多了兩個變數：</p>
 <table>
@@ -19292,7 +19292,7 @@ Assembly：
 </code></pre></div>
 <p>意思是：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -19314,7 +19314,7 @@ Assembly：
 </div>
 <h2 id="mutex-lock-在解什麼問題">Mutex Lock 在解什麼問題？<a class="headerlink" href="#mutex-lock-在解什麼問題" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>這裡在講的其實就是 <code>Pthread</code> 的 <code>pthread_mutex_lock(&amp;mutex)</code>、<code>pthread_mutex_unlock(&amp;mutex);</code> 之類的工具。</p>
 <p>在講完軟體、硬體原子化之後，會有 <code>Mutex Lock</code> 是因為要更方便的使用原子化，像是高階語言對於組語一樣，為了更方便的寫程式。</p>
 </div>
@@ -19478,7 +19478,7 @@ Assembly：
 而「使用 busy waiting 的 lock」就叫 <code>spinlock(自旋鎖)</code>。</p>
 <h2 id="semaphore-是什麼">Semaphore 是什麼？<a class="headerlink" href="#semaphore-是什麼" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>後面的代碼也只是示意而已，實際上的用法會像是：<br />
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;semaphore.h&gt;</span>
 
@@ -19601,7 +19601,7 @@ Assembly：
 <hr />
 <h4 id="四個操作的正確關係">四個操作的正確關係<a class="headerlink" href="#四個操作的正確關係" title="Permanent link"></a></h4>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <table>
 <thead>
 <tr>
@@ -20190,7 +20190,7 @@ Starvation：某個人一直輪不到
 Priority Inversion：高優先權被低優先權拿著的資源卡住，還被中優先權間接拖慢
 </code></pre></div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Priority Inversion(優先權倒置)就是：<br />
 <div class="highlight"><pre><span></span><code><span class="n">時間</span><span class="w"> </span><span class="mi">1</span><span class="err">：</span><span class="n">L</span><span class="w"> </span><span class="n">開始跑</span><span class="err">，</span><span class="n">拿到</span><span class="w"> </span><span class="n">R</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">2</span><span class="err">：</span><span class="n">H</span><span class="w"> </span><span class="n">來了</span><span class="err">，</span><span class="n">想拿</span><span class="w"> </span><span class="n">R</span><span class="err">，</span><span class="n">但</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">被</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="n">拿著</span><span class="err">，</span><span class="n">所以</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">blocked</span>
@@ -20215,7 +20215,7 @@ Priority Inversion：高優先權被低優先權拿著的資源卡住，還被�
 </code></pre></div>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>在說明「A搶B鎖」時，應該要說「A <mark>持有</mark> B <mark>需要的資源</mark>」才對。</p>
 </div>
 <h2 id="bounded-buffer-problem">Bounded-Buffer Problem<a class="headerlink" href="#bounded-buffer-problem" title="Permanent link"></a></h2>
@@ -20447,7 +20447,7 @@ reader 數量 +1。
 <hr />
 <h3 id="最短記法_2">最短記法<a class="headerlink" href="#最短記法_2" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <div class="highlight"><pre><span></span><code>Writer：
 拿 rw_mutex → 寫 → 放 rw_mutex
 
@@ -20577,7 +20577,7 @@ P4 等 chopstick[0]，但在 P0 手上
 </code></pre></div><br />
 這樣就不可能發生「所有人都先拿左邊，再等右邊」或「所有人都先拿右邊，再等左邊」。因為如果「所有人都先拿左邊，再等右邊」，就會違反「奇數哲學家：先拿右筷子，再拿左筷子」的規則。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <h3 id="starvation-可能是-deadlock-造成的嗎">starvation 可能是 deadlock 造成的嗎？<a class="headerlink" href="#starvation-可能是-deadlock-造成的嗎" title="Permanent link"></a></h3>
 <p>不能這樣說，因為 Starvation = 某個 process/thread 長期甚至永遠等不到資源或執行機會。</p>
 <p>它通常隱含：</p>

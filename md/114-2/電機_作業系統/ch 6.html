@@ -10508,7 +10508,7 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
 <li>I/O Burst(I/O 分割)：process 等待磁碟、鍵盤、網路、檔案、螢幕等 I/O</li>
 </ul>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>Burst ： 爆裂</p>
 <p>Burst 之所以叫 <strong>burst</strong>，是因為它強調「一小段集中發生的活動」。</p>
 <p>在英文裡，<strong>burst</strong> 常有「突然出現、集中一陣子、然後停止或切換」的意思，例如：</p>
@@ -10539,7 +10539,7 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
 <h3 id="3-io-bound-和-cpu-bound-的直覺差異">3. I/O-bound 和 CPU-bound 的直覺差異<a class="headerlink" href="#3-io-bound-和-cpu-bound-的直覺差異" title="Permanent link"></a></h3>
 <p>這裡講義用 CPU Burst duration(CPU 分割時間長度) 的分佈來暗示一件事：大部分 process 的 CPU burst 很短，尤其 I/O-bound process 很常出現短 CPU burst。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p><strong>bound</strong> 在這裡不是「綁定」的意思，而是比較接近：</p>
 <blockquote>
 <p><strong>受限於、卡在、瓶頸在……</strong></p>
@@ -10729,7 +10729,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <hr />
 <h4 id="4-cpu-bound-需要避免霸佔-cpu">4. CPU-bound 需要避免「霸佔 CPU」<a class="headerlink" href="#4-cpu-bound-需要避免霸佔-cpu" title="Permanent link"></a></h4>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>這邊說了 <mark>所以這兩種 process 和 scheduling 到底有什麼關係？</mark> 的原因、和後面的關係。</p>
 </div>
 <p>CPU-bound process 通常 CPU Burst 長，代表它可以一直算很久。這不是壞事，但如果排班策略不限制它，它可能讓其他 process 等很久。</p>
@@ -10850,7 +10850,7 @@ process 自己去等 I/O，所以它主動離開 CPU。</p>
 process 結束了，所以 CPU 當然空出來。</p>
 <p>這兩種都不是 OS 硬搶 CPU，而是目前 process 已經無法或不需要繼續使用 CPU。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>Q：你這邊說情況一和情況四不可搶先，是指情況一和情況四不可以搶先別人，還是別人不可以搶先情況一跟情況四?</p>
 <p>情況 1 和情況 4 被稱為 Nonpreemptive(不可搶先)，不是指「它們不可以搶先別人」，也不是指「別人不可以搶先它們」。</p>
 <p>它真正的意思是：</p>
@@ -10907,7 +10907,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <h3 id="如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧">如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。<a class="headerlink" href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧" title="Permanent link"></a></h3>
 <p>你這個疑問是對的：<strong><code>Waiting → Ready</code> 本身確實沒有直接把正在 core 上跑的 process 拉出來。</strong></p>
 <p>但它會造成一件關鍵事情：</p>
@@ -10984,7 +10984,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p><strong>你說得對：<code>Waiting → Ready</code> 不直接影響 core 內的 process；但它會改變 ready queue，而 preemptive scheduler 可以因此重新排班，必要時再把目前 running process 搶下來。</strong></p>
 <p>第 4 次對話</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <h3 id="所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-">所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？<a class="headerlink" href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-" title="Permanent link"></a></h3>
 <p>對，<strong>但要加一個精準限制</strong>：</p>
 <p><strong><code>Waiting → Ready</code> 之所以被歸到 preemptive 的情境，是因為它「可能導致」目前正在跑的 process 發生 <code>Running → Ready</code>；不是因為 <code>Waiting → Ready</code> 這個轉換本身就直接搶 CPU。</strong></p>
@@ -11046,7 +11046,7 @@ A system uses preemptive priority scheduling. P1 is running with priority 20. P2
 <p>ANS:<br />
 P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從 Waiting → Ready，表示它已經可以被排程。因為 P2 的 priority 比 P1 高，所以在 preemptive priority scheduling 裡，OS 會重新比較目前 running process 和 ready queue 裡的 process。若 P2 應該優先執行，OS 會把 P1 從 Running → Ready，再讓 P2 從 Ready → Running。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <p>Priority 50 是指優先程度是 50 ，優先度越大，越優先。<br />
 所以 50 比 20 優先。</p>
 </div>
@@ -11184,7 +11184,7 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <p>直覺：</p>
 <p><strong>你從拿號碼牌開始，到事情完全辦完離開，總共花多少時間。</strong></p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD</p>
+<p class="admonition-title">Danger</p>
 <div class="highlight"><pre><span></span><code>0      2      5      7      10
 |  P2  |  P1  |  P3  |  P1  |
 </code></pre></div>
@@ -11201,7 +11201,7 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <p><strong>Turnaround Time 不用分段累加，直接看 P1 從到達到完成總共花多久。</strong></p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Q：<br />
 Arrival time 是啥</p>
 <p>ANS：<br />
@@ -11239,7 +11239,7 @@ process 完成 / complete
 </code></pre></div>
 <p>如果有多段 CPU burst / I/O burst，waiting time 是所有 ready queue 等待片段加總。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <div class="highlight"><pre><span></span><code>0      2      5      7      10
 |  P2  |  P1  |  P3  |  P1  |
 </code></pre></div>
@@ -11284,7 +11284,7 @@ process 完成 / complete
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <div class="highlight"><pre><span></span><code>0      2      5      7      10
 |  P2  |  P1  |  P3  |  P1  |
 </code></pre></div>
@@ -11395,7 +11395,7 @@ Response 只看第一個反應，不看全部完成。</p>
 例如非常頻繁切換 process 可能讓 response time 變好，但 dispatch latency / context switch overhead 變多，CPU utilization 可能變差。期末考古 Q1 就直接問這種 trade-off。</p>
 <h3 id="錯題">錯題：<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>1.Explain how minimizing average turnaround time may conflict with minimizing maximum waiting time. Give one concrete scheduling example in words.<br />
 <code>[Adapted from: 期末考古_108／Q1(b) scheduling criteria conflicts]</code></p>
 <p>ANS：<br />
@@ -11407,7 +11407,7 @@ Response 只看第一個反應，不看全部完成。</p>
 I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 CPU-bound process，CPU 可以長時間保持忙碌，因此 CPU utilization 可能提高；但因為這些 process 很少發出 I/O request，I/O device 可能閒置。相反地，若 scheduler 偏好 I/O-bound process，這些 process 會快速發出 I/O request，使 I/O device 保持忙碌；但它們的 CPU burst 很短，可能造成頻繁 context switch，或在很多 process 都等待 I/O 時讓 CPU 閒置，因此 CPU utilization 可能下降。</p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>conflict ： 衝突、矛盾</p>
 <p>conflict：衝突、爭執、相互矛盾<br />
 ├─ con：一起、共同、相互<br />
@@ -12977,7 +12977,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><img alt="alt text" src="images/ch%206-3.png" /></p>
 <p>講義 p.31 的圖也在表達 <code>compute cycle</code> 和 <code>memory stall cycle</code> 交錯出現：當一個 thread 卡在 memory stall 時，可以讓其他 thread 接著使用執行資源。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>強調什麼？</p>
 <p>p.31 放在 <code>Multicore Processor(多核心處理器)</code> 底下，不是因為：</p>
 <p><strong>只有多核心才會 memory stall。</strong></p>
@@ -13235,7 +13235,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <hr />
 <h3 id="9-用一條時間線理解">9. 用一條時間線理解<a class="headerlink" href="#9-用一條時間線理解" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>下面那張圖不錯</p>
 </div>
 <pre class="diagram"><code>flowchart LR
@@ -13250,7 +13250,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>這張圖的重點是：</p>
 <p><strong>real-time process 不只是要 priority 高，還要讓「從事件發生到真正執行」中間的延遲夠小。</strong></p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>也就是說：</p>
 <p>這兩個 latency 會讓 <mark>事件處理開始變晚</mark> ，以及讓 real-time process 真正拿到 CPU 變晚。所以 real-time 系統要 minimize latency</p>
 </div>
@@ -13519,7 +13519,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <hr />
 <h3 id="3-為什麼叫-rate-monotonic">3. 為什麼叫 Rate-Monotonic？<a class="headerlink" href="#3-為什麼叫-rate-monotonic" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p><code>Rate(速率)</code> 是 <code>1/p</code>，代表 task 出現頻率。</p>
 <p><code>Monotonic(單調)</code> 的意思是：</p>
 <p><strong>priority 會隨著 rate 單調變化。</strong></p>
@@ -13570,7 +13570,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 </ul>
 <p>因為 0.75 &lt; 1，所以從總 CPU 工作量來看，CPU 理論上有足夠時間。</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>CPU utilization 計算方式：</p>
 <p>共同時間軸：</p>
 <p>time:  0                    50                   100<br />
@@ -14071,14 +14071,14 @@ P5        5            3
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>λ = 平均 process 到達 queue 的速率。</p>
 <p>也就是</p>
 <p>每單位時間有多少 process 進入 queue。</p>
 </div>
 <p>然後給出 <code>Little’s Law</code>：</p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p><code>n = λ × W</code></p>
 <p>意思是：</p>
 <p><strong>平均排隊人數 = 每秒進來幾個 × 每個平均等多久</strong></p>
@@ -14103,7 +14103,7 @@ P5        5            3
 <hr />
 <h3 id="7-套講義-p40-的例子">7. 套講義 p.40 的例子<a class="headerlink" href="#7-套講義-p40-的例子" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>講義例子是：</p>
 <ul>
 <li>平均每秒有 7 個 process arrive</li>
@@ -14155,7 +14155,7 @@ P5        5            3
 <p><strong>Deterministic Modeling 是「給定一組 process，直接排一次」。</strong><br />
 <strong>Queueing Model 是「不固定某一組 process，而是看長期平均」。</strong></p>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Deterministic Modeling(定量模式) 是用同一組固定 workload，套用不同 scheduling algorithms 來比較效能。Queueing Model(佇列模式) 則不是固定一組 process 來排一次，而是用平均到達率、平均等待時間、平均 queue 長度等統計量，分析系統的長期平均行為。</p>
 </div>
 <hr />
@@ -14192,7 +14192,7 @@ P5        5            3
 <p><code>Little’s Law</code> 叫這個名字，不是因為它「很 little(小)」，而是因為它是由 <strong>John D. C. Little</strong> 證明並推廣成排隊理論中的重要定律，所以用他的姓氏 <code>Little</code> 命名。這類名稱叫做 <code>eponymous law(人名命名定律)</code>，就像 <code>Amdahl’s Law</code> 是用 Amdahl 命名、<code>Gustafson’s Law</code> 是用 Gustafson 命名。John Little 在 1961 年發表了 <code>A Proof for the Queuing Formula: L = λW</code>，也就是這個公式的證明。</p>
 <h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">PEICD100</p>
+<p class="admonition-title">Danger</p>
 <p>Q:<br />
 Explain how average turnaround time and maximum waiting time can conflict in CPU scheduling.</p>
 <p>ANS:<br />
