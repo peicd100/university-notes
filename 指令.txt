@@ -1,5 +1,249 @@
-﻿因為error-handling routine很少用到，所以需要的時候再載入就好，可以節省 main memory 空間。
+﻿1. 【學習進度摘要｜精簡版】
 
-static linking 是函式在執行之前就放在executable file中，然後也會一開始就載入到 main memory ，而dynamic linking是函式在需要時才會載入，所以不會一開始就放到 main memory 中。
+目前講義主線：Chapter 8 記憶體管理策略
+講義位置：PDF viewer page 36
+目前知識點：`Free Frames(可用頁框)` 與 `free-frame list(可用頁框串列)`
+講義主線狀態：正式進入 paging 後續主線
+考古題練習狀態：108 期末 Q9 仍需等 PDF viewer page 38～39 `protection / sharing of code` 處理後再完整練
+Exercise Debt：本則進入新知識點，會同則出題清償
+Lecture Adjacency Debt：PDF viewer page 37～39 尚未處理
+Past Exam Debt：P1
+待回補：`TLB`、`protection bit`、`shared pages`
+下一步：先理解 OS 怎麼用 free frames 分配 pages
 
-因為 dynamic linking 可以共用 libraries，也就是三個 process 共同使用一個位置的函式，可以節省 main memory空間。而如果是三個 process 都分別載入 libraries 的話會浪費空間，會用三倍的空間。
+---
+
+2. 推進許可卡
+
+目前講義主線位置：PDF viewer page 34～35 已完成第一輪練習
+目前 PDF viewer page：35
+相鄰佇列最前未處理項：PDF viewer page 36 `Free Frames`
+下一步目標 PDF viewer page：36
+是否為 PDF viewer page 直接相鄰：是
+是否有相鄰未處理項：有，現在處理
+是否有 Lecture Adjacency Debt：有，PDF viewer page 37～39
+是否有 Past Exam Debt：P1
+考古題是否會反客為主：現在若直接練 108 Q9 會，因為 paging 的 protection / sharing 尚未處理
+是否允許推進：允許，因為 PDF viewer page 36 是合法相鄰主線
+
+---
+
+3. Knowledge Point Location Card(知識點定位卡)
+
+本輪知識點：`Free Frames(可用頁框)`
+主線教材檔名：講義_chapter 8_20240520.pdf
+講義章節／小節名稱：8.5 Paging
+Parent section：8.5 Paging
+目前子項：Free Frames
+後續同 parent section 子項：PDF viewer page 37 `TLB`、PDF viewer page 38 `Protection`、PDF viewer page 39 `Sharing of code`
+是否已核對 parent section 收束：已核對到 PDF viewer page 40，之後進入 8.6 page table structure
+知識點自然邊界：PDF viewer page 36
+自然邊界狀態：已核對，本輪只處理 Free Frames
+自然邊界依據：PDF viewer page 36 是 free-frame allocation 圖；PDF viewer page 37 已切到 `TLB(Translation Look-aside Buffer)`，屬於下一個 paging 子知識點
+來源狀態：講義內文／圖有可核對內容
+考古題狀態：108 期末 Q9 間接相關，因為它比較 pure paging 的 memory organization
+考古題使用限制：尚不可完整使用，因為 PDF viewer page 38～39 尚未處理
+
+---
+
+## ⭐Free Frames — OS 怎麼知道 page 可以放到哪些 physical memory 位置？
+
+講義位置：PDF viewer page 36
+
+### 1. 這個概念在解決什麼問題？
+
+前面我們已經知道：
+
+`page(頁面)` 是 process logical memory 裡的固定大小區塊。
+`frame(頁框)` 是 physical memory 裡的固定大小格子。
+
+那現在的問題是：
+
+**當一個 process 有 pages 要載入 main memory 時，OS 要怎麼知道哪些 frames 是空的？**
+
+答案就是：
+
+**OS 會維護一份 `free-frame list(可用頁框串列)`，記錄目前哪些 frames 還沒被使用。**
+
+講義 PDF viewer page 36 的圖正在示範這件事：新 process 有 page 0、page 1、page 2、page 3，要放進 physical memory；OS 從 free-frame list 挑出可用 frame，配置後建立 new-process page table。
+OSTEP 也用同樣模型說明：OS 可以保留一份 free list，從裡面拿出 free page frames 來放 process 的 virtual pages，並用 per-process page table 記錄每個 virtual page 實際放在哪個 physical frame。([威斯康辛大學計算機科學用戶頁面][1])
+
+---
+
+### 2. `free frame` 是什麼？
+
+`free frame(可用頁框)` 就是：
+
+**physical memory 裡目前沒有被任何 process page 使用的 frame。**
+
+例如 physical memory 有 frame 13、14、15、16、17、18、19、20、21。
+
+其中 frame 14、13、18、20 是空的，OS 就可以把它們記在 free-frame list 裡。
+
+注意：這裡不是像前面 `AV-list(可用串列)` 那樣記錄大小不一的 holes。Paging 裡每個 frame 大小都一樣，所以 free-frame list 只需要記錄：
+
+**哪些 frame 編號可用。**
+
+---
+
+### 3. 和 Contiguous Allocation 的 AV-list 差在哪？
+
+前面 `Contiguous Memory Allocation(連續記憶體配置)` 的 `AV-list` 記的是：
+
+**一段一段大小不一的 free blocks / holes。**
+
+但 paging 的 `free-frame list` 記的是：
+
+**一格一格固定大小的 free frames。**
+
+| 機制                | OS 管理的是什麼         | 大小是否固定 | 配置時要找什麼       |
+| ----------------- | ----------------- | -----: | ------------- |
+| `AV-list`         | free block / hole |    不固定 | 找一塊夠大的連續空間    |
+| `free-frame list` | free frame        |     固定 | 找足夠數量的空 frame |
+
+所以 paging 比較簡單：
+
+process 需要 4 pages，OS 只要找到 4 個 free frames。
+這 4 個 frames 不需要連續。
+
+---
+
+### 4. 講義圖的重點：page table 會被更新
+
+講義圖中，新 process 有 4 個 pages：
+
+| Process page | 配到的 physical frame |
+| -----------: | -----------------: |
+|       page 0 |           frame 14 |
+|       page 1 |           frame 13 |
+|       page 2 |           frame 18 |
+|       page 3 |           frame 20 |
+
+所以 new-process page table 會記成：
+
+| Page number | Frame number |
+| ----------: | -----------: |
+|           0 |           14 |
+|           1 |           13 |
+|           2 |           18 |
+|           3 |           20 |
+
+這代表之後 CPU 若產生 logical address `<2, d>`，OS / hardware 查 page table 會知道：
+
+page 2 在 frame 18。
+
+所以 physical address 會變成：
+
+`<18, d>`
+
+也就是：
+
+`18 × page size + d`
+
+---
+
+### 5. 配置後 free-frame list 會怎麼變？
+
+如果某些 frames 被拿去放 process pages，它們就不再是 free frames。
+
+所以 OS 會做兩件事：
+
+1. 從 `free-frame list` 移除被使用的 frames。
+2. 在該 process 的 `page table(分頁表)` 填入 page → frame 的 mapping。
+
+流程如下：
+
+```mermaid
+flowchart TD
+    A["新 process 需要載入 pages<br>例如 page 0～page 3"] --> B["OS 檢查 free-frame list(可用頁框串列)"]
+    B --> C{"free frames 數量夠嗎？"}
+    C -- "夠" --> D["取出足夠數量的 free frames<br>例如 14、13、18、20"]
+    D --> E["把 pages 放進這些 frames"]
+    E --> F["更新 page table(分頁表)<br>page → frame"]
+    F --> G["被使用的 frames<br>從 free-frame list 移除"]
+    C -- "不夠" --> H["無法直接配置<br>後續可能需要等待或做 page replacement(頁面置換)"]
+```
+
+CMU 的 Operating System Concepts 投影片也把 `free-frame list` 說成 OS 維護的一個 free frames pool，用來滿足把 page 載入 main memory 的需求；若發生 page fault，OS 也會需要找到 free frame 來放入需要的 page。([andrew.cmu.edu][2])
+
+---
+
+### 6. 這裡先不要和 page fault 混在一起
+
+PDF viewer page 36 目前是在講：
+
+**有 free frames 時，OS 怎麼把 process pages 配到 frames。**
+
+後面 virtual memory / demand paging 會再講：
+
+**如果 page 不在 memory，發生 page fault 時，OS 怎麼從 disk 把 page 載入某個 free frame。**
+
+兩者共通點是：
+
+**都需要 free frame。**
+
+差別是：
+
+| 情境              | 重點                                              |
+| --------------- | ----------------------------------------------- |
+| 現在的 Free Frames | process pages 要配置到哪些空 frames                    |
+| 之後的 Page Fault  | 缺頁時，要找 free frame 把 disk 上的 page 載回 main memory |
+
+SuperUser 社群討論也提到，實務 OS 會用資料結構追蹤每個 physical page frame 的使用狀態；Linux 這類系統還會用 page descriptor 與 buddy allocator 這種更複雜的方式管理 free page frames。這是實務補充，不是本講義 page 36 要求你現在背的內容。([Super User][3])
+
+---
+
+### 7. 最短記法
+
+`free frame` = physical memory 裡目前空的 frame。
+`free-frame list` = OS 記錄哪些 frames 還可以用的清單。
+process 需要 n 個 pages → OS 找 n 個 free frames。
+配置後 → 被用掉的 frames 從 free-frame list 移除，並寫進該 process 的 page table。
+
+最重要：
+
+**page 可以放到任意 free frame，不需要連續。這就是 paging 能避免 external fragmentation 的關鍵。**
+
+⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
+---
+
+4. Past Exam Quick Check
+
+考古題狀態：間接相關
+Past Exam Debt：P1
+考古題位置：108 期末 Q9，要求比較 contiguous allocation、pure segmentation、pure paging 的 external fragmentation、internal fragmentation、code sharing。
+對應講義位置：PDF viewer page 26～39
+是否允許現在練考古題：否。Free Frames 已處理，但 `Protection` 與 `Sharing of code in a paging environment` 尚未處理
+考古題標準答案狀態：目前未提供／目前無法核對
+
+---
+
+5. Open-ended Questions
+
+請回答下面 2 題，可以用中文或英文作答。題目已自足，不需要回去看講義。
+
+1. A process has four pages: page 0, page 1, page 2, and page 3. The current `free-frame list` is:
+
+| Order in free-frame list | Frame number |
+| -----------------------: | -----------: |
+|                        1 |            9 |
+|                        2 |            4 |
+|                        3 |           12 |
+|                        4 |            7 |
+|                        5 |           15 |
+
+Assume the OS allocates frames from the head of the free-frame list.
+Fill in the new page table after allocating the four pages, and list the remaining free-frame list.
+
+`[Generated: 依據講義_chapter 8_20240520.pdf／PDF viewer page 36]`
+
+2. Explain the difference between an `AV-list` in contiguous memory allocation and a `free-frame list` in paging. Your answer must mention whether the units are fixed-size or variable-size, and whether the allocated frames / blocks must be contiguous.
+
+`[Generated: 依據講義_chapter 8_20240520.pdf／PDF viewer page 36]`
+
+第 8 次對話
+
+[1]: https://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf "single.dvi"
+[2]: https://www.andrew.cmu.edu/course/14-712-s20/applications/ln/14712-l12.pdf "2.01"
+[3]: https://superuser.com/questions/1351132/how-does-os-know-what-physical-ram-is-free "memory - How does OS know what physical ram is free? - Super User"

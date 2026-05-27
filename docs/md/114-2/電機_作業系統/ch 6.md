@@ -19,7 +19,7 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
 * I/O Burst(I/O 分割)：process 等待磁碟、鍵盤、網路、檔案、螢幕等 I/O
 
 
-!!! danger "PEICD"
+!!! danger
     
     Burst ： 爆裂
     
@@ -57,7 +57,7 @@ flowchart LR
 這裡講義用 CPU Burst duration(CPU 分割時間長度) 的分佈來暗示一件事：大部分 process 的 CPU burst 很短，尤其 I/O-bound process 很常出現短 CPU burst。
 
 
-!!! danger "PEICD"
+!!! danger
     
     **bound** 在這裡不是「綁定」的意思，而是比較接近：
 
@@ -72,10 +72,10 @@ flowchart LR
 
 我們先建立兩種 process 的直覺：
 
-| 類型                          | 主要特徵                | 生活化例子          | 對 scheduling 的意義         |
-| --------------------------- | ------------------- | -------------- | ------------------------ |
+| 類型                            | 主要特徵                | 生活化例子                 | 對 scheduling 的意義              |
+|---------------------------------|-------------------------|----------------------------|-----------------------------------|
 | I/O-bound Process(I/O 密集行程) | 常常等 I/O，CPU burst 短 | 一直問店員「資料到了沒」的人 | 需要快速回應，常影響 response time |
-| CPU-bound Process(CPU 密集行程) | 長時間計算，CPU burst 長   | 坐下來做一大堆計算題的人   | 容易長時間佔 CPU               |
+| CPU-bound Process(CPU 密集行程) | 長時間計算，CPU burst 長 | 坐下來做一大堆計算題的人   | 容易長時間佔 CPU                  |
 
 期中考古也直接問過 I/O-bound process 和 CPU-bound process 的差異，所以這個概念不只是背景，而是考試可輸出點。
 
@@ -140,10 +140,10 @@ Short-term Scheduler(短程排班程式)：
 
 一個 process 可以被描述成：
 
-| 分類                          | 代表它大部分時間花在哪裡 | CPU Burst 特徵     |
-| --------------------------- | ------------ | ---------------- |
-| I/O-bound Process(I/O 密集行程) | 等 I/O 比計算多   | 很多短 CPU Burst    |
-| CPU-bound Process(CPU 密集行程) | 計算比等 I/O 多   | 較少但很長的 CPU Burst |
+| 分類                            | 代表它大部分時間花在哪裡 | CPU Burst 特徵         |
+|---------------------------------|--------------------------|------------------------|
+| I/O-bound Process(I/O 密集行程) | 等 I/O 比計算多          | 很多短 CPU Burst       |
+| CPU-bound Process(CPU 密集行程) | 計算比等 I/O 多          | 較少但很長的 CPU Burst |
 
 講義 Chapter 6 說，process 會在 CPU Burst(CPU 分割) 和 I/O Burst(I/O 分割) 之間交替，而且 I/O-bound 程式特別多短 CPU Burst。 Chapter 3 也補充：I/O-bound process 花比較多時間做 I/O、很多短 CPU burst；CPU-bound process 花比較多時間做 computation、少數很長 CPU burst。
 
@@ -205,9 +205,9 @@ CPU Scheduler(CPU 排班程式) 的任務是：
 
 假設 Ready Queue 裡有：
 
-| Process | 類型        | 行為                   |
-| ------- | --------- | -------------------- |
-| P1      | CPU-bound | 會連續算很久               |
+| Process | 類型      | 行為                           |
+|---------|-----------|--------------------------------|
+| P1      | CPU-bound | 會連續算很久                   |
 | P2      | I/O-bound | 只需要 CPU 算一下，就會去等 I/O |
 | P3      | I/O-bound | 只需要 CPU 算一下，就會去等 I/O |
 
@@ -248,20 +248,20 @@ flowchart LR
 
 #### 4. CPU-bound 需要避免「霸佔 CPU」
 
-!!! danger "PEICD"
+!!! danger
     這邊說了 ==所以這兩種 process 和 scheduling 到底有什麼關係？== 的原因、和後面的關係。
 
 CPU-bound process 通常 CPU Burst 長，代表它可以一直算很久。這不是壞事，但如果排班策略不限制它，它可能讓其他 process 等很久。
 
 所以後面會出現幾種 scheduling 設計：
 
-| 排班概念                                | 跟 I/O-bound / CPU-bound 的關係                       |
-| ----------------------------------- | ------------------------------------------------- |
-| FCFS(First-Come, First-Served)      | 如果 CPU-bound 先來，後面的短 I/O-bound process 可能等很久      |
-| SJF(Shortest-Job-First)             | 偏好短 CPU burst，因此常對 I/O-bound 有利                   |
+| 排班概念                            | 跟 I/O-bound / CPU-bound 的關係                                   |
+|-------------------------------------|-------------------------------------------------------------------|
+| FCFS(First-Come, First-Served)      | 如果 CPU-bound 先來，後面的短 I/O-bound process 可能等很久         |
+| SJF(Shortest-Job-First)             | 偏好短 CPU burst，因此常對 I/O-bound 有利                          |
 | SRTF(Shortest-Remaining-Time-First) | 可搶先版 SJF，短工作來了可以搶先長工作                             |
-| RR(Round Robin)                     | 用 Time Quantum(時間片) 防止 CPU-bound 長期霸佔 CPU         |
-| Priority Scheduling(優先權排班)          | 可以給互動式 / I/O-bound process 較高優先權，但可能造成 starvation |
+| RR(Round Robin)                     | 用 Time Quantum(時間片) 防止 CPU-bound 長期霸佔 CPU               |
+| Priority Scheduling(優先權排班)     | 可以給互動式 / I/O-bound process 較高優先權，但可能造成 starvation |
 
 ---
 
@@ -319,12 +319,12 @@ OS 的 CPU 排班也是類似：只有在 process 狀態發生關鍵轉換時，
 
 講義列出 CPU 排班決策發生在四種情況：
 
-| 編號 | 狀態轉換                   | 直覺意思                                          |
-| -- | ---------------------- | --------------------------------------------- |
-| 1  | `Running → Waiting`    | 目前 process 自己不能跑了，例如等 I/O 或等 child process 結束 |
-| 2  | `Running → Ready`      | 目前 process 還能跑，但被 interrupt 打斷，回到 ready queue |
-| 3  | `Waiting → Ready`      | 原本在等 I/O 的 process 等完了，回到 ready queue         |
-| 4  | `Running → Terminated` | 目前 process 結束了                                |
+| 編號 | 狀態轉換               | 直覺意思                                                     |
+|------|------------------------|--------------------------------------------------------------|
+| 1    | `Running → Waiting`    | 目前 process 自己不能跑了，例如等 I/O 或等 child process 結束 |
+| 2    | `Running → Ready`      | 目前 process 還能跑，但被 interrupt 打斷，回到 ready queue     |
+| 3    | `Waiting → Ready`      | 原本在等 I/O 的 process 等完了，回到 ready queue              |
+| 4    | `Running → Terminated` | 目前 process 結束了                                          |
 
 ==其實就是 Ready 、 Running 、 Waiting 間的那幾個箭頭。==
 
@@ -362,7 +362,7 @@ process 結束了，所以 CPU 當然空出來。
 這兩種都不是 OS 硬搶 CPU，而是目前 process 已經無法或不需要繼續使用 CPU。
 
 
-!!! danger "PEICD"
+!!! danger
 
     Q：你這邊說情況一和情況四不可搶先，是指情況一和情況四不可以搶先別人，還是別人不可以搶先情況一跟情況四?
     
@@ -420,13 +420,13 @@ process 結束了，所以 CPU 當然空出來。
 
 同一個概念，考試可以這樣記：
 
-| 類型              | 判斷法                                              |
-| --------------- | ------------------------------------------------ |
-| `Nonpreemptive` | CPU 只在 process 自己 blocking 或 terminate 時換人       |
+| 類型            | 判斷法                                                     |
+|-----------------|------------------------------------------------------------|
+| `Nonpreemptive` | CPU 只在 process 自己 blocking 或 terminate 時換人         |
 | `Preemptive`    | OS 可以因 interrupt、time slice、priority 等原因重新分配 CPU |
-| Page 7 四情況      | 1、4 是 nonpreemptive；2、3 是 preemptive 的典型來源       |
+| Page 7 四情況   | 1、4 是 nonpreemptive；2、3 是 preemptive 的典型來源          |
 
-!!! danger "PEICD"
+!!! danger
 
     ### 如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。
 
@@ -442,10 +442,10 @@ process 結束了，所以 CPU 當然空出來。
 
 #### 1. 精準區分：直接搶先 vs 觸發重新排班
 
-| 情況                | 發生什麼事                              | 是否直接動到目前 running process？ | 為什麼可能算 preemptive？                                  |
-| ----------------- | ---------------------------------- | ------------------------: | --------------------------------------------------- |
-| `Running → Ready` | 目前 running process 被放回 ready queue |                         是 | OS 直接把正在跑的 process 趕下 CPU                           |
-| `Waiting → Ready` | 某個等待 I/O 的 process 回到 ready queue  |                         否 | 新回來的 process 可能比目前 running process 更該跑，OS 可能因此搶 CPU |
+| 情況              | 發生什麼事                               | 是否直接動到目前 running process？ | 為什麼可能算 preemptive？                                             |
+|-------------------|------------------------------------------|----------------------------------:|----------------------------------------------------------------------|
+| `Running → Ready` | 目前 running process 被放回 ready queue  |                                是 | OS 直接把正在跑的 process 趕下 CPU                                   |
+| `Waiting → Ready` | 某個等待 I/O 的 process 回到 ready queue |                                否 | 新回來的 process 可能比目前 running process 更該跑，OS 可能因此搶 CPU |
 
 所以你的直覺要修正成：
 
@@ -514,7 +514,7 @@ UIC 的 OS course notes 也把 CPU scheduling decision 的情況 3 寫成：proc
 [2]: https://www.csie.ntu.edu.tw/~ktw/uos/uos2005-Chp5.pdf?utm_source=chatgpt.com "Chapter 5 Process Scheduling"
 
 
-!!! danger "PEICD"
+!!! danger
 
     ### 所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？
 
@@ -609,7 +609,7 @@ A system uses preemptive priority scheduling. P1 is running with priority 20. P2
 ANS:
 P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從 Waiting → Ready，表示它已經可以被排程。因為 P2 的 priority 比 P1 高，所以在 preemptive priority scheduling 裡，OS 會重新比較目前 running process 和 ready queue 裡的 process。若 P2 應該優先執行，OS 會把 P1 從 Running → Ready，再讓 P2 從 Ready → Running。
 
-!!! danger "PEICD"
+!!! danger
     
     Priority 50 是指優先程度是 50 ，優先度越大，越優先。
     所以 50 比 20 優先。
@@ -628,10 +628,10 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 
 所以可以這樣分：
 
-| 元件                       | 負責的問題                   | 生活化例子              |
-| ------------------------ | ----------------------- | ------------------ |
-| `CPU Scheduler(CPU 排班器)` | 下一個要跑誰？                 | 櫃台叫號系統決定下一位客人      |
-| `Dispatcher(分派程式)`       | 怎麼真的把 CPU 交給那個 process？ | 櫃台人員真的把窗口切給下一位客人辦事 |
+| 元件                        | 負責的問題                       | 生活化例子                           |
+|-----------------------------|----------------------------------|--------------------------------------|
+| `CPU Scheduler(CPU 排班器)` | 下一個要跑誰？                    | 櫃台叫號系統決定下一位客人           |
+| `Dispatcher(分派程式)`      | 怎麼真的把 CPU 交給那個 process？ | 櫃台人員真的把窗口切給下一位客人辦事 |
 
 講義 page 9 說，dispatcher 是 CPU scheduling function 裡的另一個元件，負責把 CPU 控制權交給 scheduler 選到的 process。 UIC OS notes 也用同樣定義：dispatcher gives control of the CPU to the process selected by the scheduler。([cs.uic.edu][2])
 
@@ -690,8 +690,8 @@ flowchart TD
 
 ### 5. 最短記法
 
-| 名詞                 | 最短記法                                       |
-| ------------------ | ------------------------------------------ |
+| 名詞               | 最短記法                                   |
+|--------------------|--------------------------------------------|
 | `Scheduler`        | choose next process                        |
 | `Dispatcher`       | give CPU to chosen process                 |
 | `Context switch`   | save old state + load new state            |
@@ -757,7 +757,7 @@ Turnaround time = Completion time - Arrival time
 
 **你從拿號碼牌開始，到事情完全辦完離開，總共花多少時間。**
 
-!!! danger "PEICD"
+!!! danger
     ```text
     0      2      5      7      10
     |  P2  |  P1  |  P3  |  P1  |
@@ -780,7 +780,7 @@ Turnaround time = Completion time - Arrival time
 
 
 
-!!! danger "PEICD100"
+!!! danger
     Q：
     Arrival time 是啥
 
@@ -844,7 +844,7 @@ Waiting time = Turnaround time - CPU burst time
 
 如果有多段 CPU burst / I/O burst，waiting time 是所有 ready queue 等待片段加總。
 
-!!! danger "PEICD100"
+!!! danger
 
     ```text
     0      2      5      7      10
@@ -882,12 +882,12 @@ Waiting time = Turnaround time - CPU burst time
 
 所以 response time 不等於 turnaround time：
 
-| 指標                | 看哪段時間  |
-| ----------------- | ------ |
+| 指標              | 看哪段時間   |
+|-------------------|--------------|
 | `Response time`   | 到第一次反應 |
-| `Turnaround time` | 到全部完成  |
+| `Turnaround time` | 到全部完成   |
 
-!!! danger "PEICD100"
+!!! danger
     
 
     ```text
@@ -943,11 +943,11 @@ Waiting time = Turnaround time - CPU burst time
 
 可以整理成：
 
-| 指標                | 算法                             |                      結果 |
-| ----------------- | ------------------------------ | ----------------------: |
-| `Response Time`   | 第一次拿到 CPU - Arrival Time       |             `2 - 0 = 2` |
-| `Waiting Time`    | 所有在 ready queue 裡等 CPU 的時間總和   | `(2 - 0) + (7 - 5) = 4` |
-| `Turnaround Time` | Completion Time - Arrival Time |           `10 - 0 = 10` |
+| 指標              | 算法                                   |                    結果 |
+|-------------------|----------------------------------------|------------------------:|
+| `Response Time`   | 第一次拿到 CPU - Arrival Time          |             `2 - 0 = 2` |
+| `Waiting Time`    | 所有在 ready queue 裡等 CPU 的時間總和 | `(2 - 0) + (7 - 5) = 4` |
+| `Turnaround Time` | Completion Time - Arrival Time         |           `10 - 0 = 10` |
 
 最短記法：
 
@@ -961,8 +961,8 @@ Waiting time = Turnaround time - CPU burst time
 
 講義 page 11 把五個 criteria 整理成最佳化目標：
 
-| Criteria        | 目標       |
-| --------------- | -------- |
+| Criteria        | 目標     |
+|-----------------|----------|
 | CPU utilization | maximize |
 | Throughput      | maximize |
 | Turnaround time | minimize |
@@ -989,7 +989,7 @@ Response 只看第一個反應，不看全部完成。
 
 
 
-!!! danger "PEICD100"
+!!! danger
 
     1.Explain how minimizing average turnaround time may conflict with minimizing maximum waiting time. Give one concrete scheduling example in words.  
         `[Adapted from: 期末考古_108／Q1(b) scheduling criteria conflicts]`
@@ -1007,7 +1007,7 @@ Response 只看第一個反應，不看全部完成。
     I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 CPU-bound process，CPU 可以長時間保持忙碌，因此 CPU utilization 可能提高；但因為這些 process 很少發出 I/O request，I/O device 可能閒置。相反地，若 scheduler 偏好 I/O-bound process，這些 process 會快速發出 I/O request，使 I/O device 保持忙碌；但它們的 CPU burst 很短，可能造成頻繁 context switch，或在很多 process 都等待 I/O 時讓 CPU 閒置，因此 CPU utilization 可能下降。
     
 
-!!! danger "PEICD100"
+!!! danger
 
     conflict ： 衝突、矛盾
     
@@ -1047,7 +1047,7 @@ FCFS 是最直覺的排班規則：
 假設有三個 process：
 
 | Process | Arrival Time | CPU Burst |
-| ------- | -----------: | --------: |
+|---------|-------------:|----------:|
 | P1      |            0 |         4 |
 | P2      |            1 |         3 |
 | P3      |            2 |         2 |
@@ -1076,7 +1076,7 @@ Gantt chart：
 我們前面已經練過三個公式，現在把它們放進 Gantt chart 題：
 
 | Process | Arrival | Burst | First Start | Completion | Turnaround |   Waiting |  Response |
-| ------- | ------: | ----: | ----------: | ---------: | ---------: | --------: | --------: |
+|---------|--------:|------:|------------:|-----------:|-----------:|----------:|----------:|
 | P1      |       0 |     4 |           0 |          4 |  4 - 0 = 4 | 4 - 4 = 0 | 0 - 0 = 0 |
 | P2      |       1 |     3 |           4 |          7 |  7 - 1 = 6 | 6 - 3 = 3 | 4 - 1 = 3 |
 | P3      |       2 |     2 |           7 |          9 |  9 - 2 = 7 | 7 - 2 = 5 | 7 - 2 = 5 |
@@ -1177,7 +1177,7 @@ SJF 的想法是反過來：
 期末考古 Q2 的所有 process 都在 time 0 到達，資料是：
 
 | Process | Burst Time |
-| ------- | ---------: |
+|---------|-----------:|
 | P1      |          2 |
 | P2      |          1 |
 | P3      |          8 |
@@ -1272,7 +1272,7 @@ SRTF 的答案是：要。
 p.14 的資料是：
 
 | Process | Arrival Time | Burst Time |
-| ------- | -----------: | ---------: |
+|---------|-------------:|-----------:|
 | P1      |            0 |          8 |
 | P2      |            1 |          4 |
 | P3      |            2 |          9 |
@@ -1337,7 +1337,7 @@ SRTF 題目最穩的算法是：
 我們先列 completion time：
 
 | Process | Arrival | Burst | Completion |    Waiting Time |
-| ------- | ------: | ----: | ---------: | --------------: |
+|---------|--------:|------:|-----------:|----------------:|
 | P1      |       0 |     8 |         17 |  17 - 0 - 8 = 9 |
 | P2      |       1 |     4 |          5 |   5 - 1 - 4 = 0 |
 | P3      |       2 |     9 |         26 | 26 - 2 - 9 = 15 |
@@ -1404,8 +1404,8 @@ FCFS 只看誰先來，SJF 只看誰短。
 
 常見有兩種：
 
-| 題目定義                              | 意思         |
-| --------------------------------- | ---------- |
+| 題目定義                          | 意思                |
+|-----------------------------------|---------------------|
 | smaller integer = higher priority | 數字越小，優先權越高 |
 | larger number = higher priority   | 數字越大，優先權越高 |
 
@@ -1440,7 +1440,7 @@ FCFS 只看誰先來，SJF 只看誰短。
 以期末考古 Q2 來說：
 
 | Process | Burst | Priority |
-| ------- | ----: | -------: |
+|---------|------:|---------:|
 | P1      |     2 |        2 |
 | P4      |     4 |        2 |
 
@@ -1492,7 +1492,7 @@ Priority Scheduling 可能造成 `Starvation(飢餓)`。
 **smaller priority number = higher priority**
 
 | Process | Burst | Priority |
-| ------- | ----: | -------: |
+|---------|------:|---------:|
 | A       |     4 |        3 |
 | B       |     2 |        1 |
 | C       |     3 |        2 |
@@ -1577,7 +1577,7 @@ RR 有一個關鍵參數：
 假設所有 process 都在 time 0 到達，順序是 A, B, C：
 
 | Process | Burst |
-| ------- | ----: |
+|---------|------:|
 | A       |     3 |
 | B       |     1 |
 | C       |     2 |
@@ -1590,14 +1590,14 @@ A, B, C
 
 執行流程：
 
-| 時間  | 執行 | 剩餘 burst | 下一步        |
-| --- | -- | -------- | ---------- |
-| 0–1 | A  | A 剩 2    | A 沒跑完，排到尾端 |
-| 1–2 | B  | B 剩 0    | B 完成       |
-| 2–3 | C  | C 剩 1    | C 沒跑完，排到尾端 |
-| 3–4 | A  | A 剩 1    | A 沒跑完，排到尾端 |
-| 4–5 | C  | C 剩 0    | C 完成       |
-| 5–6 | A  | A 剩 0    | A 完成       |
+| 時間 | 執行 | 剩餘 burst | 下一步            |
+|------|------|------------|-------------------|
+| 0–1  | A    | A 剩 2     | A 沒跑完，排到尾端 |
+| 1–2  | B    | B 剩 0     | B 完成            |
+| 2–3  | C    | C 剩 1     | C 沒跑完，排到尾端 |
+| 3–4  | A    | A 剩 1     | A 沒跑完，排到尾端 |
+| 4–5  | C    | C 剩 0     | C 完成            |
+| 5–6  | A    | A 剩 0     | A 完成            |
 
 Gantt chart：
 
@@ -1689,14 +1689,14 @@ Q2 的 nonpreemptive priority 是：
 
 所以 Q3 裡：
 
-| Priority 數字 | 優先權          |
-| ----------: | ------------ |
-|          40 | 比 35 高       |
-|          35 | 比 30 高       |
-|          30 | 比 10 高       |
-|          10 | 比 5 高        |
-|           5 | 比 0 高        |
-|           0 | idle task，最低 |
+| Priority 數字 | 優先權         |
+|--------------:|----------------|
+|            40 | 比 35 高       |
+|            35 | 比 30 高       |
+|            30 | 比 10 高       |
+|            10 | 比 5 高        |
+|             5 | 比 0 高        |
+|             0 | idle task，最低 |
 
 考試第一步一定要圈出 priority 方向，不能沿用 Q2 的方向。
 
@@ -1750,7 +1750,7 @@ Q2 的 nonpreemptive priority 是：
 假設：
 
 | Process | Priority | Burst | Arrival |
-| ------- | -------: | ----: | ------: |
+|---------|---------:|------:|--------:|
 | A       |       20 |    15 |       0 |
 | B       |       20 |    15 |       0 |
 | C       |       30 |     5 |       8 |
@@ -1759,12 +1759,12 @@ Quantum = 10，數字越大 priority 越高。
 
 流程：
 
-| 時間     | 事件                        | 決策                   |
-| ------ | ------------------------- | -------------------- |
+| 時間   | 事件                        | 決策                     |
+|--------|-----------------------------|--------------------------|
 | t=0    | A、B 都 ready，priority 都 20 | 同 priority，用 RR，A 先跑 |
-| t=8    | C arrival，priority 30     | C 比 A 高，所以 C 搶先 A    |
-| t=8–13 | C 跑完                      | 回到 priority 20 的 A/B |
-| 之後     | A 和 B 同 priority          | 繼續用 RR               |
+| t=8    | C arrival，priority 30       | C 比 A 高，所以 C 搶先 A  |
+| t=8–13 | C 跑完                      | 回到 priority 20 的 A/B  |
+| 之後   | A 和 B 同 priority          | 繼續用 RR                |
 
 這就是 Q3 的核心思路：
 
@@ -1816,10 +1816,10 @@ Q3 特別記：
 
 講義 p.21 說 ready queue 可以分成不同 queue，例如：
 
-| Queue 類型         | 意思                                 |
-| ---------------- | ---------------------------------- |
+| Queue 類型         | 意思                                        |
+|--------------------|---------------------------------------------|
 | `Foreground(前景)` | 通常是 `Interactive(交談式／互動式)` process |
-| `Background(背景)` | 通常是 `Batch(整批作業)` process          |
+| `Background(背景)` | 通常是 `Batch(整批作業)` process            |
 
 這裡的重點不是只有兩類，而是：
 
@@ -1833,10 +1833,10 @@ Q3 特別記：
 
 講義 p.21 給的例子是：
 
-| Queue      | Process 類型  | 可用排班法 |
-| ---------- | ----------- | ----- |
-| Foreground | interactive | RR    |
-| Background | batch       | FCFS  |
+| Queue      | Process 類型 | 可用排班法 |
+|------------|--------------|------------|
+| Foreground | interactive  | RR         |
+| Background | batch        | FCFS       |
 
 為什麼 foreground 常用 RR？
 
@@ -1870,10 +1870,10 @@ Q3 特別記：
 
 講義例子是：
 
-| CPU 比例 | Queue             |
-| -----: | ----------------- |
-|    80% | foreground，用 RR   |
-|    20% | background，用 FCFS |
+| CPU 比例 | Queue              |
+|---------:|--------------------|
+|      80% | foreground，用 RR   |
+|      20% | background，用 FCFS |
 
 這種方法比較像「CPU 預算分配」。即使 foreground 很忙，background 至少還有 20% CPU 可以跑，比固定優先權更不容易餓死。
 
@@ -1883,8 +1883,8 @@ Q3 特別記：
 
 p.22 的圖把 queue 從高優先權到低優先權排開，大概是這個意思：
 
-|            優先權順序 | Queue 類型                      |
-| ---------------: | ----------------------------- |
+|       優先權順序 | Queue 類型                    |
+|-----------------:|-------------------------------|
 | highest priority | system processes              |
 |                  | interactive processes         |
 |                  | interactive editing processes |
@@ -1908,12 +1908,12 @@ p.22 的圖把 queue 從高優先權到低優先權排開，大概是這個意�
 
 不完全一樣。
 
-| 概念         | Priority Scheduling   | Multilevel Queue Scheduling       |
-| ---------- | --------------------- | --------------------------------- |
-| 分類單位       | 每個 process 有 priority | process 被分到不同 queue               |
-| 排班重點       | 選最高 priority process  | 先決定 queue，再決定 queue 內 process     |
-| queue 內演算法 | 通常沒有特別分多種             | 每個 queue 可有自己的演算法                 |
-| 例子         | P2 priority 1 先跑      | foreground 用 RR，background 用 FCFS |
+| 概念           | Priority Scheduling      | Multilevel Queue Scheduling          |
+|----------------|--------------------------|--------------------------------------|
+| 分類單位       | 每個 process 有 priority | process 被分到不同 queue             |
+| 排班重點       | 選最高 priority process  | 先決定 queue，再決定 queue 內 process |
+| queue 內演算法 | 通常沒有特別分多種       | 每個 queue 可有自己的演算法          |
+| 例子           | P2 priority 1 先跑       | foreground 用 RR，background 用 FCFS  |
 
 最短差別：
 
@@ -1925,11 +1925,11 @@ p.22 的圖把 queue 從高優先權到低優先權排開，大概是這個意�
 
 這個先講最小必要差別，因為 p.23 才會正式教 `Multilevel Feedback Queue`。
 
-| 概念                 | Multilevel Queue         | Multilevel Feedback Queue |
-| ------------------ | ------------------------ | ------------------------- |
-| process 能不能換 queue | 通常不能或不強調                 | 可以                        |
-| 核心想法               | 固定分類                     | 依行為動態調整                   |
-| 例子                 | foreground 永遠 foreground | CPU 用太久就降到低優先 queue       |
+| 概念                   | Multilevel Queue           | Multilevel Feedback Queue    |
+|------------------------|----------------------------|------------------------------|
+| process 能不能換 queue | 通常不能或不強調           | 可以                         |
+| 核心想法               | 固定分類                   | 依行為動態調整               |
+| 例子                   | foreground 永遠 foreground | CPU 用太久就降到低優先 queue |
 
 p.21–22 你先記：
 
@@ -1984,10 +1984,10 @@ p.23 最重要的一句是：
 
 這就是它和 Multilevel Queue 最大的差別。
 
-| 類型                        | Process 可不可以換 queue？ | 核心想法     |
-| ------------------------- | -------------------- | -------- |
-| Multilevel Queue          | 通常固定，不強調移動           | 固定分類     |
-| Multilevel Feedback Queue | 可以移動                 | 根據行為動態調整 |
+| 類型                      | Process 可不可以換 queue？ | 核心想法         |
+|---------------------------|---------------------------|------------------|
+| Multilevel Queue          | 通常固定，不強調移動       | 固定分類         |
+| Multilevel Feedback Queue | 可以移動                  | 根據行為動態調整 |
 
 所以名字裡的 `Feedback(回饋)` 很重要：
 系統會觀察 process 的行為，再回饋到排程決策。
@@ -2047,15 +2047,15 @@ CPU-bound process 通常不需要快速互動回應，所以可以被放到較�
 
 ### 6. 和前一頁 Multilevel Queue 的最短差別
 
-| 概念                     | Multilevel Queue        | Multilevel Feedback Queue |
-| ---------------------- | ----------------------- | ------------------------- |
-| queue 是否多層             | 是                       | 是                         |
-| 每層是否可有不同演算法            | 是                       | 是                         |
-| process 是否能在 queue 間移動 | 通常不強調／固定分類              | 可以移動                      |
-| 核心目的                   | 分類管理不同類型 process        | 依 process 行為動態調整          |
-| 避免 starvation          | 可用 queue 間 time slicing | 可用 promotion / aging      |
-| 對 CPU-bound process    | 固定在原 queue              | 用太久可能降級                   |
-| 對等太久 process           | 固定策略處理                  | 等太久可能升級                   |
+| 概念                          | Multilevel Queue           | Multilevel Feedback Queue |
+|-------------------------------|----------------------------|---------------------------|
+| queue 是否多層                | 是                         | 是                        |
+| 每層是否可有不同演算法        | 是                         | 是                        |
+| process 是否能在 queue 間移動 | 通常不強調／固定分類        | 可以移動                  |
+| 核心目的                      | 分類管理不同類型 process   | 依 process 行為動態調整   |
+| 避免 starvation               | 可用 queue 間 time slicing | 可用 promotion / aging    |
+| 對 CPU-bound process          | 固定在原 queue             | 用太久可能降級            |
+| 對等太久 process              | 固定策略處理               | 等太久可能升級            |
 
 最短記法：
 
@@ -2125,11 +2125,11 @@ MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue �
 
     `Process-contention scope(PCS，行程競爭範圍)` 這個名字要拆成三段看：
 
-    | 字 | 這裡的意思 |
-    | --- | --- |
-    | `Process` | 競爭範圍被限制在同一個 process 裡 |
-    | `Contention` | threads 在競爭 CPU time |
-    | `Scope` | 競爭的範圍 |
+    | 字           | 這裡的意思                        |
+    |--------------|-----------------------------------|
+    | `Process`    | 競爭範圍被限制在同一個 process 裡 |
+    | `Contention` | threads 在競爭 CPU time           |
+    | `Scope`      | 競爭的範圍                        |
 
     所以它不是在說：
 
@@ -2175,14 +2175,14 @@ SCS 就像不是只在自己部門排隊，而是整間公司所有人一起搶�
 
 ### 4. PCS vs SCS 的核心差別
 
-| 比較點    | PCS                      | SCS                     |
-| ------ | ------------------------ | ----------------------- |
-| 全名     | Process-contention scope | System-contention scope |
-| 中文     | 行程競爭範圍                   | 系統競爭範圍                  |
-| 誰負責排班  | thread library           | operating system kernel |
-| 跟誰競爭   | 同一個 process 內的 threads   | 系統內所有 kernel threads    |
-| 常見情境   | user-level threads       | kernel-level threads    |
-| 競爭範圍大小 | 小                        | 大                       |
+| 比較點       | PCS                         | SCS                       |
+|--------------|-----------------------------|---------------------------|
+| 全名         | Process-contention scope    | System-contention scope   |
+| 中文         | 行程競爭範圍                | 系統競爭範圍              |
+| 誰負責排班   | thread library              | operating system kernel   |
+| 跟誰競爭     | 同一個 process 內的 threads | 系統內所有 kernel threads |
+| 常見情境     | user-level threads          | kernel-level threads      |
+| 競爭範圍大小 | 小                          | 大                        |
 
 最短差別：
 
@@ -2257,10 +2257,10 @@ p.25 ~ 27 接著問：
 
 講義 p.25 給了兩個設定：
 
-| Pthread scope 常數        | 使用的排班範圍 |
-| ----------------------- | ------- |
-| `PTHREAD_SCOPE_PROCESS` | 使用 PCS  |
-| `PTHREAD_SCOPE_SYSTEM`  | 使用 SCS  |
+| Pthread scope 常數      | 使用的排班範圍 |
+|-------------------------|----------------|
+| `PTHREAD_SCOPE_PROCESS` | 使用 PCS       |
+| `PTHREAD_SCOPE_SYSTEM`  | 使用 SCS       |
 
 所以最短對應是：
 
@@ -2330,10 +2330,10 @@ pthread_attr_setschedpolicy(&attr, SCHED_OTHER);
 
 這和 scope 不一樣。
 
-| 設定       | 問題        | 例子                                               |
-| -------- | --------- | ------------------------------------------------ |
-| `scope`  | 跟誰競爭 CPU？ | `PTHREAD_SCOPE_PROCESS` / `PTHREAD_SCOPE_SYSTEM` |
-| `policy` | 用哪種排班策略？  | `SCHED_OTHER` / FIFO / RR 等                      |
+| 設定     | 問題            | 例子                                             |
+|----------|-----------------|--------------------------------------------------|
+| `scope`  | 跟誰競爭 CPU？   | `PTHREAD_SCOPE_PROCESS` / `PTHREAD_SCOPE_SYSTEM` |
+| `policy` | 用哪種排班策略？ | `SCHED_OTHER` / FIFO / RR 等                     |
 
 所以：
 
@@ -2447,10 +2447,10 @@ API 流程：
 
 SMP 常見有兩種 ready queue 設計：
 
-| 設計                         | 意思                          | 好處             | 問題                               |
-| -------------------------- | --------------------------- | -------------- | -------------------------------- |
-| Common ready queue(共同就緒佇列) | 所有 processor 從同一個 queue 抓工作 | 比較容易平均分配工作     | 多顆 processor 同時碰同一個 queue，可能需要同步 |
-| Private queue(私人佇列)        | 每顆 processor 有自己的 queue     | 減少共用 queue 的競爭 | 可能有些 processor 很忙、有些很閒           |
+| 設計                             | 意思                                 | 好處                  | 問題                                           |
+|----------------------------------|--------------------------------------|-----------------------|------------------------------------------------|
+| Common ready queue(共同就緒佇列) | 所有 processor 從同一個 queue 抓工作 | 比較容易平均分配工作  | 多顆 processor 同時碰同一個 queue，可能需要同步 |
+| Private queue(私人佇列)          | 每顆 processor 有自己的 queue        | 減少共用 queue 的競爭 | 可能有些 processor 很忙、有些很閒               |
 
 這裡會連到 p.30 的 `Load Balancing(負載平衡)`。
 
@@ -2480,10 +2480,10 @@ SMP 常見有兩種 ready queue 設計：
 
 講義 p.29 又分成兩種 affinity：`Soft Affinity(軟性親和性)` 和 `Hard Affinity(硬性親和性)`。
 
-| 類型            | 意思                                     |
-| ------------- | -------------------------------------- |
+| 類型          | 意思                                                |
+|---------------|-----------------------------------------------------|
 | Soft Affinity | OS 會「盡量」讓 process 留在同一顆 processor，但不保證 |
-| Hard Affinity | 明確指定 process 不能移到其他 processor          |
+| Hard Affinity | 明確指定 process 不能移到其他 processor             |
 
 `Soft Affinity` 像是：
 
@@ -2520,10 +2520,10 @@ Load Balancing 想要：
 
 講義 p.30 給兩種 migration(遷移)：
 
-| 類型             | 誰主動？            | 做什麼？                                                  |
-| -------------- | --------------- | ----------------------------------------------------- |
-| Push Migration | 系統或監控機制主動       | 定期檢查每顆 processor 的負載，把工作從太忙的 processor 推給其他 processor |
-| Pull Migration | 閒置 processor 主動 | 閒置 processor 從忙碌 processor 那邊拉工作過來                    |
+| 類型           | 誰主動？             | 做什麼？                                                                   |
+|----------------|---------------------|---------------------------------------------------------------------------|
+| Push Migration | 系統或監控機制主動  | 定期檢查每顆 processor 的負載，把工作從太忙的 processor 推給其他 processor |
+| Pull Migration | 閒置 processor 主動 | 閒置 processor 從忙碌 processor 那邊拉工作過來                            |
 
 最短記法：
 
@@ -2549,7 +2549,7 @@ Load Balancing 想要：
 
 講義 p.31 的圖也在表達 `compute cycle` 和 `memory stall cycle` 交錯出現：當一個 thread 卡在 memory stall 時，可以讓其他 thread 接著使用執行資源。
 
-!!! danger "PEICD100"
+!!! danger
 
     強調什麼？
 
@@ -2702,10 +2702,10 @@ flowchart TD
 
 ### 4. Soft vs Hard 的最短差別
 
-| 類型               | 核心意思              | 錯過 deadline 的後果 |
-| ---------------- | ----------------- | --------------- |
-| `Soft real-time` | 重要工作優先，但不保證一定準時   | 效能下降、體驗變差       |
-| `Hard real-time` | 必須保證 deadline 前完成 | 系統失敗，可能造成嚴重後果   |
+| 類型             | 核心意思                      | 錯過 deadline 的後果      |
+|------------------|-------------------------------|---------------------------|
+| `Soft real-time` | 重要工作優先，但不保證一定準時 | 效能下降、體驗變差         |
+| `Hard real-time` | 必須保證 deadline 前完成      | 系統失敗，可能造成嚴重後果 |
 
 最短記法：
 
@@ -2741,14 +2741,14 @@ flowchart TD
 
     原因通常包含這些：
 
-    | 原因 | 意思 |
-    | --- | --- |
-    | 目前指令要先完成 | CPU 通常不能在一條 machine instruction(機器指令) 的中間隨便切走 |
-    | 要保存目前狀態 | 至少要保存 PC、status register 等必要狀態，之後才能回來繼續跑 |
-    | 要切到 kernel mode | 中斷處理屬於 OS / hardware control，要進入 kernel mode |
-    | 要找 interrupt handler | CPU / OS 要根據 interrupt vector 找到對應的中斷處理程式 |
-    | 可能暫時不能中斷 | 某些 critical kernel section 可能暫時 disable interrupt |
-    | 可能正在處理更高優先權的中斷 | 低優先權 interrupt 可能要等高優先權 interrupt 處理完 |
+    | 原因                         | 意思                                                            |
+    |------------------------------|-----------------------------------------------------------------|
+    | 目前指令要先完成             | CPU 通常不能在一條 machine instruction(機器指令) 的中間隨便切走 |
+    | 要保存目前狀態               | 至少要保存 PC、status register 等必要狀態，之後才能回來繼續跑     |
+    | 要切到 kernel mode           | 中斷處理屬於 OS / hardware control，要進入 kernel mode           |
+    | 要找 interrupt handler       | CPU / OS 要根據 interrupt vector 找到對應的中斷處理程式         |
+    | 可能暫時不能中斷             | 某些 critical kernel section 可能暫時 disable interrupt         |
+    | 可能正在處理更高優先權的中斷 | 低優先權 interrupt 可能要等高優先權 interrupt 處理完            |
 
     這些事情加起來，就是 interrupt latency。
 
@@ -2799,12 +2799,12 @@ flowchart TD
 
     process 進入 kernel mode 的常見原因包含：
 
-    | 進入 kernel mode 的原因 | 例子 |
-    | --- | --- |
-    | `System call(系統呼叫)` | 程式呼叫 `read()`、`write()`、`open()`、`fork()` |
-    | `Interrupt(中斷)` | 鍵盤、網路卡、timer interrupt |
-    | `Exception / trap(例外／陷入)` | page fault、除以 0、非法指令 |
-    | kernel 內部工作 | OS 正在處理排程、driver、memory management |
+    | 進入 kernel mode 的原因       | 例子                                          |
+    |-------------------------------|-----------------------------------------------|
+    | `System call(系統呼叫)`       | 程式呼叫 `read()`、`write()`、`open()`、`fork()` |
+    | `Interrupt(中斷)`             | 鍵盤、網路卡、timer interrupt                   |
+    | `Exception / trap(例外／陷入)` | page fault、除以 0、非法指令                    |
+    | kernel 內部工作               | OS 正在處理排程、driver、memory management      |
 
     所以：
 
@@ -2838,7 +2838,7 @@ flowchart TD
 
 ### 9. 用一條時間線理解
 
-!!! danger "PEICD100"
+!!! danger
     下面那張圖不錯
     
 ```mermaid
@@ -2857,7 +2857,7 @@ flowchart LR
 
 **real-time process 不只是要 priority 高，還要讓「從事件發生到真正執行」中間的延遲夠小。**
 
-!!! danger "PEICD100"
+!!! danger
     
     也就是說：
     
@@ -2944,10 +2944,10 @@ p.32 我們剛學到 real-time system 最怕的是：
 
 這就是 soft real-time 的特色：
 
-| 系統類型             | 做法                             | 是否保證 deadline |
-| ---------------- | ------------------------------ | ------------- |
-| `Soft real-time` | 給 real-time process 高 priority | 不保證           |
-| `Hard real-time` | 必須保證 task 在 deadline 前完成       | 保證            |
+| 系統類型         | 做法                             | 是否保證 deadline |
+|------------------|----------------------------------|-------------------|
+| `Soft real-time` | 給 real-time process 高 priority | 不保證            |
+| `Hard real-time` | 必須保證 task 在 deadline 前完成 | 保證              |
 
 所以 p.33 的重點是：
 
@@ -3000,11 +3000,11 @@ p.34 開始定義 real-time scheduling 很常見的任務形式：
 
 ### 6. t、d、p 是什麼？
 
-| 符號  | 英文                | 中文   | 意思                        |
-| --- | ----------------- | ---- | ------------------------- |
-| `t` | `processing time` | 處理時間 | 這個 task 每次執行需要多少 CPU time |
-| `d` | `deadline`        | 期限   | 這次 task 最晚要在什麼時間前完成       |
-| `p` | `period`          | 週期   | 每隔多久這個 task 會再次出現         |
+| 符號 | 英文              | 中文     | 意思                                |
+|------|-------------------|----------|-------------------------------------|
+| `t`  | `processing time` | 處理時間 | 這個 task 每次執行需要多少 CPU time |
+| `d`  | `deadline`        | 期限     | 這次 task 最晚要在什麼時間前完成    |
+| `p`  | `period`          | 週期     | 每隔多久這個 task 會再次出現        |
 
 例如：
 
@@ -3055,9 +3055,9 @@ deadline 通常不能比下一次週期還晚。
 
 例如：
 
-| period p | rate 1/p | 直覺    |
-| -------- | -------- | ----- |
-| 10 ms    | 1/10     | 很常來   |
+| period p | rate 1/p | 直覺       |
+|----------|----------|------------|
+| 10 ms    | 1/10     | 很常來     |
 | 100 ms   | 1/100    | 比較不常來 |
 
 所以：
@@ -3127,11 +3127,11 @@ ANS:
 
 前面 p.34 我們學到 `Periodic Task(週期性任務)` 有三個參數：
 
-| 符號  | 意思                        |
-| --- | ------------------------- |
-| `t` | 每次需要的 CPU processing time |
-| `d` | deadline                  |
-| `p` | period，也就是多久來一次           |
+| 符號 | 意思                           |
+|------|--------------------------------|
+| `t`  | 每次需要的 CPU processing time |
+| `d`  | deadline                       |
+| `p`  | period，也就是多久來一次        |
 
 現在 p.35 的問題是：
 
@@ -3152,9 +3152,9 @@ ANS:
 所以：
 
 | period `p` | rate `1/p` | priority |
-| ---------: | ---------: | -------- |
-|          小 |          大 | 高        |
-|          大 |          小 | 低        |
+|-----------:|-----------:|----------|
+|         小 |         大 | 高       |
+|         大 |         小 | 低       |
 
 最短記法：
 
@@ -3164,7 +3164,7 @@ ANS:
 
 ### 3. 為什麼叫 Rate-Monotonic？
 
-!!! danger "PEICD100"
+!!! danger
 
     `Rate(速率)` 是 `1/p`，代表 task 出現頻率。
 
@@ -3189,7 +3189,7 @@ ANS:
 講義 p.35 的例子是：
 
 | Task | Period `p` | Processing time `t` |
-| ---- | ---------: | ------------------: |
+|------|-----------:|--------------------:|
 | `P1` |         50 |                  20 |
 | `P2` |        100 |                  35 |
 
@@ -3215,7 +3215,7 @@ ANS:
 因為 0.75 < 1，所以從總 CPU 工作量來看，CPU 理論上有足夠時間。
 
 
-!!! danger "PEICD100"
+!!! danger
 
     CPU utilization 計算方式：
     
@@ -3238,9 +3238,9 @@ ANS:
     在 `0 ~ 100` 內，pattern 會完整重複一次：
 
     | Task | Period `p` | 每次 CPU time `t` | `0 ~ 100` 出現幾次 | CPU 需求 |
-    | --- | --- | --- | --- | --- |
-    | P1 | 50 | 20 | 2 次 | 40 |
-    | P2 | 100 | 35 | 1 次 | 35 |
+    |------|------------|-------------------|--------------------|----------|
+    | P1   | 50         | 20                | 2 次               | 40       |
+    | P2   | 100        | 35                | 1 次               | 35       |
 
     所以：
 
@@ -3290,7 +3290,7 @@ gantt
 講義 p.36 的例子是：
 
 | Task | Period `p` | Processing time `t` |
-| ---- | ---------: | ------------------: |
+|------|-----------:|--------------------:|
 | `P1` |         50 |                  25 |
 | `P2` |         80 |                  35 |
 
@@ -3455,9 +3455,9 @@ EDF 的規則非常直覺：
 也就是：
 
 | 條件          | priority |
-| ----------- | -------- |
-| deadline 最早 | 最高       |
-| deadline 較晚 | 較低       |
+|---------------|----------|
+| deadline 最早 | 最高     |
+| deadline 較晚 | 較低     |
 
 所以 EDF 的 priority 不是固定的。
 
@@ -3467,10 +3467,10 @@ EDF 的規則非常直覺：
 
 ### 3. RM 和 EDF 最大差別
 
-| 排程法   | priority 根據什麼決定   | priority 是否固定 |
-| ----- | ----------------- | ------------- |
-| `RM`  | period / rate     | 通常固定          |
-| `EDF` | absolute deadline | 動態改變          |
+| 排程法 | priority 根據什麼決定 | priority 是否固定 |
+|--------|-----------------------|-------------------|
+| `RM`   | period / rate         | 通常固定          |
+| `EDF`  | absolute deadline     | 動態改變          |
 
 `RM` 看的是：
 
@@ -3492,7 +3492,7 @@ EDF 的規則非常直覺：
 講義 p.37 用的資料是：
 
 | Task | period | processing time |
-| ---- | -----: | --------------: |
+|------|-------:|----------------:|
 | P1   |     50 |              25 |
 | P2   |     80 |              35 |
 
@@ -3531,19 +3531,19 @@ EDF 的規則非常直覺：
 
 更清楚地拆開：
 
-|        時間 | 執行       | 原因                                          |
-| --------: | -------- | ------------------------------------------- |
-|    0 ~ 25 | P1       | P1 deadline = 50，比 P2 deadline = 80 早       |
-|   25 ~ 50 | P2       | P1 做完，P2 開始跑                                |
+|      時間 | 執行       | 原因                                             |
+|----------:|------------|--------------------------------------------------|
+|    0 ~ 25 | P1         | P1 deadline = 50，比 P2 deadline = 80 早          |
+|   25 ~ 50 | P2         | P1 做完，P2 開始跑                                |
 |    t = 50 | P2 繼續    | P2 deadline = 80，比新來的 P1 deadline = 100 早   |
-|   50 ~ 60 | P2       | P2 跑完第一次 job                                |
-|   60 ~ 80 | P1       | P1 第二次 job deadline = 100                   |
+|   50 ~ 60 | P2         | P2 跑完第一次 job                                |
+|   60 ~ 80 | P1         | P1 第二次 job deadline = 100                     |
 |    t = 80 | P1 繼續    | P1 deadline = 100，比新來的 P2 deadline = 160 早  |
-|   80 ~ 85 | P1       | P1 第二次 job 跑完                               |
-|  85 ~ 100 | P2       | P2 第二次 job 開始跑                              |
+|   80 ~ 85 | P1         | P1 第二次 job 跑完                               |
+|  85 ~ 100 | P2         | P2 第二次 job 開始跑                             |
 |   t = 100 | P1 搶先 P2 | 新來的 P1 deadline = 150，比 P2 deadline = 160 早 |
-| 100 ~ 125 | P1       | P1 第三次 job 跑完                               |
-| 125 ~ 145 | P2       | P2 第二次 job 跑完                               |
+| 100 ~ 125 | P1         | P1 第三次 job 跑完                               |
+| 125 ~ 145 | P2         | P2 第二次 job 跑完                               |
 
 重點是：
 
@@ -3617,12 +3617,12 @@ FCFS、SJF、Priority、RR、Multilevel Queue、Multilevel Feedback Queue、RM�
 
 不能只說「SJF 好」或「RR 好」，因為「好」要看你在乎什麼：
 
-| 你在乎的目標      | 可能適合的方向                          |
-| ----------- | -------------------------------- |
-| 平均等待時間短     | SJF 常常很好                         |
-| 互動反應快       | RR 常常比較適合                        |
-| 即時 deadline | RM / EDF 這類 real-time scheduling |
-| 公平性         | RR 或 aging-based priority        |
+| 你在乎的目標   | 可能適合的方向                     |
+|----------------|------------------------------------|
+| 平均等待時間短 | SJF 常常很好                       |
+| 互動反應快     | RR 常常比較適合                    |
+| 即時 deadline  | RM / EDF 這類 real-time scheduling |
+| 公平性         | RR 或 aging-based priority         |
 
 所以 `5.7 Algorithm Evaluation(演算法的評估)` 是在處理：
 
@@ -3714,13 +3714,13 @@ P5        5            3
 
 講義 p.40 給三個符號：
 
-| 符號  | 意思                                       |
-| --- | ---------------------------------------- |
-| `n` | average queue length(平均佇列長度)             |
-| `W` | average waiting time in queue(平均在佇列等待時間) |
-| `λ` | average arrival rate into queue(平均到達率)   |
+| 符號 | 意思                                              |
+|------|---------------------------------------------------|
+| `n`  | average queue length(平均佇列長度)                |
+| `W`  | average waiting time in queue(平均在佇列等待時間) |
+| `λ`  | average arrival rate into queue(平均到達率)       |
 
-!!! danger "PEICD100"
+!!! danger
 
     λ = 平均 process 到達 queue 的速率。
     
@@ -3730,7 +3730,7 @@ P5        5            3
 
 然後給出 `Little’s Law`：
 
-!!! danger "PEICD100"
+!!! danger
 
     `n = λ × W`
 
@@ -3771,7 +3771,7 @@ P5        5            3
 
 ### 7. 套講義 p.40 的例子
 
-!!! danger "PEICD100"
+!!! danger
 
     講義例子是：
 
@@ -3797,12 +3797,12 @@ P5        5            3
 
 ### 8. Deterministic Modeling vs Queueing Model
 
-| 比較點  | Deterministic Modeling(定量模式)             | Queueing Model(佇列模式)      |
-| ---- | ---------------------------------------- | ------------------------- |
-| 核心想法 | 固定一組 process 來算                          | 用平均到達率、平均等待時間、平均佇列長度描述系統  |
-| 常見輸出 | Gantt chart、waiting time、turnaround time | `n = λW`、平均等待時間           |
-| 適合情境 | 考試計算題、小型範例                               | 真實系統長期平均分析                |
-| 缺點   | 只代表特定 workload                           | 較抽象，不一定給出每個 process 的具體順序 |
+| 比較點   | Deterministic Modeling(定量模式)         | Queueing Model(佇列模式)                       |
+|----------|------------------------------------------|------------------------------------------------|
+| 核心想法 | 固定一組 process 來算                    | 用平均到達率、平均等待時間、平均佇列長度描述系統 |
+| 常見輸出 | Gantt chart、waiting time、turnaround time | `n = λW`、平均等待時間                          |
+| 適合情境 | 考試計算題、小型範例                      | 真實系統長期平均分析                           |
+| 缺點     | 只代表特定 workload                      | 較抽象，不一定給出每個 process 的具體順序       |
 
 最重要的差別是：
 
@@ -3810,7 +3810,7 @@ P5        5            3
 **Queueing Model 是「不固定某一組 process，而是看長期平均」。**
 
 
-!!! danger "PEICD100"
+!!! danger
 
     Deterministic Modeling(定量模式) 是用同一組固定 workload，套用不同 scheduling algorithms 來比較效能。Queueing Model(佇列模式) 則不是固定一組 process 來排一次，而是用平均到達率、平均等待時間、平均 queue 長度等統計量，分析系統的長期平均行為。
 
@@ -3876,7 +3876,7 @@ flowchart TD
 
 ### 錯題
 
-!!! danger "PEICD100"
+!!! danger
 
     Q:
     Explain how average turnaround time and maximum waiting time can conflict in CPU scheduling.
