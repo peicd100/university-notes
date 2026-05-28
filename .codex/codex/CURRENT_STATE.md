@@ -1,5 +1,7 @@
 # CURRENT STATE
 
+- 2026-05-27 已改善 `collapse-code` 折疊程式碼外觀：`自定義.css` 將展開/收合按鈕縮小為 1.45rem 小工具按鈕；收合狀態保留左下角小浮動展開按鈕，展開狀態 footer 改回正常排版流並使用 code block 同色背景，避免按鈕覆蓋最後幾行或底部出現突兀黑條；`mkdocs.yml` CSS cache 版本更新到 `20260527-9`。
+- 2026-05-27 已改善 Markdown `---` 分隔線可讀性：`自定義.css` 將 `.md-typeset hr` 改成亮/暗色都明顯但更柔和的 cyan 分隔線，維持中間略粗、左右細，且中央粗線範圍加寬到約 70%；`mkdocs.yml` CSS cache 版本更新到 `20260527-5`。
 - 2026-05-25 已修正中型版面文章左緣被 drawer 陰影壓暗：`自定義.css` 讓收起的 primary drawer scrollwrap 預設 `box-shadow:none`，只在 `[data-md-toggle="drawer"]:checked` 時加回陰影；`mkdocs.yml` CSS cache 版本更新到 `20260525-4`。
 - 2026-05-25 已依使用者要求撤回正文 CJK fallback 與可讀性字體實驗：`自定義.css` 回到原本 `var(--md-text-font), "Cascadia Mono", monospace` 字體棧與既有字距設定；`mkdocs.yml` CSS cache 版本更新到 `20260525-3`。
 
@@ -34,6 +36,10 @@
 
 ## 最後驗證
 
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name collapse-code-footer-surface-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8056/md/Verilog/instance%20array(實例陣列).html` 第三個 collapse-code：展開後 footer `position:relative`、位於 highlight 下方，footer 與 code 背景同為 `rgb(39, 41, 53)`，collapse 按鈕在 code 底部之後且未覆蓋最後一行，console error/warn 為空。
+- 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name hr-separator-soft-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
+- 已完成：本機 `http://127.0.0.1:8054/blog/2023/02/06/mkdocs-筆記.html` 暗色頁量測 `.md-typeset hr`：`background-size` 為 `88% 1px, 70% 2px`、主線 `rgba(114, 227, 253, 0.58)`、`border-top/bottom:0px`、可見高度 5px；亮色測試頁量測同樣為 `88% 1px, 70% 2px`、主線 `rgba(0, 121, 153, 0.68)`、可見高度 5px。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name blog-card-black-style-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。
 - 已完成：本機 `http://127.0.0.1:8045/blog/index.html`；972px 桌機量測 3 張 blog cards 為 `rgb(0, 0, 0)`、`background-image:none`、標題 `rgb(226, 251, 255)`；390px 窄版無水平 overflow，標題寬度小於卡片寬度，console error 為空。
 - 已完成：`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name right-toc-black-build-2 -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`，returncode 0。

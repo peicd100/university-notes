@@ -1,5 +1,35 @@
 # log
 
+## 2026-05-27 23:22：collapse-code 展開底部工具列同色化
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：展開狀態的 `.code-footer` 保持正常排版流，但背景改用 `var(--md-code-bg-color)`，加極淡頂部分隔線，讓收合按鈕所在底列像 code block 的工具列。
+- 驗證結果：`collapse-code-footer-surface-build` 建置 returncode 0；本機頁面第三個 collapse-code 展開後 footer 與 code 背景同為 `rgb(39, 41, 53)`，按鈕不覆蓋最後一行，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`VERIFY.md` 的 collapse-code 驗證條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-27 22:29：collapse-code 折疊按鈕與底部樣式改善
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：將 icon-only 展開/收合按鈕縮小為 1.45rem；收合狀態保留左下角小浮動展開按鈕，展開狀態 footer 改回正常排版流，避免按鈕覆蓋最後幾行。
+- 驗證結果：`collapse-code-no-overlap-build-2` 建置 returncode 0；本機頁面第三個 collapse-code 展開後 footer 為 `position:relative`、位於 highlight 下方，collapse 按鈕不再覆蓋最後一行，console error/warn 為空。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`VERIFY.md` 的 collapse-code 驗證條目。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
+## 2026-05-27 21:51：Markdown 分隔線可讀性改善
+
+- 任務類型：ui
+- 修改範圍：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：`.md-typeset hr` 維持柔和 cyan、1px 左右細線與 2px 中央粗線；依使用者回饋將中央粗線範圍加寬到約 70%；CSS cache 版本更新為 `20260527-5`。
+- 驗證結果：`mkdocs build --clean` 透過 `tools/run_logged.py` returncode 0；本機瀏覽器量測暗色實際頁與亮色測試頁的 `.md-typeset hr` 都是 `background-size: 88% 1px, 70% 2px`、`border-top/bottom:0px`、可見高度 5px。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`00_START_HERE.md` 的 Markdown 分隔線路由。
+- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
 ## 2026-05-25 01:08：中型版面左緣文字暗邊修正
 
 - 任務類型：bugfix

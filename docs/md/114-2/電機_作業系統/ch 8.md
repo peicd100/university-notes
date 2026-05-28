@@ -1900,7 +1900,6 @@ PDF viewer page 34 的題目是：
     Show your calculation.
 
 
----
 
 ==ANS:==
 `1024 pages = 2^10`，所以需要 `10 bits` 表示 page number。  
@@ -1922,7 +1921,716 @@ page size 和 frame size 相同，所以 offset bits 一樣是 `13 bits`。
 2. A student says: “If the page size is larger, only the page number bits change; the offset bits stay the same.” Explain what is wrong with this statement.
 
 
----
-
 ==ANS:==
 這句話錯在把 page size 的影響對象搞錯。`page size` 決定的是一個 page 裡面有多少 byte，因此會影響 `offset bits`。`page number bits` 是由 logical address space 裡總共有幾個 pages 決定，不是由每個 page 多大決定。
+
+
+
+## ⭐Free Frames — OS 怎麼知道 page 可以放到哪些 physical memory 位置？
+
+講義位置：PDF viewer page 36
+![alt text](<images/ch 8.png>)
+### 1. 這個概念在解決什麼問題？
+
+前面我們已經知道：
+
+`page(頁面)` 是 process logical memory 裡的固定大小區塊。
+`frame(頁框)` 是 physical memory 裡的固定大小格子。
+
+那現在的問題是：
+
+**當一個 process 有 pages 要載入 main memory 時，OS 要怎麼知道哪些 frames 是空的？**
+
+答案就是：
+
+**OS 會維護一份 `free-frame list(可用頁框串列)`，記錄目前哪些 frames 還沒被使用。**
+
+講義 PDF viewer page 36 的圖正在示範這件事：新 process 有 page 0、page 1、page 2、page 3，要放進 physical memory；OS 從 free-frame list 挑出可用 frame，配置後建立 new-process page table。
+OSTEP 也用同樣模型說明：OS 可以保留一份 free list，從裡面拿出 free page frames 來放 process 的 virtual pages，並用 per-process page table 記錄每個 virtual page 實際放在哪個 physical frame。([威斯康辛大學計算機科學用戶頁面][1])
+
+---
+
+### 2. `free frame` 是什麼？
+
+`free frame(可用頁框)` 就是：
+
+**physical memory 裡目前沒有被任何 process page 使用的 frame。**
+
+例如 physical memory 有 frame 13、14、15、16、17、18、19、20、21。
+
+其中 frame 14、13、18、20 是空的，OS 就可以把它們記在 free-frame list 裡。
+
+注意：這裡不是像前面 `AV-list(可用串列)` 那樣記錄大小不一的 holes。Paging 裡每個 frame 大小都一樣，所以 free-frame list 只需要記錄：
+
+**哪些 frame 編號可用。**
+
+---
+
+### 3. 和 Contiguous Allocation 的 AV-list 差在哪？
+
+前面 `Contiguous Memory Allocation(連續記憶體配置)` 的 `AV-list` 記的是：
+
+**一段一段大小不一的 free blocks / holes。**
+
+但 paging 的 `free-frame list` 記的是：
+
+**一格一格固定大小的 free frames。**
+
+| 機制                | OS 管理的是什麼         | 大小是否固定 | 配置時要找什麼       |
+| ----------------- | ----------------- | -----: | ------------- |
+| `AV-list`         | free block / hole |    不固定 | 找一塊夠大的連續空間    |
+| `free-frame list` | free frame        |     固定 | 找足夠數量的空 frame |
+
+所以 paging 比較簡單：
+
+process 需要 4 pages，OS 只要找到 4 個 free frames。
+這 4 個 frames 不需要連續。
+
+---
+
+### 4. 講義圖的重點：page table 會被更新
+![alt text](<images/ch 8.png>)
+講義圖中，新 process 有 4 個 pages：
+
+| Process page | 配到的 physical frame |
+| -----------: | -----------------: |
+|       page 0 |           frame 14 |
+|       page 1 |           frame 13 |
+|       page 2 |           frame 18 |
+|       page 3 |           frame 20 |
+
+所以 new-process page table 會記成：
+
+| Page number | Frame number |
+| ----------: | -----------: |
+|           0 |           14 |
+|           1 |           13 |
+|           2 |           18 |
+|           3 |           20 |
+
+這代表之後 CPU 若產生 logical address `<2, d>`，OS / hardware 查 page table 會知道：
+
+page 2 在 frame 18。
+
+所以 physical address 會變成：
+
+`<18, d>`
+
+也就是：
+
+`18 × page size + d`
+
+---
+
+### 5. 配置後 free-frame list 會怎麼變？
+
+如果某些 frames 被拿去放 process pages，它們就不再是 free frames。
+
+所以 OS 會做兩件事：
+
+1. 從 `free-frame list` 移除被使用的 frames。
+2. 在該 process 的 `page table(分頁表)` 填入 page → frame 的 mapping。
+
+流程如下：
+
+```mermaid
+flowchart TD
+    A["新 process 需要載入 pages<br>例如 page 0～page 3"] --> B["OS 檢查 free-frame list(可用頁框串列)"]
+    B --> C{"free frames 數量夠嗎？"}
+    C -- "夠" --> D["取出足夠數量的 free frames<br>例如 14、13、18、20"]
+    D --> E["把 pages 放進這些 frames"]
+    E --> F["更新 page table(分頁表)<br>page → frame"]
+    F --> G["被使用的 frames<br>從 free-frame list 移除"]
+    C -- "不夠" --> H["無法直接配置<br>後續可能需要等待或做 page replacement(頁面置換)"]
+```
+
+CMU 的 Operating System Concepts 投影片也把 `free-frame list` 說成 OS 維護的一個 free frames pool，用來滿足把 page 載入 main memory 的需求；若發生 page fault，OS 也會需要找到 free frame 來放入需要的 page。([andrew.cmu.edu][2])
+
+---
+
+### 6. 這裡先不要和 page fault 混在一起
+
+PDF viewer page 36 目前是在講：
+
+**有 free frames 時，OS 怎麼把 process pages 配到 frames。**
+
+後面 virtual memory / demand paging 會再講：
+
+**如果 page 不在 memory，發生 page fault 時，OS 怎麼從 disk 把 page 載入某個 free frame。**
+
+兩者共通點是：
+
+**都需要 free frame。**
+
+差別是：
+
+| 情境              | 重點                                              |
+| --------------- | ----------------------------------------------- |
+| 現在的 Free Frames | process pages 要配置到哪些空 frames                    |
+| 之後的 Page Fault  | 缺頁時，要找 free frame 把 disk 上的 page 載回 main memory |
+
+SuperUser 社群討論也提到，實務 OS 會用資料結構追蹤每個 physical page frame 的使用狀態；Linux 這類系統還會用 page descriptor 與 buddy allocator 這種更複雜的方式管理 free page frames。這是實務補充，不是本講義 page 36 要求你現在背的內容。([Super User][3])
+
+---
+
+### 7. 最短記法
+
+`free frame` = physical memory 裡目前空的 frame。
+`free-frame list` = OS 記錄哪些 frames 還可以用的清單。
+process 需要 n 個 pages → OS 找 n 個 free frames。
+配置後 → 被用掉的 frames 從 free-frame list 移除，並寫進該 process 的 page table。
+
+最重要：
+
+**page 可以放到任意 free frame，不需要連續。這就是 paging 能避免 external fragmentation 的關鍵。**
+
+
+
+## ⭐TLB — 為什麼 paging 還需要一個快取來幫忙查 page table？
+
+講義位置：PDF viewer page 37
+![alt text](<images/ch 8-1.png>)
+### 1. 這個概念在解決什麼問題？
+
+前面我們說 paging 的位址轉換是：
+
+`page number p → 查 page table → frame number f`
+
+問題是：`page table(分頁表)` 通常在 main memory 裡。
+
+所以如果每次 CPU 要存取一筆資料，都要先去 memory 查 page table，再去 memory 取真正的資料，就會變成：
+
+1. 查 page table 一次 memory access。
+2. 存取真正資料一次 memory access。
+
+也就是一次 logical memory access 可能變成兩次 memory access。
+
+這就是講義 PDF viewer page 29 說的缺點：paging 的 memory 有效存取時間較長，因為 logical address 轉 physical address 需要額外查表。
+
+==`TLB(Translation Look-aside Buffer)`== 就是在解決這個速度問題。
+
+它的核心想法是：
+
+**把最近常用的 page number → frame number 對應關係，放在一個很快的小快取裡。**
+
+---
+
+### 2. TLB 裡面放什麼？
+
+TLB 裡面不是放整個 page，也不是放 process 的資料。
+
+TLB 放的是：
+
+==**最近用過的 page table entries(分頁表項目)。**==
+
+也就是類似這種 mapping：
+
+| Page number | Frame number |
+| ----------: | -----------: |
+|           0 |            5 |
+|           2 |            3 |
+|           7 |           11 |
+
+所以 TLB 可以理解成：
+
+**page table 的小抄。**
+
+CPU 拿到 logical address `<p, d>` 後，會先問 TLB：
+
+> 你有沒有 page p 對應的 frame number？
+
+---
+
+### 3. TLB hit 和 TLB miss
+
+如果 TLB 裡剛好有這個 page number，就叫：
+
+`TLB hit(TLB 命中)`
+
+流程是：
+
+1. CPU 產生 `<p, d>`。
+2. 先查 TLB。
+3. TLB 找到 `p → f`。
+4. 直接組成 `<f, d>`。
+5. 存取 physical memory。
+
+如果 TLB 裡沒有這個 page number，就叫：
+
+`TLB miss(TLB 未命中)`
+
+流程是：
+
+1. CPU 產生 `<p, d>`。
+2. 先查 TLB。
+3. TLB 找不到。
+4. 再去 memory 裡查 page table。
+5. 查到 `p → f`。
+6. 把這筆 mapping 放進 TLB。
+7. 組成 `<f, d>`。
+8. 存取 physical memory。
+
+---
+
+### 4. 用流程圖看
+
+```mermaid
+flowchart TD
+    A["CPU 產生 logical address(邏輯位址)<br>&lt;page number p, offset d&gt;"] --> B["先查 TLB<br>找 p 對應的 frame number"]
+    B --> C{"TLB 有這筆 p → f 嗎？"}
+    C -- "有，TLB hit(命中)" --> D["直接得到 frame number f"]
+    D --> E["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
+    E --> F["存取 main memory(主記憶體)"]
+
+    C -- "沒有，TLB miss(未命中)" --> G["去 main memory 查 page table(分頁表)"]
+    G --> H["找到 p → f"]
+    H --> I["把這筆 p → f 放進 TLB"]
+    I --> E
+```
+
+---
+
+### 5. 為什麼 TLB 會有效？
+
+因為程式通常有 `locality(局部性)`。
+
+意思是：
+
+**程式最近用過的 page，很可能等一下還會再用。**
+
+例如你正在執行一段迴圈，CPU 可能一直存取同一小段 code 和附近的 variables。這些 address 多半落在少數幾個 pages 裡。
+
+所以如果 TLB 把這幾個 page → frame 對應記住，就不用每次都跑去 memory 查 page table。
+
+---
+
+### 6. TLB 和 page table 差在哪？
+
+| 項目      | `page table(分頁表)`                    | `TLB`                     |
+| ------- | ------------------------------------ | ------------------------- |
+| 主要用途    | 完整記錄某 process 的 page → frame mapping | 快速暫存最近用過的 mapping         |
+| 大小      | 比較大                                  | 很小                        |
+| 位置／硬體角色 | 通常放在 memory，由硬體／OS 搭配使用              | 快速硬體快取                    |
+| 查不到時    | page table 本身是完整來源                   | TLB miss 時要回去查 page table |
+| 功能比喻    | 完整字典                                 | 最近查過的單字小抄                 |
+
+---
+
+### 7. 最短記法
+
+`TLB` = **page table 的高速小抄。**
+
+CPU 產生 `<p, d>` 後：
+
+先查 TLB。
+
+如果 TLB hit：
+
+`p → f` 直接找到，速度快。
+
+如果 TLB miss：
+
+回去查 page table，找到後再把這筆 mapping 放進 TLB。
+
+最重要：
+
+**TLB 不改變 paging 的位址轉換規則；它只是讓 page number → frame number 的查找變快。**
+### 所以 TLB(Translation Look-aside Buffer) 只是一個類似 cache 一樣，輔助加速的東西對不對，實際上資料還是在 main memory
+
+對，你的理解正確
+    
+
+`TLB(Translation Look-aside Buffer)` 本質上就是一個**輔助加速查表的硬體快取**。
+
+但要講精準一點：
+
+**TLB 快取的是「位址轉換結果」，不是 process 的實際資料。**
+
+也就是它存的是：
+
+`page number p → frame number f`
+
+不是存 page 裡面的 instruction/data(指令／資料)。
+
+
+## ⭐Paging Protection — OS 怎麼阻止 process 存取不合法的 page？
+
+講義位置：PDF viewer page 38
+![alt text](<images/ch 8-2.png>)
+### 1. 這個概念在解決什麼問題？
+
+Paging 不只要做位址轉換，還要做 `Protection(保護)`。
+
+問題是：
+
+**process 可能產生某個 logical address，但那個 page 不一定是它可以合法存取的 page。**
+
+所以 OS / hardware 需要一個機制判斷：
+
+這個 page 能不能被存取？
+
+講義 PDF viewer page 38 寫到：Protection 是保護 memory 免於 illegal access；OS 會對每個 page 設定 `valid-invalid bit`，用來允許或拒絕 access。
+
+---
+
+### 2. `valid-invalid bit` 是什麼？
+
+`valid-invalid bit(有效／無效位元)` 可以想成 page table entry 裡的一個門禁標記。
+
+| bit 狀態    | 意思                                                |
+| --------- | ------------------------------------------------- |
+| `valid`   | 這個 page 屬於 process 的合法 logical address space，可以存取 |
+| `invalid` | 這個 page 不屬於 process 可合法存取範圍，或目前不允許存取              |
+
+所以當 CPU 產生 logical address `<p, d>` 時，硬體不只是查：
+
+`page p → frame f`
+
+還要看：
+
+**page p 是 valid 還是 invalid？**
+
+如果是 `valid`，才允許繼續轉成 physical address。
+如果是 `invalid`，就不能繼續存取，會產生 trap / exception，交給 OS 處理。
+
+---
+
+### 3. Protection 和 TLB / page table 的關係
+
+前面 TLB 只是在加速：
+
+`page number → frame number`
+
+但 protection 是在判斷：
+
+**這個 page 能不能被存取。**
+
+所以完整一點看，page table entry 可以不只放 frame number，還可以放一些狀態資訊，例如：
+
+| Page number | Frame number | Valid-invalid bit | 權限         |
+| ----------: | -----------: | ----------------- | ---------- |
+|           0 |            5 | valid             | read/write |
+|           1 |            1 | valid             | read only  |
+|           2 |            - | invalid           | no access  |
+
+這裡重點先抓 `valid-invalid bit`。更細的 `R/RW` 權限，講義 PDF viewer page 28 也有提到 paging 可以在 page table 加 protection bit，例如 `R` 表示 read only，`RW` 表示 read/write。
+
+---
+
+### 4. 流程圖
+
+```mermaid
+flowchart TD
+    A["CPU 產生 logical address(邏輯位址)<br>&lt;page number p, offset d&gt;"] --> B["查 TLB 或 page table(分頁表)<br>找到 page p 的 entry"]
+    B --> C{"page p 是 valid 嗎？"}
+    C -- "是" --> D["允許位址轉換<br>取得 frame number f"]
+    D --> E["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
+    E --> F["存取 main memory(主記憶體)"]
+    C -- "否" --> G["拒絕存取<br>產生 trap / exception 給 OS 處理"]
+```
+
+---
+
+### 5. 最短記法
+
+`valid-invalid bit` = page table 裡的門禁卡。
+
+`valid`：這個 page 可以被 process 存取。
+`invalid`：這個 page 不可被 process 存取，存取會被擋下來。
+
+所以 paging 的 protection 核心是：
+
+**不是只把 page number 翻成 frame number，還要檢查這個 page 是否允許被存取。**
+
+
+
+### valid-invalid bit 是放在哪裡的
+
+valid-invalid bit(有效／無效位元) 是放在 page table entry(分頁表項目, PTE) 裡面。
+
+也就是說，不是整張 page table 只有一個 valid-invalid bit，而是：
+
+每一個 page 的 page table entry 都會有自己的 valid-invalid bit。
+
+---
+
+valid-invalid bit 原本屬於 page table entry。
+
+但如果某一筆 page table entry 被快取進 TLB(Translation Look-aside Buffer)，TLB entry 也可能一起帶著這類權限／有效性資訊，這樣 TLB hit 時才不用再回 page table 查一次。
+
+
+### 為何會有不允許存取 page 的情況？
+
+
+---
+
+1.直接答案
+
+會有不允許存取 page 的情況，是因為 **process 的 logical address space(邏輯位址空間) 裡，不是每個 page 都一定屬於它、已配置、可讀寫、或目前合法**。
+
+所以 OS 需要用 `valid-invalid bit(有效／無效位元)` 來判斷：
+
+**這個 process 現在可不可以 access 這個 page。**
+
+講義 PDF viewer page 38 直接寫：`Protection(保護)` 是為了保護 memory 免於 illegal access，OS 會替每個 page 設定 valid-invalid bit，用來允許或拒絕存取該 page。 其他 OS 教材也同樣說：`valid` 代表該 page 在 process 的 logical address space 中，是合法 page；`invalid` 代表不在該 process 的 logical address space 中。([ocw.nthu.edu.tw][1])
+
+---
+
+2.情況一：那個 page 根本不屬於這個 process
+
+假設 process A 只合法擁有 page 0、1、2。
+
+但 CPU 因為 bug 或惡意程式碼產生了 page 9 的 logical address：
+
+`<page 9, offset 20>`
+
+這時 page 9 不屬於 process A 的合法範圍，所以 page 9 的 entry 會被標成 `invalid`。如果硬體查到 invalid，就會產生 `trap / exception(陷入／例外)` 交給 OS 處理，而不是讓它真的去碰 main memory。
+
+生活化比喻：
+
+你住在 3 樓，所以門禁卡可以刷 301、302、303。
+你不能拿同一張卡去刷 901。
+不是因為 901 不存在，而是它不是你的房間。
+
+---
+
+3.情況二：page table 可能比 process 實際需要的範圍大
+
+page table 常常會有一些「保留位置」或「未使用 entry」。
+
+例如 page table 有 8 格：
+
+| Page number | 狀態      |
+| ----------: | ------- |
+|           0 | valid   |
+|           1 | valid   |
+|           2 | valid   |
+|           3 | invalid |
+|           4 | invalid |
+|           5 | invalid |
+|           6 | invalid |
+|           7 | invalid |
+
+這不代表 process 可以存取 page 3～7。
+那些 entry 只是表格中存在，但對這個 process 來說不是合法 page。
+
+這也是為什麼不能只說：
+
+**page number 有出現在 page table 裡，就一定能存取。**
+
+真正要看的是該 entry 的 `valid-invalid bit`。
+
+Stack Overflow 和 CS StackExchange 上很多人也卡在同一點：既然 process 有自己的 page table，為什麼不是所有 entry 都 valid？核心原因就是 page table 可能包含未使用或不屬於目前 process logical address space 的 entries，所以仍需要 valid-invalid bit 去標記合法性。([Computer Science Stack Exchange][2])
+
+---
+
+4.情況三：page 存在，但權限不允許
+
+有時 page 是合法的，但不是每種操作都允許。
+
+例如：
+
+|   Page | 內容          | 權限             |
+| -----: | ----------- | -------------- |
+| page 0 | code        | read / execute |
+| page 1 | global data | read / write   |
+| page 2 | stack       | read / write   |
+
+如果 process 想「寫入」code page，OS 可能拒絕，因為 code page 通常不應被改寫。
+
+這個比較接近講義 PDF viewer page 28 提到的 `protection bit(保護位元)`，例如 `R` 表示 read only，`RW` 表示 read/write。
+
+所以要分清楚：
+
+| 檢查                  | 問題                               |
+| ------------------- | -------------------------------- |
+| `valid-invalid bit` | 這個 page 對 process 來說是不是合法 page？  |
+| `R / RW / X` 權限 bit | 這次操作類型可不可以？例如 read、write、execute |
+
+---
+
+5.情況四：之後 Virtual Memory(虛擬記憶體) 會有「合法但目前不在 main memory」的情況
+
+這裡先保守標記：**這是後續 virtual memory 的延伸，不是 PDF viewer page 38 當下的主要重點。**
+
+在 demand paging(需求分頁) 裡，有些 page 是 process 合法會用到的，但目前不在 RAM，而是在 disk。這時存取它會造成 `page fault(缺頁錯誤)`，OS 再把它載入 main memory。許多 OS 教材會用 valid-invalid / present-absent 這類 bit 來區分 page 是否在 memory；若是 invalid reference 就中止，若只是 page 不在 memory 則處理 page fault。([eg.bucknell.edu][3])
+
+但你現在先不要混在一起。這頁的主線先記：
+
+**invalid = 這個 page 現在不允許這個 process access。**
+
+---
+
+6.最短記法
+
+會有不允許存取 page，主要是因為：
+
+1. 這個 page 不屬於 process 的合法 logical address space。
+2. page table 裡可能有未使用 entry，不代表都能 access。
+3. page 可能合法存在，但操作權限不允許，例如只能 read 不能 write。
+4. 後續 virtual memory 會再出現「合法但目前不在 main memory」的情況。
+
+所以：
+
+**page table entry 存在 ≠ 可以存取。**
+
+真正要看：
+
+**valid-invalid bit 和 protection bits。**
+
+[1]: https://ocw.nthu.edu.tw/ocw/upload/141/news/%E5%91%A8%E5%BF%97%E9%81%A0%E6%95%99%E6%8E%88%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1_chap%EF%BC%908%EF%BC%BFOperating%20System%20Chap8%20Memory%20Management%EF%BC%BF.pdf?utm_source=chatgpt.com "Operating System: Chap8 Memory Management"
+[2]: https://cs.stackexchange.com/questions/80215/why-do-we-need-the-valid-invalid-bit-in-a-page-table?utm_source=chatgpt.com "Why do we need the valid-invalid bit in a page table?"
+[3]: https://www.eg.bucknell.edu/~cs315/2013-fall/sec02/notes/18-Virtual-Memory-Demand-Paging-print.pdf?utm_source=chatgpt.com "Virtual Memory Demand Paging Valid-Invalid Bit"
+
+
+### 為何 page 會有「保留位置」或「未使用 entry」
+
+
+
+因為一個 process 的 `logical address space(邏輯位址空間)` 通常是「可編號的範圍」，但 process 真正目前用到的 memory 只是其中一部分。
+
+所以 page table 可能有某些 page number 的位置，但那些 page 目前：
+
+1. 不屬於這個 process 的合法範圍。
+    
+2. 還沒有被配置實體 frame。
+    
+3. 是預留給 heap / stack 之後成長用。
+    
+4. 是刻意留下來擋錯誤存取的空洞，例如 `guard page(防護頁)`。
+    
+
+這些 page table entry 就會被標成 `invalid`，讓硬體在 process 存取時擋下來。外部 OS 教材也把 `valid-invalid bit` 描述成附在每個 page table entry 上；`valid` 表示該 page 在 process 的 logical address space 中，是合法 page；`invalid` 表示不是合法 page 或不應被存取。
+
+
+### 我可以想像成每個 process 的都會 page table 都會寫上最多能用的 page 0~n，然後他實際上能用的再寫成 valid 嗎？
+
+可以，**這樣想在「初學模型」裡是合理的**：
+
+每個 process 都有自己的 `page table(分頁表)`；這張表可以想像成先列出這個 process 的 page 編號範圍，例如 `page 0 ~ page n`，然後每一列用 `valid-invalid bit(有效／無效位元)` 標記這個 page 目前能不能被合法存取。
+
+講義也說每個 process 有一個 page table，執行時用 page table 把 logical address 轉成 physical address；在 protection 這頁則說 OS 會替每個 page 設定 valid-invalid bit，用來允許或拒絕對該 page 的存取。
+
+你的模型適合現在講義 page 38 的基本理解；但實作上，若 logical address space 很大，真的把每個可能 page 都做成一列會很浪費。
+
+講義後面 PDF viewer page 40 也接著說，page table size 可能太大、太稀疏，所以會用 Hierarchical paging / Multilevel paging(階層式／多層分頁) 來解決。
+
+
+### Valid-invalid bit 是 0、1 對不對
+
+對，`valid-invalid bit(有效／無效位元)` 本質上就是 **1 個 bit**，所以只能有兩種值：
+
+| bit 值 | 常見意思 |
+| --- | --- |
+| `1` | `valid`：這個 page 目前有效／可合法使用 |
+| `0` | `invalid`：這個 page 目前無效／不可合法使用 |
+
+不過要注意：不同教材或不同脈絡會把 `valid/invalid` 解釋成「是否在 process 的 logical address space 內」或「是否已在 main memory 內」。在我們目前 PDF viewer page 38 的 protection 脈絡，重點先抓：**valid = 允許存取；invalid = 不允許存取，會 trap 給 OS**。外部作業系統教材也常寫成每個 page table entry 都附一個 valid-invalid bit，`1` 表示 in-memory，`0` 表示 not-in-memory；而保護脈絡則常說 valid 代表該 page 屬於 process 的 logical address space，invalid 代表不屬於。
+
+
+
+
+
+## ⭐Sharing of Code in Paging — 多個 process 怎麼共用同一份 code？
+
+講義位置：PDF viewer page 39
+![alt text](<images/ch 8-3.png>)
+### 1. 這個概念在解決什麼問題？
+
+如果三個 process 都需要用同一份程式碼或同一份 library，例如同一份 editor code 或 shared library，最浪費的做法是：
+
+每個 process 都各自把一份 code 載入 physical memory。
+
+但 paging 可以做得更省：
+
+**不同 process 的 page table，可以把各自的 code pages 指到同一批 physical frames。**
+
+也就是：
+
+**logical page 可以是各 process 自己的，但 physical frame 可以共享。**
+
+講義 page 39 的圖就是這個意思：多個 process 的 page table 裡，code pages 都對應到相同的 physical frames；但各自的 data page 對應到不同 frames。
+
+---
+
+### 2. 為什麼 page number 可以不同，但 frame number 相同？
+
+因為 `page number(頁號)` 是每個 process 自己 logical memory 裡的編號。
+
+所以：
+
+`Process P1 的 page 0`
+不等於
+`Process P2 的 page 0`
+
+但是如果 OS 想讓它們共享同一份 code，就可以讓兩個 process 的 page table entry 指到同一個 `frame number(頁框編號)`。
+
+例如：
+
+| Process | 自己的 logical page | 對應 physical frame | 內容          |
+| ------- | ---------------: | ----------------: | ----------- |
+| P1      |           page 0 |           frame 3 | shared code |
+| P2      |           page 5 |           frame 3 | shared code |
+| P3      |           page 2 |           frame 3 | shared code |
+
+這代表三個 process 看到的是自己的 logical page，但最後都翻到同一個 physical frame。
+
+---
+
+### 3. 為什麼 code 可以共享，但 data 通常不能共享？
+
+因為 code 通常是 `read-only(唯讀)` 或 `read/execute(可讀／可執行)`。
+
+如果只是大家一起讀同一份 instruction，不會互相破壞。
+
+但 data 通常是每個 process 自己的變數、stack、heap。
+如果大家共用同一份 data，P1 改變變數，P2 也會被影響，這通常不是我們要的。
+
+所以講義圖的核心可以記成：
+
+| 區域                  | 是否適合共享 | 原因                    |
+| ------------------- | -----: | --------------------- |
+| code / library      |   通常可以 | 多個 process 只讀或執行同一份內容 |
+| data / stack / heap |   通常不行 | 每個 process 要有自己的狀態    |
+
+---
+
+### 4. Sharing 和 protection 要一起看
+
+如果 code 要被共享，通常會搭配 `protection bits(保護位元)`。
+
+例如把 shared code page 標成：
+
+`read-only / execute-only`
+
+這樣多個 process 都可以讀或執行同一份 code，但不能修改它。
+
+如果允許某個 process 寫入 shared code frame，其他 process 也會看到被改壞的 code，這會破壞保護。
+
+所以 paging sharing 的安全版本是：
+
+**共享 code frames，但透過 protection bits 限制它們不可被任意寫入。**
+
+---
+
+### 5. 最短記法
+
+`Sharing in paging` = **不同 process 的 page table entries 指到同一個 physical frame。**
+
+共享的是：
+
+**physical frame 裡那份真正的 code。**
+
+不是共享的是：
+
+**page number。**
+
+所以：
+
+`P1 page x → frame 3`
+`P2 page y → frame 3`
+
+代表 P1 和 P2 共用同一份 physical code。
+
+但 data 通常不共享，因為每個 process 要保有自己的變數與狀態。
+

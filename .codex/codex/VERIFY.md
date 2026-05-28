@@ -28,10 +28,12 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 - 若修改中/窄版側邊欄 drawer 背景，開啟 `ch 8.html` 並用約 1212px 寬度打開左側 drawer；`.md-sidebar--primary`、`.md-sidebar__scrollwrap`、`.md-nav`、`.md-nav__list` 應為 `rgb(0, 0, 0)`，`.md-overlay` 應為黑色半透明，console error/warn 應為空。
 - 若修改右側 TOC 深色背景，開啟 `ch 8.html` 並用約 1212px 寬度測試；右側 TOC inner/scrollwrap/head/control/一般章節 link 應為 `rgb(0, 0, 0)`，目前項目可為 `rgb(5, 5, 5)` 與細 cyan 內框，console error/warn 應為空。
 - 若修改首頁 blog 方塊，開啟 `blog/index.html`；桌機寬度量測 `article.md-post--excerpt` 應為 `rgb(0, 0, 0)` 且 `background-image:none`，標題清楚；390px 窄版不應水平 overflow，標題寬度需小於卡片寬度，console error/warn 應為空。
+- 若修改 Markdown `---` 分隔線，量測 `.md-typeset hr`：亮色與暗色都應是較長 1px 細線 + 置中約 2px 粗線、可見高度約 5px；目前目標 `background-size` 為 `88% 1px, 70% 2px`。不可回到整條同樣粗度或過亮雷射感，暗色主線維持柔和 cyan，亮色主線需比一般灰線更明顯。
 - 若修改標題錨點樣式，開啟 `ch 7.html` 的 `⭐Resource-Allocation Graph Algorithm` h2，量測 `.headerlink` 與標題文字第一行應維持同一行，且長標題不應讓 `#` 獨立換到上一行。
 - 若修改中版面左側導覽或路徑列，開啟 `ch 1.html` 並用約 1212px 寬度測試：目前頁的 `label.md-nav__link[for="__toc"]` 應為 `display:none`、左側目前頁只剩一個可見連結；深色路徑列的目前資料夾與頁面文字需有清楚對比。再用約 766px 寬度確認窄版 select 文字同樣清楚。若修改頁面 dropdown，打開 `ch 8.html` 的頁面選單時目前 `Ch 8` 應在選單可視範圍內。
 - 若修改 TTS 面板，開啟 header 喇叭按鈕，確認深色面板使用黑底薄線、slider 與選取狀態使用 cyan、控制文字不擠壓，且 console error/warn 為空。
 - 若修改文章圖片尺寸，桌機量測 `.md-content__inner.md-typeset img:not(.twemoji)` 最大寬度比例應不超過 0.7；手機或窄螢幕應可回到 1.0；全螢幕 image viewer 不應被 70% 規則限制。
+- 若修改 `collapse-code` 樣式，開啟有 `/// collapse-code` 的頁面，收合狀態展開按鈕應約 1.45rem、不是大色塊；展開後 `.code-footer` 不應覆蓋最後幾行程式碼，且 footer 背景應與 code block 背景一致、不可留下突兀黑色底條，console error/warn 應為空。
 
 ## 輸出管理
 
