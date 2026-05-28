@@ -462,9 +462,9 @@ body {
   /* 內光暈：用 inset 做細緻的邊緣發光 */
   --peicd-glow: 0 0 0 1px rgba(122, 211, 255, 0.25) inset;
 
-  /* Markdown --- 分隔線 */
-  --peicd-hr-line: rgba(0, 121, 153, 0.82);
-  --peicd-hr-subline: rgba(0, 30, 44, 0.18);
+  /* Markdown --- 分隔線：亮色用較深 cyan，保留中心粗、左右細 */
+  --peicd-hr-line: rgba(0, 121, 153, 0.68);
+  --peicd-hr-subline: rgba(0, 30, 44, 0.12);
 }
 
 /* 深色方案：接近 ChatGPT 黑底，保留少量層級色避免內容糊在一起 */
@@ -515,8 +515,10 @@ body {
   --peicd-surface-2: #0b0d10;
   --peicd-surface-3: #11161c;
   --peicd-card: #07090c;
-  --peicd-hr-line: rgba(114, 227, 253, 0.76);
-  --peicd-hr-subline: rgba(255, 255, 255, 0.12);
+  --peicd-hr-line: rgba(114, 227, 253, 0.58);
+  --peicd-hr-subline: rgba(255, 255, 255, 0.08);
+  --peicd-collapse-fade-start: rgba(40, 42, 54, 0);
+  --peicd-collapse-fade-end: rgba(40, 42, 54, 0.94);
 }
 
 /* 深色模式的 ==mark==：提高黑底辨識度，同時保留筆記標記感 */
@@ -1233,15 +1235,15 @@ body {
 }
 
 /* ==========================================================================
-   21) hr：明顯的 Markdown --- 分隔線
+   21) hr：中間粗、左右細的 Markdown --- 分隔線
    ========================================================================== */
 
 .md-typeset hr {
-  background: none;
+  background:
+    linear-gradient(90deg, transparent 0%, var(--peicd-hr-subline) 18%, var(--peicd-hr-subline) 82%, transparent 100%) center / 88% 1px no-repeat,
+    linear-gradient(90deg, transparent 0%, var(--peicd-hr-line) 30%, var(--peicd-hr-line) 70%, transparent 100%) center / 70% 2px no-repeat;
   border: 0;
-  border-bottom: 1px solid var(--peicd-hr-subline);
-  border-top: 2px solid var(--peicd-hr-line);
-  height: 0;
+  height: 5px;
   margin: 2.2rem 0;
   opacity: 1;
 }
@@ -1812,6 +1814,8 @@ body {
      ========================= */
   --peicd-code-accent: rgb(122, 211, 255);
   --peicd-code-glow: rgba(122, 211, 255, 0.34);
+  --peicd-collapse-fade-start: rgba(246, 250, 253, 0);
+  --peicd-collapse-fade-end: rgba(246, 250, 253, 0.94);
 
   /* =========================
      Nav/Tabs（青藍系）
@@ -2520,25 +2524,75 @@ html.peicd-image-viewer-open body {
   content: none !important;
 }
 
+.md-typeset .collapse-code .code-footer {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  z-index: 210 !important;
+}
+
+.md-typeset .collapse-code input:not(:checked) ~ .code-footer {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  min-height: calc(1.45rem + 0.55rem) !important;
+  padding: 0.35rem 0.65rem 0.5rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.045) !important;
+  background: var(--md-code-bg-color) !important;
+  background-image: none !important;
+  box-shadow: inset 0 1px 0 rgba(114, 227, 253, 0.035) !important;
+}
+
+.md-typeset .collapse-code input:checked ~ .code-footer {
+  position: absolute !important;
+  left: 0.65rem !important;
+  bottom: 0.55rem !important;
+  width: auto !important;
+  padding: 0 !important;
+  background: none !important;
+  background-image: none !important;
+}
+
 .md-typeset .collapse-code .code-footer label.icon-only {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 2rem !important;
-  min-width: 2rem !important;
-  height: 2rem !important;
-  margin: 0 0.2rem 0 0 !important;
+  width: 1.45rem !important;
+  min-width: 1.45rem !important;
+  height: 1.45rem !important;
+  margin: 0 !important;
   padding: 0 !important;
+  border: 1px solid rgba(114, 227, 253, 0.36) !important;
+  border-radius: 0.18rem !important;
+  background-color: rgba(114, 227, 253, 0.86) !important;
+  box-shadow: 0 0 0.75rem rgba(114, 227, 253, 0.18) !important;
+  pointer-events: auto !important;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease !important;
   vertical-align: top !important;
+}
+
+.md-typeset .collapse-code .code-footer label.icon-only:hover,
+.md-typeset .collapse-code .code-footer label.icon-only:focus-visible {
+  background-color: rgba(122, 211, 255, 0.98) !important;
+  border-color: rgba(170, 238, 255, 0.68) !important;
+  box-shadow: 0 0 1rem rgba(114, 227, 253, 0.30) !important;
+  transform: translateY(-1px) !important;
 }
 
 .md-typeset .collapse-code .code-footer label.icon-only::before {
   position: static !important;
   top: auto !important;
   left: auto !important;
-  width: 1.15rem !important;
-  height: 1.15rem !important;
-  background-size: 1.15rem !important;
+  width: 0.82rem !important;
+  height: 0.82rem !important;
+  background-color: #001018 !important;
+  background-size: 0.82rem !important;
 }
 
 .md-typeset .collapse-code .code-footer .collapse-code__sr-only {
@@ -2551,10 +2605,6 @@ html.peicd-image-viewer-open body {
   clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important;
   border: 0 !important;
-}
-
-.md-typeset .collapse-code input:checked ~ .code-footer {
-  z-index: 210 !important;
 }
 
 .md-typeset .collapse-code input:checked ~ .code-footer label.icon-only.expand {
