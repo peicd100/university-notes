@@ -1926,6 +1926,191 @@ page size 和 frame size 相同，所以 offset bits 一樣是 `13 bits`。
 
 
 
+
+
+
+
+
+
+## ⭐Page Number / Offset — 十進位位址怎麼拆成 page number 和 offset？
+
+講義位置：PDF viewer page 35
+
+### 1. 這個概念在解決什麼問題？
+
+PDF viewer page 35 給你的是一堆十進位位址，例如：
+
+`3085`
+
+但 paging 系統真正需要的是：
+
+`<page number, offset>`
+
+所以我們要把一個 address 拆成兩部分：
+
+| 部分                | 意思                            |
+| ----------------- | ----------------------------- |
+| `page number(頁號)` | 這個 address 在第幾個 page          |
+| `offset(偏移量)`     | 這個 address 在該 page 裡面第幾個 byte |
+
+---
+
+### 2. 核心算法
+
+
+
+題目說：
+
+`page size = 1 KB`
+
+注意這裡通常以 byte addressing(位元組定址) 來算：
+
+`1 KB = 1024 bytes`
+
+所以每個 page 有 1024 個 byte 位置：
+
+`0 ~ 1023`
+
+算法是：
+
+`page number = address ÷ page size 的商`
+
+`offset = address ÷ page size 的餘數`
+
+也就是：
+
+`page number = address // 1024`
+
+`offset = address % 1024`
+
+這和一般 OS paging 教材一致：page number 可由 address 除以 page size 取整數部分，offset 是 address 對 page size 取餘數。([www2.cs.uregina.ca][2])
+
+!!! danger 
+
+    例如：1-KB page，十進位 address `3085` 是多少 `<page number, offset>`？
+
+    `1 KB = 1 × 2^10 bytes = 2^10 bytes = 1024 bytes`
+
+    所以每個 page 大小是 `1024 bytes`。
+
+    計算方式：
+
+    `page number = address // page size`
+
+    `offset = address % page size`
+
+    代入：
+
+    `3085 // 1024 = 3`
+
+    `3085 % 1024 = 13`
+
+    所以：
+
+    `<page number, offset> = <3, 13>`
+
+    檢查：
+
+    `3 × 1024 + 13 = 3085`
+
+    
+    
+    
+    
+
+---
+
+### 3. 為什麼是除以 1024？
+
+因為每 1024 bytes 是一頁。
+
+所以位址範圍會長這樣：
+
+| Page number | Address range |
+| ----------: | ------------- |
+|      page 0 | `0 ~ 1023`    |
+|      page 1 | `1024 ~ 2047` |
+|      page 2 | `2048 ~ 3071` |
+|      page 3 | `3072 ~ 4095` |
+
+因此 address `3085` 會落在 page 3，因為：
+
+`page 3` 的範圍是 `3072 ~ 4095`
+
+而 offset 是：
+
+`3085 - 3072 = 13`
+
+同一件事用除法寫就是：
+
+`3085 ÷ 1024 = 3 ... 13`
+
+所以：
+
+`3085 → <page number 3, offset 13>`
+
+---
+
+### 4. 用 PDF viewer page 35 第一題示範
+
+題目 A：
+
+`address = 3085`
+
+`page size = 1 KB = 1024 bytes`
+
+計算：
+
+`3085 ÷ 1024 = 3 ... 13`
+
+所以：
+
+`page number = 3`
+
+`offset = 13`
+
+答案：
+
+`<3, 13>`
+
+---
+
+### 5. 和前面 physical address 轉換差在哪？
+
+前面我們做過：
+
+`<page number, offset> → 查 page table → <frame number, offset> → physical address`
+
+但 PDF viewer page 35 只做到第一步：
+
+`decimal logical address → <page number, offset>`
+
+它沒有給 page table，所以不能算 physical address。
+
+也就是：
+
+| 題型                       | 需要 page table 嗎？ | 目標                                    |
+| ------------------------ | ---------------: | ------------------------------------- |
+| PDF viewer page 35       |              不需要 | 算 `page number` 和 `offset`            |
+| page table translation 題 |               需要 | 算 `frame number` 和 `physical address` |
+
+---
+
+### 6. 最短記法
+
+`page size = 1 KB = 1024 bytes`
+
+所以：
+
+`page number = address // 1024`
+
+`offset = address % 1024`
+
+看到十進位 address 題，先做整數除法：
+
+`address ÷ page size = page number ... offset`
+
+
 ## ⭐Free Frames — OS 怎麼知道 page 可以放到哪些 physical memory 位置？
 
 講義位置：PDF viewer page 36
@@ -2634,3 +2819,363 @@ Stack Overflow 和 CS StackExchange 上很多人也卡在同一點：既然 proc
 
 但 data 通常不共享，因為每個 process 要保有自己的變數與狀態。
 
+
+
+### 錯題：
+
+!!! danger 
+
+    ==Q:==
+    Compare `contiguous memory allocation`, `pure segmentation`, and `pure paging` with respect to the following three issues:  
+    a. `External fragmentation`  
+    b. `Internal fragmentation`  
+    c. `Ability to share code across processes`
+
+    ==A:==
+
+    | 比較項目                                   | contiguous memory allocation                                     | pure segmentation                                             | pure paging                                                |
+    | -------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
+    | External fragmentation                 | 有。因為 process 需要連續空間，free holes 可能總量夠但不連續。                        | 有。因為每個 segment 大小不同，而且每個 segment 仍需要一段連續空間。                   | 無。因為 memory 被切成固定大小 frames，只要有足夠 free frames，pages 不需要連續。  |
+    | Internal fragmentation                 | 視情況。fixed-size partition 會有；variable-size partition 通常沒有。 | 無。因為 segment 依照實際 logical unit 大小配置，不需要固定湊滿一個 page。           | 有。因為 page / frame 固定大小，最後一個 page 可能沒有用滿。                   |
+    | Ability to share code across processes | 通常不易支援。因為整個 process 以連續區塊配置，不容易只共享 code 區。                       | 有。可以讓不同 process 的 segment table 指到同一個 read-only code segment。 | 有。可以讓不同 process 的 page table entries 指到同一個 physical frame。 |
+
+
+### contiguous memory allocation 沒有 contiguous table 對不對
+
+
+
+!!! danger
+    
+
+    對，講義裡沒有 `contiguous table`
+        
+
+    你的理解是對的：**`Contiguous Memory Allocation(連續記憶體配置)` 沒有一個叫 `contiguous table` 的表。**
+
+    在目前講義脈絡中：
+
+    | 機制 | 有沒有專門 table | 用什麼記錄／轉換 |
+    | --- | --- | --- |
+    | `Contiguous Memory Allocation` | 沒有 `contiguous table` | 用 `relocation register / base register` 加上 `limit register`，OS 另外用 `Available list / AV-list` 管理 free blocks |
+    | `Segmentation` | 有 `segment table` | 每個 segment entry 記錄 `base` 和 `limit` |
+    | `Paging` | 有 `page table` | 每個 page entry 記錄 page 對應到哪個 frame |
+
+    講義在 `8.3 Contiguous Memory Allocation` 說的是：OS 依 process 大小找一塊夠大的連續可用記憶體，並用 `Linked List` 管理 `Free Blocks`，稱為 `Available list`；同頁也說用 `relocation register` 與 `limit register` 做位址保護與轉換。
+
+
+### 所以 Segmentation 和 Paging 都可以共享，就是把多個 segmentation/page 對應到相同的 block 對不對
+
+!!! danger
+
+
+    1.對，核心理解正確，但用詞要修正
+
+    你可以這樣想：
+
+    **Segmentation(分段)** 和 **Paging(分頁)** 都能共享，核心都是：
+
+    **多個 process 的表格 entry 指到同一份 physical memory(實體記憶體)。**
+
+    但不要說「多個 segmentation/page」，比較正確是：
+
+    | 機制             | 正確說法                                                                    |
+    | -------------- | ----------------------------------------------------------------------- |
+    | `Segmentation` | 多個 `segment table entries(段表項目)` 指到同一個 physical segment / memory region |
+    | `Paging`       | 多個 `page table entries(分頁表項目)` 指到同一個 physical frame                     |
+
+    講義也明確寫：`Segmentation` 支援 memory sharing / protection；`Paging` 的 sharing 是「不同 page 對應相同 frame」。 
+
+    ---
+
+    2.Segmentation 的共享
+
+    在 `Segmentation(分段)` 裡，共享通常是：
+
+    **不同 process 的某個 segment 指到同一段 physical memory。**
+
+    例如：
+
+    | Process |   Segment | Physical base | Limit | 內容          |
+    | ------- | --------: | ------------: | ----: | ----------- |
+    | P1      | segment 2 |          4000 |  1000 | shared code |
+    | P2      | segment 5 |          4000 |  1000 | shared code |
+
+    這代表：
+
+    `P1 segment 2` 和 `P2 segment 5` 指到同一段 physical memory，所以它們共享同一份 code。
+
+    這裡共享的單位是 **segment**，而 segment 是 variable-size(可變大小) 的 logical unit，例如 code segment、library segment、data segment。
+
+    ---
+
+    3.Paging 的共享
+
+    在 `Paging(分頁)` 裡，共享是：
+
+    **不同 process 的 page table entry 指到同一個 physical frame。**
+
+    例如：
+
+    | Process |   Page |    Frame | 內容          |
+    | ------- | -----: | -------: | ----------- |
+    | P1      | page 3 | frame 10 | shared code |
+    | P2      | page 7 | frame 10 | shared code |
+
+    這代表：
+
+    `P1 page 3` 和 `P2 page 7` 雖然 page number 不同，但最後都 mapping 到 `frame 10`，所以共享同一份 physical memory。MIT OS notes 也用同樣概念說：如果不同 process 的 page table entries 指向同一個 physical page，它們就共享那段 memory。([people.csail.mit.edu][1])
+
+    ---
+
+    4.你說的「相同 block」可以當直覺，但考試要換成精準名詞
+
+    你說：
+
+    > 對應到相同的 block
+
+    直覺上可以，但考試建議寫得更精準：
+
+    | 機制             | 不建議寫        | 建議寫                                    |
+    | -------------- | ----------- | -------------------------------------- |
+    | `Segmentation` | 對應到相同 block | 對應到相同 physical segment / memory region |
+    | `Paging`       | 對應到相同 block | 對應到相同 physical frame                   |
+
+    因為在 paging 裡，講義正式用語是 `frame(頁框)`，不是 block。Paging 是把 physical memory 切成固定大小 frames；每個 process 通常有自己的 page table。 OSTEP 也說 page table 通常是 per-process data structure，不同 process 的 virtual pages 可以因 sharing 而 map 到同一批 physical pages。([pages.cs.wisc.edu][2])
+
+    ---
+
+    5.最短記法
+
+    你可以記成：
+
+    **Segmentation sharing：多個 segment table entries → 同一段 physical memory。**
+
+    **Paging sharing：多個 page table entries → 同一個 physical frame。**
+
+    更短：
+
+    **共享不是共享編號，而是共享最後指到的實體位置。**
+
+    [1]: https://people.csail.mit.edu/rinard/teaching/osnotes/h10.html?utm_source=chatgpt.com "Operating Systems Lecture Notes Lecture 10 Issues in Paging ..."
+    [2]: https://pages.cs.wisc.edu/~remzi/OSTEP/vm-paging.pdf?utm_source=chatgpt.com "Paging: Introduction"
+
+
+
+
+
+
+
+
+
+## ⭐Hierarchical Paging — page table 太大時，為什麼要把 page table 再分頁？
+
+講義位置：PDF viewer page 40～41
+
+### 1. 這個概念在解決什麼問題？
+
+前面我們一直說：
+
+`page number p → 查 page table → 得到 frame number f`
+
+但這裡會遇到一個現實問題：
+
+**page table 本身可能超級大，而且很多 entry 根本用不到。**
+
+例如一個 process 的 logical address space 很大，但它實際只用到 code、data、heap、stack 的一小部分。
+如果 OS 還是幫它建立一整張超大的 single-level page table，就會浪費很多 main memory。
+
+所以講義 PDF viewer page 40 才說：
+
+`Hierarchical paging / Multilevel paging(階層式／多層分頁)` 的目的，是解決 `page table size` 太大、太稀疏的問題。
+
+Linux kernel 文件也用同樣概念：page table 是把 CPU 看到的 virtual address 映射到 physical address，而 Linux 的 page tables 是階層式結構。([Linux Kernel 文件文件 ][1])
+
+---
+
+### 2. 核心直覺：不要做一本超厚名冊，改成「目錄＋分冊」
+
+你可以把 single-level page table 想成一本超厚名冊：
+
+| Page number | Frame number |
+| ----------: | -----------: |
+|           0 |          ... |
+|           1 |          ... |
+|           2 |          ... |
+|         ... |          ... |
+|   1,048,575 |          ... |
+
+問題是：process 可能只真的用到其中幾小段。
+
+所以 multilevel paging 的想法是：
+
+**不要一次把整本名冊都放進 main memory；先放一個目錄，需要哪一冊才載入哪一冊。**
+
+生活化例子：
+
+你不會把整套百科全書都攤在桌上。
+你會先看目錄，找到第幾冊，然後只拿那一冊來查。
+
+---
+
+### 3. 講義的關鍵句：Paging the page table
+
+講義寫的 `Paging the page table`，意思是：
+
+**把 page table 本身也切成 pages。**
+
+原本：
+
+`logical page → page table → physical frame`
+
+變成：
+
+`logical page → 第一層 page table → 第二層 page table → physical frame`
+
+所以 page table 不再是一大張連續表，而是被拆成很多小表。
+第一層像目錄，第二層才是真的放一批 page table entries 的地方。
+
+---
+
+### 4. 位址會怎麼拆？
+
+在 two-level paging 裡，logical address 會從原本的：
+
+`<page number p, offset d>`
+
+變成：
+
+`<p1, p2, d>`
+
+| 欄位   | 用途                                   |
+| ---- | ------------------------------------ |
+| `p1` | 查第一層 page table，找到第二層 page table 的位置 |
+| `p2` | 查第二層 page table，找到真正的 frame number   |
+| `d`  | page 內 offset，不變                     |
+
+講義 PDF viewer page 40 的圖上也把位址拆成 `p1 / p2 / d`，其中標成 `10 / 10 / 12` bits。
+
+---
+
+### 5. 為什麼是 10 / 10 / 12？
+
+這是典型 32-bit address、4KB page size 的拆法。
+
+先看 page size：
+
+`4 KB = 4096 bytes = 2^12 bytes`
+
+所以：
+
+`offset d = 12 bits`
+
+因為整個 logical address 是 32 bits，所以剩下給 page number 的 bits 是：
+
+`32 - 12 = 20 bits`
+
+如果用 two-level paging，就把這 20 bits 拆成兩段：
+
+`p1 = 10 bits`
+
+`p2 = 10 bits`
+
+所以整個 address 長這樣：
+
+| 欄位   |    bits |                     可以表示幾種 |
+| ---- | ------: | -------------------------: |
+| `p1` | 10 bits | `2^10 = 1024` 個第一層 entries |
+| `p2` | 10 bits | `2^10 = 1024` 個第二層 entries |
+| `d`  | 12 bits | `2^12 = 4096` bytes offset |
+
+總共：
+
+`10 + 10 + 12 = 32 bits`
+
+---
+
+### 6. 為什麼這樣可以省 memory？
+
+如果用 single-level page table：
+
+20 bits page number 可以表示：
+
+`2^20` 個 pages
+
+假設每個 page table entry 是 `4 bytes`，那整張 page table 大小是：
+
+`2^20 × 4 bytes = 2^20 × 2^2 = 2^22 bytes = 4 MB`
+
+也就是：每個 process 可能都要一張 4MB 的 page table。
+
+如果有很多 process，浪費會很嚴重。
+
+但 two-level paging 可以只保留：
+
+1. 一張第一層 page table。
+2. 真正有用到的第二層 page tables。
+
+所以如果 process 只用到少數區域，就不用把所有第二層 page tables 都建立或載入。這就是講義說的「只抓所需的 page table 進 memory」。
+
+---
+
+### 7. 流程圖
+
+```mermaid
+flowchart TD
+    A["CPU 產生 logical address(邏輯位址)<br>&lt;p1, p2, d&gt;"] --> B["用 p1 查第一層 page table(分頁表)<br>找到某張第二層 page table 的位置"]
+    B --> C["用 p2 查第二層 page table(分頁表)<br>找到 frame number(頁框編號) f"]
+    C --> D["保留 offset(偏移量) d"]
+    D --> E["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
+    E --> F["存取 main memory(主記憶體)"]
+```
+
+---
+
+### 8. 最短記法
+
+`Hierarchical paging / Multilevel paging` 是為了解決：
+
+**page table 太大、太稀疏。**
+
+核心做法：
+
+**把 page table 再分頁。**
+
+two-level address 拆成：
+
+`<p1, p2, d>`
+
+其中：
+
+`p1` 查第一層 page table。
+`p2` 查第二層 page table。
+`d` 是 offset，不變。
+
+最重要：
+
+**multilevel paging 不改變 paging 的本質；它只是把「查 page table」這件事拆成多層，避免一次建立或載入太大的 page table。**
+
+
+### 所以意思是第一層一定會建立，然後第二層是需要時才建立嗎
+
+!!! danger
+
+
+    對，可以這樣理解，但要加一個「概念模型 vs 實作細節」的修正
+
+    你的理解方向正確：
+
+    **第一層 page table(分頁表) 通常會先存在，第二層 page table 則是該範圍真的需要 mapping 時才建立或載入。**
+
+    講義的說法是：`Hierarchical paging / Multilevel paging(階層式／多層分頁)` 是為了解決 `page table size` 太大、太稀疏的問題，做法是 `Paging the page table(將 page table 再分頁)`，只抓所需的 page table 進 memory，而且只需要 1 個 level 1 和 1 個 level 2 在 memory 就可執行。
+
+### 如果第二層都先做好，就和原本 single 一樣了對不對
+
+對，**如果第二層 page tables 全部都先建立，而且全部都放在 memory，那省空間的效果幾乎就沒了**。
+
+甚至在最壞情況下，`two-level page table(二層分頁表)` 會比 `single-level page table(單層分頁表)` 多一點點空間，因為它除了所有第二層表以外，還要多一張第一層目錄表。
+
+講義說 `Hierarchical paging / Multilevel paging` 的目的就是解決 `page table size` 太大、太稀疏，方法是把 page table 再分頁，**只抓所需的 page table 進 memory**。所以如果你把所有第二層都先做好，就剛好違背它省空間的核心。
+
+chapter 8\_20240520
+
+OSTEP 也說 multi-level table 的空間優點來自：page-table space 只依照實際使用的 address space 配置，因此適合 sparse address spaces。

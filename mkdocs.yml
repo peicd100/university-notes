@@ -1,9 +1,9 @@
-site_name: 'PEICD100'  # 網站名稱
-
-#    MkDocs 只要設定 site_url，就會自動生成 /sitemap.xml（MkDocs 0.13+ 內建）：
-#    GitHub Pages 專案站要包含 repository 子路徑，否則 canonical / sitemap / 首頁連結都會指到錯誤位置。
-site_url: https://peicd100.github.io/university-notes/  # GitHub Pages 專案站 URL
-use_directory_urls: false  # 保持目前 .html URL 風格（避免既有連結失效）；想用 /path/ 風格可改 true
+# ========================================================================================================================================================
+# 網站設定，需要同步的東西有：
+# 1.以下這段
+# 2.
+# 
+# ========================================================================================================================================================
 
 theme:
   name: 'material'  # 使用 Material 主題(這邊有toc)
@@ -30,7 +30,7 @@ theme:
     # - sitemap  # (sitemap 由 MkDocs 依 site_url 自動生成)
 
     # - toc.follow  # 右側 TOC 目前改由自訂 toc-fold.js 控制跟隨/手動滾動保護，避免與內建自動捲動衝突
-             # - toc.integrate #啟用目錄的導覽整合後，它始終呈現為左側導覽側邊欄的一部分////////////////////////////////////////////////////////////////////////////////////////////////////////
+             # - toc.integrate #啟用目錄的導覽整合後，它始終呈現為左側導覽側邊欄的一部分
     - content.tabs.link  # 允許內容中的標籤鏈接
     - search.share  # 啟用搜索結果共享功能
              # - search.suggest  # 搜索時提供自動建議
@@ -82,14 +82,6 @@ plugins:
       password_button_text: '解鎖' #解鎖按鈕
       # global_password: '88888888'               # 啟用全域密碼
       # search_index: 'dynamically'  # 建置時加密索引；使用者解密頁面後才能搜到(但好像沒有真的觸發)
-
-
-
-
-
-
-
-
 
   # - macros  # 启用宏插件，允許自定義變量和代碼塊
   # - mkdocs-jupyter  # 支持 Jupyter Notebook 文件轉換
@@ -270,6 +262,52 @@ markdown_extensions:
       expand_text: ''  # 展開時顯示的文本
       collapse_text: ''  # 折疊時顯示的文本
   # - tools.i: #中英文之間自動空格
+
+
+# ========================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================
+# 網站資訊
+# ======================================================
+
+
+site_name: 'PEICD100'  # 網站名稱
+
+#    MkDocs 只要設定 site_url，就會自動生成 /sitemap.xml（MkDocs 0.13+ 內建）：
+#    GitHub Pages 專案站要包含 repository 子路徑，否則 canonical / sitemap / 首頁連結都會指到錯誤位置。
+site_url: https://peicd100.github.io/university-notes/  # GitHub Pages 專案站 URL
+use_directory_urls: false  # 保持目前 .html URL 風格（避免既有連結失效）；想用 /path/ 風格可改 true
 
 
 # ======================================================
