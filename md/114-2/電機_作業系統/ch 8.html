@@ -6875,6 +6875,582 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#hash-page-table--page-number-太多時怎麼用-hash-快速找-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-hash-page-table-裡面不是直接一格對一頁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Hash page table 裡面不是直接一格對一頁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-每個-linked-list-node-裡有三個欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 每個 linked list node 裡有三個欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-位址轉換流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 位址轉換流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#幫我舉個例子模擬p--hashp--bucket--linked-list-搜尋-p--得到-f--流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        幫我舉個例子，模擬"p → hash(p) → bucket → linked list 搜尋 p → 得到 f → "流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="幫我舉個例子，模擬&#34;p → hash(p) → bucket → linked list 搜尋 p → 得到 f → &#34;流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-先給一組設定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 先給一組設定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-模擬一次成功查找" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 模擬一次成功查找
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 模擬一次成功查找">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-第一步p--hashp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 第一步：p → hash(p)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-第二步hashp--bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 第二步：hash(p) → bucket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-第三步bucket--linked-list-搜尋-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 第三步：bucket → linked list 搜尋 p
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-第四步得到-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 第四步：得到 f
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-如果要算成真正-physical-address-數字" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 如果要算成真正 physical address 數字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以我可以想成-hash-只是將全部有用到的-page-number-分成-n-組然後對於這-n-組裡面用-link-list-去查找--最後就會得到-frame-number-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以我可以想成 hash 只是將全部有用到的 page number 分成 n 組，然後對於這 n 組裡面用 link list 去查找 &lt;page number,frame number&gt; ，最後就會得到 frame number 嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-pointer-存的東西通常是什麼-是-16-進位的位置嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        next pointer 存的東西通常是什麼？ 是 16 進位的位置嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inverted-page-table--為什麼-page-table-可以改成一個-frame-一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-一般-page-table-vs-inverted-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 一般 page table vs inverted page table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-entry-數量會變少" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 entry 數量會變少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-查詢流程為什麼比較慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 查詢流程為什麼比較慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-用一個具體例子看-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 用一個具體例子看 translation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-為什麼要記-process-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 為什麼要記 Process id？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-為什麼講義說無法支援-memory-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 為什麼講義說無法支援 memory sharing？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#講這麼多重點其實就是因為-page-比-frame-多所以記比較少的-frame-比較省空間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-page-會比-frame-多" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 page 會比 frame 多？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但是缺頁的-fram-編號要怎麼編應該說要怎麼知道是缺頁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但是缺頁的 fram 編號要怎麼編？應該說要怎麼知道是缺頁？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-bit-multi-level-page-table--64-bit-位址太大時x86-64-怎麼分層查-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-64-bit-address-為什麼不是全部-64-bits-都拿來查表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 64-bit address 為什麼不是全部 64 bits 都拿來查表？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼每層-index-都是-9-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼每層 index 都是 9 bits？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4-level-page-table-查表流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 4-level page table 查表流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-p4--p3--p2--p1-可以怎麼想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. P4 / P3 / P2 / P1 可以怎麼想？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-和前面-two-level-paging-的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 和前面 two-level paging 的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cr3-register-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CR3 register 是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CR3 register 是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cr3-裡不是存整張-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. CR3 裡不是存整張 page table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為何前面有空間不拿來用是因為-p4-已經夠多了嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-48-bits-到底有多大" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 48 bits 到底有多大？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7392,6 +7968,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -7618,6 +8196,34 @@ is now available!
     
   
     ch 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4
   
 
     
@@ -9938,6 +10544,582 @@ is now available!
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash-page-table--page-number-太多時怎麼用-hash-快速找-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-hash-page-table-裡面不是直接一格對一頁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Hash page table 裡面不是直接一格對一頁
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-每個-linked-list-node-裡有三個欄位" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 每個 linked list node 裡有三個欄位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-位址轉換流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 位址轉換流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#幫我舉個例子模擬p--hashp--bucket--linked-list-搜尋-p--得到-f--流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        幫我舉個例子，模擬"p → hash(p) → bucket → linked list 搜尋 p → 得到 f → "流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="幫我舉個例子，模擬&#34;p → hash(p) → bucket → linked list 搜尋 p → 得到 f → &#34;流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-先給一組設定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 先給一組設定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-模擬一次成功查找" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 模擬一次成功查找
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 模擬一次成功查找">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-第一步p--hashp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 第一步：p → hash(p)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-第二步hashp--bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 第二步：hash(p) → bucket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-第三步bucket--linked-list-搜尋-p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 第三步：bucket → linked list 搜尋 p
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-第四步得到-f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 第四步：得到 f
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-如果要算成真正-physical-address-數字" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 如果要算成真正 physical address 數字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短直覺" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短直覺
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以我可以想成-hash-只是將全部有用到的-page-number-分成-n-組然後對於這-n-組裡面用-link-list-去查找--最後就會得到-frame-number-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以我可以想成 hash 只是將全部有用到的 page number 分成 n 組，然後對於這 n 組裡面用 link list 去查找 &lt;page number,frame number&gt; ，最後就會得到 frame number 嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-pointer-存的東西通常是什麼-是-16-進位的位置嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        next pointer 存的東西通常是什麼？ 是 16 進位的位置嗎
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inverted-page-table--為什麼-page-table-可以改成一個-frame-一格" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-一般-page-table-vs-inverted-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 一般 page table vs inverted page table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-entry-數量會變少" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 entry 數量會變少？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-查詢流程為什麼比較慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 查詢流程為什麼比較慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-用一個具體例子看-translation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 用一個具體例子看 translation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-為什麼要記-process-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 為什麼要記 Process id？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-為什麼講義說無法支援-memory-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 為什麼講義說無法支援 memory sharing？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#講這麼多重點其實就是因為-page-比-frame-多所以記比較少的-frame-比較省空間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#為什麼-page-會比-frame-多" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為什麼 page 會比 frame 多？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#但是缺頁的-fram-編號要怎麼編應該說要怎麼知道是缺頁" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        但是缺頁的 fram 編號要怎麼編？應該說要怎麼知道是缺頁？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-bit-multi-level-page-table--64-bit-位址太大時x86-64-怎麼分層查-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-64-bit-address-為什麼不是全部-64-bits-都拿來查表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 64-bit address 為什麼不是全部 64 bits 都拿來查表？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼每層-index-都是-9-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼每層 index 都是 9 bits？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4-level-page-table-查表流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 4-level page table 查表流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-p4--p3--p2--p1-可以怎麼想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. P4 / P3 / P2 / P1 可以怎麼想？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-和前面-two-level-paging-的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 和前面 two-level paging 的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cr3-register-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CR3 register 是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CR3 register 是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-生活化比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 生活化比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cr3-裡不是存整張-page-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. CR3 裡不是存整張 page table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#那為何前面有空間不拿來用是因為-p4-已經夠多了嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-48-bits-到底有多大" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 48 bits 到底有多大？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -12887,7 +14069,7 @@ c. <code>Ability to share code across processes</code></p>
 <tbody>
 <tr>
 <td><code>p1</code></td>
-<td>查第一層 page table，找到第二層 page table 的位置</td>
+<td>查第一層 page table，找到第二層 page table 的 <mark>位置</mark></td>
 </tr>
 <tr>
 <td><code>p2</code></td>
@@ -12958,12 +14140,16 @@ c. <code>Ability to share code across processes</code></p>
 <p>所以如果 process 只用到少數區域，就不用把所有第二層 page tables 都建立或載入。這就是講義說的「只抓所需的 page table 進 memory」。</p>
 <hr />
 <h3 id="7-流程圖">7. 流程圖<a class="headerlink" href="#7-流程圖" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>P1 在 P1 tabe 上面查到的是 P2 table 的位置，不是 P2 的 index，P2 的 index 在 <code>&lt;p1, p2, d&gt;</code> 已經提供了。 因為每個 P1 的 P2 都不同，位置不一樣，所以 P1 table 查到的是 P2 table 的位置。</p>
 <pre class="diagram"><code>flowchart TD
     A["CPU 產生 logical address(邏輯位址)&lt;br&gt;&amp;lt;p1, p2, d&amp;gt;"] --&gt; B["用 p1 查第一層 page table(分頁表)&lt;br&gt;找到某張第二層 page table 的位置"]
     B --&gt; C["用 p2 查第二層 page table(分頁表)&lt;br&gt;找到 frame number(頁框編號) f"]
     C --&gt; D["保留 offset(偏移量) d"]
     D --&gt; E["組成 physical address(實體位址)&lt;br&gt;&amp;lt;f, d&amp;gt;"]
     E --&gt; F["存取 main memory(主記憶體)"]</code></pre>
+</div>
 <hr />
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
 <p><code>Hierarchical paging / Multilevel paging</code> 是為了解決：</p>
@@ -12990,8 +14176,1069 @@ c. <code>Ability to share code across processes</code></p>
 <p>對，<strong>如果第二層 page tables 全部都先建立，而且全部都放在 memory，那省空間的效果幾乎就沒了</strong>。</p>
 <p>甚至在最壞情況下，<code>two-level page table(二層分頁表)</code> 會比 <code>single-level page table(單層分頁表)</code> 多一點點空間，因為它除了所有第二層表以外，還要多一張第一層目錄表。</p>
 <p>講義說 <code>Hierarchical paging / Multilevel paging</code> 的目的就是解決 <code>page table size</code> 太大、太稀疏，方法是把 page table 再分頁，<strong>只抓所需的 page table 進 memory</strong>。所以如果你把所有第二層都先做好，就剛好違背它省空間的核心。</p>
-<p>chapter 8_20240520</p>
 <p>OSTEP 也說 multi-level table 的空間優點來自：page-table space 只依照實際使用的 address space 配置，因此適合 sparse address spaces。</p>
+<h2 id="hash-page-table--page-number-太多時怎麼用-hash-快速找-frame">⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？<a class="headerlink" href="#hash-page-table--page-number-太多時怎麼用-hash-快速找-frame" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 42～43</p>
+<h3 id="1-這個概念在解決什麼問題_11">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_11" title="Permanent link"></a></h3>
+<p>前面 <code>multilevel paging(多層分頁)</code> 解決的是：</p>
+<p><strong>page table 太大、太稀疏，所以把 page table 拆成多層。</strong></p>
+<p>現在 <code>hash page table(雜湊分頁表)</code> 換一個想法：</p>
+<p><strong>不要直接用 page number 當巨大表格的 index，而是先把 page number 丟進 hash function(雜湊函式)，算出它應該放在哪個 bucket(桶)。</strong></p>
+<p>這特別常用在位址空間很大的情況，例如大於 32-bit 的位址空間。講義 page 42 也明確說，處理位址空間大於 32 位元的一種常見方法是使用 hash page table。 外部 OS 教材也把 <code>Hash Page Tables</code> 列為解決巨大 page table 的方法之一。(<a href="https://people.csail.mit.edu/rinard/teaching/osnotes/h10.html?utm_source=chatgpt.com" title="Operating Systems Lecture Notes Lecture 10 Issues in Paging ...">清華大學開放課程</a>)</p>
+<hr />
+<h3 id="2-hash-page-table-裡面不是直接一格對一頁">2. Hash page table 裡面不是直接一格對一頁<a class="headerlink" href="#2-hash-page-table-裡面不是直接一格對一頁" title="Permanent link"></a></h3>
+<p>一般 <code>page table(分頁表)</code> 比較像：</p>
+<p><code>page number p → 直接查第 p 格</code></p>
+<p>但 hash page table 是：</p>
+<p><code>page number p → hash function → bucket</code></p>
+<p>也就是先算：</p>
+<p><code>bucket index = hash(p)</code></p>
+<p>然後去那個 bucket 裡找。</p>
+<p>問題是：不同 page number 可能 hash 到同一個 bucket。這叫 <code>collision(碰撞)</code>。</p>
+<p>所以每個 bucket 裡通常不是只放一筆資料，而是用 <code>linked list(鏈結串列)</code> 串起來。</p>
+<hr />
+<h3 id="3-每個-linked-list-node-裡有三個欄位">3. 每個 linked list node 裡有三個欄位<a class="headerlink" href="#3-每個-linked-list-node-裡有三個欄位" title="Permanent link"></a></h3>
+<p>講義 page 42 說，每個單元由三個欄位組成：虛擬分頁的數值、對映分頁框的數值、指向 linked list 下一單元的 pointer(指標)。</p>
+<p>整理成表格就是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>virtual page number(虛擬頁號)</code></td>
+<td>這筆 mapping 對應哪個 logical / virtual page</td>
+</tr>
+<tr>
+<td><code>frame number(頁框編號)</code></td>
+<td>這個 virtual page 實際放在哪個 physical frame</td>
+</tr>
+<tr>
+<td><code>next pointer(下一個指標)</code></td>
+<td>如果同一 bucket 有 collision，就指向下一個 node</td>
+</tr>
+</tbody>
+</table>
+<p>所以一個 node 大概像：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">virtual page number</th>
+<th style="text-align: right;">frame number</th>
+<th>next pointer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1001</td>
+<td style="text-align: right;">59</td>
+<td>指向下一筆或 null</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-位址轉換流程">4. 位址轉換流程<a class="headerlink" href="#4-位址轉換流程" title="Permanent link"></a></h3>
+<p>CPU 產生 logical address：</p>
+<p><code>&lt;p, d&gt;</code></p>
+<p>其中：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>page number</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>offset</td>
+</tr>
+</tbody>
+</table>
+<p>Hash page table 的流程是：</p>
+<ol>
+<li>用 <code>hash(p)</code> 算出 bucket address。</li>
+<li>到該 bucket 的 linked list。</li>
+<li>從 linked list 裡逐一比對 node 的 <code>virtual page number</code>。</li>
+<li>找到等於 <code>p</code> 的 node。</li>
+<li>取出 node 裡的 <code>frame number f</code>。</li>
+<li>用 <code>&lt;f, d&gt;</code> 組成 physical address。</li>
+</ol>
+<p>講義 page 43 也寫到：把 logical address 中的 <code>p(page#)</code> 經由 hashing function 算出 bucket address，再在 bucket 的 linked list 裡搜尋符合的 page number，取得 <code>f</code> 後和 <code>d</code> 得出 physical address。</p>
+<hr />
+<h3 id="5-流程圖">5. 流程圖<a class="headerlink" href="#5-流程圖" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart TD
+    A["CPU 產生 logical address(邏輯位址)&lt;br&gt;&amp;lt;page number p, offset d&amp;gt;"] --&gt; B["把 p 丟進 hash function(雜湊函式)"]
+    B --&gt; C["得到 bucket(桶) 位置"]
+    C --&gt; D["到該 bucket 的 linked list(鏈結串列)"]
+    D --&gt; E{"找到 virtual page number = p 的節點嗎？"}
+    E -- "找到" --&gt; F["取出 frame number(頁框編號) f"]
+    F --&gt; G["保留 offset(偏移量) d"]
+    G --&gt; H["組成 physical address(實體位址)&lt;br&gt;&amp;lt;f, d&amp;gt;"]
+    H --&gt; I["存取 main memory(主記憶體)"]
+    E -- "找不到" --&gt; J["不合法或不在表中&lt;br&gt;交給 OS 處理"]</code></pre>
+<hr />
+<h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
+<p>第一個錯法：以為 <code>hash(p)</code> 算出來就是 <code>frame number</code>。<br />
+這是錯的。<code>hash(p)</code> 只告訴你要去哪個 bucket 找，真正的 frame number 要在 linked list node 裡面拿。</p>
+<p>第二個錯法：以為 collision 代表 sharing。<br />
+這也是錯的。collision 只代表不同 page number 被 hash 到同一個 bucket，不代表它們共享同一個 frame。</p>
+<p>第三個錯法：忘記要比較 virtual page number。<br />
+因為同一個 bucket 裡可能有多個 node，所以不能看到 bucket 有東西就直接拿第一筆。必須找到 node 裡的 virtual page number 等於目前的 <code>p</code>。</p>
+<hr />
+<h3 id="7-最短記法_2">7. 最短記法<a class="headerlink" href="#7-最短記法_2" title="Permanent link"></a></h3>
+<p><code>hash page table</code> 的核心流程：</p>
+<p><code>p → hash(p) → bucket → linked list 搜尋 p → 得到 f → &lt;f,d&gt;</code></p>
+<p>最重要：</p>
+<p><strong>hash function 只負責幫你找到 bucket，不直接給 frame number。</strong></p>
+<p>真正的 mapping 存在 linked list node 裡：</p>
+<p><code>virtual page number → frame number</code></p>
+<h3 id="幫我舉個例子模擬p--hashp--bucket--linked-list-搜尋-p--得到-f--流程">幫我舉個例子，模擬"p → hash(p) → bucket → linked list 搜尋 p → 得到 f → <f,d>"流程<a class="headerlink" href="#幫我舉個例子模擬p--hashp--bucket--linked-list-搜尋-p--得到-f--流程" title="Permanent link"></a></h3>
+<h4 id="2-先給一組設定">2. 先給一組設定<a class="headerlink" href="#2-先給一組設定" title="Permanent link"></a></h4>
+<p>我們假設：</p>
+<p><code>hash(p) = p mod 4</code></p>
+<p>也就是 hash table 有 4 個 bucket：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Bucket index</th>
+<th>Linked list 內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>空</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>&lt;VPN=5, f=12&gt;</code> → <code>&lt;VPN=9, f=4&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>&lt;VPN=6, f=3&gt;</code> → <code>&lt;VPN=14, f=9&gt;</code> → <code>&lt;VPN=22, f=5&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>&lt;VPN=7, f=11&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>其中：</p>
+<table>
+<thead>
+<tr>
+<th>符號</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VPN</code></td>
+<td><code>virtual page number(虛擬頁號)</code></td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td><code>frame number(頁框編號)</code></td>
+</tr>
+</tbody>
+</table>
+<p>講義的 hash page table 流程就是：先把 logical address 裡的 <code>p(page#)</code> 丟進 hashing function 算出 bucket address，然後到該 bucket 的 linked list 搜尋符合的 page number，找到後取得 <code>f</code>，再和 <code>d</code> 組成 physical address。</p>
+<hr />
+<h4 id="3-模擬一次成功查找">3. 模擬一次成功查找<a class="headerlink" href="#3-模擬一次成功查找" title="Permanent link"></a></h4>
+<p>假設 CPU 產生 logical address：</p>
+<p><code>&lt;p, d&gt; = &lt;14, 120&gt;</code></p>
+<p>意思是：</p>
+<p><code>page number p = 14</code><br />
+<code>offset d = 120</code></p>
+<p>現在照流程跑：</p>
+<hr />
+<h5 id="31-第一步p--hashp">3.1 第一步：<code>p → hash(p)</code><a class="headerlink" href="#31-第一步p--hashp" title="Permanent link"></a></h5>
+<p>把 <code>p = 14</code> 丟進 hash function：</p>
+<p><code>hash(14) = 14 mod 4 = 2</code></p>
+<p>所以我們要去：</p>
+<p><code>bucket 2</code></p>
+<hr />
+<h5 id="32-第二步hashp--bucket">3.2 第二步：<code>hash(p) → bucket</code><a class="headerlink" href="#32-第二步hashp--bucket" title="Permanent link"></a></h5>
+<p>查 bucket 2。</p>
+<p>bucket 2 裡面有一條 linked list：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Node 順序</th>
+<th style="text-align: right;">Virtual page number</th>
+<th style="text-align: right;">Frame number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<p>注意：<br />
+<code>6</code>、<code>14</code>、<code>22</code> 都在 bucket 2，不代表它們是同一頁，也不代表它們共享 frame。只是因為：</p>
+<p><code>6 mod 4 = 2</code><br />
+<code>14 mod 4 = 2</code><br />
+<code>22 mod 4 = 2</code></p>
+<p>所以它們 collision(碰撞) 到同一個 bucket。</p>
+<hr />
+<h5 id="33-第三步bucket--linked-list-搜尋-p">3.3 第三步：<code>bucket → linked list 搜尋 p</code><a class="headerlink" href="#33-第三步bucket--linked-list-搜尋-p" title="Permanent link"></a></h5>
+<p>現在我們要找：</p>
+<p><code>virtual page number = 14</code></p>
+<p>開始一個一個比：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">檢查順序</th>
+<th style="text-align: right;">Node 的 VPN</th>
+<th style="text-align: right;">是否等於 p = 14</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">否</td>
+<td>繼續下一個</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">是</td>
+<td>找到了</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">不用查</td>
+<td>已找到</td>
+</tr>
+</tbody>
+</table>
+<p>所以找到這個 node：</p>
+<p><code>&lt;VPN=14, f=9&gt;</code></p>
+<hr />
+<h5 id="34-第四步得到-f">3.4 第四步：<code>得到 f</code><a class="headerlink" href="#34-第四步得到-f" title="Permanent link"></a></h5>
+<p>從 node 裡取出：</p>
+<p><code>frame number f = 9</code></p>
+<p>所以 logical address：</p>
+<p><code>&lt;p, d&gt; = &lt;14, 120&gt;</code></p>
+<p>被轉成：</p>
+<p><code>&lt;f, d&gt; = &lt;9, 120&gt;</code></p>
+<hr />
+<h4 id="4-如果要算成真正-physical-address-數字">4. 如果要算成真正 physical address 數字<a class="headerlink" href="#4-如果要算成真正-physical-address-數字" title="Permanent link"></a></h4>
+<p>如果題目只要求 <code>&lt;frame number, offset&gt;</code>，答案就是：</p>
+<p><code>&lt;9, 120&gt;</code></p>
+<p>但如果題目要求完整 physical address，而且假設：</p>
+<p><code>page size = frame size = 1024 bytes</code></p>
+<p>那就算：</p>
+<p><code>physical address = frame number × frame size + offset</code></p>
+<p>所以：</p>
+<p><code>physical address = 9 × 1024 + 120 = 9336</code></p>
+<p>因此完整結果是：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>logical address</td>
+<td style="text-align: right;"><code>&lt;14, 120&gt;</code></td>
+</tr>
+<tr>
+<td>hash result</td>
+<td style="text-align: right;"><code>14 mod 4 = 2</code></td>
+</tr>
+<tr>
+<td>bucket</td>
+<td style="text-align: right;"><code>2</code></td>
+</tr>
+<tr>
+<td>matched VPN</td>
+<td style="text-align: right;"><code>14</code></td>
+</tr>
+<tr>
+<td>frame number</td>
+<td style="text-align: right;"><code>9</code></td>
+</tr>
+<tr>
+<td>final <code>&lt;f,d&gt;</code></td>
+<td style="text-align: right;"><code>&lt;9,120&gt;</code></td>
+</tr>
+<tr>
+<td>physical address</td>
+<td style="text-align: right;"><code>9336</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="5-最短直覺">5. 最短直覺<a class="headerlink" href="#5-最短直覺" title="Permanent link"></a></h4>
+<p>你可以把它想成：</p>
+<p><code>hash(p)</code> 只是告訴你「去哪一桶找」。</p>
+<p>真正的 <code>frame number</code> 不是 hash 算出來的，而是在 bucket 的 linked list node 裡找到的。</p>
+<p>所以這題完整流程是：</p>
+<p><code>p = 14</code></p>
+<p><code>hash(14) = 2</code></p>
+<p><code>去 bucket 2</code></p>
+<p><code>linked list 搜尋 VPN = 14</code></p>
+<p><code>找到 VPN=14 的 node</code></p>
+<p><code>取出 f = 9</code></p>
+<p><code>得到 &lt;f,d&gt; = &lt;9,120&gt;</code></p>
+<p>最後如果要轉成數字 physical address：</p>
+<p><code>9 × page size + 120</code></p>
+<h3 id="所以我可以想成-hash-只是將全部有用到的-page-number-分成-n-組然後對於這-n-組裡面用-link-list-去查找--最後就會得到-frame-number-嗎">所以我可以想成 hash 只是將全部有用到的 page number 分成 n 組，然後對於這 n 組裡面用 link list 去查找 <code>&lt;page number,frame number&gt;</code> ，最後就會得到 frame number 嗎？<a class="headerlink" href="#所以我可以想成-hash-只是將全部有用到的-page-number-分成-n-組然後對於這-n-組裡面用-link-list-去查找--最後就會得到-frame-number-嗎" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%208-4.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>大致上沒錯。</p>
+<p>Hash page table 可以想成：用 hash(p) 把有 mapping 的 virtual page numbers 分到不同 buckets；每個 bucket 裡用 linked list 儲存多個 <code>&lt;virtual page number, frame number&gt;</code> mapping。查詢時，先算 hash(p) 找到 bucket，再沿著 linked list 比對 virtual page number，找到後取出 frame number，最後和 offset 組成 <code>&lt;frame number, offset&gt;</code>。</p>
+<hr />
+<p>例如：</p>
+<p>我們假設：</p>
+<p><code>hash(p) = p mod 4</code></p>
+<p>也就是 hash table 有 4 個 bucket：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Bucket index</th>
+<th>Linked list 內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>空</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>&lt;VPN=5, f=12&gt;</code> → <code>&lt;VPN=9, f=4&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>&lt;VPN=6, f=3&gt;</code> → <code>&lt;VPN=14, f=9&gt;</code> → <code>&lt;VPN=22, f=5&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>&lt;VPN=7, f=11&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>假設 CPU 產生 logical address：</p>
+<p><code>&lt;p, d&gt; = &lt;14, 120&gt;</code></p>
+<p>意思是：</p>
+<p><code>page number p = 14</code><br />
+<code>offset d = 120</code></p>
+<p>開始計算：</p>
+<p>14 / 4 = 3&hellip;2 -&gt; Bucket index = 2，所以到 <code>&lt;VPN=6, f=3&gt;</code> → <code>&lt;VPN=14, f=9&gt;</code> → <code>&lt;VPN=22, f=5&gt;</code>  裡面找。<br />
+找第一個 <code>&lt;VPN=6, f=3&gt;</code>， 6 != 14，所以找下一個。<br />
+找第二個 <code>&lt;VPN=14, f=9&gt;</code>， 14 == 14，所以就可以知道 14 對應到 9，然後再用剛剛的 <code>&lt;p, d&gt; = &lt;14, 120&gt;</code> 知道 offset = 120，所以最後得到 <code>&lt;frame number, offset&gt;</code> = <code>&lt;9, 120&gt;</code></p>
+</div>
+<h3 id="next-pointer-存的東西通常是什麼-是-16-進位的位置嗎">next pointer 存的東西通常是什麼？ 是 16 進位的位置嗎<a class="headerlink" href="#next-pointer-存的東西通常是什麼-是-16-進位的位置嗎" title="Permanent link"></a></h3>
+<p>對，<code>next pointer(下一個指標)</code> 通常存的是：</p>
+<p><strong>下一個 linked list node(鏈結串列節點) 的位置／參考。</strong></p>
+<p>在實作上，它可能長得像一個 memory address(記憶體位址)，而位址常常會用 16 進位表示，例如：</p>
+<p><code>0x1040</code></p>
+<p>所以你問「是 16 進位的位置嗎？」可以這樣修正：</p>
+<p><strong>它本質上是指向下一個 node 的 pointer；如果把 pointer 印出來，常常會看到 16 進位位址。</strong></p>
+<p>但重點不是「16 進位」，而是：</p>
+<p><strong>它告訴系統：下一個 node 在哪裡。</strong></p>
+<h2 id="inverted-page-table--為什麼-page-table-可以改成一個-frame-一格">⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？<a class="headerlink" href="#inverted-page-table--為什麼-page-table-可以改成一個-frame-一格" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 44～45</p>
+<h3 id="1-這個概念在解決什麼問題_12">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_12" title="Permanent link"></a></h3>
+<p>前面一般 paging 的想法是：</p>
+<p><strong>每個 process 各自有一張 page table。</strong></p>
+<p>所以如果有很多 process，而且每個 process 的 virtual address space(虛擬位址空間) 又很大，就可能需要很多張很大的 page tables。</p>
+<p><code>Inverted page table(反轉分頁表)</code> 的想法剛好反過來：</p>
+<p><strong>不要以 process 的 virtual pages 為主，而是以 physical memory 的 frames 為主。</strong></p>
+<p>也就是說，表格不再問：</p>
+<p>「這個 process 的 page p 對應到哪個 frame？」</p>
+<p>而是改問：</p>
+<p>「這個 physical frame 現在被哪個 process 的哪個 page 佔用？」</p>
+<p>講義寫法是：以 <code>physical memory(實體記憶體)</code> 為對象，建立一個給所有 process 共用的 <code>global page table(全域分頁表)</code>。如果 physical memory 有 <code>m</code> 個 frames，這張表就有 <code>m</code> 個 entries。</p>
+<hr />
+<h3 id="2-一般-page-table-vs-inverted-page-table">2. 一般 page table vs inverted page table<a class="headerlink" href="#2-一般-page-table-vs-inverted-page-table" title="Permanent link"></a></h3>
+<p>一般 page table：</p>
+<table>
+<thead>
+<tr>
+<th>觀點</th>
+<th>表格一列代表什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>以 process 的 virtual page 為主</td>
+<td>某個 process 的某個 page 對應到哪個 frame</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th style="text-align: right;">Page number</th>
+<th style="text-align: right;">Frame number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td>P1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>P2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<p>這是我們前面最熟的方向：</p>
+<p><code>&lt;Process, page number&gt; → frame number</code></p>
+<hr />
+<p>Inverted page table：</p>
+<table>
+<thead>
+<tr>
+<th>觀點</th>
+<th>表格一列代表什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>以 physical frame 為主</td>
+<td>某個 frame 現在放了哪個 process 的哪個 page</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Frame number</th>
+<th>Process id</th>
+<th style="text-align: right;">Page number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>P2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>P1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>P3</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>P2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>方向變成：</p>
+<p><code>frame number → &lt;Process id, page number&gt;</code></p>
+<p>但 CPU 產生 logical address 時還是給你：</p>
+<p><code>&lt;Process id, page number, offset&gt;</code></p>
+<p>所以查詢時會變成：</p>
+<p>「我要找 <code>&lt;P2, page 0&gt;</code>，請問它在哪個 frame？」</p>
+<p>這時就要在 inverted page table 裡搜尋哪一列的 <code>&lt;Process id, Page No&gt;</code> 符合 <code>&lt;P2,0&gt;</code>。</p>
+<hr />
+<h3 id="3-為什麼-entry-數量會變少">3. 為什麼 entry 數量會變少？<a class="headerlink" href="#3-為什麼-entry-數量會變少" title="Permanent link"></a></h3>
+<p>一般 single-level page table 的 entry 數量跟：</p>
+<p><strong>virtual pages 數量</strong></p>
+<p>有關。</p>
+<p>而 inverted page table 的 entry 數量跟：</p>
+<p><strong>physical frames 數量</strong></p>
+<p>有關。</p>
+<p>這是它省空間的核心。</p>
+<p>假設：</p>
+<ul>
+<li>virtual address 是 <code>32-bit</code></li>
+<li>page size 是 <code>4 KB = 2^12 bytes</code></li>
+<li>physical memory 是 <code>512 MB = 2^29 bytes</code></li>
+</ul>
+<p>一般 single-level page table：</p>
+<p><code>offset bits = 12</code></p>
+<p>所以：</p>
+<p><code>page number bits = 32 - 12 = 20</code></p>
+<p>因此 conventional single-level page table 有：</p>
+<p><code>2^20 entries</code></p>
+<hr />
+<p>Inverted page table：</p>
+<p>它看的是 physical memory 裡有幾個 frames。</p>
+<p><code>physical memory = 512 MB = 2^29 bytes</code></p>
+<p><code>frame size = page size = 4 KB = 2^12 bytes</code></p>
+<p>所以 frame 數量是：</p>
+<p><code>2^29 / 2^12 = 2^17 = 128K entries</code></p>
+<p>這也就是講義 <code>8.16</code> 的答案：single-level page table 是 <code>2^20 entries</code>；inverted page table 是 <code>512MB / 4K = 128K entries = 2^17 entries</code>。</p>
+<p>所以 inverted page table 通常會比每個 process 一張大 page table 更省。</p>
+<hr />
+<h3 id="4-查詢流程為什麼比較慢">4. 查詢流程為什麼比較慢？<a class="headerlink" href="#4-查詢流程為什麼比較慢" title="Permanent link"></a></h3>
+<p>一般 page table 可以直接用 <code>page number</code> 當 index：</p>
+<p><code>page number p → page table[p] → frame number f</code></p>
+<p>但 inverted page table 是以 <code>frame number</code> 當表格列數。</p>
+<p>問題是 CPU 一開始給你的不是 frame number，而是：</p>
+<p><code>&lt;Process id, page number, offset&gt;</code></p>
+<p>所以你不知道該直接查第幾列。</p>
+<p>你只能搜尋：</p>
+<p>「哪一個 frame 的 entry 記錄了 <code>&lt;Process id, Page No&gt;</code>？」</p>
+<p>因此講義把缺點列為：</p>
+<p><strong>searching inverted page table 耗時。</strong></p>
+<p>也就是說，省了表格空間，但查找可能變慢。講義也說可以用 hash 增加搜尋速度。</p>
+<hr />
+<h3 id="5-用一個具體例子看-translation">5. 用一個具體例子看 translation<a class="headerlink" href="#5-用一個具體例子看-translation" title="Permanent link"></a></h3>
+<p>假設 inverted page table 是：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Frame number</th>
+<th>Process id</th>
+<th style="text-align: right;">Page number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>P1</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>P2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>P1</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>P3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>P2</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+<p>現在 CPU 正在執行 <code>P2</code>，產生 logical address：</p>
+<p><code>&lt;page number, offset&gt; = &lt;7, 20&gt;</code></p>
+<p>因為目前 process 是 <code>P2</code>，所以完整查詢 key 是：</p>
+<p><code>&lt;Process id, Page No&gt; = &lt;P2, 7&gt;</code></p>
+<p>接著搜尋 inverted page table：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">檢查 Frame</th>
+<th>Entry 內容</th>
+<th style="text-align: right;">是否符合 <code>&lt;P2,7&gt;</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td><code>&lt;P1,5&gt;</code></td>
+<td style="text-align: right;">否</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>&lt;P2,3&gt;</code></td>
+<td style="text-align: right;">否</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>&lt;P1,8&gt;</code></td>
+<td style="text-align: right;">否</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>&lt;P3,0&gt;</code></td>
+<td style="text-align: right;">否</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><code>&lt;P2,7&gt;</code></td>
+<td style="text-align: right;">是</td>
+</tr>
+</tbody>
+</table>
+<p>找到 frame 4，所以：</p>
+<p><code>frame number f = 4</code></p>
+<p>原本 offset 不變：</p>
+<p><code>offset d = 20</code></p>
+<p>最後：</p>
+<p><code>&lt;frame number, offset&gt; = &lt;4,20&gt;</code></p>
+<hr />
+<h3 id="6-為什麼要記-process-id">6. 為什麼要記 Process id？<a class="headerlink" href="#6-為什麼要記-process-id" title="Permanent link"></a></h3>
+<p>因為不同 process 都可以有自己的 page 0、page 1、page 2。</p>
+<p>所以只記 page number 不夠。</p>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th style="text-align: right;">Page number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>P2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>P3</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>這三個 page 0 是不同 process 的 page 0，不是同一頁。</p>
+<p>因此 inverted page table 的 entry 必須記：</p>
+<p><code>&lt;Process id, Page No&gt;</code></p>
+<p>而不能只記：</p>
+<p><code>&lt;Page No&gt;</code></p>
+<p>否則系統不知道這個 page 0 到底是誰的 page 0。</p>
+<hr />
+<h3 id="7-為什麼講義說無法支援-memory-sharing">7. 為什麼講義說無法支援 memory sharing？<a class="headerlink" href="#7-為什麼講義說無法支援-memory-sharing" title="Permanent link"></a></h3>
+<p>先照講義記法：</p>
+<p><code>inverted page table</code> 的缺點之一是：</p>
+<p><strong>無法支援 memory sharing。</strong></p>
+<p>直覺原因是：inverted page table 是「一個 physical frame 對應一個 <code>&lt;Process id, Page No&gt;</code> entry」。<br />
+可是 memory sharing 想表達的是：</p>
+<p><strong>同一個 physical frame 可能被多個 process 的不同 pages 共享。</strong></p>
+<p>例如：</p>
+<p><code>P1 page 3 → frame 10</code><br />
+<code>P2 page 7 → frame 10</code></p>
+<p>如果 inverted page table 的 frame 10 那一格只能記一組：</p>
+<p><code>&lt;Process id, Page No&gt;</code></p>
+<p>那它就很難自然表示「同一個 frame 同時對應多個 process/page」。<br />
+所以 shared pages 會變得不好支援，至少不像一般 page table 那樣直覺。</p>
+<p>這裡以講義版本為準，考試先寫：</p>
+<p><strong>缺點：無法支援 memory sharing。</strong></p>
+<hr />
+<h3 id="8-最短記法_2">8. 最短記法<a class="headerlink" href="#8-最短記法_2" title="Permanent link"></a></h3>
+<p>一般 page table：</p>
+<p><code>&lt;process, page&gt; → frame</code></p>
+<p>所以 entry 數量跟 virtual pages 有關。</p>
+<p>Inverted page table：</p>
+<p><code>frame → &lt;process, page&gt;</code></p>
+<p>所以 entry 數量跟 physical frames 有關。</p>
+<p>優點：</p>
+<p><strong>page table size 大幅降低。</strong></p>
+<p>缺點：</p>
+<p><strong>搜尋比較慢；可用 hash 加速；不支援 memory sharing。</strong></p>
+<p>最重要的一句：</p>
+<p><strong>Inverted page table 是把 page table 的觀點從「每個 process 的 pages」反轉成「physical memory 的 frames」。</strong></p>
+<h3 id="講這麼多重點其實就是因為-page-比-frame-多所以記比較少的-frame-比較省空間">講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。<a class="headerlink" href="#講這麼多重點其實就是因為-page-比-frame-多所以記比較少的-frame-比較省空間" title="Permanent link"></a></h3>
+<h4 id="為什麼-page-會比-frame-多">為什麼 <code>page</code> 會比 <code>frame</code> 多？<a class="headerlink" href="#為什麼-page-會比-frame-多" title="Permanent link"></a></h4>
+<p><code>page(頁)</code> 屬於 <code>logical / virtual memory(邏輯／虛擬記憶體)</code>，是 process 看得到的位址空間；<br />
+<code>frame(頁框)</code> 屬於 <code>physical memory / main memory(實體記憶體／主記憶體)</code>，是真正 RAM 裡能放 page 的位置。</p>
+<p>所以 <code>page number bits</code> 是由 virtual address space 決定，<code>frame number bits</code> 是由 physical memory 大小決定。<br />
+如果 virtual address space 比 physical memory 大，就會出現：</p>
+<p><code>page number bits &gt; frame number bits</code></p>
+<p>也就是可表示的 pages 比實際 RAM 中的 frames 多。</p>
+<p>重點是：</p>
+<p><strong>不是每個 page 都必須一開始就在 main memory 中。</strong></p>
+<p>有些 page 可能：</p>
+<ol>
+<li>還沒被 process 用到。</li>
+<li>目前是 <code>invalid</code>。</li>
+<li>合法，但暫時不在 main memory，而是在 disk / backing store。</li>
+<li><mark>等 process 真的 access 到它時，才產生 <code>page fault(缺頁錯誤)</code>，由 OS 把該 page <code>page in(載入)</code> 到某個 free frame</mark>。</li>
+</ol>
+<p>所以：</p>
+<p><code>page</code> 比 <code>frame</code> 多是合理的，因為 virtual memory 允許 process 擁有比實際 RAM 更大的可表示位址空間；真正用到某個 page 時，OS 才透過 <code>page fault</code> 把需要的 page 載入 main memory。</p>
+<h4 id="最短記法">最短記法<a class="headerlink" href="#最短記法" title="Permanent link"></a></h4>
+<p><code>page</code> 是「虛擬門牌」，可以很多。<br />
+<code>frame</code> 是「RAM 裡的實際房間」，數量有限。</p>
+<p>不是所有 page 一開始都在 main memory；<br />
+需要用到但不在 memory 時，才會 <code>page fault → page in</code>。</p>
+<h4 id="但是缺頁的-fram-編號要怎麼編應該說要怎麼知道是缺頁">但是缺頁的 fram 編號要怎麼編？應該說要怎麼知道是缺頁？<a class="headerlink" href="#但是缺頁的-fram-編號要怎麼編應該說要怎麼知道是缺頁" title="Permanent link"></a></h4>
+<p>先把你的問題拆成兩件事</p>
+<p>你現在問的是兩個不同時間點：</p>
+<ol>
+<li>
+<p><strong>缺頁前：怎麼知道這個 page 缺頁？</strong></p>
+</li>
+<li>
+<p><strong>缺頁後：OS 要把這個 page 放到哪個 frame？那個 frame 編號怎麼來？</strong></p>
+</li>
+</ol>
+<p>最重要的答案是：</p>
+<p><strong>缺頁發生當下，這個 page 還沒有 frame number。</strong></p>
+<p><code>frame number(頁框編號)</code> 是 OS 找到可用 frame 或替換出 victim page 之後，才填回 page table 的。</p>
+<h4 id="錯題_3">錯題<a class="headerlink" href="#錯題_3" title="Permanent link"></a></h4>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+</div>
+<p><mark>Q:</mark><br />
+A system uses a 32-bit logical address, a 4 KB page size, and supports up to 512 MB of physical memory.<br />
+Calculate:<br />
+a. the number of entries in a conventional single-level page table<br />
+b. the number of entries in an inverted page table</p>
+<p><mark>我寫的</mark><br />
+4K = 2^2 * 2^10 = 2^12 -&gt;  a. entries = 32 - 12 = 20<br />
+512M = 2^9 * 2 ^20 -&gt; b. entries = 29 - 12 = 17</p>
+<p><mark>ANS:</mark><br />
+Conventional single-level page table：</p>
+<p><code>logical address = 32 bits</code></p>
+<p><code>page number bits = 32 - 12 = 20 bits</code></p>
+<p>所以 page table entries 數量是：</p>
+<p><code>2^20 entries</code></p>
+<hr />
+<p>Inverted page table：</p>
+<p><code>physical memory = 512MB</code></p>
+<p><code>512MB = 512 × 2^20 bytes = 2^9 × 2^20 = 2^29 bytes</code></p>
+<p><code>frame size = page size = 2^12 bytes</code></p>
+<p>所以 physical frames 數量是：</p>
+<p><code>2^29 / 2^12 = 2^17 frames</code></p>
+<h2 id="64-bit-multi-level-page-table--64-bit-位址太大時x86-64-怎麼分層查-page-table">⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？<a class="headerlink" href="#64-bit-multi-level-page-table--64-bit-位址太大時x86-64-怎麼分層查-page-table" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 48～49</p>
+<h3 id="1-這個概念在解決什麼問題_13">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_13" title="Permanent link"></a></h3>
+<p>前面我們學過 two-level paging，是因為：</p>
+<p><strong>virtual address space(虛擬位址空間) 很大，single-level page table 會太大、太稀疏。</strong></p>
+<p>到了 64-bit 系統，問題更誇張。</p>
+<p>講義說理論上 64-bit address 可以定址到：</p>
+<p><code>2^64 locations</code></p>
+<p>也就是 <code>16 EiB</code> 的 memory 空間。講義也補充：目前常見 x86-64 architecture 實作通常使用 <code>48 bits</code> 來定址，這仍然可以定址到 <code>256 TiB = 2^48 bytes</code> 的 virtual memory。</p>
+<p>所以核心問題是：</p>
+<p><strong>64-bit address space 太大，不可能用一張普通 single-level page table 直接管理。</strong></p>
+<p>因此 x86-64 採用：</p>
+<p><code>4-level page table(四層分頁表)</code></p>
+<hr />
+<h3 id="2-64-bit-address-為什麼不是全部-64-bits-都拿來查表">2. 64-bit address 為什麼不是全部 64 bits 都拿來查表？<a class="headerlink" href="#2-64-bit-address-為什麼不是全部-64-bits-都拿來查表" title="Permanent link"></a></h3>
+<p>講義圖中把 64-bit virtual address 拆成：</p>
+<table>
+<thead>
+<tr>
+<th>區段</th>
+<th style="text-align: right;">bits</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sign extension(符號延伸)</code></td>
+<td style="text-align: right;">16 bits</td>
+<td>高 16 bits，配合目前 48-bit addressing</td>
+</tr>
+<tr>
+<td><code>P4 index</code></td>
+<td style="text-align: right;">9 bits</td>
+<td>查第 4 層，也就是最高層 page table</td>
+</tr>
+<tr>
+<td><code>P3 index</code></td>
+<td style="text-align: right;">9 bits</td>
+<td>查第 3 層 page table</td>
+</tr>
+<tr>
+<td><code>P2 index</code></td>
+<td style="text-align: right;">9 bits</td>
+<td>查第 2 層 page table</td>
+</tr>
+<tr>
+<td><code>P1 index</code></td>
+<td style="text-align: right;">9 bits</td>
+<td>查第 1 層 page table</td>
+</tr>
+<tr>
+<td><code>offset(偏移量)</code></td>
+<td style="text-align: right;">12 bits</td>
+<td>在 4KB page 裡選 byte</td>
+</tr>
+</tbody>
+</table>
+<p>總和：</p>
+<p><code>16 + 9 + 9 + 9 + 9 + 12 = 64 bits</code></p>
+<p>其中真正拿來形成 48-bit virtual address 的部分是：</p>
+<p><code>P4 + P3 + P2 + P1 + offset</code></p>
+<p>也就是：</p>
+<p><code>9 + 9 + 9 + 9 + 12 = 48 bits</code></p>
+<p>上面的 <code>16 bits sign extension</code> 不是拿來多查一層 page table，而是高位元延伸用。</p>
+<hr />
+<h3 id="3-為什麼每層-index-都是-9-bits">3. 為什麼每層 index 都是 9 bits？<a class="headerlink" href="#3-為什麼每層-index-都是-9-bits" title="Permanent link"></a></h3>
+<p>因為每一層 page table 通常剛好放在一個 <code>4KB page</code> 裡。</p>
+<p>如果一個 page table entry 是 <code>8 bytes</code>，那一張 4KB 的 page table 可以放：</p>
+<p><code>4KB / 8 bytes = 4096 / 8 = 512 entries</code></p>
+<p>而：</p>
+<p><code>512 = 2^9</code></p>
+<p>所以每一層需要 <code>9 bits</code> 來選其中一個 entry。</p>
+<p>這就是為什麼講義圖上 P4、P3、P2、P1 都是 <code>9 bits</code>。</p>
+<hr />
+<h3 id="4-4-level-page-table-查表流程">4. 4-level page table 查表流程<a class="headerlink" href="#4-4-level-page-table-查表流程" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%208-5.png" /><br />
+查表流程可以想成四層目錄：</p>
+<ol>
+<li><code>CR3 register</code> 指向最高層 <code>P4 table</code>。</li>
+<li>用 <code>P4 index</code> 查 <code>P4 table</code>，<mark>找到 <code>P3 table</code> 的位置</mark> 。</li>
+<li>用 <code>P3 index</code> 查 <code>P3 table</code>，找到 <code>P2 table</code> 的位置。</li>
+<li>用 <code>P2 index</code> 查 <code>P2 table</code>，找到 <code>P1 table</code> 的位置。</li>
+<li>用 <code>P1 index</code> 查 <code>P1 table</code>，找到真正的 <code>physical frame / 4K memory page</code>。</li>
+<li>用 <code>offset</code> 找到該 4KB page 裡的 byte。</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>用 <code>P4 index</code> 查 <code>P4 table</code>， 找到的是 <code>P3 table</code> 的 <mark>位置</mark>  而不是 index，因為每個 P4 都有不同的 P3。P3 的 index 是已經存在於那 64 bit 的 P3 中了。</p>
+<p>然後因為每個 Process 的 P4 table 的位置不固定，所以要用 CR3 register(暫存器) 來存。</p>
+</div>
+<p>講義 PDF viewer page 49 的圖正是這個流程：<code>CR3 register</code> 指到 <code>P4 table</code>，然後依序經過 <code>P4 entry</code>、<code>P3 entry</code>、<code>P2 entry</code>、<code>P1 entry</code>，最後到 <code>4K memory page</code>。</p>
+<pre class="diagram"><code>flowchart TD
+    A["CPU 產生 64-bit virtual address(虛擬位址)&lt;br&gt;含 P4、P3、P2、P1、offset"] --&gt; B["CR3 register(暫存器)&lt;br&gt;指出 P4 table(第 4 層表) 的起點"]
+    B --&gt; C["用 P4 index 查 P4 table&lt;br&gt;找到 P3 table 的位置"]
+    C --&gt; D["用 P3 index 查 P3 table&lt;br&gt;找到 P2 table 的位置"]
+    D --&gt; E["用 P2 index 查 P2 table&lt;br&gt;找到 P1 table 的位置"]
+    E --&gt; F["用 P1 index 查 P1 table&lt;br&gt;找到 physical frame(實體頁框)"]
+    F --&gt; G["用 offset(偏移量)&lt;br&gt;選出 4KB page 裡的 byte"]
+    G --&gt; H["得到 physical address(實體位址)"]</code></pre>
+<hr />
+<h3 id="5-p4--p3--p2--p1-可以怎麼想">5. P4 / P3 / P2 / P1 可以怎麼想？<a class="headerlink" href="#5-p4--p3--p2--p1-可以怎麼想" title="Permanent link"></a></h3>
+<p>你可以把它想成地址很長，所以不用一本超大的名冊，而是用四層資料夾：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>像什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>P4 index</code></td>
+<td>找第幾個大櫃子</td>
+</tr>
+<tr>
+<td><code>P3 index</code></td>
+<td>找該櫃子的第幾層抽屜</td>
+</tr>
+<tr>
+<td><code>P2 index</code></td>
+<td>找該抽屜的第幾個資料夾</td>
+</tr>
+<tr>
+<td><code>P1 index</code></td>
+<td>找資料夾裡第幾頁索引</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>找該 page 裡第幾個 byte</td>
+</tr>
+</tbody>
+</table>
+<p>這跟 two-level paging 本質一樣，只是從：</p>
+<p><code>&lt;p1, p2, d&gt;</code></p>
+<p>變成：</p>
+<p><code>&lt;P4, P3, P2, P1, offset&gt;</code></p>
+<p>所以不要把它想成全新的東西；它只是：</p>
+<p><strong>多層 page table 的 64-bit 版本。</strong></p>
+<hr />
+<h3 id="6-和前面-two-level-paging-的關係">6. 和前面 two-level paging 的關係<a class="headerlink" href="#6-和前面-two-level-paging-的關係" title="Permanent link"></a></h3>
+<p>Two-level paging：</p>
+<p><code>p1 → p2 → frame → offset</code></p>
+<p>x86-64 4-level paging：</p>
+<p><code>P4 → P3 → P2 → P1 → frame → offset</code></p>
+<p>兩者的共通點是：</p>
+<p><strong>前面的 index 都是在找下一層 page table；最後一層才找到真正的 physical frame。</strong></p>
+<p>差別只是層數不同：</p>
+<table>
+<thead>
+<tr>
+<th>系統</th>
+<th>位址拆法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32-bit two-level paging</td>
+<td><code>p1 / p2 / offset</code></td>
+</tr>
+<tr>
+<td>x86-64 4-level paging</td>
+<td><code>P4 / P3 / P2 / P1 / offset</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="7-最短記法_3">7. 最短記法<a class="headerlink" href="#7-最短記法_3" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>x86-64 4-level page table：</p>
+<p><mark>16</mark> / 9 / 9 / 9 / 9 / 12</p>
+<p>其中：</p>
+<p><code>16</code>：sign extension。<br />
+<code>9 / 9 / 9 / 9</code>：P4、P3、P2、P1 四層 index。<br />
+<code>12</code>：offset，因為 page size 是 4KB。</p>
+<p>查表流程：</p>
+<p><code>CR3 → P4 table → P3 table → P2 table → P1 table → 4KB page</code></p>
+<p>最重要：</p>
+<p><strong>P4、P3、P2、P1 都不是 frame number；它們只是一步一步找到下一層表。最後 P1 entry 才會帶你到真正的 physical frame。</strong></p>
+</div>
+<h3 id="cr3-register-是啥">CR3 register 是啥<a class="headerlink" href="#cr3-register-是啥" title="Permanent link"></a></h3>
+<h4 id="1-直接答案">1. 直接答案<a class="headerlink" href="#1-直接答案" title="Permanent link"></a></h4>
+<p><code>CR3 register</code> 是 CPU 裡的 <code>control register(控制暫存器)</code>，用途是告訴 CPU：</p>
+<p><strong>目前這個 process 的最高層 page table 在 physical memory 哪裡。</strong></p>
+<p>在 x86-64 的 4-level paging 裡，它通常存的是：</p>
+<p><strong><code>P4 table / PML4 table</code> 的 physical base address(實體起始位址)。</strong></p>
+<p>所以講義流程：</p>
+<p><code>CR3 register → P4 table → P3 table → P2 table → P1 table → physical frame</code></p>
+<p>意思就是：</p>
+<p>CPU 先看 <code>CR3</code>，知道最高層 <code>P4 table</code> 在哪裡，然後才可以開始一層一層查下去。OSDev 的 x86-64 register 說明也寫到，<code>CR3</code> 的高位元欄位存的是 <code>PML4</code> 的 physical base address；OSDev paging 說明也指出，在 4-level paging 中，<code>CR3</code> 指向最高層 page map table，也就是 <code>PML4 table</code>。(<a href="https://people.csail.mit.edu/rinard/teaching/osnotes/h10.html?utm_source=chatgpt.com" title="Operating Systems Lecture Notes Lecture 10 Issues in Paging ...">wiki.osdev.org</a>)</p>
+<hr />
+<h4 id="2-生活化比喻">2. 生活化比喻<a class="headerlink" href="#2-生活化比喻" title="Permanent link"></a></h4>
+<p>你可以把 4-level page table 想成一棟大樓的查詢系統：</p>
+<table>
+<thead>
+<tr>
+<th>東西</th>
+<th>比喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CR3 register</code></td>
+<td>總服務台地址</td>
+</tr>
+<tr>
+<td><code>P4 table</code></td>
+<td>第一層總目錄</td>
+</tr>
+<tr>
+<td><code>P3 table</code></td>
+<td>第二層目錄</td>
+</tr>
+<tr>
+<td><code>P2 table</code></td>
+<td>第三層目錄</td>
+</tr>
+<tr>
+<td><code>P1 table</code></td>
+<td>最後一層目錄</td>
+</tr>
+<tr>
+<td><code>physical frame</code></td>
+<td>真正的房間位置</td>
+</tr>
+</tbody>
+</table>
+<p>CPU 不能直接憑 <code>P4 index</code> 查表，因為它一開始不知道 <code>P4 table</code> 放在哪。</p>
+<p>所以它先問：</p>
+<p><strong>CR3，你告訴我 P4 table 的起點在哪裡？</strong></p>
+<p>知道 P4 table 的位置後，才能用 virtual address 裡的 <code>P4 index</code> 去查 P4 table。</p>
+<hr />
+<h4 id="3-cr3-裡不是存整張-page-table">3. CR3 裡不是存整張 page table<a class="headerlink" href="#3-cr3-裡不是存整張-page-table" title="Permanent link"></a></h4>
+<p>這點很重要。</p>
+<p><code>CR3</code> 不是存整張 <code>P4 table</code>。</p>
+<p>它只存：</p>
+<p><strong>P4 table 的起始 physical address。</strong></p>
+<p>也就是類似：</p>
+<p><code>CR3 = 0x0000000010d66000</code></p>
+<p>這個值代表：</p>
+<p>「最高層 page table 從 physical memory 的 <code>0x10d66000</code> 開始。」</p>
+<p>接著 CPU 才會用：</p>
+<p><code>P4 index</code></p>
+<p>去這張 P4 table 裡找對應 entry。</p>
+<h3 id="那為何前面有空間不拿來用是因為-p4-已經夠多了嗎">那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？<a class="headerlink" href="#那為何前面有空間不拿來用是因為-p4-已經夠多了嗎" title="Permanent link"></a></h3>
+<h4 id="1-直接答案_1">1. 直接答案<a class="headerlink" href="#1-直接答案_1" title="Permanent link"></a></h4>
+<p>對，你可以這樣理解一半：</p>
+<p><strong>不是因為前面 16 bits 完全沒價值，而是因為 4-level paging 已經只設計成使用 48 bits；在當時與多數用途下，48-bit virtual address space 已經非常大，所以硬體先不實作完整 64-bit translation。</strong></p>
+<p>所以不是單純「P4 已經夠多」而已，而是：</p>
+<p><strong>48 bits 已經夠大 + 完整 64 bits 會讓 page table 與硬體成本爆炸 + 高 16 bits 保留給未來擴充與 canonical address(標準形式位址)檢查。</strong></p>
+<p>Intel 手冊也寫：在 64-bit mode 中，處理器會確保高位元符合 canonical form，而且 IA-32e paging 不使用 bits 63～48 來做位址轉換。<a href="https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf?utm_source=chatgpt.com">Intel</a></p>
+<hr />
+<h4 id="2-48-bits-到底有多大">2. 48 bits 到底有多大？<a class="headerlink" href="#2-48-bits-到底有多大" title="Permanent link"></a></h4>
+<p>實際拿來查 page table 的是：</p>
+<p><code>P4 / P3 / P2 / P1 / offset</code></p>
+<p>也就是：</p>
+<p><code>9 + 9 + 9 + 9 + 12 = 48 bits</code></p>
+<p>所以 virtual address space 是：</p>
+<p><code>2^48 bytes = 256 TiB</code></p>
+<p>這已經遠大於一般使用者程式會用到的記憶體空間。</p>
+<p>也可以從 P4 數量看：</p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>bits</th>
+<th>entries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>P4</code></td>
+<td>9 bits</td>
+<td><code>2^9 = 512 entries</code></td>
+</tr>
+<tr>
+<td><code>P3</code></td>
+<td>9 bits</td>
+<td>每個 P4 entry 可指到 512 個 P3 entries</td>
+</tr>
+<tr>
+<td><code>P2</code></td>
+<td>9 bits</td>
+<td>再乘 512</td>
+</tr>
+<tr>
+<td><code>P1</code></td>
+<td>9 bits</td>
+<td>再乘 512</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>12 bits</td>
+<td>每個 page 4096 bytes</td>
+</tr>
+</tbody>
+</table>
+<p>所以總共可表示：</p>
+<p><code>512 × 512 × 512 × 512 × 4096 bytes</code></p>
+<p>也就是：</p>
+<p><code>2^9 × 2^9 × 2^9 × 2^9 × 2^12 = 2^48 bytes</code></p>
+<p>因此你說「P4 已經夠多」可以改成更精準：</p>
+<p><strong>四層 page table 每層 512 entries，總共已經能管理 256 TiB virtual address space，當時已經非常夠用。</strong></p>
 
 
 
