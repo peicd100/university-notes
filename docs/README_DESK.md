@@ -79,25 +79,19 @@ p              docs\md\114-2\電機_作業系統\ch 4.md
 
 
 ```
+
+
+
+## 每次寫完
 ```
-activate mkdocs_desk
-mkdocs serve
+activate mkdocs
+mkdocs gh-deploy
+git add .
+git commit -m "PEICD100"
+git branch -M main
+git push -u origin main
 
 ```
-```
-activate mkdocs_desk
-mkdocs serve -f mkdocs.preview.yml --dirty
-
-```
-
-## 單頁預覽快捷指令
-```bat
-activate mkdocs_desk
-.\preview     docs\md\114-2\電機_作業系統\ch 4.md
-```
-- 可接受 `docs\...` 或 `md\...` 路徑。
-- 如果目前終端是 PowerShell，請用 `.\preview ...`；若是 `cmd`，可直接用 `preview ...`。
-- 指令會自動更新 `mkdocs.preview.yml` 內的 preview 目標，然後啟用 `mkdocs_desk`，最後以 `python -m mkdocs serve -f mkdocs.preview.yml --dirty` 啟動預覽。
 
 
 # 環境安裝指令
@@ -105,8 +99,8 @@ activate mkdocs_desk
 ## 只安裝環境
 
 ```
-conda create -n mkdocs_desk python=3.11 -y
-activate mkdocs_desk
+conda create -n mkdocs python=3.11 -y
+activate mkdocs
 conda install pip -y 
 conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
 pip install -r requirements.txt
@@ -122,11 +116,11 @@ conda install cuda -c nvidia -y
 
 ## 使用 git
 ```
-git clone https://github.com/peicd100/peicd100.github.io.git
+git clone https://github.com/peicd100/university-notes.git
 git init
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 git push -u origin main
 mkdocs gh-deploy
 
@@ -138,7 +132,7 @@ mkdocs gh-deploy
 ## 初始化
 ```
 git init
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 
 ```
 ## 推送到main
@@ -166,12 +160,30 @@ git remote -v
 ```
 ## 克隆儲存庫
 ```
-git clone https://github.com/peicd100/peicd100.github.io.git
+git clone https://github.com/peicd100/university-notes.git
 
 ```
 
-## 刪除環境
+## 刪除環境+安裝
 
 ```
-conda env remove -n mkdocs_desk -y
+conda activate base
+conda env remove -n mkdocs -y
+
+
+conda create -n mkdocs python=3.11 -y
+activate mkdocs
+conda install pip -y 
+conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
+pip install -r requirements.txt
+conda install git -y
+
+
+
+```
+
+
+## 虛擬機重新安裝
+```
+Y:\conda\envs\mkdocs\python.exe -m pip install --force-reinstall --no-cache-dir mkdocs
 ```
