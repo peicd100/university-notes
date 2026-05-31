@@ -28,7 +28,7 @@
 - 決策：保留既有文字比對，新增區段內 block index 與整頁進度比例加權，並把 `==...==`、`^^...^^` 視為渲染後文字。
 - 原因：改動小、不需要修改筆記內容，也能降低重複文字誤判；若前端指紋缺失，後端仍可 fallback。
 - 後果：前端與後端 query contract 新增 `section_index`、`block_progress`。
-- 相關檔案：`tools/source_jump_hook.py`、`docs/theme/assets/pymdownx-extras/source-jump.js`
+- 相關檔案：`tools/source_jump_hook.py`、`theme/assets/pymdownx-extras/source-jump.js`
 
 ## ADR-0004：採用 `.codex/` 集中式協作目錄
 
@@ -48,4 +48,14 @@
 - 決策：將 Mermaid htmlLabels 的 `foreignObject > div` 行高固定為 `1.18`，並在 `mermaid-render-fix.js` 渲染後把每個 `g.label > foreignObject` 高度額外加 5px、設為 visible overflow。
 - 原因：`1.18` 讓 16px 字體的一行高度約 18.88px，接近 Mermaid 產生的一行 19px `foreignObject`；但實測最底部 `priority` 的 `y` 仍可能貼到底線，因此必須補大實際 SVG 裁切框。
 - 後果：Mermaid 節點內多行文字行距較緊，label 裁切框略高但仍在節點矩形內；不需要改每個 Markdown 圖表。
-- 相關檔案：`docs/theme/assets/pymdownx-extras/自定義.css`、`docs/theme/assets/pymdownx-extras/mermaid-render-fix.js`、`mkdocs.yml`
+- 相關檔案：`theme/assets/pymdownx-extras/自定義.css`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`mkdocs.yml`
+
+## ADR-0006：站點導覽設定拆到 docs/.mkdocs 並將 theme 移出 docs
+
+- 狀態：accepted
+- 日期：2026-05-31
+- 背景：使用者希望 `site_name`、`site_url`、`exclude_docs`、`not_in_nav` 與 `nav` 等網站內容導覽設定留在 `docs/` 之內，同時希望 `docs/` 不再混放自訂 theme，讓內容與網站外觀設定分離。
+- 決策：根目錄 `mkdocs.yml` 保留為主要技術設定並以 `INHERIT: docs/.mkdocs/site.yml` 繼承站點資訊；`docs/.mkdocs/site.yml` 存放網站資訊、排除規則與導覽；`docs/theme/` 移到根目錄 `theme/`，`theme.custom_dir` 改為 `theme`。
+- 原因：保留 `mkdocs build` / `mkdocs serve` 的預設入口，減少 CI、preview 與 hooks 路徑風險；`docs/.mkdocs/` 為點開頭資料夾，MkDocs 預設不會把設定檔輸出到網站。
+- 後果：之後修改導覽先改 `docs/.mkdocs/site.yml`；修改外觀、模板或自訂 JS/CSS 先看 `theme/`。
+- 相關檔案：`mkdocs.yml`、`docs/.mkdocs/site.yml`、`theme/`

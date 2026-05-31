@@ -28,7 +28,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 
 ```bat
 Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py
-node --check docs\theme\assets\pymdownx-extras\source-jump.js
+node --check theme\assets\pymdownx-extras\source-jump.js
 ```
 
 ## Logged 驗證

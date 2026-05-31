@@ -9,14 +9,16 @@
 - 專案目錄：`Y:\github_note\university notes`
 - Python/conda 環境：`mkdocs`
 - 常用 Python：`Y:\conda\envs\mkdocs\python.exe`
-- 主要設定：`mkdocs.yml`
+- 主要技術設定：`mkdocs.yml`
+- 網站資訊與導覽設定：`docs/.mkdocs/site.yml`
 - 單頁 preview 設定：`mkdocs.preview.yml`
 
 ## 主要結構
 
 - `docs/`：Markdown 內容、圖片、Logo。
-- `docs/theme/`：覆蓋 Material 的模板與前端資產。
-- `docs/theme/assets/pymdownx-extras/`：自訂 JS/CSS。
+- `docs/.mkdocs/`：網站資訊、導覽與排除規則；資料夾以點開頭，避免被輸出到站台。
+- `theme/`：覆蓋 Material 的模板與前端資產。
+- `theme/assets/pymdownx-extras/`：自訂 JS/CSS。
 - `tools/`：MkDocs hooks 與輔助腳本。
 - `preview.bat`、`p.bat`：Windows 單頁 preview 入口。
 - `.codex/vbs_bat/`：雙擊啟動包裝。

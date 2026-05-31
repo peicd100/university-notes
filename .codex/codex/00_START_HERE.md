@@ -23,23 +23,25 @@
 
 ## 任務路由
 
-- 右鍵開啟原文檔案：先讀 `ARCHITECTURE.md` 的 Source Jump，再看 `docs/theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py`。
+- 網站資訊、導覽或 `exclude_docs`：直接看 `docs/.mkdocs/site.yml`；根目錄 `mkdocs.yml` 只保留技術設定並用 `INHERIT` 繼承它。
+- 右鍵開啟原文檔案：先讀 `ARCHITECTURE.md` 的 Source Jump，再看 `theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py`。
 - 單頁 preview：先讀 `PROJECT.md`、`COMMANDS.md`，再看 `preview.bat`、`p.bat`、`tools/update_preview_config.py`、`mkdocs.preview.yml`。
-- MkDocs 外觀或前端互動：看 `docs/theme/`、`mkdocs.yml`、`ARCHITECTURE.md`。
-- 首頁 blog 方塊：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 Blog excerpt 條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
-- `collapse-code` 折疊程式碼外觀：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `VERIFY.md` 的前端互動清單，再改 `docs/theme/assets/pymdownx-extras/自定義.css` 的 `.collapse-code` 區段。
-- 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的標題錨點條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
-- Markdown `---` 分隔線可讀性：先看 `USER_REQUIREMENTS.md` 的 UI 偏好，再改 `docs/theme/assets/pymdownx-extras/自定義.css` 的 `.md-typeset hr` 與相關 CSS 變數。
-- 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的中版面左側目前頁與 primary drawer 背景條目、`VERIFY.md` 的前端互動清單，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
-- 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的文章圖片寬度條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
-- 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的深色主題、右側 TOC 條目，再改 `docs/theme/assets/pymdownx-extras/自定義.css`。
-- Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid 條目，再改 `docs/theme/assets/pymdownx-extras/mermaid-config-override.js` 與 `docs/theme/assets/pymdownx-extras/自定義.css`。
+- MkDocs 外觀或前端互動：看 `theme/`、`mkdocs.yml`、`ARCHITECTURE.md`。
+- 首頁 blog 方塊：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 Blog excerpt 條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- `collapse-code` 折疊程式碼外觀：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css` 的 `.collapse-code` 區段。
+- 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的標題錨點條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- Markdown `---` 分隔線可讀性：先看 `USER_REQUIREMENTS.md` 的 UI 偏好，再改 `theme/assets/pymdownx-extras/自定義.css` 的 `.md-typeset hr` 與相關 CSS 變數。
+- 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的中版面左側目前頁與 primary drawer 背景條目、`VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的文章圖片寬度條目，再改 `theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
+- 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的深色主題、右側 TOC 條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid 條目，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js` 與 `theme/assets/pymdownx-extras/自定義.css`。
 - 多益600：看 `docs/md/多益600/`、`PROJECT.md` 的小專案說明。
 
 ## 舊檔封存與映射
 
 舊版 PEICD 檔案已於 2026-05-18 完整移到 `.codex/codex/archive/legacy-2026-05-18/`。
 根目錄 `codex/` 已於 2026-05-22 移到 `.codex/codex/`。
+2026-05-31 已將過長的 `CURRENT_STATE.md` 與 `log.md` 全文封存到 `archive/current-state-2026-05-31-site-config-reorg.md` 與 `archive/log-2026-05-31-site-config-reorg.md`，主檔只保留近期高訊號狀態。
 
 - `README_PEICD100.md` -> `PROJECT.md`
 - `專案規格書.md` -> `ARCHITECTURE.md`

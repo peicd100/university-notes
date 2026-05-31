@@ -114,3 +114,6 @@ Thumbs.db
 !*.code-workspace
 *.out.log
 *.err.log
+
+# 本機臨時指令紀錄
+/指令.txt
