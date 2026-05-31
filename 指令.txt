@@ -1,3 +1,10 @@
-﻿a:4K = 4096 = 2^12 => 12bit;b:32-12=20bit;c:20/2=10,p1=10,p2=10
+﻿a.64 - 16 = 48
+b.因為每個 page size = 4KB
+c.2^9
 
-因為單層的 pageing 全部可用的 page 都會被放到 page table，會佔超級大的空間。多層的 pageing 一開始只會存第一層的 page table，後面其他層的是需要時才會用，不用時就會省下空間，達到稀疏。
+
+先看 CR3 register 找到 P4 起點。
+然後透過 P4 index 查找 P4 tabe 找到 P3 index，
+然後透過 P3 index 查找 P3 tabe 找到 P2 index，
+然後透過 P2 index 查找 P2 tabe 找到 P1 index，
+然後透過 P1 index 查找 P1 tabe 找到 frame index(physical frame)，最後 12 bit 是offset

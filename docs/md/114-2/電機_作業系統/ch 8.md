@@ -3048,7 +3048,7 @@ Linux kernel 文件也用同樣概念：page table 是把 CPU 看到的 virtual 
 
 | 欄位   | 用途                                   |
 | ---- | ------------------------------------ |
-| `p1` | 查第一層 page table，找到第二層 page table 的位置 |
+| `p1` | 查第一層 page table，找到第二層 page table 的 ==位置== |
 | `p2` | 查第二層 page table，找到真正的 frame number   |
 | `d`  | page 內 offset，不變                     |
 
@@ -3119,14 +3119,19 @@ Linux kernel 文件也用同樣概念：page table 是把 CPU 看到的 virtual 
 
 ### 7. 流程圖
 
-```mermaid
-flowchart TD
-    A["CPU 產生 logical address(邏輯位址)<br>&lt;p1, p2, d&gt;"] --> B["用 p1 查第一層 page table(分頁表)<br>找到某張第二層 page table 的位置"]
-    B --> C["用 p2 查第二層 page table(分頁表)<br>找到 frame number(頁框編號) f"]
-    C --> D["保留 offset(偏移量) d"]
-    D --> E["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
-    E --> F["存取 main memory(主記憶體)"]
-```
+
+!!! danger 
+    
+    P1 在 P1 tabe 上面查到的是 P2 table 的位置，不是 P2 的 index，P2 的 index 在 `<p1, p2, d>` 已經提供了。 因為每個 P1 的 P2 都不同，位置不一樣，所以 P1 table 查到的是 P2 table 的位置。
+
+    ```mermaid
+    flowchart TD
+        A["CPU 產生 logical address(邏輯位址)<br>&lt;p1, p2, d&gt;"] --> B["用 p1 查第一層 page table(分頁表)<br>找到某張第二層 page table 的位置"]
+        B --> C["用 p2 查第二層 page table(分頁表)<br>找到 frame number(頁框編號) f"]
+        C --> D["保留 offset(偏移量) d"]
+        D --> E["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
+        E --> F["存取 main memory(主記憶體)"]
+    ```
 
 ---
 
@@ -3176,6 +3181,1085 @@ two-level address 拆成：
 
 講義說 `Hierarchical paging / Multilevel paging` 的目的就是解決 `page table size` 太大、太稀疏，方法是把 page table 再分頁，**只抓所需的 page table 進 memory**。所以如果你把所有第二層都先做好，就剛好違背它省空間的核心。
 
-chapter 8\_20240520
-
 OSTEP 也說 multi-level table 的空間優點來自：page-table space 只依照實際使用的 address space 配置，因此適合 sparse address spaces。
+
+
+
+
+## ⭐Hash Page Table — page number 太多時，怎麼用 hash 快速找 frame？
+
+講義位置：PDF viewer page 42～43
+
+### 1. 這個概念在解決什麼問題？
+
+前面 `multilevel paging(多層分頁)` 解決的是：
+
+**page table 太大、太稀疏，所以把 page table 拆成多層。**
+
+現在 `hash page table(雜湊分頁表)` 換一個想法：
+
+**不要直接用 page number 當巨大表格的 index，而是先把 page number 丟進 hash function(雜湊函式)，算出它應該放在哪個 bucket(桶)。**
+
+這特別常用在位址空間很大的情況，例如大於 32-bit 的位址空間。講義 page 42 也明確說，處理位址空間大於 32 位元的一種常見方法是使用 hash page table。 外部 OS 教材也把 `Hash Page Tables` 列為解決巨大 page table 的方法之一。([清華大學開放課程][1])
+
+---
+
+### 2. Hash page table 裡面不是直接一格對一頁
+
+一般 `page table(分頁表)` 比較像：
+
+`page number p → 直接查第 p 格`
+
+但 hash page table 是：
+
+`page number p → hash function → bucket`
+
+也就是先算：
+
+`bucket index = hash(p)`
+
+然後去那個 bucket 裡找。
+
+問題是：不同 page number 可能 hash 到同一個 bucket。這叫 `collision(碰撞)`。
+
+所以每個 bucket 裡通常不是只放一筆資料，而是用 `linked list(鏈結串列)` 串起來。
+
+---
+
+### 3. 每個 linked list node 裡有三個欄位
+
+講義 page 42 說，每個單元由三個欄位組成：虛擬分頁的數值、對映分頁框的數值、指向 linked list 下一單元的 pointer(指標)。
+
+整理成表格就是：
+
+| 欄位                          | 意思                                     |
+| --------------------------- | -------------------------------------- |
+| `virtual page number(虛擬頁號)` | 這筆 mapping 對應哪個 logical / virtual page |
+| `frame number(頁框編號)`        | 這個 virtual page 實際放在哪個 physical frame  |
+| `next pointer(下一個指標)`       | 如果同一 bucket 有 collision，就指向下一個 node    |
+
+所以一個 node 大概像：
+
+| virtual page number | frame number | next pointer |
+| ------------------: | -----------: | ------------ |
+|                1001 |           59 | 指向下一筆或 null  |
+
+---
+
+### 4. 位址轉換流程
+
+CPU 產生 logical address：
+
+`<p, d>`
+
+其中：
+
+| 欄位  | 意思          |
+| --- | ----------- |
+| `p` | page number |
+| `d` | offset      |
+
+Hash page table 的流程是：
+
+1. 用 `hash(p)` 算出 bucket address。
+2. 到該 bucket 的 linked list。
+3. 從 linked list 裡逐一比對 node 的 `virtual page number`。
+4. 找到等於 `p` 的 node。
+5. 取出 node 裡的 `frame number f`。
+6. 用 `<f, d>` 組成 physical address。
+
+講義 page 43 也寫到：把 logical address 中的 `p(page#)` 經由 hashing function 算出 bucket address，再在 bucket 的 linked list 裡搜尋符合的 page number，取得 `f` 後和 `d` 得出 physical address。
+
+---
+
+### 5. 流程圖
+
+```mermaid
+flowchart TD
+    A["CPU 產生 logical address(邏輯位址)<br>&lt;page number p, offset d&gt;"] --> B["把 p 丟進 hash function(雜湊函式)"]
+    B --> C["得到 bucket(桶) 位置"]
+    C --> D["到該 bucket 的 linked list(鏈結串列)"]
+    D --> E{"找到 virtual page number = p 的節點嗎？"}
+    E -- "找到" --> F["取出 frame number(頁框編號) f"]
+    F --> G["保留 offset(偏移量) d"]
+    G --> H["組成 physical address(實體位址)<br>&lt;f, d&gt;"]
+    H --> I["存取 main memory(主記憶體)"]
+    E -- "找不到" --> J["不合法或不在表中<br>交給 OS 處理"]
+```
+
+---
+
+### 6. 常見錯法
+
+第一個錯法：以為 `hash(p)` 算出來就是 `frame number`。
+這是錯的。`hash(p)` 只告訴你要去哪個 bucket 找，真正的 frame number 要在 linked list node 裡面拿。
+
+第二個錯法：以為 collision 代表 sharing。
+這也是錯的。collision 只代表不同 page number 被 hash 到同一個 bucket，不代表它們共享同一個 frame。
+
+第三個錯法：忘記要比較 virtual page number。
+因為同一個 bucket 裡可能有多個 node，所以不能看到 bucket 有東西就直接拿第一筆。必須找到 node 裡的 virtual page number 等於目前的 `p`。
+
+---
+
+### 7. 最短記法
+
+`hash page table` 的核心流程：
+
+`p → hash(p) → bucket → linked list 搜尋 p → 得到 f → <f,d>`
+
+最重要：
+
+**hash function 只負責幫你找到 bucket，不直接給 frame number。**
+
+真正的 mapping 存在 linked list node 裡：
+
+`virtual page number → frame number`
+
+
+
+
+### 幫我舉個例子，模擬"p → hash(p) → bucket → linked list 搜尋 p → 得到 f → <f,d>"流程
+
+
+
+
+#### 2. 先給一組設定
+
+我們假設：
+
+`hash(p) = p mod 4`
+
+也就是 hash table 有 4 個 bucket：
+
+| Bucket index | Linked list 內容                                     |
+| -----------: | -------------------------------------------------- |
+|            0 | 空                                                  |
+|            1 | `<VPN=5, f=12>` → `<VPN=9, f=4>`                   |
+|            2 | `<VPN=6, f=3>` → `<VPN=14, f=9>` → `<VPN=22, f=5>` |
+|            3 | `<VPN=7, f=11>`                                    |
+
+其中：
+
+| 符號    | 意思                          |
+| ----- | --------------------------- |
+| `VPN` | `virtual page number(虛擬頁號)` |
+| `f`   | `frame number(頁框編號)`        |
+
+講義的 hash page table 流程就是：先把 logical address 裡的 `p(page#)` 丟進 hashing function 算出 bucket address，然後到該 bucket 的 linked list 搜尋符合的 page number，找到後取得 `f`，再和 `d` 組成 physical address。
+
+---
+
+#### 3. 模擬一次成功查找
+
+假設 CPU 產生 logical address：
+
+`<p, d> = <14, 120>`
+
+意思是：
+
+`page number p = 14`
+`offset d = 120`
+
+現在照流程跑：
+
+---
+
+##### 3.1 第一步：`p → hash(p)`
+
+把 `p = 14` 丟進 hash function：
+
+`hash(14) = 14 mod 4 = 2`
+
+所以我們要去：
+
+`bucket 2`
+
+---
+
+##### 3.2 第二步：`hash(p) → bucket`
+
+查 bucket 2。
+
+bucket 2 裡面有一條 linked list：
+
+| Node 順序 | Virtual page number | Frame number |
+| ------: | ------------------: | -----------: |
+|       1 |                   6 |            3 |
+|       2 |                  14 |            9 |
+|       3 |                  22 |            5 |
+
+注意：
+`6`、`14`、`22` 都在 bucket 2，不代表它們是同一頁，也不代表它們共享 frame。只是因為：
+
+`6 mod 4 = 2`
+`14 mod 4 = 2`
+`22 mod 4 = 2`
+
+所以它們 collision(碰撞) 到同一個 bucket。
+
+---
+
+##### 3.3 第三步：`bucket → linked list 搜尋 p`
+
+現在我們要找：
+
+`virtual page number = 14`
+
+開始一個一個比：
+
+| 檢查順序 | Node 的 VPN | 是否等於 p = 14 | 結果    |
+| ---: | ---------: | ----------: | ----- |
+|    1 |          6 |           否 | 繼續下一個 |
+|    2 |         14 |           是 | 找到了   |
+|    3 |         22 |         不用查 | 已找到   |
+
+所以找到這個 node：
+
+`<VPN=14, f=9>`
+
+---
+
+##### 3.4 第四步：`得到 f`
+
+從 node 裡取出：
+
+`frame number f = 9`
+
+所以 logical address：
+
+`<p, d> = <14, 120>`
+
+被轉成：
+
+`<f, d> = <9, 120>`
+
+---
+
+#### 4. 如果要算成真正 physical address 數字
+
+如果題目只要求 `<frame number, offset>`，答案就是：
+
+`<9, 120>`
+
+但如果題目要求完整 physical address，而且假設：
+
+`page size = frame size = 1024 bytes`
+
+那就算：
+
+`physical address = frame number × frame size + offset`
+
+所以：
+
+`physical address = 9 × 1024 + 120 = 9336`
+
+因此完整結果是：
+
+| 項目               |              值 |
+| ---------------- | -------------: |
+| logical address  |    `<14, 120>` |
+| hash result      | `14 mod 4 = 2` |
+| bucket           |            `2` |
+| matched VPN      |           `14` |
+| frame number     |            `9` |
+| final `<f,d>`    |      `<9,120>` |
+| physical address |         `9336` |
+
+---
+
+#### 5. 最短直覺
+
+你可以把它想成：
+
+`hash(p)` 只是告訴你「去哪一桶找」。
+
+真正的 `frame number` 不是 hash 算出來的，而是在 bucket 的 linked list node 裡找到的。
+
+所以這題完整流程是：
+
+`p = 14`
+
+`hash(14) = 2`
+
+`去 bucket 2`
+
+`linked list 搜尋 VPN = 14`
+
+`找到 VPN=14 的 node`
+
+`取出 f = 9`
+
+`得到 <f,d> = <9,120>`
+
+最後如果要轉成數字 physical address：
+
+`9 × page size + 120`
+
+
+### 所以我可以想成 hash 只是將全部有用到的 page number 分成 n 組，然後對於這 n 組裡面用 link list 去查找 `<page number,frame number>` ，最後就會得到 frame number 嗎？
+
+![alt text](<images/ch 8-4.png>)
+
+!!! danger 
+
+    大致上沒錯。
+
+    Hash page table 可以想成：用 hash(p) 把有 mapping 的 virtual page numbers 分到不同 buckets；每個 bucket 裡用 linked list 儲存多個 `<virtual page number, frame number>` mapping。查詢時，先算 hash(p) 找到 bucket，再沿著 linked list 比對 virtual page number，找到後取出 frame number，最後和 offset 組成 `<frame number, offset>`。
+
+    ---
+
+    例如：
+
+    我們假設：
+
+    `hash(p) = p mod 4`
+
+    也就是 hash table 有 4 個 bucket：
+
+    | Bucket index | Linked list 內容                                     |
+    | -----------: | -------------------------------------------------- |
+    |            0 | 空                                                  |
+    |            1 | `<VPN=5, f=12>` → `<VPN=9, f=4>`                   |
+    |            2 | `<VPN=6, f=3>` → `<VPN=14, f=9>` → `<VPN=22, f=5>` |
+    |            3 | `<VPN=7, f=11>`                                    |
+
+
+    假設 CPU 產生 logical address：
+
+    `<p, d> = <14, 120>`
+
+    意思是：
+
+    `page number p = 14`
+    `offset d = 120`
+
+    開始計算：
+
+    14 / 4 = 3...2 -> Bucket index = 2，所以到 `<VPN=6, f=3>` → `<VPN=14, f=9>` → `<VPN=22, f=5>`  裡面找。
+    找第一個 `<VPN=6, f=3>`， 6 != 14，所以找下一個。
+    找第二個 `<VPN=14, f=9>`， 14 == 14，所以就可以知道 14 對應到 9，然後再用剛剛的 `<p, d> = <14, 120>` 知道 offset = 120，所以最後得到 `<frame number, offset>` = `<9, 120>`
+    
+    
+    
+    
+### next pointer 存的東西通常是什麼？ 是 16 進位的位置嗎
+
+對，`next pointer(下一個指標)` 通常存的是：
+
+**下一個 linked list node(鏈結串列節點) 的位置／參考。**
+
+在實作上，它可能長得像一個 memory address(記憶體位址)，而位址常常會用 16 進位表示，例如：
+
+`0x1040`
+
+所以你問「是 16 進位的位置嗎？」可以這樣修正：
+
+**它本質上是指向下一個 node 的 pointer；如果把 pointer 印出來，常常會看到 16 進位位址。**
+
+但重點不是「16 進位」，而是：
+
+**它告訴系統：下一個 node 在哪裡。**
+
+
+
+## ⭐Inverted Page Table — 為什麼 page table 可以改成「一個 frame 一格」？
+
+講義位置：PDF viewer page 44～45
+
+### 1. 這個概念在解決什麼問題？
+
+前面一般 paging 的想法是：
+
+**每個 process 各自有一張 page table。**
+
+所以如果有很多 process，而且每個 process 的 virtual address space(虛擬位址空間) 又很大，就可能需要很多張很大的 page tables。
+
+`Inverted page table(反轉分頁表)` 的想法剛好反過來：
+
+**不要以 process 的 virtual pages 為主，而是以 physical memory 的 frames 為主。**
+
+也就是說，表格不再問：
+
+「這個 process 的 page p 對應到哪個 frame？」
+
+而是改問：
+
+「這個 physical frame 現在被哪個 process 的哪個 page 佔用？」
+
+講義寫法是：以 `physical memory(實體記憶體)` 為對象，建立一個給所有 process 共用的 `global page table(全域分頁表)`。如果 physical memory 有 `m` 個 frames，這張表就有 `m` 個 entries。
+
+---
+
+### 2. 一般 page table vs inverted page table
+
+一般 page table：
+
+| 觀點                          | 表格一列代表什麼                        |
+| --------------------------- | ------------------------------- |
+| 以 process 的 virtual page 為主 | 某個 process 的某個 page 對應到哪個 frame |
+
+例如：
+
+| Process | Page number | Frame number |
+| ------- | ----------: | -----------: |
+| P1      |           0 |            5 |
+| P1      |           1 |            8 |
+| P2      |           0 |            3 |
+
+這是我們前面最熟的方向：
+
+`<Process, page number> → frame number`
+
+---
+
+Inverted page table：
+
+| 觀點                  | 表格一列代表什麼                         |
+| ------------------- | -------------------------------- |
+| 以 physical frame 為主 | 某個 frame 現在放了哪個 process 的哪個 page |
+
+例如：
+
+| Frame number | Process id | Page number |
+| -----------: | ---------- | ----------: |
+|            0 | P2         |           4 |
+|            1 | P1         |           3 |
+|            2 | P3         |           9 |
+|            3 | P2         |           0 |
+
+方向變成：
+
+`frame number → <Process id, page number>`
+
+但 CPU 產生 logical address 時還是給你：
+
+`<Process id, page number, offset>`
+
+所以查詢時會變成：
+
+「我要找 `<P2, page 0>`，請問它在哪個 frame？」
+
+這時就要在 inverted page table 裡搜尋哪一列的 `<Process id, Page No>` 符合 `<P2,0>`。
+
+---
+
+### 3. 為什麼 entry 數量會變少？
+
+一般 single-level page table 的 entry 數量跟：
+
+**virtual pages 數量**
+
+有關。
+
+而 inverted page table 的 entry 數量跟：
+
+**physical frames 數量**
+
+有關。
+
+這是它省空間的核心。
+
+假設：
+
+* virtual address 是 `32-bit`
+* page size 是 `4 KB = 2^12 bytes`
+* physical memory 是 `512 MB = 2^29 bytes`
+
+一般 single-level page table：
+
+`offset bits = 12`
+
+所以：
+
+`page number bits = 32 - 12 = 20`
+
+因此 conventional single-level page table 有：
+
+`2^20 entries`
+
+---
+
+Inverted page table：
+
+它看的是 physical memory 裡有幾個 frames。
+
+`physical memory = 512 MB = 2^29 bytes`
+
+`frame size = page size = 4 KB = 2^12 bytes`
+
+所以 frame 數量是：
+
+`2^29 / 2^12 = 2^17 = 128K entries`
+
+這也就是講義 `8.16` 的答案：single-level page table 是 `2^20 entries`；inverted page table 是 `512MB / 4K = 128K entries = 2^17 entries`。
+
+所以 inverted page table 通常會比每個 process 一張大 page table 更省。
+
+---
+
+### 4. 查詢流程為什麼比較慢？
+
+一般 page table 可以直接用 `page number` 當 index：
+
+`page number p → page table[p] → frame number f`
+
+但 inverted page table 是以 `frame number` 當表格列數。
+
+問題是 CPU 一開始給你的不是 frame number，而是：
+
+`<Process id, page number, offset>`
+
+所以你不知道該直接查第幾列。
+
+你只能搜尋：
+
+「哪一個 frame 的 entry 記錄了 `<Process id, Page No>`？」
+
+因此講義把缺點列為：
+
+**searching inverted page table 耗時。**
+
+也就是說，省了表格空間，但查找可能變慢。講義也說可以用 hash 增加搜尋速度。
+
+---
+
+### 5. 用一個具體例子看 translation
+
+假設 inverted page table 是：
+
+| Frame number | Process id | Page number |
+| -----------: | ---------- | ----------: |
+|            0 | P1         |           5 |
+|            1 | P2         |           3 |
+|            2 | P1         |           8 |
+|            3 | P3         |           0 |
+|            4 | P2         |           7 |
+
+現在 CPU 正在執行 `P2`，產生 logical address：
+
+`<page number, offset> = <7, 20>`
+
+因為目前 process 是 `P2`，所以完整查詢 key 是：
+
+`<Process id, Page No> = <P2, 7>`
+
+接著搜尋 inverted page table：
+
+| 檢查 Frame | Entry 內容 | 是否符合 `<P2,7>` |
+| -------: | -------- | ------------: |
+|        0 | `<P1,5>` |             否 |
+|        1 | `<P2,3>` |             否 |
+|        2 | `<P1,8>` |             否 |
+|        3 | `<P3,0>` |             否 |
+|        4 | `<P2,7>` |             是 |
+
+找到 frame 4，所以：
+
+`frame number f = 4`
+
+原本 offset 不變：
+
+`offset d = 20`
+
+最後：
+
+`<frame number, offset> = <4,20>`
+
+---
+
+### 6. 為什麼要記 Process id？
+
+因為不同 process 都可以有自己的 page 0、page 1、page 2。
+
+所以只記 page number 不夠。
+
+例如：
+
+| Process | Page number |
+| ------- | ----------: |
+| P1      |           0 |
+| P2      |           0 |
+| P3      |           0 |
+
+這三個 page 0 是不同 process 的 page 0，不是同一頁。
+
+因此 inverted page table 的 entry 必須記：
+
+`<Process id, Page No>`
+
+而不能只記：
+
+`<Page No>`
+
+否則系統不知道這個 page 0 到底是誰的 page 0。
+
+---
+
+### 7. 為什麼講義說無法支援 memory sharing？
+
+先照講義記法：
+
+`inverted page table` 的缺點之一是：
+
+**無法支援 memory sharing。**
+
+直覺原因是：inverted page table 是「一個 physical frame 對應一個 `<Process id, Page No>` entry」。
+可是 memory sharing 想表達的是：
+
+**同一個 physical frame 可能被多個 process 的不同 pages 共享。**
+
+例如：
+
+`P1 page 3 → frame 10`
+`P2 page 7 → frame 10`
+
+如果 inverted page table 的 frame 10 那一格只能記一組：
+
+`<Process id, Page No>`
+
+那它就很難自然表示「同一個 frame 同時對應多個 process/page」。
+所以 shared pages 會變得不好支援，至少不像一般 page table 那樣直覺。
+
+這裡以講義版本為準，考試先寫：
+
+**缺點：無法支援 memory sharing。**
+
+---
+
+### 8. 最短記法
+
+一般 page table：
+
+`<process, page> → frame`
+
+所以 entry 數量跟 virtual pages 有關。
+
+Inverted page table：
+
+`frame → <process, page>`
+
+所以 entry 數量跟 physical frames 有關。
+
+優點：
+
+**page table size 大幅降低。**
+
+缺點：
+
+**搜尋比較慢；可用 hash 加速；不支援 memory sharing。**
+
+最重要的一句：
+
+**Inverted page table 是把 page table 的觀點從「每個 process 的 pages」反轉成「physical memory 的 frames」。**
+
+
+### 講這麼多，重點其實就是因為 page 比 frame 多，所以記比較少的 frame 比較省空間。
+
+
+
+
+#### 為什麼 `page` 會比 `frame` 多？
+
+`page(頁)` 屬於 `logical / virtual memory(邏輯／虛擬記憶體)`，是 process 看得到的位址空間；
+`frame(頁框)` 屬於 `physical memory / main memory(實體記憶體／主記憶體)`，是真正 RAM 裡能放 page 的位置。
+
+所以 `page number bits` 是由 virtual address space 決定，`frame number bits` 是由 physical memory 大小決定。
+如果 virtual address space 比 physical memory 大，就會出現：
+
+`page number bits > frame number bits`
+
+也就是可表示的 pages 比實際 RAM 中的 frames 多。
+
+重點是：
+
+**不是每個 page 都必須一開始就在 main memory 中。**
+
+有些 page 可能：
+
+1. 還沒被 process 用到。
+2. 目前是 `invalid`。
+3. 合法，但暫時不在 main memory，而是在 disk / backing store。
+4. ==等 process 真的 access 到它時，才產生 `page fault(缺頁錯誤)`，由 OS 把該 page `page in(載入)` 到某個 free frame==。
+
+所以：
+
+`page` 比 `frame` 多是合理的，因為 virtual memory 允許 process 擁有比實際 RAM 更大的可表示位址空間；真正用到某個 page 時，OS 才透過 `page fault` 把需要的 page 載入 main memory。
+
+#### 最短記法
+
+`page` 是「虛擬門牌」，可以很多。
+`frame` 是「RAM 裡的實際房間」，數量有限。
+
+不是所有 page 一開始都在 main memory；
+需要用到但不在 memory 時，才會 `page fault → page in`。
+
+
+
+#### 但是缺頁的 fram 編號要怎麼編？應該說要怎麼知道是缺頁？
+
+
+先把你的問題拆成兩件事
+
+你現在問的是兩個不同時間點：
+
+1. **缺頁前：怎麼知道這個 page 缺頁？**
+    
+2. **缺頁後：OS 要把這個 page 放到哪個 frame？那個 frame 編號怎麼來？**
+    
+
+最重要的答案是：
+
+**缺頁發生當下，這個 page 還沒有 frame number。**
+
+`frame number(頁框編號)` 是 OS 找到可用 frame 或替換出 victim page 之後，才填回 page table 的。
+
+#### 錯題
+
+
+!!! danger
+
+==Q:==
+A system uses a 32-bit logical address, a 4 KB page size, and supports up to 512 MB of physical memory.
+Calculate:
+a. the number of entries in a conventional single-level page table
+b. the number of entries in an inverted page table
+
+==我寫的==
+4K = 2^2 * 2^10 = 2^12 ->  a. entries = 32 - 12 = 20
+512M = 2^9 * 2 ^20 -> b. entries = 29 - 12 = 17
+
+
+==ANS:==
+Conventional single-level page table：
+
+`logical address = 32 bits`
+
+`page number bits = 32 - 12 = 20 bits`
+
+所以 page table entries 數量是：
+
+`2^20 entries`
+
+---
+
+Inverted page table：
+
+`physical memory = 512MB`
+
+`512MB = 512 × 2^20 bytes = 2^9 × 2^20 = 2^29 bytes`
+
+`frame size = page size = 2^12 bytes`
+
+所以 physical frames 數量是：
+
+`2^29 / 2^12 = 2^17 frames`
+
+
+
+
+## ⭐64-bit Multi-Level Page Table — 64-bit 位址太大時，x86-64 怎麼分層查 page table？
+
+講義位置：PDF viewer page 48～49
+
+### 1. 這個概念在解決什麼問題？
+
+前面我們學過 two-level paging，是因為：
+
+**virtual address space(虛擬位址空間) 很大，single-level page table 會太大、太稀疏。**
+
+到了 64-bit 系統，問題更誇張。
+
+講義說理論上 64-bit address 可以定址到：
+
+`2^64 locations`
+
+也就是 `16 EiB` 的 memory 空間。講義也補充：目前常見 x86-64 architecture 實作通常使用 `48 bits` 來定址，這仍然可以定址到 `256 TiB = 2^48 bytes` 的 virtual memory。
+
+所以核心問題是：
+
+**64-bit address space 太大，不可能用一張普通 single-level page table 直接管理。**
+
+因此 x86-64 採用：
+
+`4-level page table(四層分頁表)`
+
+---
+
+### 2. 64-bit address 為什麼不是全部 64 bits 都拿來查表？
+
+講義圖中把 64-bit virtual address 拆成：
+
+| 區段                     |    bits | 用途                               |
+| ---------------------- | ------: | -------------------------------- |
+| `sign extension(符號延伸)` | 16 bits | 高 16 bits，配合目前 48-bit addressing |
+| `P4 index`             |  9 bits | 查第 4 層，也就是最高層 page table         |
+| `P3 index`             |  9 bits | 查第 3 層 page table                |
+| `P2 index`             |  9 bits | 查第 2 層 page table                |
+| `P1 index`             |  9 bits | 查第 1 層 page table                |
+| `offset(偏移量)`          | 12 bits | 在 4KB page 裡選 byte               |
+
+總和：
+
+`16 + 9 + 9 + 9 + 9 + 12 = 64 bits`
+
+其中真正拿來形成 48-bit virtual address 的部分是：
+
+`P4 + P3 + P2 + P1 + offset`
+
+也就是：
+
+`9 + 9 + 9 + 9 + 12 = 48 bits`
+
+上面的 `16 bits sign extension` 不是拿來多查一層 page table，而是高位元延伸用。
+
+---
+
+### 3. 為什麼每層 index 都是 9 bits？
+
+因為每一層 page table 通常剛好放在一個 `4KB page` 裡。
+
+如果一個 page table entry 是 `8 bytes`，那一張 4KB 的 page table 可以放：
+
+`4KB / 8 bytes = 4096 / 8 = 512 entries`
+
+而：
+
+`512 = 2^9`
+
+所以每一層需要 `9 bits` 來選其中一個 entry。
+
+這就是為什麼講義圖上 P4、P3、P2、P1 都是 `9 bits`。
+
+---
+
+### 4. 4-level page table 查表流程
+![alt text](<images/ch 8-5.png>)
+查表流程可以想成四層目錄：
+
+1. `CR3 register` 指向最高層 `P4 table`。
+2. 用 `P4 index` 查 `P4 table`，==找到 `P3 table` 的位置== 。
+3. 用 `P3 index` 查 `P3 table`，找到 `P2 table` 的位置。
+4. 用 `P2 index` 查 `P2 table`，找到 `P1 table` 的位置。
+5. 用 `P1 index` 查 `P1 table`，找到真正的 `physical frame / 4K memory page`。
+6. 用 `offset` 找到該 4KB page 裡的 byte。
+
+!!! danger
+    用 `P4 index` 查 `P4 table`， 找到的是 `P3 table` 的 ==位置==  而不是 index，因為每個 P4 都有不同的 P3。P3 的 index 是已經存在於那 64 bit 的 P3 中了。
+    
+    然後因為每個 Process 的 P4 table 的位置不固定，所以要用 CR3 register(暫存器) 來存。
+
+
+講義 PDF viewer page 49 的圖正是這個流程：`CR3 register` 指到 `P4 table`，然後依序經過 `P4 entry`、`P3 entry`、`P2 entry`、`P1 entry`，最後到 `4K memory page`。
+
+```mermaid
+flowchart TD
+    A["CPU 產生 64-bit virtual address(虛擬位址)<br>含 P4、P3、P2、P1、offset"] --> B["CR3 register(暫存器)<br>指出 P4 table(第 4 層表) 的起點"]
+    B --> C["用 P4 index 查 P4 table<br>找到 P3 table 的位置"]
+    C --> D["用 P3 index 查 P3 table<br>找到 P2 table 的位置"]
+    D --> E["用 P2 index 查 P2 table<br>找到 P1 table 的位置"]
+    E --> F["用 P1 index 查 P1 table<br>找到 physical frame(實體頁框)"]
+    F --> G["用 offset(偏移量)<br>選出 4KB page 裡的 byte"]
+    G --> H["得到 physical address(實體位址)"]
+```
+
+---
+
+### 5. P4 / P3 / P2 / P1 可以怎麼想？
+
+你可以把它想成地址很長，所以不用一本超大的名冊，而是用四層資料夾：
+
+| 欄位         | 像什麼               |
+| ---------- | ----------------- |
+| `P4 index` | 找第幾個大櫃子           |
+| `P3 index` | 找該櫃子的第幾層抽屜        |
+| `P2 index` | 找該抽屜的第幾個資料夾       |
+| `P1 index` | 找資料夾裡第幾頁索引        |
+| `offset`   | 找該 page 裡第幾個 byte |
+
+這跟 two-level paging 本質一樣，只是從：
+
+`<p1, p2, d>`
+
+變成：
+
+`<P4, P3, P2, P1, offset>`
+
+所以不要把它想成全新的東西；它只是：
+
+**多層 page table 的 64-bit 版本。**
+
+---
+
+### 6. 和前面 two-level paging 的關係
+
+Two-level paging：
+
+`p1 → p2 → frame → offset`
+
+x86-64 4-level paging：
+
+`P4 → P3 → P2 → P1 → frame → offset`
+
+兩者的共通點是：
+
+**前面的 index 都是在找下一層 page table；最後一層才找到真正的 physical frame。**
+
+差別只是層數不同：
+
+| 系統                      | 位址拆法                         |
+| ----------------------- | ---------------------------- |
+| 32-bit two-level paging | `p1 / p2 / offset`           |
+| x86-64 4-level paging   | `P4 / P3 / P2 / P1 / offset` |
+
+---
+
+### 7. 最短記法
+
+!!! danger
+
+    x86-64 4-level page table：
+
+    ==16== / 9 / 9 / 9 / 9 / 12
+
+    其中：
+
+    `16`：sign extension。
+    `9 / 9 / 9 / 9`：P4、P3、P2、P1 四層 index。
+    `12`：offset，因為 page size 是 4KB。
+
+    查表流程：
+
+    `CR3 → P4 table → P3 table → P2 table → P1 table → 4KB page`
+
+    最重要：
+
+    **P4、P3、P2、P1 都不是 frame number；它們只是一步一步找到下一層表。最後 P1 entry 才會帶你到真正的 physical frame。**
+
+
+
+### CR3 register 是啥
+
+
+#### 1. 直接答案
+
+`CR3 register` 是 CPU 裡的 `control register(控制暫存器)`，用途是告訴 CPU：
+
+**目前這個 process 的最高層 page table 在 physical memory 哪裡。**
+
+在 x86-64 的 4-level paging 裡，它通常存的是：
+
+**`P4 table / PML4 table` 的 physical base address(實體起始位址)。**
+
+所以講義流程：
+
+`CR3 register → P4 table → P3 table → P2 table → P1 table → physical frame`
+
+意思就是：
+
+CPU 先看 `CR3`，知道最高層 `P4 table` 在哪裡，然後才可以開始一層一層查下去。OSDev 的 x86-64 register 說明也寫到，`CR3` 的高位元欄位存的是 `PML4` 的 physical base address；OSDev paging 說明也指出，在 4-level paging 中，`CR3` 指向最高層 page map table，也就是 `PML4 table`。([wiki.osdev.org][1])
+
+---
+
+#### 2. 生活化比喻
+
+你可以把 4-level page table 想成一棟大樓的查詢系統：
+
+| 東西               | 比喻      |
+| ---------------- | ------- |
+| `CR3 register`   | 總服務台地址  |
+| `P4 table`       | 第一層總目錄  |
+| `P3 table`       | 第二層目錄   |
+| `P2 table`       | 第三層目錄   |
+| `P1 table`       | 最後一層目錄  |
+| `physical frame` | 真正的房間位置 |
+
+CPU 不能直接憑 `P4 index` 查表，因為它一開始不知道 `P4 table` 放在哪。
+
+所以它先問：
+
+**CR3，你告訴我 P4 table 的起點在哪裡？**
+
+知道 P4 table 的位置後，才能用 virtual address 裡的 `P4 index` 去查 P4 table。
+
+---
+
+#### 3. CR3 裡不是存整張 page table
+
+這點很重要。
+
+`CR3` 不是存整張 `P4 table`。
+
+它只存：
+
+**P4 table 的起始 physical address。**
+
+也就是類似：
+
+`CR3 = 0x0000000010d66000`
+
+這個值代表：
+
+「最高層 page table 從 physical memory 的 `0x10d66000` 開始。」
+
+接著 CPU 才會用：
+
+`P4 index`
+
+去這張 P4 table 裡找對應 entry。
+
+
+### 那為何前面有空間不拿來用？是因為 P4 已經夠多了嗎？
+
+
+#### 1\. 直接答案
+
+對，你可以這樣理解一半：
+
+**不是因為前面 16 bits 完全沒價值，而是因為 4-level paging 已經只設計成使用 48 bits；在當時與多數用途下，48-bit virtual address space 已經非常大，所以硬體先不實作完整 64-bit translation。**
+
+所以不是單純「P4 已經夠多」而已，而是：
+
+**48 bits 已經夠大 + 完整 64 bits 會讓 page table 與硬體成本爆炸 + 高 16 bits 保留給未來擴充與 canonical address(標準形式位址)檢查。**
+
+Intel 手冊也寫：在 64-bit mode 中，處理器會確保高位元符合 canonical form，而且 IA-32e paging 不使用 bits 63～48 來做位址轉換。[Intel](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-3a-part-1-manual.pdf?utm_source=chatgpt.com)
+
+---
+
+#### 2\. 48 bits 到底有多大？
+
+實際拿來查 page table 的是：
+
+`P4 / P3 / P2 / P1 / offset`
+
+也就是：
+
+`9 + 9 + 9 + 9 + 12 = 48 bits`
+
+所以 virtual address space 是：
+
+`2^48 bytes = 256 TiB`
+
+這已經遠大於一般使用者程式會用到的記憶體空間。
+
+也可以從 P4 數量看：
+
+| 層級 | bits | entries |
+| --- | --- | --- |
+| `P4` | 9 bits | `2^9 = 512 entries` |
+| `P3` | 9 bits | 每個 P4 entry 可指到 512 個 P3 entries |
+| `P2` | 9 bits | 再乘 512 |
+| `P1` | 9 bits | 再乘 512 |
+| `offset` | 12 bits | 每個 page 4096 bytes |
+
+所以總共可表示：
+
+`512 × 512 × 512 × 512 × 4096 bytes`
+
+也就是：
+
+`2^9 × 2^9 × 2^9 × 2^9 × 2^12 = 2^48 bytes`
+
+因此你說「P4 已經夠多」可以改成更精準：
+
+**四層 page table 每層 512 entries，總共已經能管理 256 TiB virtual address space，當時已經非常夠用。**
