@@ -5265,6 +5265,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -5463,6 +5465,34 @@ is now available!
     
   
     期中考重點整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/MIPS%20%E6%AC%84%E4%BD%8D%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIPS 欄位表
   
 
     
@@ -5797,10 +5827,10 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#單頁預覽快捷指令" class="md-nav__link">
+  <a href="#每次寫完_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        單頁預覽快捷指令
+        每次寫完
       
     </span>
   </a>
@@ -5835,26 +5865,21 @@ git branch -M main
 git push -u origin main
 </code></pre></div>
 <h2 id="預覽">預覽<a class="headerlink" href="#預覽" title="Permanent link"></a></h2>
-<p><div class="highlight"><pre><span></span><code>activate mkdocs_desk
+<div class="highlight"><pre><span></span><code>activate mkdocs_desk
 p              docs\md\114-2\電機_作業系統\ch 4.md
-</code></pre></div><br />
-<div class="highlight"><pre><span></span><code>activate mkdocs_desk
-mkdocs serve
-</code></pre></div><br />
-<div class="highlight"><pre><span></span><code>activate mkdocs_desk
-mkdocs serve -f mkdocs.preview.yml --dirty
-</code></pre></div></p>
-<h2 id="單頁預覽快捷指令">單頁預覽快捷指令<a class="headerlink" href="#單頁預覽快捷指令" title="Permanent link"></a></h2>
-<p><div class="highlight"><pre><span></span><code>activate mkdocs_desk
-.\preview     docs\md\114-2\電機_作業系統\ch 4.md
-</code></pre></div><br />
-- 可接受 <code>docs\...</code> 或 <code>md\...</code> 路徑。<br />
-- 如果目前終端是 PowerShell，請用 <code>.\preview ...</code>；若是 <code>cmd</code>，可直接用 <code>preview ...</code>。<br />
-- 指令會自動更新 <code>mkdocs.preview.yml</code> 內的 preview 目標，然後啟用 <code>mkdocs_desk</code>，最後以 <code>python -m mkdocs serve -f mkdocs.preview.yml --dirty</code> 啟動預覽。</p>
+</code></pre></div>
+<h2 id="每次寫完_1">每次寫完<a class="headerlink" href="#每次寫完_1" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>activate mkdocs
+mkdocs gh-deploy
+git add .
+git commit -m &quot;PEICD100&quot;
+git branch -M main
+git push -u origin main
+</code></pre></div>
 <h1 id="環境安裝指令">環境安裝指令<a class="headerlink" href="#環境安裝指令" title="Permanent link"></a></h1>
 <h2 id="只安裝環境">只安裝環境<a class="headerlink" href="#只安裝環境" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>conda create -n mkdocs_desk python=3.11 -y
-activate mkdocs_desk
+<div class="highlight"><pre><span></span><code>conda create -n mkdocs python=3.11 -y
+activate mkdocs
 conda install pip -y 
 conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
 pip install -r requirements.txt
@@ -5864,18 +5889,18 @@ conda install git -y
 <div class="highlight"><pre><span></span><code>conda install cuda -c nvidia -y
 </code></pre></div>
 <h2 id="使用-git">使用 git<a class="headerlink" href="#使用-git" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/peicd100/peicd100.github.io.git
+<div class="highlight"><pre><span></span><code>git clone https://github.com/peicd100/university-notes.git
 git init
 git commit -m &quot;first commit&quot;
 git branch -M main
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 git push -u origin main
 mkdocs gh-deploy
 </code></pre></div>
 <h1 id="git-指令">git 指令<a class="headerlink" href="#git-指令" title="Permanent link"></a></h1>
 <h2 id="初始化">初始化<a class="headerlink" href="#初始化" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>git init
-git remote add origin https://github.com/peicd100/peicd100.github.io.git
+git remote add origin https://github.com/peicd100/university-notes.git
 </code></pre></div>
 <h2 id="推送到main">推送到main<a class="headerlink" href="#推送到main" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>git add .
@@ -5893,10 +5918,22 @@ git push -u origin main
 <div class="highlight"><pre><span></span><code>git remote -v
 </code></pre></div>
 <h2 id="克隆儲存庫">克隆儲存庫<a class="headerlink" href="#克隆儲存庫" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>git clone https://github.com/peicd100/peicd100.github.io.git
+<div class="highlight"><pre><span></span><code>git clone https://github.com/peicd100/university-notes.git
 </code></pre></div>
-<h2 id="刪除環境">刪除環境<a class="headerlink" href="#刪除環境" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>conda env remove -n mkdocs_desk -y
+<h2 id="刪除環境安裝">刪除環境+安裝<a class="headerlink" href="#刪除環境安裝" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>conda activate base
+conda env remove -n mkdocs -y
+
+
+conda create -n mkdocs python=3.11 -y
+activate mkdocs
+conda install pip -y 
+conda install -n mkdocs -y -c conda-forge ffmpeg pyside6
+pip install -r requirements.txt
+conda install git -y
+</code></pre></div>
+<h2 id="虛擬機重新安裝">虛擬機重新安裝<a class="headerlink" href="#虛擬機重新安裝" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code>Y:\conda\envs\mkdocs\python.exe -m pip install --force-reinstall --no-cache-dir mkdocs
 </code></pre></div>
 
 

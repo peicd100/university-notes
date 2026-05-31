@@ -5273,6 +5273,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -5494,6 +5496,34 @@ is now available!
   
   
     <li class="md-nav__item">
+      <a href="MIPS%20%E6%AC%84%E4%BD%8D%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIPS 欄位表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="ch%203.html" class="md-nav__link">
         
   
@@ -5671,6 +5701,338 @@ is now available!
     <span class="md-ellipsis">
       
         8. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何-regdst-叫做-regdst為何-alusrc-叫做-alusrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 RegDst 叫做 RegDst，為何 ALUSrc 叫做 ALUSrc
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#取指與更新-pc--每條指令執行前cpu-如何知道要去哪裡拿下一條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐取指與更新 PC — 每條指令執行前，CPU 如何知道要去哪裡拿下一條指令？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐取指與更新 PC — 每條指令執行前，CPU 如何知道要去哪裡拿下一條指令？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pc-是什麼它不是資料暫存器而是指令地址暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PC 是什麼？它不是資料暫存器，而是「指令地址暫存器」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼一般情況是-pc--pc--4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼一般情況是 PC ← PC + 4？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-pc-更新需要-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 PC 更新需要 mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ifu-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. IFU 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addusubu-的-datapath--r-type-運算指令如何從暫存器讀資料經-alu-運算再寫回暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐addu/subu 的 datapath — R-type 運算指令如何從暫存器讀資料、經 ALU 運算、再寫回暫存器？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐addu/subu 的 datapath — R-type 運算指令如何從暫存器讀資料、經 ALU 運算、再寫回暫存器？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rsrtrd-分別接到哪裡" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. rs、rt、rd 分別接到哪裡？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-alu-做加法還是減法誰決定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ALU 做加法還是減法，誰決定？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-regwr-為什麼要是-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. RegWr 為什麼要是 1？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-本輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ori-的-datapath--為什麼-r-type-的路徑不夠用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ori 的 datapath — 為什麼 R-type 的路徑不夠用？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐ori 的 datapath — 為什麼 R-type 的路徑不夠用？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-問題-1為什麼需要-regdst-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 問題 1：為什麼需要 RegDst mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-問題-2為什麼需要-alusrc-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 問題 2：為什麼需要 ALUSrc mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-問題-3為什麼需要-zero-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 問題 3：為什麼需要 zero extension？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ori-的完整資料流" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ori 的完整資料流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rwrarb-本質上是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rw、Ra、Rb 本質上是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lw-的-datapath--為什麼-alu-算出來的是位址不是最後寫回的資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐lw 的 datapath — 為什麼 ALU 算出來的是位址，不是最後寫回的資料？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐lw 的 datapath — 為什麼 ALU 算出來的是位址，不是最後寫回的資料？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-lw-為什麼需要-sign-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. lw 為什麼需要 sign extension？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-lw-為什麼需要-data-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. lw 為什麼需要 Data Memory？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lw-為什麼需要-memtoreg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. lw 為什麼需要 MemtoReg？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-lw-的控制訊號最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. lw 的控制訊號最短記法
       
     </span>
   </a>
@@ -6031,6 +6393,338 @@ is now available!
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#為何-regdst-叫做-regdst為何-alusrc-叫做-alusrc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 RegDst 叫做 RegDst，為何 ALUSrc 叫做 ALUSrc
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#取指與更新-pc--每條指令執行前cpu-如何知道要去哪裡拿下一條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐取指與更新 PC — 每條指令執行前，CPU 如何知道要去哪裡拿下一條指令？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐取指與更新 PC — 每條指令執行前，CPU 如何知道要去哪裡拿下一條指令？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pc-是什麼它不是資料暫存器而是指令地址暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PC 是什麼？它不是資料暫存器，而是「指令地址暫存器」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼一般情況是-pc--pc--4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼一般情況是 PC ← PC + 4？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-pc-更新需要-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 PC 更新需要 mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ifu-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. IFU 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addusubu-的-datapath--r-type-運算指令如何從暫存器讀資料經-alu-運算再寫回暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐addu/subu 的 datapath — R-type 運算指令如何從暫存器讀資料、經 ALU 運算、再寫回暫存器？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐addu/subu 的 datapath — R-type 運算指令如何從暫存器讀資料、經 ALU 運算、再寫回暫存器？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-rsrtrd-分別接到哪裡" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. rs、rt、rd 分別接到哪裡？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-alu-做加法還是減法誰決定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ALU 做加法還是減法，誰決定？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-regwr-為什麼要是-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. RegWr 為什麼要是 1？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-本輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ori-的-datapath--為什麼-r-type-的路徑不夠用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ori 的 datapath — 為什麼 R-type 的路徑不夠用？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐ori 的 datapath — 為什麼 R-type 的路徑不夠用？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-問題-1為什麼需要-regdst-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 問題 1：為什麼需要 RegDst mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-問題-2為什麼需要-alusrc-mux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 問題 2：為什麼需要 ALUSrc mux？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-問題-3為什麼需要-zero-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 問題 3：為什麼需要 zero extension？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-ori-的完整資料流" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ori 的完整資料流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rwrarb-本質上是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rw、Ra、Rb 本質上是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lw-的-datapath--為什麼-alu-算出來的是位址不是最後寫回的資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐lw 的 datapath — 為什麼 ALU 算出來的是位址，不是最後寫回的資料？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐lw 的 datapath — 為什麼 ALU 算出來的是位址，不是最後寫回的資料？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-lw-為什麼需要-sign-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. lw 為什麼需要 sign extension？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-lw-為什麼需要-data-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. lw 為什麼需要 Data Memory？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lw-為什麼需要-memtoreg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. lw 為什麼需要 MemtoReg？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-lw-的控制訊號最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. lw 的控制訊號最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6303,6 +6997,840 @@ is now available!
 </tr>
 </tbody>
 </table>
+<h3 id="為何-regdst-叫做-regdst為何-alusrc-叫做-alusrc">為何 RegDst 叫做 RegDst，為何 ALUSrc 叫做 ALUSrc<a class="headerlink" href="#為何-regdst-叫做-regdst為何-alusrc-叫做-alusrc" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th>全名直覺</th>
+<th>它在選什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td>Register Destination</td>
+<td>寫回目的暫存器是 <code>rd</code> 還是 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td>ALU Source</td>
+<td>ALU 第二個輸入來源是 <code>busB</code> 還是 immediate(立即數)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="取指與更新-pc--每條指令執行前cpu-如何知道要去哪裡拿下一條指令">⭐取指與更新 PC — 每條指令執行前，CPU 如何知道要去哪裡拿下一條指令？<a class="headerlink" href="#取指與更新-pc--每條指令執行前cpu-如何知道要去哪裡拿下一條指令" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 13 ~ PDF viewer page 20／輔助：投影片頁碼 13–20</p>
+<h3 id="1-這一段在解決什麼問題">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題" title="Permanent link"></a></h3>
+<p>上一段我們是在問：「這些 MIPS 指令需要哪些元件？」</p>
+<p>這一段開始問：「元件有了，要怎麼連起來，讓指令真的能流動？」</p>
+<p>講義給的基本原則是：</p>
+<blockquote>
+<p>根據指令需求，連接元件，建立 datapath(數據通路)。</p>
+</blockquote>
+<p>也就是不要背圖，而是問每條指令需要資料怎麼走。先從所有指令都一定會做的事情開始：Fetch(取指令)。</p>
+<p>所有指令，不管是 <code>addu</code>、<code>ori</code>、<code>lw</code>、<code>sw</code>、<code>beq</code>，第一步都一定要先從 Instruction Memory(指令記憶體) 取出 instruction word(指令編碼)。</p>
+<p>生活化例子：你要做任何一道菜之前，第一步都要先讀食譜。不同菜後面流程不同，但「先拿到食譜」是共同需求。</p>
+<hr />
+<h3 id="2-pc-是什麼它不是資料暫存器而是指令地址暫存器">2. PC 是什麼？它不是資料暫存器，而是「指令地址暫存器」<a class="headerlink" href="#2-pc-是什麼它不是資料暫存器而是指令地址暫存器" title="Permanent link"></a></h3>
+<p>PC(Program Counter，程式計數器) 裡放的是 instruction address(指令位址)。</p>
+<p>也就是：</p>
+<p><code>PC</code> 的內容告訴 CPU：「下一次要去哪個位址取指令。」</p>
+<p>在 datapath 裡，PC 會接到 Instruction Memory 的 address input(位址輸入)。Instruction Memory 收到這個位址後，就輸出對應的 <code>Instruction Word</code>。</p>
+<p>流程是：</p>
+<pre class="diagram"><code>flowchart LR
+    PC["PC&lt;br&gt;存目前指令位址"] --&gt; IM["Instruction Memory&lt;br&gt;依位址取指令"]
+    IM --&gt; IW["Instruction Word&lt;br&gt;指令編碼"]</code></pre>
+<p>講義 PDF viewer page 16 ~ 19 的共同需求就是這件事：PC 的內容是指令地址，用 PC 的內容作為位址，存取 Instruction Memory 取得指令編碼。</p>
+<hr />
+<h3 id="3-為什麼一般情況是-pc--pc--4">3. 為什麼一般情況是 <code>PC ← PC + 4</code>？<a class="headerlink" href="#3-為什麼一般情況是-pc--pc--4" title="Permanent link"></a></h3>
+<p>MIPS 一條指令是 32-bit，也就是 4 bytes。</p>
+<p>Memory address(記憶體位址)通常以 byte(位元組)為單位編號，所以如果現在指令在位址 <code>PC</code>，下一條連續指令會在：</p>
+<p><code>PC + 4</code></p>
+<p>不是 <code>PC + 1</code>。</p>
+<p>這裡很容易混淆：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤直覺</th>
+<th>正確觀念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下一條指令所以 <code>PC + 1</code></td>
+<td>MIPS 指令長度是 4 bytes，所以是 <code>PC + 4</code></td>
+</tr>
+<tr>
+<td>PC 存第幾條指令</td>
+<td>PC 存的是 byte address(位元組位址)</td>
+</tr>
+<tr>
+<td>所有指令都永遠 <code>PC+4</code></td>
+<td>branch/jump 可能改成目標位址</td>
+</tr>
+</tbody>
+</table>
+<p>所以一般循序執行：</p>
+<p><code>PC ← PC + 4</code></p>
+<p>這需要一個 Adder(加法器)，專門幫 PC 加 4。</p>
+<pre class="diagram"><code>flowchart LR
+    PC["PC&lt;br&gt;目前指令位址"] --&gt; ADD["Adder&lt;br&gt;加 4"]
+    ADD --&gt; NPC["下一個循序位址&lt;br&gt;PC + 4"]</code></pre>
+<hr />
+<h3 id="4-為什麼-pc-更新需要-mux">4. 為什麼 PC 更新需要 mux？<a class="headerlink" href="#4-為什麼-pc-更新需要-mux" title="Permanent link"></a></h3>
+<p>如果程式完全沒有分支，PC 永遠 <code>+4</code> 就好。</p>
+<p>但講義支援 <code>beq rs, rt, imm16</code>。<code>beq</code> 成立時，下一條指令不是 <code>PC+4</code>，而是 branch target address(分支目標位址)。</p>
+<p>所以 PC 的下一個值有至少兩種來源：</p>
+<table>
+<thead>
+<tr>
+<th>情況</th>
+<th>下一個 PC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般循序執行</td>
+<td><code>PC + 4</code></td>
+</tr>
+<tr>
+<td>branch taken(分支成立)</td>
+<td>branch target address</td>
+</tr>
+</tbody>
+</table>
+<p>這就需要一個 mux(多選器) 來選：</p>
+<pre class="diagram"><code>flowchart LR
+    A["PC + 4&lt;br&gt;循序下一條"] --&gt; MUX["mux&lt;br&gt;由 nPC_sel 控制"]
+    B["Target Address&lt;br&gt;分支目標位址"] --&gt; MUX
+    MUX --&gt; PC["PC&lt;br&gt;下一拍更新"]</code></pre>
+<p>控制這個 mux 的訊號在講義圖上叫 <code>nPC_sel</code>，可理解為 next PC select(下一個 PC 選擇訊號)。</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>branch 存的 offset 是 <code>PC ← PC + 4 + (SignExt(imm16) || 00)</code> 裡面的 imm16，所以上面流程圖的 Target address 是 PC + 4 + (SignExt(imm16) &lt;&lt; 2) 不是單純的 branch 的 offset</p>
+<p>這邊是先知道 PC 如何切換就好，所以沒有畫出 <code>PC ← PC + 4 + (SignExt(imm16) || 00)</code> 計算。</p>
+</div>
+<hr />
+<h3 id="5-ifu-是什麼">5. IFU 是什麼？<a class="headerlink" href="#5-ifu-是什麼" title="Permanent link"></a></h3>
+<p>IFU(Instruction Fetch Unit，取指單元) 可以看成把「取指令＋更新 PC」包起來的一個小模組。</p>
+<p>它裡面至少包含：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC</td>
+<td>存目前指令位址</td>
+</tr>
+<tr>
+<td>Instruction Memory</td>
+<td>用 PC 當 address 取出 instruction word</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>算 <code>PC + 4</code></td>
+</tr>
+<tr>
+<td>mux</td>
+<td>在 <code>PC+4</code> 和 branch target address 中選下一個 PC</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td>控制下一個 PC 來源</td>
+</tr>
+</tbody>
+</table>
+<p>用圖表示：</p>
+<p><pre class="diagram"><code>flowchart TD
+    PC["PC&lt;br&gt;目前指令位址"]
+    IM["Instruction Memory&lt;br&gt;指令記憶體"]
+    ADD["Adder&lt;br&gt;PC + 4"]
+    MUX["mux&lt;br&gt;選 next PC"]
+    TARGET["Target Address&lt;br&gt;分支目標位址"]
+    INST["Instruction Word&lt;br&gt;指令編碼"]
+
+    PC --&gt; IM
+    IM --&gt; INST
+    PC --&gt; ADD
+    ADD --&gt; MUX
+    TARGET --&gt; MUX
+    MUX --&gt; PC</code></pre><br />
+<img alt="alt text" src="images/ch%204-1.png" /><br />
+這就是為什麼講義在 PDF viewer page 19 把 PC、Instruction Memory、Adder、mux 包成 Instruction Fetch Unit, IFU。</p>
+<hr />
+<h3 id="6-本輪最短記法">6. 本輪最短記法<a class="headerlink" href="#6-本輪最短記法" title="Permanent link"></a></h3>
+<p>所有指令共同需求可以記成一句：</p>
+<p>每條指令都先用 PC 去 Instruction Memory 取指令，然後 PC 根據 <code>nPC_sel</code> 選擇更新成 <code>PC+4</code> 或 branch target address。</p>
+<p>再壓更短：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>硬體答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>要去哪裡取指令？</td>
+<td>PC 給 Instruction Memory 位址</td>
+</tr>
+<tr>
+<td>取出什麼？</td>
+<td>Instruction Word</td>
+</tr>
+<tr>
+<td>下一條正常在哪？</td>
+<td><code>PC + 4</code></td>
+</tr>
+<tr>
+<td>分支成立去哪？</td>
+<td>Target Address</td>
+</tr>
+<tr>
+<td>誰決定下一個 PC？</td>
+<td><code>nPC_sel</code> 控制 mux</td>
+</tr>
+<tr>
+<td>這組合稱什麼？</td>
+<td>IFU(Instruction Fetch Unit，取指單元)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="addusubu-的-datapath--r-type-運算指令如何從暫存器讀資料經-alu-運算再寫回暫存器">⭐<code>addu/subu</code> 的 datapath — R-type 運算指令如何從暫存器讀資料、經 ALU 運算、再寫回暫存器？<a class="headerlink" href="#addusubu-的-datapath--r-type-運算指令如何從暫存器讀資料經-alu-運算再寫回暫存器" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 21／輔助：投影片頁碼 21</p>
+<h3 id="1-這一段在解決什麼問題_1">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題_1" title="Permanent link"></a></h3>
+<p>現在我們已經知道所有指令都會先 Fetch(取指令)並更新 PC。接下來開始看「不同指令自己的資料路徑」。</p>
+<p><code>addu</code> 和 <code>subu</code> 是最單純的 R-type 運算指令，它們的共同形式是：</p>
+<p><code>R[rd] = R[rs] op R[rt]</code></p>
+<p>其中 <code>op</code> 可以是加法或減法。</p>
+<p>也就是：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>實際語意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu rd, rs, rt</code></td>
+<td><code>R[rd] = R[rs] + R[rt]</code></td>
+</tr>
+<tr>
+<td><code>subu rd, rs, rt</code></td>
+<td><code>R[rd] = R[rs] - R[rt]</code></td>
+</tr>
+</tbody>
+</table>
+<p>這類指令的資料流很單純：</p>
+<pre class="diagram"><code>flowchart LR
+    A["rs 欄位&lt;br&gt;選第一個來源暫存器"] --&gt; RF["RegFile&lt;br&gt;讀出 busA"]
+    B["rt 欄位&lt;br&gt;選第二個來源暫存器"] --&gt; RF
+    RF --&gt; ALU["ALU&lt;br&gt;加法或減法"]
+    ALU --&gt; W["busW&lt;br&gt;寫回資料"]
+    C["rd 欄位&lt;br&gt;選目的暫存器"] --&gt; RF
+    W --&gt; RF</code></pre>
+<p>重點是：<code>rs</code>、<code>rt</code>、<code>rd</code> 都不是資料本身，而是 register number(暫存器編號)。</p>
+<hr />
+<h3 id="2-rsrtrd-分別接到哪裡">2. <code>rs</code>、<code>rt</code>、<code>rd</code> 分別接到哪裡？<a class="headerlink" href="#2-rsrtrd-分別接到哪裡" title="Permanent link"></a></h3>
+<p>對 <code>addu rd, rs, rt</code> 來說：</p>
+<table>
+<thead>
+<tr>
+<th>指令欄位</th>
+<th>角色</th>
+<th>接到哪裡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rs</code></td>
+<td>第一個 source register(來源暫存器)</td>
+<td><code>Ra</code></td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td>第二個 source register(來源暫存器)</td>
+<td><code>Rb</code></td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td>destination register(目的暫存器)</td>
+<td><code>Rw</code></td>
+</tr>
+</tbody>
+</table>
+<p>RegFile(暫存器堆) 會做三件事：</p>
+<ol>
+<li>根據 <code>Ra = rs</code>，把 <code>R[rs]</code> 放到 <code>busA</code>。</li>
+<li>根據 <code>Rb = rt</code>，把 <code>R[rt]</code> 放到 <code>busB</code>。</li>
+<li>在 clock 上升沿，如果 <code>RegWr = 1</code>，就把 <code>busW</code> 的資料寫進 <code>Rw = rd</code> 指定的暫存器。</li>
+</ol>
+<p>所以 <code>addu/subu</code> 的資料來源是兩個暫存器，目的地是 <code>rd</code>。</p>
+<hr />
+<h3 id="3-alu-做加法還是減法誰決定">3. ALU 做加法還是減法，誰決定？<a class="headerlink" href="#3-alu-做加法還是減法誰決定" title="Permanent link"></a></h3>
+<p><code>addu</code> 和 <code>subu</code> 都用同一顆 ALU。</p>
+<p>差別不是換硬體，而是給 ALU 不同的 control signal(控制訊號)：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th><code>ALUCtr</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu</code></td>
+<td>ADD</td>
+</tr>
+<tr>
+<td><code>subu</code></td>
+<td>SUB</td>
+</tr>
+</tbody>
+</table>
+<p>所以：</p>
+<p><code>ALUCtr</code> 決定 ALU 這次要做什麼運算。</p>
+<p>這也是為什麼講義說 <code>ALUCtr</code> 是由 instruction decode(指令解碼)產生的控制訊號：CPU 看到 instruction opcode/funct 後，就知道這次要叫 ALU 加還是減。</p>
+<hr />
+<h3 id="4-regwr-為什麼要是-1">4. <code>RegWr</code> 為什麼要是 1？<a class="headerlink" href="#4-regwr-為什麼要是-1" title="Permanent link"></a></h3>
+<p>因為 <code>addu/subu</code> 最後要把 ALU result(運算結果)寫回暫存器 <code>rd</code>。</p>
+<p>如果 <code>RegWr = 0</code>，那就算 ALU 算出結果，也不會真的寫回 Register File。</p>
+<p>所以對 <code>addu/subu</code>：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th>值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegWr</code></td>
+<td>1</td>
+<td>要寫回 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>RegDst</code></td>
+<td>選 <code>rd</code></td>
+<td>R-type 目的暫存器是 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td>選 <code>busB</code></td>
+<td>ALU 第二輸入來自 <code>R[rt]</code></td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td>ADD 或 SUB</td>
+<td>由 <code>addu/subu</code> 決定</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td>0</td>
+<td>不寫 Data Memory</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td>選 ALU result</td>
+<td>寫回資料來自 ALU，不是 Memory</td>
+</tr>
+</tbody>
+</table>
+<p>這一段最重要的是看出：控制訊號不是亂背，而是由「這條指令的資料要怎麼走」決定。</p>
+<hr />
+<h3 id="5-本輪最短記法">5. 本輪最短記法<a class="headerlink" href="#5-本輪最短記法" title="Permanent link"></a></h3>
+<p><code>addu/subu</code> 的 datapath 可以記成：</p>
+<p><code>rs, rt → RegFile → busA, busB → ALU → busW → rd</code></p>
+<p>控制訊號最短記：</p>
+<table>
+<thead>
+<tr>
+<th>控制</th>
+<th>對 <code>addu/subu</code> 的意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td>寫到 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td>ALU 第二輸入選 <code>busB</code></td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td><code>addu</code> 選 ADD，<code>subu</code> 選 SUB</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td>要寫回，所以 1</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td>不寫 memory，所以 0</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td>寫回 ALU result</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ori-的-datapath--為什麼-r-type-的路徑不夠用">⭐<code>ori</code> 的 datapath — 為什麼 R-type 的路徑不夠用？<a class="headerlink" href="#ori-的-datapath--為什麼-r-type-的路徑不夠用" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 22 ~ PDF viewer page 23／輔助：投影片頁碼 22–23</p>
+<h3 id="1-這一段在解決什麼問題_2">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題_2" title="Permanent link"></a></h3>
+<p>上一頁 <code>addu/subu</code> 的資料流是：</p>
+<p><code>R[rd] = R[rs] op R[rt]</code></p>
+<p>所以很自然：</p>
+<p><code>rs → Ra → busA</code><br />
+<code>rt → Rb → busB</code><br />
+<code>rd → Rw</code><br />
+<code>busA</code> 和 <code>busB</code> 進 ALU，結果寫回 <code>rd</code></p>
+<p>但 <code>ori</code> 不是這樣。</p>
+<p><code>ori rt, rs, imm16</code> 的語意是：</p>
+<p><code>R[rt] = R[rs] | ZeroExt(imm16)</code></p>
+<p>這句話直接造成三個 datapath(數據通路)問題：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>為什麼原本 <code>addu/subu</code> datapath 不夠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目的暫存器變成 <code>rt</code></td>
+<td>原本 R-type 寫回 <code>rd</code></td>
+</tr>
+<tr>
+<td>ALU 第二輸入變成立即數</td>
+<td>原本 ALU 第二輸入是 <code>busB = R[rt]</code></td>
+</tr>
+<tr>
+<td><code>imm16</code> 只有 16-bit</td>
+<td>ALU 輸入需要 32-bit</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>ori</code> 的本質是：它把 R-type 的「兩個 register operand」改成「一個 register operand + 一個 immediate operand」。</p>
+<hr />
+<h3 id="2-問題-1為什麼需要-regdst-mux">2. 問題 1：為什麼需要 <code>RegDst</code> mux？<a class="headerlink" href="#2-問題-1為什麼需要-regdst-mux" title="Permanent link"></a></h3>
+<p><code>addu/subu</code> 寫回 <code>rd</code>：</p>
+<p><code>R[rd] = R[rs] op R[rt]</code></p>
+<p>但 <code>ori</code> 寫回 <code>rt</code>：</p>
+<p><code>R[rt] = R[rs] | ZeroExt(imm16)</code></p>
+<p>所以 Register File 的 <code>Rw</code> 不能永遠接 <code>rd</code>。</p>
+<p>它必須可以選：</p>
+<table>
+<thead>
+<tr>
+<th>指令類型</th>
+<th>寫回目的地</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu/subu</code></td>
+<td><code>rd</code></td>
+</tr>
+<tr>
+<td><code>ori</code></td>
+<td><code>rt</code></td>
+</tr>
+</tbody>
+</table>
+<p>因此加一個 mux，由 <code>RegDst</code> 控制。</p>
+<p>在講義這份 datapath 的標號中：</p>
+<table>
+<thead>
+<tr>
+<th><code>RegDst</code></th>
+<th>選到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>rt</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>rd</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>ori</code> 要 <code>RegDst = 0</code>，因為它寫回 <code>rt</code>。</p>
+<hr />
+<h3 id="3-問題-2為什麼需要-alusrc-mux">3. 問題 2：為什麼需要 <code>ALUSrc</code> mux？<a class="headerlink" href="#3-問題-2為什麼需要-alusrc-mux" title="Permanent link"></a></h3>
+<p><code>addu/subu</code> 的 ALU 第二輸入是：</p>
+<p><code>busB = R[rt]</code></p>
+<p>但 <code>ori</code> 的 ALU 第二輸入是：</p>
+<p><code>ZeroExt(imm16)</code></p>
+<p>所以 ALU 第二輸入不能永遠接 <code>busB</code>。</p>
+<p>它必須可以選：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>ALU 第二輸入</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu/subu</code></td>
+<td><code>busB = R[rt]</code></td>
+</tr>
+<tr>
+<td><code>ori</code></td>
+<td><code>ZeroExt(imm16)</code></td>
+</tr>
+</tbody>
+</table>
+<p>因此加一個 mux，由 <code>ALUSrc</code> 控制。</p>
+<p>在講義這份 datapath 的標號中：</p>
+<table>
+<thead>
+<tr>
+<th><code>ALUSrc</code></th>
+<th>選到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>busB</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>擴展後的 immediate</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>ori</code> 要 <code>ALUSrc = 1</code>，因為它要用 immediate 當 ALU 第二輸入。</p>
+<hr />
+<h3 id="4-問題-3為什麼需要-zero-extension">4. 問題 3：為什麼需要 zero extension？<a class="headerlink" href="#4-問題-3為什麼需要-zero-extension" title="Permanent link"></a></h3>
+<p><code>imm16</code> 只有 16-bit，但 ALU 是處理 32-bit operand。</p>
+<p>所以 <code>ori</code> 不能直接把 <code>imm16</code> 丟進 ALU，而要先變成 32-bit：</p>
+<p><code>ZeroExt(imm16)</code></p>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th><code>imm16</code></th>
+<th><code>ZeroExt(imm16)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00FF</code></td>
+<td><code>0x000000FF</code></td>
+</tr>
+<tr>
+<td><code>0x8001</code></td>
+<td><code>0x00008001</code></td>
+</tr>
+</tbody>
+</table>
+<p>這裡特別用 zero extension(零擴展)，不是 sign extension(符號擴展)，因為 <code>ori</code> 是 bitwise OR(位元 OR)邏輯運算，立即數被當作 bit pattern(位元樣式)，不是有正負號的數值偏移。</p>
+<hr />
+<h3 id="5-ori-的完整資料流">5. <code>ori</code> 的完整資料流<a class="headerlink" href="#5-ori-的完整資料流" title="Permanent link"></a></h3>
+<p><code>ori rt, rs, imm16</code> 的資料流可以整理成：</p>
+<pre class="diagram"><code>flowchart LR
+    RS["rs 欄位&lt;br&gt;來源暫存器編號"] --&gt; RA["Ra"]
+    RA --&gt; RF["RegFile&lt;br&gt;讀出 R[rs]"]
+    RF --&gt; busA["busA"]
+    IMM["imm16&lt;br&gt;16-bit immediate"] --&gt; EXT["ZeroExt&lt;br&gt;擴展成 32-bit"]
+    EXT --&gt; MUXA["ALUSrc mux&lt;br&gt;選 immediate"]
+    busA --&gt; ALU["ALU&lt;br&gt;執行 OR"]
+    MUXA --&gt; ALU
+    ALU --&gt; busW["busW&lt;br&gt;ALU result"]
+    RT["rt 欄位&lt;br&gt;目的暫存器編號"] --&gt; MUXR["RegDst mux&lt;br&gt;選 rt"]
+    MUXR --&gt; RW["Rw"]
+    busW --&gt; RF</code></pre>
+<p>用一句話說：</p>
+<p><code>ori</code> 從 <code>rs</code> 讀出 <code>R[rs]</code>，把 <code>imm16</code> 零擴展成 32-bit，兩者做 OR，最後寫回 <code>rt</code>。</p>
+<hr />
+<h3 id="6-本輪最短記法_1">6. 本輪最短記法<a class="headerlink" href="#6-本輪最短記法_1" title="Permanent link"></a></h3>
+<p><code>ori</code> 可以記成：</p>
+<p><code>rs → busA</code><br />
+<code>imm16 → ZeroExt → ALU 第二輸入</code><br />
+<code>ALU 做 OR</code><br />
+<code>結果寫回 rt</code></p>
+<p>控制訊號最短記：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th><code>ori</code> 的設定</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td><code>0</code>，選 <code>rt</code></td>
+<td><code>ori</code> 寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td><code>1</code>，選 immediate</td>
+<td>ALU 第二輸入是 <code>ZeroExt(imm16)</code></td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td>zero</td>
+<td><code>ori</code> 用零擴展</td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td>OR</td>
+<td>執行 bitwise OR</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td>1</td>
+<td>結果要寫回 Register File</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td>0</td>
+<td>不寫 Data Memory</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td>0，選 ALU result</td>
+<td>寫回資料來自 ALU</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 23 的解法正是：針對 <code>ori</code> 的三個問題，增加兩個多選器，並增加零擴展元件。</p>
+<h3 id="rwrarb-本質上是什麼">Rw、Ra、Rb 本質上是什麼？<a class="headerlink" href="#rwrarb-本質上是什麼" title="Permanent link"></a></h3>
+<p><code>Rw</code>、<code>Ra</code>、<code>Rb</code> 本質上是 <strong>Register File(暫存器堆) 的 register number input signals(暫存器編號輸入訊號)</strong>。</p>
+<p>它們不是暫存器本身，也不是 32-bit 資料，而是用來告訴 Register File：</p>
+<table>
+<thead>
+<tr>
+<th>訊號</th>
+<th>本質</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ra</code></td>
+<td>5-bit read address(讀取位址／讀取編號)</td>
+<td>要把哪個暫存器的內容送到 <code>busA</code>？</td>
+</tr>
+<tr>
+<td><code>Rb</code></td>
+<td>5-bit read address(讀取位址／讀取編號)</td>
+<td>要把哪個暫存器的內容送到 <code>busB</code>？</td>
+</tr>
+<tr>
+<td><code>Rw</code></td>
+<td>5-bit write address(寫入位址／寫入編號)</td>
+<td><code>busW</code> 的資料要寫進哪個暫存器？</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lw-的-datapath--為什麼-alu-算出來的是位址不是最後寫回的資料">⭐<code>lw</code> 的 datapath — 為什麼 ALU 算出來的是位址，不是最後寫回的資料？<a class="headerlink" href="#lw-的-datapath--為什麼-alu-算出來的是位址不是最後寫回的資料" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 24 ~ PDF viewer page 25／輔助：投影片頁碼 24–25</p>
+<h3 id="1-這一段在解決什麼問題_3">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題_3" title="Permanent link"></a></h3>
+<p>前面的 <code>addu/subu/ori</code> 都有一個共同點：ALU 算出來的結果，就是最後要寫回 Register File(暫存器堆) 的值。</p>
+<p>但 <code>lw</code> 不一樣。</p>
+<p><code>lw rt, imm16(rs)</code> 的語意是：</p>
+<p><code>R[rt] = MEM[R[rs] + SignExt(imm16)]</code></p>
+<p>這句要拆成兩層：</p>
+<table>
+<thead>
+<tr>
+<th>層次</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一層</td>
+<td>ALU 計算 effective address(有效位址)：<code>R[rs] + SignExt(imm16)</code></td>
+</tr>
+<tr>
+<td>第二層</td>
+<td>用這個 address 去 Data Memory 讀資料</td>
+</tr>
+<tr>
+<td>第三層</td>
+<td>把 Data Memory 讀出的資料寫回 <code>R[rt]</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>lw</code> 的關鍵不是「ALU 算完直接寫回」，而是：</p>
+<p>ALU result 是 address；Memory output 才是要寫回的 data。</p>
+<hr />
+<h3 id="2-lw-為什麼需要-sign-extension">2. <code>lw</code> 為什麼需要 sign extension？<a class="headerlink" href="#2-lw-為什麼需要-sign-extension" title="Permanent link"></a></h3>
+<p><code>lw rt, imm16(rs)</code> 裡的 <code>imm16</code> 是 offset(位移量)，可以是正的，也可以是負的。</p>
+<p>例如：</p>
+<p><code>lw $t0, 8($sp)</code><br />
+代表從 <code>R[$sp] + 8</code> 的位址載入資料。</p>
+<p><code>lw $t0, -4($sp)</code><br />
+代表從 <code>R[$sp] - 4</code> 的位址載入資料。</p>
+<p>所以這裡的 <code>imm16</code> 不是純 bit pattern，而是有正負號的 signed offset(有號位移量)。因此要用 sign extension(符號擴展)，不是 zero extension(零擴展)。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>immediate 的角色</th>
+<th>擴展方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ori</code></td>
+<td>bit pattern(位元樣式)</td>
+<td>zero extension</td>
+</tr>
+<tr>
+<td><code>lw</code></td>
+<td>signed offset(有號位移量)</td>
+<td>sign extension</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 24 也說 <code>lw</code> 的位址是由 <code>rs</code> 指定暫存器內容加上符號擴展後的立即數得到。</p>
+<hr />
+<h3 id="3-lw-為什麼需要-data-memory">3. <code>lw</code> 為什麼需要 Data Memory？<a class="headerlink" href="#3-lw-為什麼需要-data-memory" title="Permanent link"></a></h3>
+<p>因為 <code>lw</code> 的目標不是做一般 ALU 運算，而是從記憶體拿資料。</p>
+<p>流程是：</p>
+<pre class="diagram"><code>flowchart LR
+    RS["rs 欄位&lt;br&gt;base register 編號"] --&gt; RA["Ra"]
+    RA --&gt; RF["RegFile&lt;br&gt;讀出 R[rs]"]
+    RF --&gt; busA["busA&lt;br&gt;R[rs]"]
+    IMM["imm16&lt;br&gt;offset"] --&gt; EXT["SignExt&lt;br&gt;符號擴展成 32-bit"]
+    EXT --&gt; MUX["ALUSrc mux&lt;br&gt;選 immediate"]
+    busA --&gt; ALU["ALU&lt;br&gt;ADD 算位址"]
+    MUX --&gt; ALU
+    ALU --&gt; ADR["Adr&lt;br&gt;有效位址"]
+    ADR --&gt; DM["Data Memory&lt;br&gt;依位址讀資料"]
+    DM --&gt; DATA["Data&lt;br&gt;記憶體讀出資料"]
+    DATA --&gt; WB["busW&lt;br&gt;寫回資料"]
+    RT["rt 欄位&lt;br&gt;目的暫存器編號"] --&gt; RW["Rw"]
+    WB --&gt; RF
+    RW --&gt; RF</code></pre>
+<p>這裡最容易錯的點是：</p>
+<p><code>Adr = R[rs] + SignExt(imm16)</code><br />
+但 <code>busW = DataMemory[Adr]</code></p>
+<p>所以 <code>Adr</code> 和 <code>busW</code> 不是同一個東西。</p>
+<hr />
+<h3 id="4-lw-為什麼需要-memtoreg">4. <code>lw</code> 為什麼需要 <code>MemtoReg</code>？<a class="headerlink" href="#4-lw-為什麼需要-memtoreg" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%204-2.png" /><br />
+前面幾個運算指令：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>寫回 Register File 的資料來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu</code></td>
+<td>ALU result</td>
+</tr>
+<tr>
+<td><code>subu</code></td>
+<td>ALU result</td>
+</tr>
+<tr>
+<td><code>ori</code></td>
+<td>ALU result</td>
+</tr>
+</tbody>
+</table>
+<p>但 <code>lw</code> 寫回的是：</p>
+<p><code>Data Memory</code> 讀出的資料</p>
+<p>不是 ALU result。</p>
+<p>所以 Register File 的 <code>busW</code> 前面需要一個 mux，選擇寫回資料來源：</p>
+<table>
+<thead>
+<tr>
+<th><code>MemtoReg</code></th>
+<th>寫回資料來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>ALU result</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Data Memory output</td>
+</tr>
+</tbody>
+</table>
+<p>因此 <code>lw</code> 要 <code>MemtoReg = 1</code>。</p>
+<p>講義後面的 <code>lw</code> datapath 圖也標出：<code>ALUSrc=1</code>、<code>RegDst=0</code>、<code>RegWr=1</code>、<code>ExtOp="sign"</code>、<code>ALUCtr="ADD"</code>、<code>MemtoReg=1</code>、<code>MemWr=0</code>。</p>
+<hr />
+<h3 id="5-lw-的控制訊號最短記法">5. <code>lw</code> 的控制訊號最短記法<a class="headerlink" href="#5-lw-的控制訊號最短記法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th style="text-align: right;"><code>lw rt, imm16(rs)</code></th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>寫回目的暫存器是 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>ALU 第二輸入是 <code>SignExt(imm16)</code></td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td style="text-align: right;"><code>1</code> 或 <code>sign</code></td>
+<td>offset 要符號擴展</td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td style="text-align: right;"><code>ADD</code></td>
+<td>base + offset 算位址</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>寫回資料來自 Data Memory</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>要把載入資料寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td><code>lw</code> 是讀記憶體，不是寫記憶體</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td style="text-align: right;"><code>0</code> 或 <code>+4</code></td>
+<td>一般循序執行下一條</td>
+</tr>
+</tbody>
+</table>
+<p>一句話記：</p>
+<p><code>lw</code> 用 ALU 算 address，用 Data Memory 讀 data，再把 data 寫回 <code>rt</code>。</p>
 
 
 
