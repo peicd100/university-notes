@@ -26,6 +26,8 @@ flowchart TD
 
 講義 PDF viewer page 3 明確列出五步：分析指令需求、選元件、連數據通路、分析控制訊號、整合控制邏輯；到 PDF viewer page 12，前兩步已被標記完成，表示本輪自然收束點就在「需求分析＋元件需求」這一段。
 
+![alt text](<images/ch 4.png>)
+
 ---
 
 ### 2. 這份 ch4-1 先限制 CPU 要支援哪些 MIPS 指令？
