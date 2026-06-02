@@ -6044,6 +6044,791 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sw-datapath--sw-為什麼是把-rt-的資料寫進記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐sw Datapath — sw 為什麼是「把 rt 的資料寫進記憶體」？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐sw Datapath — sw 為什麼是「把 rt 的資料寫進記憶體」？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sw-rt-imm16rs-真正在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. sw rt, imm16(rs) 真正在做什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sw-的資料流誰提供-address誰提供-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. sw 的資料流：誰提供 address？誰提供 data？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sw-的控制信號為什麼是這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. sw 的控制信號為什麼是這樣？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個例子走一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個例子走一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsp是啥意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R[$sp]是啥意思
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最容易錯的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最容易錯的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#控制訊號前的指令格式整理--為什麼控制器要先知道指令是哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Datapath(資料路徑) 接好，不代表 CPU 會自動知道怎麼走
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要先看-r-型i-型j-型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要先看 R 型、I 型、J 型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-r-型指令的欄位怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. R 型指令的欄位怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-目前這份講義主線中哪些指令屬於哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 目前這份講義主線中，哪些指令屬於哪一型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一頁真正要建立的觀念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一頁真正要建立的觀念
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addu-rd-rs-rt--r-型加法指令如何走完整-datapath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-addu-這條指令到底要完成什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. addu 這條指令到底要完成什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一段fetch取指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一段：Fetch(取指令)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二段decode--register-read解碼與讀暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二段：Decode / Register Read(解碼與讀暫存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三段execute執行-alu-加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三段：Execute(執行 ALU 加法)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第四段write-back寫回" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第四段：Write-back(寫回)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-用一個完整例子跑一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 用一個完整例子跑一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-type-instruction-與指令分類--為什麼-orilwswbeq-都是-i-型但用途不同" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐I-type instruction 與指令分類 — 為什麼 ori/lw/sw/beq 都是 I 型但用途不同？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐I-type instruction 與指令分類 — 為什麼 ori/lw/sw/beq 都是 I 型但用途不同？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-i-型指令格式怎麼切" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. I 型指令格式怎麼切？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rt-的角色要看指令不是只看-i-型格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. rt 的角色要看指令，不是只看 I 型格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-pdf-viewer-page-4243-的真正重點分類有兩個維度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. PDF viewer page 42~43 的真正重點：分類有兩個維度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ori-指令操作步驟--imm16-如何進-alu結果如何寫回-rt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ori 指令操作步驟 — imm16 如何進 ALU，結果如何寫回 rt？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐ori 指令操作步驟 — imm16 如何進 ALU，結果如何寫回 rt？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ori-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ori 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-ori-要用-zeroext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 ori 要用 ZeroExt？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ori-的-datapath-流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ori 的 datapath 流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ori-的完整-control-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ori 的完整 control signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beq-branch-instruction--cpu-怎麼知道下一個-pc-要走-pc4-還是分支目標" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-beq-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. beq 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. beq 的 ALU 不是拿來產生資料，而是拿來比較是否相等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-beq-的-pc-更新有兩層判斷" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. beq 的 PC 更新有兩層判斷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-branch-target-address-怎麼算" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Branch target address 怎麼算？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-beq-的控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. beq 的控制訊號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#npc_sel-為何叫做-npc_sel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nPC_sel 為何叫做 nPC_sel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aluctr-sub-是-01那其他的呢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALUctr sub 是 01，那其他的呢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何-beq-的-memtoreg--x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 beq 的 MemtoReg = x？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 IFU 中，為何是 mux 前就 +4，為何不 mux 之後+4？這樣不是可以省一個 ALU 嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#控制訊號小整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐控制訊號小整理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐控制訊號小整理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先給你總覽這張圖分成-5-類" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先給你總覽：這張圖分成 5 類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-control-signal控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Control signal(控制訊號)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-status-signal狀態訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Status signal(狀態訊號)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-register-number-route暫存器編號路線5-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Register number route(暫存器編號路線，5-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-data-bus--data-route資料匯流排與資料路線通常-32-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data bus / data route(資料匯流排與資料路線，通常 32-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-mux多工器整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. MUX(多工器)整理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-functional-unit功能元件" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Functional unit(功能元件)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-依指令看路線最容易記的版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 依指令看路線：最容易記的版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最容易混淆的對照表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最容易混淆的對照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-logic控制邏輯--cpu-如何從指令-bits-自動產生控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一層先判斷目前是哪一種指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一層：先判斷目前是哪一種指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二層：把「哪條指令會讓控制訊號等於 1」寫成邏輯式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三層把指令名稱本身也變成邏輯式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三層：把指令名稱本身也變成邏輯式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-生活化例子控制器像分類後自動開關" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 生活化例子：控制器像「分類後自動開關」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#結論" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        結論
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addsuborilwswbeq-是實際上只有這些還是因為這些較常見所以用這些舉例" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "add/sub/ori/lw/sw/beq" 是實際上只有這些，還是因為這些較常見所以用這些舉例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6719,6 +7504,791 @@ is now available!
     <span class="md-ellipsis">
       
         5. lw 的控制訊號最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sw-datapath--sw-為什麼是把-rt-的資料寫進記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐sw Datapath — sw 為什麼是「把 rt 的資料寫進記憶體」？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐sw Datapath — sw 為什麼是「把 rt 的資料寫進記憶體」？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sw-rt-imm16rs-真正在做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. sw rt, imm16(rs) 真正在做什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sw-的資料流誰提供-address誰提供-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. sw 的資料流：誰提供 address？誰提供 data？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sw-的控制信號為什麼是這樣" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. sw 的控制信號為什麼是這樣？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個例子走一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個例子走一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsp是啥意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R[$sp]是啥意思
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最容易錯的地方" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最容易錯的地方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#控制訊號前的指令格式整理--為什麼控制器要先知道指令是哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Datapath(資料路徑) 接好，不代表 CPU 會自動知道怎麼走
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要先看-r-型i-型j-型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要先看 R 型、I 型、J 型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-r-型指令的欄位怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. R 型指令的欄位怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-目前這份講義主線中哪些指令屬於哪一型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 目前這份講義主線中，哪些指令屬於哪一型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一頁真正要建立的觀念" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一頁真正要建立的觀念
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addu-rd-rs-rt--r-型加法指令如何走完整-datapath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-addu-這條指令到底要完成什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. addu 這條指令到底要完成什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一段fetch取指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一段：Fetch(取指令)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二段decode--register-read解碼與讀暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二段：Decode / Register Read(解碼與讀暫存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三段execute執行-alu-加法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三段：Execute(執行 ALU 加法)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-第四段write-back寫回" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 第四段：Write-back(寫回)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-用一個完整例子跑一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 用一個完整例子跑一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-type-instruction-與指令分類--為什麼-orilwswbeq-都是-i-型但用途不同" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐I-type instruction 與指令分類 — 為什麼 ori/lw/sw/beq 都是 I 型但用途不同？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐I-type instruction 與指令分類 — 為什麼 ori/lw/sw/beq 都是 I 型但用途不同？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段在解決什麼問題_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-i-型指令格式怎麼切" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. I 型指令格式怎麼切？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rt-的角色要看指令不是只看-i-型格式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. rt 的角色要看指令，不是只看 I 型格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-pdf-viewer-page-4243-的真正重點分類有兩個維度" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. PDF viewer page 42~43 的真正重點：分類有兩個維度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ori-指令操作步驟--imm16-如何進-alu結果如何寫回-rt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ori 指令操作步驟 — imm16 如何進 ALU，結果如何寫回 rt？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐ori 指令操作步驟 — imm16 如何進 ALU，結果如何寫回 rt？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ori-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ori 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-ori-要用-zeroext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 ori 要用 ZeroExt？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ori-的-datapath-流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ori 的 datapath 流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ori-的完整-control-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ori 的完整 control signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-常見錯法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beq-branch-instruction--cpu-怎麼知道下一個-pc-要走-pc4-還是分支目標" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-beq-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. beq 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. beq 的 ALU 不是拿來產生資料，而是拿來比較是否相等
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-beq-的-pc-更新有兩層判斷" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. beq 的 PC 更新有兩層判斷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-branch-target-address-怎麼算" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Branch target address 怎麼算？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-beq-的控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. beq 的控制訊號
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#npc_sel-為何叫做-npc_sel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nPC_sel 為何叫做 nPC_sel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aluctr-sub-是-01那其他的呢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALUctr sub 是 01，那其他的呢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何-beq-的-memtoreg--x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 beq 的 MemtoReg = x？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 IFU 中，為何是 mux 前就 +4，為何不 mux 之後+4？這樣不是可以省一個 ALU 嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#控制訊號小整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐控制訊號小整理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐控制訊號小整理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先給你總覽這張圖分成-5-類" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先給你總覽：這張圖分成 5 類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-control-signal控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Control signal(控制訊號)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-status-signal狀態訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Status signal(狀態訊號)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-register-number-route暫存器編號路線5-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Register number route(暫存器編號路線，5-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-data-bus--data-route資料匯流排與資料路線通常-32-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data bus / data route(資料匯流排與資料路線，通常 32-bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-mux多工器整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. MUX(多工器)整理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-functional-unit功能元件" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Functional unit(功能元件)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-依指令看路線最容易記的版本" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 依指令看路線：最容易記的版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最容易混淆的對照表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最容易混淆的對照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-logic控制邏輯--cpu-如何從指令-bits-自動產生控制訊號" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一層先判斷目前是哪一種指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一層：先判斷目前是哪一種指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二層：把「哪條指令會讓控制訊號等於 1」寫成邏輯式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-第三層把指令名稱本身也變成邏輯式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 第三層：把指令名稱本身也變成邏輯式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-生活化例子控制器像分類後自動開關" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 生活化例子：控制器像「分類後自動開關」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#結論" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        結論
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addsuborilwswbeq-是實際上只有這些還是因為這些較常見所以用這些舉例" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "add/sub/ori/lw/sw/beq" 是實際上只有這些，還是因為這些較常見所以用這些舉例
       
     </span>
   </a>
@@ -7831,6 +9401,2200 @@ is now available!
 </table>
 <p>一句話記：</p>
 <p><code>lw</code> 用 ALU 算 address，用 Data Memory 讀 data，再把 data 寫回 <code>rt</code>。</p>
+<h2 id="sw-datapath--sw-為什麼是把-rt-的資料寫進記憶體">⭐<code>sw</code> Datapath — <code>sw</code> 為什麼是「把 rt 的資料寫進記憶體」？<a class="headerlink" href="#sw-datapath--sw-為什麼是把-rt-的資料寫進記憶體" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 54 ~ PDF viewer page 55／輔助：Chapter 4 — The Processor — 54 ~ 55</p>
+<h3 id="1-sw-rt-imm16rs-真正在做什麼">1. <code>sw rt, imm16(rs)</code> 真正在做什麼？<a class="headerlink" href="#1-sw-rt-imm16rs-真正在做什麼" title="Permanent link"></a></h3>
+<p><code>sw rt, imm16(rs)</code> 的意思是：</p>
+<p><code>DataMemory{R[rs] + SignExt[imm16]} = R[rt]</code></p>
+<p>也就是：</p>
+<p>先用 <code>R[rs] + SignExt[imm16]</code> 算出一個 effective address(有效位址)，再把 <code>R[rt]</code> 的資料寫進 Data Memory(資料記憶體) 的那個位置。講義在 <code>sw</code> 操作步驟中就是這樣寫的：<code>DataMemory{R[rs]+SignExt[imm16]}=R[rt]</code>。</p>
+<p>外部 MIPS32 指令手冊也用同樣概念描述 load/store 位址計算：16-bit signed offset 會加到 base register 內容上形成 effective address；所以這裡的 <code>imm16</code> 是 signed byte offset(有號位元組偏移量)，不是 word index(字索引)。([康奈爾大學計算機科學系][1])</p>
+<hr />
+<h3 id="2-sw-的資料流誰提供-address誰提供-data">2. <code>sw</code> 的資料流：誰提供 address？誰提供 data？<a class="headerlink" href="#2-sw-的資料流誰提供-address誰提供-data" title="Permanent link"></a></h3>
+<p><code>sw</code> 有兩條重要資料線：</p>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>來源</th>
+<th>到哪裡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算 memory address</td>
+<td><code>R[rs]</code> 與 <code>SignExt[imm16]</code></td>
+<td>ALU result → Data Memory 的 Address/Adr</td>
+</tr>
+<tr>
+<td>要被寫進 memory 的資料</td>
+<td><code>R[rt]</code></td>
+<td>busB → Data Memory 的 Data In</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>rt</code> 在 <code>sw</code> 裡不是 destination register(目的暫存器)，而是 source register(資料來源暫存器)。</p>
+<p>這和 <code>lw</code> 剛好相反：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th><code>rt</code> 的角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lw rt, imm16(rs)</code></td>
+<td><code>rt</code> 是被寫入的暫存器</td>
+</tr>
+<tr>
+<td><code>sw rt, imm16(rs)</code></td>
+<td><code>rt</code> 是要拿出資料、寫進 memory 的暫存器</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-sw-的控制信號為什麼是這樣">3. <code>sw</code> 的控制信號為什麼是這樣？<a class="headerlink" href="#3-sw-的控制信號為什麼是這樣" title="Permanent link"></a></h3>
+<p>講義頁面直接標出 <code>sw</code> 的控制信號：<code>RegDst=x</code>、<code>RegWr=0</code>、<code>ALUCtr=ADD</code>、<code>MemtoReg=x</code>、<code>MemWr=1</code>、<code>ExtOp=sign</code>、<code>ALUSrc=1</code>、<code>nPC_sel=+4</code>。</p>
+<table>
+<thead>
+<tr>
+<th>Control signal(控制信號)</th>
+<th style="text-align: right;"><code>sw</code> 的值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>不寫回暫存器，所以不用選 <code>rt</code> 或 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td><code>sw</code> 不會寫入 Register File(暫存器堆)</td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>ALU 第二個輸入要選 <code>SignExt[imm16]</code></td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td style="text-align: right;"><code>sign</code></td>
+<td><code>imm16</code> 是有號偏移量，需要 sign extension(符號擴展)</td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td style="text-align: right;"><code>ADD</code></td>
+<td>ALU 要算 <code>R[rs] + SignExt[imm16]</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>要把資料寫進 Data Memory</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>不寫回暫存器，所以 busW 來源不重要</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td style="text-align: right;"><code>+4</code></td>
+<td><code>sw</code> 不是 branch，下一條指令照順序執行</td>
+</tr>
+</tbody>
+</table>
+<p><code>x</code> 的意思是 don’t care(不重要)，不是 <code>0</code>，也不是 <code>1</code>。因為這條控制線後面的結果根本不會被用到。</p>
+<hr />
+<h3 id="4-用一個例子走一次">4. 用一個例子走一次<a class="headerlink" href="#4-用一個例子走一次" title="Permanent link"></a></h3>
+<p>假設：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指令</td>
+<td style="text-align: right;"><code>sw $t0, 12($sp)</code></td>
+</tr>
+<tr>
+<td><code>R[$sp]</code></td>
+<td style="text-align: right;"><code>0x10010000</code></td>
+</tr>
+<tr>
+<td><code>R[$t0]</code></td>
+<td style="text-align: right;"><code>0xDEADBEEF</code></td>
+</tr>
+<tr>
+<td><code>imm16</code></td>
+<td style="text-align: right;"><code>12</code></td>
+</tr>
+</tbody>
+</table>
+<p>流程是：</p>
+<ol>
+<li><code>rs = $sp</code>，所以 <code>busA = R[$sp] = 0x10010000</code></li>
+<li><code>rt = $t0</code>，所以 <code>busB = R[$t0] = 0xDEADBEEF</code></li>
+<li><code>imm16 = 12</code>，經過 sign extension 仍是 <code>12</code></li>
+<li>ALU 做加法：<code>0x10010000 + 12 = 0x1001000C</code></li>
+<li><code>ALU result = 0x1001000C</code> 送到 Data Memory 的 address</li>
+<li><code>busB = 0xDEADBEEF</code> 送到 Data Memory 的 Data In</li>
+<li><code>MemWr = 1</code>，所以 memory 在該 address 寫入 <code>0xDEADBEEF</code></li>
+<li><code>RegWr = 0</code>，所以沒有任何 register 被寫回</li>
+</ol>
+<p>也就是：</p>
+<table>
+<thead>
+<tr>
+<th>線路／元件</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALU result</code></td>
+<td style="text-align: right;"><code>0x1001000C</code></td>
+</tr>
+<tr>
+<td><code>Data Memory Address</code></td>
+<td style="text-align: right;"><code>0x1001000C</code></td>
+</tr>
+<tr>
+<td><code>Data Memory Data In</code></td>
+<td style="text-align: right;"><code>0xDEADBEEF</code></td>
+</tr>
+<tr>
+<td><code>busW</code></td>
+<td style="text-align: right;">不重要</td>
+</tr>
+<tr>
+<td><code>Rw</code></td>
+<td style="text-align: right;">不重要</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;"><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<h3 id="rsp是啥意思">R[$sp]是啥意思<a class="headerlink" href="#rsp是啥意思" title="Permanent link"></a></h3>
+<p>R[$sp] 的意思是：暫存器 $sp 裡面存的值。</p>
+<p>假設 <code>lw $t0, 12($sp)</code>：</p>
+<p><code>R[$sp] = 0x10010000</code></p>
+<p>那：</p>
+<p><code>R[$sp] + 12 = 0x1001000C</code></p>
+<p>這個 <code>0x1001000C</code> 是 effective address(有效位址)。</p>
+<p>如果是：</p>
+<p><code>lw $t0, 12($sp)</code></p>
+<p>意思是：</p>
+<p>從 <code>M[0x1001000C]</code> 讀資料，放進 <code>$t0</code>。</p>
+</div>
+<hr />
+<h3 id="5-最容易錯的地方">5. 最容易錯的地方<a class="headerlink" href="#5-最容易錯的地方" title="Permanent link"></a></h3>
+<p>第一個錯法：把 <code>ALU result</code> 當成要存進 register 的資料。<br />
+這是 <code>lw</code> 也不對、<code>sw</code> 更不對。<code>ALU result</code> 在 load/store 裡是 memory address(記憶體位址)，不是資料本身。</p>
+<p>第二個錯法：以為 <code>sw</code> 會寫回 <code>rt</code>。<br />
+<code>sw</code> 的 <code>rt</code> 是資料來源，不是目的地。<code>R[rt]</code> 的內容被拿出來，寫到 memory。</p>
+<p>第三個錯法：把 <code>imm16</code> 乘以 4。<br />
+<code>lw/sw</code> 的 <code>imm16</code> 是 byte offset(位元組偏移)，不是第幾個 word。外部社群問答也常見這種 base+offset 尺度混淆；這裡我們以講義與 MIPS 手冊為主：effective address 是 base register 加 signed offset。([康奈爾大學計算機科學系][1])</p>
+<pre class="diagram"><code>flowchart LR
+    A["Register File&lt;br&gt;Ra = rs&lt;br&gt;busA = R[rs]"] --&gt; B["ALU&lt;br&gt;做加法"]
+    C["Extender&lt;br&gt;SignExt(imm16)"] --&gt; B
+    B --&gt; D["Data Memory&lt;br&gt;Address = ALU result"]
+    E["Register File&lt;br&gt;Rb = rt&lt;br&gt;busB = R[rt]"] --&gt; F["Data Memory&lt;br&gt;Data In"]
+    F --&gt; D
+    G["MemWr = 1"] --&gt; D
+    H["RegWr = 0&lt;br&gt;不寫回暫存器"] -.-&gt; I["busW / Rw&lt;br&gt;不重要"]</code></pre>
+<h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
+<p><code>sw</code> 的一句話版本：</p>
+<p><code>ALU 算位址，rt 提供資料，Memory 被寫入，Register 不被寫入。</code></p>
+<p>控制信號一句話版本：</p>
+<p><code>sw：RegWr=0、MemWr=1、ALUSrc=1、ExtOp=sign、ALUCtr=ADD、RegDst/MemtoReg=x。</code></p>
+<h2 id="控制訊號前的指令格式整理--為什麼控制器要先知道指令是哪一型">⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？<a class="headerlink" href="#控制訊號前的指令格式整理--為什麼控制器要先知道指令是哪一型" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 28 ~ PDF viewer page 33／輔助：投影片頁碼 28–33</p>
+<h3 id="1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走">1. Datapath(資料路徑) 接好，不代表 CPU 會自動知道怎麼走<a class="headerlink" href="#1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走" title="Permanent link"></a></h3>
+<p>前面我們已經把 <code>addu/subu/ori/lw/sw</code> 需要的 datapath 接出來了。可是硬體接好後，還需要有人告訴每個 mux(多工器)、Register File(暫存器堆)、Data Memory(資料記憶體)、ALU(算術邏輯單元)：</p>
+<p>這一條指令要不要寫 register？<br />
+ALU 第二個輸入要選 <code>busB</code> 還是 <code>imm16</code>？<br />
+結果要從 ALU 回寫，還是從 memory 回寫？<br />
+Data Memory 要不要寫入？<br />
+Extender(擴展器) 要做 zero extension(零擴展) 還是 sign extension(符號擴展)？</p>
+<p>這些答案就是 control signals(控制訊號)。</p>
+<p>講義在 PDF viewer page 28 明確把前面三步打勾：分析需求、選元件、建立 datapath；接著進入第 4 步：分析每條指令的實現，以確定控制訊號。</p>
+<hr />
+<h3 id="2-為什麼要先看-r-型i-型j-型">2. 為什麼要先看 R 型、I 型、J 型？<a class="headerlink" href="#2-為什麼要先看-r-型i-型j-型" title="Permanent link"></a></h3>
+<p>因為 control unit(控制器) 不是看組合語言文字，而是看 instruction bits(指令位元)。</p>
+<p>例如 CPU 不是真的看到這一行文字：</p>
+<p><code>sw $t0, 12($sp)</code></p>
+<p>CPU 看到的是 32-bit instruction word(指令字)。所以控制器要先知道：這 32-bit 裡面哪幾個 bit 是 <code>opcode</code>、哪幾個 bit 是 <code>rs</code>、哪幾個 bit 是 <code>rt</code>、哪幾個 bit 是 <code>rd</code> 或 <code>immediate</code>。</p>
+<p>講義 page 29 說 MIPS 指令主要分為三種：<code>R(Register) 型</code>、<code>I(Immediate) 型</code>、<code>J(Jump) 型</code>。這個分類的目的，就是讓控制器知道欄位要怎麼解讀。</p>
+<hr />
+<h3 id="3-r-型指令的欄位怎麼看">3. R 型指令的欄位怎麼看？<a class="headerlink" href="#3-r-型指令的欄位怎麼看" title="Permanent link"></a></h3>
+<p>R 型格式是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">位元範圍</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>op</code></td>
+<td style="text-align: right;">31–26</td>
+<td>指令類型；R 型通常是 0</td>
+</tr>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;">25–21</td>
+<td>第一個來源暫存器</td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;">20–16</td>
+<td>第二個來源暫存器</td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td style="text-align: right;">15–11</td>
+<td>目的暫存器</td>
+</tr>
+<tr>
+<td><code>shamt</code></td>
+<td style="text-align: right;">10–6</td>
+<td>shift amount(位移量)</td>
+</tr>
+<tr>
+<td><code>funct</code></td>
+<td style="text-align: right;">5–0</td>
+<td>精確指定 R 型裡面是哪一種運算</td>
+</tr>
+</tbody>
+</table>
+<p>重點是：R 型不是只靠 <code>opcode</code> 判斷 <code>add/sub/and/or</code>，因為很多 R 型指令的 <code>opcode</code> 都一樣，所以還要看 <code>funct</code> 欄位。</p>
+<p>生活化說法：<code>opcode</code> 先告訴 CPU「這是一大類 R 型料理」，<code>funct</code> 再告訴 CPU「這道菜到底是加法、減法、AND 還是 OR」。</p>
+<hr />
+<h3 id="4-目前這份講義主線中哪些指令屬於哪一型">4. 目前這份講義主線中，哪些指令屬於哪一型？<a class="headerlink" href="#4-目前這份講義主線中哪些指令屬於哪一型" title="Permanent link"></a></h3>
+<p>目前我們正在追的這批指令可以先這樣分：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>類型</th>
+<th>為什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu rd, rs, rt</code></td>
+<td>R 型</td>
+<td>三個 register 欄位：<code>rs</code>、<code>rt</code>、<code>rd</code></td>
+</tr>
+<tr>
+<td><code>subu rd, rs, rt</code></td>
+<td>R 型</td>
+<td>三個 register 欄位：<code>rs</code>、<code>rt</code>、<code>rd</code></td>
+</tr>
+<tr>
+<td><code>ori rt, rs, imm16</code></td>
+<td>I 型</td>
+<td>有 <code>rs</code>、<code>rt</code>、<code>imm16</code></td>
+</tr>
+<tr>
+<td><code>lw rt, imm16(rs)</code></td>
+<td>I 型</td>
+<td>有 base register <code>rs</code>、目的 <code>rt</code>、offset <code>imm16</code></td>
+</tr>
+<tr>
+<td><code>sw rt, imm16(rs)</code></td>
+<td>I 型</td>
+<td>有 base register <code>rs</code>、來源 <code>rt</code>、offset <code>imm16</code></td>
+</tr>
+<tr>
+<td><code>beq rs, rt, imm16</code></td>
+<td>I 型</td>
+<td>有兩個比較來源 <code>rs/rt</code> 和 branch offset <code>imm16</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>J 型</code>目前只是分類上會提到，還不是我們現在這條 datapath 主線的高優先級重點。</p>
+<hr />
+<h3 id="5-這一頁真正要建立的觀念">5. 這一頁真正要建立的觀念<a class="headerlink" href="#5-這一頁真正要建立的觀念" title="Permanent link"></a></h3>
+<p>接下來講 control signals 時，不要死背表格。你要先問：</p>
+<p>這條指令是哪一型？<br />
+它要讀哪些 register？<br />
+它要不要寫 register？<br />
+它要不要使用 immediate？<br />
+它要不要讀或寫 Data Memory？<br />
+ALU 要做什麼？<br />
+PC 是 <code>PC + 4</code> 還是 branch target？</p>
+<p>控制訊號表其實就是把這些問題全部變成 <code>0/1/x</code>。</p>
+<h2 id="addu-rd-rs-rt--r-型加法指令如何走完整-datapath">⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？<a class="headerlink" href="#addu-rd-rs-rt--r-型加法指令如何走完整-datapath" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 33 ~ PDF viewer page 40</p>
+<h3 id="1-addu-這條指令到底要完成什麼">1. <code>addu</code> 這條指令到底要完成什麼？<a class="headerlink" href="#1-addu-這條指令到底要完成什麼" title="Permanent link"></a></h3>
+<p><code>addu rd, rs, rt</code> 的意思是：</p>
+<p><code>R[rd] = R[rs] + R[rt]</code></p>
+<p>也就是：</p>
+<p>從 <code>rs</code> 指定的暫存器拿資料，從 <code>rt</code> 指定的暫存器拿資料，兩個資料進 ALU(Arithmetic Logic Unit，算術邏輯單元) 做加法，結果寫回 <code>rd</code> 指定的暫存器。講義在 PDF viewer page 33 明確列出三件事：取指令、執行 <code>R[rd]=R[rs]+R[rt]</code>、更新 <code>PC=PC+4</code>。</p>
+<hr />
+<h3 id="2-第一段fetch取指令">2. 第一段：Fetch(取指令)<a class="headerlink" href="#2-第一段fetch取指令" title="Permanent link"></a></h3>
+<p>這一步所有指令都會做：</p>
+<pre class="diagram"><code>flowchart LR
+    PC["PC&lt;br&gt;目前指令位址"] --&gt; IM["Instruction Memory&lt;br&gt;依 PC 讀出指令"]
+    IM --&gt; IW["Instruction Word&lt;br&gt;32-bit 指令內容"]
+    PC --&gt; ADD["Adder&lt;br&gt;PC + 4"]
+    ADD --&gt; NPC["下一個 PC 候選值"]</code></pre>
+<p>這裡重點不是加法資料運算，而是「拿到這條指令本身」。<br />
+所以此時：</p>
+<table>
+<thead>
+<tr>
+<th>訊號／元件</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PC</code></td>
+<td>指向目前要取的 instruction(指令) 位址</td>
+</tr>
+<tr>
+<td><code>Instruction Memory</code></td>
+<td>用 <code>PC</code> 當 address(位址)，讀出 instruction word(指令字)</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td>對 <code>addu</code> 來說，選 <code>PC+4</code>，因為不是 branch(分支)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-第二段decode--register-read解碼與讀暫存器">3. 第二段：Decode / Register Read(解碼與讀暫存器)<a class="headerlink" href="#3-第二段decode--register-read解碼與讀暫存器" title="Permanent link"></a></h3>
+<p><code>addu rd, rs, rt</code> 是 R 型格式：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rs</code></td>
+<td>第一個來源暫存器編號</td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td>第二個來源暫存器編號</td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td>目的暫存器編號</td>
+</tr>
+<tr>
+<td><code>funct</code></td>
+<td>告訴控制器這個 R 型指令實際要做哪種運算</td>
+</tr>
+</tbody>
+</table>
+<p>Register File(暫存器堆) 的讀法是：</p>
+<table>
+<thead>
+<tr>
+<th>Register File 輸入</th>
+<th>接到哪個指令欄位</th>
+<th>輸出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ra</code></td>
+<td><code>rs</code></td>
+<td><code>busA = R[rs]</code></td>
+</tr>
+<tr>
+<td><code>Rb</code></td>
+<td><code>rt</code></td>
+<td><code>busB = R[rt]</code></td>
+</tr>
+<tr>
+<td><code>Rw</code></td>
+<td><code>rd</code></td>
+<td>等一下寫回的目的暫存器</td>
+</tr>
+</tbody>
+</table>
+<p>這裡你前面已經抓得很準：<code>rs/rt/rd</code> 不是資料本身，是 register number(暫存器編號)。真正的資料是 Register File 讀出來後放在 <code>busA</code> 和 <code>busB</code> 上。</p>
+<hr />
+<h3 id="4-第三段execute執行-alu-加法">4. 第三段：Execute(執行 ALU 加法)<a class="headerlink" href="#4-第三段execute執行-alu-加法" title="Permanent link"></a></h3>
+<p><code>addu</code> 的兩個 ALU 輸入都來自暫存器：</p>
+<table>
+<thead>
+<tr>
+<th>ALU 輸入</th>
+<th>對 <code>addu</code> 來說是什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一個輸入</td>
+<td><code>busA = R[rs]</code></td>
+</tr>
+<tr>
+<td>第二個輸入</td>
+<td><code>busB = R[rt]</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>ALUSrc = 0</code>，因為第二個 ALU input(輸入) 要選 <code>busB</code>，不是 immediate(立即數)。</p>
+<p>ALU 要做加法，所以 <code>ALUCtr = ADD</code>。講義 PDF viewer page 38~39 的 datapath 標出 <code>ALUSrc=0</code>、<code>RegDst=1</code>、<code>RegWr=1</code>、<code>ALUCtr="ADD"</code>、<code>MemtoReg=0</code>、<code>MemWr=0</code>、<code>nPC_sel="+4"</code>。 </p>
+<hr />
+<h3 id="5-第四段write-back寫回">5. 第四段：Write-back(寫回)<a class="headerlink" href="#5-第四段write-back寫回" title="Permanent link"></a></h3>
+<p><code>addu</code> 的 ALU result(運算結果) 要寫回 Register File。</p>
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th style="text-align: right;">值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>目的暫存器選 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>ALU 第二個輸入選 <code>busB = R[rt]</code></td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td style="text-align: right;"><code>ADD</code></td>
+<td>做加法</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>寫回資料來自 ALU result，不是 Data Memory</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>要寫回暫存器</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>不寫 Data Memory</td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>不使用 immediate，所以不重要</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td style="text-align: right;"><code>+4</code></td>
+<td>下一條指令循序執行</td>
+</tr>
+</tbody>
+</table>
+<p>最重要的對照是：</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>是什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Rw</code></td>
+<td>要寫入哪一個暫存器的編號，對 <code>addu</code> 是 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>busW</code></td>
+<td>要寫進暫存器的資料，對 <code>addu</code> 是 ALU result</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td>是否真的允許寫入 Register File</td>
+</tr>
+</tbody>
+</table>
+<p>所以對 <code>addu</code> 來說：</p>
+<p><code>Rw = rd</code><br />
+<code>busW = R[rs] + R[rt]</code><br />
+<code>RegWr = 1</code></p>
+<p>這跟你前面釐清 <code>lw/sw</code> 時的觀念一致：<code>Rw</code> 是「位置編號」，<code>busW</code> 是「資料內容」。</p>
+<hr />
+<h3 id="6-用一個完整例子跑一次">6. 用一個完整例子跑一次<a class="headerlink" href="#6-用一個完整例子跑一次" title="Permanent link"></a></h3>
+<p>假設：</p>
+<table>
+<thead>
+<tr>
+<th>欄位／資料</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指令</td>
+<td style="text-align: right;"><code>addu $t2, $t0, $t1</code></td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td style="text-align: right;"><code>$t2 = 10</code></td>
+</tr>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;"><code>$t0 = 8</code></td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;"><code>$t1 = 9</code></td>
+</tr>
+<tr>
+<td><code>R[$t0]</code></td>
+<td style="text-align: right;"><code>0x00000005</code></td>
+</tr>
+<tr>
+<td><code>R[$t1]</code></td>
+<td style="text-align: right;"><code>0x00000007</code></td>
+</tr>
+<tr>
+<td><code>PC</code></td>
+<td style="text-align: right;"><code>0x00400020</code></td>
+</tr>
+</tbody>
+</table>
+<p>流程如下：</p>
+<table>
+<thead>
+<tr>
+<th>步驟</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ra = rs</code></td>
+<td><code>Ra = 8</code></td>
+</tr>
+<tr>
+<td><code>Rb = rt</code></td>
+<td><code>Rb = 9</code></td>
+</tr>
+<tr>
+<td><code>busA = R[rs]</code></td>
+<td><code>busA = 0x00000005</code></td>
+</tr>
+<tr>
+<td><code>busB = R[rt]</code></td>
+<td><code>busB = 0x00000007</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc = 0</code></td>
+<td>ALU 第二輸入選 <code>busB</code></td>
+</tr>
+<tr>
+<td><code>ALUCtr = ADD</code></td>
+<td>ALU 做加法</td>
+</tr>
+<tr>
+<td><code>ALU result</code></td>
+<td><code>0x0000000C</code></td>
+</tr>
+<tr>
+<td><code>RegDst = 1</code></td>
+<td><code>Rw = rd = 10</code></td>
+</tr>
+<tr>
+<td><code>MemtoReg = 0</code></td>
+<td><code>busW = ALU result = 0x0000000C</code></td>
+</tr>
+<tr>
+<td><code>RegWr = 1</code></td>
+<td>寫入 <code>$t2</code></td>
+</tr>
+<tr>
+<td><code>PC</code> 更新</td>
+<td><code>0x00400024</code></td>
+</tr>
+</tbody>
+</table>
+<p>最後結果：</p>
+<p><code>R[$t2] = 0x0000000C</code></p>
+<hr />
+<h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
+<p><code>addu</code> 的最短記法：</p>
+<p><code>rs, rt</code> 是來源。<br />
+<code>rd</code> 是目的地。<br />
+<code>busA = R[rs]</code>。<br />
+<code>busB = R[rt]</code>。<br />
+<code>ALU result = busA + busB</code>。<br />
+<code>Rw = rd</code>。<br />
+<code>busW = ALU result</code>。<br />
+<code>RegWr = 1</code>。<br />
+<code>MemWr = 0</code>。</p>
+<hr />
+<h3 id="8-常見錯法">8. 常見錯法<a class="headerlink" href="#8-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯法</th>
+<th>為什麼錯</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>說 <code>rt</code> 是目的地</td>
+<td>對 <code>addu</code> 錯；<code>addu</code> 是 R 型，目的地是 <code>rd</code></td>
+</tr>
+<tr>
+<td>說 ALU result 進 Data Memory</td>
+<td>對 <code>addu</code> 錯；ALU result 直接走回 <code>busW</code></td>
+</tr>
+<tr>
+<td>說 <code>MemtoReg = 1</code></td>
+<td>錯；<code>addu</code> 寫回的是 ALU result，不是 memory output</td>
+</tr>
+<tr>
+<td>說 <code>MemWr = 1</code></td>
+<td>錯；<code>addu</code> 不寫 Data Memory</td>
+</tr>
+<tr>
+<td>把 <code>Rw</code> 當資料</td>
+<td>錯；<code>Rw</code> 是要寫入的暫存器編號</td>
+</tr>
+<tr>
+<td>把 <code>busW</code> 當暫存器編號</td>
+<td>錯；<code>busW</code> 是要寫回的資料</td>
+</tr>
+</tbody>
+</table>
+<h2 id="i-type-instruction-與指令分類--為什麼-orilwswbeq-都是-i-型但用途不同">⭐I-type instruction 與指令分類 — 為什麼 <code>ori/lw/sw/beq</code> 都是 I 型但用途不同？<a class="headerlink" href="#i-type-instruction-與指令分類--為什麼-orilwswbeq-都是-i-型但用途不同" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 41 ~ PDF viewer page 43</p>
+<h3 id="1-這一段在解決什麼問題_4">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題_4" title="Permanent link"></a></h3>
+<p>前面我們學 <code>addu rd, rs, rt</code>，它是 R-type instruction(R 型指令)，三個 operand(運算元) 都跟 register(暫存器) 有關：</p>
+<p><code>addu rd, rs, rt</code></p>
+<p>但有些指令需要直接在指令裡放一個數字，例如：</p>
+<p><code>ori rt, rs, imm16</code></p>
+<p>這個 <code>imm16</code> 就是 immediate(立即數)，也就是「直接寫在指令裡的 16-bit 數字」。</p>
+<p>所以 I-type instruction(Immediate-type instruction，立即數型指令) 要解決的問題是：</p>
+<p>「如果指令需要一個直接寫在 instruction word(指令字) 裡的數字，32-bit 指令格式要怎麼切欄位？」</p>
+<hr />
+<h3 id="2-i-型指令格式怎麼切">2. I 型指令格式怎麼切？<a class="headerlink" href="#2-i-型指令格式怎麼切" title="Permanent link"></a></h3>
+<p>I-type instruction 的 32-bit 格式是：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th style="text-align: right;">bit 範圍</th>
+<th style="text-align: right;">長度</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opcode</code></td>
+<td style="text-align: right;"><code>[31:26]</code></td>
+<td style="text-align: right;">6-bit</td>
+<td>決定是哪一類主要指令</td>
+</tr>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;"><code>[25:21]</code></td>
+<td style="text-align: right;">5-bit</td>
+<td>source register(來源暫存器) 編號</td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;"><code>[20:16]</code></td>
+<td style="text-align: right;">5-bit</td>
+<td>target register(目標暫存器) 編號；實際角色依指令而定</td>
+</tr>
+<tr>
+<td><code>immediate</code></td>
+<td style="text-align: right;"><code>[15:0]</code></td>
+<td style="text-align: right;">16-bit</td>
+<td>immediate(立即數)</td>
+</tr>
+</tbody>
+</table>
+<p>最重要的是：I 型沒有 <code>rd</code> 欄位。</p>
+<p>所以像 <code>ori</code> 和 <code>lw</code> 要寫回暫存器時，目的地通常會用 <code>rt</code>，不是 <code>rd</code>。</p>
+<p>但不要背成「I 型的 <code>rt</code> 永遠是目的地」。這句會害你在 <code>sw</code> 出錯。</p>
+<hr />
+<h3 id="3-rt-的角色要看指令不是只看-i-型格式">3. <code>rt</code> 的角色要看指令，不是只看 I 型格式<a class="headerlink" href="#3-rt-的角色要看指令不是只看-i-型格式" title="Permanent link"></a></h3>
+<p>同樣都是 I-type instruction，<code>rt</code> 可能扮演不同角色：</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th><code>rt</code> 的角色</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ori rt, rs, imm16</code></td>
+<td>destination register(目的暫存器)</td>
+<td>ALU result(ALU 結果) 要寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>lw rt, imm16(rs)</code></td>
+<td>destination register(目的暫存器)</td>
+<td>從 memory(記憶體) 讀出的資料要寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>sw rt, imm16(rs)</code></td>
+<td>source register(來源暫存器)</td>
+<td>要把 <code>R[rt]</code> 的資料寫到 memory(記憶體)</td>
+</tr>
+<tr>
+<td><code>beq rs, rt, imm16</code></td>
+<td>comparison source(比較來源)</td>
+<td>要比較 <code>R[rs]</code> 和 <code>R[rt]</code> 是否相等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以我們要分清楚兩層：</p>
+<p>「欄位名稱」是 instruction format(指令格式) 的固定切法。<br />
+「實際用途」是 instruction semantics(指令語意) 決定的。</p>
+<hr />
+<h3 id="4-pdf-viewer-page-4243-的真正重點分類有兩個維度">4. PDF viewer page 42~43 的真正重點：分類有兩個維度<a class="headerlink" href="#4-pdf-viewer-page-4243-的真正重點分類有兩個維度" title="Permanent link"></a></h3>
+<p>這裡很容易誤會，以為「R 型 = 運算」、「I 型 = 存取」、「J 型 = 分支」。這樣不對。</p>
+<p>講義這裡其實在提醒：指令可以用不同維度分類。</p>
+<pre class="diagram"><code>flowchart TB
+    A["MIPS 指令分類"] --&gt; B["依格式分類&lt;br&gt;看 32-bit 指令欄位怎麼切"]
+    A --&gt; C["依功能分類&lt;br&gt;看這條指令要做什麼"]
+
+    B --&gt; B1["R 型&lt;br&gt;例如 addu、subu"]
+    B --&gt; B2["I 型&lt;br&gt;例如 ori、lw、sw、beq"]
+    B --&gt; B3["J 型&lt;br&gt;跳躍類格式"]
+
+    C --&gt; C1["運算指令&lt;br&gt;例如 addu、subu、ori"]
+    C --&gt; C2["存取指令&lt;br&gt;例如 lw、sw"]
+    C --&gt; C3["分支指令&lt;br&gt;例如 beq"]</code></pre>
+<p>最關鍵的例子是 <code>ori</code>：</p>
+<p><code>ori</code> 是 I 型，因為它有 <code>imm16</code>。<br />
+但 <code>ori</code> 也是運算指令，因為它做 OR 運算。</p>
+<p>所以「格式分類」和「功能分類」不是同一件事。</p>
+<hr />
+<h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
+<p><code>R-type</code>：通常用 <code>rs</code>、<code>rt</code> 當來源，<code>rd</code> 當目的地。<br />
+<code>I-type</code>：有 <code>rs</code>、<code>rt</code>、<code>imm16</code>，沒有 <code>rd</code>。<br />
+<code>rt</code> 在 I 型裡不一定是目的地，要看指令語意。<br />
+<code>ori/lw/sw/beq</code> 都是 I 型，但功能不同。<br />
+<code>ori</code> 是 I 型運算指令。<br />
+<code>lw/sw</code> 是 I 型存取指令。<br />
+<code>beq</code> 是 I 型分支指令。</p>
+<hr />
+<h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I 型一定是存取指令</td>
+<td>錯，<code>ori</code> 和 <code>beq</code> 也是 I 型</td>
+</tr>
+<tr>
+<td>運算指令一定是 R 型</td>
+<td>錯，<code>ori</code> 是 I 型運算指令</td>
+</tr>
+<tr>
+<td>I 型的 <code>rt</code> 永遠是目的地</td>
+<td>錯，<code>sw</code> 的 <code>rt</code> 是資料來源，<code>beq</code> 的 <code>rt</code> 是比較來源</td>
+</tr>
+<tr>
+<td>I 型有 <code>rd</code></td>
+<td>錯，I 型欄位是 <code>opcode/rs/rt/immediate</code></td>
+</tr>
+<tr>
+<td><code>imm16</code> 要自己去暫存器讀</td>
+<td>錯，<code>imm16</code> 是 instruction word 裡直接帶的數字</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ori-指令操作步驟--imm16-如何進-alu結果如何寫回-rt">⭐<code>ori</code> 指令操作步驟 — <code>imm16</code> 如何進 ALU，結果如何寫回 <code>rt</code>？<a class="headerlink" href="#ori-指令操作步驟--imm16-如何進-alu結果如何寫回-rt" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 44 ~ 47</p>
+<h3 id="1-ori-在解決什麼問題">1. <code>ori</code> 在解決什麼問題？<a class="headerlink" href="#1-ori-在解決什麼問題" title="Permanent link"></a></h3>
+<p><code>ori rt, rs, imm16</code></p>
+<p>這條指令要做的是：</p>
+<p><code>R[rt] = R[rs] | ZeroExt(imm16)</code></p>
+<p>白話說：</p>
+<p>從 <code>rs</code> 指定的暫存器拿出一個 32-bit 資料，<br />
+再把指令裡的 <code>imm16</code> 用 zero extension(零延伸) 變成 32-bit，<br />
+接著用 ALU 做 OR，<br />
+最後把結果寫回 <code>rt</code> 指定的暫存器。</p>
+<hr />
+<h3 id="2-為什麼-ori-要用-zeroext">2. 為什麼 <code>ori</code> 要用 <code>ZeroExt</code>？<a class="headerlink" href="#2-為什麼-ori-要用-zeroext" title="Permanent link"></a></h3>
+<p>因為 <code>ori</code> 是 bitwise OR(位元 OR) 指令，它把 <code>imm16</code> 當成 bit pattern(位元樣式)，不是當成有號數值。</p>
+<p>所以 <code>imm16 = 0x00FF</code> 時：</p>
+<p><code>ZeroExt(0x00FF) = 0x000000FF</code></p>
+<p>不是：</p>
+<p><code>SignExt(0x00FF)</code></p>
+<p>更重要的是，如果 <code>imm16 = 0xFFFF</code>：</p>
+<p><code>ZeroExt(0xFFFF) = 0x0000FFFF</code></p>
+<p>不是：</p>
+<p><code>SignExt(0xFFFF) = 0xFFFFFFFF</code></p>
+<p>這就是 <code>ori</code> 和 <code>lw/sw/beq</code> 常見差異之一：<br />
+<code>ori</code> 用 zero extension；<code>lw/sw/beq</code> 的 offset 通常用 sign extension(符號延伸)。</p>
+<hr />
+<h3 id="3-ori-的-datapath-流程">3. <code>ori</code> 的 datapath 流程<a class="headerlink" href="#3-ori-的-datapath-流程" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart LR
+    A["PC 提供位址"] --&gt; B["Instruction Memory&lt;br&gt;取出 instruction"]
+    B --&gt; C["取出 rs、rt、imm16 欄位"]
+
+    C --&gt; D["Register File&lt;br&gt;用 rs 讀出 R[rs] 到 busA"]
+    C --&gt; E["Extender&lt;br&gt;ZeroExt(imm16)"]
+
+    D --&gt; F["ALU 第一個輸入：busA"]
+    E --&gt; G["ALUSrc=1&lt;br&gt;選 ZeroExt(imm16)"]
+    G --&gt; H["ALU 第二個輸入"]
+
+    F --&gt; I["ALU 做 OR"]
+    H --&gt; I
+
+    I --&gt; J["ALU result"]
+    J --&gt; K["MemtoReg=0&lt;br&gt;選 ALU result"]
+    K --&gt; L["busW"]
+    L --&gt; M["Register File&lt;br&gt;RegDst=0 選 rt 作為 Rw&lt;br&gt;RegWr=1 寫回 R[rt]"]
+
+    A --&gt; N["PC + 4"]
+    N --&gt; O["nPC_sel=+4&lt;br&gt;下一條指令"]</code></pre>
+<p>這張圖要你抓住三個 mux 選擇：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th>選什麼</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst = 0</code></td>
+<td>選 <code>rt</code> 當 <code>Rw</code></td>
+<td><code>ori</code> 寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc = 1</code></td>
+<td>選 extended immediate</td>
+<td>第二個 ALU 輸入不是 <code>busB</code></td>
+</tr>
+<tr>
+<td><code>MemtoReg = 0</code></td>
+<td>選 <code>ALU result</code></td>
+<td><code>ori</code> 不讀 Data Memory</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-ori-的完整-control-signals">4. <code>ori</code> 的完整 control signals<a class="headerlink" href="#4-ori-的完整-control-signals" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th style="text-align: right;">值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td style="text-align: right;">0</td>
+<td>I 型沒有 <code>rd</code> 作為目的地，<code>ori</code> 寫回 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td style="text-align: right;">1</td>
+<td>ALU 第二個輸入選 <code>ZeroExt(imm16)</code></td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td style="text-align: right;">zero</td>
+<td><code>ori</code> 用 zero extension</td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td style="text-align: right;">OR</td>
+<td>ALU 執行 OR 運算</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td style="text-align: right;">0</td>
+<td>寫回資料來自 ALU result，不是 Data Memory</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;">1</td>
+<td>要寫回暫存器 <code>R[rt]</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;">0</td>
+<td>不寫 Data Memory</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td style="text-align: right;">+4</td>
+<td>非 branch/jump，下一個 PC 是 <code>PC + 4</code></td>
+</tr>
+</tbody>
+</table>
+<p>注意：<code>ori</code> 雖然有 <code>rt</code>，但 <code>rt</code> 在這裡是 destination register，不是 ALU 的第二個資料來源。<br />
+ALU 的兩個輸入是：</p>
+<p><code>busA = R[rs]</code><br />
+第二輸入 = <code>ZeroExt(imm16)</code></p>
+<hr />
+<h3 id="5-小例子">5. 小例子<a class="headerlink" href="#5-小例子" title="Permanent link"></a></h3>
+<p>假設：</p>
+<p><code>ori $t0, $t1, 0x00FF</code></p>
+<p>並且：</p>
+<p><code>R[$t1] = 0x12345600</code></p>
+<p>那麼：</p>
+<p><code>ZeroExt(0x00FF) = 0x000000FF</code></p>
+<p>ALU 做：</p>
+<p><code>0x12345600 OR 0x000000FF = 0x123456FF</code></p>
+<p>所以最後：</p>
+<p><code>R[$t0] = 0x123456FF</code></p>
+<p>這裡 <code>$t0</code> 是 <code>rt</code>，也就是寫回目的地。</p>
+<hr />
+<h3 id="6-常見錯法_1">6. 常見錯法<a class="headerlink" href="#6-常見錯法_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ori</code> 的第二個 ALU 輸入是 <code>R[rt]</code></td>
+<td>錯，第二個輸入是 <code>ZeroExt(imm16)</code></td>
+</tr>
+<tr>
+<td><code>rt</code> 一定是來源</td>
+<td>錯，在 <code>ori</code> 裡 <code>rt</code> 是目的地</td>
+</tr>
+<tr>
+<td><code>ori</code> 使用 sign extension</td>
+<td>錯，<code>ori</code> 使用 zero extension</td>
+</tr>
+<tr>
+<td><code>ori</code> 會讀 Data Memory</td>
+<td>錯，<code>ori</code> 不使用 Data Memory</td>
+</tr>
+<tr>
+<td><code>MemtoReg=1</code></td>
+<td>錯，<code>ori</code> 要寫回 ALU result，所以 <code>MemtoReg=0</code></td>
+</tr>
+<tr>
+<td><code>RegDst=1</code></td>
+<td>錯，<code>ori</code> 沒有用 <code>rd</code> 當目的地，所以 <code>RegDst=0</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="beq-branch-instruction--cpu-怎麼知道下一個-pc-要走-pc4-還是分支目標">⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？<a class="headerlink" href="#beq-branch-instruction--cpu-怎麼知道下一個-pc-要走-pc4-還是分支目標" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 56 ~ 71</p>
+<h3 id="1-beq-在解決什麼問題">1. <code>beq</code> 在解決什麼問題？<a class="headerlink" href="#1-beq-在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面 <code>addu</code>、<code>subu</code>、<code>ori</code>、<code>lw</code>、<code>sw</code> 大多是「做完這條，下一條照順序執行」，所以 <code>PC ← PC + 4</code> 就好。</p>
+<p>但 <code>beq rs, rt, imm16</code> 是 branch instruction(分支指令)，它要處理的是：</p>
+<p>「如果 <code>R[rs]</code> 和 <code>R[rt]</code> 相等，就不要照順序走，而是跳到 branch target address(分支目標位址)。」</p>
+<p>講義寫的語意是：</p>
+<p><code>beq rs, rt, imm16</code><br />
+如果 <code>R[rs] - R[rt] == 0</code>，代表兩者相等，就走分支；否則走 <code>PC + 4</code>。講義也列出 <code>then PC = PC + 4 + SignExt[imm16] * 4; else PC = PC + 4</code>。</p>
+<p>外部課程資料也用同樣的 PC-relative branch(PC 相對分支)概念：分支目標以目前指令後面的 <code>PC + 4</code> 為基準，再加上 immediate offset 乘以 4。([cs.nthu.edu.tw][1])</p>
+<hr />
+<h3 id="2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等">2. <code>beq</code> 的 ALU 不是拿來產生資料，而是拿來比較是否相等<a class="headerlink" href="#2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等" title="Permanent link"></a></h3>
+<p><code>beq</code> 會讀兩個暫存器：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rs</code></td>
+<td>第一個 comparison source(比較來源)</td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td>第二個 comparison source(比較來源)</td>
+</tr>
+</tbody>
+</table>
+<p>資料路徑是：</p>
+<table>
+<thead>
+<tr>
+<th>訊號</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>busA</code></td>
+<td><code>R[rs]</code></td>
+</tr>
+<tr>
+<td><code>busB</code></td>
+<td><code>R[rt]</code></td>
+</tr>
+<tr>
+<td><code>ALU operation</code></td>
+<td><code>SUB</code>，做 <code>R[rs] - R[rt]</code></td>
+</tr>
+<tr>
+<td><code>zero</code></td>
+<td>如果 ALU result 是 0，<code>zero = 1</code>；否則 <code>zero = 0</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>beq</code> 的 ALU result 本身通常不是重點，重點是 ALU 額外輸出的 <code>zero</code> signal(零訊號)。講義說 ALU 增加一個功能：判斷目前運算結果是否為 0；如果結果為 0，<code>zero</code> 置為 1，否則置為 0。</p>
+<p>生活化講法：<br />
+<code>beq</code> 像是問「這兩張學生證是不是同一個人？」<br />
+ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
+<hr />
+<h3 id="3-beq-的-pc-更新有兩層判斷">3. <code>beq</code> 的 PC 更新有兩層判斷<a class="headerlink" href="#3-beq-的-pc-更新有兩層判斷" title="Permanent link"></a></h3>
+<p><code>beq</code> 的下一個 PC 不是只看 <code>zero</code>，而是看兩件事：</p>
+<table>
+<thead>
+<tr>
+<th>條件</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nPC_sel = 1</code></td>
+<td>目前這條指令是 branch 類型，PC 有可能改走 target</td>
+</tr>
+<tr>
+<td><code>zero = 1</code></td>
+<td><code>R[rs] == R[rt]</code>，分支條件成立</td>
+</tr>
+</tbody>
+</table>
+<p>所以真正選 branch target 的條件是：</p>
+<p><code>nPC_sel == 1</code> 且 <code>zero == 1</code></p>
+<p>講義 PDF viewer page 70 的表格是：</p>
+<table>
+<thead>
+<tr>
+<th><code>nPC_sel</code></th>
+<th style="text-align: right;"><code>zero</code></th>
+<th>下一個 PC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td><code>PC + 4</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td><code>PC + 4</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td><code>TargetAddress</code></td>
+</tr>
+</tbody>
+</table>
+<p>這裡要特別注意：如果某段文字看起來寫成 <code>zero == 0</code> 時走 branch target，那會和 <code>beq</code> 的操作步驟及 page 70 表格衝突；本輪以 page 66 的操作步驟與 page 70 的表格為準。</p>
+<hr />
+<h3 id="4-branch-target-address-怎麼算">4. Branch target address 怎麼算？<a class="headerlink" href="#4-branch-target-address-怎麼算" title="Permanent link"></a></h3>
+<p><code>beq</code> 的目標位址不是直接等於 <code>imm16</code>，而是：</p>
+<p><code>TargetAddress = PC + 4 + SignExt(imm16) * 4</code></p>
+<p>也可以寫成：</p>
+<p><code>TargetAddress = PC + 4 + (SignExt(imm16) &lt;&lt; 2)</code></p>
+<p>為什麼要 <code>* 4</code>？因為 MIPS 一條 instruction(指令) 是 4 bytes，所以 <code>imm16</code> 表示的是「相對幾條指令」，換成 byte address(位元組位址) 時要乘以 4。講義也說分支目標位址由兩部分組成：一部分是 <code>PC + 4</code>，另一部分是把 <code>imm16</code> 做 sign extension(符號延伸) 後再乘以 4。</p>
+<p>例子：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PC</code></td>
+<td style="text-align: right;"><code>0x00400020</code></td>
+</tr>
+<tr>
+<td><code>PC + 4</code></td>
+<td style="text-align: right;"><code>0x00400024</code></td>
+</tr>
+<tr>
+<td><code>imm16</code></td>
+<td style="text-align: right;"><code>3</code></td>
+</tr>
+<tr>
+<td><code>SignExt(imm16) * 4</code></td>
+<td style="text-align: right;"><code>12 = 0x0000000C</code></td>
+</tr>
+<tr>
+<td><code>TargetAddress</code></td>
+<td style="text-align: right;"><code>0x00400030</code></td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>beq</code> 若成立，下一個 PC 會變成 <code>0x00400030</code>；若不成立，下一個 PC 會是 <code>0x00400024</code>。</p>
+<hr />
+<h3 id="5-beq-的控制訊號">5. <code>beq</code> 的控制訊號<a class="headerlink" href="#5-beq-的控制訊號" title="Permanent link"></a></h3>
+<p>講義控制表列出 <code>beq</code> 的控制訊號如下：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th style="text-align: right;"><code>beq</code> 的值</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>不寫回暫存器，所以選 <code>rt</code> 或 <code>rd</code> 都不重要</td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>第二個 ALU input 要用 <code>busB = R[rt]</code>，不是 immediate</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>不寫回暫存器，所以 busW 來源不重要</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>不寫入暫存器</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td>不寫入 Data Memory</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td>這是 branch 指令，PC 可能選 branch target</td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td style="text-align: right;"><code>x</code></td>
+<td>控制表標 <code>x</code>，因為主要 ALU 第二輸入不用 immediate；但 branch target 計算本身仍需要 <code>SignExt(imm16)</code></td>
+</tr>
+<tr>
+<td><code>ALUctr&lt;1:0&gt;</code></td>
+<td style="text-align: right;"><code>01(SUB)</code></td>
+<td>用減法判斷 <code>R[rs] - R[rt]</code> 是否為 0</td>
+</tr>
+</tbody>
+</table>
+<p>最容易錯的是 <code>ALUSrc</code>：<br />
+<code>beq</code> 雖然是 I-type instruction(I 型指令)，有 <code>imm16</code>，但 ALU 比較兩個暫存器時，第二個 ALU input 仍然是 <code>R[rt]</code>，所以 <code>ALUSrc = 0</code>。</p>
+<hr />
+<h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
+<p><code>beq</code> 的核心不是「寫資料」，而是「決定下一個 PC」。</p>
+<p>最短流程：</p>
+<ol>
+<li>讀 <code>R[rs]</code> 到 <code>busA</code>，讀 <code>R[rt]</code> 到 <code>busB</code>。</li>
+<li>ALU 做 <code>busA - busB</code>。</li>
+<li>若結果為 0，<code>zero = 1</code>。</li>
+<li>若 <code>nPC_sel = 1</code> 且 <code>zero = 1</code>，PC 選 <code>TargetAddress</code>。</li>
+<li>否則 PC 選 <code>PC + 4</code>。</li>
+</ol>
+<p>最短控制訊號：</p>
+<p><code>RegDst = x, ALUSrc = 0, MemtoReg = x, RegWr = 0, MemWr = 0, nPC_sel = 1, ExtOp = x, ALUctr = SUB</code></p>
+<h3 id="npc_sel-為何叫做-npc_sel">nPC_sel 為何叫做 nPC_sel<a class="headerlink" href="#npc_sel-為何叫做-npc_sel" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>可能原意</th>
+<th>中文意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nPC</code></td>
+<td><code>next PC</code> 或 <code>new PC</code></td>
+<td>下一個要寫回 PC 的值</td>
+</tr>
+<tr>
+<td><code>sel</code></td>
+<td><code>select</code></td>
+<td>選擇訊號，通常是 mux(多工器) 的選擇端</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aluctr-sub-是-01那其他的呢">ALUctr sub 是 01，那其他的呢？<a class="headerlink" href="#aluctr-sub-是-01那其他的呢" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>可以大概記一下：</p>
+<p>add 是 00(ADD)、sub 是 01(SUB)、ori 是 10(OR)、lw/sw 都是 00(ADD)、beq 是 01(SUB)。</p>
+</div>
+<h3 id="為何-beq-的-memtoreg--x">為何 <code>beq</code> 的 <code>MemtoReg = x</code>？<a class="headerlink" href="#為何-beq-的-memtoreg--x" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><img alt="alt text" src="images/ch%204-3.png" /><br />
+因為 RegWr = 0 ， 所以選 MemtoReg 完全沒有意義，MemtoReg = 0 時是把 AUL result 作為 busW，MemtoReg = 0 時是把 Data Memory out 作為 busW，但是用不到 busW，所以 MemtoReg = x (don't care)。</p>
+</div>
+<h3 id="在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎">在 IFU 中，為何是 mux 前就 +4，為何不 mux 之後+4？這樣不是可以省一個 ALU 嗎？<a class="headerlink" href="#在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎" title="Permanent link"></a></h3>
+<p>因為 MUX 兩個候選位都會用到 PC+4 ，所以先算完之後比較省。流程如下：</p>
+<pre class="diagram"><code>flowchart LR
+    PC[PC&lt;br&gt;目前指令位址] --&gt; A[Adder&lt;br&gt;先算 PC + 4]
+    A --&gt; MUX[mux&lt;br&gt;選下一個 PC]
+    A --&gt; B[Adder&lt;br&gt;算 branch target&lt;br&gt;PC + 4 + offset]
+    IMM[SignExt imm16 &lt;&lt; 2&lt;br&gt;分支 offset] --&gt; B
+    B --&gt; MUX
+    MUX --&gt; NPC[更新 PC]</code></pre>
+<h2 id="控制訊號小整理">⭐控制訊號小整理<a class="headerlink" href="#控制訊號小整理" title="Permanent link"></a></h2>
+<p><img alt="alt text" src="images/ch%204-4.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>以下整理所有的訊號用途。</p>
+</div>
+<h3 id="1-先給你總覽這張圖分成-5-類">1. 先給你總覽：這張圖分成 5 類<a class="headerlink" href="#1-先給你總覽這張圖分成-5-類" title="Permanent link"></a></h3>
+<p>這張 datapath(資料通路) 裡的名稱不要混在一起看，最好分成：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>例子</th>
+<th>本質</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control signal(控制訊號)</td>
+<td><code>RegDst</code>、<code>RegWr</code>、<code>ALUSrc</code>、<code>MemtoReg</code></td>
+<td>控制某個硬體元件要不要動、或 mux 要選哪一路</td>
+</tr>
+<tr>
+<td>Status signal(狀態訊號)</td>
+<td><code>zero</code></td>
+<td>ALU 回報比較結果給 IFU / branch decision 用</td>
+</tr>
+<tr>
+<td>Register number route(暫存器編號路線)</td>
+<td><code>rs</code>、<code>rt</code>、<code>rd</code>、<code>Ra</code>、<code>Rb</code>、<code>Rw</code></td>
+<td>5-bit 編號，不是資料本身</td>
+</tr>
+<tr>
+<td>Data bus(資料匯流排)</td>
+<td><code>busA</code>、<code>busB</code>、<code>busW</code>、ALU result</td>
+<td>32-bit 資料本身或記憶體位址</td>
+</tr>
+<tr>
+<td>Instruction field route(指令欄位路線)</td>
+<td><code>Instruction&lt;31:0&gt;</code>、<code>imm16</code></td>
+<td>從 instruction word(指令位元) 拆出來的欄位</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-control-signal控制訊號">2. Control signal(控制訊號)<a class="headerlink" href="#2-control-signal控制訊號" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>控制哪裡</th>
+<th>作用</th>
+<th><code>0</code> 通常代表</th>
+<th><code>1</code> 通常代表</th>
+<th>常見用在哪些指令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td>左上方選 <code>rt</code> 或 <code>rd</code> 的 mux</td>
+<td>決定 Register File 的 <code>Rw</code> 要用哪個 destination register(目的暫存器編號)</td>
+<td>選 <code>rt</code></td>
+<td>選 <code>rd</code></td>
+<td><code>0</code>：<code>ori</code>、<code>lw</code>；<code>1</code>：R-type 如 <code>addu</code>、<code>subu</code></td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td>Register File</td>
+<td>決定這條指令是否要寫回暫存器</td>
+<td>不寫 register</td>
+<td>寫 register</td>
+<td><code>1</code>：<code>addu</code>、<code>subu</code>、<code>ori</code>、<code>lw</code>；<code>0</code>：<code>sw</code>、<code>beq</code></td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td>Extender</td>
+<td>決定 <code>imm16</code> 要怎麼延伸成 32-bit</td>
+<td>zero extension(零延伸)</td>
+<td>sign extension(符號延伸)</td>
+<td><code>ori</code> 用 zero extension；<code>lw</code>、<code>sw</code>、<code>beq</code> 常用 sign extension</td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td>ALU 第二個輸入前的 mux</td>
+<td>決定 ALU 第二個 input 來自 <code>busB</code> 還是 extended immediate</td>
+<td>選 <code>busB</code></td>
+<td>選 <code>Extender</code> 輸出</td>
+<td><code>0</code>：R-type、<code>beq</code>；<code>1</code>：<code>ori</code>、<code>lw</code>、<code>sw</code></td>
+</tr>
+<tr>
+<td><code>ALUCtr</code></td>
+<td>ALU</td>
+<td>決定 ALU 要做什麼運算</td>
+<td>不是單純 0/1，而是多 bit 編碼</td>
+<td>不是單純 0/1，而是多 bit 編碼</td>
+<td><code>ADD</code>：<code>addu</code>、<code>lw</code>、<code>sw</code>；<code>SUB</code>：<code>subu</code>、<code>beq</code>；<code>OR</code>：<code>ori</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td>Data Memory 的 <code>WrEn</code> (Enable)</td>
+<td>決定是否把資料寫入 Data Memory</td>
+<td>不寫 Data Memory</td>
+<td>寫 Data Memory</td>
+<td><code>1</code>：<code>sw</code>；其他多數是 <code>0</code></td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td>右方寫回 mux</td>
+<td>決定 <code>busW</code> 來自 ALU result 還是 Data Memory output</td>
+<td>選 ALU result</td>
+<td>選 Data Memory output</td>
+<td><code>0</code>：R-type、<code>ori</code>；<code>1</code>：<code>lw</code></td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td>IFU / next PC selection</td>
+<td>控制 next PC 的選擇邏輯，尤其是 branch 類指令</td>
+<td>一般順序執行 <code>PC + 4</code></td>
+<td>啟用 branch / next PC 選擇</td>
+<td><code>beq</code> 會啟用；是否真的跳通常還要看 <code>zero</code></td>
+</tr>
+</tbody>
+</table>
+<p>補一句很重要的：<code>nPC_sel = 1</code> 不一定代表「一定跳」。在 <code>beq</code> 裡，它通常代表「這是 branch 類指令，允許 IFU 根據 <code>zero</code> 判斷要不要跳」。真正是否跳到 target address，要看 <code>zero</code>。</p>
+<hr />
+<h3 id="3-status-signal狀態訊號">3. Status signal(狀態訊號)<a class="headerlink" href="#3-status-signal狀態訊號" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>來源</th>
+<th>送到哪裡</th>
+<th>作用</th>
+<th>常見情境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zero</code></td>
+<td>ALU</td>
+<td>IFU / next PC decision</td>
+<td>表示 ALU result 是否為 0</td>
+<td><code>beq</code> 用 ALU 做 <code>R[rs] - R[rt]</code>，若結果是 0，代表兩者相等</td>
+</tr>
+<tr>
+<td><code>clk</code></td>
+<td>clock(時脈)</td>
+<td>IFU、RegFile、Data Memory</td>
+<td>控制哪些元件在 clock edge(時脈邊緣)更新狀態</td>
+<td>PC 更新、暫存器寫入、記憶體寫入</td>
+</tr>
+</tbody>
+</table>
+<p><code>zero</code> 不是 control signal(控制訊號)，它比較像 ALU 回報出來的 condition/status(條件狀態)。<br />
+例如 <code>beq</code>：ALU 做減法，若 <code>busA - busB = 0</code>，<code>zero = 1</code>，才代表 branch condition 成立。</p>
+<hr />
+<h3 id="4-register-number-route暫存器編號路線5-bit">4. Register number route(暫存器編號路線，5-bit)<a class="headerlink" href="#4-register-number-route暫存器編號路線5-bit" title="Permanent link"></a></h3>
+<p>這一類最容易和資料搞混。它們都是 5-bit register number(暫存器編號)，不是暫存器裡面的 32-bit 內容。</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th style="text-align: right;">bit 寬度</th>
+<th>來源</th>
+<th>送到哪裡</th>
+<th>用途</th>
+<th>重點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rs</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>Instruction&lt;25:21&gt;</code></td>
+<td>Register File 的 <code>Ra</code></td>
+<td>指定第一個要讀的 register</td>
+<td><code>rs</code> 是編號，不是資料</td>
+</tr>
+<tr>
+<td><code>rt</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>Instruction&lt;20:16&gt;</code></td>
+<td>Register File 的 <code>Rb</code>，也可經 mux 到 <code>Rw</code></td>
+<td>可當第二個 source register，也可當 I-type destination register</td>
+<td><code>lw</code> / <code>ori</code> 的目的地是 <code>rt</code></td>
+</tr>
+<tr>
+<td><code>rd</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>Instruction&lt;15:11&gt;</code></td>
+<td>經 <code>RegDst</code> mux 到 <code>Rw</code></td>
+<td>R-type 的 destination register</td>
+<td><code>addu</code>、<code>subu</code> 寫 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>Ra</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>rs</code></td>
+<td>Register File 讀取 port A</td>
+<td>告訴 RegFile 要讀哪個 register 到 <code>busA</code></td>
+<td><code>Ra = rs</code></td>
+</tr>
+<tr>
+<td><code>Rb</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>rt</code></td>
+<td>Register File 讀取 port B</td>
+<td>告訴 RegFile 要讀哪個 register 到 <code>busB</code></td>
+<td><code>Rb = rt</code></td>
+</tr>
+<tr>
+<td><code>Rw</code></td>
+<td style="text-align: right;">5-bit</td>
+<td><code>RegDst</code> mux 輸出</td>
+<td>Register File write register input</td>
+<td>告訴 RegFile 要把 <code>busW</code> 寫到哪個 register</td>
+<td><code>Rw</code> 是目的暫存器編號，不是資料</td>
+</tr>
+</tbody>
+</table>
+<p>最重要一句：<code>Rw</code> 決定「寫去哪個暫存器」，<code>busW</code> 決定「寫進去的 32-bit 資料是什麼」。</p>
+<hr />
+<h3 id="5-data-bus--data-route資料匯流排與資料路線通常-32-bit">5. Data bus / data route(資料匯流排與資料路線，通常 32-bit)<a class="headerlink" href="#5-data-bus--data-route資料匯流排與資料路線通常-32-bit" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th style="text-align: right;">bit 寬度</th>
+<th>來源</th>
+<th>送到哪裡</th>
+<th>用途</th>
+<th>常見例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>busA</code></td>
+<td style="text-align: right;">32-bit</td>
+<td>Register File 讀出 <code>R[rs]</code></td>
+<td>ALU 第一個 input</td>
+<td>ALU 的第一個運算資料</td>
+<td><code>lw</code>：base address；<code>addu</code>：第一個加數；<code>beq</code>：第一個比較值</td>
+</tr>
+<tr>
+<td><code>busB</code></td>
+<td style="text-align: right;">32-bit</td>
+<td>Register File 讀出 <code>R[rt]</code></td>
+<td>ALU 第二輸入 mux、Data Memory <code>Data In</code></td>
+<td>可當 ALU 第二個資料，也可當 <code>sw</code> 要寫入 memory 的資料</td>
+<td><code>addu</code> 用它運算；<code>sw</code> 用它寫 memory</td>
+</tr>
+<tr>
+<td><code>busW</code></td>
+<td style="text-align: right;">32-bit</td>
+<td><code>MemtoReg</code> mux 輸出</td>
+<td>Register File write data input</td>
+<td>真正要寫回 register 的資料</td>
+<td><code>lw</code>：memory output；<code>addu</code>：ALU result</td>
+</tr>
+<tr>
+<td><code>imm16</code></td>
+<td style="text-align: right;">16-bit</td>
+<td><code>Instruction&lt;15:0&gt;</code></td>
+<td>Extender</td>
+<td>I-type immediate / offset</td>
+<td><code>ori</code>、<code>lw</code>、<code>sw</code>、<code>beq</code> 都會用</td>
+</tr>
+<tr>
+<td>Extended immediate</td>
+<td style="text-align: right;">32-bit</td>
+<td>Extender 輸出</td>
+<td>ALU 第二輸入 mux</td>
+<td>把 <code>imm16</code> 延伸成 ALU 可用的 32-bit 資料</td>
+<td><code>ori</code>：zero-extended imm；<code>lw/sw</code>：sign-extended offset</td>
+</tr>
+<tr>
+<td>ALU input A</td>
+<td style="text-align: right;">32-bit</td>
+<td><code>busA</code></td>
+<td>ALU</td>
+<td>ALU 第一輸入</td>
+<td>固定來自 <code>R[rs]</code></td>
+</tr>
+<tr>
+<td>ALU input B</td>
+<td style="text-align: right;">32-bit</td>
+<td><code>ALUSrc</code> mux 輸出</td>
+<td>ALU</td>
+<td>ALU 第二輸入</td>
+<td>可能是 <code>busB</code> 或 extended immediate</td>
+</tr>
+<tr>
+<td>ALU result</td>
+<td style="text-align: right;">32-bit</td>
+<td>ALU</td>
+<td>Data Memory <code>Adr</code>、<code>MemtoReg</code> mux</td>
+<td>運算結果；對 <code>lw/sw</code> 是 effective address(有效位址)，對 R-type / <code>ori</code> 是要寫回的結果</td>
+<td><code>lw</code>：address；<code>addu</code>：加法結果</td>
+</tr>
+<tr>
+<td>Data Memory <code>Adr</code></td>
+<td style="text-align: right;">32-bit</td>
+<td>ALU result</td>
+<td>Data Memory address input</td>
+<td>指定要讀/寫 Data Memory 的哪個位址</td>
+<td><code>lw/sw</code> 都用 ALU result 當地址</td>
+</tr>
+<tr>
+<td>Data Memory <code>Data In</code></td>
+<td style="text-align: right;">32-bit</td>
+<td><code>busB</code></td>
+<td>Data Memory write data input</td>
+<td><code>sw</code> 要寫進 memory 的資料</td>
+<td><code>sw rt, imm(rs)</code> 會把 <code>R[rt]</code> 送到這裡</td>
+</tr>
+<tr>
+<td>Data Memory output</td>
+<td style="text-align: right;">32-bit</td>
+<td>Data Memory</td>
+<td><code>MemtoReg</code> mux</td>
+<td><code>lw</code> 從 memory 讀出的資料</td>
+<td><code>lw</code> 會把它送到 <code>busW</code></td>
+</tr>
+<tr>
+<td>Instruction&lt;31:0&gt;</td>
+<td style="text-align: right;">32-bit</td>
+<td>IFU</td>
+<td>指令欄位拆解線</td>
+<td>目前 fetch 到的整條指令</td>
+<td>再拆成 <code>rs</code>、<code>rt</code>、<code>rd</code>、<code>imm16</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="6-mux多工器整理">6. MUX(多工器)整理<a class="headerlink" href="#6-mux多工器整理" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>MUX 位置</th>
+<th>控制訊號</th>
+<th>輸入 0</th>
+<th>輸入 1</th>
+<th>輸出到哪裡</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左上 <code>Rw</code> 前的 mux</td>
+<td><code>RegDst</code></td>
+<td><code>rt</code></td>
+<td><code>rd</code></td>
+<td>Register File 的 <code>Rw</code></td>
+<td>選目的暫存器</td>
+</tr>
+<tr>
+<td>ALU 第二輸入前的 mux</td>
+<td><code>ALUSrc</code></td>
+<td><code>busB</code></td>
+<td>Extended immediate</td>
+<td>ALU input B</td>
+<td>選 ALU 第二個資料來源</td>
+</tr>
+<tr>
+<td>右方寫回 mux</td>
+<td><code>MemtoReg</code></td>
+<td>ALU result</td>
+<td>Data Memory output</td>
+<td><code>busW</code></td>
+<td>選寫回 register 的資料來源</td>
+</tr>
+</tbody>
+</table>
+<p>最短判斷法：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>看哪個 mux / signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>要寫到 <code>rt</code> 還是 <code>rd</code>？</td>
+<td>看 <code>RegDst</code></td>
+</tr>
+<tr>
+<td>ALU 第二個 input 是 register 還是 immediate？</td>
+<td>看 <code>ALUSrc</code></td>
+</tr>
+<tr>
+<td>寫回 register 的資料來自 ALU 還是 memory？</td>
+<td>看 <code>MemtoReg</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="7-functional-unit功能元件">7. Functional unit(功能元件)<a class="headerlink" href="#7-functional-unit功能元件" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>輸入</th>
+<th>輸出</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IFU</td>
+<td><code>clk</code>、<code>nPC_sel</code>、<code>zero</code>，以及內部 PC</td>
+<td><code>Instruction&lt;31:0&gt;</code></td>
+<td>取指令、更新 next PC</td>
+</tr>
+<tr>
+<td>RegFile</td>
+<td><code>Ra</code>、<code>Rb</code>、<code>Rw</code>、<code>busW</code>、<code>RegWr</code>、<code>clk</code></td>
+<td><code>busA</code>、<code>busB</code></td>
+<td>讀兩個 register，必要時寫回一個 register</td>
+</tr>
+<tr>
+<td>Extender</td>
+<td><code>imm16</code>、<code>ExtOp</code></td>
+<td>32-bit extended immediate</td>
+<td>把 16-bit immediate 延伸成 32-bit</td>
+</tr>
+<tr>
+<td>ALU</td>
+<td><code>busA</code>、ALU input B、<code>ALUCtr</code></td>
+<td>ALU result、<code>zero</code></td>
+<td>做加法、減法、OR、比較等運算</td>
+</tr>
+<tr>
+<td>Data Memory</td>
+<td><code>Adr</code>、<code>Data In</code>、<code>MemWr</code>、<code>clk</code></td>
+<td>Data Memory output</td>
+<td><code>lw</code> 讀資料，<code>sw</code> 寫資料</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="8-依指令看路線最容易記的版本">8. 依指令看路線：最容易記的版本<a class="headerlink" href="#8-依指令看路線最容易記的版本" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>主要資料流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-type <code>addu/subu rd, rs, rt</code></td>
+<td><code>rs → Ra → busA → ALU</code>，<code>rt → Rb → busB → ALU</code>，ALU result → <code>busW</code> → <code>rd</code></td>
+</tr>
+<tr>
+<td><code>ori rt, rs, imm16</code></td>
+<td><code>rs → busA</code>，<code>imm16 → ZeroExt → ALU</code>，ALU result → <code>busW</code> → <code>rt</code></td>
+</tr>
+<tr>
+<td><code>lw rt, imm16(rs)</code></td>
+<td><code>rs → busA</code>，<code>imm16 → SignExt → ALU</code> 算 effective address，Data Memory output → <code>busW</code> → <code>rt</code></td>
+</tr>
+<tr>
+<td><code>sw rt, imm16(rs)</code></td>
+<td><code>rs → busA</code>，<code>imm16 → SignExt → ALU</code> 算 effective address，<code>rt → busB → Data In</code> 寫入 memory</td>
+</tr>
+<tr>
+<td><code>beq rs, rt, imm16</code></td>
+<td><code>rs → busA</code>，<code>rt → busB</code>，ALU 做 SUB，<code>zero</code> 回報是否相等，IFU 決定 next PC</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="9-最容易混淆的對照表">9. 最容易混淆的對照表<a class="headerlink" href="#9-最容易混淆的對照表" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>容易混的兩個東西</th>
+<th>差異</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rt</code> vs <code>R[rt]</code></td>
+<td><code>rt</code> 是 5-bit 編號；<code>R[rt]</code> 是該暫存器裡的 32-bit 資料</td>
+</tr>
+<tr>
+<td><code>Rw</code> vs <code>busW</code></td>
+<td><code>Rw</code> 是要寫入哪個 register；<code>busW</code> 是要寫入的資料</td>
+</tr>
+<tr>
+<td><code>busB</code> vs <code>Data In</code></td>
+<td><code>busB</code> 是 RegFile 讀出的 <code>R[rt]</code>；在 <code>sw</code> 時它會送到 Data Memory 的 <code>Data In</code></td>
+</tr>
+<tr>
+<td>ALU result in <code>lw/sw</code> vs ALU result in R-type</td>
+<td><code>lw/sw</code> 的 ALU result 是 memory address；R-type 的 ALU result 是計算結果</td>
+</tr>
+<tr>
+<td><code>MemWr</code> vs <code>RegWr</code></td>
+<td><code>MemWr</code> 寫 Data Memory；<code>RegWr</code> 寫 Register File</td>
+</tr>
+<tr>
+<td><code>RegDst</code> vs <code>MemtoReg</code></td>
+<td><code>RegDst</code> 選寫到哪個 register；<code>MemtoReg</code> 選寫回 register 的資料來源</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code> vs <code>zero</code></td>
+<td><code>nPC_sel</code> 表示 branch 類 next PC 控制；<code>zero</code> 表示 ALU 比較結果是否為 0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="control-logic控制邏輯--cpu-如何從指令-bits-自動產生控制訊號">⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？<a class="headerlink" href="#control-logic控制邏輯--cpu-如何從指令-bits-自動產生控制訊號" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 75 ~ 82</p>
+<h3 id="1-這個知識點在解決什麼問題">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面我們已經一條一條看過：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>需要哪些控制訊號</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addu</code> / <code>subu</code></td>
+<td>寫 <code>rd</code>、ALU 用 <code>busB</code>、寫回 ALU result</td>
+</tr>
+<tr>
+<td><code>ori</code></td>
+<td>寫 <code>rt</code>、ALU 用 immediate、zero extension</td>
+</tr>
+<tr>
+<td><code>lw</code></td>
+<td>寫 <code>rt</code>、ALU 算地址、從 memory 寫回 register</td>
+</tr>
+<tr>
+<td><code>sw</code></td>
+<td>ALU 算地址、把 <code>rt</code> 內容寫進 memory</td>
+</tr>
+<tr>
+<td><code>beq</code></td>
+<td>ALU 做比較、依 <code>zero</code> 決定 next PC</td>
+</tr>
+</tbody>
+</table>
+<p>但 CPU 不可能靠人工說：「現在這條是 <code>lw</code>，請把 <code>RegWr</code> 打開。」<br />
+CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode</code> 和 <code>funct</code>。</p>
+<p>所以本輪核心問題是：</p>
+<p>CPU 要如何根據 <code>opcode</code> / <code>funct</code>，自動產生 <code>RegDst</code>、<code>ALUSrc</code>、<code>MemtoReg</code>、<code>RegWr</code>、<code>MemWr</code>、<code>nPC_sel</code>、<code>ExtOp</code>、<code>ALUctr</code>？</p>
+<p>講義把這一步稱為把 control signals(控制訊號) 集成成完整 control logic(控制邏輯)。</p>
+<hr />
+<h3 id="2-第一層先判斷目前是哪一種指令">2. 第一層：先判斷目前是哪一種指令<a class="headerlink" href="#2-第一層先判斷目前是哪一種指令" title="Permanent link"></a></h3>
+<p>控制邏輯第一步不是直接算 <code>RegWr</code>，而是先根據 <code>opcode</code> / <code>funct</code> 判斷：</p>
+<table>
+<thead>
+<tr>
+<th>指令種類</th>
+<th>判斷來源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code> / <code>sub</code></td>
+<td><code>opcode = 000000</code>，再看 <code>funct</code></td>
+</tr>
+<tr>
+<td><code>ori</code> / <code>lw</code> / <code>sw</code> / <code>beq</code></td>
+<td>直接看 <code>opcode</code></td>
+</tr>
+</tbody>
+</table>
+<p>講義列出的重點是：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th style="text-align: right;"><code>opcode</code></th>
+<th style="text-align: right;"><code>funct</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td style="text-align: right;"><code>000000</code></td>
+<td style="text-align: right;"><code>100000</code></td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td style="text-align: right;"><code>000000</code></td>
+<td style="text-align: right;"><code>100010</code></td>
+</tr>
+<tr>
+<td><code>ori</code></td>
+<td style="text-align: right;"><code>001101</code></td>
+<td style="text-align: right;">不用</td>
+</tr>
+<tr>
+<td><code>lw</code></td>
+<td style="text-align: right;"><code>100011</code></td>
+<td style="text-align: right;">不用</td>
+</tr>
+<tr>
+<td><code>sw</code></td>
+<td style="text-align: right;"><code>101011</code></td>
+<td style="text-align: right;">不用</td>
+</tr>
+<tr>
+<td><code>beq</code></td>
+<td style="text-align: right;"><code>000100</code></td>
+<td style="text-align: right;">不用</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>R-type</code> 指令要多看 <code>funct</code>，但 I-type 指令大多只靠 <code>opcode</code> 就可以辨識。</p>
+<hr />
+<h3 id="3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式">3. 第二層：把「哪條指令會讓控制訊號等於 1」寫成邏輯式<a class="headerlink" href="#3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式" title="Permanent link"></a></h3>
+<p>講義的控制表已經告訴我們每條指令的控制訊號值，例如 <code>lw</code> 會讓 <code>MemtoReg = 1</code>，<code>sw</code> 會讓 <code>MemWr = 1</code>，<code>beq</code> 會讓 <code>nPC_sel = 1</code>。</p>
+<p>接著把表格轉成 boolean equation(布林邏輯式)：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th>邏輯式</th>
+<th>直覺意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td><code>add + sub</code></td>
+<td>只有 R-type 算術結果寫到 <code>rd</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td><code>ori + lw + sw</code></td>
+<td>這三個需要 immediate 當 ALU 第二輸入</td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td><code>lw</code></td>
+<td>只有 <code>lw</code> 需要 memory output 寫回暫存器</td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td><code>add + sub + ori + lw</code></td>
+<td>這四個會寫 register</td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td><code>sw</code></td>
+<td>只有 <code>sw</code> 會寫 Data Memory</td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td><code>beq</code></td>
+<td>只有 branch 可能改變 next PC</td>
+</tr>
+<tr>
+<td><code>ExtOp</code></td>
+<td><code>lw + sw</code></td>
+<td>講義表格中 <code>lw</code> / <code>sw</code> 需要 sign extension</td>
+</tr>
+<tr>
+<td><code>ALUctr[0]</code></td>
+<td><code>sub + beq</code></td>
+<td><code>sub</code> 與 <code>beq</code> 都需要 ALU 做 SUB</td>
+</tr>
+<tr>
+<td><code>ALUctr[1]</code></td>
+<td><code>or</code></td>
+<td><code>ori</code> 需要 OR 運算</td>
+</tr>
+</tbody>
+</table>
+<p>這裡的 <code>+</code> 不是加法，而是 OR(或閘)。<br />
+例如：</p>
+<p><code>RegWr = add + sub + ori + lw</code></p>
+<p>意思是：只要現在指令是 <code>add</code>、<code>sub</code>、<code>ori</code>、<code>lw</code> 任一種，<code>RegWr</code> 就要等於 1。講義也列出同樣的控制器邏輯運算式。</p>
+<hr />
+<h3 id="4-第三層把指令名稱本身也變成邏輯式">4. 第三層：把指令名稱本身也變成邏輯式<a class="headerlink" href="#4-第三層把指令名稱本身也變成邏輯式" title="Permanent link"></a></h3>
+<p>像 <code>lw</code>、<code>sw</code>、<code>beq</code> 不是 CPU 腦中真正存在的中文或英文單字。<br />
+硬體真正看到的是 bit pattern(位元樣式)。</p>
+<p>例如 <code>beq</code> 的 <code>opcode = 000100</code>。</p>
+<p>如果把 <code>opcode</code> 依序寫成：</p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>op5</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>op4</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>op3</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>op2</code></td>
+<td style="text-align: right;"><code>1</code></td>
+</tr>
+<tr>
+<td><code>op1</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td><code>op0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>那 <code>beq</code> 這個偵測條件可以寫成：</p>
+<p><code>beq = ~op5 · ~op4 · ~op3 · op2 · ~op1 · ~op0</code></p>
+<p>這裡：</p>
+<table>
+<thead>
+<tr>
+<th>符號</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~</code></td>
+<td>NOT(反相)</td>
+</tr>
+<tr>
+<td><code>·</code></td>
+<td>AND(及閘)</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>OR(或閘)</td>
+</tr>
+</tbody>
+</table>
+<p>所以控制器實際上是兩層：</p>
+<ol>
+<li>用 AND / NOT 偵測「目前是哪條指令」。</li>
+<li>用 OR 把「哪些指令需要某控制訊號」合併起來。</li>
+</ol>
+<p>講義在 PDF viewer page 80 ~ 81 正是在做這件事：先寫出 <code>add</code>、<code>sub</code>、<code>rtype</code>、<code>ori</code>、<code>lw</code>、<code>sw</code>、<code>beq</code> 的偵測式，再寫出 <code>RegDst</code>、<code>ALUSrc</code>、<code>MemtoReg</code> 等控制訊號的總邏輯式。</p>
+<hr />
+<h3 id="5-生活化例子控制器像分類後自動開關">5. 生活化例子：控制器像「分類後自動開關」<a class="headerlink" href="#5-生活化例子控制器像分類後自動開關" title="Permanent link"></a></h3>
+<p>你可以把 CPU 控制器想成捷運站閘門：</p>
+<ol>
+<li>先掃票卡，判斷你是哪種乘客：普通票、學生票、敬老票。</li>
+<li>再根據乘客類型，自動開不同通道或套用不同規則。</li>
+</ol>
+<p>CPU 也是：</p>
+<ol>
+<li>先掃 <code>opcode</code> / <code>funct</code>，判斷現在是 <code>lw</code>、<code>sw</code>、<code>beq</code>、<code>ori</code>、<code>add</code>、<code>sub</code>。</li>
+<li>再根據指令類型，自動打開需要的控制訊號。</li>
+</ol>
+<p>所以控制邏輯不是新資料路徑，而是「讓前面那些 mux、RegFile、Memory、ALU 自動選對路」。</p>
+<hr />
+<h3 id="6-最短記法_2">6. 最短記法<a class="headerlink" href="#6-最短記法_2" title="Permanent link"></a></h3>
+<p>控制邏輯的最短理解：</p>
+<p>先偵測 instruction type(指令種類)，再用 OR gate(或閘) 合成控制訊號。</p>
+<p>最重要的邏輯式先背這組：</p>
+<table>
+<thead>
+<tr>
+<th>控制訊號</th>
+<th>最短記法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegDst</code></td>
+<td>R-type arithmetic：<code>add + sub</code></td>
+</tr>
+<tr>
+<td><code>ALUSrc</code></td>
+<td>有 ALU immediate 或 address offset：<code>ori + lw + sw</code></td>
+</tr>
+<tr>
+<td><code>MemtoReg</code></td>
+<td>只有 <code>lw</code></td>
+</tr>
+<tr>
+<td><code>RegWr</code></td>
+<td>會寫 register：<code>add + sub + ori + lw</code></td>
+</tr>
+<tr>
+<td><code>MemWr</code></td>
+<td>只有 <code>sw</code></td>
+</tr>
+<tr>
+<td><code>nPC_sel</code></td>
+<td>只有 <code>beq</code></td>
+</tr>
+<tr>
+<td><code>ALUctr[0]</code></td>
+<td>做 SUB：<code>sub + beq</code></td>
+</tr>
+<tr>
+<td><code>ALUctr[1]</code></td>
+<td>做 OR：<code>ori</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><img alt="alt text" src="images/ch%204-5.png" /></p>
+<p><img alt="alt text" src="images/ch%204-6.png" /></p>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Control_Logic</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="n">func</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">RegDst</span><span class="p">,</span><span class="w"> </span><span class="n">ALUSrc</span><span class="p">,</span><span class="w"> </span><span class="n">MemtoReg</span><span class="p">,</span><span class="w"> </span><span class="n">RegWr</span><span class="p">,</span><span class="w"> </span><span class="n">MemWr</span><span class="p">,</span><span class="w"> </span><span class="n">nPC_sel</span><span class="p">,</span><span class="w"> </span><span class="n">ExtOp</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ALUctr</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="n">rtype</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">ori</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">,</span><span class="w"> </span><span class="n">beq</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">level_one</span><span class="w"> </span><span class="n">g1</span><span class="w"> </span><span class="p">(</span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="n">func</span><span class="p">,</span><span class="w"> </span><span class="n">rtype</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">ori</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">,</span><span class="w"> </span><span class="n">beq</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">level_two</span><span class="w"> </span><span class="n">g2</span><span class="w"> </span><span class="p">(</span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">ori</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">,</span><span class="w"> </span><span class="n">beq</span><span class="p">,</span><span class="w"> </span><span class="n">RegDst</span><span class="p">,</span><span class="w"> </span><span class="n">ALUSrc</span><span class="p">,</span><span class="w"> </span><span class="n">MemtoReg</span><span class="p">,</span><span class="w"> </span><span class="n">RegWr</span><span class="p">,</span><span class="w"> </span><span class="n">MemWr</span><span class="p">,</span><span class="w"> </span><span class="n">nPC_sel</span><span class="p">,</span><span class="w"> </span><span class="n">ExtOp</span><span class="p">,</span><span class="w"> </span><span class="n">ALUctr</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+
+
+<span class="k">module</span><span class="w"> </span><span class="n">level_one</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="n">func</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">rtype</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">ori</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">,</span><span class="w"> </span><span class="n">beq</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="n">op5</span><span class="p">,</span><span class="w"> </span><span class="n">op4</span><span class="p">,</span><span class="w"> </span><span class="n">op3</span><span class="p">,</span><span class="w"> </span><span class="n">op2</span><span class="p">,</span><span class="w"> </span><span class="n">op1</span><span class="p">,</span><span class="w"> </span><span class="n">op0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="n">func5</span><span class="p">,</span><span class="w"> </span><span class="n">func4</span><span class="p">,</span><span class="w"> </span><span class="n">func3</span><span class="p">,</span><span class="w"> </span><span class="n">func2</span><span class="p">,</span><span class="w"> </span><span class="n">func1</span><span class="p">,</span><span class="w"> </span><span class="n">func0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">op5</span><span class="p">,</span><span class="w"> </span><span class="n">op4</span><span class="p">,</span><span class="w"> </span><span class="n">op3</span><span class="p">,</span><span class="w"> </span><span class="n">op2</span><span class="p">,</span><span class="w"> </span><span class="n">op1</span><span class="p">,</span><span class="w"> </span><span class="n">op0</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opcode</span><span class="p">;</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="p">{</span><span class="n">func5</span><span class="p">,</span><span class="w"> </span><span class="n">func4</span><span class="p">,</span><span class="w"> </span><span class="n">func3</span><span class="p">,</span><span class="w"> </span><span class="n">func2</span><span class="p">,</span><span class="w"> </span><span class="n">func1</span><span class="p">,</span><span class="w"> </span><span class="n">func0</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">func</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// rtype = ~op5 · ~op4 · ~op3 · ~op2 · ~op1 · ~op0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">rtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// add = rtype · func5 · ~func4 · ~func3 · ~func2 · ~func1 · ~func0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rtype</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">func5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// sub = rtype · func5 · ~func4 · ~func3 · ~func2 · func1 · ~func0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rtype</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">func5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">func1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">func0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// ori = ~op5 · ~op4 · op3 · op2 · ~op1 · op0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ori</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// lw = op5 · ~op4 · ~op3 · ~op2 · op1 · op0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">lw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// sw = op5 · ~op4 · op3 · ~op2 · op1 · op0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op3</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// beq = ~op5 · ~op4 · ~op3 · op2 · ~op1 · ~op0</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">beq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">op2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">op0</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+
+
+<span class="k">module</span><span class="w"> </span><span class="n">level_two</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="n">ori</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">,</span><span class="w"> </span><span class="n">beq</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">RegDst</span><span class="p">,</span><span class="w"> </span><span class="n">ALUSrc</span><span class="p">,</span><span class="w"> </span><span class="n">MemtoReg</span><span class="p">,</span><span class="w"> </span><span class="n">RegWr</span><span class="p">,</span><span class="w"> </span><span class="n">MemWr</span><span class="p">,</span><span class="w"> </span><span class="n">nPC_sel</span><span class="p">,</span><span class="w"> </span><span class="n">ExtOp</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ALUctr</span>
+<span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// RegDst = add + sub</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">RegDst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sub</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ALUSrc = ori + lw + sw</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ALUSrc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ori</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">lw</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// MemtoReg = lw</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">MemtoReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lw</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// RegWr = add + sub + ori + lw</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">RegWr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ori</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">lw</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// MemWr = sw</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">MemWr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// nPC_sel = beq</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">nPC_sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beq</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ExtOp = lw + sw</span>
+<span class="w">    </span><span class="c1">// 依照講義控制表，beq 的 ExtOp 是 x，所以這裡不放 beq</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ExtOp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lw</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ALUctr[0] = sub + beq</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ALUctr</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">beq</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ALUctr[1] = ori</span>
+<span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">ALUctr</span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ori</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="code-footer"><label class="expand icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">expand</span></label><label class="collapse icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">collapse</span></label></div>
+</div>
+</div>
+<h3 id="addsuborilwswbeq-是實際上只有這些還是因為這些較常見所以用這些舉例">"add/sub/ori/lw/sw/beq" 是實際上只有這些，還是因為這些較常見所以用這些舉例<a class="headerlink" href="#addsuborilwswbeq-是實際上只有這些還是因為這些較常見所以用這些舉例" title="Permanent link"></a></h3>
+<p>不是實際 MIPS 只有 <code>add/sub/ori/lw/sw/beq</code>。</p>
+<p>在<strong>這份講義目前這個單週期 datapath(資料通路)／control logic(控制邏輯)範圍內</strong>，老師只拿這幾個指令當作一個「最小教學子集合」來實作控制器。講義前面先列出本章要分析的指令需求，包括 <code>addu/subu/ori/lw/sw/beq</code>，後面控制表則用 <code>add/sub/ori/lw/sw/beq</code> 來列控制訊號與 Boolean equation(布林式)。</p>
+<p>實際 MIPS ISA(Instruction Set Architecture，指令集架構)有很多更多指令，例如 <code>addi</code>、<code>andi</code>、<code>slt</code>、<code>j</code>、<code>jal</code>、<code>jr</code>、<code>bne</code>、<code>lb</code>、<code>sb</code>、<code>lui</code> 等；Waterloo 的 MIPS encoding reference 也明確說 opcode/funct 表列的是多個可用 operations(操作)，不只這六個。</p>
 
 
 
