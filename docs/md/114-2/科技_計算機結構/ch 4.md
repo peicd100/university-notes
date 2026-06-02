@@ -785,3 +785,1269 @@ flowchart LR
 一句話記：
 
 `lw` 用 ALU 算 address，用 Data Memory 讀 data，再把 data 寫回 `rt`。
+
+
+## ⭐`sw` Datapath — `sw` 為什麼是「把 rt 的資料寫進記憶體」？
+
+講義位置：PDF viewer page 54 ~ PDF viewer page 55／輔助：Chapter 4 — The Processor — 54 ~ 55
+
+### 1. `sw rt, imm16(rs)` 真正在做什麼？
+
+`sw rt, imm16(rs)` 的意思是：
+
+`DataMemory{R[rs] + SignExt[imm16]} = R[rt]`
+
+也就是：
+
+先用 `R[rs] + SignExt[imm16]` 算出一個 effective address(有效位址)，再把 `R[rt]` 的資料寫進 Data Memory(資料記憶體) 的那個位置。講義在 `sw` 操作步驟中就是這樣寫的：`DataMemory{R[rs]+SignExt[imm16]}=R[rt]`。
+
+外部 MIPS32 指令手冊也用同樣概念描述 load/store 位址計算：16-bit signed offset 會加到 base register 內容上形成 effective address；所以這裡的 `imm16` 是 signed byte offset(有號位元組偏移量)，不是 word index(字索引)。([康奈爾大學計算機科學系][1])
+
+---
+
+### 2. `sw` 的資料流：誰提供 address？誰提供 data？
+
+`sw` 有兩條重要資料線：
+
+| 目的               | 來源                         | 到哪裡                                    |
+| ---------------- | -------------------------- | -------------------------------------- |
+| 算 memory address | `R[rs]` 與 `SignExt[imm16]` | ALU result → Data Memory 的 Address/Adr |
+| 要被寫進 memory 的資料  | `R[rt]`                    | busB → Data Memory 的 Data In           |
+
+所以 `rt` 在 `sw` 裡不是 destination register(目的暫存器)，而是 source register(資料來源暫存器)。
+
+這和 `lw` 剛好相反：
+
+| 指令                 | `rt` 的角色                   |
+| ------------------ | -------------------------- |
+| `lw rt, imm16(rs)` | `rt` 是被寫入的暫存器              |
+| `sw rt, imm16(rs)` | `rt` 是要拿出資料、寫進 memory 的暫存器 |
+
+---
+
+### 3. `sw` 的控制信號為什麼是這樣？
+
+講義頁面直接標出 `sw` 的控制信號：`RegDst=x`、`RegWr=0`、`ALUCtr=ADD`、`MemtoReg=x`、`MemWr=1`、`ExtOp=sign`、`ALUSrc=1`、`nPC_sel=+4`。
+
+| Control signal(控制信號) | `sw` 的值 | 原因                                     |
+| -------------------- | ------: | -------------------------------------- |
+| `RegDst`             |     `x` | 不寫回暫存器，所以不用選 `rt` 或 `rd`               |
+| `RegWr`              |     `0` | `sw` 不會寫入 Register File(暫存器堆)          |
+| `ALUSrc`             |     `1` | ALU 第二個輸入要選 `SignExt[imm16]`           |
+| `ExtOp`              |  `sign` | `imm16` 是有號偏移量，需要 sign extension(符號擴展) |
+| `ALUCtr`             |   `ADD` | ALU 要算 `R[rs] + SignExt[imm16]`        |
+| `MemWr`              |     `1` | 要把資料寫進 Data Memory                     |
+| `MemtoReg`           |     `x` | 不寫回暫存器，所以 busW 來源不重要                   |
+| `nPC_sel`            |    `+4` | `sw` 不是 branch，下一條指令照順序執行              |
+
+`x` 的意思是 don’t care(不重要)，不是 `0`，也不是 `1`。因為這條控制線後面的結果根本不會被用到。
+
+---
+
+### 4. 用一個例子走一次
+
+假設：
+
+| 項目       |                 值 |
+| -------- | ----------------: |
+| 指令       | `sw $t0, 12($sp)` |
+| `R[$sp]` |      `0x10010000` |
+| `R[$t0]` |      `0xDEADBEEF` |
+| `imm16`  |              `12` |
+
+流程是：
+
+1. `rs = $sp`，所以 `busA = R[$sp] = 0x10010000`
+2. `rt = $t0`，所以 `busB = R[$t0] = 0xDEADBEEF`
+3. `imm16 = 12`，經過 sign extension 仍是 `12`
+4. ALU 做加法：`0x10010000 + 12 = 0x1001000C`
+5. `ALU result = 0x1001000C` 送到 Data Memory 的 address
+6. `busB = 0xDEADBEEF` 送到 Data Memory 的 Data In
+7. `MemWr = 1`，所以 memory 在該 address 寫入 `0xDEADBEEF`
+8. `RegWr = 0`，所以沒有任何 register 被寫回
+
+也就是：
+
+| 線路／元件                 |            值 |
+| --------------------- | -----------: |
+| `ALU result`          | `0x1001000C` |
+| `Data Memory Address` | `0x1001000C` |
+| `Data Memory Data In` | `0xDEADBEEF` |
+| `busW`                |          不重要 |
+| `Rw`                  |          不重要 |
+| `RegWr`               |          `0` |
+| `MemWr`               |          `1` |
+
+
+!!! danger 
+
+    ### R[$sp]是啥意思
+
+    R[$sp] 的意思是：暫存器 $sp 裡面存的值。
+
+    假設 `lw $t0, 12($sp)`：
+
+    `R[$sp] = 0x10010000`
+
+    那：
+
+    `R[$sp] + 12 = 0x1001000C`
+
+    這個 `0x1001000C` 是 effective address(有效位址)。
+
+    如果是：
+
+    `lw $t0, 12($sp)`
+
+    意思是：
+
+    從 `M[0x1001000C]` 讀資料，放進 `$t0`。
+
+---
+
+### 5. 最容易錯的地方
+
+第一個錯法：把 `ALU result` 當成要存進 register 的資料。
+這是 `lw` 也不對、`sw` 更不對。`ALU result` 在 load/store 裡是 memory address(記憶體位址)，不是資料本身。
+
+第二個錯法：以為 `sw` 會寫回 `rt`。
+`sw` 的 `rt` 是資料來源，不是目的地。`R[rt]` 的內容被拿出來，寫到 memory。
+
+第三個錯法：把 `imm16` 乘以 4。
+`lw/sw` 的 `imm16` 是 byte offset(位元組偏移)，不是第幾個 word。外部社群問答也常見這種 base+offset 尺度混淆；這裡我們以講義與 MIPS 手冊為主：effective address 是 base register 加 signed offset。([康奈爾大學計算機科學系][1])
+
+```mermaid
+flowchart LR
+    A["Register File<br>Ra = rs<br>busA = R[rs]"] --> B["ALU<br>做加法"]
+    C["Extender<br>SignExt(imm16)"] --> B
+    B --> D["Data Memory<br>Address = ALU result"]
+    E["Register File<br>Rb = rt<br>busB = R[rt]"] --> F["Data Memory<br>Data In"]
+    F --> D
+    G["MemWr = 1"] --> D
+    H["RegWr = 0<br>不寫回暫存器"] -.-> I["busW / Rw<br>不重要"]
+```
+
+### 6. 最短記法
+
+`sw` 的一句話版本：
+
+`ALU 算位址，rt 提供資料，Memory 被寫入，Register 不被寫入。`
+
+控制信號一句話版本：
+
+`sw：RegWr=0、MemWr=1、ALUSrc=1、ExtOp=sign、ALUCtr=ADD、RegDst/MemtoReg=x。`
+
+
+
+
+## ⭐控制訊號前的指令格式整理 — 為什麼控制器要先知道指令是哪一型？
+
+講義位置：PDF viewer page 28 ~ PDF viewer page 33／輔助：投影片頁碼 28–33
+
+### 1. Datapath(資料路徑) 接好，不代表 CPU 會自動知道怎麼走
+
+前面我們已經把 `addu/subu/ori/lw/sw` 需要的 datapath 接出來了。可是硬體接好後，還需要有人告訴每個 mux(多工器)、Register File(暫存器堆)、Data Memory(資料記憶體)、ALU(算術邏輯單元)：
+
+這一條指令要不要寫 register？
+ALU 第二個輸入要選 `busB` 還是 `imm16`？
+結果要從 ALU 回寫，還是從 memory 回寫？
+Data Memory 要不要寫入？
+Extender(擴展器) 要做 zero extension(零擴展) 還是 sign extension(符號擴展)？
+
+這些答案就是 control signals(控制訊號)。
+
+講義在 PDF viewer page 28 明確把前面三步打勾：分析需求、選元件、建立 datapath；接著進入第 4 步：分析每條指令的實現，以確定控制訊號。
+
+---
+
+### 2. 為什麼要先看 R 型、I 型、J 型？
+
+因為 control unit(控制器) 不是看組合語言文字，而是看 instruction bits(指令位元)。
+
+例如 CPU 不是真的看到這一行文字：
+
+`sw $t0, 12($sp)`
+
+CPU 看到的是 32-bit instruction word(指令字)。所以控制器要先知道：這 32-bit 裡面哪幾個 bit 是 `opcode`、哪幾個 bit 是 `rs`、哪幾個 bit 是 `rt`、哪幾個 bit 是 `rd` 或 `immediate`。
+
+講義 page 29 說 MIPS 指令主要分為三種：`R(Register) 型`、`I(Immediate) 型`、`J(Jump) 型`。這個分類的目的，就是讓控制器知道欄位要怎麼解讀。
+
+---
+
+### 3. R 型指令的欄位怎麼看？
+
+R 型格式是：
+
+| 欄位      |  位元範圍 | 作用                |
+| ------- | ----: | ----------------- |
+| `op`    | 31–26 | 指令類型；R 型通常是 0     |
+| `rs`    | 25–21 | 第一個來源暫存器          |
+| `rt`    | 20–16 | 第二個來源暫存器          |
+| `rd`    | 15–11 | 目的暫存器             |
+| `shamt` |  10–6 | shift amount(位移量) |
+| `funct` |   5–0 | 精確指定 R 型裡面是哪一種運算  |
+
+重點是：R 型不是只靠 `opcode` 判斷 `add/sub/and/or`，因為很多 R 型指令的 `opcode` 都一樣，所以還要看 `funct` 欄位。
+
+生活化說法：`opcode` 先告訴 CPU「這是一大類 R 型料理」，`funct` 再告訴 CPU「這道菜到底是加法、減法、AND 還是 OR」。
+
+---
+
+### 4. 目前這份講義主線中，哪些指令屬於哪一型？
+
+目前我們正在追的這批指令可以先這樣分：
+
+| 指令                  | 類型  | 為什麼                                         |
+| ------------------- | --- | ------------------------------------------- |
+| `addu rd, rs, rt`   | R 型 | 三個 register 欄位：`rs`、`rt`、`rd`               |
+| `subu rd, rs, rt`   | R 型 | 三個 register 欄位：`rs`、`rt`、`rd`               |
+| `ori rt, rs, imm16` | I 型 | 有 `rs`、`rt`、`imm16`                         |
+| `lw rt, imm16(rs)`  | I 型 | 有 base register `rs`、目的 `rt`、offset `imm16` |
+| `sw rt, imm16(rs)`  | I 型 | 有 base register `rs`、來源 `rt`、offset `imm16` |
+| `beq rs, rt, imm16` | I 型 | 有兩個比較來源 `rs/rt` 和 branch offset `imm16`     |
+
+`J 型`目前只是分類上會提到，還不是我們現在這條 datapath 主線的高優先級重點。
+
+---
+
+### 5. 這一頁真正要建立的觀念
+
+接下來講 control signals 時，不要死背表格。你要先問：
+
+這條指令是哪一型？
+它要讀哪些 register？
+它要不要寫 register？
+它要不要使用 immediate？
+它要不要讀或寫 Data Memory？
+ALU 要做什麼？
+PC 是 `PC + 4` 還是 branch target？
+
+控制訊號表其實就是把這些問題全部變成 `0/1/x`。
+
+
+
+
+## ⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？
+
+講義位置：PDF viewer page 33 ~ PDF viewer page 40
+
+### 1. `addu` 這條指令到底要完成什麼？
+
+`addu rd, rs, rt` 的意思是：
+
+`R[rd] = R[rs] + R[rt]`
+
+也就是：
+
+從 `rs` 指定的暫存器拿資料，從 `rt` 指定的暫存器拿資料，兩個資料進 ALU(Arithmetic Logic Unit，算術邏輯單元) 做加法，結果寫回 `rd` 指定的暫存器。講義在 PDF viewer page 33 明確列出三件事：取指令、執行 `R[rd]=R[rs]+R[rt]`、更新 `PC=PC+4`。
+
+---
+
+### 2. 第一段：Fetch(取指令)
+
+這一步所有指令都會做：
+
+```mermaid
+flowchart LR
+    PC["PC<br>目前指令位址"] --> IM["Instruction Memory<br>依 PC 讀出指令"]
+    IM --> IW["Instruction Word<br>32-bit 指令內容"]
+    PC --> ADD["Adder<br>PC + 4"]
+    ADD --> NPC["下一個 PC 候選值"]
+```
+
+這裡重點不是加法資料運算，而是「拿到這條指令本身」。
+所以此時：
+
+| 訊號／元件                | 做什麼                                           |
+| -------------------- | --------------------------------------------- |
+| `PC`                 | 指向目前要取的 instruction(指令) 位址                    |
+| `Instruction Memory` | 用 `PC` 當 address(位址)，讀出 instruction word(指令字) |
+| `nPC_sel`            | 對 `addu` 來說，選 `PC+4`，因為不是 branch(分支)          |
+
+---
+
+### 3. 第二段：Decode / Register Read(解碼與讀暫存器)
+
+`addu rd, rs, rt` 是 R 型格式：
+
+| 欄位      | 作用                    |
+| ------- | --------------------- |
+| `rs`    | 第一個來源暫存器編號            |
+| `rt`    | 第二個來源暫存器編號            |
+| `rd`    | 目的暫存器編號               |
+| `funct` | 告訴控制器這個 R 型指令實際要做哪種運算 |
+
+Register File(暫存器堆) 的讀法是：
+
+| Register File 輸入 | 接到哪個指令欄位 | 輸出             |
+| ---------------- | -------- | -------------- |
+| `Ra`             | `rs`     | `busA = R[rs]` |
+| `Rb`             | `rt`     | `busB = R[rt]` |
+| `Rw`             | `rd`     | 等一下寫回的目的暫存器    |
+
+這裡你前面已經抓得很準：`rs/rt/rd` 不是資料本身，是 register number(暫存器編號)。真正的資料是 Register File 讀出來後放在 `busA` 和 `busB` 上。
+
+---
+
+### 4. 第三段：Execute(執行 ALU 加法)
+
+`addu` 的兩個 ALU 輸入都來自暫存器：
+
+| ALU 輸入 | 對 `addu` 來說是什麼 |
+| ------ | -------------- |
+| 第一個輸入  | `busA = R[rs]` |
+| 第二個輸入  | `busB = R[rt]` |
+
+所以 `ALUSrc = 0`，因為第二個 ALU input(輸入) 要選 `busB`，不是 immediate(立即數)。
+
+ALU 要做加法，所以 `ALUCtr = ADD`。講義 PDF viewer page 38~39 的 datapath 標出 `ALUSrc=0`、`RegDst=1`、`RegWr=1`、`ALUCtr="ADD"`、`MemtoReg=0`、`MemWr=0`、`nPC_sel="+4"`。 
+
+---
+
+### 5. 第四段：Write-back(寫回)
+
+`addu` 的 ALU result(運算結果) 要寫回 Register File。
+
+所以：
+
+| 控制訊號       |     值 | 原因                               |
+| ---------- | ----: | -------------------------------- |
+| `RegDst`   |   `1` | 目的暫存器選 `rd`                      |
+| `ALUSrc`   |   `0` | ALU 第二個輸入選 `busB = R[rt]`        |
+| `ALUCtr`   | `ADD` | 做加法                              |
+| `MemtoReg` |   `0` | 寫回資料來自 ALU result，不是 Data Memory |
+| `RegWr`    |   `1` | 要寫回暫存器                           |
+| `MemWr`    |   `0` | 不寫 Data Memory                   |
+| `ExtOp`    |   `x` | 不使用 immediate，所以不重要              |
+| `nPC_sel`  |  `+4` | 下一條指令循序執行                        |
+
+最重要的對照是：
+
+| 名稱      | 是什麼                             |
+| ------- | ------------------------------- |
+| `Rw`    | 要寫入哪一個暫存器的編號，對 `addu` 是 `rd`    |
+| `busW`  | 要寫進暫存器的資料，對 `addu` 是 ALU result |
+| `RegWr` | 是否真的允許寫入 Register File          |
+
+所以對 `addu` 來說：
+
+`Rw = rd`
+`busW = R[rs] + R[rt]`
+`RegWr = 1`
+
+這跟你前面釐清 `lw/sw` 時的觀念一致：`Rw` 是「位置編號」，`busW` 是「資料內容」。
+
+---
+
+### 6. 用一個完整例子跑一次
+
+假設：
+
+| 欄位／資料    |                    值 |
+| -------- | -------------------: |
+| 指令       | `addu $t2, $t0, $t1` |
+| `rd`     |           `$t2 = 10` |
+| `rs`     |            `$t0 = 8` |
+| `rt`     |            `$t1 = 9` |
+| `R[$t0]` |         `0x00000005` |
+| `R[$t1]` |         `0x00000007` |
+| `PC`     |         `0x00400020` |
+
+流程如下：
+
+| 步驟             | 結果                               |
+| -------------- | -------------------------------- |
+| `Ra = rs`      | `Ra = 8`                         |
+| `Rb = rt`      | `Rb = 9`                         |
+| `busA = R[rs]` | `busA = 0x00000005`              |
+| `busB = R[rt]` | `busB = 0x00000007`              |
+| `ALUSrc = 0`   | ALU 第二輸入選 `busB`                 |
+| `ALUCtr = ADD` | ALU 做加法                          |
+| `ALU result`   | `0x0000000C`                     |
+| `RegDst = 1`   | `Rw = rd = 10`                   |
+| `MemtoReg = 0` | `busW = ALU result = 0x0000000C` |
+| `RegWr = 1`    | 寫入 `$t2`                         |
+| `PC` 更新        | `0x00400024`                     |
+
+最後結果：
+
+`R[$t2] = 0x0000000C`
+
+---
+
+### 7. 最短記法
+
+`addu` 的最短記法：
+
+`rs, rt` 是來源。
+`rd` 是目的地。
+`busA = R[rs]`。
+`busB = R[rt]`。
+`ALU result = busA + busB`。
+`Rw = rd`。
+`busW = ALU result`。
+`RegWr = 1`。
+`MemWr = 0`。
+
+---
+
+### 8. 常見錯法
+
+| 錯法                         | 為什麼錯                                      |
+| -------------------------- | ----------------------------------------- |
+| 說 `rt` 是目的地                | 對 `addu` 錯；`addu` 是 R 型，目的地是 `rd`         |
+| 說 ALU result 進 Data Memory | 對 `addu` 錯；ALU result 直接走回 `busW`         |
+| 說 `MemtoReg = 1`           | 錯；`addu` 寫回的是 ALU result，不是 memory output |
+| 說 `MemWr = 1`              | 錯；`addu` 不寫 Data Memory                   |
+| 把 `Rw` 當資料                 | 錯；`Rw` 是要寫入的暫存器編號                         |
+| 把 `busW` 當暫存器編號            | 錯；`busW` 是要寫回的資料                          |
+
+
+
+
+
+
+
+## ⭐I-type instruction 與指令分類 — 為什麼 `ori/lw/sw/beq` 都是 I 型但用途不同？
+
+講義位置：PDF viewer page 41 ~ PDF viewer page 43
+
+### 1. 這一段在解決什麼問題？
+
+前面我們學 `addu rd, rs, rt`，它是 R-type instruction(R 型指令)，三個 operand(運算元) 都跟 register(暫存器) 有關：
+
+`addu rd, rs, rt`
+
+但有些指令需要直接在指令裡放一個數字，例如：
+
+`ori rt, rs, imm16`
+
+這個 `imm16` 就是 immediate(立即數)，也就是「直接寫在指令裡的 16-bit 數字」。
+
+所以 I-type instruction(Immediate-type instruction，立即數型指令) 要解決的問題是：
+
+「如果指令需要一個直接寫在 instruction word(指令字) 裡的數字，32-bit 指令格式要怎麼切欄位？」
+
+---
+
+### 2. I 型指令格式怎麼切？
+
+I-type instruction 的 32-bit 格式是：
+
+| 欄位          |    bit 範圍 |     長度 | 作用                                  |
+| ----------- | --------: | -----: | ----------------------------------- |
+| `opcode`    | `[31:26]` |  6-bit | 決定是哪一類主要指令                          |
+| `rs`        | `[25:21]` |  5-bit | source register(來源暫存器) 編號           |
+| `rt`        | `[20:16]` |  5-bit | target register(目標暫存器) 編號；實際角色依指令而定 |
+| `immediate` |  `[15:0]` | 16-bit | immediate(立即數)                      |
+
+最重要的是：I 型沒有 `rd` 欄位。
+
+所以像 `ori` 和 `lw` 要寫回暫存器時，目的地通常會用 `rt`，不是 `rd`。
+
+但不要背成「I 型的 `rt` 永遠是目的地」。這句會害你在 `sw` 出錯。
+
+---
+
+### 3. `rt` 的角色要看指令，不是只看 I 型格式
+
+同樣都是 I-type instruction，`rt` 可能扮演不同角色：
+
+!!! danger
+
+    | 指令                  | `rt` 的角色                    | 原因                           |
+    | ------------------- | --------------------------- | ---------------------------- |
+    | `ori rt, rs, imm16` | destination register(目的暫存器) | ALU result(ALU 結果) 要寫回 `rt`  |
+    | `lw rt, imm16(rs)`  | destination register(目的暫存器) | 從 memory(記憶體) 讀出的資料要寫回 `rt`  |
+    | `sw rt, imm16(rs)`  | source register(來源暫存器)      | 要把 `R[rt]` 的資料寫到 memory(記憶體) |
+    | `beq rs, rt, imm16` | comparison source(比較來源)     | 要比較 `R[rs]` 和 `R[rt]` 是否相等   |
+
+所以我們要分清楚兩層：
+
+「欄位名稱」是 instruction format(指令格式) 的固定切法。
+「實際用途」是 instruction semantics(指令語意) 決定的。
+
+---
+
+### 4. PDF viewer page 42~43 的真正重點：分類有兩個維度
+
+這裡很容易誤會，以為「R 型 = 運算」、「I 型 = 存取」、「J 型 = 分支」。這樣不對。
+
+講義這裡其實在提醒：指令可以用不同維度分類。
+
+```mermaid
+flowchart TB
+    A["MIPS 指令分類"] --> B["依格式分類<br>看 32-bit 指令欄位怎麼切"]
+    A --> C["依功能分類<br>看這條指令要做什麼"]
+
+    B --> B1["R 型<br>例如 addu、subu"]
+    B --> B2["I 型<br>例如 ori、lw、sw、beq"]
+    B --> B3["J 型<br>跳躍類格式"]
+
+    C --> C1["運算指令<br>例如 addu、subu、ori"]
+    C --> C2["存取指令<br>例如 lw、sw"]
+    C --> C3["分支指令<br>例如 beq"]
+```
+
+最關鍵的例子是 `ori`：
+
+`ori` 是 I 型，因為它有 `imm16`。
+但 `ori` 也是運算指令，因為它做 OR 運算。
+
+所以「格式分類」和「功能分類」不是同一件事。
+
+---
+
+### 5. 最短記法
+
+`R-type`：通常用 `rs`、`rt` 當來源，`rd` 當目的地。
+`I-type`：有 `rs`、`rt`、`imm16`，沒有 `rd`。
+`rt` 在 I 型裡不一定是目的地，要看指令語意。
+`ori/lw/sw/beq` 都是 I 型，但功能不同。
+`ori` 是 I 型運算指令。
+`lw/sw` 是 I 型存取指令。
+`beq` 是 I 型分支指令。
+
+---
+
+### 6. 常見錯法
+
+| 錯法               | 修正                                     |
+| ---------------- | -------------------------------------- |
+| I 型一定是存取指令       | 錯，`ori` 和 `beq` 也是 I 型                 |
+| 運算指令一定是 R 型      | 錯，`ori` 是 I 型運算指令                      |
+| I 型的 `rt` 永遠是目的地 | 錯，`sw` 的 `rt` 是資料來源，`beq` 的 `rt` 是比較來源 |
+| I 型有 `rd`        | 錯，I 型欄位是 `opcode/rs/rt/immediate`      |
+| `imm16` 要自己去暫存器讀 | 錯，`imm16` 是 instruction word 裡直接帶的數字   |
+
+
+
+
+
+
+## ⭐`ori` 指令操作步驟 — `imm16` 如何進 ALU，結果如何寫回 `rt`？
+
+講義位置：PDF viewer page 44 ~ 47
+
+### 1. `ori` 在解決什麼問題？
+
+`ori rt, rs, imm16`
+
+這條指令要做的是：
+
+`R[rt] = R[rs] | ZeroExt(imm16)`
+
+白話說：
+
+從 `rs` 指定的暫存器拿出一個 32-bit 資料，
+再把指令裡的 `imm16` 用 zero extension(零延伸) 變成 32-bit，
+接著用 ALU 做 OR，
+最後把結果寫回 `rt` 指定的暫存器。
+
+---
+
+### 2. 為什麼 `ori` 要用 `ZeroExt`？
+
+因為 `ori` 是 bitwise OR(位元 OR) 指令，它把 `imm16` 當成 bit pattern(位元樣式)，不是當成有號數值。
+
+所以 `imm16 = 0x00FF` 時：
+
+`ZeroExt(0x00FF) = 0x000000FF`
+
+不是：
+
+`SignExt(0x00FF)`
+
+更重要的是，如果 `imm16 = 0xFFFF`：
+
+`ZeroExt(0xFFFF) = 0x0000FFFF`
+
+不是：
+
+`SignExt(0xFFFF) = 0xFFFFFFFF`
+
+這就是 `ori` 和 `lw/sw/beq` 常見差異之一：
+`ori` 用 zero extension；`lw/sw/beq` 的 offset 通常用 sign extension(符號延伸)。
+
+---
+
+### 3. `ori` 的 datapath 流程
+
+```mermaid
+flowchart LR
+    A["PC 提供位址"] --> B["Instruction Memory<br>取出 instruction"]
+    B --> C["取出 rs、rt、imm16 欄位"]
+
+    C --> D["Register File<br>用 rs 讀出 R[rs] 到 busA"]
+    C --> E["Extender<br>ZeroExt(imm16)"]
+
+    D --> F["ALU 第一個輸入：busA"]
+    E --> G["ALUSrc=1<br>選 ZeroExt(imm16)"]
+    G --> H["ALU 第二個輸入"]
+
+    F --> I["ALU 做 OR"]
+    H --> I
+
+    I --> J["ALU result"]
+    J --> K["MemtoReg=0<br>選 ALU result"]
+    K --> L["busW"]
+    L --> M["Register File<br>RegDst=0 選 rt 作為 Rw<br>RegWr=1 寫回 R[rt]"]
+
+    A --> N["PC + 4"]
+    N --> O["nPC_sel=+4<br>下一條指令"]
+```
+
+這張圖要你抓住三個 mux 選擇：
+
+| 控制訊號           | 選什麼                  | 原因                   |
+| -------------- | -------------------- | -------------------- |
+| `RegDst = 0`   | 選 `rt` 當 `Rw`        | `ori` 寫回 `rt`        |
+| `ALUSrc = 1`   | 選 extended immediate | 第二個 ALU 輸入不是 `busB`  |
+| `MemtoReg = 0` | 選 `ALU result`       | `ori` 不讀 Data Memory |
+
+---
+
+### 4. `ori` 的完整 control signals
+
+| 控制訊號       |    值 | 原因                               |
+| ---------- | ---: | -------------------------------- |
+| `RegDst`   |    0 | I 型沒有 `rd` 作為目的地，`ori` 寫回 `rt`   |
+| `ALUSrc`   |    1 | ALU 第二個輸入選 `ZeroExt(imm16)`      |
+| `ExtOp`    | zero | `ori` 用 zero extension           |
+| `ALUCtr`   |   OR | ALU 執行 OR 運算                     |
+| `MemtoReg` |    0 | 寫回資料來自 ALU result，不是 Data Memory |
+| `RegWr`    |    1 | 要寫回暫存器 `R[rt]`                   |
+| `MemWr`    |    0 | 不寫 Data Memory                   |
+| `nPC_sel`  |   +4 | 非 branch/jump，下一個 PC 是 `PC + 4`  |
+
+注意：`ori` 雖然有 `rt`，但 `rt` 在這裡是 destination register，不是 ALU 的第二個資料來源。
+ALU 的兩個輸入是：
+
+`busA = R[rs]`
+第二輸入 = `ZeroExt(imm16)`
+
+---
+
+### 5. 小例子
+
+假設：
+
+`ori $t0, $t1, 0x00FF`
+
+並且：
+
+`R[$t1] = 0x12345600`
+
+那麼：
+
+`ZeroExt(0x00FF) = 0x000000FF`
+
+ALU 做：
+
+`0x12345600 OR 0x000000FF = 0x123456FF`
+
+所以最後：
+
+`R[$t0] = 0x123456FF`
+
+這裡 `$t0` 是 `rt`，也就是寫回目的地。
+
+---
+
+### 6. 常見錯法
+
+| 錯法                         | 修正                                     |
+| -------------------------- | -------------------------------------- |
+| `ori` 的第二個 ALU 輸入是 `R[rt]` | 錯，第二個輸入是 `ZeroExt(imm16)`              |
+| `rt` 一定是來源                 | 錯，在 `ori` 裡 `rt` 是目的地                  |
+| `ori` 使用 sign extension    | 錯，`ori` 使用 zero extension              |
+| `ori` 會讀 Data Memory       | 錯，`ori` 不使用 Data Memory                |
+| `MemtoReg=1`               | 錯，`ori` 要寫回 ALU result，所以 `MemtoReg=0` |
+| `RegDst=1`                 | 錯，`ori` 沒有用 `rd` 當目的地，所以 `RegDst=0`    |
+
+
+
+
+## ⭐beq Branch Instruction — CPU 怎麼知道下一個 PC 要走 PC+4 還是分支目標？
+
+講義位置：PDF viewer page 56 ~ 71
+
+### 1. `beq` 在解決什麼問題？
+
+前面 `addu`、`subu`、`ori`、`lw`、`sw` 大多是「做完這條，下一條照順序執行」，所以 `PC ← PC + 4` 就好。
+
+但 `beq rs, rt, imm16` 是 branch instruction(分支指令)，它要處理的是：
+
+「如果 `R[rs]` 和 `R[rt]` 相等，就不要照順序走，而是跳到 branch target address(分支目標位址)。」
+
+講義寫的語意是：
+
+`beq rs, rt, imm16`
+如果 `R[rs] - R[rt] == 0`，代表兩者相等，就走分支；否則走 `PC + 4`。講義也列出 `then PC = PC + 4 + SignExt[imm16] * 4; else PC = PC + 4`。
+
+外部課程資料也用同樣的 PC-relative branch(PC 相對分支)概念：分支目標以目前指令後面的 `PC + 4` 為基準，再加上 immediate offset 乘以 4。([cs.nthu.edu.tw][1])
+
+---
+
+### 2. `beq` 的 ALU 不是拿來產生資料，而是拿來比較是否相等
+
+`beq` 會讀兩個暫存器：
+
+| 欄位   | 角色                          |
+| ---- | --------------------------- |
+| `rs` | 第一個 comparison source(比較來源) |
+| `rt` | 第二個 comparison source(比較來源) |
+
+資料路徑是：
+
+| 訊號              | 內容                                         |
+| --------------- | ------------------------------------------ |
+| `busA`          | `R[rs]`                                    |
+| `busB`          | `R[rt]`                                    |
+| `ALU operation` | `SUB`，做 `R[rs] - R[rt]`                    |
+| `zero`          | 如果 ALU result 是 0，`zero = 1`；否則 `zero = 0` |
+
+所以 `beq` 的 ALU result 本身通常不是重點，重點是 ALU 額外輸出的 `zero` signal(零訊號)。講義說 ALU 增加一個功能：判斷目前運算結果是否為 0；如果結果為 0，`zero` 置為 1，否則置為 0。
+
+生活化講法：
+`beq` 像是問「這兩張學生證是不是同一個人？」
+ALU 做減法只是檢查差異；如果差異是 0，就代表相等。
+
+---
+
+### 3. `beq` 的 PC 更新有兩層判斷
+
+`beq` 的下一個 PC 不是只看 `zero`，而是看兩件事：
+
+| 條件            | 意思                                |
+| ------------- | --------------------------------- |
+| `nPC_sel = 1` | 目前這條指令是 branch 類型，PC 有可能改走 target |
+| `zero = 1`    | `R[rs] == R[rt]`，分支條件成立           |
+
+所以真正選 branch target 的條件是：
+
+`nPC_sel == 1` 且 `zero == 1`
+
+講義 PDF viewer page 70 的表格是：
+
+| `nPC_sel` | `zero` | 下一個 PC          |
+| --------- | -----: | --------------- |
+| `0`       |    `x` | `PC + 4`        |
+| `1`       |    `0` | `PC + 4`        |
+| `1`       |    `1` | `TargetAddress` |
+
+這裡要特別注意：如果某段文字看起來寫成 `zero == 0` 時走 branch target，那會和 `beq` 的操作步驟及 page 70 表格衝突；本輪以 page 66 的操作步驟與 page 70 的表格為準。
+
+---
+
+### 4. Branch target address 怎麼算？
+
+`beq` 的目標位址不是直接等於 `imm16`，而是：
+
+`TargetAddress = PC + 4 + SignExt(imm16) * 4`
+
+也可以寫成：
+
+`TargetAddress = PC + 4 + (SignExt(imm16) << 2)`
+
+為什麼要 `* 4`？因為 MIPS 一條 instruction(指令) 是 4 bytes，所以 `imm16` 表示的是「相對幾條指令」，換成 byte address(位元組位址) 時要乘以 4。講義也說分支目標位址由兩部分組成：一部分是 `PC + 4`，另一部分是把 `imm16` 做 sign extension(符號延伸) 後再乘以 4。
+
+例子：
+
+| 項目                   |                 值 |
+| -------------------- | ----------------: |
+| `PC`                 |      `0x00400020` |
+| `PC + 4`             |      `0x00400024` |
+| `imm16`              |               `3` |
+| `SignExt(imm16) * 4` | `12 = 0x0000000C` |
+| `TargetAddress`      |      `0x00400030` |
+
+所以 `beq` 若成立，下一個 PC 會變成 `0x00400030`；若不成立，下一個 PC 會是 `0x00400024`。
+
+---
+
+### 5. `beq` 的控制訊號
+
+講義控制表列出 `beq` 的控制訊號如下：
+
+| 控制訊號          |  `beq` 的值 | 原因                                                                          |
+| ------------- | --------: | --------------------------------------------------------------------------- |
+| `RegDst`      |       `x` | 不寫回暫存器，所以選 `rt` 或 `rd` 都不重要                                                 |
+| `ALUSrc`      |       `0` | 第二個 ALU input 要用 `busB = R[rt]`，不是 immediate                                |
+| `MemtoReg`    |       `x` | 不寫回暫存器，所以 busW 來源不重要                                                        |
+| `RegWr`       |       `0` | 不寫入暫存器                                                                      |
+| `MemWr`       |       `0` | 不寫入 Data Memory                                                             |
+| `nPC_sel`     |       `1` | 這是 branch 指令，PC 可能選 branch target                                           |
+| `ExtOp`       |       `x` | 控制表標 `x`，因為主要 ALU 第二輸入不用 immediate；但 branch target 計算本身仍需要 `SignExt(imm16)` |
+| `ALUctr<1:0>` | `01(SUB)` | 用減法判斷 `R[rs] - R[rt]` 是否為 0                                                 |
+
+最容易錯的是 `ALUSrc`：
+`beq` 雖然是 I-type instruction(I 型指令)，有 `imm16`，但 ALU 比較兩個暫存器時，第二個 ALU input 仍然是 `R[rt]`，所以 `ALUSrc = 0`。
+
+---
+
+### 6. 最短記法
+
+`beq` 的核心不是「寫資料」，而是「決定下一個 PC」。
+
+最短流程：
+
+1. 讀 `R[rs]` 到 `busA`，讀 `R[rt]` 到 `busB`。
+2. ALU 做 `busA - busB`。
+3. 若結果為 0，`zero = 1`。
+4. 若 `nPC_sel = 1` 且 `zero = 1`，PC 選 `TargetAddress`。
+5. 否則 PC 選 `PC + 4`。
+
+最短控制訊號：
+
+`RegDst = x, ALUSrc = 0, MemtoReg = x, RegWr = 0, MemWr = 0, nPC_sel = 1, ExtOp = x, ALUctr = SUB`
+
+
+
+### nPC_sel 為何叫做 nPC_sel
+
+
+| 部分    | 可能原意                 | 中文意思                   |
+| ----- | -------------------- | ---------------------- |
+| `nPC` | `next PC` 或 `new PC` | 下一個要寫回 PC 的值           |
+| `sel` | `select`             | 選擇訊號，通常是 mux(多工器) 的選擇端 |
+
+
+
+###  ALUctr sub 是 01，那其他的呢？
+
+!!! danger
+    
+    可以大概記一下：
+    
+    add 是 00(ADD)、sub 是 01(SUB)、ori 是 10(OR)、lw/sw 都是 00(ADD)、beq 是 01(SUB)。
+
+### 為何 `beq` 的 `MemtoReg = x`？
+
+!!! danger
+
+    ![alt text](<images/ch 4-3.png>)
+    因為 RegWr = 0 ， 所以選 MemtoReg 完全沒有意義，MemtoReg = 0 時是把 AUL result 作為 busW，MemtoReg = 0 時是把 Data Memory out 作為 busW，但是用不到 busW，所以 MemtoReg = x (don't care)。
+    
+    
+    
+### 在 IFU 中，為何是 mux 前就 +4，為何不 mux 之後+4？這樣不是可以省一個 ALU 嗎？
+
+因為 MUX 兩個候選位都會用到 PC+4 ，所以先算完之後比較省。流程如下：
+
+```mermaid
+flowchart LR
+    PC[PC<br>目前指令位址] --> A[Adder<br>先算 PC + 4]
+    A --> MUX[mux<br>選下一個 PC]
+    A --> B[Adder<br>算 branch target<br>PC + 4 + offset]
+    IMM[SignExt imm16 << 2<br>分支 offset] --> B
+    B --> MUX
+    MUX --> NPC[更新 PC]
+```
+
+
+
+
+## ⭐控制訊號小整理
+
+![alt text](<images/ch 4-4.png>)
+
+
+!!! danger 
+
+    以下整理所有的訊號用途。
+
+### 1. 先給你總覽：這張圖分成 5 類
+
+這張 datapath(資料通路) 裡的名稱不要混在一起看，最好分成：
+
+| 類別                              | 例子                                   | 本質                                  |
+| ------------------------------- | ------------------------------------ | ----------------------------------- |
+| Control signal(控制訊號)            | `RegDst`、`RegWr`、`ALUSrc`、`MemtoReg` | 控制某個硬體元件要不要動、或 mux 要選哪一路            |
+| Status signal(狀態訊號)             | `zero`                               | ALU 回報比較結果給 IFU / branch decision 用 |
+| Register number route(暫存器編號路線)  | `rs`、`rt`、`rd`、`Ra`、`Rb`、`Rw`        | 5-bit 編號，不是資料本身                     |
+| Data bus(資料匯流排)                 | `busA`、`busB`、`busW`、ALU result      | 32-bit 資料本身或記憶體位址                   |
+| Instruction field route(指令欄位路線) | `Instruction<31:0>`、`imm16`          | 從 instruction word(指令位元) 拆出來的欄位     |
+
+---
+
+### 2. Control signal(控制訊號)
+
+| 名稱         | 控制哪裡                    | 作用                                                         | `0` 通常代表            | `1` 通常代表               | 常見用在哪些指令                                                 |
+| ---------- | ----------------------- | ---------------------------------------------------------- | ------------------- | ---------------------- | -------------------------------------------------------- |
+| `RegDst`   | 左上方選 `rt` 或 `rd` 的 mux  | 決定 Register File 的 `Rw` 要用哪個 destination register(目的暫存器編號) | 選 `rt`              | 選 `rd`                 | `0`：`ori`、`lw`；`1`：R-type 如 `addu`、`subu`                |
+| `RegWr`    | Register File           | 決定這條指令是否要寫回暫存器                                             | 不寫 register         | 寫 register             | `1`：`addu`、`subu`、`ori`、`lw`；`0`：`sw`、`beq`              |
+| `ExtOp`    | Extender                | 決定 `imm16` 要怎麼延伸成 32-bit                                   | zero extension(零延伸) | sign extension(符號延伸)   | `ori` 用 zero extension；`lw`、`sw`、`beq` 常用 sign extension |
+| `ALUSrc`   | ALU 第二個輸入前的 mux         | 決定 ALU 第二個 input 來自 `busB` 還是 extended immediate           | 選 `busB`            | 選 `Extender` 輸出        | `0`：R-type、`beq`；`1`：`ori`、`lw`、`sw`                     |
+| `ALUCtr`   | ALU                     | 決定 ALU 要做什麼運算                                              | 不是單純 0/1，而是多 bit 編碼 | 不是單純 0/1，而是多 bit 編碼    | `ADD`：`addu`、`lw`、`sw`；`SUB`：`subu`、`beq`；`OR`：`ori`     |
+| `MemWr`    | Data Memory 的 `WrEn` (Enable)    | 決定是否把資料寫入 Data Memory                                      | 不寫 Data Memory      | 寫 Data Memory          | `1`：`sw`；其他多數是 `0`                                       |
+| `MemtoReg` | 右方寫回 mux                | 決定 `busW` 來自 ALU result 還是 Data Memory output              | 選 ALU result        | 選 Data Memory output   | `0`：R-type、`ori`；`1`：`lw`                                |
+| `nPC_sel`  | IFU / next PC selection | 控制 next PC 的選擇邏輯，尤其是 branch 類指令                            | 一般順序執行 `PC + 4`     | 啟用 branch / next PC 選擇 | `beq` 會啟用；是否真的跳通常還要看 `zero`                              |
+
+補一句很重要的：`nPC_sel = 1` 不一定代表「一定跳」。在 `beq` 裡，它通常代表「這是 branch 類指令，允許 IFU 根據 `zero` 判斷要不要跳」。真正是否跳到 target address，要看 `zero`。
+
+---
+
+### 3. Status signal(狀態訊號)
+
+| 名稱     | 來源        | 送到哪裡                    | 作用                           | 常見情境                                        |
+| ------ | --------- | ----------------------- | ---------------------------- | ------------------------------------------- |
+| `zero` | ALU       | IFU / next PC decision  | 表示 ALU result 是否為 0          | `beq` 用 ALU 做 `R[rs] - R[rt]`，若結果是 0，代表兩者相等 |
+| `clk`  | clock(時脈) | IFU、RegFile、Data Memory | 控制哪些元件在 clock edge(時脈邊緣)更新狀態 | PC 更新、暫存器寫入、記憶體寫入                           |
+
+`zero` 不是 control signal(控制訊號)，它比較像 ALU 回報出來的 condition/status(條件狀態)。
+例如 `beq`：ALU 做減法，若 `busA - busB = 0`，`zero = 1`，才代表 branch condition 成立。
+
+---
+
+### 4. Register number route(暫存器編號路線，5-bit)
+
+這一類最容易和資料搞混。它們都是 5-bit register number(暫存器編號)，不是暫存器裡面的 32-bit 內容。
+
+| 名稱   | bit 寬度 | 來源                   | 送到哪裡                                | 用途                                                    | 重點                      |
+| ---- | -----: | -------------------- | ----------------------------------- | ----------------------------------------------------- | ----------------------- |
+| `rs` |  5-bit | `Instruction<25:21>` | Register File 的 `Ra`                | 指定第一個要讀的 register                                     | `rs` 是編號，不是資料           |
+| `rt` |  5-bit | `Instruction<20:16>` | Register File 的 `Rb`，也可經 mux 到 `Rw` | 可當第二個 source register，也可當 I-type destination register | `lw` / `ori` 的目的地是 `rt` |
+| `rd` |  5-bit | `Instruction<15:11>` | 經 `RegDst` mux 到 `Rw`               | R-type 的 destination register                         | `addu`、`subu` 寫 `rd`    |
+| `Ra` |  5-bit | `rs`                 | Register File 讀取 port A             | 告訴 RegFile 要讀哪個 register 到 `busA`                     | `Ra = rs`               |
+| `Rb` |  5-bit | `rt`                 | Register File 讀取 port B             | 告訴 RegFile 要讀哪個 register 到 `busB`                     | `Rb = rt`               |
+| `Rw` |  5-bit | `RegDst` mux 輸出      | Register File write register input  | 告訴 RegFile 要把 `busW` 寫到哪個 register                    | `Rw` 是目的暫存器編號，不是資料      |
+
+最重要一句：`Rw` 決定「寫去哪個暫存器」，`busW` 決定「寫進去的 32-bit 資料是什麼」。
+
+---
+
+### 5. Data bus / data route(資料匯流排與資料路線，通常 32-bit)
+
+| 名稱                    | bit 寬度 | 來源                       | 送到哪裡                               | 用途                                                                | 常見例子                                                 |
+| --------------------- | -----: | ------------------------ | ---------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------- |
+| `busA`                | 32-bit | Register File 讀出 `R[rs]` | ALU 第一個 input                      | ALU 的第一個運算資料                                                      | `lw`：base address；`addu`：第一個加數；`beq`：第一個比較值          |
+| `busB`                | 32-bit | Register File 讀出 `R[rt]` | ALU 第二輸入 mux、Data Memory `Data In` | 可當 ALU 第二個資料，也可當 `sw` 要寫入 memory 的資料                              | `addu` 用它運算；`sw` 用它寫 memory                          |
+| `busW`                | 32-bit | `MemtoReg` mux 輸出        | Register File write data input     | 真正要寫回 register 的資料                                                | `lw`：memory output；`addu`：ALU result                 |
+| `imm16`               | 16-bit | `Instruction<15:0>`      | Extender                           | I-type immediate / offset                                         | `ori`、`lw`、`sw`、`beq` 都會用                            |
+| Extended immediate    | 32-bit | Extender 輸出              | ALU 第二輸入 mux                       | 把 `imm16` 延伸成 ALU 可用的 32-bit 資料                                   | `ori`：zero-extended imm；`lw/sw`：sign-extended offset |
+| ALU input A           | 32-bit | `busA`                   | ALU                                | ALU 第一輸入                                                          | 固定來自 `R[rs]`                                         |
+| ALU input B           | 32-bit | `ALUSrc` mux 輸出          | ALU                                | ALU 第二輸入                                                          | 可能是 `busB` 或 extended immediate                      |
+| ALU result            | 32-bit | ALU                      | Data Memory `Adr`、`MemtoReg` mux   | 運算結果；對 `lw/sw` 是 effective address(有效位址)，對 R-type / `ori` 是要寫回的結果 | `lw`：address；`addu`：加法結果                             |
+| Data Memory `Adr`     | 32-bit | ALU result               | Data Memory address input          | 指定要讀/寫 Data Memory 的哪個位址                                          | `lw/sw` 都用 ALU result 當地址                            |
+| Data Memory `Data In` | 32-bit | `busB`                   | Data Memory write data input       | `sw` 要寫進 memory 的資料                                               | `sw rt, imm(rs)` 會把 `R[rt]` 送到這裡                     |
+| Data Memory output    | 32-bit | Data Memory              | `MemtoReg` mux                     | `lw` 從 memory 讀出的資料                                               | `lw` 會把它送到 `busW`                                    |
+| Instruction<31:0>     | 32-bit | IFU                      | 指令欄位拆解線                            | 目前 fetch 到的整條指令                                                   | 再拆成 `rs`、`rt`、`rd`、`imm16`                           |
+
+---
+
+### 6. MUX(多工器)整理
+
+| MUX 位置         | 控制訊號       | 輸入 0       | 輸入 1               | 輸出到哪裡                | 用途                 |
+| -------------- | ---------- | ---------- | ------------------ | -------------------- | ------------------ |
+| 左上 `Rw` 前的 mux | `RegDst`   | `rt`       | `rd`               | Register File 的 `Rw` | 選目的暫存器             |
+| ALU 第二輸入前的 mux | `ALUSrc`   | `busB`     | Extended immediate | ALU input B          | 選 ALU 第二個資料來源      |
+| 右方寫回 mux       | `MemtoReg` | ALU result | Data Memory output | `busW`               | 選寫回 register 的資料來源 |
+
+最短判斷法：
+
+| 問題                                     | 看哪個 mux / signal |
+| -------------------------------------- | ---------------- |
+| 要寫到 `rt` 還是 `rd`？                      | 看 `RegDst`       |
+| ALU 第二個 input 是 register 還是 immediate？ | 看 `ALUSrc`       |
+| 寫回 register 的資料來自 ALU 還是 memory？       | 看 `MemtoReg`     |
+
+---
+
+### 7. Functional unit(功能元件)
+
+| 元件          | 輸入                                  | 輸出                        | 作用                            |
+| ----------- | ----------------------------------- | ------------------------- | ----------------------------- |
+| IFU         | `clk`、`nPC_sel`、`zero`，以及內部 PC      | `Instruction<31:0>`       | 取指令、更新 next PC                |
+| RegFile     | `Ra`、`Rb`、`Rw`、`busW`、`RegWr`、`clk` | `busA`、`busB`             | 讀兩個 register，必要時寫回一個 register |
+| Extender    | `imm16`、`ExtOp`                     | 32-bit extended immediate | 把 16-bit immediate 延伸成 32-bit |
+| ALU         | `busA`、ALU input B、`ALUCtr`         | ALU result、`zero`         | 做加法、減法、OR、比較等運算               |
+| Data Memory | `Adr`、`Data In`、`MemWr`、`clk`       | Data Memory output        | `lw` 讀資料，`sw` 寫資料             |
+
+---
+
+### 8. 依指令看路線：最容易記的版本
+
+| 指令                            | 主要資料流                                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------------------------ |
+| R-type `addu/subu rd, rs, rt` | `rs → Ra → busA → ALU`，`rt → Rb → busB → ALU`，ALU result → `busW` → `rd`                   |
+| `ori rt, rs, imm16`           | `rs → busA`，`imm16 → ZeroExt → ALU`，ALU result → `busW` → `rt`                             |
+| `lw rt, imm16(rs)`            | `rs → busA`，`imm16 → SignExt → ALU` 算 effective address，Data Memory output → `busW` → `rt` |
+| `sw rt, imm16(rs)`            | `rs → busA`，`imm16 → SignExt → ALU` 算 effective address，`rt → busB → Data In` 寫入 memory    |
+| `beq rs, rt, imm16`           | `rs → busA`，`rt → busB`，ALU 做 SUB，`zero` 回報是否相等，IFU 決定 next PC                             |
+
+---
+
+### 9. 最容易混淆的對照表
+
+| 容易混的兩個東西                                      | 差異                                                                |
+| --------------------------------------------- | ----------------------------------------------------------------- |
+| `rt` vs `R[rt]`                               | `rt` 是 5-bit 編號；`R[rt]` 是該暫存器裡的 32-bit 資料                         |
+| `Rw` vs `busW`                                | `Rw` 是要寫入哪個 register；`busW` 是要寫入的資料                               |
+| `busB` vs `Data In`                           | `busB` 是 RegFile 讀出的 `R[rt]`；在 `sw` 時它會送到 Data Memory 的 `Data In` |
+| ALU result in `lw/sw` vs ALU result in R-type | `lw/sw` 的 ALU result 是 memory address；R-type 的 ALU result 是計算結果   |
+| `MemWr` vs `RegWr`                            | `MemWr` 寫 Data Memory；`RegWr` 寫 Register File                     |
+| `RegDst` vs `MemtoReg`                        | `RegDst` 選寫到哪個 register；`MemtoReg` 選寫回 register 的資料來源             |
+| `nPC_sel` vs `zero`                           | `nPC_sel` 表示 branch 類 next PC 控制；`zero` 表示 ALU 比較結果是否為 0          |
+
+
+## ⭐Control Logic(控制邏輯) — CPU 如何從指令 bits 自動產生控制訊號？
+
+講義位置：PDF viewer page 75 ~ 82
+
+### 1. 這個知識點在解決什麼問題？
+
+前面我們已經一條一條看過：
+
+| 指令              | 需要哪些控制訊號                              |
+| --------------- | ------------------------------------- |
+| `addu` / `subu` | 寫 `rd`、ALU 用 `busB`、寫回 ALU result     |
+| `ori`           | 寫 `rt`、ALU 用 immediate、zero extension |
+| `lw`            | 寫 `rt`、ALU 算地址、從 memory 寫回 register   |
+| `sw`            | ALU 算地址、把 `rt` 內容寫進 memory            |
+| `beq`           | ALU 做比較、依 `zero` 決定 next PC           |
+
+但 CPU 不可能靠人工說：「現在這條是 `lw`，請把 `RegWr` 打開。」
+CPU 只能看 instruction word(指令位元) 裡的欄位，例如 `opcode` 和 `funct`。
+
+所以本輪核心問題是：
+
+CPU 要如何根據 `opcode` / `funct`，自動產生 `RegDst`、`ALUSrc`、`MemtoReg`、`RegWr`、`MemWr`、`nPC_sel`、`ExtOp`、`ALUctr`？
+
+講義把這一步稱為把 control signals(控制訊號) 集成成完整 control logic(控制邏輯)。
+
+---
+
+### 2. 第一層：先判斷目前是哪一種指令
+
+控制邏輯第一步不是直接算 `RegWr`，而是先根據 `opcode` / `funct` 判斷：
+
+| 指令種類                        | 判斷來源                         |
+| --------------------------- | ---------------------------- |
+| `add` / `sub`               | `opcode = 000000`，再看 `funct` |
+| `ori` / `lw` / `sw` / `beq` | 直接看 `opcode`                 |
+
+講義列出的重點是：
+
+| 指令    | `opcode` |  `funct` |
+| ----- | -------: | -------: |
+| `add` | `000000` | `100000` |
+| `sub` | `000000` | `100010` |
+| `ori` | `001101` |       不用 |
+| `lw`  | `100011` |       不用 |
+| `sw`  | `101011` |       不用 |
+| `beq` | `000100` |       不用 |
+
+所以 `R-type` 指令要多看 `funct`，但 I-type 指令大多只靠 `opcode` 就可以辨識。
+
+---
+
+### 3. 第二層：把「哪條指令會讓控制訊號等於 1」寫成邏輯式
+
+講義的控制表已經告訴我們每條指令的控制訊號值，例如 `lw` 會讓 `MemtoReg = 1`，`sw` 會讓 `MemWr = 1`，`beq` 會讓 `nPC_sel = 1`。
+
+接著把表格轉成 boolean equation(布林邏輯式)：
+
+| 控制訊號        | 邏輯式                    | 直覺意思                                |
+| ----------- | ---------------------- | ----------------------------------- |
+| `RegDst`    | `add + sub`            | 只有 R-type 算術結果寫到 `rd`               |
+| `ALUSrc`    | `ori + lw + sw`        | 這三個需要 immediate 當 ALU 第二輸入          |
+| `MemtoReg`  | `lw`                   | 只有 `lw` 需要 memory output 寫回暫存器      |
+| `RegWr`     | `add + sub + ori + lw` | 這四個會寫 register                      |
+| `MemWr`     | `sw`                   | 只有 `sw` 會寫 Data Memory              |
+| `nPC_sel`   | `beq`                  | 只有 branch 可能改變 next PC              |
+| `ExtOp`     | `lw + sw`              | 講義表格中 `lw` / `sw` 需要 sign extension |
+| `ALUctr[0]` | `sub + beq`            | `sub` 與 `beq` 都需要 ALU 做 SUB         |
+| `ALUctr[1]` | `or`                   | `ori` 需要 OR 運算                      |
+
+這裡的 `+` 不是加法，而是 OR(或閘)。
+例如：
+
+`RegWr = add + sub + ori + lw`
+
+意思是：只要現在指令是 `add`、`sub`、`ori`、`lw` 任一種，`RegWr` 就要等於 1。講義也列出同樣的控制器邏輯運算式。
+
+---
+
+### 4. 第三層：把指令名稱本身也變成邏輯式
+
+像 `lw`、`sw`、`beq` 不是 CPU 腦中真正存在的中文或英文單字。
+硬體真正看到的是 bit pattern(位元樣式)。
+
+例如 `beq` 的 `opcode = 000100`。
+
+如果把 `opcode` 依序寫成：
+
+| bit   |   值 |
+| ----- | --: |
+| `op5` | `0` |
+| `op4` | `0` |
+| `op3` | `0` |
+| `op2` | `1` |
+| `op1` | `0` |
+| `op0` | `0` |
+
+那 `beq` 這個偵測條件可以寫成：
+
+`beq = ~op5 · ~op4 · ~op3 · op2 · ~op1 · ~op0`
+
+這裡：
+
+| 符號  | 意思      |
+| --- | ------- |
+| `~` | NOT(反相) |
+| `·` | AND(及閘) |
+| `+` | OR(或閘)  |
+
+所以控制器實際上是兩層：
+
+1. 用 AND / NOT 偵測「目前是哪條指令」。
+2. 用 OR 把「哪些指令需要某控制訊號」合併起來。
+
+講義在 PDF viewer page 80 ~ 81 正是在做這件事：先寫出 `add`、`sub`、`rtype`、`ori`、`lw`、`sw`、`beq` 的偵測式，再寫出 `RegDst`、`ALUSrc`、`MemtoReg` 等控制訊號的總邏輯式。
+
+---
+
+### 5. 生活化例子：控制器像「分類後自動開關」
+
+你可以把 CPU 控制器想成捷運站閘門：
+
+1. 先掃票卡，判斷你是哪種乘客：普通票、學生票、敬老票。
+2. 再根據乘客類型，自動開不同通道或套用不同規則。
+
+CPU 也是：
+
+1. 先掃 `opcode` / `funct`，判斷現在是 `lw`、`sw`、`beq`、`ori`、`add`、`sub`。
+2. 再根據指令類型，自動打開需要的控制訊號。
+
+所以控制邏輯不是新資料路徑，而是「讓前面那些 mux、RegFile、Memory、ALU 自動選對路」。
+
+---
+
+### 6. 最短記法
+
+控制邏輯的最短理解：
+
+先偵測 instruction type(指令種類)，再用 OR gate(或閘) 合成控制訊號。
+
+最重要的邏輯式先背這組：
+
+| 控制訊號        | 最短記法                                             |
+| ----------- | ------------------------------------------------ |
+| `RegDst`    | R-type arithmetic：`add + sub`                    |
+| `ALUSrc`    | 有 ALU immediate 或 address offset：`ori + lw + sw` |
+| `MemtoReg`  | 只有 `lw`                                          |
+| `RegWr`     | 會寫 register：`add + sub + ori + lw`               |
+| `MemWr`     | 只有 `sw`                                          |
+| `nPC_sel`   | 只有 `beq`                                         |
+| `ALUctr[0]` | 做 SUB：`sub + beq`                                |
+| `ALUctr[1]` | 做 OR：`ori`                                       |
+
+
+### 結論
+
+!!! danger
+
+    ![alt text](<images/ch 4-5.png>)
+
+    ![alt text](<images/ch 4-6.png>)
+
+    /// collapse-code  
+    ```v
+    module Control_Logic (
+        input  [5:0] opcode, func,
+        output RegDst, ALUSrc, MemtoReg, RegWr, MemWr, nPC_sel, ExtOp, 
+        output [1:0] ALUctr
+    );
+
+        wire rtype, add, sub, ori, lw, sw, beq;
+
+        level_one g1 (opcode, func, rtype, add, sub, ori, lw, sw, beq);
+
+        level_two g2 (add, sub, ori, lw, sw, beq, RegDst, ALUSrc, MemtoReg, RegWr, MemWr, nPC_sel, ExtOp, ALUctr);
+
+    endmodule
+
+
+    module level_one (
+        input  [5:0] opcode, func,
+        output rtype, add, sub, ori, lw, sw, beq
+    );
+
+        wire op5, op4, op3, op2, op1, op0;
+        wire func5, func4, func3, func2, func1, func0;
+
+        assign {op5, op4, op3, op2, op1, op0} = opcode;
+        assign {func5, func4, func3, func2, func1, func0} = func;
+
+        // rtype = ~op5 · ~op4 · ~op3 · ~op2 · ~op1 · ~op0
+        assign rtype = (~op5) & (~op4) & (~op3) & (~op2) & (~op1) & (~op0);
+
+        // add = rtype · func5 · ~func4 · ~func3 · ~func2 · ~func1 · ~func0
+        assign add = rtype & func5 & (~func4) & (~func3) & (~func2) & (~func1) & (~func0);
+
+        // sub = rtype · func5 · ~func4 · ~func3 · ~func2 · func1 · ~func0
+        assign sub = rtype & func5 & (~func4) & (~func3) & (~func2) & func1 & (~func0);
+
+        // ori = ~op5 · ~op4 · op3 · op2 · ~op1 · op0
+        assign ori = (~op5) & (~op4) & op3 & op2 & (~op1) & op0;
+
+        // lw = op5 · ~op4 · ~op3 · ~op2 · op1 · op0
+        assign lw = op5 & (~op4) & (~op3) & (~op2) & op1 & op0;
+
+        // sw = op5 · ~op4 · op3 · ~op2 · op1 · op0
+        assign sw = op5 & (~op4) & op3 & (~op2) & op1 & op0;
+
+        // beq = ~op5 · ~op4 · ~op3 · op2 · ~op1 · ~op0
+        assign beq = (~op5) & (~op4) & (~op3) & op2 & (~op1) & (~op0);
+
+    endmodule
+
+
+    module level_two (
+        input  add, sub, ori, lw, sw, beq,
+        output RegDst, ALUSrc, MemtoReg, RegWr, MemWr, nPC_sel, ExtOp, 
+        output [1:0] ALUctr
+    );
+
+        // RegDst = add + sub
+        assign RegDst = add | sub;
+
+        // ALUSrc = ori + lw + sw
+        assign ALUSrc = ori | lw | sw;
+
+        // MemtoReg = lw
+        assign MemtoReg = lw;
+
+        // RegWr = add + sub + ori + lw
+        assign RegWr = add | sub | ori | lw;
+
+        // MemWr = sw
+        assign MemWr = sw;
+
+        // nPC_sel = beq
+        assign nPC_sel = beq;
+
+        // ExtOp = lw + sw
+        // 依照講義控制表，beq 的 ExtOp 是 x，所以這裡不放 beq
+        assign ExtOp = lw | sw;
+
+        // ALUctr[0] = sub + beq
+        assign ALUctr[0] = sub | beq;
+
+        // ALUctr[1] = ori
+        assign ALUctr[1] = ori;
+
+    endmodule
+    ```
+    ///
+
+
+
+### "add/sub/ori/lw/sw/beq" 是實際上只有這些，還是因為這些較常見所以用這些舉例
+
+不是實際 MIPS 只有 `add/sub/ori/lw/sw/beq`。
+
+在**這份講義目前這個單週期 datapath(資料通路)／control logic(控制邏輯)範圍內**，老師只拿這幾個指令當作一個「最小教學子集合」來實作控制器。講義前面先列出本章要分析的指令需求，包括 `addu/subu/ori/lw/sw/beq`，後面控制表則用 `add/sub/ori/lw/sw/beq` 來列控制訊號與 Boolean equation(布林式)。
+
+實際 MIPS ISA(Instruction Set Architecture，指令集架構)有很多更多指令，例如 `addi`、`andi`、`slt`、`j`、`jal`、`jr`、`bne`、`lb`、`sb`、`lui` 等；Waterloo 的 MIPS encoding reference 也明確說 opcode/funct 表列的是多個可用 operations(操作)，不只這六個。
