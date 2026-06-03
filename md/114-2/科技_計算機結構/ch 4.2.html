@@ -8,10 +8,10 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204-2.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.2.html">
       
       
-        <link rel="prev" href="ch%204-1.html">
+        <link rel="prev" href="ch%204.1.html">
       
       
         <link rel="next" href="../../%E5%A4%9A%E7%9B%8A600/4.html">
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 4 2 - PEICD100</title>
+        <title>Ch 4.2 - PEICD100</title>
       
     
     
@@ -1980,6 +1980,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#pipelining管道化--為什麼一件事沒變快整體卻變快" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -2082,7 +2087,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 4 2
+              Ch 4.2
             
           </span>
         </div>
@@ -5579,14 +5584,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="ch%204-1.html" class="md-nav__link">
+      <a href="ch%204.1.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ch 4 1
+    Ch 4.1
   
 
     
@@ -5614,14 +5619,32 @@ is now available!
       
       
       
-      <a href="ch%204-2.html" class="md-nav__link md-nav__link--active">
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 4.2
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ch%204.2.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ch 4 2
+    Ch 4.2
   
 
     
@@ -5630,6 +5653,465 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipelining管道化--為什麼一件事沒變快整體卻變快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Pipelining(管道化) — 為什麼一件事沒變快，整體卻變快？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Pipelining(管道化) — 為什麼一件事沒變快，整體卻變快？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-non-pipelined非管道化像只有一個人從頭做到尾" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Non-pipelined(非管道化)：像只有一個人從頭做到尾
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pipelined管道化像廚房有四個工作站" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pipelined(管道化)：像廚房有四個工作站
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最重要的不變量單一道菜沒有變快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最重要的不變量：單一道菜沒有變快
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-套到-cpu一道菜就像一條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 套到 CPU：一道菜就像一條指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pipeline-register管道化暫存器為什麼要加暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pipeline register(管道化暫存器)：為什麼要加暫存器？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-管道化真正提升的是-throughput吞吐率" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 管道化真正提升的是 Throughput(吞吐率)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Pipeline register delay(管道化暫存器延遲)：為什麼可能讓單條指令更慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-optimization管道化的優化--為什麼-pipeline-不是切越多越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Pipeline Optimization(管道化的優化) — 為什麼 pipeline 不是切越多越好？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Pipeline Optimization(管道化的優化) — 為什麼 pipeline 不是切越多越好？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stage-imbalance階段不平衡最慢的一站會卡住全部" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stage imbalance(階段不平衡)：最慢的一站會卡住全部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pipeline-balancing管道化平衡把太慢的一站切開" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pipeline balancing(管道化平衡)：把太慢的一站切開
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-super-pipelining超級管道化把-stage-切得更細" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Super Pipelining(超級管道化)：把 stage 切得更細
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼不是越深越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼不是越深越好？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最重要的-mental-model心智模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最重要的 mental model(心智模型)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以講義到底要表達什麼他說管道化的級數是越多越好嗎答案是否定的到底為何否定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以講義到底要表達什麼？他說"「管道化的級數是越多越好嗎？」答案是否定的"，到底為何否定？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="所以講義到底要表達什麼？他說&#34;「管道化的級數是越多越好嗎？」答案是否定的&#34;，到底為何否定？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-講義真正要否定的是只要級數越多整體就一定越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 講義真正要否定的是「只要級數越多，整體就一定越好」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼否定因為它不是免費提高-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼否定？因為它不是免費提高 throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最精準的一句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最精準的一句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-你可以這樣理解講義的否" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 你可以這樣理解講義的「否！」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-考試版答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 考試版答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-scalar-pipeline標量管道化時間上的重疊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Scalar pipeline(標量管道化)：時間上的重疊
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-superscalar-pipeline超標量管道化空間上的複製" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Superscalar pipeline(超標量管道化)：空間上的複製
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用做菜比喻比較" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用做菜比喻比較
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-super-pipelining-vs-superscalar這兩個很容易混" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Super pipelining vs Superscalar：這兩個很容易混
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pentium-例子雙發射兩條-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pentium 例子：雙發射、兩條 pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-superscalar-不等於永遠兩倍快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Superscalar 不等於永遠兩倍快
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-和-multi-core多核心-的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 和 multi-core(多核心) 的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-parallelism時間並行性為何叫做-時間space-parallelism空間並行性為何叫做-空間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        time parallelism(時間並行性)為何叫做 時間，space parallelism(空間並行性)為何叫做 空間？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        superscalar(超標量) 實際上也有 time parallelism(時間並行性) 對不對，只是不是他出現的主要原因
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -5870,6 +6352,456 @@ is now available!
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipelining管道化--為什麼一件事沒變快整體卻變快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Pipelining(管道化) — 為什麼一件事沒變快，整體卻變快？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Pipelining(管道化) — 為什麼一件事沒變快，整體卻變快？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-non-pipelined非管道化像只有一個人從頭做到尾" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Non-pipelined(非管道化)：像只有一個人從頭做到尾
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pipelined管道化像廚房有四個工作站" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pipelined(管道化)：像廚房有四個工作站
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最重要的不變量單一道菜沒有變快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最重要的不變量：單一道菜沒有變快
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-套到-cpu一道菜就像一條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 套到 CPU：一道菜就像一條指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pipeline-register管道化暫存器為什麼要加暫存器" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pipeline register(管道化暫存器)：為什麼要加暫存器？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-管道化真正提升的是-throughput吞吐率" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 管道化真正提升的是 Throughput(吞吐率)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Pipeline register delay(管道化暫存器延遲)：為什麼可能讓單條指令更慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-optimization管道化的優化--為什麼-pipeline-不是切越多越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Pipeline Optimization(管道化的優化) — 為什麼 pipeline 不是切越多越好？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Pipeline Optimization(管道化的優化) — 為什麼 pipeline 不是切越多越好？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stage-imbalance階段不平衡最慢的一站會卡住全部" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stage imbalance(階段不平衡)：最慢的一站會卡住全部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pipeline-balancing管道化平衡把太慢的一站切開" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pipeline balancing(管道化平衡)：把太慢的一站切開
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-super-pipelining超級管道化把-stage-切得更細" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Super Pipelining(超級管道化)：把 stage 切得更細
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼不是越深越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼不是越深越好？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最重要的-mental-model心智模型" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最重要的 mental model(心智模型)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以講義到底要表達什麼他說管道化的級數是越多越好嗎答案是否定的到底為何否定" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以講義到底要表達什麼？他說"「管道化的級數是越多越好嗎？」答案是否定的"，到底為何否定？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="所以講義到底要表達什麼？他說&#34;「管道化的級數是越多越好嗎？」答案是否定的&#34;，到底為何否定？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-講義真正要否定的是只要級數越多整體就一定越好" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 講義真正要否定的是「只要級數越多，整體就一定越好」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼否定因為它不是免費提高-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼否定？因為它不是免費提高 throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最精準的一句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最精準的一句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-你可以這樣理解講義的否" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 你可以這樣理解講義的「否！」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-考試版答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 考試版答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-scalar-pipeline標量管道化時間上的重疊" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Scalar pipeline(標量管道化)：時間上的重疊
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-superscalar-pipeline超標量管道化空間上的複製" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Superscalar pipeline(超標量管道化)：空間上的複製
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用做菜比喻比較" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用做菜比喻比較
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-super-pipelining-vs-superscalar這兩個很容易混" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Super pipelining vs Superscalar：這兩個很容易混
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pentium-例子雙發射兩條-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pentium 例子：雙發射、兩條 pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-superscalar-不等於永遠兩倍快" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Superscalar 不等於永遠兩倍快
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-和-multi-core多核心-的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 和 multi-core(多核心) 的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-parallelism時間並行性為何叫做-時間space-parallelism空間並行性為何叫做-空間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        time parallelism(時間並行性)為何叫做 時間，space parallelism(空間並行性)為何叫做 空間？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        superscalar(超標量) 實際上也有 time parallelism(時間並行性) 對不對，只是不是他出現的主要原因
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -5886,9 +6818,899 @@ is now available!
 
 
 
-  <h1>Ch 4 2</h1>
+  <h1>Ch 4.2</h1>
 
+<h2 id="pipelining管道化--為什麼一件事沒變快整體卻變快">⭐Pipelining(管道化) — 為什麼一件事沒變快，整體卻變快？<a class="headerlink" href="#pipelining管道化--為什麼一件事沒變快整體卻變快" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 2 ~ PDF viewer page 23</p>
+<h3 id="1-這個知識點在解決什麼問題">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題" title="Permanent link"></a></h3>
+<p>Pipelining(管道化) 要解決的不是「把單一工作變得更快」，而是「讓很多工作可以重疊進行」。</p>
+<p>生活化例子就是講義的做菜流程：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th style="text-align: right;">做法</th>
+<th style="text-align: right;">四道菜總時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-pipelined(非管道化)</td>
+<td style="text-align: right;">第一道菜完整做完，再做第二道</td>
+<td style="text-align: right;">16 分鐘</td>
+</tr>
+<tr>
+<td>Pipelined(管道化)</td>
+<td style="text-align: right;">第一道菜洗菜後，馬上讓第二道菜進入洗菜</td>
+<td style="text-align: right;">7 分鐘</td>
+</tr>
+</tbody>
+</table>
+<p>講義的非管道化例子把一道菜拆成 4 步：洗菜、切菜、炒菜、裝盤。若每步 1 分鐘，單一道菜要 4 分鐘；若四道菜完全一個接一個做，就是 16 分鐘。</p>
+<hr />
+<h3 id="2-non-pipelined非管道化像只有一個人從頭做到尾">2. Non-pipelined(非管道化)：像只有一個人從頭做到尾<a class="headerlink" href="#2-non-pipelined非管道化像只有一個人從頭做到尾" title="Permanent link"></a></h3>
+<p>非管道化的核心限制是：<strong>同一時間只服務一個任務</strong>。</p>
+<p>做菜例子中，假設第 1 道菜正在洗菜，其他菜不能開始；第 1 道菜切菜時，洗菜區也閒著；第 1 道菜炒菜時，切菜區也閒著。也就是很多資源會空等。</p>
+<p>用時間線看會像這樣：</p>
+<pre class="diagram"><code>flowchart LR
+    A["第 1 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; B["第 2 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; C["第 3 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; D["第 4 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"]</code></pre>
+<p>這個模式的重點不是慢在某一步，而是慢在「不能重疊」。</p>
+<hr />
+<h3 id="3-pipelined管道化像廚房有四個工作站">3. Pipelined(管道化)：像廚房有四個工作站<a class="headerlink" href="#3-pipelined管道化像廚房有四個工作站" title="Permanent link"></a></h3>
+<p>管道化把一個工作拆成多個 stage(階段)，每個 stage 可以同時處理不同任務。</p>
+<p>做菜例子：</p>
+<table>
+<thead>
+<tr>
+<th>Stage(階段)</th>
+<th>工作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stage 1</td>
+<td>洗菜</td>
+</tr>
+<tr>
+<td>Stage 2</td>
+<td>切菜</td>
+</tr>
+<tr>
+<td>Stage 3</td>
+<td>炒菜</td>
+</tr>
+<tr>
+<td>Stage 4</td>
+<td>裝盤</td>
+</tr>
+</tbody>
+</table>
+<p>當第 1 道菜進入切菜時，洗菜區空出來，所以第 2 道菜可以開始洗菜。當第 1 道菜進入炒菜時，第 2 道菜可以切菜，第 3 道菜可以洗菜。</p>
+<pre class="diagram"><code>flowchart LR
+    S1["Stage 1&lt;br&gt;洗菜"] --&gt; S2["Stage 2&lt;br&gt;切菜"] --&gt; S3["Stage 3&lt;br&gt;炒菜"] --&gt; S4["Stage 4&lt;br&gt;裝盤"]
 
+    T["同一時間點可能發生：&lt;br&gt;第 4 道菜洗菜&lt;br&gt;第 3 道菜切菜&lt;br&gt;第 2 道菜炒菜&lt;br&gt;第 1 道菜裝盤"]</code></pre>
+<p>講義 PDF viewer page 5～13 就是在逐分鐘展示這件事：第 1 道菜先進入洗菜，之後每過一分鐘，新的一道菜進入前面的空階段，直到第 4 道菜完成。</p>
+<hr />
+<h3 id="4-最重要的不變量單一道菜沒有變快">4. 最重要的不變量：單一道菜沒有變快<a class="headerlink" href="#4-最重要的不變量單一道菜沒有變快" title="Permanent link"></a></h3>
+<p>這是很多人第一次學管道化最容易錯的地方。</p>
+<p>管道化後：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單一道菜從開始到完成有沒有變快？</td>
+<td>沒有，還是 4 分鐘</td>
+</tr>
+<tr>
+<td>四道菜總時間有沒有變短？</td>
+<td>有，從 16 分鐘變 7 分鐘</td>
+</tr>
+<tr>
+<td>管道化主要提升什麼？</td>
+<td>Throughput(吞吐率)，不是單一任務 latency(延遲)</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 14 也明確寫到：管道化填滿後，可以每 1 分鐘上一道菜；但單獨一道菜仍然需要 4 分鐘。</p>
+<hr />
+<h3 id="5-套到-cpu一道菜就像一條指令">5. 套到 CPU：一道菜就像一條指令<a class="headerlink" href="#5-套到-cpu一道菜就像一條指令" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%204.2.png" /></p>
+<p>在 CPU 中，一條 MIPS 指令也可以拆成多個 stage(階段)。講義列出五個主要步驟：</p>
+<table>
+<thead>
+<tr>
+<th>Stage(階段)</th>
+<th>英文</th>
+<th>做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Fetch(取指令)</td>
+<td>從記憶體取出指令，更新 PC</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Decode(解碼)</td>
+<td>解碼指令，從 register file(暫存器堆) 讀資料</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Execute(執行)</td>
+<td>ALU 運算，或計算記憶體位址</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Memory(存取)</td>
+<td>load 讀記憶體，store 寫記憶體</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Write-back(寫回)</td>
+<td>把結果寫回 register file(暫存器堆)</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 16 明確列出 MIPS 的五個主要步驟，PDF viewer page 17 則把它們對應到 datapath(資料通路) 上。</p>
+<hr />
+<h3 id="6-pipeline-register管道化暫存器為什麼要加暫存器">6. Pipeline register(管道化暫存器)：為什麼要加暫存器？<a class="headerlink" href="#6-pipeline-register管道化暫存器為什麼要加暫存器" title="Permanent link"></a></h3>
+<p>如果我們想讓多條指令同時在不同 stage 裡跑，就需要在 stage 之間加上 pipeline register(管道化暫存器)。</p>
+<p>它的功能像「交接櫃台」：</p>
+<table>
+<thead>
+<tr>
+<th>沒有 pipeline register</th>
+<th>有 pipeline register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前後 stage 的資料容易混在一起</td>
+<td>每個 stage 的輸出先被暫存</td>
+</tr>
+<tr>
+<td>很難讓多條指令同時存在</td>
+<td>可以每個 clock(時脈) 往下一站推進</td>
+</tr>
+<tr>
+<td>像整間廚房只有一張工作桌</td>
+<td>像每站都有自己的托盤</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 18 的圖，就是在原本 datapath(資料通路) 中間加入多條垂直的 pipeline register(管道化暫存器)。</p>
+<hr />
+<h3 id="7-管道化真正提升的是-throughput吞吐率">7. 管道化真正提升的是 Throughput(吞吐率)<a class="headerlink" href="#7-管道化真正提升的是-throughput吞吐率" title="Permanent link"></a></h3>
+<p>我們把 CPU 版本跟做菜版本對齊：</p>
+<table>
+<thead>
+<tr>
+<th>做菜例子</th>
+<th>CPU 例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一道菜</td>
+<td>一條指令</td>
+</tr>
+<tr>
+<td>洗菜、切菜、炒菜、裝盤</td>
+<td>IF、ID、EX、MEM、WB</td>
+</tr>
+<tr>
+<td>每 1 分鐘完成一道菜</td>
+<td>每 1 個 clock 完成一條指令</td>
+</tr>
+<tr>
+<td>第一道菜仍需 4 分鐘</td>
+<td>單條指令仍需完整走完 5 stage</td>
+</tr>
+<tr>
+<td>多道菜總完成時間變短</td>
+<td>多條指令總執行時間變短</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 23 的結論是：管道化中的處理元件可以並行工作，使整體程序執行時間縮短；但管道化不會縮短單條指令的執行時間，甚至可能增加，真正提高的是 instruction throughput(指令吞吐率)。</p>
+<hr />
+<h3 id="8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢">8. Pipeline register delay(管道化暫存器延遲)：為什麼可能讓單條指令更慢？<a class="headerlink" href="#8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢" title="Permanent link"></a></h3>
+<p>理想情況下，如果五個 stage 各 200ps，單條指令經過五個 stage 是 1000ps。</p>
+<p>但實際加入 pipeline register(管道化暫存器) 會有額外延遲。講義的例子是假設 pipeline register delay 為 50ps，因此每個 stage 的 clock cycle time(時脈週期) 從 200ps 變成 250ps。結果單條指令走完五個 stage 變成：</p>
+<p>250ps × 5 = 1250ps</p>
+<p>所以管道化後：</p>
+<table>
+<thead>
+<tr>
+<th>指標</th>
+<th>變化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單條指令 latency(延遲)</td>
+<td>可能變長</td>
+</tr>
+<tr>
+<td>多條指令 throughput(吞吐率)</td>
+<td>變好</td>
+</tr>
+<tr>
+<td>理想 speedup(加速比)</td>
+<td>受 stage 平衡與 register delay 限制</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 21～22 用 200ps 與 250ps 的例子比較「未考慮」與「考慮」管道化暫存器延遲的差異。</p>
+<hr />
+<h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
+<p>Pipelining(管道化) 的一句話：</p>
+<p><strong>把一條工作切成多個 stage(階段)，讓不同工作同時待在不同 stage；它主要提升 throughput(吞吐率)，不保證降低單一工作 latency(延遲)。</strong></p>
+<p>考試看到 pipeline，先問自己三件事：</p>
+<ol>
+<li>有幾個 stage？</li>
+<li>每個 stage 的 clock cycle time(時脈週期) 是多少？</li>
+<li>題目問的是 latency(單一任務時間) 還是 throughput(單位時間完成量)？</li>
+</ol>
+<hr />
+<h3 id="10-常見錯法">10. 常見錯法<a class="headerlink" href="#10-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>為什麼錯</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管道化會讓單條指令變快</td>
+<td>不一定；單條指令還是要走完所有 stage，甚至可能因 pipeline register delay 變慢</td>
+</tr>
+<tr>
+<td>五階段管道化一定快 5 倍</td>
+<td>只有在大量指令、stage 平衡、沒有 hazard(危障)、暫存器延遲很小時才接近</td>
+</tr>
+<tr>
+<td>管道化就是平行處理，所以每條指令同時做完</td>
+<td>錯；是不同指令在不同 stage 同時前進，不是同一條指令同時完成所有 stage</td>
+</tr>
+<tr>
+<td>第一條指令也會馬上享受 throughput 優勢</td>
+<td>錯；pipeline 要先 fill(填滿)，第一條仍要走完整流程</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
+<p>latency 是單一任務時間，所以每一個 stage 如果是 200ps，共有 5 個 stage，那 latency 應該是 5 * 200 = 1000。</p>
+<p>然後如果 CPU pipeline has a 50 ps pipeline register delay，有 5 個 stage，那 latency 就是 250 * 5 = 1250 。</p>
+<p>然後 throughput 是單位時間完成量。</p>
+</div>
+<h2 id="pipeline-optimization管道化的優化--為什麼-pipeline-不是切越多越好">⭐Pipeline Optimization(管道化的優化) — 為什麼 pipeline 不是切越多越好？<a class="headerlink" href="#pipeline-optimization管道化的優化--為什麼-pipeline-不是切越多越好" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 24 ~ PDF viewer page 30</p>
+<h3 id="1-這個知識點在解決什麼問題_1">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題_1" title="Permanent link"></a></h3>
+<p>上一輪我們學到：pipelining(管道化) 可以提升 throughput(吞吐率)，但不一定降低 latency(延遲)。</p>
+<p>這一輪講義往前問一個更細的問題：</p>
+<p><strong>既然管道化靠切 stage(階段) 變快，那是不是 stage 切越多越好？</strong></p>
+<p>答案是：<strong>不是。</strong></p>
+<p>原因有兩個：</p>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stage imbalance(階段不平衡)</td>
+<td>最慢的 stage 會決定 clock cycle time(時脈週期)</td>
+</tr>
+<tr>
+<td>Pipeline register delay(管道化暫存器延遲)</td>
+<td>切越多 stage，需要越多 pipeline registers，額外延遲比例可能變大</td>
+</tr>
+</tbody>
+</table>
+<p>講義 PDF viewer page 25 先用平衡管道化複習：每階段 1 分鐘時，管道化連續工作可接近每 1 分鐘上一道菜；PDF viewer page 26 接著改成切菜需要 2 分鐘，整條 pipeline 的時脈週期就被拖成 2 分鐘。</p>
+<hr />
+<h3 id="2-stage-imbalance階段不平衡最慢的一站會卡住全部">2. Stage imbalance(階段不平衡)：最慢的一站會卡住全部<a class="headerlink" href="#2-stage-imbalance階段不平衡最慢的一站會卡住全部" title="Permanent link"></a></h3>
+<p>想像廚房有四站：</p>
+<table>
+<thead>
+<tr>
+<th>Stage(階段)</th>
+<th style="text-align: right;">時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>洗菜</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>切菜</td>
+<td style="text-align: right;">2 分鐘</td>
+</tr>
+<tr>
+<td>炒菜</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>裝盤</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+</tbody>
+</table>
+<p>這時 pipeline 不能每 1 分鐘推進一次，因為「切菜」還沒做完。整條 pipeline 的 clock cycle time(時脈週期) 會被最慢 stage 決定，也就是 2 分鐘。</p>
+<p>最短記法：</p>
+<p><strong>Pipeline 的速度由最慢 stage 決定。</strong></p>
+<pre class="diagram"><code>flowchart LR
+    A["洗菜&lt;br&gt;1 分鐘"] --&gt; B["切菜&lt;br&gt;2 分鐘&lt;br&gt;最慢，決定時脈週期"]
+    B --&gt; C["炒菜&lt;br&gt;1 分鐘"]
+    C --&gt; D["裝盤&lt;br&gt;1 分鐘"]</code></pre>
+<p>所以，pipeline optimization(管道化優化) 的第一個方向就是：<strong>讓每個 stage 盡量平衡。</strong></p>
+<hr />
+<h3 id="3-pipeline-balancing管道化平衡把太慢的一站切開">3. Pipeline balancing(管道化平衡)：把太慢的一站切開<a class="headerlink" href="#3-pipeline-balancing管道化平衡把太慢的一站切開" title="Permanent link"></a></h3>
+<p>講義 PDF viewer page 27 的做法是把「切菜」拆成：</p>
+<table>
+<thead>
+<tr>
+<th>原本</th>
+<th>調整後</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切菜：2 分鐘</td>
+<td>切菜 1：1 分鐘</td>
+</tr>
+<tr>
+<td></td>
+<td>切菜 2：1 分鐘</td>
+</tr>
+</tbody>
+</table>
+<p>這樣整條 pipeline 變成：</p>
+<table>
+<thead>
+<tr>
+<th>Stage(階段)</th>
+<th style="text-align: right;">時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>洗菜</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>切菜 1</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>切菜 2</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>炒菜</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+<tr>
+<td>裝盤</td>
+<td style="text-align: right;">1 分鐘</td>
+</tr>
+</tbody>
+</table>
+<p>結果 clock cycle time(時脈週期) 可以回到 1 分鐘；但單一道菜要經過 5 個 stage，所以單一道菜 latency(延遲) 變成約 5 分鐘。</p>
+<p>這裡出現第一個 trade-off(取捨)：</p>
+<table>
+<thead>
+<tr>
+<th>優點</th>
+<th>代價</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stage 更平衡，clock cycle time 變短</td>
+<td>stage 數增加，單一任務 latency 可能增加 (因為 pipeline register delay)</td>
+</tr>
+<tr>
+<td>throughput 變好</td>
+<td>控制與 pipeline register 成本增加</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-super-pipelining超級管道化把-stage-切得更細">4. Super Pipelining(超級管道化)：把 stage 切得更細<a class="headerlink" href="#4-super-pipelining超級管道化把-stage-切得更細" title="Permanent link"></a></h3>
+<p>Super Pipelining(超級管道化) 的想法是：</p>
+<p><strong>把原本的 pipeline stage 切成更多、更短的 stage，藉此提高 clock frequency(時脈頻率)，進一步提高 throughput(吞吐率)。</strong></p>
+<p>講義 PDF viewer page 28 的例子：</p>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th style="text-align: right;">每個邏輯 stage 延遲</th>
+<th style="text-align: right;">pipeline register delay</th>
+<th style="text-align: right;">clock cycle time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-stage pipeline</td>
+<td style="text-align: right;">200ps</td>
+<td style="text-align: right;">50ps</td>
+<td style="text-align: right;">250ps</td>
+</tr>
+<tr>
+<td>10-stage pipeline</td>
+<td style="text-align: right;">100ps</td>
+<td style="text-align: right;">50ps</td>
+<td style="text-align: right;">150ps</td>
+</tr>
+</tbody>
+</table>
+<p>所以 10-stage 的 clock cycle time 比 5-stage 短：150ps &lt; 250ps。這代表理想情況下 throughput 可能提高。</p>
+<hr />
+<h3 id="5-為什麼不是越深越好">5. 為什麼不是越深越好？<a class="headerlink" href="#5-為什麼不是越深越好" title="Permanent link"></a></h3>
+<p>講義 PDF viewer page 29 直接問：「管道化的級數是越多越好嗎？」答案是否定的。原因是 pipeline register delay(管道化暫存器延遲) 的比例變大。</p>
+<p>比較：</p>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th style="text-align: right;">clock cycle time</th>
+<th style="text-align: right;">單條指令 latency</th>
+<th style="text-align: right;">register delay 比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-stage</td>
+<td style="text-align: right;">250ps</td>
+<td style="text-align: right;">5 × 250ps = 1250ps</td>
+<td style="text-align: right;">50 / 250 = 20%</td>
+</tr>
+<tr>
+<td>10-stage</td>
+<td style="text-align: right;">150ps</td>
+<td style="text-align: right;">10 × 150ps = 1500ps</td>
+<td style="text-align: right;">50 / 150 = 33%</td>
+</tr>
+</tbody>
+</table>
+<p>關鍵觀念：</p>
+<p><strong>切 stage 可以讓每個 stage 的邏輯工作變短，但 pipeline register delay 不會跟著等比例變小。</strong></p>
+<p>所以切太細時，很多時間都耗在「stage 之間的交接成本」，不是實際運算。</p>
+<p>生活化例子：如果餐廳把「切菜」拆成太多小步，每一步本身很短，但每次交接都要登記、搬盤、確認，最後交接成本可能吃掉好處。</p>
+<hr />
+<h3 id="6-本輪最重要的-mental-model心智模型">6. 本輪最重要的 mental model(心智模型)<a class="headerlink" href="#6-本輪最重要的-mental-model心智模型" title="Permanent link"></a></h3>
+<p>可以把 pipeline 想成一條捷運線：</p>
+<table>
+<thead>
+<tr>
+<th>CPU pipeline</th>
+<th>捷運類比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stage</td>
+<td>車站</td>
+</tr>
+<tr>
+<td>instruction</td>
+<td>乘客</td>
+</tr>
+<tr>
+<td>clock cycle</td>
+<td>每班車發車間隔</td>
+</tr>
+<tr>
+<td>pipeline register delay</td>
+<td>乘客上下車、關門、確認安全的固定時間</td>
+</tr>
+<tr>
+<td>stage imbalance</td>
+<td>某一站上下車特別慢，拖住整條線</td>
+</tr>
+</tbody>
+</table>
+<p>因此：</p>
+<ol>
+<li>如果每站都差不多快，班距可以壓低，throughput 好。</li>
+<li>如果某站很慢，整條線都要等它。</li>
+<li>如果站切太多，每站之間的停靠與交接成本反而變高。</li>
+<li>所以 pipeline depth(管道化深度) 要平衡，不是越多越好。</li>
+</ol>
+<hr />
+<h3 id="7-常見錯法">7. 常見錯法<a class="headerlink" href="#7-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stage 越多，CPU 一定越快</td>
+<td>不一定；register delay、hazard penalty、控制複雜度都會增加</td>
+</tr>
+<tr>
+<td>只要把最慢 stage 切開，就沒有代價</td>
+<td>有代價；stage 數增加，pipeline register 與控制成本增加</td>
+</tr>
+<tr>
+<td>10-stage clock 比 5-stage 短，所以單條指令一定更快</td>
+<td>錯；講義例子中 10-stage 單條指令 latency 是 1500ps，比 5-stage 的 1250ps 更長</td>
+</tr>
+<tr>
+<td>pipeline optimization 只看 clock cycle time</td>
+<td>不夠；還要看 latency、throughput、register delay、stage balance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="所以講義到底要表達什麼他說管道化的級數是越多越好嗎答案是否定的到底為何否定">所以講義到底要表達什麼？他說"「管道化的級數是越多越好嗎？」答案是否定的"，到底為何否定？<a class="headerlink" href="#所以講義到底要表達什麼他說管道化的級數是越多越好嗎答案是否定的到底為何否定" title="Permanent link"></a></h3>
+<h4 id="1-講義真正要否定的是只要級數越多整體就一定越好">1. 講義真正要否定的是「只要級數越多，整體就一定越好」<a class="headerlink" href="#1-講義真正要否定的是只要級數越多整體就一定越好" title="Permanent link"></a></h4>
+<p>講義不是說：</p>
+<p><strong>「級數越多，throughput(吞吐率) 完全不會增加。」</strong></p>
+<p>它真正否定的是：</p>
+<p><strong>「只要把 pipeline depth(管道化深度) 一直加深，CPU 整體設計就一定越好。」</strong></p>
+<p>也就是說，講義的「否！」是在否定 <strong>越多越好</strong> 這個單調結論，不是在否定 super pipelining(超級管道化) 可以提高 clock frequency(時脈頻率) 與 instruction throughput(指令吞吐率)。講義前一頁確實說，將五級管道化細分成更多階段，可以提升時脈頻率、提高指令吞吐率；但下一頁馬上用 5-stage 與 10-stage 的數字說明代價。</p>
+<hr />
+<h4 id="2-為什麼否定因為它不是免費提高-throughput">2. 為什麼否定？因為它不是免費提高 throughput<a class="headerlink" href="#2-為什麼否定因為它不是免費提高-throughput" title="Permanent link"></a></h4>
+<p>講義給的關鍵數字是：</p>
+<table>
+<thead>
+<tr>
+<th>設計</th>
+<th style="text-align: right;">時脈週期</th>
+<th style="text-align: right;">單條指令延遲</th>
+<th style="text-align: right;">pipeline register delay 比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5-stage</td>
+<td style="text-align: right;">200ps + 50ps = 250ps</td>
+<td style="text-align: right;">1250ps</td>
+<td style="text-align: right;">50 / 250 = 20%</td>
+</tr>
+<tr>
+<td>10-stage</td>
+<td style="text-align: right;">100ps + 50ps = 150ps</td>
+<td style="text-align: right;">1500ps</td>
+<td style="text-align: right;">50 / 150 = 33%</td>
+</tr>
+</tbody>
+</table>
+<p>所以 10-stage 的確有較短 clock cycle time，理想 throughput 會比較高；但它同時讓單條指令 latency 從 <strong>1250ps 變成 1500ps</strong>，而且每個 cycle 裡面有更大比例是在付 pipeline register delay(管道化暫存器延遲)。</p>
+<p>這就是講義否定的核心：</p>
+<p><strong>級數變多會提高理想吞吐率，但會讓交接成本比例變大，單條指令延遲變長，所以不能說越多越好。</strong></p>
+<hr />
+<h4 id="3-最精準的一句話">3. 最精準的一句話<a class="headerlink" href="#3-最精準的一句話" title="Permanent link"></a></h4>
+<p>講義想表達的是：</p>
+<p><strong>Pipeline depth 有最佳化取捨點，不是越深越好。</strong></p>
+<p>原因是：</p>
+<ol>
+<li>stage 切更多，logic delay(邏輯延遲) 變短，所以 clock cycle time 可能下降。</li>
+<li>但每多切一段，就多一份 pipeline register overhead(管道化暫存器額外成本)。</li>
+<li>register delay 不會跟著你切 stage 而等比例變小。</li>
+<li>所以 deeper pipeline(更深管線) 的 throughput improvement(吞吐率改善) 會越來越小。</li>
+<li>同時 single-instruction latency(單條指令延遲)、控制複雜度、hazard penalty(危障懲罰) 會變大。</li>
+</ol>
+<hr />
+<h4 id="4-你可以這樣理解講義的否">4. 你可以這樣理解講義的「否！」<a class="headerlink" href="#4-你可以這樣理解講義的否" title="Permanent link"></a></h4>
+<p>它不是在說：</p>
+<p><strong>10-stage 比 5-stage 的 throughput 一定比較差。</strong></p>
+<p>而是在說：</p>
+<p><strong>不能因為 10-stage 的 clock cycle time 比 5-stage 短，就推論 20-stage、50-stage、100-stage 一定越來越好。</strong></p>
+<p>因為最後會變成：</p>
+<table>
+<thead>
+<tr>
+<th>變化</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clock cycle time</td>
+<td>繼續下降，但越來越接近 register delay 下限</td>
+</tr>
+<tr>
+<td>ideal throughput</td>
+<td>繼續上升，但邊際效益越來越小</td>
+</tr>
+<tr>
+<td>single-instruction latency</td>
+<td>越來越容易變高</td>
+</tr>
+<tr>
+<td>pipeline register delay 比例</td>
+<td>越來越大</td>
+</tr>
+<tr>
+<td>分支錯誤／stall 的代價</td>
+<td>通常越深越痛</td>
+</tr>
+<tr>
+<td>設計複雜度與功耗</td>
+<td>增加</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="5-考試版答案">5. 考試版答案<a class="headerlink" href="#5-考試版答案" title="Permanent link"></a></h4>
+<p>中文考試版：</p>
+<p><strong>管道化級數不是越多越好。增加級數可以把每個 stage 的邏輯延遲變短，降低 clock cycle time，進而提高理想 instruction throughput；但每個 stage 之間都需要 pipeline register，而 pipeline register delay 不會消失。當級數增加時，register overhead 的比例上升，單條指令 latency 可能增加，且控制複雜度與 hazard penalty 也會提高。因此 pipeline depth 存在取捨，不是越深越好。</strong></p>
+<p>英文考試版：</p>
+<p><strong>Pipeline depth is not always better when increased. A deeper pipeline can reduce the clock cycle time and improve ideal instruction throughput, but each additional stage introduces pipeline register overhead. As the number of stages increases, the register delay becomes a larger fraction of the cycle time, single-instruction latency may increase, and hazard penalties and control complexity also become worse. Therefore, pipeline depth involves a trade-off rather than a simple “more is better” rule.</strong></p>
+<h2 id="superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令">⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？<a class="headerlink" href="#superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 31 ~ PDF viewer page 44</p>
+<h3 id="1-這個知識點在解決什麼問題_2">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題_2" title="Permanent link"></a></h3>
+<p>前面我們學的是 scalar pipeline(標量管道化)：<br />
+一條 pipeline 被切成很多 stage，讓不同 instruction(指令) 可以在不同 stage 重疊執行。</p>
+<p>但 scalar pipeline 的理想狀態通常是：</p>
+<p><strong>每個 clock cycle 最多完成 1 條 instruction。</strong></p>
+<p>Superscalar Pipeline(超標量管道化) 想解決的問題是：</p>
+<p><strong>如果我不只切時間，還直接增加硬體資源，那能不能每個 clock cycle 發射／完成多條 instruction？</strong></p>
+<p>講義 PDF viewer page 32 對 superscalar(超標量) 的定義是：具有兩條或兩條以上並行工作的管道化結構，稱為超標量結構；使用這種結構的處理器稱為 superscalar processor(超標量處理器)。</p>
+<hr />
+<h3 id="2-scalar-pipeline標量管道化時間上的重疊">2. Scalar pipeline(標量管道化)：時間上的重疊<a class="headerlink" href="#2-scalar-pipeline標量管道化時間上的重疊" title="Permanent link"></a></h3>
+<p>Scalar pipeline(標量管道化) 的核心是 <mark><strong>time parallelism(時間並行性)</strong></mark>。</p>
+<p>意思是：<br />
+同一份硬體流程被切成 stage，不同 instruction 分別卡在不同 stage 裡。</p>
+<p>像這樣：</p>
+<pre class="diagram"><code>flowchart LR
+    A["Instruction 1&lt;br&gt;IF"] --&gt; B["Instruction 1&lt;br&gt;ID"] --&gt; C["Instruction 1&lt;br&gt;EX"] --&gt; D["Instruction 1&lt;br&gt;MEM"] --&gt; E["Instruction 1&lt;br&gt;WB"]
+
+    X["同一時間：&lt;br&gt;不同 instruction 在不同 stage"] </code></pre>
+<p>它像一條生產線：<br />
+每個時間點，這條線上可以有很多產品，但每個入口通常一次只放一個產品。</p>
+<hr />
+<h3 id="3-superscalar-pipeline超標量管道化空間上的複製">3. Superscalar pipeline(超標量管道化)：空間上的複製<a class="headerlink" href="#3-superscalar-pipeline超標量管道化空間上的複製" title="Permanent link"></a></h3>
+<p>Superscalar pipeline(超標量管道化) 的核心是 <mark><strong>space parallelism(空間並行性)</strong></mark>。</p>
+<p>意思是：<br />
+不只是把同一條 pipeline 切 stage，而是增加多條可以並行工作的 pipeline 或 functional units(功能單元)。</p>
+<p>講義 PDF viewer page 43 的說法很精準：</p>
+<table>
+<thead>
+<tr>
+<th>轉換</th>
+<th>本質</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>單週期 → 標量管道化</td>
+<td>時間並行性的優化，主要是對現有硬體切分</td>
+</tr>
+<tr>
+<td>標量管道化 → 超標量管道化</td>
+<td>空間並行性的優化，需要成倍增加硬體資源</td>
+</tr>
+</tbody>
+</table>
+<p>也就是說，super pipelining(超級管道化) 是「切更細」，superscalar(超標量) 是「開更多條線」。</p>
+<hr />
+<h3 id="4-用做菜比喻比較">4. 用做菜比喻比較<a class="headerlink" href="#4-用做菜比喻比較" title="Permanent link"></a></h3>
+<p>前面 scalar pipeline 像是：</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th style="text-align: right;">人數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>洗菜</td>
+<td style="text-align: right;">1 人</td>
+</tr>
+<tr>
+<td>切菜</td>
+<td style="text-align: right;">1 人</td>
+</tr>
+<tr>
+<td>炒菜</td>
+<td style="text-align: right;">1 人</td>
+</tr>
+<tr>
+<td>裝盤</td>
+<td style="text-align: right;">1 人</td>
+</tr>
+</tbody>
+</table>
+<p>Pipeline 填滿後，每分鐘上一道菜。</p>
+<p>Superscalar 則像是：</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th style="text-align: right;">人數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>洗菜</td>
+<td style="text-align: right;">2 人</td>
+</tr>
+<tr>
+<td>切菜 1</td>
+<td style="text-align: right;">2 人</td>
+</tr>
+<tr>
+<td>切菜 2</td>
+<td style="text-align: right;">2 人</td>
+</tr>
+<tr>
+<td>炒菜</td>
+<td style="text-align: right;">2 人</td>
+</tr>
+<tr>
+<td>裝盤</td>
+<td style="text-align: right;">2 人</td>
+</tr>
+</tbody>
+</table>
+<p>如果每一站都有足夠人手，而且菜彼此不互相卡住，那每分鐘可以處理兩道菜。講義 PDF viewer page 33 ~ 35 就是在用做菜流程展示超標量：同一時間可以讓兩道菜一起往前推。</p>
+<hr />
+<h3 id="5-super-pipelining-vs-superscalar這兩個很容易混">5. Super pipelining vs Superscalar：這兩個很容易混<a class="headerlink" href="#5-super-pipelining-vs-superscalar這兩個很容易混" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技術</th>
+<th>中文</th>
+<th>做法</th>
+<th>主要改善</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Super pipelining</td>
+<td>超級管道化</td>
+<td>把 pipeline 切成更多 stages</td>
+<td>降低 clock cycle time，提高時脈頻率</td>
+</tr>
+<tr>
+<td>Superscalar</td>
+<td>超標量</td>
+<td>增加多條 pipeline／功能單元</td>
+<td>提高每個 cycle 可處理的 instruction 數</td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>管道化</td>
+<td>把工作切 stage 並重疊</td>
+<td>提高 throughput</td>
+</tr>
+</tbody>
+</table>
+<p>最短比較：</p>
+<p><strong>Super pipelining 是「更細」；superscalar 是「更多條」。</strong></p>
+<hr />
+<h3 id="6-pentium-例子雙發射兩條-pipeline">6. Pentium 例子：雙發射、兩條 pipeline<a class="headerlink" href="#6-pentium-例子雙發射兩條-pipeline" title="Permanent link"></a></h3>
+<p>講義 PDF viewer page 39 用 Pentium 當例子：Pentium 是第一款 superscalar x86 CPU，具有 U pipeline(U 管道) 與 V pipeline(V 管道)，屬於 dual-issue(雙發射)、5-stage pipeline。講義也寫到：每條 pipeline 都有自己的位址產生邏輯、ALU 與 data cache interface，因此在一個 clock cycle 內可以同時發送兩條指令。</p>
+<p>所以 superscalar 的代價很明顯：</p>
+<p><strong>不是免費多跑一條指令，而是要多準備硬體資源。</strong></p>
+<hr />
+<h3 id="7-superscalar-不等於永遠兩倍快">7. Superscalar 不等於永遠兩倍快<a class="headerlink" href="#7-superscalar-不等於永遠兩倍快" title="Permanent link"></a></h3>
+<p>理想 dual-issue superscalar(雙發射超標量) 好像可以每 cycle 完成 2 條 instruction，但現實會被限制：</p>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>為什麼會卡住</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data dependency(資料相依)</td>
+<td>第二條指令需要第一條指令結果，就不能真的同時執行</td>
+</tr>
+<tr>
+<td>Structural hazard(結構危障)</td>
+<td>兩條指令搶同一個硬體資源</td>
+</tr>
+<tr>
+<td>Control hazard(控制危障)</td>
+<td>分支還沒確定，後面指令可能取錯</td>
+</tr>
+<tr>
+<td>Instruction mix(指令組合)</td>
+<td>同一 cycle 可配對的指令類型有限</td>
+</tr>
+<tr>
+<td>Hardware cost(硬體成本)</td>
+<td>多 ALU、多解碼器、多 ports，都很貴</td>
+</tr>
+</tbody>
+</table>
+<p>所以考試看到 superscalar，要寫：</p>
+<p><strong>它提高的是 peak throughput(峰值吞吐率)，但實際能不能達到，要看指令相依性、硬體資源與 hazard。</strong></p>
+<hr />
+<h3 id="8-和-multi-core多核心-的關係">8. 和 multi-core(多核心) 的關係<a class="headerlink" href="#8-和-multi-core多核心-的關係" title="Permanent link"></a></h3>
+<p>講義 PDF viewer page 44 說：現代 multi-core CPU(多核心 CPU) 通常是在一個 CPU chip 中整合多個 superscalar processor cores(超標量處理器核心)。</p>
+<p>這句話的意思是：</p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Superscalar core</td>
+<td>單一核心內部一次發射多條指令</td>
+</tr>
+<tr>
+<td>Multi-core CPU</td>
+<td>一顆晶片裡有多個核心</td>
+</tr>
+<tr>
+<td>Modern CPU</td>
+<td>常常是「多核心」加上「每個核心本身也是超標量」</td>
+</tr>
+</tbody>
+</table>
+<p>生活化講法：</p>
+<ul>
+<li>superscalar：一間廚房裡每個工作站有兩組人馬。</li>
+<li>multi-core：有好幾間廚房。</li>
+<li>modern CPU：通常是好幾間廚房，而且每間廚房裡也有多組人馬。</li>
+</ul>
+<hr />
+<h3 id="9-常見錯法">9. 常見錯法<a class="headerlink" href="#9-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>superscalar 就是 pipeline 切更多 stage</td>
+<td>錯，那是 super pipelining</td>
+</tr>
+<tr>
+<td>superscalar 一定剛好快 2 倍</td>
+<td>不一定，受資料相依、hazard、指令組合限制</td>
+</tr>
+<tr>
+<td>pipeline 和 superscalar 是同一件事</td>
+<td>不同；pipeline 是時間重疊，superscalar 是硬體資源並行</td>
+</tr>
+<tr>
+<td>multi-core 和 superscalar 一樣</td>
+<td>不一樣；multi-core 是多核心，superscalar 是單核心內多發射／多管線</td>
+</tr>
+</tbody>
+</table>
+<h3 id="time-parallelism時間並行性為何叫做-時間space-parallelism空間並行性為何叫做-空間">time parallelism(時間並行性)為何叫做 時間，space parallelism(空間並行性)為何叫做 空間？<a class="headerlink" href="#time-parallelism時間並行性為何叫做-時間space-parallelism空間並行性為何叫做-空間" title="Permanent link"></a></h3>
+<p><code>time parallelism(時間並行性)</code> 叫「時間」，是因為它主要靠<strong>把工作切成不同時間階段，讓多個工作在 <mark>時間軸上錯開重疊</mark> (不同時進入)</strong>。</p>
+<p><code>space parallelism(空間並行性)</code> 叫「空間」，是因為它主要靠<strong>增加 <mark>硬體空間／硬體資源</mark> ，例如多條 pipeline、多個 functional units(功能單元)，讓同一時間可以處理更多工作</strong>。</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>所以 <code>time parallelism(時間並行性)</code> 的"時間"是指"時間錯開"。<br />
+所以 <code>space parallelism(空間並行性)</code> 的"空間"是指"硬體空間(硬體位置、硬體資源)"。</p>
+</div>
+<h3 id="superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因">superscalar(超標量) 實際上也有 time parallelism(時間並行性) 對不對，只是不是他出現的主要原因<a class="headerlink" href="#superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因" title="Permanent link"></a></h3>
+<p>對，你這句是<strong>正確的</strong>：</p>
+<p><strong>superscalar(超標量) 實際上也有 time parallelism(時間並行性)，只是它相對於 scalar pipeline(標量管道化) 新增、強調的主要原因是 space parallelism(空間並行性)。</strong></p>
+<p>講義說「標量管道化 → 超標量管道化：空間並行性的優化」，重點是在比較「從 scalar pipeline 進化到 superscalar」時，<strong>新增的關鍵不是再把時間切 stage，而是增加硬體資源</strong>。講義也定義 superscalar 是有兩條或兩條以上並行工作的 pipeline structure(管道化結構)。</p>
 
 
 
@@ -5932,7 +7754,7 @@ is now available!
     >
       
         <a
-          href="ch%204-1.html"
+          href="ch%204.1.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -5944,7 +7766,7 @@ is now available!
               <span class="md-footer__direction">
                 Previous
               </span>
-              Ch 4 1
+              Ch 4.1
             </div>
           </div>
         </a>
