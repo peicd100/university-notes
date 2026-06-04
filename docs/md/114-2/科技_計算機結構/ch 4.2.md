@@ -599,3 +599,165 @@ Superscalar 則像是：
 **superscalar(超標量) 實際上也有 time parallelism(時間並行性)，只是它相對於 scalar pipeline(標量管道化) 新增、強調的主要原因是 space parallelism(空間並行性)。**
 
 講義說「標量管道化 → 超標量管道化：空間並行性的優化」，重點是在比較「從 scalar pipeline 進化到 superscalar」時，**新增的關鍵不是再把時間切 stage，而是增加硬體資源**。講義也定義 superscalar 是有兩條或兩條以上並行工作的 pipeline structure(管道化結構)。
+
+
+
+
+
+
+
+
+
+
+## ⭐Hazard(危障) — 為什麼 pipeline 不能每個 cycle 都順利往前推？
+
+講義位置：PDF viewer page 45 ~ PDF viewer page 55
+
+### 1. 這個知識點在解決什麼問題？
+
+前面我們學到：pipeline 的理想狀態是每個 clock cycle(時脈週期) 都讓新指令進來，舊指令往下一個 stage 推進。
+
+但現實中會出現一種問題：
+
+**下一條指令本來應該在下一個 clock cycle 開始或前進，但因為某些衝突而不能動。**
+
+這種「阻止下一條指令在下一個時脈週期開始執行」的情況，講義稱為 `Hazard(危障)`。講義把 hazard 分成三類：`Structural Hazard(結構危障)`、`Data Hazard(數據危障)`、`Control Hazard(控制危障)`。
+
+可以先用一句話記：
+
+**Hazard = pipeline 想往前推，但資源、資料或方向還沒準備好。**
+
+---
+
+### 2. 三種 Hazard(危障) 的核心差別
+
+```mermaid
+flowchart TB
+    A["Hazard(危障)<br>下一條指令不能正常前進"] --> B["Structural Hazard(結構危障)<br>硬體資源被搶用"]
+    A --> C["Data Hazard(數據危障)<br>需要前一條指令的結果"]
+    A --> D["Control Hazard(控制危障)<br>下一步 PC 方向還不確定"]
+
+    B --> B1["問題：同一個硬體<br>同一時間被多條指令需要"]
+    C --> C1["問題：資料還沒寫回<br>後面指令已經想讀"]
+    D --> D1["問題：分支結果未確定<br>不知道下一條該取誰"]
+```
+
+三種 hazard 其實是在問三個不同問題：
+
+| Hazard 類型               | 卡住原因      | 生活化例子               |
+| ----------------------- | --------- | ------------------- |
+| Structural Hazard(結構危障) | 硬體不夠用     | 兩個人同時要用同一個爐子        |
+| Data Hazard(數據危障)       | 資料還沒準備好   | 第二個人要用第一個人還沒算完的數字   |
+| Control Hazard(控制危障)    | 下一步方向還不知道 | 路口還沒決定左轉或右轉，後面車不能亂開 |
+
+---
+
+### 3. Structural Hazard(結構危障)：硬體資源衝突
+
+`Structural Hazard(結構危障)` 發生在：
+
+**某個硬體元件正在被前面的指令使用，但後面的指令同一時間也需要它。**
+
+講義 PDF viewer page 47 的例子是：如果 instruction(指令) 和 data(資料) 放在同一個 memory(記憶體) 中，就可能不能同時讀記憶體。也就是一條指令正在 MEM stage(記憶體階段) 讀資料時，另一條指令也想在 IF stage(取指令階段) 讀指令，兩者搶同一個 memory。
+
+解法有兩種方向：
+
+| 解法                      | 代價                        |
+| ----------------------- | ------------------------- |
+| Stall(停頓)，插入 bubble(空泡) | pipeline 暫停，throughput 下降 |
+| 增加／分離硬體資源               | 硬體成本增加                    |
+
+講義 PDF viewer page 48 給的解法是 `stall(停頓)`，產生 `bubble(空泡)`；PDF viewer page 49 給的解法是把指令和資料放在不同 memory，也就是分離 instruction memory 與 data memory。 
+
+另外，PDF viewer page 50～51 也問到：如果讀 register(暫存器) 和寫 register 同時發生怎麼辦？講義解法是前半個時脈週期寫、後半個時脈週期讀，並且設置獨立讀寫 port(埠)。 
+
+---
+
+### 4. Data Hazard(數據危障)：資料相依造成等待
+
+`Data Hazard(數據危障)` 發生在：
+
+**後面的指令需要前面指令的結果，但前面指令還沒把結果寫回。**
+
+講義 PDF viewer page 52 的例子是：
+
+`sub $t0,$s1,$s2`
+`add $s3,$t0,$s4`
+
+第二條 `add` 需要用 `$t0`，但 `$t0` 是第一條 `sub` 算出來的。問題是：當 `add` 想讀 `$t0` 時，`sub` 的結果可能還沒寫回 register file(暫存器堆)。講義描述為「一條指令需要使用之前指令的運算結果，但是結果還沒有寫回」。
+
+最直覺解法也是：
+
+**stall(停頓)，插入 bubble(空泡)，等資料真的準備好。**
+
+講義 PDF viewer page 53 就是把 `data hazard` 的解法畫成 stall 和 bubble。
+
+注意：後面如果講到 forwarding(轉送／旁路)，那會是更進階的解法；但本輪只依目前講義頁面，先掌握「資料還沒寫回，所以後面指令不能安全讀」。
+
+---
+
+### 5. Control Hazard(控制危障)：分支方向還沒確定
+
+`Control Hazard(控制危障)` 發生在：
+
+**CPU 還不知道下一條指令到底應該取哪裡。**
+
+最典型來源是 branch instruction(分支指令)，例如 `beq`。講義 PDF viewer page 54 的例子是：`beq` 尚未確定是否發生分支，所以不知道下一次 fetch(取指令) 要取哪一條。
+
+這跟 data hazard 不同：
+
+| 類型                   | 問題           |
+| -------------------- | ------------ |
+| Data Hazard(數據危障)    | 我要的資料值還沒出來   |
+| Control Hazard(控制危障) | 我要走的下一條路還沒決定 |
+
+講義 PDF viewer page 55 的解法同樣先用 `stall(停頓)`，產生 `bubble(空泡)`，等分支結果確定後再繼續。
+
+---
+
+### 6. Stall(停頓) 與 Bubble(空泡)：pipeline 被迫空轉
+
+`stall(停頓)` 是動作：
+**讓某些指令暫時不要往前推。**
+
+`bubble(空泡)` 是結果：
+**pipeline 裡出現一格沒有真正有效工作的空位。**
+
+生活化例子：
+
+你在手搖飲店排隊，理想狀態每分鐘出一杯。但如果封膜機壞了，前面飲料卡住，後面雖然已經做好，也不能交出去。那一分鐘就像 pipeline 裡的 bubble：機器還在跑，但沒有完成有效工作。
+
+所以 hazard 的代價是：
+
+**降低實際 throughput(吞吐率)，讓 pipeline 達不到理想每 cycle 完成一條指令。**
+
+---
+
+### 7. 最短記法
+
+三種 hazard 可以這樣背：
+
+| Hazard            | 問自己                    |
+| ----------------- | ---------------------- |
+| Structural Hazard | 是不是硬體資源不夠／被搶？          |
+| Data Hazard       | 是不是後面指令要用前面還沒產生或寫回的資料？ |
+| Control Hazard    | 是不是分支方向或下一個 PC 還不確定？   |
+
+一句話版：
+
+**Structural 看硬體，Data 看資料，Control 看分支方向。**
+
+---
+
+### 8. 常見錯法
+
+| 錯誤說法                      | 修正                                                |
+| ------------------------- | ------------------------------------------------- |
+| hazard 代表 pipeline 壞掉     | 不是壞掉，是 pipeline 中常見的衝突情況                          |
+| data hazard 是分支造成的        | 錯；分支方向不確定是 control hazard                         |
+| control hazard 是資料還沒算好    | 不精準；control hazard 重點是下一個 PC／控制流程還不確定             |
+| structural hazard 是資料相依   | 錯；structural hazard 是硬體資源衝突                       |
+| stall 和 bubble 是兩種 hazard | 錯；stall/bubble 是處理 hazard 時造成的停頓現象，不是 hazard 類型本身 |
+
+
+
