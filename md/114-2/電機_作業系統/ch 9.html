@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%207.html">
+        <link rel="canonical" href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%209.html">
       
       
-        <link rel="prev" href="ch%206.html">
+        <link rel="prev" href="ch%208.html">
       
       
-        <link rel="next" href="ch%208.html">
+        <link rel="next" href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html">
       
       
         
@@ -28,7 +28,7 @@
     
     
       
-        <title>Ch 7 - PEICD100</title>
+        <title>Ch 9 - PEICD100</title>
       
     
     
@@ -1981,7 +1981,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deadlock-system-model--行程怎麼用資源才可能卡成死結" class="md-skip">
+        <a href="#virtual-memory虛擬記憶體--為什麼程式可以以為自己有很大的連續記憶體" class="md-skip">
           Skip to content
         </a>
       
@@ -2087,7 +2087,7 @@ is now available!
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ch 7
+              Ch 9
             
           </span>
         </div>
@@ -4716,35 +4716,10 @@ is now available!
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 7
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="ch%207.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="ch%207.html" class="md-nav__link">
         
   
   
@@ -4760,1008 +4735,6 @@ is now available!
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#deadlock-system-model--行程怎麼用資源才可能卡成死結" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Deadlock System Model — 行程怎麼用資源，才可能卡成死結？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Deadlock System Model — 行程怎麼用資源，才可能卡成死結？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這章在處理什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這章在處理什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-資源使用的三步驟request--use--release" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 資源使用的三步驟：request → use → release
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-p4-的-mutex-範例在表達什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. p.4 的 mutex 範例在表達什麼？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-為什麼-lock-順序很重要" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 為什麼 lock 順序很重要？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-目前只先學直覺下一頁才正式定義四個必要條件" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 目前只先學直覺，下一頁才正式定義四個必要條件
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#necessary-conditions-for-deadlock--死結一定要同時滿足哪四個條件" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Necessary Conditions for Deadlock — 死結一定要同時滿足哪四個條件？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Necessary Conditions for Deadlock — 死結一定要同時滿足哪四個條件？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-mutual-exclusion互斥" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Mutual Exclusion(互斥)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-hold-and-wait佔用與等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Hold and Wait(佔用與等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-no-preemption不可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. No Preemption(不可搶先)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-circular-wait循環式等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Circular Wait(循環式等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-四個條件套回-p4-mutex-範例" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 四個條件套回 p.4 mutex 範例
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-allocation-graph--怎麼用圖看出-process-和-resource-的等待關係" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Resource-Allocation Graph — 怎麼用圖看出 process 和 resource 的等待關係？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Resource-Allocation Graph — 怎麼用圖看出 process 和 resource 的等待關係？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-圖裡有兩種-vertices頂點" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 圖裡有兩種 vertices(頂點)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 圖裡有兩種 vertices(頂點)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#instance-是啥意思" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        instance 是啥意思
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-圖裡有兩種-edges邊" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 圖裡有兩種 edges(邊)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-用-mermaid-表示最小例子" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 用 Mermaid 表示最小例子
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-有-cycle-代表什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 有 cycle 代表什麼？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-但有-cycle-一定是-deadlock-嗎" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 但有 cycle 一定是 deadlock 嗎？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        錯題
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#methods-for-handling-deadlocks--系統面對-deadlock-有哪三種策略" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Methods for Handling Deadlocks — 系統面對 deadlock 有哪三種策略？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Methods for Handling Deadlocks — 系統面對 deadlock 有哪三種策略？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-方法一prevention--avoidance預防避免" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 方法一：Prevention / Avoidance(預防／避免)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-方法二detection-and-recovery偵測與恢復" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 方法二：Detection and Recovery(偵測與恢復)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-方法三ignore-the-problem忽視問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 方法三：Ignore the Problem(忽視問題)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-三種方法比較" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 三種方法比較
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deadlock-prevention--如何破壞四個死結必要條件" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Deadlock Prevention — 如何破壞四個死結必要條件？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Deadlock Prevention — 如何破壞四個死結必要條件？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-破壞-mutual-exclusion互斥" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 破壞 Mutual Exclusion(互斥)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-破壞-hold-and-wait佔用與等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 破壞 Hold and Wait(佔用與等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-破壞-no-preemption不可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 破壞 No Preemption(不可搶先)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-破壞-circular-wait循環式等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 破壞 Circular Wait(循環式等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-四種破壞方式整理" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 四種破壞方式整理
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        破壞 Hold and Wait 和 破壞 No Preemption 到底差在哪裡？
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#safe-state--什麼叫現在分配資源仍然安全" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Safe State — 什麼叫「現在分配資源仍然安全」？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Safe State — 什麼叫「現在分配資源仍然安全」？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-safe-state-的核心存在一個-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Safe state 的核心：存在一個 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-safe-不代表現在每個人都能立刻完成" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Safe 不代表現在每個人都能立刻完成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-p14-例子12-台-tape-drives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. p.14 例子：12 台 tape drives
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-用流程圖看-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 用流程圖看 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-unsafe-state-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Unsafe state 是什麼？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-avoidance-的真正判斷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Avoidance 的真正判斷
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為何 Unsafe state(不安全狀態) 說可能會 deadlock，但不代表一定會 deadlock。
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-allocation-graph-algorithm--如何用圖在分配前避免-deadlock" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Resource-Allocation Graph Algorithm — 如何用圖在分配前避免 deadlock？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Resource-Allocation Graph Algorithm — 如何用圖在分配前避免 deadlock？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-先分清楚三種-edge邊" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 先分清楚三種 edge(邊)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-claim-edge-為什麼存在" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Claim edge 為什麼存在？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-三種-edge-的轉換流程" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 三種 edge 的轉換流程
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-為什麼形成-cycle就不能給" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 為什麼「形成 cycle」就不能給？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-這和-safe-state-的關係" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 這和 safe state 的關係
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-跟-bankers-algorithm-的銜接" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 跟 Banker’s Algorithm 的銜接
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        錯題
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#問問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        問問題
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bankers-algorithm--os-怎麼像銀行一樣判斷資源能不能借出去" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Banker’s Algorithm — OS 怎麼像銀行一樣判斷資源能不能借出去？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Banker’s Algorithm — OS 怎麼像銀行一樣判斷資源能不能借出去？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-bankers-algorithm-的四個基本假設" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Banker’s Algorithm 的四個基本假設
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-bankers-algorithm-的四張表" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Banker’s Algorithm 的四張表
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-用一個超小例子看-need--max---allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 用一個超小例子看 Need = Max - Allocation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-safety-algorithm安全性演算法檢查目前是不是-safe-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Safety Algorithm(安全性演算法)：檢查目前是不是 safe state
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-safety-algorithm-的迷你示範" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Safety Algorithm 的迷你示範
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-resource-request-algorithm資源請求演算法process-要資源時怎麼判斷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Resource-Request Algorithm(資源請求演算法)：process 要資源時怎麼判斷？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-三層檢查的直覺" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 三層檢查的直覺
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-bankers-algorithm-和前一頁圖形演算法的差別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Banker’s Algorithm 和前一頁圖形演算法的差別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#need--max---allocation實際上-process-會主動提供的是哪個" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Need = Max - Allocation，實際上 process 會主動提供的是哪個
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bankers-algorithm-example--表格題到底怎麼一步一步跑" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Banker’s Algorithm Example — 表格題到底怎麼一步一步跑？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Banker’s Algorithm Example — 表格題到底怎麼一步一步跑？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個範例在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個範例在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-初始表格先看-allocation--max--available" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 初始表格：先看 Allocation / Max / Available
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-算-need--max---allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 算 Need = Max - Allocation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-用-safety-algorithm-找-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 用 Safety Algorithm 找 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-request-範例一p1-request-1-0-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Request 範例一：P1 request (1, 0, 2)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-request-範例二p4-request-3-3-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Request 範例二：P4 request (3, 3, 0)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-request-範例三p0-request-0-2-0-的注意點" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Request 範例三：P0 request (0, 2, 0) 的注意點
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-bankers-algorithm-表格題的固定解題流程" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Banker’s Algorithm 表格題的固定解題流程
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5799,10 +4772,35 @@ is now available!
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="ch%209.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 9
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ch%209.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -5818,6 +4816,522 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-memory虛擬記憶體--為什麼程式可以以為自己有很大的連續記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Virtual Memory(虛擬記憶體) — 為什麼程式可以「以為」自己有很大的連續記憶體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Virtual Memory(虛擬記憶體) — 為什麼程式可以「以為」自己有很大的連續記憶體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-程式看到的世界-vs-os-管理的世界" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 程式看到的世界 vs. OS 管理的世界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼這樣做有用" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼這樣做有用？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Shared Pages(共享分頁)：為什麼同一份函式庫不用每個行程都複製一份？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demand-paging需求分頁--為什麼程式不用一開始全部載入-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Demand Paging(需求分頁) — 為什麼程式不用一開始全部載入 RAM？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Demand Paging(需求分頁) — 為什麼程式不用一開始全部載入 RAM？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-demand-paging需求分頁-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Demand Paging(需求分頁) 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Valid/Invalid Bit(有效／無效位元)：OS 怎麼知道 page 在不在 RAM？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-fault分頁錯誤-發生時os-做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page Fault(分頁錯誤) 發生時，OS 做什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-demand-paging-的關鍵代價page-fault-很貴" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Demand Paging 的關鍵代價：Page Fault 很貴
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一輪最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#公式要怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        公式要怎麼記？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式要怎麼記？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-你只要記一個核心句" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 你只要記一個核心句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-三個符號這樣背" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 三個符號這樣背
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最重要的觀念一次存取只分成兩條路" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最重要的觀念：一次存取只分成兩條路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-講義展開式怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 講義展開式怎麼看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼-p-那邊不用再寫-memory-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼 p 那邊不用再寫 memory access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短背法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短背法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cow-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COW 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cow-的流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. COW 的流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cow-的三個優點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. COW 的三個優點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fork-和-vfork-的差異要怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. fork() 和 vfork() 的差異要怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cow-的缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. COW 的缺點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-replacement分頁替換--沒有-free-frame-時os-要犧牲誰" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Page Replacement(分頁替換) — 沒有 free frame 時，OS 要犧牲誰？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Page Replacement(分頁替換) — 沒有 free frame 時，OS 要犧牲誰？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個概念在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個概念在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-page-replacement-的基本流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Page Replacement 的基本流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dirty-bit髒位元-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Dirty Bit(髒位元) 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-page-replacement-algorithm分頁替換演算法-很重要" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 Page Replacement Algorithm(分頁替換演算法) 很重要？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以這邊指的 page in 、page out 指的是把 frame n 裡面的(對應到的)page 換成其他的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以-victim-page-指的是在-frame-裡面的-page-對不對" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以 victim page 指的是在 frame 裡面的 page 對不對？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lost-page-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lost page 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fifo-page-replacement先進先出分頁替換--沒有-free-frame-時最早進來的-page-先犧牲" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐FIFO Page Replacement(先進先出分頁替換) — 沒有 free frame 時，最早進來的 page 先犧牲？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐FIFO Page Replacement(先進先出分頁替換) — 沒有 free frame 時，最早進來的 page 先犧牲？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-fifo-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. FIFO 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fifo-怎麼-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. FIFO 怎麼 trace？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-belady-anomaly貝拉迪異常-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Belady Anomaly(貝拉迪異常) 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fifo-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. FIFO 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referenced-page-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        referenced page 是啥
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -6931,22 +6445,22 @@ is now available!
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#deadlock-system-model--行程怎麼用資源才可能卡成死結" class="md-nav__link">
+  <a href="#virtual-memory虛擬記憶體--為什麼程式可以以為自己有很大的連續記憶體" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⭐Deadlock System Model — 行程怎麼用資源，才可能卡成死結？
+        ⭐Virtual Memory(虛擬記憶體) — 為什麼程式可以「以為」自己有很大的連續記憶體？
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⭐Deadlock System Model — 行程怎麼用資源，才可能卡成死結？">
+    <nav class="md-nav" aria-label="⭐Virtual Memory(虛擬記憶體) — 為什麼程式可以「以為」自己有很大的連續記憶體？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-這章在處理什麼問題" class="md-nav__link">
+  <a href="#1-這個概念在解決什麼問題" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. 這章在處理什麼問題？
+        1. 這個概念在解決什麼問題？
       
     </span>
   </a>
@@ -6954,10 +6468,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-資源使用的三步驟request--use--release" class="md-nav__link">
+  <a href="#2-程式看到的世界-vs-os-管理的世界" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. 資源使用的三步驟：request → use → release
+        2. 程式看到的世界 vs. OS 管理的世界
       
     </span>
   </a>
@@ -6965,10 +6479,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-p4-的-mutex-範例在表達什麼" class="md-nav__link">
+  <a href="#3-為什麼這樣做有用" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. p.4 的 mutex 範例在表達什麼？
+        3. 為什麼這樣做有用？
       
     </span>
   </a>
@@ -6976,10 +6490,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-為什麼-lock-順序很重要" class="md-nav__link">
+  <a href="#4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. 為什麼 lock 順序很重要？
+        4. Shared Pages(共享分頁)：為什麼同一份函式庫不用每個行程都複製一份？
       
     </span>
   </a>
@@ -6987,10 +6501,248 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-目前只先學直覺下一頁才正式定義四個必要條件" class="md-nav__link">
+  <a href="#5-這一輪最短記法" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. 目前只先學直覺，下一頁才正式定義四個必要條件
+        5. 這一輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demand-paging需求分頁--為什麼程式不用一開始全部載入-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Demand Paging(需求分頁) — 為什麼程式不用一開始全部載入 RAM？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Demand Paging(需求分頁) — 為什麼程式不用一開始全部載入 RAM？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-demand-paging需求分頁-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Demand Paging(需求分頁) 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Valid/Invalid Bit(有效／無效位元)：OS 怎麼知道 page 在不在 RAM？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-fault分頁錯誤-發生時os-做什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page Fault(分頁錯誤) 發生時，OS 做什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-demand-paging-的關鍵代價page-fault-很貴" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Demand Paging 的關鍵代價：Page Fault 很貴
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一輪最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#公式要怎麼記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        公式要怎麼記？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公式要怎麼記？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-你只要記一個核心句" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 你只要記一個核心句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-三個符號這樣背" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 三個符號這樣背
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-最重要的觀念一次存取只分成兩條路" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 最重要的觀念：一次存取只分成兩條路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-講義展開式怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 講義展開式怎麼看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼-p-那邊不用再寫-memory-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼 p 那邊不用再寫 memory access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短背法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短背法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cow-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. COW 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cow-的流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. COW 的流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cow-的三個優點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. COW 的三個優點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fork-和-vfork-的差異要怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. fork() 和 vfork() 的差異要怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cow-的缺點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. COW 的缺點
       
     </span>
   </a>
@@ -7014,109 +6766,15 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#necessary-conditions-for-deadlock--死結一定要同時滿足哪四個條件" class="md-nav__link">
+  <a href="#page-replacement分頁替換--沒有-free-frame-時os-要犧牲誰" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⭐Necessary Conditions for Deadlock — 死結一定要同時滿足哪四個條件？
+        ⭐Page Replacement(分頁替換) — 沒有 free frame 時，OS 要犧牲誰？
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⭐Necessary Conditions for Deadlock — 死結一定要同時滿足哪四個條件？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-mutual-exclusion互斥" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Mutual Exclusion(互斥)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-hold-and-wait佔用與等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Hold and Wait(佔用與等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-no-preemption不可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. No Preemption(不可搶先)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-circular-wait循環式等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Circular Wait(循環式等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-四個條件套回-p4-mutex-範例" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 四個條件套回 p.4 mutex 範例
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-allocation-graph--怎麼用圖看出-process-和-resource-的等待關係" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Resource-Allocation Graph — 怎麼用圖看出 process 和 resource 的等待關係？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Resource-Allocation Graph — 怎麼用圖看出 process 和 resource 的等待關係？">
+    <nav class="md-nav" aria-label="⭐Page Replacement(分頁替換) — 沒有 free frame 時，OS 要犧牲誰？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7131,38 +6789,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-圖裡有兩種-vertices頂點" class="md-nav__link">
+  <a href="#2-page-replacement-的基本流程" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. 圖裡有兩種 vertices(頂點)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. 圖裡有兩種 vertices(頂點)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#instance-是啥意思" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        instance 是啥意思
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-圖裡有兩種-edges邊" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 圖裡有兩種 edges(邊)
+        2. Page Replacement 的基本流程
       
     </span>
   </a>
@@ -7170,10 +6800,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-用-mermaid-表示最小例子" class="md-nav__link">
+  <a href="#3-dirty-bit髒位元-是什麼" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. 用 Mermaid 表示最小例子
+        3. Dirty Bit(髒位元) 是什麼？
       
     </span>
   </a>
@@ -7181,10 +6811,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-有-cycle-代表什麼" class="md-nav__link">
+  <a href="#4-為什麼-page-replacement-algorithm分頁替換演算法-很重要" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. 有 cycle 代表什麼？
+        4. 為什麼 Page Replacement Algorithm(分頁替換演算法) 很重要？
       
     </span>
   </a>
@@ -7192,10 +6822,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-但有-cycle-一定是-deadlock-嗎" class="md-nav__link">
+  <a href="#5-最短記法" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. 但有 cycle 一定是 deadlock 嗎？
+        5. 最短記法
       
     </span>
   </a>
@@ -7203,10 +6833,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-最短記法_1" class="md-nav__link">
+  <a href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. 最短記法
+        所以這邊指的 page in 、page out 指的是把 frame n 裡面的(對應到的)page 換成其他的？
       
     </span>
   </a>
@@ -7214,10 +6844,21 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#錯題" class="md-nav__link">
+  <a href="#所以-victim-page-指的是在-frame-裡面的-page-對不對" class="md-nav__link">
     <span class="md-ellipsis">
       
-        錯題
+        所以 victim page 指的是在 frame 裡面的 page 對不對？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lost-page-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lost page 是啥
       
     </span>
   </a>
@@ -7230,22 +6871,22 @@ is now available!
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods-for-handling-deadlocks--系統面對-deadlock-有哪三種策略" class="md-nav__link">
+  <a href="#fifo-page-replacement先進先出分頁替換--沒有-free-frame-時最早進來的-page-先犧牲" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⭐Methods for Handling Deadlocks — 系統面對 deadlock 有哪三種策略？
+        ⭐FIFO Page Replacement(先進先出分頁替換) — 沒有 free frame 時，最早進來的 page 先犧牲？
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⭐Methods for Handling Deadlocks — 系統面對 deadlock 有哪三種策略？">
+    <nav class="md-nav" aria-label="⭐FIFO Page Replacement(先進先出分頁替換) — 沒有 free frame 時，最早進來的 page 先犧牲？">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_2" class="md-nav__link">
+  <a href="#1-fifo-在解決什麼問題" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. 這個概念在解決什麼問題？
+        1. FIFO 在解決什麼問題？
       
     </span>
   </a>
@@ -7253,10 +6894,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-方法一prevention--avoidance預防避免" class="md-nav__link">
+  <a href="#2-fifo-怎麼-trace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. 方法一：Prevention / Avoidance(預防／避免)
+        2. FIFO 怎麼 trace？
       
     </span>
   </a>
@@ -7264,10 +6905,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-方法二detection-and-recovery偵測與恢復" class="md-nav__link">
+  <a href="#3-belady-anomaly貝拉迪異常-是什麼" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. 方法二：Detection and Recovery(偵測與恢復)
+        3. Belady Anomaly(貝拉迪異常) 是什麼？
       
     </span>
   </a>
@@ -7275,10 +6916,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-方法三ignore-the-problem忽視問題" class="md-nav__link">
+  <a href="#4-fifo-最短記法" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. 方法三：Ignore the Problem(忽視問題)
+        4. FIFO 最短記法
       
     </span>
   </a>
@@ -7286,623 +6927,10 @@ is now available!
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-三種方法比較" class="md-nav__link">
+  <a href="#referenced-page-是啥" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. 三種方法比較
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deadlock-prevention--如何破壞四個死結必要條件" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Deadlock Prevention — 如何破壞四個死結必要條件？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Deadlock Prevention — 如何破壞四個死結必要條件？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-破壞-mutual-exclusion互斥" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 破壞 Mutual Exclusion(互斥)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-破壞-hold-and-wait佔用與等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 破壞 Hold and Wait(佔用與等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-破壞-no-preemption不可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 破壞 No Preemption(不可搶先)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-破壞-circular-wait循環式等候" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 破壞 Circular Wait(循環式等候)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-四種破壞方式整理" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 四種破壞方式整理
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        破壞 Hold and Wait 和 破壞 No Preemption 到底差在哪裡？
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#safe-state--什麼叫現在分配資源仍然安全" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Safe State — 什麼叫「現在分配資源仍然安全」？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Safe State — 什麼叫「現在分配資源仍然安全」？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-safe-state-的核心存在一個-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Safe state 的核心：存在一個 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-safe-不代表現在每個人都能立刻完成" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Safe 不代表現在每個人都能立刻完成
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-p14-例子12-台-tape-drives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. p.14 例子：12 台 tape drives
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-用流程圖看-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 用流程圖看 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-unsafe-state-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Unsafe state 是什麼？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-avoidance-的真正判斷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Avoidance 的真正判斷
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        為何 Unsafe state(不安全狀態) 說可能會 deadlock，但不代表一定會 deadlock。
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-allocation-graph-algorithm--如何用圖在分配前避免-deadlock" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Resource-Allocation Graph Algorithm — 如何用圖在分配前避免 deadlock？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Resource-Allocation Graph Algorithm — 如何用圖在分配前避免 deadlock？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-先分清楚三種-edge邊" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 先分清楚三種 edge(邊)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-claim-edge-為什麼存在" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Claim edge 為什麼存在？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-三種-edge-的轉換流程" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 三種 edge 的轉換流程
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-為什麼形成-cycle就不能給" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. 為什麼「形成 cycle」就不能給？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-這和-safe-state-的關係" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. 這和 safe state 的關係
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-跟-bankers-algorithm-的銜接" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. 跟 Banker’s Algorithm 的銜接
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        錯題
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#問問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        問問題
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bankers-algorithm--os-怎麼像銀行一樣判斷資源能不能借出去" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Banker’s Algorithm — OS 怎麼像銀行一樣判斷資源能不能借出去？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Banker’s Algorithm — OS 怎麼像銀行一樣判斷資源能不能借出去？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個概念在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-bankers-algorithm-的四個基本假設" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Banker’s Algorithm 的四個基本假設
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-bankers-algorithm-的四張表" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Banker’s Algorithm 的四張表
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-用一個超小例子看-need--max---allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 用一個超小例子看 Need = Max - Allocation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-safety-algorithm安全性演算法檢查目前是不是-safe-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Safety Algorithm(安全性演算法)：檢查目前是不是 safe state
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-safety-algorithm-的迷你示範" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Safety Algorithm 的迷你示範
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-resource-request-algorithm資源請求演算法process-要資源時怎麼判斷" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Resource-Request Algorithm(資源請求演算法)：process 要資源時怎麼判斷？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-三層檢查的直覺" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. 三層檢查的直覺
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-bankers-algorithm-和前一頁圖形演算法的差別" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Banker’s Algorithm 和前一頁圖形演算法的差別
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10. 最短記法
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#need--max---allocation實際上-process-會主動提供的是哪個" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Need = Max - Allocation，實際上 process 會主動提供的是哪個
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bankers-algorithm-example--表格題到底怎麼一步一步跑" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⭐Banker’s Algorithm Example — 表格題到底怎麼一步一步跑？
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Banker’s Algorithm Example — 表格題到底怎麼一步一步跑？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個範例在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. 這個範例在解決什麼問題？
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-初始表格先看-allocation--max--available" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. 初始表格：先看 Allocation / Max / Available
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-算-need--max---allocation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. 算 Need = Max - Allocation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-用-safety-algorithm-找-safe-sequence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. 用 Safety Algorithm 找 safe sequence
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-request-範例一p1-request-1-0-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Request 範例一：P1 request (1, 0, 2)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-request-範例二p4-request-3-3-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Request 範例二：P4 request (3, 3, 0)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-request-範例三p0-request-0-2-0-的注意點" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Request 範例三：P0 request (0, 2, 0) 的注意點
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-bankers-algorithm-表格題的固定解題流程" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Banker’s Algorithm 表格題的固定解題流程
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. 最短記法
+        referenced page 是啥
       
     </span>
   </a>
@@ -7932,1848 +6960,725 @@ is now available!
 
 
 
-  <h1>Ch 7</h1>
+  <h1>Ch 9</h1>
 
-<h2 id="deadlock-system-model--行程怎麼用資源才可能卡成死結">⭐Deadlock System Model — 行程怎麼用資源，才可能卡成死結？<a class="headerlink" href="#deadlock-system-model--行程怎麼用資源才可能卡成死結" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 1 ~ 4</p>
-<h3 id="1-這章在處理什麼問題">1. 這章在處理什麼問題？<a class="headerlink" href="#1-這章在處理什麼問題" title="Permanent link"></a></h3>
-<p>Chapter 7 的主題是 <code>Deadlock(死結)</code>。講義 p.1 是章名，p.2 列出本章主線：<code>7.1 系統模型</code>、<code>7.2 死結的特性</code>、<code>7.3 處理死結的方法</code>、<code>7.4 預防死結</code>、<code>7.5 避免死結</code>、<code>7.6 死結的偵測</code>、<code>7.7 自死結恢復</code>。</p>
-<p>這章真正要處理的問題是：</p>
-<p><strong>如果多個 process / thread 都需要資源，而且每個人都拿著一些資源、等別人釋放其他資源，系統可能會卡住，誰都不能繼續。</strong></p>
-<p>這種「大家互相等，結果沒有人能往前」的狀態，就是 <code>Deadlock(死結)</code>。</p>
-<p>生活化例子：</p>
-<p>兩個人各拿一支筷子，但每個人都還需要另一支筷子才吃得下去。<br />
-如果兩個人都不放下手上的筷子，就會變成：</p>
-<p><strong>你等我放，我等你放，最後兩個人都卡住。</strong></p>
-<hr />
-<h3 id="2-資源使用的三步驟request--use--release">2. 資源使用的三步驟：request → use → release<a class="headerlink" href="#2-資源使用的三步驟request--use--release" title="Permanent link"></a></h3>
-<p>講義 p.3 說，在正常模式下，一個行程使用資源會照三個步驟：<code>request(要求)</code>、<code>use(使用)</code>、<code>release(釋放)</code>。</p>
-<table>
-<thead>
-<tr>
-<th>步驟</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>request(要求)</code></td>
-<td>process 要求某個資源；如果不能立刻拿到，就必須等待</td>
-</tr>
-<tr>
-<td><code>use(使用)</code></td>
-<td>process 拿到資源後，使用該資源</td>
-</tr>
-<tr>
-<td><code>release(釋放)</code></td>
-<td>process 用完後，把資源釋放出來</td>
-</tr>
-</tbody>
-</table>
-<p>最基本的流程是：</p>
-<pre class="diagram"><code>flowchart LR
-    A["request&lt;br&gt;要求資源"] --&gt; B["use&lt;br&gt;使用資源"]
-    B --&gt; C["release&lt;br&gt;釋放資源"]</code></pre>
-<p>這個順序本身沒有問題。<br />
-問題出在：</p>
-<p><strong>如果 process 已經拿到一些資源，但又去等另一個資源，而那個資源被別人拿著，就可能卡住。</strong></p>
-<hr />
-<h3 id="3-p4-的-mutex-範例在表達什麼">3. p.4 的 mutex 範例在表達什麼？<a class="headerlink" href="#3-p4-的-mutex-範例在表達什麼" title="Permanent link"></a></h3>
-<p>講義 p.4 給了兩個 thread 的 pseudo-code。第一個 thread 先 lock <code>first_mutex</code>，再 lock <code>second_mutex</code>；第二個 thread 則相反，先 lock <code>second_mutex</code>，再 lock <code>first_mutex</code>。</p>
-<p>概念上是這樣：</p>
-<table>
-<thead>
-<tr>
-<th>Thread</th>
-<th>第一步</th>
-<th>第二步</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>thread one</td>
-<td>lock <code>first_mutex</code></td>
-<td>lock <code>second_mutex</code></td>
-</tr>
-<tr>
-<td>thread two</td>
-<td>lock <code>second_mutex</code></td>
-<td>lock <code>first_mutex</code></td>
-</tr>
-</tbody>
-</table>
-<p>危險狀況是：</p>
-<ol>
-<li>thread one 先拿到 <code>first_mutex</code>。</li>
-<li>thread two 先拿到 <code>second_mutex</code>。</li>
-<li>thread one 想要 <code>second_mutex</code>，但 <code>second_mutex</code> 在 thread two 手上。</li>
-<li>thread two 想要 <code>first_mutex</code>，但 <code>first_mutex</code> 在 thread one 手上。</li>
-<li>兩邊都不放，兩邊都等對方。</li>
-</ol>
-<p>畫成圖就是：</p>
-<pre class="diagram"><code>flowchart LR
-    T1["Thread 1&lt;br&gt;holds first_mutex"] --&gt;|waits for| M2["second_mutex"]
-    T2["Thread 2&lt;br&gt;holds second_mutex"] --&gt;|waits for| M1["first_mutex"]
-
-    M1 --&gt;|held by| T1
-    M2 --&gt;|held by| T2</code></pre>
-<p>這就是 deadlock 的直覺形式：</p>
-<p><strong>Thread 1 等 Thread 2 釋放資源；Thread 2 又等 Thread 1 釋放資源。</strong></p>
-<hr />
-<h3 id="4-為什麼-lock-順序很重要">4. 為什麼 lock 順序很重要？<a class="headerlink" href="#4-為什麼-lock-順序很重要" title="Permanent link"></a></h3>
-<p>如果兩個 thread 都照同一個順序拿 lock，例如都先拿 <code>first_mutex</code>，再拿 <code>second_mutex</code>，就比較不容易形成互相卡住。</p>
-<p>但 p.4 的例子是：</p>
-<ul>
-<li>Thread 1：<code>first_mutex → second_mutex</code></li>
-<li>Thread 2：<code>second_mutex → first_mutex</code></li>
-</ul>
-<p>這叫做 <strong>lock order inversion(鎖取得順序相反)</strong>。</p>
-<p>這種寫法很危險，因為它容易形成：</p>
-<div class="highlight"><pre><span></span><code>A 拿著 X，等 Y
-B 拿著 Y，等 X
-</code></pre></div>
-<p>一旦兩邊都不願意釋放目前拿到的資源，系統就會卡住。</p>
-<hr />
-<h3 id="5-目前只先學直覺下一頁才正式定義四個必要條件">5. 目前只先學直覺，下一頁才正式定義四個必要條件<a class="headerlink" href="#5-目前只先學直覺下一頁才正式定義四個必要條件" title="Permanent link"></a></h3>
-<p>這一頁先建立直覺：</p>
-<p><strong>Deadlock 發生在多個 process / thread 互相等待資源，而且沒有人能繼續往前。</strong></p>
-<p>下一個相鄰主線 p.5 會正式整理成四個 <code>necessary conditions(必要條件)</code>：</p>
-<ol>
-<li><code>Mutual Exclusion(互斥)</code></li>
-<li><code>Hold and Wait(佔用與等候)</code></li>
-<li><code>No Preemption(不可搶先)</code></li>
-<li><code>Circular Wait(循環式等候)</code></li>
-</ol>
-<p>先不要急著背四個條件。<br />
-現在要先看懂 p.3 ~ p.4 的核心：</p>
-<p><strong>資源是 request → use → release；如果兩個 thread 拿資源順序相反，就可能互相等到死。</strong></p>
-<hr />
-<h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
-<p><code>Deadlock(死結)</code>：</p>
-<p><strong>多個 process / thread 互相等對方釋放資源，結果大家都不能繼續。</strong></p>
-<p>資源使用三步驟：</p>
-<p><strong>request → use → release</strong></p>
-<p>p.4 mutex 範例：</p>
-<p><strong>Thread 1 拿 first 等 second；Thread 2 拿 second 等 first，所以卡住。</strong></p>
-<h2 id="necessary-conditions-for-deadlock--死結一定要同時滿足哪四個條件">⭐Necessary Conditions for Deadlock — 死結一定要同時滿足哪四個條件？<a class="headerlink" href="#necessary-conditions-for-deadlock--死結一定要同時滿足哪四個條件" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 5</p>
+<h2 id="virtual-memory虛擬記憶體--為什麼程式可以以為自己有很大的連續記憶體">⭐Virtual Memory(虛擬記憶體) — 為什麼程式可以「以為」自己有很大的連續記憶體？<a class="headerlink" href="#virtual-memory虛擬記憶體--為什麼程式可以以為自己有很大的連續記憶體" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 3 ~ PDF viewer page 6</p>
 <h3 id="1-這個概念在解決什麼問題">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題" title="Permanent link"></a></h3>
-<p>上一頁我們看到 deadlock 的直覺：</p>
-<p><strong>Thread 1 拿 A 等 B；Thread 2 拿 B 等 A。</strong></p>
-<p>p.5 把這件事整理成四個必要條件。講義說，下面四個狀況在系統中同時成立時，才會發生 deadlock。</p>
-<p>也就是說：</p>
-<p><strong>只要破壞其中一個條件，就可以防止 deadlock。</strong></p>
+<p>先抓核心問題：<strong>RAM(實體記憶體) 不夠大、不夠連續，但程式又希望看到一塊很大、很乾淨、很連續的記憶體空間。</strong></p>
+<p>生活化例子：你在圖書館寫報告，桌面很小，但你有一個置物櫃。你正在看的書放桌上，不常看的書先放櫃子。你感覺自己「擁有很多書可以用」，但實際上桌面上同時只能放一部分。</p>
+<p>在 OS(作業系統) 裡：</p>
+<ul>
+<li>桌面就是 RAM(實體記憶體)。</li>
+<li>置物櫃就是 disk(磁碟) 上的 swap file/page file(交換檔／置換檔)。</li>
+<li>程式看到的「超大連續空間」就是 virtual address space(虛擬位址空間)。</li>
+<li>真正放資料的位置可能在 RAM 的不同 frame(頁框)，也可能暫時在 disk 上。</li>
+</ul>
+<p>講義對 Virtual Memory(虛擬記憶體) 的定位是：它把磁碟部分空間模擬成 RAM，使得應用程式能在 RAM 不足或多程式同時執行時仍可運作；程式看到的是連續可用的位址空間，但實際資料可能分散在實體記憶體碎片與磁碟上。</p>
 <hr />
-<h3 id="2-mutual-exclusion互斥">2. Mutual Exclusion(互斥)<a class="headerlink" href="#2-mutual-exclusion互斥" title="Permanent link"></a></h3>
-<p><code>Mutual Exclusion(互斥)</code> 是指：</p>
-<p><strong>至少有一個資源不能同時被多個 process 使用。</strong></p>
-<p>例如 mutex lock、印表機、某些不可共享裝置。</p>
-<p>如果 P1 正在使用這個資源，P2 就必須等 P1 釋放後才能用。</p>
-<p>生活例子：</p>
-<p>一間只能一個人使用的廁所。<br />
-有人在裡面，其他人只能等。</p>
+<h3 id="2-程式看到的世界-vs-os-管理的世界">2. 程式看到的世界 vs. OS 管理的世界<a class="headerlink" href="#2-程式看到的世界-vs-os-管理的世界" title="Permanent link"></a></h3>
+<p>程式通常不想知道資料到底在 RAM 哪一格，或是不是被暫時放到 disk。程式只想說：「我要存取我的某個位址。」</p>
+<p>但 OS 背後做的事情是：</p>
+<pre class="diagram"><code>flowchart LR
+    A["程式看到 virtual address space(虛擬位址空間)&lt;br&gt;像是一整塊連續記憶體"] --&gt; B["OS 與 MMU(記憶體管理單元)&lt;br&gt;做位址轉換與管理"]
+    B --&gt; C["RAM 中的 frame(頁框)&lt;br&gt;目前常用資料"]
+    B --&gt; D["disk 上的 swap file/page file(交換檔／置換檔)&lt;br&gt;暫時不在 RAM 的資料"]
+    C --&gt; E["程式繼續執行"]
+    D --&gt; F["需要時再搬回 RAM&lt;br&gt;後續 9.2 會正式講 Demand Paging(需求分頁)"]</code></pre>
+<p>PDF viewer page 4 的圖示就是在畫這件事：左邊是 virtual memory(虛擬記憶體) 的 pages，中間是 physical memory(實體記憶體) 與 memory map，右邊是 disk，旁邊還有 process address space(行程位址空間) 的 stack/heap/data/code。這張圖的重點不是要你背圖，而是要看懂「程式位址空間」和「實際資料位置」被 OS 分開管理。</p>
 <hr />
-<h3 id="3-hold-and-wait佔用與等候">3. Hold and Wait(佔用與等候)<a class="headerlink" href="#3-hold-and-wait佔用與等候" title="Permanent link"></a></h3>
-<p><code>Hold and Wait(佔用與等候)</code> 是指：</p>
-<p><strong>process 已經拿著至少一個資源，卻又在等待其他資源。</strong></p>
-<p>這就是 deadlock 最直覺的核心。</p>
-<p>例如：</p>
-<p>P1 已經拿到 <code>first_mutex</code>，但還在等 <code>second_mutex</code>。</p>
-<hr />
-<h3 id="4-no-preemption不可搶先">4. No Preemption(不可搶先)<a class="headerlink" href="#4-no-preemption不可搶先" title="Permanent link"></a></h3>
-<p><code>No Preemption(不可搶先)</code> 是指：</p>
-<p><strong>資源不能被系統強制搶回來，只能等持有者自己釋放。</strong></p>
-<p>例如 P1 拿著 mutex，OS 不會直接把這個 mutex 從 P1 手上硬搶走給 P2。</p>
-<p>所以如果 P1 不釋放，P2 就只能等。</p>
-<hr />
-<h3 id="5-circular-wait循環式等候">5. Circular Wait(循環式等候)<a class="headerlink" href="#5-circular-wait循環式等候" title="Permanent link"></a></h3>
-<p><code>Circular Wait(循環式等候)</code> 是指：</p>
-<p><strong>等待關係形成一個圈。</strong></p>
-<p>例如：</p>
-<p>P1 等 P2 手上的資源，<br />
-P2 等 P3 手上的資源，<br />
-P3 又等 P1 手上的資源。</p>
-<p>最小的圈就是：</p>
-<p>P1 等 P2，P2 等 P1。</p>
-<p>這就是 p.4 mutex 例子的本質。</p>
-<hr />
-<h3 id="6-四個條件套回-p4-mutex-範例">6. 四個條件套回 p.4 mutex 範例<a class="headerlink" href="#6-四個條件套回-p4-mutex-範例" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>條件</th>
-<th>p.4 mutex 例子怎麼符合</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Mutual Exclusion</code></td>
-<td>mutex 一次只能被一個 thread 持有</td>
-</tr>
-<tr>
-<td><code>Hold and Wait</code></td>
-<td>thread 已持有一個 mutex，又等待另一個 mutex</td>
-</tr>
-<tr>
-<td><code>No Preemption</code></td>
-<td>mutex 不能被強制從 thread 手上搶走</td>
-</tr>
-<tr>
-<td><code>Circular Wait</code></td>
-<td>Thread 1 等 Thread 2；Thread 2 等 Thread 1</td>
-</tr>
-</tbody>
-</table>
-<p>所以 p.4 的例子會 deadlock，是因為這四個條件同時成立。</p>
-<hr />
-<h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
+<h3 id="3-為什麼這樣做有用">3. 為什麼這樣做有用？<a class="headerlink" href="#3-為什麼這樣做有用" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>死結四個必要條件：</p>
-<ol>
-<li><code>Mutual Exclusion(互斥)</code>：資源不能共享。</li>
-<li><code>Hold and Wait(佔用與等候)</code>：拿著一個，又等另一個。</li>
-<li><code>No Preemption(不可搶先)</code>：資源不能被強制搶回。</li>
-<li><code>Circular Wait(循環式等候)</code>：等待關係形成一個圈。</li>
-</ol>
-<p>最重要：</p>
-<p><strong>四個條件要同時成立，才會形成 deadlock。</strong></p>
+<p>Virtual Memory(虛擬記憶體) 的好處，可以大概記一下：</p>
+<p>第一，<strong>程式可用空間變大</strong>。程式大小不再完全受限於實體 RAM 的大小。不是說 RAM 真的變大，而是 OS 可以把暫時不用的部分放到 disk。</p>
+<p>第二，<strong>更多程式可以同時運行</strong>。如果每個程式都必須完整塞進 RAM，多開幾個大型程式就會卡住；Virtual Memory(虛擬記憶體) 讓 OS 可以只保留目前需要的部分在 RAM。</p>
+<p>第三，<strong>載入或置換時的 I/O 次數可以減少</strong>。這句話先用直覺記：不要一次把整個程式都搬進 RAM，只在需要時搬必要部分，通常比較省搬運成本。細節會在 9.2 Demand Paging(需求分頁) 才正式展開。</p>
+<p>第四，可以 Shared Pages(共享分頁)。</p>
+<p>跨來源補充／一般系統經驗，非目前講義主線：Linux 社群文件常會討論 swap 與 <code>vm.swappiness</code> 這類調整，這對應到實務上「哪些頁面留在 RAM、哪些頁面可以被換出」的行為；社群使用者也常把 RAM 和 swap 都吃滿時的桌面卡死經驗描述成接近 thrashing(輾轉現象) 的現象。這些只幫你建立直覺，考試仍以講義主線為準。([Arch Wiki][1])</p>
 </div>
-<h2 id="resource-allocation-graph--怎麼用圖看出-process-和-resource-的等待關係">⭐Resource-Allocation Graph — 怎麼用圖看出 process 和 resource 的等待關係？<a class="headerlink" href="#resource-allocation-graph--怎麼用圖看出-process-和-resource-的等待關係" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 6 ~ 8</p>
-<h3 id="1-這個概念在解決什麼問題_1">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_1" title="Permanent link"></a></h3>
-<p>前面 p.5 我們知道 deadlock 需要四個條件，尤其是 <code>Circular Wait(循環式等候)</code>。</p>
-<p>但如果系統裡有很多 process 和很多 resources，只靠文字很難看出誰在等誰。</p>
-<p>所以 p.6 開始介紹：</p>
-<p><code>Resource-Allocation Graph(RAG，資源配置圖)</code></p>
-<p>它的用途是：</p>
-<p><strong>把 process、resource、request、allocation 畫成圖，幫我們判斷是否可能形成 deadlock。</strong></p>
 <hr />
-<h3 id="2-圖裡有兩種-vertices頂點">2. 圖裡有兩種 vertices(頂點)<a class="headerlink" href="#2-圖裡有兩種-vertices頂點" title="Permanent link"></a></h3>
-<p>講義 p.6 說，Resource-Allocation Graph 有一組 vertices <code>V</code> 和一組 edges <code>E</code>，而 vertices 分成兩類：process 集合 <code>P = {P1, P2, ..., Pn}</code>，以及 resource type 集合 <code>R = {R1, R2, ..., Rm}</code>。</p>
+<h3 id="4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份">4. Shared Pages(共享分頁)：為什麼同一份函式庫不用每個行程都複製一份？<a class="headerlink" href="#4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份" title="Permanent link"></a></h3>
+<p>PDF viewer page 6 補了一個很重要的點：Virtual Memory(虛擬記憶體) 也允許不同 process(行程) 透過 shared pages(共享分頁) 共用函式庫。</p>
+<p>生活化例子：很多人都在看同一本參考書，如果每個人都影印一整本，很浪費。比較好的做法是：大家共用同一本，只要不改它，就不需要複製。</p>
+<p>在 OS 中，共享函式庫常常是 read-only code(唯讀程式碼)。多個 process 可以在自己的 virtual address space(虛擬位址空間) 中「看起來各自有一份 library」，但 page table(分頁表) 可以把它們指到同一批 physical frames(實體頁框)。</p>
+<p>重點是：</p>
+<ul>
+<li>每個 process 仍覺得自己有獨立的位址空間。</li>
+<li>實際 RAM 不必重複存同一份唯讀 library code。</li>
+<li>這是 Virtual Memory(虛擬記憶體) 的典型好處之一。</li>
+</ul>
+<hr />
+<h3 id="5-這一輪最短記法">5. 這一輪最短記法<a class="headerlink" href="#5-這一輪最短記法" title="Permanent link"></a></h3>
+<p>Virtual Memory(虛擬記憶體) 的一句話版本：</p>
+<p><strong>讓 process(行程) 看到一個大的、連續的、自己的 virtual address space(虛擬位址空間)，但 OS 可以把實際資料分散放在 RAM frames(實體頁框) 與 disk swap(交換空間)，並支援 shared pages(共享分頁) 來節省記憶體。</strong></p>
+<p>常見錯法：</p>
 <table>
 <thead>
 <tr>
-<th>圖形元素</th>
-<th>意思</th>
+<th>錯誤說法</th>
+<th>為什麼錯</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Pi</code></td>
-<td>process，例如 P1、P2</td>
+<td>Virtual memory 讓 RAM 真的變大</td>
+<td>RAM 沒變大，是 OS 用 disk 輔助，讓程式看到更大的抽象空間</td>
 </tr>
 <tr>
-<td><code>Rj</code></td>
-<td>resource type，例如 R1、R2</td>
+<td>程式看到連續，代表 RAM 中也一定連續</td>
+<td>不一定；連續的是 virtual address space(虛擬位址空間)，實際 physical memory(實體記憶體) 可以分散</td>
 </tr>
 <tr>
-<td>resource 裡的小黑點</td>
-<td>resource instances，也就是該資源有幾份</td>
+<td>shared library 一定每個 process 複製一份</td>
+<td>不一定；read-only library code 可以用 shared pages(共享分頁) 共用</td>
+</tr>
+<tr>
+<td>swap 越多效能一定越好</td>
+<td>不一定；swap 是救急與彈性，不是 RAM 的等速替代品</td>
 </tr>
 </tbody>
 </table>
-<p>直覺：</p>
-<ul>
-<li>圓圈通常代表 process。</li>
-<li>方框通常代表 resource type。</li>
-<li>方框裡的小點代表 resource instance。</li>
-</ul>
-<h4 id="instance-是啥意思">instance 是啥意思<a class="headerlink" href="#instance-是啥意思" title="Permanent link"></a></h4>
-<p><code>instance</code> 的意思是：</p>
-<p><strong>某一個 type(類型) 底下的具體一個東西。</strong></p>
-<p>也可以翻成：</p>
-<ul>
-<li>
-<p><code>instance(實例)</code></p>
-</li>
-<li>
-<p><code>instance(個體)</code></p>
-</li>
-<li>
-<p><code>instance(具體單位)</code></p>
-</li>
-</ul>
-<p>所以：</p>
-<p><strong>type 是種類；instance 是這個種類底下的其中一份。</strong></p>
+<h2 id="demand-paging需求分頁--為什麼程式不用一開始全部載入-ram">⭐Demand Paging(需求分頁) — 為什麼程式不用一開始全部載入 RAM？<a class="headerlink" href="#demand-paging需求分頁--為什麼程式不用一開始全部載入-ram" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 7 ~ PDF viewer page 11</p>
+<h3 id="1-demand-paging需求分頁-在解決什麼問題">1. Demand Paging(需求分頁) 在解決什麼問題？<a class="headerlink" href="#1-demand-paging需求分頁-在解決什麼問題" title="Permanent link"></a></h3>
+<p>9.1 說 virtual memory(虛擬記憶體) 可以讓程式看到很大的 address space(位址空間)。9.2 開始問更實際的問題：</p>
+<p><strong>程式那麼大，OS 要不要一開始就把所有 pages(頁) 全部搬進 RAM？</strong></p>
+<p>Demand Paging(需求分頁) 的答案是：<strong>不要。只載入目前真的需要的 pages。</strong></p>
+<p>講義定義是：Demand Paging(需求分頁) 以 paging(分頁) 為基礎，使用 lazy swapper(延遲置換者／懶載入策略)，程式執行之初不把所有 pages 載入 memory，只載入執行所需的 pages；如果發生 page fault(分頁錯誤)，再由 OS 處理。</p>
+<p>生活化例子：搬家時你不會把所有箱子都打開放滿整間房，只會先打開今天要用的牙刷、衣服、電腦。其他箱子先放倉庫，需要時再拿。Demand Paging 就是這種「需要才搬」的策略。</p>
 <hr />
-<h3 id="3-圖裡有兩種-edges邊">3. 圖裡有兩種 edges(邊)<a class="headerlink" href="#3-圖裡有兩種-edges邊" title="Permanent link"></a></h3>
-<p>講義 p.6 定義兩種 directed edge(有方向的邊)：<code>request edge</code> 是 <code>Pi → Rj</code>，<code>assignment edge</code> 是 <code>Rj → Pi</code>。</p>
+<h3 id="2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram">2. Valid/Invalid Bit(有效／無效位元)：OS 怎麼知道 page 在不在 RAM？<a class="headerlink" href="#2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram" title="Permanent link"></a></h3>
+<p>要做 Demand Paging，page table(分頁表) 需要多一個 Valid/Invalid Bit(有效／無效位元)，用來表示 page 是否在 memory 中。講義 page 8 明確寫到：分頁表上多加 Valid/Invalid Bit，用來指示 page 是否在 memory 中。</p>
+<p>簡化理解：</p>
 <table>
 <thead>
 <tr>
-<th>Edge</th>
-<th>方向</th>
-<th>意思</th>
+<th>Bit 狀態</th>
+<th>意義</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Request edge(請求邊)</code></td>
-<td><code>Pi → Rj</code></td>
-<td>process Pi 正在要求 resource Rj</td>
+<td>Valid</td>
+<td>這個 page 目前在 physical memory(實體記憶體) 中，可以直接存取</td>
 </tr>
 <tr>
-<td><code>Assignment edge(分配邊)</code></td>
-<td><code>Rj → Pi</code></td>
-<td>resource Rj 的某個 instance 已分配給 process Pi</td>
+<td>Invalid</td>
+<td>這個 page 目前不在 memory，若 process 存取它，就會觸發 page fault</td>
 </tr>
 </tbody>
 </table>
-<p>最短理解：</p>
-<p><strong>process 指向 resource：我想要它。</strong><br />
-<strong>resource 指向 process：它已經被我拿到了。</strong></p>
+<p>更精準地說，Invalid 有時也可能代表 illegal address(非法位址)，所以 OS 在 page fault handler(分頁錯誤處理程序) 裡還要檢查「這個位址到底是合法但不在 RAM，還是真的非法」。</p>
 <hr />
-<h3 id="4-用-mermaid-表示最小例子">4. 用 Mermaid 表示最小例子<a class="headerlink" href="#4-用-mermaid-表示最小例子" title="Permanent link"></a></h3>
-<p>假設：</p>
-<ul>
-<li>P1 正在要求 R1。</li>
-<li>R2 已經分配給 P1。</li>
-</ul>
-<p>可以畫成：</p>
-<pre class="diagram"><code>flowchart LR
-    P1((P1))
-    R1[R1]
-    R2[R2]
-
-    P1 --&gt;|request| R1
-    R2 --&gt;|assignment| P1</code></pre>
-<p>讀法是：</p>
-<ul>
-<li><code>P1 → R1</code>：P1 正在等 R1。</li>
-<li><code>R2 → P1</code>：P1 已經持有 R2。</li>
-</ul>
+<h3 id="3-page-fault分頁錯誤-發生時os-做什麼">3. Page Fault(分頁錯誤) 發生時，OS 做什麼？<a class="headerlink" href="#3-page-fault分頁錯誤-發生時os-做什麼" title="Permanent link"></a></h3>
+<p>Page fault 不是程式壞掉，而是「process 要用的 page 現在不在 RAM」。OS 會暫停目前指令，去把需要的 page 搬進來。</p>
+<pre class="diagram"><code>flowchart TD
+    A["CPU 參考某個 virtual page(虛擬頁)"] --&gt; B["查 page table(分頁表)"]
+    B --&gt; C{"Valid/Invalid Bit&lt;br&gt;是否 valid？"}
+    C --&gt;|是| D["直接用 physical frame(實體頁框)&lt;br&gt;繼續執行"]
+    C --&gt;|否| E["產生 page fault(分頁錯誤)&lt;br&gt;trap 到 OS"]
+    E --&gt; F{"OS 檢查位址是否合法"}
+    F --&gt;|非法| G["終止或回報錯誤"]
+    F --&gt;|合法但不在 RAM| H["找 free frame(空頁框)"]
+    H --&gt; I["從 disk 讀入需要的 page"]
+    I --&gt; J["更新 page table&lt;br&gt;把 bit 設為 valid"]
+    J --&gt; K["restart instruction(重新執行指令)"]</code></pre>
+<p>講義 page 9 的圖就是這個流程：reference(參用) 觸發 invalid 狀態後，trap(陷阱) 到作業系統，找到空框、載入需要的頁面、重新設定分頁表，最後重新啟始指令。</p>
 <hr />
-<h3 id="5-有-cycle-代表什麼">5. 有 cycle 代表什麼？<a class="headerlink" href="#5-有-cycle-代表什麼" title="Permanent link"></a></h3>
-<p>在 Resource-Allocation Graph 中，cycle(循環) 是很重要的警訊。</p>
-<p>因為 cycle 表示：</p>
-<p><strong>有一串 process / resource 互相卡住。</strong></p>
-<p>例如：</p>
-<pre class="diagram"><code>flowchart LR
-    P1((P1))
-    R1[R1]
-    P2((P2))
-    R2[R2]
-
-    P1 --&gt;|request| R1
-    R1 --&gt;|assigned| P2
-    P2 --&gt;|request| R2
-    R2 --&gt;|assigned| P1</code></pre>
-<p>這代表：</p>
+<h3 id="4-demand-paging-的關鍵代價page-fault-很貴">4. Demand Paging 的關鍵代價：Page Fault 很貴<a class="headerlink" href="#4-demand-paging-的關鍵代價page-fault-很貴" title="Permanent link"></a></h3>
+<p>Demand Paging 可以節省一開始載入的成本，但代價是：如果 page fault 太常發生，效能會非常差。</p>
+<p>講義 page 10 定義 Page Fault Rate(分頁錯誤率)：</p>
 <ul>
-<li>P1 等 R1，但 R1 被 P2 拿著。</li>
-<li>P2 等 R2，但 R2 被 P1 拿著。</li>
+<li><code>p = 0</code>：沒有 page fault。</li>
+<li><code>p = 1</code>：每次 memory reference(記憶體參考) 都 fault。</li>
 </ul>
-<p>所以形成：</p>
-<p><code>P1 → R1 → P2 → R2 → P1</code></p>
-<p>這就是 circular wait 的圖形版本。</p>
+<p>Effective Access Time(EAT，有效存取時間)：</p>
+<p><code>EAT = (1 - p) × memory access + p × (page fault overhead + swap page out + swap page in + restart overhead)</code></p>
+<p>這個公式的核心直覺是：</p>
+<ul>
+<li>大部分時候，如果 page 在 RAM，速度接近一般 memory access。</li>
+<li>只要發生 page fault，就會牽涉 trap、disk I/O、page in/out、restart instruction，成本遠大於 RAM 存取。</li>
+</ul>
+<p>講義例子：memory access time 是 200 ns，平均 page-fault service time 是 8 ms，若每 1000 次存取有 1 次 page fault，EAT 會變成 8.2 microseconds，約慢 40 倍。</p>
+<p>跨來源補充／社群經驗，非目前講義主線：Linux 使用者社群常討論 swap、zram、zswap、swappiness，核心經驗都是一樣的：swap 可以增加彈性，但它不是和 RAM 一樣快的替代品；例如 Arch Wiki 把 swappiness 視為記憶體壓力下 kernel 在回收 file cache 與移動 pages 到 swap 之間的傾向設定，社群也常提醒 disk-based swap 或壓縮 swap 都有額外成本。([Arch Wiki][1])</p>
 <hr />
-<h3 id="6-但有-cycle-一定是-deadlock-嗎">6. 但有 cycle 一定是 deadlock 嗎？<a class="headerlink" href="#6-但有-cycle-一定是-deadlock-嗎" title="Permanent link"></a></h3>
-<p>這裡要小心，p.8 的圖示其實就在提醒這個陷阱。</p>
-<p><img alt="alt text" src="images/ch%207.png" /></p>
-<p>p.8 左圖標成「含死結的資源配置圖」，下面列出循環，例如 <code>P1 → R1 → P2 → R3 → P3 → R2 → P1</code>。右圖則標成「含循環但無死結現象之資源配置圖」，雖然也有循環 <code>P1 → R1 → P3 → R2 → P1</code>，但因為 P4 之後可以釋放它所佔用的 R2 instance，讓 P3 取得資源並消除循環，所以不一定 deadlock。</p>
-<p>所以判斷規則是：</p>
+<h3 id="5-這一輪最短記法_1">5. 這一輪最短記法<a class="headerlink" href="#5-這一輪最短記法_1" title="Permanent link"></a></h3>
+<p>Demand Paging(需求分頁) 的一句話版本：</p>
+<p><strong>程式開始時不把所有 pages 載入 RAM；page table 用 Valid/Invalid Bit 記錄 page 是否在 memory，若 process 存取不在 memory 的合法 page，就產生 page fault，由 OS 把 page 從 disk 載入 RAM，再重新執行指令。</strong></p>
+<p>常見錯法：</p>
 <table>
 <thead>
 <tr>
-<th>情況</th>
-<th>結論</th>
+<th>錯誤說法</th>
+<th>修正</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>graph 沒有 cycle</td>
-<td>一定沒有 deadlock</td>
+<td>Page fault 代表程式一定錯了</td>
+<td>不一定；可能只是合法 page 還沒載入 RAM</td>
 </tr>
 <tr>
-<td>graph 有 cycle，且每個 resource type 只有一個 instance</td>
-<td>一定 deadlock</td>
+<td>Demand paging 完全提升效能</td>
+<td>不一定；如果 page fault rate 太高，效能會大幅下降</td>
 </tr>
 <tr>
-<td>graph 有 cycle，但某些 resource type 有多個 instances</td>
-<td>可能 deadlock，也可能不 deadlock</td>
+<td>Invalid bit 一律代表非法位址</td>
+<td>不一定；也可能是合法 page 目前不在 memory</td>
+</tr>
+<tr>
+<td>Swap 可以當成 RAM 一樣用</td>
+<td>不對；swap 主要提供彈性，速度通常遠慢於 RAM</td>
 </tr>
 </tbody>
 </table>
-<p>生活化例子：</p>
-<p>如果廁所只有一間，A 拿鑰匙等 B，B 拿另一個必要鑰匙等 A，就一定卡住。<br />
-但如果某個資源其實有兩份，第三個人用完釋放其中一份，循環可能被解開，所以有 cycle 不一定代表真的死結。</p>
+<h3 id="公式要怎麼記">公式要怎麼記？<a class="headerlink" href="#公式要怎麼記" title="Permanent link"></a></h3>
+<h4 id="1-你只要記一個核心句">1. 你只要記一個核心句<a class="headerlink" href="#1-你只要記一個核心句" title="Permanent link"></a></h4>
+<p><strong>EAT(有效存取時間) = 一次 memory reference(記憶體參考) 的平均成本。</strong></p>
+<p>所以它本質上是「加權平均」：</p>
+<p>EAT=(1-p)m+pS</p>
+<p>其中講義的 <code>p</code> 是 Page Fault Rate(分頁錯誤率)，<code>p = 0</code> 代表沒有 page fault，<code>p = 1</code> 代表每次 reference 都 fault；講義也用 <code>memory access time = 200 ns</code>、<code>average page-fault service time = 8 ms</code> 示範代入。</p>
 <hr />
-<h3 id="7-最短記法_1">7. 最短記法<a class="headerlink" href="#7-最短記法_1" title="Permanent link"></a></h3>
-<p><code>Resource-Allocation Graph(RAG)</code>：</p>
-<p><strong>用圖表示 process 和 resource 的請求／分配關係。</strong></p>
-<p>兩種邊：</p>
-<ol>
-<li><code>Pi → Rj</code>：request edge，Pi 正在等 Rj。</li>
-<li><code>Rj → Pi</code>：assignment edge，Rj 已分配給 Pi。</li>
-</ol>
-<p>cycle 判斷：</p>
-<ol>
-<li>沒 cycle：一定沒有 deadlock。</li>
-<li>有 cycle + 每種 resource 只有一個 instance：一定 deadlock。</li>
-<li>有 cycle + resource 有多個 instances：不一定 deadlock。</li>
-</ol>
+<h4 id="2-三個符號這樣背">2. 三個符號這樣背<a class="headerlink" href="#2-三個符號這樣背" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>符號</th>
+<th>你要記的意思</th>
+<th>白話</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>page fault rate(分頁錯誤率)</td>
+<td>這次存取踩到「page 不在 RAM」的機率</td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td>memory access time(記憶體存取時間)</td>
+<td>page 已經在 RAM，正常讀一次 RAM 的時間</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>page fault service time(分頁錯誤服務時間)</td>
+<td>page 不在 RAM 時，OS 處理整包 fault 的時間</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="3-最重要的觀念一次存取只分成兩條路">3. 最重要的觀念：一次存取只分成兩條路<a class="headerlink" href="#3-最重要的觀念一次存取只分成兩條路" title="Permanent link"></a></h4>
+<pre class="diagram"><code>flowchart TD
+    A["一次 memory reference(記憶體參考)"] --&gt; B{"page 在 RAM 嗎？"}
+    B --&gt;|在 RAM&lt;br&gt;機率 1-p| C["normal path(正常路徑)&lt;br&gt;成本 = m"]
+    B --&gt;|不在 RAM&lt;br&gt;機率 p| D["fault path(分頁錯誤路徑)&lt;br&gt;成本 = S"]
+    C --&gt; E["EAT = 兩條路徑的加權平均"]
+    D --&gt; E</code></pre>
+<p>所以不是「page fault 後又回去算 <code>(1-p)</code>」。</p>
+<p>是：</p>
+<p><strong>一開始就沒 fault → 算 <code>(1-p)m</code>。<br />
+一開始有 fault → 算 <code>pS</code>。</strong></p>
+<hr />
+<h4 id="4-講義展開式怎麼看">4. 講義展開式怎麼看<a class="headerlink" href="#4-講義展開式怎麼看" title="Permanent link"></a></h4>
+<p>講義把 <code>S</code> 展開成：</p>
+<p><code>page fault overhead + swap page out + swap page in + restart overhead</code></p>
+<p>所以講義版本就是：</p>
+<p><code>EAT = (1-p)m + p(page fault overhead + swap out + swap in + restart overhead)</code></p>
+<p>你不用把每個字死背成唯一版本。考試最穩是記：</p>
+<p><strong><code>S</code> 就是 page fault 那條路的整包平均成本。</strong></p>
+<hr />
+<h4 id="5-為什麼-p-那邊不用再寫-memory-access">5. 為什麼 <code>p</code> 那邊不用再寫 <code>memory access</code><a class="headerlink" href="#5-為什麼-p-那邊不用再寫-memory-access" title="Permanent link"></a></h4>
+<p>考試記這句：</p>
+<p><strong>因為講義的 <code>S</code> 已經把 fault path 當成整包平均成本；最後重新執行後的 RAM access 要嘛被包含在 <code>S</code> 裡，要嘛相對 disk I/O 太小而忽略。</strong></p>
+<p>如果題目特別說 <code>S</code> 不包含最後那次 RAM access，才寫更精確版：</p>
+<p><code>EAT = (1-p)m + p(S+m)</code></p>
+<p>一般照講義寫：</p>
+<p><code>EAT = (1-p)m + pS</code></p>
+<hr />
+<h4 id="6-最短背法">6. 最短背法<a class="headerlink" href="#6-最短背法" title="Permanent link"></a></h4>
+<p>你可以直接背這四行：</p>
+<p><strong>EAT 是平均一次記憶體存取要花多久。<br />
+沒 page fault：機率 <code>1-p</code>，成本 <code>m</code>。<br />
+有 page fault：機率 <code>p</code>，成本 <code>S</code>。<br />
+所以 <code>EAT = (1-p)m + pS</code>。</strong></p>
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Q：<br />
-In a resource-allocation graph, what do Pi → Rj and Rj → Pi mean?</p>
-<p>ANS：<br />
-在 Resource-Allocation Graph(資源配置圖) 中，Pi → Rj 是 request edge(請求邊)，表示 <mark>process Pi 正在請求或等待 resource type Rj</mark> 。Rj → Pi 是 assignment edge(分配邊)，表示 Rj 的某個 resource instance 已經分配給 Pi，也就是 Pi 目前持有該資源。</p>
+<p><mark>Q:</mark><br />
+A process references virtual page 5. The page table says that page 5 is a legal page of the process, but its valid/invalid bit is invalid because the page is currently on disk, not in RAM. Describe the main steps the operating system takes to handle this page fault.</p>
+<p><mark>Me:</mark><br />
+OS 收到 page fault 之後，會執行 page swap，把某些 process 換下來換成需要的，然後再讓CPU重新使用記憶體。</p>
+<p><mark>ANS:</mark><br />
+OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁框)，若沒有 free frame，才選 victim page(犧牲頁) 做 page replacement(分頁替換)</mark>，然後再讓CPU重新使用記憶體。</p>
 </div>
-<h2 id="methods-for-handling-deadlocks--系統面對-deadlock-有哪三種策略">⭐Methods for Handling Deadlocks — 系統面對 deadlock 有哪三種策略？<a class="headerlink" href="#methods-for-handling-deadlocks--系統面對-deadlock-有哪三種策略" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 9</p>
-<h3 id="1-這個概念在解決什麼問題_2">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_2" title="Permanent link"></a></h3>
-<p>前面我們知道 deadlock 是：</p>
-<p><strong>process / thread 彼此持有資源，又等待彼此持有的資源，結果大家都無法繼續。</strong></p>
-<p>現在 p.9 問的是：</p>
-<p><strong>OS 面對 deadlock，到底可以怎麼處理？</strong></p>
-<p>講義說理論上有三種方法：防止或避免死結、允許死結發生後再偵測與恢復、或忽視這個問題。</p>
+<h2 id="copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體">⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？<a class="headerlink" href="#copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 12 ~ PDF viewer page 19</p>
+<h3 id="1-cow-在解決什麼問題">1. COW 在解決什麼問題？<a class="headerlink" href="#1-cow-在解決什麼問題" title="Permanent link"></a></h3>
+<p>核心問題是：</p>
+<p><strong>如果兩個 process 暫時看到一樣的資料，我們真的要馬上複製一整份嗎？</strong></p>
+<p>Copy on Write(COW，寫入時複製) 的答案是：<strong>先不要複製。大家先共用同一份；等到有人要修改時，再替修改者複製一份。</strong></p>
+<p>講義定義是：如果多個 caller(呼叫者) 同時要求相同資源，例如 memory(記憶體) 或 disk data(磁碟資料)，它們會先共同取得指向相同資源的指標；直到某個 caller 試圖修改內容時，系統才真正複製一份專用副本給它，其他 caller 仍看到原本資源。</p>
+<p>生活化例子：Google 文件複製一份作業範本。大家一開始都看同一份範本，不需要每個人立刻複製。等某個人開始改內容時，系統才幫他產生自己的版本。</p>
 <hr />
-<h3 id="2-方法一prevention--avoidance預防避免">2. 方法一：Prevention / Avoidance(預防／避免)<a class="headerlink" href="#2-方法一prevention--avoidance預防避免" title="Permanent link"></a></h3>
-<p>第一種方法是：</p>
-<p><strong>在 deadlock 發生前，就阻止系統進入 deadlock state。</strong></p>
-<p>這裡又分兩個方向：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>核心想法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Deadlock Prevention(死結預防)</code></td>
-<td>破壞 deadlock 四個必要條件之一</td>
-</tr>
-<tr>
-<td><code>Deadlock Avoidance(死結避免)</code></td>
-<td>在分配資源前先判斷是否安全，不安全就先不給</td>
-</tr>
-</tbody>
-</table>
-<p>講義 p.9 說，<code>prevention</code> 是 <mark>確保死結必要條件至少有一項不會發生</mark> ；<code>avoidance</code> 則 <mark>要求 OS 預先知道 process 一生中會要求與使用哪些資源</mark> ，再決定每個 request 是否該等待。</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>也就是說，Deadlock Prevention(死結預防) 不需要追蹤每個 process 一生中的最大資源需求，而是直接制定資源請求或資源分配規則，破壞 deadlock 的四個必要條件之一，讓 deadlock 無法形成。</p>
-<p>而 Deadlock Avoidance(死結避免) 是在 process 被 OS 接納並納入資源分配管理時，先取得或記錄它的最大可能資源需求。之後當 process 提出 resource request 時，OS 會根據目前的 available resources、allocation、need 等資訊，判斷如果現在分配資源，系統是否仍然維持 safe state。如果分配後仍 safe，就給資源；如果會變成 unsafe，就讓該 process 等待。</p>
-</div>
-<p>直覺差別：</p>
-<p><code>prevention</code> 像是從制度上禁止危險行為。<br />
-例如：規定所有人都必須照固定順序拿資源。</p>
-<p><code>avoidance</code> 像是每次申請資源前先做風險評估。<br />
-例如：你現在要借錢，銀行先算你借了之後會不會變成危險狀態。</p>
-<hr />
-<h3 id="3-方法二detection-and-recovery偵測與恢復">3. 方法二：Detection and Recovery(偵測與恢復)<a class="headerlink" href="#3-方法二detection-and-recovery偵測與恢復" title="Permanent link"></a></h3>
-<p>第二種方法是：</p>
-<p><strong>允許 deadlock 發生，但系統要能偵測出來，然後恢復。</strong></p>
-<p>意思是 OS 不一定一開始就禁止所有可能造成 deadlock 的行為。<br />
-它可以讓系統跑，之後定期檢查：</p>
-<p><strong>現在是不是已經 deadlock？</strong></p>
-<p>如果發現 deadlock，再採取 recovery(恢復)，例如：</p>
-<ul>
-<li>終止某些 process。</li>
-<li>搶回某些資源。</li>
-<li>回復到較早的安全狀態。</li>
-</ul>
-<p>這個方法的精神是：</p>
-<p><strong>先讓系統正常跑；真的卡住再處理。</strong></p>
-<hr />
-<h3 id="4-方法三ignore-the-problem忽視問題">4. 方法三：Ignore the Problem(忽視問題)<a class="headerlink" href="#4-方法三ignore-the-problem忽視問題" title="Permanent link"></a></h3>
-<p>第三種方法是：</p>
-<p><strong>假裝系統不會發生 deadlock。</strong></p>
-<p>這聽起來很奇怪，但有些一般用途 OS 可能採用這種做法，因為 deadlock 可能很少發生，而完整處理 deadlock 的成本很高。</p>
-<p>生活化例子：</p>
-<p>你不會每天出門都穿防彈衣，因為風險很低、成本太高。<br />
-同樣地，如果 deadlock 很少發生，系統可能選擇不花大量成本處理。</p>
-<p>但要注意：</p>
-<p><strong>忽視問題不是代表 deadlock 不存在，而是系統選擇不主動處理它。</strong></p>
-<hr />
-<h3 id="5-三種方法比較">5. 三種方法比較<a class="headerlink" href="#5-三種方法比較" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>發生前還是發生後？</th>
-<th>核心做法</th>
-<th>成本</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Prevention / Avoidance</code></td>
-<td>發生前</td>
-<td>不讓系統進入 deadlock state</td>
-<td>較保守，可能降低資源利用率</td>
-</tr>
-<tr>
-<td><code>Detection and Recovery</code></td>
-<td>發生後</td>
-<td>允許發生，偵測後恢復</td>
-<td>需要偵測與恢復機制</td>
-</tr>
-<tr>
-<td><code>Ignore</code></td>
-<td>不主動處理</td>
-<td>假裝沒有 deadlock</td>
-<td>成本最低，但風險留著</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
-<p>處理 deadlock 三大策略：</p>
-<ol>
-<li><strong>不要讓它發生</strong>：prevention / avoidance。</li>
-<li><strong>發生後再處理</strong>：detection and recovery。</li>
-<li><strong>假裝沒這回事</strong>：ignore the problem。</li>
-</ol>
-<h2 id="deadlock-prevention--如何破壞四個死結必要條件">⭐Deadlock Prevention — 如何破壞四個死結必要條件？<a class="headerlink" href="#deadlock-prevention--如何破壞四個死結必要條件" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 10 ~ 11</p>
-<h3 id="1-這個概念在解決什麼問題_3">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_3" title="Permanent link"></a></h3>
-<p>上一頁 p.9 說：</p>
-<p><code>Deadlock Prevention(死結預防)</code> 是用限制資源請求的方法，確保 deadlock 的必要條件至少有一個不會發生。p.10 接著明確說，prevention 的核心就是：</p>
-<p><strong>想辦法破壞形成 deadlock 的四個條件。</strong> </p>
-<p>所以這一節不是問：</p>
-<p><strong>如果 deadlock 發生了怎麼辦？</strong></p>
-<p>而是問：</p>
-<p><strong>能不能一開始就制定規則，讓 deadlock 的四個條件無法同時成立？</strong></p>
-<hr />
-<h3 id="2-破壞-mutual-exclusion互斥">2. 破壞 Mutual Exclusion(互斥)<a class="headerlink" href="#2-破壞-mutual-exclusion互斥" title="Permanent link"></a></h3>
-<p><code>Mutual Exclusion(互斥)</code> 的意思是：某些資源一次只能給一個 process 使用。</p>
-<p>這個條件有時候很難破壞，因為有些資源本來就不能共享。</p>
-<p>例如：</p>
-<ul>
-<li>mutex lock</li>
-<li>印表機</li>
-<li>某些硬體裝置</li>
-<li>某些 critical section</li>
-</ul>
-<p>講義 p.10 也說，對不可共享資源來說，mutual exclusion 條件必定成立。</p>
-<p>所以 prevention 通常不會主要靠破壞 mutual exclusion，因為很多資源天生就需要互斥。</p>
-<hr />
-<h3 id="3-破壞-hold-and-wait佔用與等候">3. 破壞 Hold and Wait(佔用與等候)<a class="headerlink" href="#3-破壞-hold-and-wait佔用與等候" title="Permanent link"></a></h3>
-<p><code>Hold and Wait(佔用與等候)</code> 是：</p>
-<p><strong>process 手上已經拿著某些資源，又繼續等其他資源。</strong></p>
-<p>要破壞它，方法是規定：</p>
-<p><mark><strong>process 在要求一項資源時，不可以佔用任何其他資源。</strong></mark></p>
-<p>講義 p.10 也寫，必須保證一個行程在要求一項資源時，不可以佔用任何其他資源；缺點是資源利用率低，而且可能有 starvation(餓死)。</p>
-<p>生活化例子：</p>
-<p>你要借新工具前，必須先把手上所有工具都還回去。<br />
-這樣就不會出現「我拿著 A 等 B」的狀態。</p>
-<p>缺點是很浪費：</p>
-<p>你明明還需要 A，卻被迫先還掉，之後還要重新拿。</p>
-<hr />
-<h3 id="4-破壞-no-preemption不可搶先">4. 破壞 No Preemption(不可搶先)<a class="headerlink" href="#4-破壞-no-preemption不可搶先" title="Permanent link"></a></h3>
-<p><code>No Preemption(不可搶先)</code> 是：</p>
-<p><strong>資源不能被系統強制搶回，只能等持有者自己釋放。</strong></p>
-<p>要破壞它，方法是：</p>
-<p><strong>如果 process 拿著一些資源，又要求其他無法立即分配的資源，那它目前持有的資源就會被釋放。</strong></p>
-<p>講義 p.10 說，如果持有某些資源的 process 請求了不能立即分配的其他資源，那它當前持有的所有資源都會被釋放； <mark>等它能重新取得舊資源和新資源時</mark> ，才重新啟動。</p>
-<p>直覺：</p>
-<p>你拿著 A，但你還想要 B。<br />
-如果 B 現在不能給你，系統就說：</p>
-<p><strong>那你先把 A 也還回來，等 A 和 B 都能一起給你時再繼續。</strong></p>
-<p>這樣可以避免你拿著 A 卡住別人。</p>
-<hr />
-<h3 id="5-破壞-circular-wait循環式等候">5. 破壞 Circular Wait(循環式等候)<a class="headerlink" href="#5-破壞-circular-wait循環式等候" title="Permanent link"></a></h3>
-<p><code>Circular Wait(循環式等候)</code> 是：</p>
-<p><strong>P1 等 P2，P2 等 P3，最後又有人等回 P1，形成一個圈。</strong></p>
-<p>要破壞它，方法是：</p>
-<p><strong>對所有資源做 total ordering(總排序)，並要求 process 只能依照遞增順序請求資源。</strong></p>
-<p>講義 p.11 也是這樣寫：對所有資源總排序，要求每個 process 以遞增順序請求資源。</p>
-<p>例如規定：</p>
-<p><code>R1 &lt; R2 &lt; R3</code></p>
-<p>那 process 只能：</p>
-<p><code>R1 → R2 → R3</code></p>
-<p>不能：</p>
-<p><code>R2 → R1</code></p>
-<p>這樣就不會出現 p.4 那種：</p>
-<p>Thread 1：先拿 first，再拿 second。<br />
-Thread 2：先拿 second，再拿 first。</p>
-<p>因為所有人都照同一個順序拿資源，就不容易形成等待圈。</p>
-<hr />
-<h3 id="6-四種破壞方式整理">6. 四種破壞方式整理<a class="headerlink" href="#6-四種破壞方式整理" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>要破壞的條件</th>
-<th>Prevention 方法</th>
-<th>缺點／限制</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Mutual Exclusion</code></td>
-<td>讓資源可共享</td>
-<td>很多資源天生不可共享，難做到</td>
-</tr>
-<tr>
-<td><code>Hold and Wait</code></td>
-<td>要新資源時，不能持有其他資源</td>
-<td>資源利用率低，可能 starvation</td>
-</tr>
-<tr>
-<td><code>No Preemption</code></td>
-<td>要不到新資源時，釋放目前持有資源</td>
-<td>某些資源不適合被搶回</td>
-</tr>
-<tr>
-<td><code>Circular Wait</code></td>
-<td>對資源排序，只能按遞增順序要求</td>
-<td>限制程式設計彈性</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="7-最短記法_2">7. 最短記法<a class="headerlink" href="#7-最短記法_2" title="Permanent link"></a></h3>
-<p><code>Deadlock Prevention(死結預防)</code>：</p>
-<p><strong>破壞 deadlock 四個必要條件之一，讓四個條件無法同時成立。</strong></p>
-<p>最常見、最好記的是：</p>
-<p><strong>破壞 circular wait：規定所有 process 都照固定資源順序拿資源。</strong></p>
-<h3 id="破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡">破壞 Hold and Wait 和 破壞 No Preemption 到底差在哪裡？<a class="headerlink" href="#破壞-hold-and-wait-和-破壞-no-preemption-到底差在哪裡" title="Permanent link"></a></h3>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>這兩個看起來都會「放掉資源」，但重點不同。</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>什麼時候釋放？</th>
-<th>核心差別</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>破壞 <code>Hold and Wait</code></td>
-<td>在提出新 request 前，規則就要求你不能持有其他資源(<mark>只能同時要求所有需要的資源</mark>)</td>
-<td>不允許「拿著資源又等待」這個狀態出現</td>
-</tr>
-<tr>
-<td>破壞 <code>No Preemption</code></td>
-<td>已經提出 request，但新資源無法立即分配時，系統讓它釋放目前資源</td>
-<td>允許 request 發生，但要不到時把持有資源空出</td>
-</tr>
-</tbody>
-</table>
-<p>用一句話分：</p>
-<p><strong>Hold-and-wait prevention 是：要東西前，手上先清空。</strong><br />
-<strong>No-preemption prevention 是：你要不到新東西時，手上的也先被收回。</strong></p>
-</div>
-<h2 id="safe-state--什麼叫現在分配資源仍然安全">⭐Safe State — 什麼叫「現在分配資源仍然安全」？<a class="headerlink" href="#safe-state--什麼叫現在分配資源仍然安全" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 12 ~ 14</p>
-<h3 id="1-這個概念在解決什麼問題_4">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_4" title="Permanent link"></a></h3>
-<p>上一個主線是 <code>Deadlock Prevention(死結預防)</code>：<br />
-<strong>直接改資源取用規則，破壞 deadlock 的必要條件。</strong></p>
-<p><mark>現在進入 <code>Deadlock Avoidance(死結避免)</code></mark>：<br />
-<strong>不是一開始禁止很多行為，而是每次 process 要資源時，OS 先判斷「現在給它會不會讓系統走向危險」。</strong></p>
-<p>所以 <code>safe state(安全狀態)</code> 要回答的問題是：</p>
-<p><strong>如果現在這樣分配資源，系統是否仍然有一種順序，可以讓所有 process 最後都完成？</strong></p>
-<p>講義 p.12 定義：如果系統能以某種順序把資源分配給各行程，並仍能避免 deadlock，這個狀態就叫 <code>safe state(安全狀態)</code>。p.13 接著說，當 process 要求可用資源時，系統必須判斷立刻給資源後是否仍是 safe state；若是就給，否則該 process 必須等待。</p>
-<hr />
-<h3 id="2-safe-state-的核心存在一個-safe-sequence">2. Safe state 的核心：存在一個 safe sequence<a class="headerlink" href="#2-safe-state-的核心存在一個-safe-sequence" title="Permanent link"></a></h3>
-<p><code>Safe sequence(安全序列)</code> 是：</p>
-<p><strong>有一個 process 完成順序，照這個順序走，每個 process 都能拿到剩下需要的資源、執行完、釋放資源，最後全部 process 都完成。</strong></p>
-<p>白話說：</p>
-<p><strong>現在雖然資源可能不夠所有人同時拿滿，但只要我們能安排出一個「誰先完成、誰再完成」的順序，讓每個人最後都能跑完，那就是 safe。</strong></p>
-<p>生活例子：</p>
-<p>你手上現在只有 3 支工具，但三個人總共還需要更多工具。<br />
-如果你能先讓需求最少的人完成，等他歸還工具後，再讓下一個人完成，最後大家都能完成，那目前狀態就是安全的。</p>
-<hr />
-<h3 id="3-safe-不代表現在每個人都能立刻完成">3. Safe 不代表現在每個人都能立刻完成<a class="headerlink" href="#3-safe-不代表現在每個人都能立刻完成" title="Permanent link"></a></h3>
-<p>這點很重要。</p>
-<p><code>Safe state</code> 不是說：</p>
-<p><strong>所有 process 現在馬上都能拿到全部資源。</strong></p>
-<p>而是說：</p>
-<p><strong>存在一個完成順序，使得大家最後都能完成。</strong></p>
-<p>所以 safe state 允許某些 process 先等一下。</p>
-<p>講義 p.13 的說法就是：如果 <code>Pi</code> 的需求資源無法立即取得，<code>Pi</code> 可以等到前面的 <code>Pj</code> 完成；當 <code>Pj</code> 完成並釋放資源後，<code>Pi</code> 就可以取得需要的資源，執行、結束並釋放資源。</p>
-<hr />
-<h3 id="4-p14-例子12-台-tape-drives">4. p.14 例子：12 台 tape drives<a class="headerlink" href="#4-p14-例子12-台-tape-drives" title="Permanent link"></a></h3>
-<p>講義 p.14 給的是 12 個 tape drives 的例子：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Maximum needs</th>
-<th style="text-align: right;">Current holds</th>
-<th style="text-align: right;">Needs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">7</td>
-</tr>
-</tbody>
-</table>
-<p>總共有 12 個 tape drives。<br />
-目前已經被拿走：</p>
-<p><code>5 + 2 + 2 = 9</code></p>
-<p>所以目前 <code>Available(可用資源)</code> 是：</p>
-<p><code>12 - 9 = 3</code></p>
-<p>現在看誰可以先完成：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Needs</th>
-<th>Available = 3 時能不能先完成？</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">5</td>
-<td>不能</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">2</td>
-<td>可以</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">7</td>
-<td>不能</td>
-</tr>
-</tbody>
-</table>
-<p>所以先讓 <code>P1</code> 完成。<br />
-P1 完成後會釋放它目前持有的 2 個 tape drives，所以：</p>
-<p><code>Available = 3 + 2 = 5</code></p>
-<p>接著：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Needs</th>
-<th>Available = 5 時能不能完成？</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">5</td>
-<td>可以</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">7</td>
-<td>不能</td>
-</tr>
-</tbody>
-</table>
-<p>所以讓 <code>P0</code> 完成。<br />
-P0 完成後釋放 5 個：</p>
-<p><code>Available = 5 + 5 = 10</code></p>
-<p>最後：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Needs</th>
-<th>Available = 10 時能不能完成？</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">7</td>
-<td>可以</td>
-</tr>
-</tbody>
-</table>
-<p>因此安全序列是：</p>
-<p><code>&lt;P1, P0, P2&gt;</code></p>
-<p>講義也明確寫這個 sequence 滿足 safe condition。</p>
-<hr />
-<h3 id="5-用流程圖看-safe-sequence">5. 用流程圖看 safe sequence<a class="headerlink" href="#5-用流程圖看-safe-sequence" title="Permanent link"></a></h3>
-<pre class="diagram"><code>flowchart LR
-    A["Available = 3"] --&gt; B["P1 needs 2&lt;br&gt;can finish"]
-    B --&gt; C["P1 releases 2&lt;br&gt;Available = 5"]
-    C --&gt; D["P0 needs 5&lt;br&gt;can finish"]
-    D --&gt; E["P0 releases 5&lt;br&gt;Available = 10"]
-    E --&gt; F["P2 needs 7&lt;br&gt;can finish"]
-    F --&gt; G["All processes can finish&lt;br&gt;safe state"]</code></pre>
-<p>這張圖的重點是：</p>
-<p><strong>不是一開始所有人都能完成，而是存在一條完成路線。</strong></p>
-<hr />
-<h3 id="6-unsafe-state-是什麼">6. Unsafe state 是什麼？<a class="headerlink" href="#6-unsafe-state-是什麼" title="Permanent link"></a></h3>
-<p><code>Unsafe state(不安全狀態)</code> 是：</p>
-<p><strong>找不到一個保證所有 process 都能完成的 safe sequence。</strong></p>
-<p>注意：</p>
-<p><strong>unsafe 不一定等於現在已經 deadlock。</strong></p>
-<p>更精準說：</p>
-<table>
-<thead>
-<tr>
-<th>狀態</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>safe state</code></td>
-<td>一定可以找到某個完成順序，避免 deadlock</td>
-</tr>
-<tr>
-<td><code>unsafe state</code></td>
-<td>找不到保證安全的完成順序，未來可能 deadlock</td>
-</tr>
-<tr>
-<td><code>deadlock state</code></td>
-<td>已經卡住，沒有人能繼續</td>
-</tr>
-</tbody>
-</table>
-<p>講義 p.14 的 unsafe 例子是：如果 <code>P2</code> 又 request 並被多分配 1 個 tape drive，這會是錯誤分配，因為之後會導致 deadlock。</p>
-<p>原本：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Current holds</th>
-<th style="text-align: right;">Needs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">7</td>
-</tr>
-</tbody>
-</table>
-<p>如果又給 P2 1 個，變成：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Current holds</th>
-<th style="text-align: right;">Needs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">6</td>
-</tr>
-</tbody>
-</table>
-<p>總持有：</p>
-<p><code>5 + 2 + 3 = 10</code></p>
-<p>所以：</p>
-<p><code>Available = 12 - 10 = 2</code></p>
-<p>此時 P1 need = 2，可以先完成，釋放 2 個，變成：</p>
-<p><code>Available = 4</code></p>
-<p>可是：</p>
-<ul>
-<li>P0 還需要 5</li>
-<li>P2 還需要 6</li>
-</ul>
-<p>Available 只有 4，誰都不能完成。<br />
-所以這個分配會讓系統走向 unsafe，講義說錯誤在於同意 P2 多拿一個 tape drive。</p>
-<hr />
-<h3 id="7-avoidance-的真正判斷">7. Avoidance 的真正判斷<a class="headerlink" href="#7-avoidance-的真正判斷" title="Permanent link"></a></h3>
-<p><code>Deadlock Avoidance(死結避免)</code> 不是問：</p>
-<p><strong>現在有沒有 deadlock？</strong></p>
-<p>而是問：</p>
-<p><mark><strong>如果我現在給這個 request，系統還找不找得到 safe sequence？</strong></mark></p>
-<p>如果找得到：</p>
-<p><strong>可以給。</strong></p>
-<p>如果找不到：</p>
-<p><strong>不給，讓 process 等待。</strong></p>
-<p>這就是 avoidance 跟 prevention 的差異：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>判斷方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Prevention</code></td>
-<td>事先制定規則，破壞 deadlock 條件</td>
-</tr>
-<tr>
-<td><code>Avoidance</code></td>
-<td>每次 request 時，檢查給了之後是否仍 safe</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
-<p><code>Safe state(安全狀態)</code>：</p>
-<p><strong>存在一個 process 完成順序，使得所有 process 最後都能完成，並避免 deadlock。</strong></p>
-<p><code>Safe sequence(安全序列)</code>：</p>
-<p><strong>照這個順序讓 process 完成，每一步釋放的資源都足夠讓下一個 process 完成。</strong></p>
-<p><code>Unsafe state(不安全狀態)</code>：</p>
-<p><strong>找不到保證安全的完成順序；不一定已經 deadlock，但可能導向 deadlock。</strong></p>
-<h3 id="為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock">為何 <code>Unsafe state(不安全狀態)</code> 說可能會 deadlock，但不代表一定會 deadlock。<a class="headerlink" href="#為何-unsafe-state不安全狀態-說可能會-deadlock但不代表一定會-deadlock" title="Permanent link"></a></h3>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>在 <code>Deadlock Avoidance(死結避免)</code> 裡，OS 不只看 process 現在實際要求多少資源，而是用一種保守分析來判斷：</p>
-<p>如果每個 process 未來都可能要求到它的 <code>remaining maximum need(剩餘最大需求)</code>，也就是 <code>Need = Max - Allocation</code>，系統是否仍然能安排出一個 <code>safe sequence(安全序列)</code>。</p>
-<p>所以 <code>safe state(安全狀態)</code> 的意思是：</p>
-<blockquote>
-<p>即使按照每個 process <mark>最多</mark> 還可能需要的資源來考慮，系統仍然找得到一個完成順序，讓所有 process 都能完成。</p>
-</blockquote>
-<p>如果找不到 safe sequence，系統就會判定目前是 <code>unsafe state(不安全狀態)</code>，意思是：</p>
-<p><strong>OS 無法保證之後一定能讓所有 process 完成，因此未來可能會 deadlock。</strong></p>
-<p>但 <code>unsafe state</code> 不代表未來一定 deadlock，因為實際上每個 process 不一定會真的要求到它宣告的最大需求，也可能提早釋放資源、少拿一些資源，或執行順序剛好沒有走到最壞情況。</p>
-<p>所以：</p>
-<p><strong>Unsafe state 不是 deadlock，而是「無法保證安全」的狀態。</strong></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>它有點像 Big-O 在分析時採保守上界／最壞情況思維。</p>
-</div>
-<h2 id="resource-allocation-graph-algorithm--如何用圖在分配前避免-deadlock">⭐Resource-Allocation Graph Algorithm — 如何用圖在分配前避免 deadlock？<a class="headerlink" href="#resource-allocation-graph-algorithm--如何用圖在分配前避免-deadlock" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 15</p>
-<h3 id="1-這個概念在解決什麼問題_5">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_5" title="Permanent link"></a></h3>
-<p>前面 <code>Safe State(安全狀態)</code> 的核心是：</p>
-<p><strong>資源分配前，OS 要先判斷「如果現在給資源，系統還能不能保證安全」。</strong></p>
-<p>p.15 換成圖的角度來做這件事。</p>
-<p><img alt="alt text" src="images/ch%207-2.png" /></p>
-<p>也就是：</p>
-<p><strong>process 要資源時，不是馬上給，而是先把圖更新看看會不會形成 cycle(循環)。如果給了會形成 cycle，就不要給，讓 process 等待。</strong></p>
-<p>講義 p.15 說，只有當把 request edge 轉成 assignment edge 不會導致 resource-allocation graph 形成 cycle 時，才可以同意這個 request。</p>
-<hr />
-<h3 id="2-先分清楚三種-edge邊">2. 先分清楚三種 edge(邊)<a class="headerlink" href="#2-先分清楚三種-edge邊" title="Permanent link"></a></h3>
-<p>p.15 多了一個新東西：<code>claim edge(聲明邊)</code>。</p>
-<p>你前面已經學過：</p>
-<table>
-<thead>
-<tr>
-<th>Edge</th>
-<th>方向</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>request edge(請求邊)</code></td>
-<td><code>Pi → Rj</code></td>
-<td>Pi 現在正在要求 Rj</td>
-</tr>
-<tr>
-<td><code>assignment edge(分配邊)</code></td>
-<td><code>Rj → Pi</code></td>
-<td>Rj 已經分配給 Pi</td>
-</tr>
-</tbody>
-</table>
-<p>現在新增：</p>
-<table>
-<thead>
-<tr>
-<th>Edge</th>
-<th>方向</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>claim edge(聲明邊)</code></td>
-<td><code>Pi → Rj</code>，通常用虛線</td>
-<td>Pi 未來可能會請求 Rj</td>
-</tr>
-</tbody>
-</table>
-<p>所以三者差異是：</p>
-<table>
-<thead>
-<tr>
-<th>狀態</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>claim edge</code></td>
-<td>可能會要，但現在還沒真的要</td>
-</tr>
-<tr>
-<td><code>request edge</code></td>
-<td>現在真的提出 request，正在等</td>
-</tr>
-<tr>
-<td><code>assignment edge</code></td>
-<td>已經分配給 process，process 正持有</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="3-claim-edge-為什麼存在">3. Claim edge 為什麼存在？<a class="headerlink" href="#3-claim-edge-為什麼存在" title="Permanent link"></a></h3>
-<p>因為 avoidance 需要 OS 事先知道：</p>
-<p><strong>process 可能會要求哪些 resource。</strong></p>
-<p>所以一開始先畫 <code>claim edge</code>，表示：</p>
-<p><strong>Pi 未來可能會要求 Rj。</strong></p>
-<p>這不是說 Pi 現在正在等 Rj。<br />
-只是先把「可能需求」記在圖上。</p>
-<p>生活例子：</p>
-<p>你跟工具管理員說：</p>
-<p><strong>我這個工作未來可能會借電鑽。</strong></p>
-<p>這時管理員先記錄「你可能會借」，但還沒有真的把電鑽給你，也不是你正在等電鑽。</p>
-<p>這就像 <code>claim edge</code>。</p>
-<hr />
-<h3 id="4-三種-edge-的轉換流程">4. 三種 edge 的轉換流程<a class="headerlink" href="#4-三種-edge-的轉換流程" title="Permanent link"></a></h3>
-<p>講義 p.15 的流程是：</p>
-<ol>
-<li>一開始有 <code>claim edge</code>：Pi 未來可能要 Rj。</li>
-<li>Pi 真的 request Rj 時，<code>claim edge</code> 變成 <code>request edge</code>。</li>
-<li>如果 OS 判斷給了不會形成 cycle，就把 <code>request edge</code> 變成 <code>assignment edge</code>。</li>
-<li>如果會形成 cycle，就不給，Pi 等待。</li>
-</ol>
-<p>可以畫成：</p>
-<pre class="diagram"><code>flowchart LR
-    A["Claim edge&lt;br&gt;Pi -.-&gt; Rj&lt;br&gt;Pi may request Rj"] --&gt; B["Request edge&lt;br&gt;Pi --&gt; Rj&lt;br&gt;Pi is requesting Rj"]
-    B --&gt; C{"If granted,&lt;br&gt;would graph have a cycle?"}
-    C --&gt;|No cycle| D["Assignment edge&lt;br&gt;Rj --&gt; Pi&lt;br&gt;Rj allocated to Pi"]
-    C --&gt;|Cycle| E["Do not grant&lt;br&gt;Pi must wait"]</code></pre>
-<hr />
-<h3 id="5-為什麼形成-cycle就不能給">5. 為什麼「形成 cycle」就不能給？<a class="headerlink" href="#5-為什麼形成-cycle就不能給" title="Permanent link"></a></h3>
-<p>因為在 resource-allocation graph 裡，cycle 代表：</p>
-<p><strong>等待關係可能變成一個圈。</strong></p>
-<p>例如：</p>
-<p>P1 等 R1，而 R1 被 P2 拿著；<br />
-P2 又等 R2，而 R2 被 P1 拿著。</p>
-<p>這種等待圈就是 circular wait 的圖形版本。</p>
-<p>p.15 的 avoidance 規則是：</p>
-<p><strong>不要讓 request edge 變成 assignment edge 後產生 cycle。</strong></p>
-<p>也就是：</p>
-<p><strong>不要讓系統走進可能造成 deadlock 的圖形狀態。</strong></p>
-<hr />
-<h3 id="6-這和-safe-state-的關係">6. 這和 safe state 的關係<a class="headerlink" href="#6-這和-safe-state-的關係" title="Permanent link"></a></h3>
-<p>p.12 ~ p.14 的 <code>safe state</code> 是用「完成順序」來想：</p>
-<p><strong>有沒有一個 sequence 可以讓所有 process 完成？</strong></p>
-<p>p.15 的 <code>Resource-Allocation Graph Algorithm</code> 是用「圖」來想：</p>
-<p><strong>如果我現在分配這個 resource，圖上會不會出現 cycle？</strong></p>
-<p>兩者都是 <code>Deadlock Avoidance(死結避免)</code>：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>判斷方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Safe state</code></td>
-<td>給了之後，是否仍找得到 safe sequence</td>
-</tr>
-<tr>
-<td><code>Resource-Allocation Graph Algorithm</code></td>
-<td>給了之後，圖上是否會形成 cycle</td>
-</tr>
-</tbody>
-</table>
-<p>重點都是：</p>
-<p><strong>分配前先檢查，不安全就先不給。</strong></p>
-<hr />
-<h3 id="7-跟-bankers-algorithm-的銜接">7. 跟 Banker’s Algorithm 的銜接<a class="headerlink" href="#7-跟-bankers-algorithm-的銜接" title="Permanent link"></a></h3>
-<p>p.15 是 <code>Resource-Allocation Graph Algorithm</code>，p.16 會進入 <code>Banker’s Algorithm(銀行家演算法)</code>。</p>
-<p>這兩個都屬於 <code>Deadlock Avoidance</code>，但適用情境不同：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>大方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Resource-Allocation Graph Algorithm</code></td>
-<td>用圖和 cycle 判斷</td>
-</tr>
-<tr>
-<td><code>Banker’s Algorithm</code></td>
-<td>用 Max、Allocation、Need、Available 計算 safe state</td>
-</tr>
-</tbody>
-</table>
-<p>p.16 特別說 Banker’s Algorithm 適用於「每個資源有多個 instances」的情況，並要求每個 process 事先聲明最大使用量。</p>
-<p>所以你可以先記：</p>
-<p><strong>p.15 是圖形版 avoidance；p.16 開始是矩陣／表格版 avoidance。</strong></p>
-<hr />
-<h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
-<p><code>Claim edge(聲明邊)</code>：</p>
-<p><strong>Pi 未來可能要求 Rj。</strong></p>
-<p><code>Request edge(請求邊)</code>：</p>
-<p><strong>Pi 現在正在要求 Rj。</strong></p>
-<p><code>Assignment edge(分配邊)</code>：</p>
-<p><strong>Rj 已經分配給 Pi。</strong></p>
-<p>演算法核心：</p>
-<p><strong>只有在 request edge 轉成 assignment edge 不會形成 cycle 時，OS 才能同意 request。</strong></p>
-<h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
-<p>Q：<br />
-Why should the OS deny a resource request if converting the request edge to an assignment edge would create a cycle?</p>
-<p>ANS：<br />
-如果把 request edge 轉成 assignment edge 會形成 cycle，OS 應該拒絕這次 request，讓 process 等待。因為 cycle 代表可能形成 circular wait，進而導致 deadlock 風險；deadlock avoidance 的目的就是在分配前避免進入這種危險狀態。</p>
-<h3 id="問問題">問問題<a class="headerlink" href="#問問題" title="Permanent link"></a></h3>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Q：<br />
-所以防止 create a cycle 只是防只達到構成要素之一的 circular wait ，並不等於一定會 block，要 block 要其他的條件也達到才會對不對？</p>
-<p>A：<br />
-你的理解方向是對的，但要分兩種圖</p>
-<p>你說：</p>
-<blockquote>
-<p>防止 create a cycle 只是防止達到構成要素之一的 circular wait，並不等於一定會 block，要 block 要其他的條件也達到才會。</p>
-</blockquote>
-<p>這句在<strong>一般觀念上是對的</strong>：<br />
-<code>Circular Wait(循環式等候)</code> 只是 deadlock 四個 necessary conditions(必要條件) 之一。要真的形成 deadlock，還需要 <code>Mutual Exclusion(互斥)</code>、<code>Hold and Wait(佔用與等候)</code>、<code>No Preemption(不可搶先)</code> 也同時成立。</p>
-<p>但在 <code>Resource-Allocation Graph(RAG，資源配置圖)</code> 裡，還要分：</p>
-<table>
-<thead>
-<tr>
-<th>情況</th>
-<th>cycle 代表什麼</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一般 deadlock 必要條件</td>
-<td>cycle 只是四條件之一</td>
-</tr>
-<tr>
-<td>單一 instance 的實際 RAG，只有 request / assignment edge</td>
-<td>有 cycle 通常就代表 deadlock</td>
-</tr>
-<tr>
-<td>avoidance 用的 graph，含 claim edge</td>
-<td>有 cycle 代表 unsafe，不一定已經 deadlock</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="bankers-algorithm--os-怎麼像銀行一樣判斷資源能不能借出去">⭐Banker’s Algorithm — OS 怎麼像銀行一樣判斷資源能不能借出去？<a class="headerlink" href="#bankers-algorithm--os-怎麼像銀行一樣判斷資源能不能借出去" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 16 ~ 19</p>
-<h3 id="1-這個概念在解決什麼問題_6">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_6" title="Permanent link"></a></h3>
-<p><code>Banker’s Algorithm(銀行家演算法)</code> 是 <code>Deadlock Avoidance(死結避免)</code> 的代表方法。</p>
-<p>它在解決的問題是：</p>
-<p><strong>process 要資源時，OS 要不要現在就給？</strong></p>
-<p>不能只看：</p>
-<p><strong>現在資源夠不夠。</strong></p>
-<p>還要看：</p>
-<p><mark><strong>給了之後，系統還能不能保持 safe state(安全狀態)。</strong></mark></p>
-<p>這就像銀行借錢。銀行不是只看「現在保險庫裡有沒有錢」，還要看「借出去之後，是否仍有能力讓所有客戶在合理情況下完成提款」。所以叫 <code>Banker’s Algorithm</code>。</p>
-<p>講義 p.16 說 Banker’s Algorithm 的條件包含：每個 resource 有多個 instances、每個 process 必須事先聲明最大使用量、process request resource 時可能必須等待、process 取得所有資源後必須在有限時間內完成並釋放資源。</p>
-<hr />
-<h3 id="2-bankers-algorithm-的四個基本假設">2. Banker’s Algorithm 的四個基本假設<a class="headerlink" href="#2-bankers-algorithm-的四個基本假設" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>條件</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><mark>每個 resource 有多個 instances</mark></td>
-<td>例如 A 有 10 份、B 有 5 份、C 有 7 份</td>
-</tr>
-<tr>
-<td>process 事先宣告最大需求</td>
-<td>OS 要知道每個 process 最多可能需要多少資源</td>
-</tr>
-<tr>
-<td>request 時可能等待</td>
-<td>就算目前資源夠，也可能因為給了會 unsafe 而不給</td>
-</tr>
-<tr>
-<td>拿到所有資源後有限時間內完成並釋放</td>
-<td>不然 safe sequence 的推理無法成立</td>
-</tr>
-</tbody>
-</table>
-<p>最重要的是第二點：</p>
-<p><strong>如果 OS 不知道 process 的 maximum need(最大需求)，就沒辦法判斷「給了之後還安不安全」。</strong></p>
-<hr />
-<h3 id="3-bankers-algorithm-的四張表">3. Banker’s Algorithm 的四張表<a class="headerlink" href="#3-bankers-algorithm-的四張表" title="Permanent link"></a></h3>
-<p>講義 p.17 定義了四個資料結構：<code>Available</code>、<code>Max</code>、<code>Allocation</code>、<code>Need</code>。</p>
-<p>假設：</p>
-<ul>
-<li><code>n</code> = process 數量</li>
-<li><code>m</code> = resource type 數量</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>名稱</th>
-<th>型態</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Available</code></td>
-<td>長度 m 的 vector</td>
-<td>每種 resource 目前還剩多少可用 instances</td>
-</tr>
-<tr>
-<td><code>Max</code></td>
-<td>n × m matrix</td>
-<td>每個 process 最多可能需要多少資源</td>
-</tr>
-<tr>
-<td><code>Allocation</code></td>
-<td>n × m matrix</td>
-<td>每個 process 目前已經拿到多少資源</td>
-</tr>
-<tr>
-<td><code>Need</code></td>
-<td>n × m matrix</td>
-<td>每個 process 接下來最多還可能需要多少資源</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Allocation：分配；配置；撥款；配置量；資源分派</p>
-<p>Allocation：分配、配置<br />
-├─ al：加強、朝向<br />
-├─ loc：放置、位置<br />
-│  └─ local：地方、位置相關<br />
-├─ ate：動詞化、使成為<br />
-└─ ion：名詞化、行為、結果</p>
-</div>
-<p>核心公式：</p>
-<p><code>Need = Max - Allocation</code></p>
-<p>也就是：</p>
-<p><strong>還需要多少 = 最多需要多少 - 已經拿到多少</strong></p>
-<hr />
-<h3 id="4-用一個超小例子看-need--max---allocation">4. 用一個超小例子看 <code>Need = Max - Allocation</code><a class="headerlink" href="#4-用一個超小例子看-need--max---allocation" title="Permanent link"></a></h3>
-<p>假設只有一種資源 A。</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Max</th>
-<th style="text-align: right;">Allocation</th>
-<th style="text-align: right;">Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-</tbody>
-</table>
-<p>意思是：</p>
-<ul>
-<li>P0 最多需要 7 個 A，已經拿 2 個，所以最多還可能需要 5 個。</li>
-<li>P1 最多需要 4 個 A，已經拿 1 個，所以最多還可能需要 3 個。</li>
-</ul>
-<p>所以 Banker’s Algorithm 不是只看 process 現在要求多少，而是看：</p>
-<p><strong>如果未來它還要到 Need 這麼多，系統是否仍能安排大家完成。</strong></p>
-<hr />
-<h3 id="5-safety-algorithm安全性演算法檢查目前是不是-safe-state">5. Safety Algorithm(安全性演算法)：檢查目前是不是 safe state<a class="headerlink" href="#5-safety-algorithm安全性演算法檢查目前是不是-safe-state" title="Permanent link"></a></h3>
-<p>講義 p.18 的 <code>Safety Algorithm</code> 是用來回答：</p>
-<p><strong>目前這個資源配置狀態是不是 safe？</strong></p>
-<p>它用兩個暫存變數：</p>
-<table>
-<thead>
-<tr>
-<th>變數</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Work</code></td>
-<td>目前模擬中可用的資源數量，一開始等於 <code>Available</code></td>
-</tr>
-<tr>
-<td><code>Finish[i]</code></td>
-<td>process Pi 是否可以在模擬中完成，一開始都是 false</td>
-</tr>
-</tbody>
-</table>
-<p>流程是：</p>
-<ol>
-<li>設 <code>Work = Available</code>，所有 <code>Finish[i] = false</code>。</li>
-<li>找一個尚未完成的 Pi，使得 <code>Need_i ≤ Work</code>。</li>
-<li>如果找到，代表 Pi 可以完成；完成後釋放它已持有的資源，所以 <code>Work = Work + Allocation_i</code>，並把 <code>Finish[i] = true</code>。</li>
-<li>重複找下一個可以完成的 process。</li>
-<li>如果最後所有 <code>Finish[i] = true</code>，就是 safe state；否則不是 safe state。</li>
-</ol>
-<p>直覺：</p>
-<p><strong>先找一個現在資源夠它完成的人，讓它完成並歸還資源，再用歸還後的資源去幫下一個人完成。</strong></p>
-<hr />
-<h3 id="6-safety-algorithm-的迷你示範">6. Safety Algorithm 的迷你示範<a class="headerlink" href="#6-safety-algorithm-的迷你示範" title="Permanent link"></a></h3>
-<p>假設只有一種 resource A，目前：</p>
-<p><code>Available = 2</code></p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Allocation</th>
-<th style="text-align: right;">Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-</tr>
-</tbody>
-</table>
-<p>一開始：</p>
-<p><code>Work = 2</code></p>
-<p>先找 <code>Need ≤ Work</code> 的 process：</p>
-<ul>
-<li>P0 Need = 2，可以完成。</li>
-<li>P1 Need = 1，也可以完成。</li>
-<li>P2 Need = 3，暫時不行。</li>
-</ul>
-<p>假設先選 P1：</p>
-<p>P1 完成後釋放 Allocation = 2，所以：</p>
-<p><code>Work = 2 + 2 = 4</code></p>
-<p>接著 P0 Need = 2 可以完成，釋放 1：</p>
-<p><code>Work = 4 + 1 = 5</code></p>
-<p>最後 P2 Need = 3 可以完成。</p>
-<p>所以其中一個 safe sequence 是：</p>
-<p><code>&lt;P1, P0, P2&gt;</code></p>
-<p>這代表目前狀態是 safe。</p>
-<hr />
-<h3 id="7-resource-request-algorithm資源請求演算法process-要資源時怎麼判斷">7. Resource-Request Algorithm(資源請求演算法)：process 要資源時怎麼判斷？<a class="headerlink" href="#7-resource-request-algorithm資源請求演算法process-要資源時怎麼判斷" title="Permanent link"></a></h3>
-<p>講義 p.19 的 <code>Resource-Request Algorithm</code> 是用來回答：</p>
-<p><strong>Pi 現在提出 request，OS 能不能立刻給？</strong></p>
-<p>它有三層檢查：</p>
-<table>
-<thead>
-<tr>
-<th>步驟</th>
-<th>檢查</th>
-<th>失敗代表什麼</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><code>Request_i ≤ Need_i</code></td>
-<td>request 超過自己事先宣告的最大需求，錯誤</td>
-</tr>
-<tr>
-<td>2</td>
-<td><code>Request_i ≤ Available</code></td>
-<td>目前資源不夠，Pi 必須等待</td>
-</tr>
-<tr>
-<td>3</td>
-<td>假裝分配後跑 safety check</td>
-<td>若 safe 才真的給；若 unsafe 就不給並恢復舊狀態</td>
-</tr>
-</tbody>
-</table>
-<p>講義 p.19 寫，如果 request 合理且資源可用，就先假裝分配：<code>Available = Available - Request_i</code>、<code>Allocation_i = Allocation_i + Request_i</code>、<code>Need_i = Need_i - Request_i</code>；如果 safe，就真的分配；如果 unsafe，Pi 必須等待，舊的 resource-allocation state 要恢復。</p>
-<hr />
-<h3 id="8-三層檢查的直覺">8. 三層檢查的直覺<a class="headerlink" href="#8-三層檢查的直覺" title="Permanent link"></a></h3>
-<p>假設 P1 事先說自己最多還會需要 5 個 A，也就是 <code>Need = 5</code>。</p>
-<p>現在 P1 request 6 個 A：</p>
-<ul>
-<li><code>Request ≤ Need</code> 不成立。</li>
-<li>代表它超過自己宣告的最大需求。</li>
-<li>OS 直接視為錯誤。</li>
-</ul>
-<p>如果 P1 request 3 個 A，但系統目前 Available 只有 2：</p>
-<ul>
-<li><code>Request ≤ Need</code> 成立。</li>
-<li><code>Request ≤ Available</code> 不成立。</li>
-<li>代表不是違規，而是現在資源不夠，所以 P1 等待。</li>
-</ul>
-<p>如果 P1 request 3 個 A，Available 也夠：</p>
-<ul>
-<li>還不能馬上真的給。</li>
-<li>OS 要先假裝給它，再檢查系統是否仍 safe。</li>
-<li>safe 才給；unsafe 就不給。</li>
-</ul>
-<p>最重要陷阱：</p>
-<p><strong>資源夠，不代表一定可以給。還要檢查給了之後是否 safe。</strong></p>
-<hr />
-<h3 id="9-bankers-algorithm-和前一頁圖形演算法的差別">9. Banker’s Algorithm 和前一頁圖形演算法的差別<a class="headerlink" href="#9-bankers-algorithm-和前一頁圖形演算法的差別" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>適合情境</th>
-<th>判斷方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Resource-Allocation Graph Algorithm</code></td>
-<td>通常用圖判斷 cycle</td>
-<td>request 變 assignment 後是否形成 cycle</td>
-</tr>
-<tr>
-<td><code>Banker’s Algorithm</code></td>
-<td>每個 resource 有多個 instances</td>
-<td>用 <code>Available / Max / Allocation / Need</code> 檢查 safe state</td>
-</tr>
-</tbody>
-</table>
-<p>兩者都屬於 avoidance。</p>
-<p>共通精神是：</p>
-<p><strong>分配前先檢查，不安全就讓 process 等待。</strong></p>
-<hr />
-<h3 id="10-最短記法">10. 最短記法<a class="headerlink" href="#10-最短記法" title="Permanent link"></a></h3>
-<p><code>Banker’s Algorithm</code>：</p>
-<p><strong>process 要資源時，OS 先假裝分配，再檢查是否 still safe。</strong></p>
-<p>四張表：</p>
-<table>
-<thead>
-<tr>
-<th>名稱</th>
-<th>意思</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Available</code></td>
-<td>目前剩多少</td>
-</tr>
-<tr>
-<td><code>Max</code></td>
-<td>最多會要多少</td>
-</tr>
-<tr>
-<td><code>Allocation</code></td>
-<td>已經拿多少</td>
-</tr>
-<tr>
-<td><code>Need</code></td>
-<td>還最多可能要多少</td>
-</tr>
-</tbody>
-</table>
-<p>公式：</p>
-<p><code>Need = Max - Allocation</code></p>
-<p>三層 request 檢查：</p>
-<ol>
-<li><code>Request ≤ Need</code></li>
-<li><code>Request ≤ Available</code></li>
-<li>假裝分配後檢查 safe state</li>
-</ol>
-<h3 id="need--max---allocation實際上-process-會主動提供的是哪個">Need = Max - Allocation，實際上 process 會主動提供的是哪個<a class="headerlink" href="#need--max---allocation實際上-process-會主動提供的是哪個" title="Permanent link"></a></h3>
-<p>實際上，在 <code>Banker’s Algorithm(銀行家演算法)</code> 的理論模型裡，process 主動提供的是兩種東西：</p>
-<table>
-<thead>
-<tr>
-<th>時間點</th>
-<th>process 提供什麼</th>
-<th>對應資料</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>process 進入系統／被納入 Banker’s Algorithm 管理時</td>
-<td>宣告自己最多可能需要多少資源</td>
-<td><code>Max</code></td>
-</tr>
-<tr>
-<td>process 執行中真的想要資源時</td>
-<td>提出這次想拿多少資源</td>
-<td><code>Request</code></td>
-</tr>
-</tbody>
-</table>
-<p>而不是 process 主動提供 <code>Need</code>。</p>
-<p><code>Need</code> 是 OS 用公式算出來的：</p>
-<p><code>Need = Max - Allocation</code></p>
-<p>講義 p.16 說每個 process 必須事先聲明最大使用量；p.17 定義 <code>Max</code> 是 process 最多可能 request 的資源數量，<code>Allocation</code> 是目前已分配多少，<code>Need</code> 是還可能需要多少，且 <code>Need = Max - Allocation</code>；p.19 則定義 <code>Request_i</code> 是 process Pi 這次想要的 request vector。</p>
-<h2 id="bankers-algorithm-example--表格題到底怎麼一步一步跑">⭐Banker’s Algorithm Example — 表格題到底怎麼一步一步跑？<a class="headerlink" href="#bankers-algorithm-example--表格題到底怎麼一步一步跑" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 20 ~ 24</p>
-<h3 id="1-這個範例在解決什麼問題">1. 這個範例在解決什麼問題？<a class="headerlink" href="#1-這個範例在解決什麼問題" title="Permanent link"></a></h3>
-<p>前面 p.16 ~ p.19 我們學的是規則：</p>
-<ol>
-<li><code>Need = Max - Allocation</code></li>
-<li><code>Safety Algorithm(安全性演算法)</code>：找 safe sequence</li>
-<li><code>Resource-Request Algorithm(資源請求演算法)</code>：process 要資源時，先檢查再假裝分配，再測 safe</li>
-</ol>
-<p>p.20 ~ p.24 則是把這些規則真的套到表格上。</p>
-<p>這類題目的核心不是背答案，而是會做三件事：</p>
-<ol>
-<li>算出 <code>Need</code></li>
-<li>用 <code>Available / Work</code> 找 safe sequence</li>
-<li>對每個 request 判斷：<code>Request ≤ Need</code>、<code>Request ≤ Available</code>、假裝分配後是否 still safe</li>
-</ol>
-<p>講義 p.20 給 5 個 processes、3 種 resources，分別是 A 有 10 個 instances、B 有 5 個 instances、C 有 7 個 instances，並給初始 <code>Allocation / Max / Available</code>。p.21 接著算出 <code>Need = Max - Allocation</code>，並指出 <code>&lt;P1, P3, P4, P2, P0&gt;</code> 是 safe sequence。</p>
-<hr />
-<h3 id="2-初始表格先看-allocation--max--available">2. 初始表格：先看 <code>Allocation / Max / Available</code><a class="headerlink" href="#2-初始表格先看-allocation--max--available" title="Permanent link"></a></h3>
-<p>講義 p.20 的初始狀態是：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Allocation A B C</th>
-<th style="text-align: right;">Max A B C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">0 1 0</td>
-<td style="text-align: right;">7 5 3</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">2 0 0</td>
-<td style="text-align: right;">3 2 2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">3 0 2</td>
-<td style="text-align: right;">9 0 2</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">2 1 1</td>
-<td style="text-align: right;">2 2 2</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">0 0 2</td>
-<td style="text-align: right;">4 3 3</td>
-</tr>
-</tbody>
-</table>
-<p><code>Available = (3, 3, 2)</code></p>
-<p>意思是目前系統還剩：</p>
-<ul>
-<li>A 還有 3 個</li>
-<li>B 還有 3 個</li>
-<li>C 還有 2 個</li>
-</ul>
-<hr />
-<h3 id="3-算-need--max---allocation">3. 算 <code>Need = Max - Allocation</code><a class="headerlink" href="#3-算-need--max---allocation" title="Permanent link"></a></h3>
-<p>逐列相減：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Max</th>
-<th style="text-align: right;">Allocation</th>
-<th style="text-align: right;">Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">7 5 3</td>
-<td style="text-align: right;">0 1 0</td>
-<td style="text-align: right;">7 4 3</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">3 2 2</td>
-<td style="text-align: right;">2 0 0</td>
-<td style="text-align: right;">1 2 2</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">9 0 2</td>
-<td style="text-align: right;">3 0 2</td>
-<td style="text-align: right;">6 0 0</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">2 2 2</td>
-<td style="text-align: right;">2 1 1</td>
-<td style="text-align: right;">0 1 1</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">4 3 3</td>
-<td style="text-align: right;">0 0 2</td>
-<td style="text-align: right;">4 3 1</td>
-</tr>
-</tbody>
-</table>
-<p>這和講義 p.21 的 <code>Need</code> 表一致。</p>
-<p>最重要的是：</p>
-<p><strong>Need 不是目前正在 request 的量，而是「最多還可能需要多少」。</strong></p>
-<hr />
-<h3 id="4-用-safety-algorithm-找-safe-sequence">4. 用 Safety Algorithm 找 safe sequence<a class="headerlink" href="#4-用-safety-algorithm-找-safe-sequence" title="Permanent link"></a></h3>
-<p>一開始：</p>
-<p><code>Work = Available = (3, 3, 2)</code></p>
-<p>現在找 <code>Need ≤ Work</code> 的 process。</p>
-<table>
-<thead>
-<tr>
-<th>Step</th>
-<th style="text-align: right;">Work</th>
-<th>可以完成的 process</th>
-<th style="text-align: right;">完成後 Work</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>I</td>
-<td style="text-align: right;">3 3 2</td>
-<td>P1，因為 Need = 1 2 2</td>
-<td style="text-align: right;">3 3 2 + Allocation(P1) 2 0 0 = 5 3 2</td>
-</tr>
-<tr>
-<td>II</td>
-<td style="text-align: right;">5 3 2</td>
-<td>P3，因為 Need = 0 1 1</td>
-<td style="text-align: right;">5 3 2 + 2 1 1 = 7 4 3</td>
-</tr>
-<tr>
-<td>III</td>
-<td style="text-align: right;">7 4 3</td>
-<td>P4，因為 Need = 4 3 1</td>
-<td style="text-align: right;">7 4 3 + 0 0 2 = 7 4 5</td>
-</tr>
-<tr>
-<td>IV</td>
-<td style="text-align: right;">7 4 5</td>
-<td>P2，因為 Need = 6 0 0</td>
-<td style="text-align: right;">7 4 5 + 3 0 2 = 10 4 7</td>
-</tr>
-<tr>
-<td>V</td>
-<td style="text-align: right;">10 4 7</td>
-<td>P0，因為 Need = 7 4 3</td>
-<td style="text-align: right;">10 4 7 + 0 1 0 = 10 5 7</td>
-</tr>
-</tbody>
-</table>
-<p>所以 safe sequence 是：</p>
-<p><code>&lt;P1, P3, P4, P2, P0&gt;</code></p>
-<p>這就是講義 p.21 的結論。</p>
-<p>重點：</p>
-<p><strong>不是每個 process 一開始都能完成，而是只要找得到一條完成順序，就算 safe state。</strong></p>
-<hr />
-<h3 id="5-request-範例一p1-request-1-0-2">5. Request 範例一：P1 request <code>(1, 0, 2)</code><a class="headerlink" href="#5-request-範例一p1-request-1-0-2" title="Permanent link"></a></h3>
-<p>講義 p.22 問：</p>
-<p><code>P1 Request = (1, 0, 2)</code></p>
-<p>第一層：</p>
-<p><code>Request ≤ Need(P1)</code></p>
-<p>P1 原本 <code>Need = (1, 2, 2)</code>，所以：</p>
-<p><code>(1,0,2) ≤ (1,2,2)</code> 成立。</p>
-<p>第二層：</p>
-<p><code>Request ≤ Available</code></p>
-<p>原本 <code>Available = (3,3,2)</code>，所以：</p>
-<p><code>(1,0,2) ≤ (3,3,2)</code> 成立。</p>
-<p>第三層：假裝分配。</p>
-<p>分配後：</p>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th style="text-align: right;">新值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Available</td>
-<td style="text-align: right;">3 3 2 - 1 0 2 = 2 3 0</td>
-</tr>
-<tr>
-<td>Allocation(P1)</td>
-<td style="text-align: right;">2 0 0 + 1 0 2 = 3 0 2</td>
-</tr>
-<tr>
-<td>Need(P1)</td>
-<td style="text-align: right;">1 2 2 - 1 0 2 = 0 2 0</td>
-</tr>
-</tbody>
-</table>
-<p>接著跑 safety check。講義 p.22 說可以找到 safe sequence：</p>
-<p><code>&lt;P1, P3, P4, P0, P2&gt;</code></p>
-<p>所以：</p>
-<p><strong>P1 request <code>(1,0,2)</code> 可以 grant。</strong> </p>
-<hr />
-<h3 id="6-request-範例二p4-request-3-3-0">6. Request 範例二：P4 request <code>(3, 3, 0)</code><a class="headerlink" href="#6-request-範例二p4-request-3-3-0" title="Permanent link"></a></h3>
-<p>講義 p.23 問：</p>
-<p><code>P4 Request = (3, 3, 0)</code></p>
-<p>第一層：</p>
-<p>P4 原本 <code>Need = (4, 3, 1)</code>，所以：</p>
-<p><code>(3,3,0) ≤ (4,3,1)</code> 成立。</p>
-<p>第二層：</p>
-<p>原本 <code>Available = (3,3,2)</code>，所以：</p>
-<p><code>(3,3,0) ≤ (3,3,2)</code> 成立。</p>
-<p>第三層：假裝分配。</p>
-<p>分配後：</p>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th style="text-align: right;">新值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Available</td>
-<td style="text-align: right;">3 3 2 - 3 3 0 = 0 0 2</td>
-</tr>
-<tr>
-<td>Allocation(P4)</td>
-<td style="text-align: right;">0 0 2 + 3 3 0 = 3 3 2</td>
-</tr>
-<tr>
-<td>Need(P4)</td>
-<td style="text-align: right;">4 3 1 - 3 3 0 = 1 0 1</td>
-</tr>
-</tbody>
-</table>
-<p>這時 <code>Work = (0,0,2)</code>。</p>
-<p>看每個 process 的 Need：</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Need</th>
-<th>Need ≤ Work = 0 0 2？</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">7 4 3</td>
-<td>不行</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">1 2 2</td>
-<td>不行</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">6 0 0</td>
-<td>不行</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">0 1 1</td>
-<td>不行</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">1 0 1</td>
-<td>不行</td>
-</tr>
-</tbody>
-</table>
-<p>找不到任何 process 可以先完成。</p>
-<p>所以這次 request 不能 grant。</p>
-<p>講義 p.23 結論也寫：<code>Cannot</code>。</p>
-<hr />
-<h3 id="7-request-範例三p0-request-0-2-0-的注意點">7. Request 範例三：P0 request <code>(0, 2, 0)</code> 的注意點<a class="headerlink" href="#7-request-範例三p0-request-0-2-0-的注意點" title="Permanent link"></a></h3>
-<p>講義 p.24 寫：</p>
-<p><code>P0 Request = (0, 2, 0)</code></p>
-<p>並標示結論：</p>
-<p><strong>Cannot, unsafe state is created.</strong> </p>
-<p>但這裡我要誠實標記一個容易混淆處：</p>
-<p>如果我們<strong>只從 p.20 的原始 T0 表格直接重算</strong>，<code>P0 request (0,2,0)</code> 似乎可以找到 safe sequence，例如先讓 P3、P1、P2、P0、P4 依序完成。因此 p.24 的結論比較像是接續某個前面已變動後的狀態來判斷，或講義表格／OCR 內容有省略造成脈絡不清。</p>
-<p>所以本頁我們先抓住考試真正要會的規則：</p>
-<p><strong>不能只看 <code>Request ≤ Available</code>，還要假裝分配後跑 safety check。</strong></p>
-<p>至於 p.24 的表格細節，我會把它列為「講義可能有脈絡省略／需回頭對照原投影片」的待確認項，不把它拿來當本輪正式練習題，以免你背到矛盾答案。</p>
-<hr />
-<h3 id="8-bankers-algorithm-表格題的固定解題流程">8. Banker’s Algorithm 表格題的固定解題流程<a class="headerlink" href="#8-bankers-algorithm-表格題的固定解題流程" title="Permanent link"></a></h3>
-<p>這類題目你可以固定照這個順序寫：</p>
+<h3 id="2-cow-的流程">2. COW 的流程<a class="headerlink" href="#2-cow-的流程" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
-    A["Step 1&lt;br&gt;Compute Need = Max - Allocation"] --&gt; B["Step 2&lt;br&gt;Set Work = Available"]
-    B --&gt; C["Step 3&lt;br&gt;Find Pi with Need_i ≤ Work"]
-    C --&gt;|Found| D["Pretend Pi finishes&lt;br&gt;Work = Work + Allocation_i"]
-    D --&gt; E["Mark Pi finished"]
-    E --&gt; C
-    C --&gt;|No more process found| F{"All processes finished?"}
-    F --&gt;|Yes| G["Safe state&lt;br&gt;safe sequence exists"]
-    F --&gt;|No| H["Unsafe state&lt;br&gt;no safe sequence"]</code></pre>
-<p>Request 題則多三個檢查：</p>
+    A["parent process(父行程)&lt;br&gt;有一些 memory pages(記憶體頁)"] --&gt; B["fork() 建立 child process(子行程)"]
+    B --&gt; C["parent 與 child 一開始共享&lt;br&gt;相同 physical pages(實體頁)"]
+    C --&gt; D{"child 或 parent&lt;br&gt;是否要寫入某 page？"}
+    D --&gt;|否| E["繼續共享&lt;br&gt;不用複製"]
+    D --&gt;|是| F["觸發 COW page fault&lt;br&gt;OS 介入"]
+    F --&gt; G["OS 複製該 page&lt;br&gt;給寫入者自己的副本"]
+    G --&gt; H["寫入者修改副本&lt;br&gt;另一方仍使用原本 page"]</code></pre>
+<p>這裡的 page fault 要小心：它不完全等於前面 Demand Paging 裡「page 不在 RAM」的 page fault。COW 常常是因為該 page 被標成 read-only/protected，當 process 嘗試寫入時觸發 fault，OS 再判斷這是 COW，要複製一份。</p>
+<hr />
+<h3 id="3-cow-的三個優點">3. COW 的三個優點<a class="headerlink" href="#3-cow-的三個優點" title="Permanent link"></a></h3>
+<p>講義列出三個好處：</p>
 <table>
 <thead>
 <tr>
-<th>順序</th>
-<th>檢查</th>
+<th>優點</th>
+<th>意思</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td><code>Request ≤ Need</code></td>
+<td>Memory Efficiency(記憶體效率)</td>
+<td>修改前先共享同一份資源，可以降低 memory overhead</td>
 </tr>
 <tr>
-<td>2</td>
-<td><code>Request ≤ Available</code></td>
+<td>Performance Improvement(效能改善)</td>
+<td>延後 copy 到真的 write 時才做；如果很多頁根本沒被修改，就省掉複製成本</td>
 </tr>
 <tr>
-<td>3</td>
-<td>假裝分配後跑 safety check</td>
+<td>Simplified Management(管理簡化)</td>
+<td>避免複製那些可能永遠不會被修改的資源</td>
 </tr>
 </tbody>
 </table>
+<p>這就是為什麼 COW 很適合搭配 <code>fork()</code>：很多程式 <code>fork()</code> 後很快就 <code>exec()</code> 載入新程式，如果一開始就複製 parent 的整個 address space，會非常浪費。講義 page 14 也用 UNIX-like OS 的 <code>fork()</code> 說明：child 一開始共享 parent memory pages，只有修改時才 copy。</p>
 <hr />
-<h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
+<h3 id="4-fork-和-vfork-的差異要怎麼看">4. fork() 和 vfork() 的差異要怎麼看？<a class="headerlink" href="#4-fork-和-vfork-的差異要怎麼看" title="Permanent link"></a></h3>
+<p>講義 page 16 ~ 19 給了一段 <code>glob=6</code>、<code>var=88</code> 的程式，並比較 <code>fork()</code> 與 <code>vfork()</code> 的輸出。重點如下：</p>
+<table>
+<thead>
+<tr>
+<th>比較</th>
+<th>fork()</th>
+<th>vfork()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address Space(位址空間)</td>
+<td>child 有自己的 address space；概念上是 parent 的 copy，實務上可用 COW 延後複製</td>
+<td>child 暫時共享 parent address space，直到 <code>exec()</code> 或 <code>_exit()</code></td>
+</tr>
+<tr>
+<td>child 修改變數後 parent 是否看到改變</td>
+<td>不會。講義輸出 parent 仍是 <code>glob=6, var=88</code></td>
+<td>會。講義輸出 parent 變成 <code>glob=7, var=89</code></td>
+</tr>
+<tr>
+<td>效能</td>
+<td>較慢，因為需要建立分離的 address space；但 COW 可降低實際複製成本</td>
+<td>較快，因為避免複製 address space</td>
+</tr>
+<tr>
+<td>行為</td>
+<td>parent 與 child 可並行</td>
+<td>parent 會被 block，直到 child 呼叫 <code>exec()</code> 或 <code>_exit()</code></td>
+</tr>
+</tbody>
+</table>
+<p>最容易考錯的是：<strong>fork() 不是讓 child 直接改 parent 的變數。</strong><br />
+即使一開始物理頁可能因 COW 被共享，只要 child 要寫入，OS 就會幫 child 複製一份，所以 parent 的 <code>glob</code>、<code>var</code> 不會被 child 改掉。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Banker’s Algorithm 表格題：</p>
-<p><strong>先算 Need，再用 Work 找 safe sequence。</strong></p>
-<p>Request 題：</p>
-<p><strong>先看有沒有超過 Need，再看 Available 夠不夠，最後假裝分配後測 safe。</strong></p>
-<p>最重要陷阱：</p>
-<p><strong>Available 夠，不代表一定可以給；給了之後仍 safe，才可以給。</strong></p>
+<p><mark>Q:</mark><br />
+喔我懂了，所以 cow 是 fork 的，我以為這邊強調 vfork 是在說 vfork 會 cow。所以 fork 一開始共用，要改時 cow，然後 vfork 是一直共用？</p>
+<p><mark>ANS:</mark><br />
+對，<strong>COW(Copy on Write，寫入時複製) 是在講一般 <code>fork()</code> 的最佳化實作</strong>。</p>
+<p>但 <code>vfork()</code> 不是「一直共用」，更精準是：</p>
+<p><strong><code>vfork()</code>：child 暫時共用 parent 的 address space(位址空間)，直到 child 呼叫 <code>exec()</code> 或 <code>_exit()</code>；期間 parent 會被 block/suspended(暫停)。</strong></p>
+<p>所以最準確記法是：</p>
+<table>
+<thead>
+<tr>
+<th>呼叫</th>
+<th>剛建立 child 時</th>
+<th>child 要寫入時</th>
+<th>parent 會不會看到 child 改變</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fork()</code></td>
+<td>parent/child 是 separate memory spaces(分離記憶體空間)；Linux 實作上可先共用 physical pages</td>
+<td>觸發 COW，複製 page 給寫入者</td>
+<td>不會</td>
+</tr>
+<tr>
+<td><code>vfork()</code></td>
+<td>child 暫時共用 parent address space，parent 暫停</td>
+<td>不應該改；若改了，可能直接影響 parent</td>
+<td>會，像講義 <code>glob=7 var=89</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h3 id="5-cow-的缺點">5. COW 的缺點<a class="headerlink" href="#5-cow-的缺點" title="Permanent link"></a></h3>
+<p>COW 不是永遠免費。講義 page 15 提到兩個 drawbacks(缺點)：</p>
+<table>
+<thead>
+<tr>
+<th>缺點</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Copy Overhead(複製成本)</td>
+<td>如果修改很頻繁，最後還是要一直 copy，COW 的好處會下降 (<mark>但還是比整頁複製好</mark>)</td>
+</tr>
+<tr>
+<td>Complexity(複雜度)</td>
+<td>OS 要處理 reference counting(參考計數)、page faults、保護位元等，實作更複雜</td>
+</tr>
+</tbody>
+</table>
+<p>所以 COW 的核心 trade-off 是：</p>
+<p><strong>如果大多數資料只是讀、不改，COW 很省。<br />
+如果大量資料都會被改，COW 只是把複製成本延後，最後仍然要付。</strong></p>
+<hr />
+<h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
+<p>Copy on Write(COW) 一句話：</p>
+<p><strong>先共享，不先複製；等有人 write(寫入) 時，才 copy(複製) 一份給寫入者。</strong></p>
+<p>考試版：</p>
+<p><strong>Copy-on-write allows processes to initially share the same physical pages. When one process attempts to modify a shared page, the operating system copies that page and gives the modifying process its own private copy.</strong></p>
+<p>常見錯法：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fork() 一定馬上複製整個 parent memory</td>
+<td>不一定；現代系統常用 COW 延後到 write 才複製</td>
+</tr>
+<tr>
+<td>child 用 fork() 改變變數，parent 也會變</td>
+<td>錯；fork() 下 parent 和 child 有分離的 address space</td>
+</tr>
+<tr>
+<td>COW page fault 一定是 page 不在 RAM</td>
+<td>不一定；可能是 write-protection fault，用來觸發 copy</td>
+</tr>
+<tr>
+<td>COW 永遠提升效能</td>
+<td>不一定；如果大量頁面都被修改，copy overhead 仍然很大</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page-replacement分頁替換--沒有-free-frame-時os-要犧牲誰">⭐Page Replacement(分頁替換) — 沒有 free frame 時，OS 要犧牲誰？<a class="headerlink" href="#page-replacement分頁替換--沒有-free-frame-時os-要犧牲誰" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 20 ~ PDF viewer page 22</p>
+<h3 id="1-這個概念在解決什麼問題_1">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_1" title="Permanent link"></a></h3>
+<p>前面 Demand Paging(需求分頁) 說：page 不在 RAM 時會 page fault，OS 要把需要的 page 放進 memory。</p>
+<p>但現在遇到新問題：</p>
+<p><strong>如果 RAM 裡沒有 free frame(空頁框)，那新的 page 要放哪裡？</strong></p>
+<p>Page Replacement(分頁替換) 就是在處理這件事：</p>
+<p><strong>選一個目前在 RAM 裡的 victim page(犧牲頁) 換出去，空出 frame，再把現在需要的 lost page 放進來。</strong></p>
+<p>講義 page 20 的定義就是：當 page fault 發生而 memory 沒有可用 page/frame 時，OS 必須執行 page replacement；OS 要選擇一個 victim page，將它 swap out/page out 到 disk，空出 frame，再將 lost page swap in/page in 到這個 frame。</p>
+<hr />
+<h3 id="2-page-replacement-的基本流程">2. Page Replacement 的基本流程<a class="headerlink" href="#2-page-replacement-的基本流程" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart TD
+    A["process 存取某個 page"] --&gt; B{"page 在 RAM 嗎？"}
+    B --&gt;|在| C["直接使用&lt;br&gt;沒有 page fault"]
+    B --&gt;|不在| D["發生 page fault"]
+
+    D --&gt; E{"有 free frame(空頁框) 嗎？"}
+
+    E --&gt;|有| F["直接 page in&lt;br&gt;把 lost page 載入 free frame&lt;br&gt;不算 Page Replacement"]
+
+    E --&gt;|沒有| G
+
+    subgraph R["Page Replacement(分頁替換) 範圍，沒有 free frame 才會進入"]
+        G["選 victim page(犧牲頁)"]
+        G --&gt; H{"victim page 被修改過嗎？&lt;br&gt;dirty bit = 1？"}
+        H --&gt;|是| I["page out 到 disk&lt;br&gt;因為 disk 版本已過期"]
+        H --&gt;|否| J["不用 page out&lt;br&gt;disk 上已有乾淨副本"]
+        I --&gt; K["page in lost page&lt;br&gt;把需要的 page 放入空出的 frame"]
+        J --&gt; K
+    end
+
+    F --&gt; L["更新 page table&lt;br&gt;重新執行指令"]
+    K --&gt; L</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>只要有把某個 page 覆蓋、替換，就是 replacement，即使 Dirty = 0，他也被覆蓋(換)掉了</p>
+</div>
+<p>最核心判斷是這句：</p>
+<p><strong>Page in 通常必要；page out 不一定必要。</strong></p>
+<p>因為 page in 是把你現在需要的 lost page 放進 RAM，沒有它指令不能繼續。但 page out 只有在 victim page 被修改過時才需要。講義 page 21 也明確說：page out 和 page in 都是 disk I/O，很慢；page in 是必要的，但 page out 不一定必要，要看 victim page 是否曾被修改，利用 dirty bit 來判斷，藉此節省不必要的 I/O。</p>
+<hr />
+<h3 id="3-dirty-bit髒位元-是什麼">3. Dirty Bit(髒位元) 是什麼？<a class="headerlink" href="#3-dirty-bit髒位元-是什麼" title="Permanent link"></a></h3>
+<p>Dirty Bit(髒位元) 用來回答：</p>
+<p><strong>RAM 裡這個 page 跟 disk 上的版本是不是一樣？</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dirty Bit</th>
+<th>意思</th>
+<th>替換時需不需要 page out？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>page 沒被修改過，disk 上副本仍然正確</td>
+<td>不需要 page out，直接丟掉 RAM 這份即可</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>page 被修改過，disk 上副本已經舊了</td>
+<td>需要 page out，把新內容寫回 disk</td>
+</tr>
+</tbody>
+</table>
+<p>生活化例子：你從雲端下載一份文件到本機。</p>
+<p>如果你只是打開看，沒有修改，那關掉本機副本也沒關係，雲端上還是同一份。這像 dirty bit = 0。</p>
+<p>如果你改了內容但還沒上傳，這時本機版本比較新，不能直接丟掉，要先存回雲端。這像 dirty bit = 1。</p>
+<hr />
+<h3 id="4-為什麼-page-replacement-algorithm分頁替換演算法-很重要">4. 為什麼 Page Replacement Algorithm(分頁替換演算法) 很重要？<a class="headerlink" href="#4-為什麼-page-replacement-algorithm分頁替換演算法-很重要" title="Permanent link"></a></h3>
+<p>page 22 開始說：Demand Paging 要解決兩個主要問題：</p>
+<p>第一，Frame Allocation Algorithm(頁框配置演算法)：每個 process 要分幾個 frames？<br />
+第二，Page-Replacement Algorithm(分頁替換演算法)：沒有 free frame 時，要換掉哪個 page？</p>
+<p>選 replacement algorithm 的目標通常是：<strong>讓 page fault ratio(分頁錯誤率) 越低越好。</strong></p>
+<p>接下來講義會照順序進入：</p>
+<table>
+<thead>
+<tr>
+<th>下一批主線項</th>
+<th>核心問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO</td>
+<td>最早進 RAM 的 page 先犧牲，會不會有問題？</td>
+</tr>
+<tr>
+<td>Optimal</td>
+<td>如果能看未來，最佳 victim page 是誰？</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>用「最近最少使用」近似未來行為</td>
+</tr>
+<tr>
+<td>LRU-approximation / Second Chance</td>
+<td>LRU 太貴時，怎麼用 reference bit 近似？</td>
+</tr>
+<tr>
+<td>Enhanced Second Chance</td>
+<td>怎麼同時考慮 reference bit 與 dirty bit，減少 I/O？</td>
+</tr>
+</tbody>
+</table>
+<p>但本輪先不要急著算 FIFO/LRU，因為我們要先確定你真的會分辨：<strong>page fault、有無 free frame、是否需要 page out、dirty bit 的角色。</strong></p>
+<hr />
+<h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
+<p>Page Replacement 一句話：</p>
+<p><strong>Page fault 發生且沒有 free frame 時，OS 選一個 victim page；若 victim page 是 dirty，就先 page out，然後把需要的 lost page page in。</strong></p>
+<p>常見錯法：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page fault 一定要 page replacement</td>
+<td>不一定；有 free frame 就不用 replacement</td>
+</tr>
+<tr>
+<td>page replacement 一定要 page out</td>
+<td>不一定；victim page 若沒被修改，通常不用 page out</td>
+</tr>
+<tr>
+<td>page in 和 page out 都一樣可省</td>
+<td>page in 必要；page out 要看 dirty bit</td>
+</tr>
+<tr>
+<td>frame 越多 page fault 一定越少</td>
+<td>對多數演算法直覺上常見，但 FIFO 可能有 Belady Anomaly，後面會講</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<h3 id="所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的">所以這邊指的 page in 、page out 指的是把 frame n 裡面的(對應到的)page 換成其他的？<a class="headerlink" href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" title="Permanent link"></a></h3>
+<p>對，<strong>在 Page Replacement(分頁替換) 的情境下，最後效果可以理解成：把某個 frame n 裡原本放的 page 換成另一個 needed page。</strong></p>
+<p>但術語要更精準一點：</p>
+<p><strong>page in / page out 指的是 page 資料在 disk(磁碟) 和 RAM frame(實體頁框) 之間搬移，不是 frame 本身被搬移。</strong></p>
+<h3 id="所以-victim-page-指的是在-frame-裡面的-page-對不對">所以 victim page 指的是在 frame 裡面的 page 對不對？<a class="headerlink" href="#所以-victim-page-指的是在-frame-裡面的-page-對不對" title="Permanent link"></a></h3>
+<p>對，<strong>victim page(犧牲頁) 指的是「目前已經在某個 frame(頁框) 裡面的 page(頁)」</strong>。</p>
+<p>更精準地說：</p>
+<p><strong>victim page = OS 在 page replacement(分頁替換) 時，從 RAM 的某個 frame 中選出來、準備移除的 resident page(駐留頁)。</strong></p>
+<h3 id="lost-page-是啥">lost page 是啥<a class="headerlink" href="#lost-page-是啥" title="Permanent link"></a></h3>
+<p><code>lost page</code> 在這份講義的語境裡，就是：</p>
+<p><strong>造成 page fault(分頁錯誤) 的那個「目前不在 RAM，但 process 現在需要的 page」。</strong></p>
+<p>比較常見、比較標準的說法會是：</p>
+<ul>
+<li>
+<p>needed page(需要的頁)</p>
+</li>
+<li>
+<p>missing page(缺失頁)</p>
+</li>
+<li>
+<p>faulting page(造成 fault 的頁)</p>
+</li>
+<li>
+<p>page to be brought in(要被載入的頁)</p>
+</li>
+</ul>
+<p>講義 page 20 用 <code>lost page swap in(page in) 到此 frame</code>，意思就是：OS 先把 victim page(犧牲頁) 移出去空出 frame，再把「剛剛缺的那個 page」載入這個 frame。</p>
+</div>
+<h2 id="fifo-page-replacement先進先出分頁替換--沒有-free-frame-時最早進來的-page-先犧牲">⭐FIFO Page Replacement(先進先出分頁替換) — 沒有 free frame 時，最早進來的 page 先犧牲？<a class="headerlink" href="#fifo-page-replacement先進先出分頁替換--沒有-free-frame-時最早進來的-page-先犧牲" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 23 ~ PDF viewer page 26</p>
+<h3 id="1-fifo-在解決什麼問題">1. FIFO 在解決什麼問題？<a class="headerlink" href="#1-fifo-在解決什麼問題" title="Permanent link"></a></h3>
+<p>前一輪我們解決的是：</p>
+<p><strong>沒有 free frame 時，需要選一個 victim page。</strong></p>
+<p>FIFO(First-In-First-Out，先進先出) 給的規則很簡單：</p>
+<p><strong>最早被載入 RAM 的 page，最早被選成 victim page。</strong></p>
+<p>講義 page 23 也是這樣定義：最先載入的 page 優先視為 victim page；它簡單、易於實作，但效果不一定好。</p>
+<p>生活化例子：排隊買便當。誰最早進隊伍，誰最先被處理。FIFO 的 frame queue(頁框佇列) 也是這樣：最早進 RAM 的 page 排在最前面，下一次需要 replacement 時就先被踢出去。</p>
+<hr />
+<h3 id="2-fifo-怎麼-trace">2. FIFO 怎麼 trace？<a class="headerlink" href="#2-fifo-怎麼-trace" title="Permanent link"></a></h3>
+<p>FIFO trace 時，你要追兩件事：</p>
+<table>
+<thead>
+<tr>
+<th>要追的東西</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frames 目前放哪些 pages</td>
+<td>判斷 hit 還是 page fault</td>
+</tr>
+<tr>
+<td>FIFO order / queue</td>
+<td>判斷 page fault 且沒 free frame 時，要踢誰</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>核心規則：</p>
+<ol>
+<li>如果 referenced page 已經在 frames 裡：hit，不增加 page fault，也不改變 FIFO 順序。</li>
+<li>如果 referenced page 不在 frames 裡，而且還有 free frame：page fault，把 page 放進空 frame，排到 FIFO queue 尾端。</li>
+<li>如果 referenced page 不在 frames 裡，而且沒有 free frame：page fault，踢掉 FIFO queue 最前端，也就是最早進來的 page，再把新 page 放到 queue 尾端。</li>
+</ol>
+</div>
+<p>小示範：2 個 frames，reference string 是 <code>1, 2, 1, 3</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">參考 page</th>
+<th>結果</th>
+<th>frames</th>
+<th>FIFO 順序</th>
+<th style="text-align: right;">page faults</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>fault，有 free frame</td>
+<td>[1, -]</td>
+<td>1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>fault，有 free frame</td>
+<td>[1, 2]</td>
+<td>1 → 2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>hit</td>
+<td>[1, 2]</td>
+<td>1 → 2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>fault，沒 free frame，踢最早的 1</td>
+<td><mark>[3, 2]</mark></td>
+<td><mark>2 → 3</mark></td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<p><mark>注意 3 的 frames 和 FIFO 順序不一樣，FIFO 是 queue。</mark></p>
+<p>注意第 3 步：<code>1</code> 被 hit，不代表它變年輕。<br />
+FIFO 不管最近有沒有用過，只管誰最早載入。</p>
+<hr />
+<h3 id="3-belady-anomaly貝拉迪異常-是什麼">3. Belady Anomaly(貝拉迪異常) 是什麼？<a class="headerlink" href="#3-belady-anomaly貝拉迪異常-是什麼" title="Permanent link"></a></h3>
+<p>直覺上，我們會以為：</p>
+<p><strong>frame 越多，page fault 應該越少。</strong></p>
+<p>但 FIFO 有一個反直覺現象：<strong>frame 變多，page fault 反而可能增加。</strong> 這叫 Belady Anomaly(貝拉迪異常)。講義 page 24 用序列 <code>1,2,3,4,1,2,5,1,2,3,4,5</code> 說明這件事；page 25 顯示 FIFO with 3 Frames 有 9 次 page faults，page 26 顯示 FIFO with 4 Frames 反而有 10 次 page faults。</p>
+<p>這不是因為 frame 多本身不好，而是 FIFO 的 victim 選擇規則太笨：它只看「誰最早進來」，不管那個 page 最近是不是常被用。</p>
+<p>所以考試看到 FIFO，要記：</p>
+<p><strong>FIFO 簡單，但可能有 Belady Anomaly。</strong></p>
+<hr />
+<h3 id="4-fifo-最短記法">4. FIFO 最短記法<a class="headerlink" href="#4-fifo-最短記法" title="Permanent link"></a></h3>
+<p>FIFO 一句話：</p>
+<p><strong>沒 free frame 時，踢掉最早載入 RAM 的 page。</strong></p>
+<p>常見錯法：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO hit 之後要把 page 移到最新</td>
+<td>錯，那是 LRU 類型的想法；FIFO hit 不改順序</td>
+</tr>
+<tr>
+<td>FIFO 一定 frame 越多 fault 越少</td>
+<td>錯，FIFO 可能有 Belady Anomaly</td>
+</tr>
+<tr>
+<td>FIFO 會看最近有沒有被使用</td>
+<td>錯，FIFO 只看進入 RAM 的時間</td>
+</tr>
+<tr>
+<td>FIFO 效果最差</td>
+<td>不一定；講義說效果差，但 page replacement 沒有固定「最差」，因為無法預知未來</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<h3 id="referenced-page-是啥">referenced page 是啥<a class="headerlink" href="#referenced-page-是啥" title="Permanent link"></a></h3>
+<p><code>referenced page</code> 就是：</p>
+<p><strong>process(行程) 這一次正在存取／要求使用的 page(頁)。</strong></p>
 </div>
 
 
@@ -9818,7 +7723,7 @@ Why should the OS deny a resource request if converting the request edge to an a
     >
       
         <a
-          href="ch%206.html"
+          href="ch%208.html"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -9830,14 +7735,14 @@ Why should the OS deny a resource request if converting the request edge to an a
               <span class="md-footer__direction">
                 Previous
               </span>
-              Ch 6
+              Ch 8
             </div>
           </div>
         </a>
       
       
         <a
-          href="ch%208.html"
+          href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -9846,7 +7751,7 @@ Why should the OS deny a resource request if converting the request edge to an a
               <span class="md-footer__direction">
                 Next
               </span>
-              Ch 8
+              首頁
             </div>
           </div>
           <div class="md-footer__button md-icon">
