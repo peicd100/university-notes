@@ -665,3 +665,356 @@ FIFO 一句話：
     **process(行程) 這一次正在存取／要求使用的 page(頁)。**
     
     
+
+## ⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？
+
+講義位置：PDF viewer page 27
+
+### 1. Optimal 在解決什麼問題？
+
+前面 FIFO 的規則是：
+
+**誰最早進 RAM，誰先被踢。**
+
+但 FIFO 的問題是：它完全不管這個 page 等一下會不會馬上再用。所以 FIFO 可能把很快會用到的 page 換掉，造成更多 page fault。
+
+Optimal Page Replacement(最佳分頁替換) 問的是：
+
+**如果我們知道未來的 reference string(參考字串)，那現在要踢掉哪個 page 才最不容易造成未來 page fault？**
+
+答案是：
+
+**踢掉「未來最久都不會再被使用」的 page。**
+
+講義寫法是：以將來長期不會使用的 page 視為 victim page；效果最佳、不會有 Belady Anomaly，但不可能辦到，因為它需要看未來。
+
+外部作業系統教材也使用同樣定義，稱它為 OPT 或 MIN：replace the page that will not be used for the longest period of time，也就是替換未來最久不用的 page；它主要作為比較其他演算法的 benchmark(基準)。([cs.uic.edu][1])
+
+---
+
+### 2. Optimal 的核心規則
+
+當發生 page fault 且沒有 free frame 時，Optimal 會看目前在 RAM 裡的每個 page：
+
+| 目前在 RAM 的 page | 往未來看 | 判斷                      |
+| -------------- | ---- | ----------------------- |
+| 很快會再用到         | 不適合踢 | 踢掉會很快又 fault            |
+| 很久以後才會用到       | 適合踢  | 可以撐比較久                  |
+| 未來完全不再用        | 最適合踢 | 踢掉後不會再造成這個 page 的 fault |
+
+所以一句話：
+
+**Optimal 不是看「誰最早進來」，也不是看「誰最近最少用」，而是看「誰未來最晚再用」。**
+
+---
+
+### 3. 非題目型示範
+
+假設有 3 個 frames，目前 RAM 裡是：
+
+| Frame | Page |
+| ----- | ---: |
+| F1    |    1 |
+| F2    |    2 |
+| F3    |    3 |
+
+接下來 process 要存取 page `4`，但 RAM 沒有 page `4`，所以 page fault，而且沒有 free frame，必須 replacement。
+
+未來 reference string 剩下：
+
+`2, 3, 2, 1, 5`
+
+現在 RAM 裡的候選 victim 是 `1, 2, 3`。我們往未來看：
+
+| 候選 victim | 未來下一次出現位置 | 解讀   |
+| --------- | --------: | ---- |
+| page 1    | 第 4 個才再出現 | 最晚才用 |
+| page 2    | 第 1 個就再出現 | 很快要用 |
+| page 3    | 第 2 個就再出現 | 很快要用 |
+
+所以 Optimal 會踢掉 page `1`，把 page `4` 放進來。
+
+結果：
+
+| 操作前 frames  | referenced page | victim | 操作後 frames  |
+| ----------- | --------------: | -----: | ----------- |
+| `[1, 2, 3]` |             `4` |    `1` | `[4, 2, 3]` |
+
+這就是 Optimal 的完整思路：**每次 fault 時，看未來，踢掉最晚才會用到的 page。**
+
+---
+
+### 4. 為什麼 Optimal 不可能實作？
+
+因為真正的 OS 在程式執行時，通常不知道未來完整的 memory reference string。
+
+OS 可以知道：
+
+* 過去哪些 page 最近被用過。
+* 現在 page table 裡有哪些 page。
+* reference bit、dirty bit 等硬體狀態。
+
+但 OS 不可能可靠知道：
+
+**這個 process 接下來一定會照哪個 page 順序存取。**
+
+所以 Optimal 很像「考試標準答案」或「理想上帝視角」：
+
+* 實務上不能真的拿來當一般演算法。
+* 但可以拿來當 benchmark，判斷 FIFO、LRU、Second Chance 等演算法離最佳結果差多少。
+
+---
+
+### 5. Optimal vs FIFO vs 下一個 LRU
+
+| 演算法     | 看什麼         | victim page 是誰 | 問題             |
+| ------- | ----------- | -------------- | -------------- |
+| FIFO    | 過去：誰最早進 RAM | 最早載入的 page     | 可能踢掉馬上會用的 page |
+| Optimal | 未來：誰最晚再用    | 未來最久不用的 page   | 實作上看不到未來       |
+| LRU     | 過去：誰最久沒被用   | 最近最久沒用的 page   | 需要硬體或資料結構支援    |
+
+這也是為什麼下一個主線會講 LRU(Least Recently-Used，最近最少使用)：
+**LRU 嘗試用「過去很久沒用」去近似「未來可能也不會很快用」。**
+
+---
+
+### 6. 最短記法
+
+Optimal Page Replacement 一句話：
+
+**沒有 free frame 時，踢掉未來最久不會再被 reference(參考／存取) 的 page。**
+
+常見錯法：
+
+| 錯誤說法                       | 修正                      |
+| -------------------------- | ----------------------- |
+| Optimal 是實務上最好用的演算法        | 錯，它效果最佳，但通常無法實作，因為要知道未來 |
+| Optimal 會踢掉最早進 RAM 的 page  | 錯，那是 FIFO               |
+| Optimal 會踢掉最近最少使用的 page    | 錯，那是 LRU                |
+| Optimal 可能有 Belady Anomaly | 講義說不會有 Belady Anomaly   |
+
+
+
+
+## ⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？
+
+講義位置：PDF viewer page 28 ~ PDF viewer page 29
+
+### 1. LRU 在解決什麼問題？
+
+Optimal(最佳分頁替換) 很強，因為它會看未來：
+
+**未來最久不用誰，就踢誰。**
+
+可是 OS 看不到未來，所以需要一個可實作的近似方法。LRU(Least Recently-Used，最近最少使用) 的想法是：
+
+**如果一個 page 很久沒有被用過，那它接下來可能也比較不急著用。**
+
+所以 LRU 的 victim page 是：
+
+**最近最久沒有被 reference(參考／存取) 的 page。**
+
+講義寫法是：LRU 以最近不常使用的 page 視為 victim page，效果不錯、不會有 Belady Anomaly，但製作成本高，需要硬體支援，例如 counter 或 stack。
+
+---
+
+### 2. LRU 和 FIFO、Optimal 的差別
+
+| 演算法     | 看哪裡        | victim page 是誰    |
+| ------- | ---------- | ----------------- |
+| FIFO    | 載入 RAM 的時間 | 最早載入 RAM 的 page   |
+| Optimal | 未來使用時間     | 未來最久才會用或不再用的 page |
+| LRU     | 過去使用時間     | 最近最久沒被用過的 page    |
+
+最容易混淆的是 FIFO 和 LRU：
+
+**FIFO 看「誰最早進來」。**
+**LRU 看「誰最久沒被用」。**
+
+如果 page 很早進來，但剛剛才被用過：
+
+* FIFO 可能會踢它。
+* LRU 不會踢它，因為它最近才用過。
+
+---
+
+### 3. 非題目型示範
+
+假設有 3 個 frames，目前在 RAM 裡：
+
+| Page | 最近一次被使用的時間 |
+| ---: | ---------: |
+|    1 |     time 3 |
+|    2 |     time 8 |
+|    3 |     time 5 |
+
+現在 reference page `4`，但 page `4` 不在 RAM，且沒有 free frame，所以要 replacement。
+
+LRU 會看：
+
+| 候選 page | 最近一次使用時間 | 判斷   |
+| ------: | -------: | ---- |
+|       1 |   time 3 | 最久沒用 |
+|       2 |   time 8 | 最近才用 |
+|       3 |   time 5 | 中間   |
+
+所以 LRU 會換掉 page `1`。
+
+重點是：LRU 不需要看未來，只看過去。
+
+---
+
+### 4. LRU 的兩種 implementation(實作方式)
+
+講義列出兩種：Counter implementation(計數器實作) 與 Stack implementation(堆疊實作)。
+
+| 實作方式                   | Page referenced 時                       | Replacement 時                |
+| ---------------------- | --------------------------------------- | ---------------------------- |
+| Counter implementation | 把目前 timestamp(時間戳記) 複製到該 page 的 counter | 移除 counter 最舊的 page          |
+| Stack implementation   | 被 reference 的 page 移到 stack top(堆疊頂端)   | 移除 stack bottom(堆疊底端) 的 page |
+
+生活化記法：
+
+Counter 像每張圖書館借書卡都蓋「最後借閱日期」。要丟書時，丟最後借閱日期最久以前的那本。
+
+Stack 像常用 App 排序。每次你打開某個 App，就把它移到最上面；最下面的 App 就是最久沒用的。
+
+---
+
+### 5. LRU 的成本問題
+
+LRU 效果通常比 FIFO 合理，因為它會根據使用情況調整；但它的問題是：
+
+**精確 LRU 很貴。**
+
+因為每次 page 被 reference，你都要更新 counter 或 stack。講義也說 LRU 製作成本高，需要大量硬體支援。
+
+所以後面才會出現 LRU-approximation(LRU 近似法)：
+
+**不做完整精確 LRU，而是用 reference bit 等硬體資訊，便宜地近似 LRU。**
+
+---
+
+### 6. 最短記法
+
+LRU 一句話：
+
+**沒有 free frame 時，踢掉最近最久沒被使用的 page。**
+
+常見錯法：
+
+| 錯誤說法                | 修正                                  |
+| ------------------- | ----------------------------------- |
+| LRU 踢最早進 RAM 的 page | 錯，那是 FIFO                           |
+| LRU 踢未來最久不用的 page   | 錯，那是 Optimal                        |
+| LRU hit 不改狀態        | 錯，LRU hit 會更新「最近使用」狀態               |
+| LRU 很容易精確實作         | 錯，精確 LRU 成本高，需要 counter、stack 或硬體支援 |
+
+
+### 為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？
+
+#### 1. 直接答案
+
+你說得對：**FIFO 也要記錄 order(順序)**。但 FIFO 只需要記錄「page 載入 RAM 的先後順序」，而且通常只在 **page fault 並載入新 page** 時更新 queue(佇列)。
+
+LRU 比 FIFO 貴，是因為 LRU 要記錄「每一次 page 被使用的最近時間」。也就是：
+
+**FIFO 只在 page 被載入時記一次。
+LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。**
+
+講義也這樣分：FIFO 是「最先載入的 page 優先視為 victim page」，簡單、易於實作；LRU 則需要 counter 或 stack，且製作成本高、需要大量硬體支援。 
+
+---
+
+#### 2. 用 hit 來看差別最清楚
+
+假設 frames 裡已經有 `[1, 2, 3]`。
+
+現在 reference page `2`，這是 hit。
+
+| 演算法  | hit 時要不要更新順序？ | 原因                                                        |
+| ---- | ------------: | --------------------------------------------------------- |
+| FIFO |            不用 | FIFO 只管 page 什麼時候進 RAM；page `2` 被再用一次，不改變它進 RAM 的時間       |
+| LRU  |             要 | LRU 要知道 page `2` 現在變成「最近剛用過」，所以必須更新 counter 或移到 stack top |
+
+這就是成本差異。
+
+FIFO 的 queue 只在 page fault 載入新 page 時變動；LRU 的 metadata(中繼資料) 每次 hit 也要變動。
+
+---
+
+#### 3. 為什麼 LRU 需要更多硬體或資料結構？
+
+講義列兩種 LRU implementation(實作)：
+
+| 實作                     | 每次 page referenced 時要做什麼          | replacement 時要做什麼                     | 貴在哪                                |
+| ---------------------- | --------------------------------- | ------------------------------------- | ---------------------------------- |
+| Counter implementation | 把目前 timestamp 複製到該 page 的 counter | 找 counter 最舊的 page，可能需要 linear search | 每次 reference 都要寫 counter；替換時還要找最小值 |
+| Stack implementation   | 把被 reference 的 page 移到 stack top  | 移除 stack bottom                       | 每次 reference 都要移動資料結構              |
+
+外部教材也用同樣說法：LRU 的 counter 方法會在每次 memory access 增加 counter，並把目前值存到該 page 的 page-table entry；stack 方法則是在 page 被 access 時，把它從 stack 中取出放到 top，bottom 就是 LRU page。([伊利諾伊大學芝加哥分校計算機科學系][1])
+
+---
+
+#### 4. 為什麼 FIFO 相對便宜？
+
+FIFO 只需要維護一個「載入順序」queue：
+
+1. page fault，載入新 page → 放到 queue 尾端。
+2. 需要 replacement → 從 queue 前端拿 victim。
+3. hit → 什麼都不用改。
+
+所以 FIFO 的維護頻率低很多。外部教材也把 FIFO 描述成新 pages 載入後加到 queue tail，queue head 是下一個 victim；並明確說 FIFO simple and easy。([伊利諾伊大學芝加哥分校計算機科學系][1])
+
+---
+
+#### 5. 生活化例子
+
+FIFO 像「誰最早進教室」：
+
+你只要在每個人進教室時記一下順序。
+之後他在教室裡講話、喝水、舉手，都不影響順序。
+
+LRU 像「誰最久沒講話」：
+
+每次有人講話，你都要更新「他剛剛講過」的紀錄。
+所以不是只在進教室時記一次，而是每次互動都要更新。
+
+這就是為什麼 LRU 比 FIFO 貴。
+
+---
+
+#### 6. 最短記法
+
+**FIFO 要記 order，但只記「進 RAM 的順序」。**
+
+**LRU 要記 recency，而且每次 reference 都要更新。**
+
+所以考試可以寫：
+
+**LRU is more expensive than FIFO because FIFO only needs to maintain the order in which pages enter memory, while LRU must update recency information on every memory reference, using counters, timestamps, or a stack/list.**
+
+[1]: https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html "Operating Systems: Virtual Memory"
+
+
+
+### 錯題
+
+
+!!! danger
+
+    ==Q:==
+    In LRU page replacement, suppose the current frames are `[1, 2, 3]`. Page `1` was last used at time 4, page `2` at time 9, and page `3` at time 6. The next referenced page is `4`, and there is no free frame. Which page should be replaced, and why?
+
+
+    ==Me:==
+    2，因為他最早之前用的。
+
+    ==Ans:==
+    1，因為他最早之前用的。
+
+    ==注意：==
+    time 是使用的時間點，不是多久前，所以越小是越久之前。
+    
+    
+    
