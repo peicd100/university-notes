@@ -5328,6 +5328,266 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#optimal-page-replacement最佳分頁替換--如果-os-看得到未來應該犧牲哪個-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-optimal-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Optimal 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-optimal-的核心規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Optimal 的核心規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-非題目型示範" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 非題目型示範
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-optimal-不可能實作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 Optimal 不可能實作？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-optimal-vs-fifo-vs-下一個-lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Optimal vs FIFO vs 下一個 LRU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lru-page-replacement最近最少使用--如果看不到未來就用過去近似未來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lru-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. LRU 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-lru-和-fifooptimal-的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. LRU 和 FIFO、Optimal 的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-非題目型示範_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 非題目型示範
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lru-的兩種-implementation實作方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LRU 的兩種 implementation(實作方式)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-lru-的成本問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. LRU 的成本問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何-lru-more-expensive-to-implement-than-fifo--fifo-不是也需要硬體來記錄-order-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-用-hit-來看差別最清楚" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用 hit 來看差別最清楚
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-lru-需要更多硬體或資料結構" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 LRU 需要更多硬體或資料結構？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-fifo-相對便宜" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 FIFO 相對便宜？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6942,6 +7202,266 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#optimal-page-replacement最佳分頁替換--如果-os-看得到未來應該犧牲哪個-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-optimal-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Optimal 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-optimal-的核心規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Optimal 的核心規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-非題目型示範" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 非題目型示範
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-optimal-不可能實作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 Optimal 不可能實作？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-optimal-vs-fifo-vs-下一個-lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Optimal vs FIFO vs 下一個 LRU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lru-page-replacement最近最少使用--如果看不到未來就用過去近似未來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lru-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. LRU 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-lru-和-fifooptimal-的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. LRU 和 FIFO、Optimal 的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-非題目型示範_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 非題目型示範
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lru-的兩種-implementation實作方式" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LRU 的兩種 implementation(實作方式)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-lru-的成本問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. LRU 的成本問題
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何-lru-more-expensive-to-implement-than-fifo--fifo-不是也需要硬體來記錄-order-嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-用-hit-來看差別最清楚" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 用 hit 來看差別最清楚
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-lru-需要更多硬體或資料結構" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 LRU 需要更多硬體或資料結構？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-fifo-相對便宜" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 FIFO 相對便宜？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-生活化例子" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 生活化例子
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#錯題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        錯題
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6995,7 +7515,7 @@ is now available!
 <p>第二，<strong>更多程式可以同時運行</strong>。如果每個程式都必須完整塞進 RAM，多開幾個大型程式就會卡住；Virtual Memory(虛擬記憶體) 讓 OS 可以只保留目前需要的部分在 RAM。</p>
 <p>第三，<strong>載入或置換時的 I/O 次數可以減少</strong>。這句話先用直覺記：不要一次把整個程式都搬進 RAM，只在需要時搬必要部分，通常比較省搬運成本。細節會在 9.2 Demand Paging(需求分頁) 才正式展開。</p>
 <p>第四，可以 Shared Pages(共享分頁)。</p>
-<p>跨來源補充／一般系統經驗，非目前講義主線：Linux 社群文件常會討論 swap 與 <code>vm.swappiness</code> 這類調整，這對應到實務上「哪些頁面留在 RAM、哪些頁面可以被換出」的行為；社群使用者也常把 RAM 和 swap 都吃滿時的桌面卡死經驗描述成接近 thrashing(輾轉現象) 的現象。這些只幫你建立直覺，考試仍以講義主線為準。([Arch Wiki][1])</p>
+<p>跨來源補充／一般系統經驗，非目前講義主線：Linux 社群文件常會討論 swap 與 <code>vm.swappiness</code> 這類調整，這對應到實務上「哪些頁面留在 RAM、哪些頁面可以被換出」的行為；社群使用者也常把 RAM 和 swap 都吃滿時的桌面卡死經驗描述成接近 thrashing(輾轉現象) 的現象。這些只幫你建立直覺，考試仍以講義主線為準。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" title="Operating Systems: Virtual Memory">Arch Wiki</a>)</p>
 </div>
 <hr />
 <h3 id="4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份">4. Shared Pages(共享分頁)：為什麼同一份函式庫不用每個行程都複製一份？<a class="headerlink" href="#4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份" title="Permanent link"></a></h3>
@@ -7101,7 +7621,7 @@ is now available!
 <li>只要發生 page fault，就會牽涉 trap、disk I/O、page in/out、restart instruction，成本遠大於 RAM 存取。</li>
 </ul>
 <p>講義例子：memory access time 是 200 ns，平均 page-fault service time 是 8 ms，若每 1000 次存取有 1 次 page fault，EAT 會變成 8.2 microseconds，約慢 40 倍。</p>
-<p>跨來源補充／社群經驗，非目前講義主線：Linux 使用者社群常討論 swap、zram、zswap、swappiness，核心經驗都是一樣的：swap 可以增加彈性，但它不是和 RAM 一樣快的替代品；例如 Arch Wiki 把 swappiness 視為記憶體壓力下 kernel 在回收 file cache 與移動 pages 到 swap 之間的傾向設定，社群也常提醒 disk-based swap 或壓縮 swap 都有額外成本。([Arch Wiki][1])</p>
+<p>跨來源補充／社群經驗，非目前講義主線：Linux 使用者社群常討論 swap、zram、zswap、swappiness，核心經驗都是一樣的：swap 可以增加彈性，但它不是和 RAM 一樣快的替代品；例如 Arch Wiki 把 swappiness 視為記憶體壓力下 kernel 在回收 file cache 與移動 pages 到 swap 之間的傾向設定，社群也常提醒 disk-based swap 或壓縮 swap 都有額外成本。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" title="Operating Systems: Virtual Memory">Arch Wiki</a>)</p>
 <hr />
 <h3 id="5-這一輪最短記法_1">5. 這一輪最短記法<a class="headerlink" href="#5-這一輪最短記法_1" title="Permanent link"></a></h3>
 <p>Demand Paging(需求分頁) 的一句話版本：</p>
@@ -7679,6 +8199,470 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <h3 id="referenced-page-是啥">referenced page 是啥<a class="headerlink" href="#referenced-page-是啥" title="Permanent link"></a></h3>
 <p><code>referenced page</code> 就是：</p>
 <p><strong>process(行程) 這一次正在存取／要求使用的 page(頁)。</strong></p>
+</div>
+<h2 id="optimal-page-replacement最佳分頁替換--如果-os-看得到未來應該犧牲哪個-page">⭐Optimal Page Replacement(最佳分頁替換) — 如果 OS 看得到未來，應該犧牲哪個 page？<a class="headerlink" href="#optimal-page-replacement最佳分頁替換--如果-os-看得到未來應該犧牲哪個-page" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 27</p>
+<h3 id="1-optimal-在解決什麼問題">1. Optimal 在解決什麼問題？<a class="headerlink" href="#1-optimal-在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面 FIFO 的規則是：</p>
+<p><strong>誰最早進 RAM，誰先被踢。</strong></p>
+<p>但 FIFO 的問題是：它完全不管這個 page 等一下會不會馬上再用。所以 FIFO 可能把很快會用到的 page 換掉，造成更多 page fault。</p>
+<p>Optimal Page Replacement(最佳分頁替換) 問的是：</p>
+<p><strong>如果我們知道未來的 reference string(參考字串)，那現在要踢掉哪個 page 才最不容易造成未來 page fault？</strong></p>
+<p>答案是：</p>
+<p><strong>踢掉「未來最久都不會再被使用」的 page。</strong></p>
+<p>講義寫法是：以將來長期不會使用的 page 視為 victim page；效果最佳、不會有 Belady Anomaly，但不可能辦到，因為它需要看未來。</p>
+<p>外部作業系統教材也使用同樣定義，稱它為 OPT 或 MIN：replace the page that will not be used for the longest period of time，也就是替換未來最久不用的 page；它主要作為比較其他演算法的 benchmark(基準)。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" title="Operating Systems: Virtual Memory">cs.uic.edu</a>)</p>
+<hr />
+<h3 id="2-optimal-的核心規則">2. Optimal 的核心規則<a class="headerlink" href="#2-optimal-的核心規則" title="Permanent link"></a></h3>
+<p>當發生 page fault 且沒有 free frame 時，Optimal 會看目前在 RAM 裡的每個 page：</p>
+<table>
+<thead>
+<tr>
+<th>目前在 RAM 的 page</th>
+<th>往未來看</th>
+<th>判斷</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>很快會再用到</td>
+<td>不適合踢</td>
+<td>踢掉會很快又 fault</td>
+</tr>
+<tr>
+<td>很久以後才會用到</td>
+<td>適合踢</td>
+<td>可以撐比較久</td>
+</tr>
+<tr>
+<td>未來完全不再用</td>
+<td>最適合踢</td>
+<td>踢掉後不會再造成這個 page 的 fault</td>
+</tr>
+</tbody>
+</table>
+<p>所以一句話：</p>
+<p><strong>Optimal 不是看「誰最早進來」，也不是看「誰最近最少用」，而是看「誰未來最晚再用」。</strong></p>
+<hr />
+<h3 id="3-非題目型示範">3. 非題目型示範<a class="headerlink" href="#3-非題目型示範" title="Permanent link"></a></h3>
+<p>假設有 3 個 frames，目前 RAM 裡是：</p>
+<table>
+<thead>
+<tr>
+<th>Frame</th>
+<th style="text-align: right;">Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>F2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>F3</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<p>接下來 process 要存取 page <code>4</code>，但 RAM 沒有 page <code>4</code>，所以 page fault，而且沒有 free frame，必須 replacement。</p>
+<p>未來 reference string 剩下：</p>
+<p><code>2, 3, 2, 1, 5</code></p>
+<p>現在 RAM 裡的候選 victim 是 <code>1, 2, 3</code>。我們往未來看：</p>
+<table>
+<thead>
+<tr>
+<th>候選 victim</th>
+<th style="text-align: right;">未來下一次出現位置</th>
+<th>解讀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page 1</td>
+<td style="text-align: right;">第 4 個才再出現</td>
+<td>最晚才用</td>
+</tr>
+<tr>
+<td>page 2</td>
+<td style="text-align: right;">第 1 個就再出現</td>
+<td>很快要用</td>
+</tr>
+<tr>
+<td>page 3</td>
+<td style="text-align: right;">第 2 個就再出現</td>
+<td>很快要用</td>
+</tr>
+</tbody>
+</table>
+<p>所以 Optimal 會踢掉 page <code>1</code>，把 page <code>4</code> 放進來。</p>
+<p>結果：</p>
+<table>
+<thead>
+<tr>
+<th>操作前 frames</th>
+<th style="text-align: right;">referenced page</th>
+<th style="text-align: right;">victim</th>
+<th>操作後 frames</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[1, 2, 3]</code></td>
+<td style="text-align: right;"><code>4</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td><code>[4, 2, 3]</code></td>
+</tr>
+</tbody>
+</table>
+<p>這就是 Optimal 的完整思路：<strong>每次 fault 時，看未來，踢掉最晚才會用到的 page。</strong></p>
+<hr />
+<h3 id="4-為什麼-optimal-不可能實作">4. 為什麼 Optimal 不可能實作？<a class="headerlink" href="#4-為什麼-optimal-不可能實作" title="Permanent link"></a></h3>
+<p>因為真正的 OS 在程式執行時，通常不知道未來完整的 memory reference string。</p>
+<p>OS 可以知道：</p>
+<ul>
+<li>過去哪些 page 最近被用過。</li>
+<li>現在 page table 裡有哪些 page。</li>
+<li>reference bit、dirty bit 等硬體狀態。</li>
+</ul>
+<p>但 OS 不可能可靠知道：</p>
+<p><strong>這個 process 接下來一定會照哪個 page 順序存取。</strong></p>
+<p>所以 Optimal 很像「考試標準答案」或「理想上帝視角」：</p>
+<ul>
+<li>實務上不能真的拿來當一般演算法。</li>
+<li>但可以拿來當 benchmark，判斷 FIFO、LRU、Second Chance 等演算法離最佳結果差多少。</li>
+</ul>
+<hr />
+<h3 id="5-optimal-vs-fifo-vs-下一個-lru">5. Optimal vs FIFO vs 下一個 LRU<a class="headerlink" href="#5-optimal-vs-fifo-vs-下一個-lru" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>演算法</th>
+<th>看什麼</th>
+<th>victim page 是誰</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO</td>
+<td>過去：誰最早進 RAM</td>
+<td>最早載入的 page</td>
+<td>可能踢掉馬上會用的 page</td>
+</tr>
+<tr>
+<td>Optimal</td>
+<td>未來：誰最晚再用</td>
+<td>未來最久不用的 page</td>
+<td>實作上看不到未來</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>過去：誰最久沒被用</td>
+<td>最近最久沒用的 page</td>
+<td>需要硬體或資料結構支援</td>
+</tr>
+</tbody>
+</table>
+<p>這也是為什麼下一個主線會講 LRU(Least Recently-Used，最近最少使用)：<br />
+<strong>LRU 嘗試用「過去很久沒用」去近似「未來可能也不會很快用」。</strong></p>
+<hr />
+<h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
+<p>Optimal Page Replacement 一句話：</p>
+<p><strong>沒有 free frame 時，踢掉未來最久不會再被 reference(參考／存取) 的 page。</strong></p>
+<p>常見錯法：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimal 是實務上最好用的演算法</td>
+<td>錯，它效果最佳，但通常無法實作，因為要知道未來</td>
+</tr>
+<tr>
+<td>Optimal 會踢掉最早進 RAM 的 page</td>
+<td>錯，那是 FIFO</td>
+</tr>
+<tr>
+<td>Optimal 會踢掉最近最少使用的 page</td>
+<td>錯，那是 LRU</td>
+</tr>
+<tr>
+<td>Optimal 可能有 Belady Anomaly</td>
+<td>講義說不會有 Belady Anomaly</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lru-page-replacement最近最少使用--如果看不到未來就用過去近似未來">⭐LRU Page Replacement(最近最少使用) — 如果看不到未來，就用過去近似未來？<a class="headerlink" href="#lru-page-replacement最近最少使用--如果看不到未來就用過去近似未來" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 28 ~ PDF viewer page 29</p>
+<h3 id="1-lru-在解決什麼問題">1. LRU 在解決什麼問題？<a class="headerlink" href="#1-lru-在解決什麼問題" title="Permanent link"></a></h3>
+<p>Optimal(最佳分頁替換) 很強，因為它會看未來：</p>
+<p><strong>未來最久不用誰，就踢誰。</strong></p>
+<p>可是 OS 看不到未來，所以需要一個可實作的近似方法。LRU(Least Recently-Used，最近最少使用) 的想法是：</p>
+<p><strong>如果一個 page 很久沒有被用過，那它接下來可能也比較不急著用。</strong></p>
+<p>所以 LRU 的 victim page 是：</p>
+<p><strong>最近最久沒有被 reference(參考／存取) 的 page。</strong></p>
+<p>講義寫法是：LRU 以最近不常使用的 page 視為 victim page，效果不錯、不會有 Belady Anomaly，但製作成本高，需要硬體支援，例如 counter 或 stack。</p>
+<hr />
+<h3 id="2-lru-和-fifooptimal-的差別">2. LRU 和 FIFO、Optimal 的差別<a class="headerlink" href="#2-lru-和-fifooptimal-的差別" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>演算法</th>
+<th>看哪裡</th>
+<th>victim page 是誰</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO</td>
+<td>載入 RAM 的時間</td>
+<td>最早載入 RAM 的 page</td>
+</tr>
+<tr>
+<td>Optimal</td>
+<td>未來使用時間</td>
+<td>未來最久才會用或不再用的 page</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>過去使用時間</td>
+<td>最近最久沒被用過的 page</td>
+</tr>
+</tbody>
+</table>
+<p>最容易混淆的是 FIFO 和 LRU：</p>
+<p><strong>FIFO 看「誰最早進來」。</strong><br />
+<strong>LRU 看「誰最久沒被用」。</strong></p>
+<p>如果 page 很早進來，但剛剛才被用過：</p>
+<ul>
+<li>FIFO 可能會踢它。</li>
+<li>LRU 不會踢它，因為它最近才用過。</li>
+</ul>
+<hr />
+<h3 id="3-非題目型示範_1">3. 非題目型示範<a class="headerlink" href="#3-非題目型示範_1" title="Permanent link"></a></h3>
+<p>假設有 3 個 frames，目前在 RAM 裡：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Page</th>
+<th style="text-align: right;">最近一次被使用的時間</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">time 3</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">time 8</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">time 5</td>
+</tr>
+</tbody>
+</table>
+<p>現在 reference page <code>4</code>，但 page <code>4</code> 不在 RAM，且沒有 free frame，所以要 replacement。</p>
+<p>LRU 會看：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">候選 page</th>
+<th style="text-align: right;">最近一次使用時間</th>
+<th>判斷</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">time 3</td>
+<td>最久沒用</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">time 8</td>
+<td>最近才用</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">time 5</td>
+<td>中間</td>
+</tr>
+</tbody>
+</table>
+<p>所以 LRU 會換掉 page <code>1</code>。</p>
+<p>重點是：LRU 不需要看未來，只看過去。</p>
+<hr />
+<h3 id="4-lru-的兩種-implementation實作方式">4. LRU 的兩種 implementation(實作方式)<a class="headerlink" href="#4-lru-的兩種-implementation實作方式" title="Permanent link"></a></h3>
+<p>講義列出兩種：Counter implementation(計數器實作) 與 Stack implementation(堆疊實作)。</p>
+<table>
+<thead>
+<tr>
+<th>實作方式</th>
+<th>Page referenced 時</th>
+<th>Replacement 時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Counter implementation</td>
+<td>把目前 timestamp(時間戳記) 複製到該 page 的 counter</td>
+<td>移除 counter 最舊的 page</td>
+</tr>
+<tr>
+<td>Stack implementation</td>
+<td>被 reference 的 page 移到 stack top(堆疊頂端)</td>
+<td>移除 stack bottom(堆疊底端) 的 page</td>
+</tr>
+</tbody>
+</table>
+<p>生活化記法：</p>
+<p>Counter 像每張圖書館借書卡都蓋「最後借閱日期」。要丟書時，丟最後借閱日期最久以前的那本。</p>
+<p>Stack 像常用 App 排序。每次你打開某個 App，就把它移到最上面；最下面的 App 就是最久沒用的。</p>
+<hr />
+<h3 id="5-lru-的成本問題">5. LRU 的成本問題<a class="headerlink" href="#5-lru-的成本問題" title="Permanent link"></a></h3>
+<p>LRU 效果通常比 FIFO 合理，因為它會根據使用情況調整；但它的問題是：</p>
+<p><strong>精確 LRU 很貴。</strong></p>
+<p>因為每次 page 被 reference，你都要更新 counter 或 stack。講義也說 LRU 製作成本高，需要大量硬體支援。</p>
+<p>所以後面才會出現 LRU-approximation(LRU 近似法)：</p>
+<p><strong>不做完整精確 LRU，而是用 reference bit 等硬體資訊，便宜地近似 LRU。</strong></p>
+<hr />
+<h3 id="6-最短記法_2">6. 最短記法<a class="headerlink" href="#6-最短記法_2" title="Permanent link"></a></h3>
+<p>LRU 一句話：</p>
+<p><strong>沒有 free frame 時，踢掉最近最久沒被使用的 page。</strong></p>
+<p>常見錯法：</p>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LRU 踢最早進 RAM 的 page</td>
+<td>錯，那是 FIFO</td>
+</tr>
+<tr>
+<td>LRU 踢未來最久不用的 page</td>
+<td>錯，那是 Optimal</td>
+</tr>
+<tr>
+<td>LRU hit 不改狀態</td>
+<td>錯，LRU hit 會更新「最近使用」狀態</td>
+</tr>
+<tr>
+<td>LRU 很容易精確實作</td>
+<td>錯，精確 LRU 成本高，需要 counter、stack 或硬體支援</td>
+</tr>
+</tbody>
+</table>
+<h3 id="為何-lru-more-expensive-to-implement-than-fifo--fifo-不是也需要硬體來記錄-order-嗎">為何 LRU more expensive to implement than FIFO ？ FIFO 不是也需要硬體來記錄 order 嗎？<a class="headerlink" href="#為何-lru-more-expensive-to-implement-than-fifo--fifo-不是也需要硬體來記錄-order-嗎" title="Permanent link"></a></h3>
+<h4 id="1-直接答案">1. 直接答案<a class="headerlink" href="#1-直接答案" title="Permanent link"></a></h4>
+<p>你說得對：<strong>FIFO 也要記錄 order(順序)</strong>。但 FIFO 只需要記錄「page 載入 RAM 的先後順序」，而且通常只在 <strong>page fault 並載入新 page</strong> 時更新 queue(佇列)。</p>
+<p>LRU 比 FIFO 貴，是因為 LRU 要記錄「每一次 page 被使用的最近時間」。也就是：</p>
+<p><strong>FIFO 只在 page 被載入時記一次。<br />
+LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong></p>
+<p>講義也這樣分：FIFO 是「最先載入的 page 優先視為 victim page」，簡單、易於實作；LRU 則需要 counter 或 stack，且製作成本高、需要大量硬體支援。 </p>
+<hr />
+<h4 id="2-用-hit-來看差別最清楚">2. 用 hit 來看差別最清楚<a class="headerlink" href="#2-用-hit-來看差別最清楚" title="Permanent link"></a></h4>
+<p>假設 frames 裡已經有 <code>[1, 2, 3]</code>。</p>
+<p>現在 reference page <code>2</code>，這是 hit。</p>
+<table>
+<thead>
+<tr>
+<th>演算法</th>
+<th style="text-align: right;">hit 時要不要更新順序？</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO</td>
+<td style="text-align: right;">不用</td>
+<td>FIFO 只管 page 什麼時候進 RAM；page <code>2</code> 被再用一次，不改變它進 RAM 的時間</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td style="text-align: right;">要</td>
+<td>LRU 要知道 page <code>2</code> 現在變成「最近剛用過」，所以必須更新 counter 或移到 stack top</td>
+</tr>
+</tbody>
+</table>
+<p>這就是成本差異。</p>
+<p>FIFO 的 queue 只在 page fault 載入新 page 時變動；LRU 的 metadata(中繼資料) 每次 hit 也要變動。</p>
+<hr />
+<h4 id="3-為什麼-lru-需要更多硬體或資料結構">3. 為什麼 LRU 需要更多硬體或資料結構？<a class="headerlink" href="#3-為什麼-lru-需要更多硬體或資料結構" title="Permanent link"></a></h4>
+<p>講義列兩種 LRU implementation(實作)：</p>
+<table>
+<thead>
+<tr>
+<th>實作</th>
+<th>每次 page referenced 時要做什麼</th>
+<th>replacement 時要做什麼</th>
+<th>貴在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Counter implementation</td>
+<td>把目前 timestamp 複製到該 page 的 counter</td>
+<td>找 counter 最舊的 page，可能需要 linear search</td>
+<td>每次 reference 都要寫 counter；替換時還要找最小值</td>
+</tr>
+<tr>
+<td>Stack implementation</td>
+<td>把被 reference 的 page 移到 stack top</td>
+<td>移除 stack bottom</td>
+<td>每次 reference 都要移動資料結構</td>
+</tr>
+</tbody>
+</table>
+<p>外部教材也用同樣說法：LRU 的 counter 方法會在每次 memory access 增加 counter，並把目前值存到該 page 的 page-table entry；stack 方法則是在 page 被 access 時，把它從 stack 中取出放到 top，bottom 就是 LRU page。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" title="Operating Systems: Virtual Memory">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
+<hr />
+<h4 id="4-為什麼-fifo-相對便宜">4. 為什麼 FIFO 相對便宜？<a class="headerlink" href="#4-為什麼-fifo-相對便宜" title="Permanent link"></a></h4>
+<p>FIFO 只需要維護一個「載入順序」queue：</p>
+<ol>
+<li>page fault，載入新 page → 放到 queue 尾端。</li>
+<li>需要 replacement → 從 queue 前端拿 victim。</li>
+<li>hit → 什麼都不用改。</li>
+</ol>
+<p>所以 FIFO 的維護頻率低很多。外部教材也把 FIFO 描述成新 pages 載入後加到 queue tail，queue head 是下一個 victim；並明確說 FIFO simple and easy。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" title="Operating Systems: Virtual Memory">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
+<hr />
+<h4 id="5-生活化例子">5. 生活化例子<a class="headerlink" href="#5-生活化例子" title="Permanent link"></a></h4>
+<p>FIFO 像「誰最早進教室」：</p>
+<p>你只要在每個人進教室時記一下順序。<br />
+之後他在教室裡講話、喝水、舉手，都不影響順序。</p>
+<p>LRU 像「誰最久沒講話」：</p>
+<p>每次有人講話，你都要更新「他剛剛講過」的紀錄。<br />
+所以不是只在進教室時記一次，而是每次互動都要更新。</p>
+<p>這就是為什麼 LRU 比 FIFO 貴。</p>
+<hr />
+<h4 id="6-最短記法_3">6. 最短記法<a class="headerlink" href="#6-最短記法_3" title="Permanent link"></a></h4>
+<p><strong>FIFO 要記 order，但只記「進 RAM 的順序」。</strong></p>
+<p><strong>LRU 要記 recency，而且每次 reference 都要更新。</strong></p>
+<p>所以考試可以寫：</p>
+<p><strong>LRU is more expensive than FIFO because FIFO only needs to maintain the order in which pages enter memory, while LRU must update recency information on every memory reference, using counters, timestamps, or a stack/list.</strong></p>
+<h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><mark>Q:</mark><br />
+In LRU page replacement, suppose the current frames are <code>[1, 2, 3]</code>. Page <code>1</code> was last used at time 4, page <code>2</code> at time 9, and page <code>3</code> at time 6. The next referenced page is <code>4</code>, and there is no free frame. Which page should be replaced, and why?</p>
+<p><mark>Me:</mark><br />
+2，因為他最早之前用的。</p>
+<p><mark>Ans:</mark><br />
+1，因為他最早之前用的。</p>
+<p><mark>注意：</mark><br />
+time 是使用的時間點，不是多久前，所以越小是越久之前。</p>
 </div>
 
 
