@@ -1674,3 +1674,21 @@ Working set model estimates the set of pages actively used by a process during t
 
 
 總而言之 PFR 就像是速度、時間一樣，只是一個數值， PFF 是一個控制方法，看 fault 太高或太低來調整 frames。
+
+
+### thrashing 到底指的是啥？是一個現象嗎？
+
+對，`thrashing(輾轉現象)` 是一種「系統效能崩壞的現象」，不是一個演算法。
+
+它指的是：系統花太多時間在處理 `page fault(分頁錯誤)`、`page replacement(分頁替換)`、`swap in/out(換入／換出)`，反而幾乎沒有時間真正執行 process 的程式碼。
+
+講義的說法是：如果 process 分配到的 `frame(頁框)` 不足，就會經常發生 page fault；如果採用 `global replacement policy(全域替換策略)`，不同 process 之間還會互相搶 frame，最後所有 process 都忙於處理 page fault 與 swap in/out，造成 CPU idle。
+
+
+### 為何他叫做 thrashing
+
+因為 `thrash` 這個字本來就有「劇烈亂動、反覆拍打、亂甩」的感覺。
+
+所以 `thrashing(輾轉現象)` 這個名稱是在形容：系統不是穩定地往前執行，而是在 RAM 和 disk 之間一直把 pages 換進換出，像在原地劇烈亂甩、反覆折騰，卻沒有真正完成多少工作。
+
+講義也正是這個意思：當 process 分到的 `frame(頁框)` 不足，就會頻繁 `page fault(分頁錯誤)`；若搭配 `global replacement policy(全域替換策略)`，process 之間還會互相搶 frame，最後大家都忙於 `swap in/out(換入／換出)`，造成 CPU idle。
