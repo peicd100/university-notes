@@ -11550,6 +11550,9 @@ Response 只看第一個反應，不看全部完成。</p>
 <code>[Adapted from: 期末考古_108／Q1(b) scheduling criteria conflicts]</code></p>
 <p>ANS：<br />
 為了降低 average turnaround time，scheduler 可能偏好短工作，因為短工作很快完成，可以拉低平均值。可是長工作可能一直被延後，造成 maximum waiting time 很大。</p>
+<p><mark>注意:</mark><br />
+如果真的要 minimizing maximum waiting time ，就要：<br />
+不能一直選最短工作；必須讓「目前等最久的 process」優先權逐漸上升，等到它快變成最大等待者時，就要讓它跑。</p>
 <hr />
 <p>2.Explain how maximizing I/O device utilization may conflict with maximizing CPU utilization. Give one concrete example in words.<br />
 <code>[Adapted from: 期末考古_108／Q1(c) scheduling criteria conflicts]</code></p>
