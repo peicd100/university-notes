@@ -1018,3 +1018,659 @@ LRU 像「誰最久沒講話」：
     
     
     
+
+
+## ⭐LRU-approximation(LRU 近似換頁法) — LRU 太貴時，怎麼用 bit 便宜模仿？
+
+講義位置：PDF viewer page 33 ~ PDF viewer page 37
+
+### 1. 為什麼需要 LRU-approximation？
+
+前面我們說精確 LRU 很貴，因為每次 page referenced(頁面被參考／存取) 都要更新 counter、timestamp 或 stack/list。
+
+所以 9.4.5 的核心問題是：
+
+**如果精確記錄「誰最近最少使用」太貴，有沒有比較便宜的近似方法？**
+
+答案是用硬體提供的 Reference Bit(參考位元) 和 Modification Bit / Dirty Bit(修改位元／髒位元) 做近似。
+
+Reference Bit 的直覺是：
+
+| Reference Bit | 白話意思     |
+| ------------: | -------- |
+|           `1` | 最近有被使用過  |
+|           `0` | 最近沒有被使用過 |
+
+所以它不是精確時間戳，但可以提供一點「最近有沒有用」的線索。這也是 Second Chance / Clock 類演算法的核心；外部 OS 教材也把 Second Chance 描述為 FIFO 加上 reference bit：reference bit = 1 代表最近被使用，reference bit = 0 代表最近沒使用。([GeeksforGeeks][1])
+
+---
+
+### 2. Additional Reference Bits(額外參考位元法)
+
+Additional Reference Bits 的想法是：
+**不要只留 1 個 reference bit，而是定期把 reference bit 的歷史記錄進一個 8-bit register(8 位元暫存器)。**
+
+講義規則是：
+
+1. 每個 page 保存一個 8-bit byte。
+2. 每隔一段時間，例如 100 ms，timer interrupt(計時器中斷) 讓 OS 執行更新。
+3. OS 把該 page 目前的 reference bit 放到 8-bit register 的最高位。
+4. 原本 register 右移一位，最低位被丟掉。
+5. register 數值越大，代表越近期、越常被使用。
+
+講義例子：
+
+| Register   | 解讀                            |
+| ---------- | ----------------------------- |
+| `00000000` | 前 8 個時間區段都沒被使用                |
+| `11111111` | 每個時間區段至少被使用一次                 |
+| `11000100` | 比 `01110111` 更常／更近期被使用，因為高位較大 |
+
+這裡要注意：它不是精確 LRU，但比單一 reference bit 有更多歷史資訊。
+
+---
+
+### 3. Second Chance Algorithm(第二次機會替換法)
+
+Second Chance 是：
+
+**FIFO + Reference Bit。**
+
+它仍然有 circular queue(環狀佇列)，像 FIFO 一樣依序檢查 page；但它不會直接踢掉 queue 前端，而是先看 reference bit：
+
+| 檢查到的 page           | 動作                                      |
+| ------------------- | --------------------------------------- |
+| reference bit = `0` | 最近沒用，直接選為 victim page                   |
+| reference bit = `1` | 給 second chance，把 bit 清成 `0`，跳過它，繼續看下一個 |
+
+講義 page 34 寫得很明確：需要 replacement 時，演算法沿著 circular queue 順時針檢查；若 page 的 reference bit 是 0，代表最近沒用，就選它；若 reference bit 是 1，就清成 0，然後移到下一個 page；持續到找到 reference bit = 0 的 page 為止。
+
+外部教材也用同樣規則描述 Clock / Second Chance：若 R = 1，清為 0 並讓指標前進；重複直到找到 R = 0 的 page。([TutorialsPoint][2])
+
+---
+
+### 4. Second Chance 非題目型示範
+
+假設現在有 4 個 frames，clock hand(時鐘指標) 指向 page `1`：
+
+| Queue 順序 | Page | Reference Bit |
+| -------: | ---: | ------------: |
+|   hand → |    1 |             1 |
+|          |    2 |             1 |
+|          |    3 |             0 |
+|          |    4 |             1 |
+
+現在發生 page fault，沒有 free frame，要找 victim。
+
+流程：
+
+|     檢查 | Reference Bit | 動作                                  |
+| -----: | ------------: | ----------------------------------- |
+| page 1 |             1 | 給 second chance，清成 0，hand 移到 page 2 |
+| page 2 |             1 | 給 second chance，清成 0，hand 移到 page 3 |
+| page 3 |             0 | 選 page 3 當 victim                   |
+
+結果：page `3` 被替換。page `1`、page `2` 因為最近有用過，所以先逃過一次。
+
+Second Chance 的核心不是「永遠不踢 bit = 1 的 page」，而是：
+
+**bit = 1 只保護它一輪；清成 0 之後，如果下一輪還沒有再被使用，之後還是可能被踢。**
+
+---
+
+### 5. Enhanced Second Chance(加強第二次機會替換法)
+
+Enhanced Second Chance 的目的不是只減少 page faults，而是更明確地：**減少 I/O。**
+
+它同時看兩個 bit：
+
+* Reference Bit(R)：最近有沒有用過？
+* Modification Bit / Dirty Bit(M)：有沒有被修改過？如果替換時 M = 1，通常要 page out 寫回 disk。
+
+講義 page 37 給出 class 排序，越上面越容易成為 victim page：
+
+| Class | `(R, M)` | 意思         | 適合當 victim 的程度          |
+| ----: | -------- | ---------- | ----------------------- |
+|     0 | `(0, 0)` | 最近沒用，也沒被修改 | 最適合，替換成本最低              |
+|     1 | `(0, 1)` | 最近沒用，但被修改過 | 可以替換，但要 page out，I/O 較貴 |
+|     2 | `(1, 0)` | 最近用過，沒被修改  | 不太想替換，可能很快再用            |
+|     3 | `(1, 1)` | 最近用過，也被修改過 | 最不想替換，可能再用且替換要寫回 disk   |
+
+所以 Enhanced Second Chance 的最短判斷是：
+
+**先找最近沒用的，再優先找乾淨的。**
+
+---
+
+### 6. 三個方法的關係
+
+| 方法                        | 用到什麼資訊                     | 核心目標                         |
+| ------------------------- | -------------------------- | ---------------------------- |
+| Additional Reference Bits | reference bit 的時間歷史        | 更接近 LRU 的「最近使用程度」            |
+| Second Chance             | FIFO queue + reference bit | 避免 FIFO 直接踢掉最近用過的 page       |
+| Enhanced Second Chance    | reference bit + dirty bit  | 不只考慮最近使用，也考慮 page out I/O 成本 |
+
+講義 page 36 也說 Second Chance 的好處是改善 FIFO，因為它會考慮 page 是否最近被使用，而且實作相對簡單、在複雜度與效能之間取得平衡。
+
+---
+
+### 7. 最短記法
+
+LRU-approximation 一句話：
+
+**用少量 bit 便宜地近似「最近有沒有使用」，不要真的每次都維護完整 LRU。**
+
+Second Chance 一句話：
+
+**遇到 reference bit = 1 的 page，清成 0 並跳過；遇到 0 才替換。**
+
+Enhanced Second Chance 一句話：
+
+**照 `(R, M)` 選 victim：`(0,0)` 最好，`(1,1)` 最差。**
+
+常見錯法：
+
+| 錯誤說法                                    | 修正                                                                      |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| reference bit = 1 代表永遠不能換               | 錯，只是給一次 second chance，之後清成 0                                            |
+| dirty bit 決定最近有沒有使用                     | 錯，dirty bit 決定是否被修改、替換時是否要 page out                                     |
+| Second Chance 完全等於 LRU                  | 錯，它只是 LRU approximation                                                 |
+| Enhanced Second Chance 只看 reference bit | 錯，它同時看 reference bit 與 modification/dirty bit                           |
+| `(0,1)` 比 `(1,0)` 更差                    | 依講義 class 排序，`(0,1)` 比 `(1,0)` 更容易被選，因為它最近沒用；但它比 `(0,0)` 貴，因為 dirty 要寫回 |
+
+
+
+
+
+## ⭐9.5 Allocation of Frames — OS 要怎麼把有限的 page frames 分給多個 processes？
+
+講義位置：PDF viewer page 38 ~ PDF viewer page 40
+
+### 1. 這個知識點在解決什麼問題？
+
+前面 9.4 我們一直在問：
+
+「某個 process 已經拿到固定數量 frames 時，page fault 發生後要踢誰？」
+
+這是 page replacement(分頁替換) 的問題。
+
+但 9.5 換成另一個更上層的問題：
+
+「系統裡有很多 processes，同時都想用 RAM。OS 要先決定每個 process 分到幾個 page frames。」
+
+也就是：
+
+| 問題                               | 屬於哪一節                    |
+| -------------------------------- | ------------------------ |
+| page fault 後要換掉哪個 page？          | 9.4 Page Replacement     |
+| 每個 process 一開始或動態上應該分到幾個 frames？ | 9.5 Allocation of Frames |
+
+生活化例子：
+9.4 像是你已經分到一個 4 格書架，現在新書來了，要決定丟掉哪一本。
+9.5 像是圖書館總共有 100 格書架，要先決定每個人分幾格。
+
+---
+
+### 2. frame 數量越多，page fault ratio 通常越低，但不是無限給
+
+講義說一般來說，process 分配到的 frame 越多，page fault ratio(分頁錯誤率) 越低。原因很直覺：你給一個 process 的 RAM 格子越多，它能留在 RAM 裡的 pages 越多，下次再用到同一頁時就比較不會 page fault。
+
+但不能無限給，因為有兩個限制：
+
+| 限制                              | 由什麼決定                            | 意思                        |
+| ------------------------------- | -------------------------------- | ------------------------- |
+| maximum number of frames(最大頁框數) | physical memory size(實體記憶體大小)    | RAM 總共就那麼大                |
+| minimum number of frames(最少頁框數) | instruction architecture(機器指令結構) | 至少要能讓一條 instruction 順利執行完 |
+
+最少 frame 數最容易考概念題。它不是隨便訂的，而是因為：
+
+如果一條 instruction 執行到一半就 page fault，這條 instruction 通常要 restart(重新執行)。所以 OS 至少要給 process 足夠的 frames，讓一條 instruction 需要的 memory accesses 能完成。
+
+講義例子是 IF - ID - EX - MEM - WB pipeline，其中 IF 一定要存取 memory，MEM、WB 也可能需要 memory access，所以最少 frame 數可以是 3。
+
+---
+
+### 3. Fixed Allocation(固定配置)：先決定每個 process 拿多少
+
+Fixed Allocation(固定配置) 的核心是：
+
+每個 process 分到一個預先決定好的 frame 數量，之後不管它實際需要多少，數量不變。
+
+這種方法簡單，但缺點是可能不公平或浪費：
+
+| 情況                   | 問題                  |
+| -------------------- | ------------------- |
+| 小 process 分太多 frames | 浪費 frames           |
+| 大 process 分太少 frames | page fault ratio 很高 |
+| process 行為變了         | 固定數量不會跟著變           |
+
+---
+
+### 4. Equal Allocation(同等分配)：大家平均分
+
+Equal Allocation(同等分配) 是 fixed allocation 的最簡單版本：
+
+如果有 `m` 個 frames，要分給 `n` 個 processes，每個 process 約拿 `m/n` 個 frames。
+
+講義例子：
+如果有 93 個 frames 和 5 個 processes，每個 process 可以分到 18 個 frames，剩下 3 個 frames 當 free-frame buffer pool(空白頁框緩衝庫存)。
+
+這個方法的核心優點是：簡單。
+核心缺點是：沒看 process 大小。
+
+例如：
+
+| process |      實際需要 |
+| ------- | --------: |
+| P1      |  10 pages |
+| P2      | 200 pages |
+
+如果兩者都分 18 frames，P1 可能夠用甚至浪費，P2 可能一直 page fault。
+
+---
+
+### 5. Proportional Allocation(比例配置)：大的 process 拿比較多
+
+Proportional Allocation(比例配置) 的核心是：
+
+process 越大，分到越多 frames。
+
+講義公式是：
+
+`ai ≈ (si / S) × m`
+
+意思如下：
+
+| 符號   | 意思                                |
+| ---- | --------------------------------- |
+| `si` | process `Pi` 的 size(大小)           |
+| `S`  | 所有 processes 的 size 總和，也就是 `Σ si` |
+| `m`  | 可分配的 frames 總數                    |
+| `ai` | process `Pi` 應分到的 frames 數        |
+
+這個公式的直覺是：
+
+「你佔總需求的幾成，就拿總 frames 的幾成。」
+
+例如總共有 100 frames：
+
+| process | size |
+| ------- | ---: |
+| P1      |   10 |
+| P2      |   30 |
+| P3      |   60 |
+
+總 size `S = 100`，所以：
+
+| process | 算法               | 分到 frames |
+| ------- | ---------------- | --------: |
+| P1      | `(10/100) × 100` |        10 |
+| P2      | `(30/100) × 100` |        30 |
+| P3      | `(60/100) × 100` |        60 |
+
+外部課程筆記也用相同說法：equal allocation 是每個 process 得到 `m/n` frames，proportional allocation 則依 process size 的比例分配 frames；這和本講義內容一致。([伊利諾伊大學芝加哥分校計算機科學系][1])
+
+---
+
+### 6. Priority Allocation(優先權配置)：重要 process 拿比較多
+
+Priority Allocation(優先權配置) 是：
+
+高 priority(優先權) 的 process 分到更多 frames。
+
+它的想法不是「大的人拿多」，而是「重要的人拿多」。
+
+例如：
+
+| process | size | priority | 可能配置           |
+| ------- | ---: | -------: | -------------- |
+| P1      |    大 |        低 | 不一定最多          |
+| P2      |    中 |        高 | 可能分更多          |
+| P3      |    小 |       最高 | 可能被保障足夠 frames |
+
+這常用在系統希望某些工作更穩定、更快完成的情境，例如互動式 process 或高優先權服務。
+
+---
+
+### 7. 這節和 9.6 Thrashing 的關係
+
+9.5 的 frame allocation 會直接影響 9.6 的 Thrashing(輾轉現象)。
+
+核心因果鏈是：
+
+```mermaid
+flowchart TD
+    A["OS 分配給 process 的 frames 太少"] --> B["process 常常找不到需要的 page"]
+    B --> C["page fault ratio(分頁錯誤率) 上升"]
+    C --> D["頻繁 page replacement(分頁替換)"]
+    D --> E["大量 swap in / swap out"]
+    E --> F["CPU 等 I/O，實際工作變少"]
+    F --> G["可能形成 Thrashing(輾轉現象)"]
+```
+
+所以 9.5 不是單純背名詞，而是在鋪 9.6：
+
+如果每個 process 都拿太少 frames，大家都一直 page fault，系統就會忙著搬 pages，而不是執行真正的程式。
+
+---
+
+### 8. 最短記法
+
+9.5 可以這樣背：
+
+| 名詞                      | 最短記法                       |
+| ----------------------- | -------------------------- |
+| Allocation of Frames    | OS 決定每個 process 拿幾個 frames |
+| Minimum frames          | 至少要讓一條 instruction 能完成     |
+| Maximum frames          | 受 physical RAM 限制          |
+| Equal allocation        | 平均分，`m/n`                  |
+| Proportional allocation | 按 size 比例分，`ai ≈ (si/S)×m` |
+| Priority allocation     | 按 priority 分，高優先權拿更多       |
+
+
+
+## ⭐Thrashing(輾轉現象) — 為什麼 frames 太少會讓整台系統越跑越慢？
+
+講義位置：PDF viewer page 41 ~ PDF viewer page 46
+
+### 1. Thrashing(輾轉現象)在解決什麼問題？
+
+`Thrashing(輾轉現象)` 要解釋的是：
+
+為什麼明明系統有很多 process 在跑，但 CPU 反而常常 idle(閒置)，整體效能變很差？
+
+直覺例子：
+想像你寫作業時，桌上只能放 1 張紙，但你每 10 秒就需要換另一張講義。你大部分時間不是在寫作業，而是在「收紙、找紙、拿紙、放紙」。這就像 OS 一直做 swap in/out，而不是讓 CPU 執行真正的程式。
+
+講義的說法是：如果 process 被分配到的 frame 不足，就會經常 page fault，接著必須做 page replacement。若採 global replacement policy，還可能把其他 process 的 page 換出去，造成其他 process 也 page fault，最後所有 process 都忙著處理 page fault 與 swap in/out。
+
+---
+
+### 2. Thrashing 的核心因果鏈
+
+```mermaid
+flowchart TD
+    A["process 分配到的 frames 太少"] --> B["working set(工作集合)<br>放不進 RAM"]
+    B --> C["page fault rate(分頁錯誤率)<br>快速上升"]
+    C --> D["OS 頻繁執行 page replacement(分頁替換)"]
+    D --> E["大量 swap in / swap out"]
+    E --> F["CPU 等待 I/O<br>真正執行程式的時間變少"]
+    F --> G["CPU utilization(CPU 使用率)下降"]
+    G --> H["OS 以為 process 太少<br>可能增加 multiprogramming degree"]
+    H --> I["更多 process 搶同一批 frames"]
+    I --> A
+```
+
+最重要的是這條惡性循環：
+
+frames 太少 → page fault 變多 → swap 變多 → CPU 變閒 → OS 可能引入更多 process → frames 更不夠 → page fault 更多。
+
+所以 thrashing 不是單一 process 慢而已，而是整個系統被 page fault 拖垮。
+
+---
+
+### 3. 解法一：降低 Multiprogramming Degree(多工程度)
+
+`Multiprogramming degree(多工程度)` 就是同時放進 memory 裡競爭 CPU 與 frames 的 process 數量。
+
+如果太多 process 同時在 memory 裡，每個 process 分到的 frames 就太少。這時候一個直接解法是：
+
+減少同時活躍的 process 數量，讓剩下的 process 每個人拿到比較多 frames。
+
+生活化講法：
+桌子太小時，不是叫 10 個人一起擠著寫作業，而是先讓 3 個人寫完，再換下一批。這樣每個人桌面空間夠，反而整體更快。
+
+---
+
+### 4. 解法二：用 Page Fault Ratio(分頁錯誤率)控制 frame 分配
+
+講義提到可以設定 page fault ratio 的上限與下限。核心規則如下：
+
+| 狀況                     | OS 判斷                 | 動作                      |
+| ---------------------- | --------------------- | ----------------------- |
+| page fault ratio 太高    | process 的 frames 不夠   | 多分配 frames 給它           |
+| page fault ratio 太低    | process 的 frames 可能太多 | 拿走多餘 frames 給其他 process |
+| page fault ratio 在合理範圍 | frame 分配大致 OK         | 維持目前配置                  |
+
+這個方法的直覺是：
+不要硬背每個 process 該拿幾個 frames，而是觀察「它會不會一直 page fault」。page fault 太多就表示它桌面太小，要加桌面空間；page fault 太少可能代表桌面空間太奢侈，可以挪一點給別人。
+
+---
+
+### 5. 解法三：Working Set Model(工作集合模型)
+
+`Working set(工作集合)` 是一個 process 在最近一段時間內實際用到的 pages 集合。講義說 working set model 會預估各 process 在不同執行時期所需的 frame 數目，並提供足夠 frames 來防止 thrashing。這個想法建立在 locality(區域性)上：process 通常會重複使用最近用過的附近資料。
+
+講義有兩種 locality：
+
+| 類型                       | 中文意思               | 例子                                |
+| ------------------------ | ------------------ | --------------------------------- |
+| Temporal locality(時間區域性) | 現在用過的東西，短時間內可能再用   | loop、subroutine、counter、stack     |
+| Spatial locality(空間區域性)  | 現在用的位置附近，短時間內可能也會用 | array、sequential code、global data |
+
+所以 working set model 的精神是：
+
+不要問「process 總共有多少 pages」，而是問「它最近真正活躍使用的 pages 有哪些」。
+
+如果 OS 能讓 process 的 working set 大部分留在 RAM，就能大幅減少 page fault。
+
+---
+
+### 6. Working Set Window(工作集合視窗)
+
+講義設定一個 `working set window size Δ`，意思是只看最近 Δ 次記憶體存取，或最近 Δ 個時間單位內被 reference(參考)過的 pages。
+
+例如 reference string：
+
+`1, 2, 3, 4, 1, 2, 5`
+
+若 `Δ = 4`，在第 7 次 reference 到 page 5 時，我們看最近 4 次 reference：
+
+`4, 1, 2, 5`
+
+所以 working set 是：
+
+`{1, 2, 4, 5}`
+
+注意：working set 是集合，所以重複出現只算一次。
+
+---
+
+### 7. Page-Fault Frequency, PFF(分頁錯誤頻率)
+
+`PFF(Page-Fault Frequency，分頁錯誤頻率)` 是比 working set 更直接的控制法。它不一定先估 working set，而是直接看 page fault rate 是否太高或太低。
+
+核心規則：
+
+| PFF 狀況 | 意義                | OS 動作       |
+| ------ | ----------------- | ----------- |
+| PFF 太高 | process 缺 frames  | 給更多 frames  |
+| PFF 太低 | process frames 太多 | 回收一些 frames |
+| PFF 合理 | 分配穩定              | 不動或小調整      |
+
+考試上你可以把 `PFF` 記成「用 page fault rate 當溫度計」。
+太高代表發燒，frames 不夠；太低代表資源可能過剩。
+
+---
+
+### 8. 最短記法
+
+Thrashing 的最短記法：
+
+frames 太少 → page fault 太多 → swap 太多 → CPU idle → OS 可能加更多 process → 更嚴重。
+
+解法最短記法：
+
+降低 multiprogramming degree，或用 page fault ratio / PFF / working set model 讓每個 process 拿到足夠 frames。
+
+
+
+### global replacement policy 是啥
+
+
+#### 1\. 直接答案
+
+`Global replacement policy(全域替換策略)` 的意思是：
+
+當某個 process 發生 `page fault(分頁錯誤)`，而且沒有 `free frame(空頁框)` 時，OS 選 `victim page(犧牲頁)` 的範圍不是只限於這個 process 自己的 pages，而是可以從「所有 process 的 pages」裡面挑一個換出去。講義寫到：global allocation 會在所有 processes 的所有 pages 中選 page 來 replace，所以 page fault 發生時，任何 process 的 page 都可能被替換。
+
+chapter 9\_20240527
+
+---
+
+#### 2\. 跟 Local Replacement Policy(區域替換策略)的差別
+
+假設目前有：
+
+| Process | frames 裡的 pages |
+| --- | --- |
+| P1 | A, B, C |
+| P2 | X, Y, Z |
+
+現在 P1 要用 page D，但 D 不在 RAM，發生 `page fault`。
+
+`Local replacement policy(區域替換策略)`：  
+P1 只能從自己的 A, B, C 裡面選一個踢掉。
+
+`Global replacement policy(全域替換策略)`：  
+P1 可以從 A, B, C, X, Y, Z 裡面選一個踢掉，所以可能踢掉 P2 的 page，例如 X。
+
+
+### 我看不懂 Working Set Model(工作集合模型) 是啥
+
+第 4 次對話
+
+#### 1. 一句話版本
+
+`Working Set Model(工作集合模型)` 是 OS 用來估計：
+
+「某個 process 最近正在用哪幾個 pages，所以至少應該給它幾個 frames，才不會一直 page fault。」
+
+講義的定義是：在最近 `Δ` 個 time units / memory references 內，被 process 參考過的 pages 集合，叫 `working set(工作集合)`；這個集合的 page 數量叫 `WSS(working set size，工作集合大小)`。講義也說它用來預估各 process 在不同執行時期需要多少 frames，避免 `thrashing(輾轉現象)`。
+
+---
+
+#### 2. 生活化理解
+
+想像你在讀書桌上寫作業。
+
+你書包裡可能有 20 本書，但你現在真正會用的可能只有：
+
+| 角色          | 記憶體類比                  |
+| ----------- | ---------------------- |
+| 書包裡所有書      | process 的所有 pages      |
+| 桌面大小        | physical frames        |
+| 最近正在用的幾本書   | working set            |
+| 桌面放不下就一直翻書包 | page fault / thrashing |
+
+`Working Set Model` 的想法就是：
+
+不要把 process 所有 pages 都放進 RAM，因為太浪費；
+但也不能給太少 frames，否則它會一直 page fault。
+所以 OS 觀察「最近一段時間真的用過哪些 pages」，把這些 pages 當成目前應該保留在 RAM 的核心集合。
+
+---
+
+#### 3. Δ 到底是什麼？
+
+`Δ(working set window，工作集合視窗)` 就是「往前看多久」。
+
+例如 page reference string 是：
+
+`1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5`
+
+假設 `Δ = 4`，意思是每個時間點都只看「最近 4 次 page reference」。
+
+| 時間點 | 最近 4 次 reference | Working set | WSS |
+| --- | ---------------- | ----------- | --- |
+| t4  | 1, 2, 3, 4       | {1,2,3,4}   | 4   |
+| t5  | 2, 3, 4, 1       | {1,2,3,4}   | 4   |
+| t7  | 4, 1, 2, 5       | {1,2,4,5}   | 4   |
+| t12 | 2, 3, 4, 5       | {2,3,4,5}   | 4   |
+
+注意：working set 是「集合」，所以重複出現不重複算。
+例如最近 4 次是 `1, 2, 1, 2`，working set 是 `{1,2}`，不是 4 個 pages。
+
+講義範例也用 `Δ = 4` 來看 `1,2,3,4,1,2,5,...` 這串 reference，並在 t7 得到 `{1,2,4,5}`、t12 得到 `{2,3,4,5}`。
+
+---
+
+#### 4. 它到底拿來幹嘛？
+
+它主要拿來解決這個問題：
+
+「每個 process 到底要給幾個 frames 才夠？」
+
+如果某 process 的 `WSS = 5`，代表它最近活躍使用 5 個不同 pages。
+那 OS 最好至少給它 5 個 frames。
+如果只給 2 個 frames，它就會一直把剛踢掉的 page 又叫回來，造成大量 page fault。
+
+更正式一點：
+
+`WSS_i` = process i 目前 working set 裡有幾個 pages。
+`D = Σ WSS_i` = 所有 process 目前總共需要的 frames。
+
+如果 `D <= total frames`：
+系統大致撐得住，可以讓這些 processes 繼續跑。
+
+如果 `D > total frames`：
+代表目前 RAM 放不下所有 process 的 working set，thrashing 風險很高。這時 OS 應該降低 `multiprogramming degree(多道程式程度)`，例如暫停或 swap out 某些 process。Stanford OS 課程也用同樣觀念描述：若所有 runnable threads/processes 的 working sets 總和超過 memory size，就應該暫時停止執行一部分，避免 thrashing。([Stanford University][1])
+
+---
+
+#### 5. 跟 Page Replacement(分頁替換)的關係
+
+Working Set Model 不是單純在問「下一個 victim page 是誰」。
+
+它比較像是在問：
+
+「哪些 pages 是這個 process 最近真正需要的？哪些 pages 可以被犧牲？」
+
+所以它的替換直覺是：
+
+在 working set 裡面的 pages：最近正在用，盡量不要踢。
+不在 working set 裡面的 pages：最近沒用到，比較適合當 victim page。
+
+講義也寫到：當需要 replacement 時，OS 會找不在 working set 裡的 pages，因為 working set 外的 pages 比較不可能很快再被需要。
+
+---
+
+#### 6. 最容易混淆的地方
+
+`working set` 不是 process 的所有 pages。
+它只代表「最近這段時間活躍用到的 pages」。
+
+`working set` 也不完全等於 RAM 裡目前真的有的 pages。
+它是 OS 希望保留在 RAM 裡的目標集合；如果 RAM 不夠，working set 裡的 page 也可能不在 RAM，然後就會 page fault。
+
+`WSS` 不是固定值。
+process 跑到不同階段，working set 會變。例如一開始跑初始化 code，可能用 pages `{1,2,3}`；後來進入大型迴圈，可能變成 `{7,8,9,10}`。
+
+社群討論裡常見錯法是把每個時間點的 working set size 全部加總，然後拿去判斷 thrashing；這樣通常不是 working set model 的核心用法。我們通常是在某個時間點看每個 process 當下的 WSS，再把各 process 的 WSS 加總。([Stack Overflow][2])
+
+---
+
+#### 7. 最短記法
+
+`Working Set Model`：
+
+「看 process 最近 Δ 時間內用過哪些 pages，這些 pages 就是它現在真正需要的 working set；WSS 就是它現在大概要多少 frames。若所有 process 的 WSS 總和超過 RAM frames，就容易 thrashing。」
+
+考試版：
+
+Working set model estimates the set of pages actively used by a process during the most recent Δ time units. The size of this set, WSS, is used to decide how many frames the process should receive. If the total demand of all working sets exceeds available frames, the system may suffer thrashing and should reduce the degree of multiprogramming.
+
+[1]: https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&utm_source=chatgpt.com "Thrashing and Working Sets - Stanford University"
+[2]: https://stackoverflow.com/questions/39884407/working-set-size-if-thrashing-occurs?utm_source=chatgpt.com "Working Set Size- if thrashing occurs - Stack Overflow"
+
+
+
+### PFR 和 PFF 有差嗎
+
+| 名稱    | 中文                                | 重點                                            | 你要怎麼記          |
+| ----- | --------------------------------- | --------------------------------------------- | -------------- |
+| `PFR` | Page Fault Rate / Ratio(分頁錯誤率／比率) | 數值本身，例如 `p = page faults / memory references` | 拿來算 EAT        |
+| `PFF` | Page-Fault Frequency(分頁錯誤頻率)      | 一種控制方法，看 fault 太高或太低來調整 frames                | 拿來防止 thrashing |
+
+
+總而言之 PFR 就像是速度、時間一樣，只是一個數值， PFF 是一個控制方法，看 fault 太高或太低來調整 frames。

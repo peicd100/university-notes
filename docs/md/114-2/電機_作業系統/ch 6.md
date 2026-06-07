@@ -996,6 +996,10 @@ Response 只看第一個反應，不看全部完成。
         
     ANS：
     為了降低 average turnaround time，scheduler 可能偏好短工作，因為短工作很快完成，可以拉低平均值。可是長工作可能一直被延後，造成 maximum waiting time 很大。
+    
+    ==注意:==
+    如果真的要 minimizing maximum waiting time ，就要：
+    不能一直選最短工作；必須讓「目前等最久的 process」優先權逐漸上升，等到它快變成最大等待者時，就要讓它跑。
         
     ---
         
