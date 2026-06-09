@@ -4795,6 +4795,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -4881,6 +4883,34 @@ is now available!
     
   
     期末考重點 ch7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期末考重點 ch8
   
 
     
@@ -5418,6 +5448,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -5748,6 +5780,88 @@ is now available!
   
   
     <li class="md-nav__item">
+      <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%206-Lab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 6 Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_12" id="__nav_7_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期末考整理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    期末考整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%205.html" class="md-nav__link">
         
   
@@ -5764,6 +5878,14 @@ is now available!
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -6024,162 +6146,33 @@ is now available!
 <table>
 <thead>
 <tr>
-<th>Process</th>
-<th style="text-align: right;">Allocation A B C D</th>
-<th style="text-align: right;">Max A B C D</th>
-<th>Need</th>
+<th></th>
+<th>contiguous memory allocation</th>
+<th>segmentation</th>
+<th>paging</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P0</td>
-<td style="text-align: right;">2 0 0 1</td>
-<td style="text-align: right;">4 2 1 2</td>
-<td>2 2 1 1</td>
+<td>external fragmentation</td>
+<td>有(因為他是使用一個不固定大小的連續空間)</td>
+<td>有(因為他是使用一個不固定大小的連續空間)</td>
+<td>無(因為每個 page 大小都固定)</td>
 </tr>
 <tr>
-<td>P1</td>
-<td style="text-align: right;">3 1 2 1</td>
-<td style="text-align: right;">5 2 5 2</td>
-<td>2 1 3 1</td>
+<td>internal fragmentation</td>
+<td>不一定</td>
+<td>無(因為使用 frame 的大小會和 segmentation 一樣大)</td>
+<td>有(因為 page 固定，但是 process 需求不一定剛好是 page 的倍數)</td>
 </tr>
 <tr>
-<td>P2</td>
-<td style="text-align: right;">2 1 0 3</td>
-<td style="text-align: right;">2 3 1 6</td>
-<td>0 2 1 3</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">1 3 1 2</td>
-<td style="text-align: right;">1 4 2 4</td>
-<td>0 1 1 2</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">1 4 3 2</td>
-<td style="text-align: right;">3 6 6 5</td>
-<td>2 2 3 3</td>
+<td>ability to share code across processes</td>
+<td>無(因為是一對一，沒有辦法分享)</td>
+<td>有(因為每個 segmentation 有不同的特性，不同的程式可以對應到相同的 segment)</td>
+<td>有(因為不同的 page 可以對應到相同的 frame)</td>
 </tr>
 </tbody>
 </table>
-<p>Available = {3 3 2 1}</p>
-<p>P0:{2 2 1 1}&lt;={3 3 2 1} -&gt; {3 3 2 1}+{2 0 0 1} = {5 3 2 2}<br />
-P3:{0 1 1 2}&lt;={5 3 2 2} -&gt; {5 3 2 2}+{1 3 1 2} = {6 6 3 4}<br />
-P1:{2 1 3 1}&lt;={6 6 3 4} -&gt; {6 6 3 4}+{3 1 2 1} = {9 7 5 5}<br />
-P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br />
-P4:{2 2 3 3}&lt;={11 8 5 8} -&gt; {11 8 5 8}+{1 4 3 2} = {12 12 8 10}</p>
-<p>是 safe state，safe sequence = <code>&lt;P0,P3,P1,P2,P4&gt;</code></p>
-<hr />
-<ol>
-<li>P1-request {1 1 0 0} &lt;  P1-need {2 1 3 1}</li>
-<li>P1-request {1 1 0 0} &lt;  Available {3 3 2 1}</li>
-</ol>
-<p>P1-need = {2 1 3 1} - {1 1 0 0} = {1 0 3 1}         //先改兩個剛剛小於等於的(小於等於才能減)<br />
-Available = {3 3 2 1} - {1 1 0 0} = {2 2 2 1}       //先改兩個剛剛小於等於的(小於等於才能減)<br />
-P1-Allocation = {3 1 2 1} + {1 1 0 0} = {4 2 2 1}   //再改加上的</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Allocation A B C D</th>
-<th style="text-align: right;">Max A B C D</th>
-<th>Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">2 0 0 1</td>
-<td style="text-align: right;">4 2 1 2</td>
-<td>2 2 1 1</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">4 2 2 1</td>
-<td style="text-align: right;">5 2 5 2</td>
-<td>1 0 3 1</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">2 1 0 3</td>
-<td style="text-align: right;">2 3 1 6</td>
-<td>0 2 1 3</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">1 3 1 2</td>
-<td style="text-align: right;">1 4 2 4</td>
-<td>0 1 1 2</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">1 4 3 2</td>
-<td style="text-align: right;">3 6 6 5</td>
-<td>2 2 3 3</td>
-</tr>
-</tbody>
-</table>
-<p>Available = {2 2 2 1}</p>
-<p>P0:{2 2 1 1}&lt;={2 2 2 1} -&gt; {2 2 2 1}+{2 0 0 1} = {4 2 2 2}<br />
-P3:{0 1 1 2}&lt;={4 2 2 2} -&gt; {4 2 2 2}+{1 3 1 2} = {5 5 3 4}<br />
-P1:{1 0 3 1}&lt;={5 5 3 4} -&gt; {5 5 3 4}+{4 2 2 1} = {9 7 5 5}       //改的是 P1，所以 P1 之後的計算會長的一模一樣<br />
-P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br />
-P4:{2 2 3 3}&lt;={11 8 5 8} -&gt; {11 8 5 8}+{1 4 3 2} = {12 12 8 10}</p>
-<p>允許請求，因為是 safe state，safe sequence = <code>&lt;P0,P3,P1,P2,P4&gt;</code></p>
-<hr />
-<ol>
-<li>P4-request {0 0 2 0} &lt; P4-need {2 2 3 3}</li>
-<li>P4-request {0 0 2 0} &lt; Available {3 3 2 1}</li>
-</ol>
-<p>P4-need = {2 2 3 3}-{0 0 2 0} = {2 2 1 3}<br />
-Available = {3 3 2 1}-{0 0 2 0} = {3 3 0 1}<br />
-P4-Allocation = {1 4 3 2}+{0 0 2 0} = {1 4 5 2}</p>
-<table>
-<thead>
-<tr>
-<th>Process</th>
-<th style="text-align: right;">Allocation A B C D</th>
-<th style="text-align: right;">Max A B C D</th>
-<th>Need</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>P0</td>
-<td style="text-align: right;">2 0 0 1</td>
-<td style="text-align: right;">4 2 1 2</td>
-<td>2 2 1 1</td>
-</tr>
-<tr>
-<td>P1</td>
-<td style="text-align: right;">3 1 2 1</td>
-<td style="text-align: right;">5 2 5 2</td>
-<td>2 1 3 1</td>
-</tr>
-<tr>
-<td>P2</td>
-<td style="text-align: right;">2 1 0 3</td>
-<td style="text-align: right;">2 3 1 6</td>
-<td>0 2 1 3</td>
-</tr>
-<tr>
-<td>P3</td>
-<td style="text-align: right;">1 3 1 2</td>
-<td style="text-align: right;">1 4 2 4</td>
-<td>0 1 1 2</td>
-</tr>
-<tr>
-<td>P4</td>
-<td style="text-align: right;">1 4 5 2</td>
-<td style="text-align: right;">3 6 6 5</td>
-<td>2 2 1 3</td>
-</tr>
-</tbody>
-</table>
-<p>Available = {3 3 0 1}</p>
-<p>沒有任何 Process 小於 {3 3 0 1}。</p>
-<p>不允許請求，因為處於 unsafe state，不存在 safe sequence。</p>
 
 
 
