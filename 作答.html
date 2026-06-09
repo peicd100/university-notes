@@ -4933,14 +4933,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%209.html" class="md-nav__link">
+      <a href="md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch9.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ch 9
+    期末考重點 ch9
   
 
     
@@ -6173,36 +6173,26 @@ is now available!
 
   <h1>作答</h1>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>contiguous memory allocation</th>
-<th>segmentation</th>
-<th>paging</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>external fragmentation</td>
-<td>有(因為他是使用一個不固定大小的連續空間)</td>
-<td>有(因為他是使用一個不固定大小的連續空間)</td>
-<td>無(因為每個 page 大小都固定)</td>
-</tr>
-<tr>
-<td>internal fragmentation</td>
-<td>不一定</td>
-<td>無(因為使用 frame 的大小會和 segmentation 一樣大)</td>
-<td>有(因為 page 固定，但是 process 需求不一定剛好是 page 的倍數)</td>
-</tr>
-<tr>
-<td>ability to share code across processes</td>
-<td>無(因為是一對一，沒有辦法分享)</td>
-<td>有(因為每個 segmentation 有不同的特性，不同的程式可以對應到相同的 segment)</td>
-<td>有(因為不同的 page 可以對應到相同的 frame)</td>
-</tr>
-</tbody>
-</table>
+<p>因為大量 page faults 之後，OS會花大量時間在執行page replacement、swap in/out，使CPU idle time 增加，使系統以為 CPU 很閒，所以增加多工度，讓更多 process 進入 ready queue，卻進而導致 page fault 增加，惡性循環。最後效能會一直下降。</p>
+<hr />
+<p>os 會把高於 upper bound 的 process 的 frame 增加，會把低於 lower bound 的 process 的 frame 減少。</p>
+<hr />
+<p>1<br />
+12<br />
+123<br />
+1234<br />
+1234<br />
+1234<br />
+1245 -&gt; t7 working set = &lt;1,2,4,5&gt;<br />
+125<br />
+125<br />
+1235<br />
+1234<br />
+2345 -&gt; t12 working set = &lt;2,3,4,5&gt;</p>
+<p>t7 working set = &lt;1,2,4,5&gt;<br />
+t12 working set = &lt;2,3,4,5&gt;</p>
+<hr />
+<p>因為temporal locality and spatial locality 可能會讓近期存取的 page 再次被存取，所以知道近期有多少的在被存取，給予對應數量的 frame，就可以預防 thrashing</p>
 
 
 
