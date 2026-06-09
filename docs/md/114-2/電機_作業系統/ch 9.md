@@ -503,13 +503,15 @@ page 22 開始說：Demand Paging 要解決兩個主要問題：
 
 接下來講義會照順序進入：
 
-| 下一批主線項                            | 核心問題                                     |
-| --------------------------------- | ---------------------------------------- |
-| FIFO                              | 最早進 RAM 的 page 先犧牲，會不會有問題？               |
-| Optimal                           | 如果能看未來，最佳 victim page 是誰？                |
-| LRU                               | 用「最近最少使用」近似未來行為                          |
-| LRU-approximation / Second Chance | LRU 太貴時，怎麼用 reference bit 近似？            |
-| Enhanced Second Chance            | 怎麼同時考慮 reference bit 與 dirty bit，減少 I/O？ |
+!!! danger
+
+    | 下一批主線項                            | 核心問題                                     |
+    | --------------------------------- | ---------------------------------------- |
+    | FIFO                              | 最早進 RAM 的 page 先犧牲，會不會有問題？               |
+    | Optimal                           | 如果能看未來，最佳 victim page 是誰？                |
+    | LRU                               | 用「最近最少使用」近似未來行為                          |
+    | LRU-approximation / Second Chance | LRU 太貴時，怎麼用 reference bit 近似？            |
+    | Enhanced Second Chance            | 怎麼同時考慮 reference bit 與 dirty bit，減少 I/O？ |
 
 但本輪先不要急著算 FIFO/LRU，因為我們要先確定你真的會分辨：**page fault、有無 free frame、是否需要 page out、dirty bit 的角色。**
 
@@ -1127,30 +1129,34 @@ Enhanced Second Chance 的目的不是只減少 page faults，而是更明確地
 * Reference Bit(R)：最近有沒有用過？
 * Modification Bit / Dirty Bit(M)：有沒有被修改過？如果替換時 M = 1，通常要 page out 寫回 disk。
 
-講義 page 37 給出 class 排序，越上面越容易成為 victim page：
+!!! danger
 
-| Class | `(R, M)` | 意思         | 適合當 victim 的程度          |
-| ----: | -------- | ---------- | ----------------------- |
-|     0 | `(0, 0)` | 最近沒用，也沒被修改 | 最適合，替換成本最低              |
-|     1 | `(0, 1)` | 最近沒用，但被修改過 | 可以替換，但要 page out，I/O 較貴 |
-|     2 | `(1, 0)` | 最近用過，沒被修改  | 不太想替換，可能很快再用            |
-|     3 | `(1, 1)` | 最近用過，也被修改過 | 最不想替換，可能再用且替換要寫回 disk   |
+    講義 page 37 給出 class 排序，越上面越容易成為 victim page：
 
-所以 Enhanced Second Chance 的最短判斷是：
+    | Class | `(R, M)` | 意思         | 適合當 victim 的程度          |
+    | ----: | -------- | ---------- | ----------------------- |
+    |     0 | `(0, 0)` | 最近沒用，也沒被修改 | 最適合，替換成本最低              |
+    |     1 | `(0, 1)` | 最近沒用，但被修改過 | 可以替換，但要 page out，I/O 較貴 |
+    |     2 | `(1, 0)` | 最近用過，沒被修改  | 不太想替換，可能很快再用            |
+    |     3 | `(1, 1)` | 最近用過，也被修改過 | 最不想替換，可能再用且替換要寫回 disk   |
 
-**先找最近沒用的，再優先找乾淨的。**
+    所以 Enhanced Second Chance 的最短判斷是：
+
+    **先找最近沒用的，再優先找乾淨的。**
 
 ---
 
-### 6. 三個方法的關係
+!!! danger
 
-| 方法                        | 用到什麼資訊                     | 核心目標                         |
-| ------------------------- | -------------------------- | ---------------------------- |
-| Additional Reference Bits | reference bit 的時間歷史        | 更接近 LRU 的「最近使用程度」            |
-| Second Chance             | FIFO queue + reference bit | 避免 FIFO 直接踢掉最近用過的 page       |
-| Enhanced Second Chance    | reference bit + dirty bit  | 不只考慮最近使用，也考慮 page out I/O 成本 |
+    ### 6. 三個方法的關係
 
-講義 page 36 也說 Second Chance 的好處是改善 FIFO，因為它會考慮 page 是否最近被使用，而且實作相對簡單、在複雜度與效能之間取得平衡。
+    | 方法                        | 用到什麼資訊                     | 核心目標                         |
+    | ------------------------- | -------------------------- | ---------------------------- |
+    | Additional Reference Bits | reference bit 的時間歷史        | 更接近 LRU 的「最近使用程度」            |
+    | Second Chance             | FIFO queue + reference bit | 避免 FIFO 直接踢掉最近用過的 page       |
+    | Enhanced Second Chance    | reference bit + dirty bit  | 不只考慮最近使用，也考慮 page out I/O 成本 |
+
+    講義 page 36 也說 Second Chance 的好處是改善 FIFO，因為它會考慮 page 是否最近被使用，而且實作相對簡單、在複雜度與效能之間取得平衡。
 
 ---
 

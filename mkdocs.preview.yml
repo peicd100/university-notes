@@ -7,10 +7,10 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/114-2/電機_作業系統/期末考重點-ch8.md'
+  - 'md/114-2/電機_作業系統/期末考重點-ch9.md'
 
 exclude_docs: |
   *.md
-  !/md/114-2/電機_作業系統/期末考重點-ch8.md
+  !/md/114-2/電機_作業系統/期末考重點-ch9.md
   !/index.md
 # preview-target:end
