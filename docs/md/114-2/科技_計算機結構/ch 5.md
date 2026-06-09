@@ -1,788 +1,531 @@
 
 
 
+## ⭐記憶體在電腦中的角色 — 為什麼不能只說「記憶體就是 RAM」？
 
+講義位置：PDF viewer page 3 ~ PDF viewer page 6／輔助：Chapter 5 — Memory — 3 ~ 6
 
+### 1. 本輪核心問題：什麼東西算 Memory(記憶體)？
 
-## ⭐Stack Layout — 為什麼 Buffer Overflow 會先從「記憶體長相」開始學？
+這章不是一開始就直接講 `cache(快取)`，而是先問一個更基本的問題：
 
-講義位置：PDF viewer page 3 ~ PDF viewer page 6
+**電腦裡面，到底哪些東西有「儲存功能」？**
 
-### 1. 這個知識點在解決什麼問題？
+在 `Von Neumann architecture(馮·諾依曼電腦結構)` 裡，講義列出五大部分：`central arithmetical(運算器)`、`central control(控制器)`、`memory(記憶體)`、`input(輸入裝置)`、`output(輸出設備)`。但講義特別補充：CPU 裡的 `general-purpose registers(通用暫存器)` 雖然屬於運算器內部，但它們也能暫時存資料，所以也可以視為一種記憶體；外部記錄介質也有儲存功能。
 
-`Buffer Overflow(緩衝區溢位)` 不是一開始就從「攻擊」開始理解，而是先問一個更底層的問題：
+生活化一點講：
 
-程式執行時，變數、函式參數、return address(返回位址)、local variable(區域變數) 到底放在記憶體哪裡？
+你的電腦不是只有一個「倉庫」。它比較像一間餐廳：
 
-因為 buffer overflow 的本質是：
+* `register(暫存器)` 像廚師手上正在拿的食材，最快，但能拿的很少。
+* `main memory(主記憶體)` 像廚房旁邊的食材架，容量比較大，但拿取比手上慢。
+* `disk(硬碟／SSD 類二級儲存)` 像地下倉庫，很多很便宜，但拿東西最慢。
+* `BIOS chip(BIOS 晶片)` 像開店流程手冊，開機時先用，但平常不常改寫。
 
-資料寫超過原本 buffer(緩衝區) 的界線後，會覆蓋到旁邊的記憶體內容。
-
-而在 `stack-based buffer overflow(堆疊型緩衝區溢位)` 中，最危險的是：如果寫超過 buffer 後蓋到 return address，函式結束時 CPU 可能就不回原本的位置，而是跳到攻擊者指定的位置。
-
-所以本章第一步一定是先學 stack layout，不然後面 `return address overwrite(覆蓋返回位址)`、`NOP sled(NOP 雪橇)`、`shellcode` 都會變成硬背。
-
----
-
-### 2. Program Memory Stack(程式記憶體配置)：不同變數放在不同區段
-
-講義 PDF viewer page 3 用一段 C 程式搭配記憶體圖，說明程式的 memory layout(記憶體配置)。它把記憶體從低位址到高位址分成幾個常見區段：`Text segment(程式碼區段)`、`Data segment(資料區段)`、`BSS segment(未初始化靜態資料區段)`、`Heap(堆積區)`、`Stack(堆疊區)`。圖中也標出 `x`、`y`、`a,b,ptr` 與 `ptr` 指向的 heap 位置。
-
-我們用生活化方式記：
-
-`Text segment(程式碼區段)` 像「食譜本身」，放程式指令。
-`Data segment(資料區段)` 像「一開始就貼好標籤、有初始值的公共物品」。例如全域變數 `int x = 100;`。
-`BSS segment(未初始化靜態資料區段)` 像「已經保留位置但還沒填內容的公共物品」。例如 `static int y;`。
-`Heap(堆積區)` 像「你執行中臨時租的倉庫」，通常由 `malloc()` 配出來。
-`Stack(堆疊區)` 像「函式正在工作時的桌面」，放 local variable(區域變數)、function arguments(函式參數)、return address(返回位址) 等。
-
-最重要的是：`ptr` 這種 pointer variable(指標變數) 本身可以放在 stack，但它指向的資料可能在 heap。不要把「指標變數的位置」和「指標指到的資料位置」混在一起。
+所以本章的 `memory(記憶體)` 不是只等於 RAM，而是泛指電腦中「能保存資料或程式狀態」的元件。
 
 ---
 
-### 3. Function Arguments in Stack(函式參數在堆疊中的位置)
+### 2. 第一個需求：Non-volatility(非揮發性)
 
-PDF viewer page 4 進一步看函式參數。例如 `void func(int a, int b)` 裡面有 local variables `x, y`，講義圖中的 assembly 註解指出：`b` 可以在 `%ebp + 12`，`a` 可以在 `%ebp + 8`，而 local variable `x` 可以在 `%ebp - 8`。
+講義的第一個需求是：系統通電啟動時，需要執行的程式與資料要已經存在，而且斷電後不會消失。這種斷電後仍能保留資訊的記憶體稱為 `non-volatile memory(非揮發性記憶體)`。講義同時指出，`main memory(主記憶體)` 與 CPU 中的通用暫存器通常是 `volatile memory(揮發性記憶體)`，斷電後資料會遺失；而 BIOS 晶片與硬碟是非揮發性的，所以 CPU 通電後要先從 BIOS 開始執行，再把更多程式與資料從硬碟搬到記憶體中。
 
-這裡的核心規則不是要你背每個數字，而是要抓方向：
+核心原理是：
 
-以 `ebp(frame pointer, 框架指標)` 當作目前 stack frame(堆疊框架) 的基準點時，function arguments(函式參數) 通常在 `ebp` 的上方，也就是比較高位址的 offset；local variables(區域變數) 通常在 `ebp` 的下方，也就是比較低位址的 offset。
+**電腦需要某些地方能在斷電後還記得「開機要怎麼開始」。**
 
-可以把 `ebp` 想成書籤：
-書籤上面放「呼叫者傳進來的東西」；
-書籤下面放「這個函式自己臨時用的東西」。
-
-這對 buffer overflow 很重要，因為 local buffer 通常在目前函式的 stack frame 裡。如果程式不檢查長度，buffer 往外寫，就可能一路蓋到 saved frame pointer(舊框架指標) 或 return address(返回位址)。
+如果所有記憶體都像 RAM 一樣斷電就忘光，電腦一開機會完全不知道第一條指令在哪裡。
 
 ---
 
-### 4. Function Call Stack(函式呼叫堆疊)：每次呼叫函式都會多一層 stack frame
+### 3. 第二個需求：Read/Write(可讀可寫)
 
-PDF viewer page 5 用 `main()` 呼叫 `f(1,2)` 的例子，圖中顯示 `f()` 的 stack frame 裡有 `Value of b:2`、`Value of a:1`、`Return Address`、`Previous Frame Pointer`、`Value of x`。
+講義第二個需求是：記憶體最好能 `read(讀)` 又能 `write(寫)`。主記憶體和硬碟一般都可讀可寫；BIOS 晶片雖然不是完全不能寫，但寫入需要特殊設備或特殊流程，不適合經常性寫入。
 
-這一頁要你理解：
+生活化例子：
 
-當 `main()` 呼叫 `f(1,2)` 時，CPU 不能只跳去 `f()`，它還要記得「`f()` 執行完要回哪裡」。這個「回哪裡」就是 return address。
+* 筆記本：你可以讀以前寫的，也可以隨時改，像 RAM 或硬碟。
+* 印好的說明書：你可以讀，但不方便改，像 BIOS 晶片。
 
-所以 stack frame 裡不只放變數，還放控制流程需要的資訊。
-也就是說，stack 不是單純資料倉庫，它也影響程式之後會往哪裡執行。
-
-這就是 buffer overflow 危險的根本原因：
-如果攻擊者能改寫 stack 裡的 return address，就可能改變程式控制流程。
+所以 `read/write(可讀可寫)` 不是在問「能不能存資料」而已，而是在問：**CPU 或系統能不能很方便地更新這份資料。**
 
 ---
 
-### 5. Function Call Chain(函式呼叫鏈)：目前函式會蓋在前一層函式下面
+### 4. 第三個需求：Random Access(隨機存取)
 
-PDF viewer page 6 用 `main()` → `foo()` → `bar()` 說明 function call chain(函式呼叫鏈)。圖中 stack grows downward，也就是 stack 往低位址方向成長；目前正在執行的 `bar()` stack frame 位於比較下面的位置，並且保留 `foo()` 的 frame pointer；`foo()` 又保留 `main()` 的 frame pointer。
+講義第三個需求是：記憶體必須支援 `random access(隨機存取)`。意思是：存取任何位置的資料，時間不應該強烈依賴它在第幾個位置。講義用磁帶作為反例：如果你要聽第十首歌，必須先快轉經過前九首，這就不是隨機存取；程式執行時常常會跳到任意位置讀資料，如果記憶體不能隨機存取，效能會很差。
 
-我們可以想成一疊便條紙：
+這裡的關鍵不是「隨便亂存」，而是：
 
-`main()` 先貼一張。
-`main()` 叫 `foo()`，`foo()` 再貼一張在上面／下面的 stack 方向位置。
-`foo()` 叫 `bar()`，`bar()` 再貼一張。
-目前 CPU 在 `bar()` 裡工作，但它要能沿著 previous frame pointer(前一個框架指標) 找回 `foo()`，再找回 `main()`。
+**Address(位址) 可以直接指定位置，而不是一定要從頭掃到那裡。**
 
-所以 stack frame 不是孤立的，它們串成一條呼叫鏈。
+這對 CPU 非常重要，因為程式不是永遠照順序讀資料。像 array、pointer、function call、branch、load/store 都可能要求 CPU 去某個特定位址拿資料。
 
 ---
 
-### 6. 本輪最短記法
+### 5. 第四個需求：Access Time(存取時間)
 
-`Stack layout` 要抓三句：
+講義第四個需求是速度，也就是 `access time(存取時間)`。CPU 運轉很快，因此當 CPU 要資料時，最好能在很短時間內拿到；如果記憶體太慢，CPU 就會等資料，後續操作會被阻塞。講義也指出主記憶體速度明顯高於硬碟速度。
 
-第一，程式記憶體分區，不同變數不一定在同一區：global initialized data 在 `Data segment`，static uninitialized data 在 `BSS`，`malloc()` 配的資料在 `Heap`，函式內 local variables 與呼叫資訊在 `Stack`。
+這裡有一個很重要的不變量：
 
-第二，function stack frame 裡通常有 arguments、return address、previous frame pointer、local variables。
+**CPU 不只是要資料正確，也要資料來得及。**
 
-第三，buffer overflow 之所以危險，是因為 local buffer 若寫超界，可能覆蓋 stack frame 裡的 control information(控制流程資訊)，尤其是 return address。
-
----
-
-### 7. 常見錯法
-
-常見錯法一：以為 pointer 在哪裡，資料就在哪裡。
-修正：pointer variable 本身可能在 stack，但它指向的資料可能在 heap。
-
-常見錯法二：以為 return address 是普通變數。
-修正：return address 是函式返回時 CPU 要用來決定下一個執行位置的控制資訊。
-
-常見錯法三：以為 stack 只存 local variables。
-修正：stack frame 還會存 arguments、previous frame pointer、return address 等呼叫相關資訊。
-
-常見錯法四：看到 stack grows downward 就以為所有圖都能直接用「上面／下面」判斷危險方向。
-修正：考試回答要講「相對於 frame pointer 的 offset」與「覆蓋到 return address 的風險」，不要只說圖上的上下。
-
-### previous frame pointer 和 return address 一樣嗎
-
-#### 1. 直接答案
-
-不一樣。
-
-`previous frame pointer(前一層框架指標)` 和 `return address(返回位址)` 都放在 stack frame(堆疊框架) 裡，但用途完全不同。講義的 function call stack 圖把 `Return Address` 和 `Previous Frame Pointer` 畫成不同欄位；後面的 call chain 圖也用 previous frame pointer 把 `bar()`、`foo()`、`main()` 的 stack frame 串起來。
+如果 CPU 一秒可以做很多次運算，但每次都要等很慢的硬碟，它就像一個超快廚師一直站在原地等倉庫搬食材。CPU 很快也沒用，因為資料供應跟不上。
 
 ---
 
-#### 2. 差異表
+### 6. 為什麼講義還列出 Capacity(容量)、Cost(價格)、Power(功耗)？
 
-| 項目    | `previous frame pointer`                       | `return address`                               |
-| ----- | ---------------------------------------------- | ---------------------------------------------- |
-| 中文    | 前一層框架指標／舊 `ebp/rbp`                            | 返回位址                                           |
-| 存的是什麼 | caller(呼叫者) 的 frame pointer                    | 函式結束後要跳回去的 instruction address(指令位址)           |
-| 主要用途  | 恢復上一層 stack frame，讓程式或 debugger 可以找回呼叫鏈        | 決定 `ret` 之後 CPU 要繼續執行哪裡                        |
-| 被破壞後  | stack frame chain 亂掉，可能 crash，也可能影響後續 stack 存取 | control flow(控制流程) 直接被改，buffer overflow 最常想蓋這個 |
-| 危險程度  | 危險，但通常不是最直接的跳轉目標                               | 非常危險，因為可讓 CPU 跳到攻擊者指定位置                        |
+PDF viewer page 5 把記憶體特性整理成：非易失性、可讀可寫、隨機存取、存取時間、容量、價格、功耗，並用 CPU 通用暫存器、主記憶體、BIOS 晶片、硬碟作為對照物件。
 
-外部交叉參考也有相同說法：在典型 frame pointer layout 中，caller 的 `%rbp` 和 return address 是相鄰但不同的位置；函式結束時會恢復 caller 的 `%rbp`，再用 `ret` 回到 return address。([CS 61][1])
+這其實是在鋪陳後面的 `memory hierarchy(儲存層次結構)`：
 
----
+!!! danger
+    如果有一種記憶體同時具備：
 
-#### 3. 用一句話記
+    * 斷電不消失
+    * 可讀可寫
+    * 隨機存取
+    * 跟 CPU 一樣快
+    * 容量超大
+    * 超便宜
+    * 超省電
+    
+    ==以上是記憶體要求==
 
-`previous frame pointer` 是「我要怎麼回到上一層函式的 stack frame」。
-`return address` 是「我要回到上一層函式的哪一行繼續執行」。
+那我們就不需要分層了，全部都用那一種就好。
 
-生活化比喻：
-
-`previous frame pointer` 像「上一張工作桌的座標」。
-`return address` 像「做完這件事之後，要回到哪個步驟繼續」。
-
----
-
-#### 4. 為什麼 buffer overflow 特別盯上 return address？
-
-因為 overwrite(覆蓋) `return address` 會改變 CPU 接下來執行的位置。講義後面也明確說，蓋掉 return address 可能導向 invalid instruction、non-existing address、access violation，或 attacker’s code(攻擊者程式碼)；badfile 結構那頁也把目標寫成覆蓋 `Return Address`。
-
-
-
-
-
-
-## ⭐Vulnerable Program — 程式哪裡開始讓 buffer overflow 變成可能？
-
-講義位置：PDF viewer page 7 ~ PDF viewer page 9
-
-### 1. 這個知識點在解決什麼問題？
-
-前面我們已經知道 stack frame 裡有 local buffer、previous frame pointer、return address。現在要問：
-
-到底哪一種程式碼會讓使用者輸入「寫超過 buffer 邊界」，一路覆蓋到 stack frame 裡的 return address？
-
-講義 PDF viewer page 7 先給 `main()`：它從 `badfile` 讀 300 bytes 到 `str[400]`，然後呼叫 `foo(str)`。這一步本身還沒有 overflow，因為 300 bytes 放進 400-byte 的 `str` 還放得下。真正危險發生在下一頁的 `foo()`。
+但現實是：越快的記憶體通常越貴、容量越小；越大越便宜的儲存通常越慢。這就是後面要進入 `CPU/DRAM/Disk comparison(CPU 和記憶體特性對比)` 與 `memory hierarchy(儲存層次結構)` 的原因。
 
 ---
 
-### 2. 第一層：`main()` 讀入 attacker-controlled input(攻擊者可控輸入)
-![alt text](<images/ch 5-3.png>)
-PDF viewer page 7 的重點是：`badfile` 是 user-created，也就是使用者可以控制內容。程式把 300 bytes 從 `badfile` 讀進 `str[400]`，再把 `str` 傳給 `foo(str)`。
-
-這裡要分清楚：
-
-`str[400]` 本身夠大，所以 `fread()` 讀 300 bytes 進 `str`，不是主要爆點。
-真正問題是：這 300 bytes 之後會被傳進 `foo()`，而 `foo()` 裡面的目標 buffer 比較小。
-
-所以考試看到這種題目，不要只看「第一個 buffer 夠不夠大」，還要追資料之後流到哪裡。
-
----
-
-### 3. 第二層：`foo()` 裡的 `buffer[100]` 才是爆點
-![alt text](<images/ch 5-2.png>)
-PDF viewer page 8 的 `foo(char *str)` 裡有：
-
-`char buffer[100];`
-
-然後：
-
-`strcpy(buffer, str);`
-
-這裡的危險點是 `strcpy()` 不知道 `buffer` 只有 100 bytes，它會一直複製直到遇到 string terminator(字串結束符號)。如果 `str` 的內容超過 `buffer` 能放的大小，就會繼續往 buffer 後面的 stack 空間寫。講義 page 8 的 stack 圖也畫出 `buffer copy` 會往上覆蓋到 `Previous Frame Pointer` 和 `Return Address`。
-
-用生活化例子想：
-
-`buffer[100]` 像一個只能裝 100 顆球的盒子。
-`strcpy()` 像一個不看盒子容量的工人。
-你給它 300 顆球，它不會停在 100 顆，而是繼續往盒子旁邊的桌面倒。
-旁邊如果剛好放著 return address，就會被蓋掉。
-
----
-
-### 4. 資料流圖：漏洞怎麼從 `badfile` 流到 return address
+### 7. 本輪概念圖
 
 ```mermaid
 flowchart TD
-    A["badfile<br>攻擊者可控制內容"] --> B["main() 的 str[400]<br>讀入 300 bytes"]
-    B --> C["foo(str)<br>把 str 傳入函式"]
-    C --> D["foo() 的 buffer[100]<br>目標空間太小"]
-    D --> E["strcpy(buffer, str)<br>沒有檢查長度"]
-    E --> F["寫超過 buffer 邊界"]
-    F --> G["覆蓋 previous frame pointer<br>可能破壞 stack frame"]
-    G --> H["覆蓋 return address<br>可能改變控制流程"]
+    A["電腦需要保存程式與資料"] --> B["有哪些元件有儲存功能？"]
+    B --> C["CPU 內部 register(暫存器)<br>最快，但容量極小"]
+    B --> D["main memory(主記憶體)<br>可讀寫，速度中等"]
+    B --> E["BIOS chip(BIOS 晶片)<br>非揮發，但不適合常寫"]
+    B --> F["disk(硬碟／二級儲存)<br>容量大，斷電不消失，但慢"]
+
+    A --> G["記憶體需要哪些特性？"]
+    G --> H["non-volatile(非揮發性)<br>斷電後仍保留"]
+    G --> I["read/write(可讀可寫)<br>可讀也方便更新"]
+    G --> J["random access(隨機存取)<br>可直接用 address(位址) 找資料"]
+    G --> K["access time(存取時間)<br>資料要來得及供應 CPU"]
+    G --> L["capacity / cost / power<br>容量、價格、功耗"]
 ```
-
-核心不是單一指令，而是整條 data flow(資料流)：
-
-攻擊者可控輸入 → 傳入函式 → 複製到太小的 local buffer → 沒有長度檢查 → 覆蓋 stack frame 後方欄位。
 
 ---
 
-### 5. 為什麼覆蓋 return address 是控制流程問題？
+### 8. 最短記法
 
-PDF viewer page 9 說，overwriting return address with some random address can point to invalid instruction、non-existing address、access violation，或 attacker’s code。
+本輪你先抓住一句話就好：
 
-這表示 overflow 的後果分兩種：
+**記憶體不是只有 RAM；只要能存資料或程式狀態，都可以納入記憶體／儲存系統的討論。而電腦真正想要的是：不會忘、可讀寫、能直接找、夠快、夠大、夠便宜、夠省電。**
 
-第一種是 crash(崩潰)：return address 被亂蓋，CPU 跳到不存在或不能執行的位置。
-第二種是 exploit(利用)：return address 被精心改成某個攻擊者想要的位置，CPU 跳去執行攻擊者安排的 code。
+但現實中沒有一種記憶體能全部做到，所以後面才需要 `memory hierarchy(儲存層次結構)`。
 
-所以 buffer overflow 的重點不是「buffer 滿了」而已，而是「寫超界後剛好能碰到控制程式流向的資訊」。
+### 錯題
+
+!!! danger
+
+    Suppose a storage device has the following properties:
+
+    - It can keep data after power is turned off.
+        
+    - It can be read and written.
+        
+    - To access item number 100, it must scan through items 1 to 99 first.
+        
+    - It has large capacity but slow access time.
+        
+
+    Which memory requirement from this lecture does it fail to satisfy most directly? Explain why that requirement matters for CPU execution.
+
+
+    ==ANS:==
+
+    隨機存取，因為他說要讀100 要先經過 1~99。對CPU很重要是因為如果每次都要從 1 開始會花很多時間，效率很低。
+
+    ==注意==
+    他要問的是哪一個講義中提到的"記憶體要求"不符合。
+    
+    
+    
+
+## ⭐Memory Hierarchy — 為什麼電腦不能只用一種超大的記憶體？
+
+講義位置：PDF viewer page 7 ~ PDF viewer page 14／輔助：Chapter 5 — Memory — 7 ~ 14
+
+### 1. 本輪核心問題：CPU 太快，記憶體跟不上怎麼辦？
+
+上一輪我們整理出理想記憶體需要：不會斷電遺失、可讀可寫、隨機存取、夠快、夠大、夠便宜、夠省電。
+
+這一輪講義開始用數據告訴你一件事：
+
+**現實世界沒有一種記憶體同時滿足所有需求。**
+
+講義在 PDF viewer page 7 用 CPU、DRAM、Disk 的歷史資料對比速度、容量與價格。CPU 的 cycle time(週期時間)從 1980 年的 1000 ns 到 2010 年的 0.4 ns，速度進步非常快；DRAM access time(存取時間)從 375 ns 到 40 ns，雖然也變快，但遠遠追不上 CPU；Disk 的 access time 用 ms(毫秒) 當單位，和 CPU 的 ns(奈秒) 差距更大。
+
+生活化例子：
+
+CPU 像一個超快廚師，一秒可以切很多菜；DRAM 像廚房旁邊的冰箱；Disk 像地下倉庫。
+廚師越來越快，但冰箱和倉庫送食材的速度沒有等比例變快，結果廚師常常不是在做菜，而是在等食材。
+
+---
+
+### 2. 為什麼 Disk(硬碟)不能直接當 CPU 的主要工作記憶體？
+
+Disk 的優點是容量大、單位價格低、斷電不會消失；但它的缺點是太慢。講義在 PDF viewer page 7 特別強調，硬碟的 access time 單位是 ms，而 CPU 與 DRAM 的比較常用 ns；ms 和 ns 差了非常多個數量級。
+
+所以 disk 適合當「大倉庫」，不適合直接當 CPU 每個 cycle 都要碰的工作區。
+
+用一句話記：
+
+**Disk 很會存，但不會快。**
+
+---
+
+### 3. 為什麼 Main Memory(主記憶體/DRAM)也不夠？
+
+DRAM 比 disk 快很多，也可以和 CPU 直接交換資料；但 CPU 進步得更快。講義說 1980 年時 DRAM 甚至還比 CPU 需求快一些，因此不用太擔心資料供應；到了 1990 年，DRAM 速度已經比 CPU 慢，而且差距越來越大。
+
+這就是常見的 `memory wall(記憶體牆)` 直覺：
+CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效能被資料供應卡住。
+
+---
+
+### 4. Cache(快取記憶體)為什麼出現？
+
+講義在 PDF viewer page 13 用 1980 年代 x86 CPU 的 cache 設計說明這個演化：早期 8088、80286 還不需要 cache；到了 80386，DRAM 已明顯慢於 CPU，因此用片外 SRAM 作為 cache；到了 80486，cache 被設計到 CPU 晶片內部。
+
+這裡的核心不是背年份，而是理解因果：
+
+```mermaid
+flowchart TD
+    A["CPU 速度快速提升"] --> B["DRAM 速度跟不上"]
+    B --> C["CPU 等資料的時間變多"]
+    C --> D["加入 cache(快取記憶體)"]
+    D --> E["把常用資料放在更靠近 CPU、速度更快的位置"]
+```
+
+`cache(快取記憶體)` 的角色像「廚師手邊的小食材盒」：
+不是把整個倉庫搬到手邊，而是把最近常用、可能再用到的東西先放近一點，減少每次都跑去慢速記憶體拿資料。
+
+---
+
+### 5. Memory Hierarchy(儲存層次結構)的核心規則
+
+PDF viewer page 14 把儲存層次結構整理成由上到下：
+
+1. `general-purpose registers(通用暫存器)`：Byte 量級
+2. `cache memory(快取記憶體)`：KB ~ MB 量級
+3. `main memory(主記憶體)`：MB ~ GB 量級
+4. `local secondary storage(本地二級儲存)`：GB ~ TB 量級
+
+講義給出的關鍵規則是：越往上，容量越小、速度越快、單位位元組成本越高；越往下，容量越大、速度越慢、單位位元組成本越低。
+
+所以 Memory Hierarchy(儲存層次結構)不是隨便排列，它是在解決一個 trade-off(取捨)：
+
+**我們想讓 CPU 感覺資料很快就拿得到，同時又想讓系統真的能存很多資料，而且成本不能爆炸。**
 
 ---
 
 ### 6. 最短記法
 
-本輪可以記成四段：
+這一輪先背這句就好：
 
-`badfile` 可控。
-`str[400]` 先接住 300 bytes。
-`foo()` 裡 `buffer[100]` 太小。
-`strcpy()` 不檢查長度，所以可能覆蓋 `return address`。
-
-考試版一句話：
-
-`The vulnerability occurs because attacker-controlled input is copied by strcpy() into a smaller stack buffer without bounds checking, allowing data to overflow past the buffer and overwrite control data such as the return address.`
-
----
-
-### 7. 常見錯法
-
-常見錯法一：以為 `str[400]` 有 400 bytes，所以整個程式安全。
-修正：要看資料最後被複製到哪裡；`foo()` 的 `buffer[100]` 才是危險位置。
-
-常見錯法二：以為 overflow 一定會成功攻擊。
-修正：overflow 可能只是 crash；要成功攻擊，還要讓 return address 指到可用位置，這是後面頁面的主題。
-
-常見錯法三：以為 `strcpy()` 本身永遠錯。
-修正：`strcpy()` 危險在於沒有 bounds checking(邊界檢查)；若來源長度確定小於目標空間，才不會 overflow。但在 attacker-controlled input 情境下，這很危險。
+**越靠近 CPU：越快、越小、越貴；越遠離 CPU：越慢、越大、越便宜。Memory Hierarchy 就是在用多層儲存，假裝我們同時擁有「很快」和「很大」。**
 
 
-## ⭐How to Run Malicious Code — 覆蓋 return address 之後，CPU 為什麼會跑去執行攻擊者的 code？
 
-講義位置：PDF viewer page 10 ~ PDF viewer page 17
 
-### 1. 這個知識點在解決什麼問題？
 
-上一段我們只知道：「`strcpy(buffer, str)` 可能把資料寫超過 `buffer[100]`，甚至蓋到 return address。」
+## ⭐SRAM vs DRAM — 為什麼 Cache 常用 SRAM，而 Main Memory 常用 DRAM？
 
-現在要問更進一步的問題：
+講義位置：PDF viewer page 15 ~ PDF viewer page 29／輔助：Chapter 5 — Memory — 15 ~ 29
 
-攻擊者不是只想讓程式 crash，而是想讓 CPU 跳去執行他放好的 code。那輸入資料要怎麼安排，才可能做到？
+### 1. 本輪核心問題：快與便宜為什麼不能同時拿滿？
 
-講義 PDF viewer page 10 用 stack before / after 圖說明：攻擊者準備一份 `badfile`，裡面同時放入 malicious code(惡意程式碼) 和 new address(新返回位址)；當 buffer copy 發生後，原本的 return address 被改成 new return address，讓函式返回時跳到被安排的位置。
+前面我們說 memory hierarchy(儲存層次結構)的上層比較快、比較小、比較貴；下層比較慢、比較大、比較便宜。這一輪講義開始追問更底層的原因：
 
-這裡先抓概念，不背實作細節：
+**為什麼 cache(快取記憶體)常用 SRAM，而 main memory(主記憶體)常用 DRAM？**
 
-攻擊資料不是亂塞，而是有結構地塞。
-它要同時做到兩件事：
-第一，把 code 放進記憶體某處。
-第二，把 return address 改成會跳到那個 code 附近。
+PDF viewer page 15 先給結論：`SRAM(Static Random-access Memory，靜態隨機存取記憶體)` 比較快、比較貴；`DRAM(Dynamic Random-access Memory，動態隨機存取記憶體)` 比較慢、比較便宜。但講義也強調，不只要背結論，還要知道為什麼。
 
 ---
 
-### 2. Stack before / after：攻擊前後差在哪裡？
+### 2. SRAM(靜態隨機存取記憶體)：通電時狀態可以穩定維持
 
-攻擊前，stack frame 大概像這樣：
+`SRAM(靜態隨機存取記憶體)` 的「Static(靜態)」不是指斷電後資料還在，而是指：
 
-```mermaid
-flowchart TB
-    A["高位址"] --> B["Arguments<br>函式參數"]
-    B --> C["Return Address<br>正常返回位置"]
-    C --> D["Previous Frame Pointer<br>前一層框架指標"]
-    D --> E["buffer[99] ... buffer[0]<br>local buffer"]
-    E --> F["低位址"]
-```
+**只要保持供電，資料狀態就能穩定維持，不需要像 DRAM 那樣週期性刷新。**
 
-攻擊後，buffer copy 寫超界，可能變成：
+所以 SRAM 仍然是 `volatile memory(揮發性記憶體)`：一旦斷電，資料還是會消失。這點很容易跟 ROM、Flash 混淆，考試如果問「SRAM 是不是 non-volatile(非揮發性)？」答案是 **不是**。
 
-```mermaid
-flowchart TB
-    A["高位址"] --> B["Malicious Code<br>惡意程式碼"]
-    B --> C["被覆蓋區域"]
-    C --> D["New Return Address<br>新的返回位址"]
-    D --> E["被覆蓋區域"]
-    E --> F["低位址"]
-```
+生活化例子：
 
-重點是：CPU 不知道這是攻擊。CPU 只照規則做事：函式結束時讀 return address，然後跳過去。若 return address 已經被攻擊者改掉，CPU 就會被導向新的位置。
+SRAM 像你用手一直穩穩拿著一張牌。只要你還醒著、手還有力氣，牌就不會掉；但你睡著或斷電，牌就沒了。
 
 ---
 
-### 3. badfile 的概念結構：不是只有垃圾資料
+### 3. SRAM 為什麼快？因為它用電路狀態直接維持 0/1
 
-PDF viewer page 12 說明製作 malicious input 的兩個任務：Task A 是找出 buffer base address 到 return address 的 offset distance；Task B 是找出 shellcode 要放的位置。PDF viewer page 16 則把 badfile 結構畫成：前面有 NOP 區，中間有覆蓋 return address 的位置，後面有 malicious code。
+講義中的 SRAM 基本儲存單元用 6 個 transistor(電晶體)保存 1 bit。它可以想成兩個互相支撐的反相器，形成穩定的 0/1 狀態。讀寫時會透過 `WL(word line，字元線)` 控制是否連接到外部，並透過 `BL/BLbar(bit line/反相位元線，位元線與反相位元線)` 傳送資料。
 
-概念上，badfile 可以分成三塊：
+你先不用把每個 transistor 的開關細節全部背到會畫，但要抓住三個考點：
 
-| 區塊                         | 目的                                   |
-| -------------------------- | ------------------------------------ |
-| padding / NOP sled         | 填滿 buffer，並增加跳到惡意程式碼附近的容錯率           |
-| overwritten return address | 蓋掉原本 return address，讓 CPU 跳到攻擊者想要的位置 |
-| malicious code / shellcode | 真正希望 CPU 執行的程式碼                      |
+1. SRAM 一個 bit 需要較複雜的電路，常見是 6T cell(六電晶體儲存單元)。
+2. 因為資料由穩定電路狀態維持，所以不需要 refresh(刷新)。
+3. 電路複雜代表面積大、成本高、容量密度低，但速度快。
 
-這裡的 `offset(偏移距離)` 很重要。攻擊者需要知道「從 buffer 開頭數幾個 bytes 會碰到 return address」。如果距離算錯，可能只會 crash，或根本蓋不到 return address。
+PDF viewer page 24 也收束 SRAM 的特點：速度較快，但集成度低、功耗較高、價格較高；現代 CPU 中的 cache 通常使用 SRAM。
 
 ---
 
-### 4. NOP sled(NOP 雪橇)：為什麼不用跳得超精準？
+### 4. SRAM 的寫入與讀取：先抓高層流程
 
-PDF viewer page 15 說明：為了提高跳到正確位置的機率，可以在 badfile 中填入很多 NOP instructions，並把 malicious code 放在 buffer 後端。`NOP(No Operation)` 是 CPU 執行後什麼都不做的指令。
-
-生活化想法：
-
-你不用精準跳到滑水道的出口，只要跳到滑水道上，最後就會滑到出口。
-
-在這裡：
-
-CPU 如果跳到 NOP sled 中間，不會立刻出錯。
-它會一路執行 NOP、NOP、NOP。
-最後滑到 malicious code。
-
-所以 NOP sled 的用途是增加容錯率，不是執行真正的攻擊邏輯。
-
----
-
-### 5. 整個流程的安全理解版
-
-PDF viewer page 17 把整個攻擊流程整理成：程式有漏洞、攻擊者輸入超過 buffer、覆蓋 return address、CPU 返回時讀取被改過的 return address、跳進 buffer，最後執行惡意程式碼。
-
-整理成流程圖：
+SRAM 的寫入流程可以用這樣理解：
 
 ```mermaid
 flowchart TD
-    A["程式有漏洞<br>例如 strcpy() 沒檢查長度"] --> B["攻擊者準備 badfile<br>內容包含填充資料與惡意程式碼"]
-    B --> C["資料被複製進 stack buffer"]
-    C --> D["超出 buffer 邊界"]
-    D --> E["覆蓋 previous frame pointer<br>與 return address"]
-    E --> F["函式結束時 CPU 讀 return address"]
-    F --> G["return address 已被改成新位置"]
-    G --> H["CPU 跳到攻擊者安排的位置"]
-    H --> I["若條件成立<br>惡意程式碼被執行"]
+    A["外部準備要寫入的資料<br>放到 BL / BLbar"] --> B["WL(word line) 拉高"]
+    B --> C["M5 / M6 連通<br>儲存單元接上位元線"]
+    C --> D["BL / BLbar 的值推動內部電路"]
+    D --> E["內部形成穩定的 0 或 1"]
+    E --> F["WL 拉低<br>儲存單元與外部分離"]
 ```
 
-本章後面還會講為什麼這在現代系統比較不容易成功，因為會有 ASLR、NX/DEP、Stack Canary、safer functions 等 countermeasures(防禦措施)。那是下一個主線知識點。
-
----
-
-### 6. 最短記法
-
-這段可以記成一句：
-
-`badfile` 的目標是「塞入 code，算準 offset，覆蓋 return address，讓 CPU return 時跳到攻擊者安排的位置」。
-
-更考試版一點：
-
-`The malicious input is structured to overflow the stack buffer, overwrite the return address with a new address, and place malicious code in a reachable memory region. When the function returns, control flow is redirected to that region.`
-
----
-
-### 7. 常見錯法
-
-常見錯法一：以為 overflow 只是在記憶體塞爆資料。
-修正：真正危險的是覆蓋 control data(控制資料)，尤其是 return address。
-
-常見錯法二：以為 malicious code 和 new return address 是同一個東西。
-修正：malicious code 是要被執行的內容；new return address 是讓 CPU 跳過去的地址。
-
-常見錯法三：以為 NOP sled 是惡意程式碼本體。
-修正：NOP sled 只是容錯滑道，真正的 payload 在後面。
-
-常見錯法四：以為只要覆蓋 return address 就一定成功。
-修正：還需要位址猜得中、stack 可執行、防禦機制沒擋住等條件；這些會在下一段 countermeasures 處理。
-
-
-
-### 所以意思是說會在原本的 return address 32 bit 換一個新的 return address 嗎？然後既然 new retrun address 是自己寫的，為何還是需要 nop？然後 nop 最後是會滑到惡意程式的 main 開頭對不對
-
-
-
-#### 1. 你的理解大方向正確，但有三個小地方要修正
-
-對，在這份講義的 32-bit x86 情境中，`return address(返回位址)` 通常是一個 4 bytes，也就是 32-bit 的欄位。Buffer overflow 發生後，不是 CPU 主動「換掉」它，而是攻擊輸入的 bytes 剛好寫到 stack frame 中原本存 return address 的位置，於是那 4 bytes 被覆蓋成另一個 address。講義 page 16 也寫到：原本 `Return Address = 正常程式位置`，攻擊後變成 `Return Address = buffer 裡的位置`。
-
----
-
-#### 2. 為什麼 new return address 是自己寫的，還需要 NOP？
-
-因為「自己寫 new return address」不代表「可以 100% 精準寫到 shellcode 的第一個 byte」。
-
-原因是攻擊者通常只能估一個大概位置，例如：
-
-`buffer` 的起始位址可能有誤差。
-環境變數、stack alignment(堆疊對齊)、編譯器配置可能讓位置偏一點。
-後面 ASLR(Address Space Layout Randomization，位址空間配置隨機化) 還會讓 stack address 更難猜。
-
-所以 `NOP sled(NOP 雪橇)` 的作用是把「必須命中一個精準小點」變成「命中一整段可接受區域」。
+SRAM 的讀取流程則是：
 
 ```mermaid
-flowchart LR
-    A["new return address<br>可能只跳到大概位置"] --> B["NOP sled<br>NOP NOP NOP ..."]
-    B --> C["shellcode<br>真正要執行的惡意程式碼"]
+flowchart TD
+    A["儲存單元內部已保存 0 或 1"] --> B["讀取前先準備位元線"]
+    B --> C["WL(word line) 拉高"]
+    C --> D["內部狀態影響 BL / BLbar"]
+    D --> E["感測電路判斷哪一邊代表 1、哪一邊代表 0"]
 ```
 
-如果沒有 NOP，new return address 必須非常精準地指到 shellcode 開頭；差一點可能就跳到亂碼或資料中間，直接 crash。講義 page 15 說 NOP 是什麼都不做的 instruction，放很多 NOP 是為了增加跳到正確位置的機率；page 16 也說只要 CPU 落在 NOP 區，就會一路往後滑到惡意程式碼。
-
-外部交叉查證也一致：OWASP 說 buffer overflow 可能覆蓋本不該被修改的記憶體片段，造成 crash 或惡意程式碼執行；社群討論中也常把 NOP sled 解釋成「放大可命中的 landing area(落點區域)」，避免 return address 必須精準命中 shellcode 的起點。([OWASP Foundation][1])
-
----
-
-#### 3. NOP 最後是滑到「惡意程式的 main 開頭」嗎？
-
-不精準。應該說：
-
-NOP 最後會滑到 `shellcode(殼程式碼)` 或 `malicious code(惡意程式碼)` 的第一個有效 machine instruction(機器指令)。
-
-它通常不是 C 程式那種 `main()` 開頭。
-
-原因是 shellcode 不是一般完整 C 程式，不會像正常程式一樣經過 loader(載入器)、runtime initialization(執行期初始化)，再進 `main()`。在這種 buffer overflow 教學情境中，shellcode 通常是一小段直接讓 CPU 執行的 machine code。講義 page 24–25 後面會接著說 shellcode 的目標是取得能執行更多 command 的 shell，並用 assembly code / machine instructions 來做。
-
-所以你可以改成這樣記：
-
-`NOP sled` 不是滑到「惡意程式的 main」，而是滑到「shellcode 的第一個有效指令」。
+用生活例子講，SRAM 像一個很穩的雙開關機構：
+寫入時，是外部把開關推到指定狀態；讀取時，是看這組開關目前偏向哪一邊。
 
 ---
 
-#### 4. 最短正確版
+### 5. DRAM(動態隨機存取記憶體)：用電容存 0/1，所以要 refresh(刷新)
 
-你的句子可以修成：
+`DRAM(動態隨機存取記憶體)` 的「Dynamic(動態)」來自它需要週期性更新。DRAM 的基本概念是用 capacitor(電容)是否帶電來表示資料：
 
-在 32-bit x86 的 stack buffer overflow 中，攻擊輸入會覆蓋原本 4-byte 的 `return address`，把它改成指向 buffer 附近的新位址。因為這個位址不一定能精準命中 shellcode 開頭，所以會放一段 `NOP sled` 當作容錯區。CPU 如果跳到 NOP sled 中，就會一路執行 NOP，最後滑到 shellcode 的第一個有效機器指令，而不是 C 程式的 `main()`。
+* 有電荷：可以代表 1
+* 沒電荷：可以代表 0
 
-[1]: https://owasp.org/www-community/attacks/Buffer_overflow_attack?utm_source=chatgpt.com "Buffer Overflow Attack"
+問題是 capacitor(電容)會漏電。過一段時間後，原本代表 1 的電荷會慢慢流失，資料就可能錯掉。所以 DRAM 必須定期做 `refresh(刷新)`：把原本代表 1 的電容補電，讓資料維持住。PDF viewer page 27 明確說明電容漏電會導致資訊丟失，因此要定期 refresh。
 
+生活化例子：
 
-
-### shellcode 是啥
-
-第 7 次對話
-
-#### 1. 直接答案
-
-`shellcode` 就是「被攻擊者塞進記憶體、希望 CPU 直接執行的一小段 machine code(機器碼)」。
-
-在這份講義的脈絡中，shellcode 的目的通常是啟動一個 shell，讓攻擊者可以執行更多 command(指令)。講義寫法是：它是用來 launching a shell 的 assembly code / machine instructions，目標是呼叫 `execve("/bin/sh", argv, 0)` 來跑 shell。
+DRAM 像一個會漏水的小杯子。
+杯子有水代表 1，沒水代表 0。
+但杯子一直漏，所以你要定期補水，不然本來的 1 會慢慢變得看不出來。
 
 ---
 
-#### 2. 為什麼叫 shellcode？
+### 6. DRAM 為什麼便宜、容量大，但比較慢？
 
-因為早期典型目標是「開一個 shell」。
-也就是讓被攻擊的程式變成可以執行命令的入口。
+DRAM 的 ==每個 bit 可以用很少的元件儲存== ，核心是 capacitor(電容)加上控制元件，所以 `integration density(集成度)` 高，也就是同樣晶片面積可以塞更多 bit。這讓 DRAM 容量大、成本低、功耗較低。
 
-但現在廣義上，`shellcode` 不一定真的開 shell。只要是一段被拿來當 payload(酬載)、在漏洞利用後被執行的小型機器碼，也常被叫 shellcode。外部資料也採這個廣義定義：shellcode 是用來 exploit software vulnerability(利用軟體漏洞) 的 executable code payload(可執行酬載)。([維基百科][1])
+但缺點是：
 
----
+1. 需要 refresh(刷新)，帶來額外時間與控制成本。
+2. 讀取電容上的微小電荷需要 sense amplifier(感測／放大器)判斷。
+3. 整體速度比 SRAM 慢。
 
-#### 3. 它跟一般 C 程式差在哪？
-
-| 比較   | 一般 C 程式             | shellcode                                 |
-| ---- | ------------------- | ----------------------------------------- |
-| 形式   | `.c` 原始碼，經過編譯、連結、載入 | 通常是一小段 machine code bytes                 |
-| 進入點  | 常見是 `main()`        | 沒有正常 `main()`；CPU 直接跳到某個 instruction 開始執行 |
-| 執行方式 | OS loader 正常載入程式    | 利用漏洞讓控制流程跳到它                              |
-| 目的   | 正常程式功能              | 通常是取得控制、開 shell、執行命令、下載下一段 payload 等      |
-
-所以你前面問的「NOP 最後滑到惡意程式的 main 開頭」要修正成：
-
-`NOP sled` 最後滑到 `shellcode` 的第一個有效 machine instruction(機器指令)，不是滑到 C 程式的 `main()`。
+PDF viewer page 28 收束 DRAM 的特點：集成度高、功耗較低、價格較低；缺點是速度較慢、需要定時刷新；現代 PC 多用 DRAM 作為主記憶體。
 
 ---
 
-#### 4. 用生活化比喻
-
-可以把 stack 想成一張工作桌。
-
-`buffer overflow` 是把東西倒太多，倒到桌上其他區域。
-`new return address` 是把「下一步要去哪裡」的便條紙改掉。
-`shellcode` 是攻擊者偷偷放在桌上的「新指令卡」。
-`NOP sled` 是通往那張指令卡的滑道。
-
-CPU 函式 return 時看到被改過的便條紙，就跳去滑道或 shellcode 附近，最後開始執行那段 shellcode。
-
----
-
-#### 5. 最短考試版
-
-中文：
-
-`shellcode` 是一小段可直接被 CPU 執行的機器碼，通常作為 buffer overflow 等漏洞利用中的 payload。攻擊者會設法讓 return address 跳到這段 code，使程式改去執行攻擊者安排的動作，例如啟動 shell。
-
-英文：
-
-`Shellcode is a small piece of executable machine code used as the payload in an exploit. In a stack buffer overflow, the attacker tries to redirect control flow to the shellcode, often by overwriting the return address, so that the injected code is executed.`
-
----
-
-#### 6. 社群常見講法
-
-資安社群常把它簡化成：「shellcode 是 payload 的一種；payload 是你真正想讓目標執行的東西。」這個說法對初學者很好記，但考試要再補一句：shellcode 通常是 machine code，不是一般 C 程式碼。([reddit.com][2])
-
-[1]: https://en.wikipedia.org/wiki/Shellcode?utm_source=chatgpt.com "Shellcode"
-[2]: https://www.reddit.com/r/AskNetsec/comments/r21y1g/payload_vs_shellcode/?utm_source=chatgpt.com "Payload vs Shellcode : r/AskNetsec"
-
-
-### 通常 new return address 是不是就是他自己的位置 + n ？
-
-第 8 次對話
-
-#### 1. 直接答案
-
-對，但要把「他自己的位置 + n」講精準一點：
-
-`new return address` 通常是「某個可估計的 base address(基準位址) + offset(偏移量)」，而這個結果要落在 attacker-controlled buffer(攻擊者可控緩衝區) 裡，最好落在 `NOP sled(NOP 雪橇)` 區間。
-
-所以比較正確的說法是：
-
-`new return address ≈ buffer 起始位址 + n`
-
-或：
-
-`new return address ≈ shellcode / NOP sled 所在區域的某個位址`
-
-不是：
-
-`new return address = return address 欄位自己的位置 + n`
-
-講義 PDF viewer page 21 也用類似形式表示：function stack 裡的新返回位址可寫成 `[0xbffff188 + nnn]`，而且提醒這個位址的任何 byte 不應含有 zero，否則 `strcpy()` 會提前停止複製。
-
----
-
-#### 2. 「base + n」的 base 通常是哪個？
-
-在你目前這份講義脈絡，base 通常是「可控資料在 stack 上的大概位置」，例如：
-
-| 寫法                     | 意思                                        |
-| ---------------------- | ----------------------------------------- |
-| `buffer_start + n`     | 從 buffer 開頭往後偏移，讓它落在 NOP sled 或 shellcode |
-| `argument_address + n` | 從傳進來的輸入資料位置估一個落點                          |
-| `stack_address + n`    | 從某個已觀察到的 stack 位址估一個落點                    |
-
-但觀念上都一樣：
-`new return address` 不是隨便填，它要指向「CPU 接下來可以執行到 shellcode 的地方」。
-
----
-
-#### 3. 為什麼通常會讓它指到 NOP sled，而不是直接指到 shellcode 開頭？
-
-因為直接命中 shellcode 第一個 byte 太難。`NOP sled` 的作用就是把可命中的目標區域放大：只要 return address 落在 NOP 區間，CPU 就會一路執行 NOP，最後滑到 shellcode。講義 PDF viewer page 20 說明 badfile 先填滿 `0x90`，也就是 x86 的 NOP；它的用途就是讓 return address 不需要超精準，只要 CPU 跳進 NOP 區，就會一路到 shellcode。
-
-這點和社群常見解釋一致：NOP sled 常被叫做 landing pad(落點區)，目的就是讓執行流程即使沒有跳到精準 shellcode 起點，也能滑到 shellcode。([hg8的筆記][1])
-
----
-
-#### 4. 最短正確記法
-
-你可以這樣記：
-
-`new return address` 通常不是「return address 自己的位置 + n」，而是「某個可估計的 buffer / stack base address + n」，讓結果落在 `NOP sled` 或 `shellcode` 附近。`NOP sled` 是容錯區，讓 address 不用精準命中 shellcode 開頭。
-
----
-
-#### 5. 小圖
-
-```mermaid
-flowchart LR
-    A["可估計的 base address<br>例如 buffer 起始附近"] --> B["+ offset n"]
-    B --> C["new return address"]
-    C --> D["落在 NOP sled 區間"]
-    D --> E["一路執行 NOP"]
-    E --> F["shellcode 第一個有效指令"]
-```
-
-所以你這句如果改成「通常 new return address 是 buffer 或輸入資料所在位置 + n，目標是落在 NOP sled 裡」就很正確。
-
-[1]: https://hg8.sh/posts/binary-exploitation/buffer-overflow-code-execution-by-shellcode-injection/?utm_source=chatgpt.com "Buffer Overflow: Code Execution By Shellcode Injection - hg8.sh"
-
-
-
-### 圖中的 0xbffeaf8 + 8 是怎麼來的
-
-![alt text](<images/ch 5-4.png>)
-
-
-
-#### 1. 直接答案
-
-圖中的 `0xbfffeaf8 + 8` 是從 `ebp(frame pointer, 框架指標)` 算出來的。
-
-在這張圖的例子裡：
-
-`0xbfffeaf8` 是目前函式的 `ebp`。
-`+8` 是指從 `ebp` 往高位址方向數 8 bytes。
-所以：
-
-`0xbfffeaf8 + 8 = 0xbfffeb00`
-
-這個位置就是圖上 `RT` 後面第一段 `NOP sled(NOP 雪橇)` 開始附近的位置，也就是「CPU 可以跳進去、一路滑到 malicious code」的入口點。
-
----
-
-#### 2. 最容易混淆的地方：RT 的位置 vs RT 裡面填的值
-
-這裡有兩件事，不要混在一起：
-
-| 問題              | 答案                                          |
-| --------------- | ------------------------------------------- |
-| `RT` 這個欄位本身在哪裡？ | 在原本 `Return Address` 欄位，也就是 `ebp + 4`       |
-| `RT` 裡面要填什麼值？   | 填一個新位址，圖中選 `ebp + 8`，讓 CPU 跳到後面的 `NOP sled` |
-
-也就是：
-
-`RT` 的位置 ≠ `0xbfffeaf8 + 8`
-`RT` 裡面放的目標位址 = `0xbfffeaf8 + 8`
-
-講義前一頁先算出 buffer 開頭到 return address 的距離是 `108 + 4 = 112`，也就是 112 bytes 後會蓋到 return address；這張圖再說明 `RT` 旁邊填進去的值會覆蓋 return address，攻擊後讓 return address 變成 buffer 裡的位置。
-
----
-
-#### 3. 為什麼是 `+8`，不是 `+4`？
-
-在典型 32-bit x86 stack frame 裡，以 `ebp` 為基準：
-
-| 位址        | 內容                              |
-| --------- | ------------------------------- |
-| `ebp`     | saved previous frame pointer    |
-| `ebp + 4` | return address 欄位開始             |
-| `ebp + 8` | return address 後面的下一個 4-byte 位置 |
-
-因為 `return address` 本身是 4 bytes，所以：
-
-`ebp + 4` 是 return address 欄位本身。
-`ebp + 8` 是 return address 後面的位置。
-
-圖中 `RT` 佔掉 return address 那 4 bytes。`RT` 後面接著放 `NOP NOP ... NOP Malicious Code`。所以如果把 `RT` 裡面填成 `ebp + 8`，CPU return 時就會跳到 `RT` 後面的 NOP 區，然後一路滑到 malicious code。
-
-外部 x86 stack frame 資料也採同樣概念：`EBP+4` 通常是 return address，`EBP+8` 是下一個 slot，也常是第一個參數位置；這裡因 overflow 已經把後面也蓋成攻擊者資料，所以 `EBP+8` 變成 NOP sled 起點附近。([Varonis][1])
-
----
-![alt text](<images/ch 5-5.png>)
-!!! danger
-
-    #### 4. 用這張圖的數字完整串一次
-
-    已知：
-
-    `buffer start = 0xbfffea8c`
-    `ebp = 0xbfffeaf8`
-
-    所以：
-
-    `ebp - buffer start = 0xbfffeaf8 - 0xbfffea8c = 108 bytes`
-
-    而 return address 在 `ebp + 4`，所以：
-
-    `buffer start 到 return address = 108 + 4 = 112 bytes`
-
-    因此 `RT` 要放在 badfile 的 offset 112 那裡，去覆蓋原本 return address。
-
-    接著，`RT` 裡面填的「新返回位址」可以選：
-
-    `ebp + 8 = 0xbfffeaf8 + 8 = 0xbfffeb00`
-
-    這樣函式 return 後，CPU 就跳到 `0xbfffeb00`，也就是 `RT` 後面的 `NOP sled` 區域。
-
----
-
-#### 5. 最短記法
-
-`112` 是「從 buffer 開頭走幾 bytes 會蓋到 return address」。
-`0xbfffeaf8 + 8` 是「return address 被蓋掉後，CPU 要跳去的 NOP sled 入口位址」。
-
-所以這張圖其實在講兩個座標：
-
-`RT 放在哪裡：buffer + 112`
-`RT 裡面填什麼：ebp + 8`
-
-[1]: https://www.varonis.com/blog/stack-memory-3?utm_source=chatgpt.com "Stack Memory: An Overview (Part 3)"
-
-
-### ebp 是啥
-
-
-#### 1. 直接答案
-
-`ebp` 是 x86 32-bit CPU 裡的一個 register(暫存器)，全名常理解成 `extended base pointer`，在這裡的用途是 `frame pointer(框架指標)`。
-
-它的功能是：**當函式正在執行時，用來當作目前 stack frame(堆疊框架) 的固定參考點。**
-
-你可以把 `ebp` 想成「目前函式工作區的定位尺」。有了這把尺，CPU 或 debugger 就可以用：
-
-`ebp + 某個 offset` 找 function arguments(函式參數)、return address(返回位址)
-`ebp - 某個 offset` 找 local variables(區域變數)
-
-講義在算 buffer 開頭到 return address 的距離時，就是用 `%ebp` 當基準；也提到 ASLR 會讓 `%ebp address` 和惡意程式碼位址更難猜。 
-
----
-
-#### 2. 為什麼需要 `ebp`？
-
-因為 stack(堆疊) 會一直變動。
-
-例如函式內部可能 `push` 東西、呼叫別的函式、暫時存資料，`esp(stack pointer, 堆疊指標)` 會一直動。
-但 `ebp(frame pointer)` 通常在一個函式執行期間保持相對穩定，所以適合拿來定位：
-
+### 7. 最終比較表：考試最常要你輸出的版本
 
 !!! danger
 
-    | 位置                       | 常見內容                                                     |
-    | ------------------------ | -------------------------------------------------------- |
-    | `[ebp]`                  | saved previous frame pointer(前一層框架指標)                    |
-    | `[ebp + 4]`              | return address(返回位址)                                     |
-    | `[ebp + 8]`              | 第一個 argument(參數) 或 return address 後面的下一個 4-byte 位置，依情境解讀 |
-    | `[ebp - 4]`, `[ebp - 8]` | local variables(區域變數)                                    |
+    PDF viewer page 29 用表格比較 DRAM 與 SRAM：DRAM 儲存單元是電容，SRAM 是雙穩態觸發器；DRAM 集成度高、功耗低、價格低、速度慢、需要刷新；SRAM 集成度低、功耗高、價格高、速度快、不需要刷新。
 
-這就是為什麼前面我們說：
-
-`return address` 的欄位通常在 `ebp + 4`。
-`ebp + 8` 則是 return address 後面的位置，在你的圖中被拿來當作跳進 `NOP sled` 的目標位址附近。
-
----
-
-#### 3. 用你的圖串起來
-
-你的圖裡：
-
-`ebp = 0xbfffeaf8`
-
-`buffer start = 0xbfffea8c`
-
-所以：
-
-`0xbfffeaf8 - 0xbfffea8c = 108 bytes`
-
-這表示：
-
-從 buffer 開頭走 108 bytes，會到 `ebp` 附近。
-
-但 return address 不在 `ebp`，而是在：
-
-`ebp + 4`
-
-所以 buffer 開頭到 return address 的距離是：
-
-`108 + 4 = 112 bytes`
-
-這就是圖上的 `Distance = 112`：badfile 前面填 112 bytes 後，就會碰到並覆蓋 return address。講義也明確寫出 Task A 的距離是 `108 + 4 = 112`。
+    | 比較項目           | DRAM              | SRAM                             |
+    | -------------- | ----------------- | -------------------------------- |
+    | 儲存單元           | capacitor(電容)     | bistable latch/flip-flop(雙穩態觸發器) |
+    | 速度             | 慢                 | 快                                |
+    | 集成度(==同一塊晶片面積可以塞多少 bit==)            | 高(==每個 bit 可以用很少的元件儲存==)                 | 低                                |
+    | 容量潛力(==用合理成本、合理面積、合理功耗，能不能實際做成很大容量？==)          | 大                 | 小                                |
+    | 成本             | 低                 | 高                                |
+    | 功耗(==以大量記憶體、同容量或每 bit 的實務成本來看==)             | 較低(==每格小、比較省，但要一直補電==)                | 較高(==不用補電，但每格是一組比較大的電路，所以做很多格會比較耗。==)                               |
+    | 是否 refresh(刷新) | 需要                | 不需要                              |
+    | 常見用途           | main memory(主記憶體) | cache memory(快取記憶體)              |
+    
+    ![alt text](<images/ch 5-9.png>)
 
 ---
 
-#### 4. 最短記法
+### 8. 最短記法
 
-`ebp` 是目前函式 stack frame 的定位基準點。
+**SRAM：快、貴、小、不用 refresh，所以適合 cache。**
+**DRAM：慢、便宜、大、要 refresh，所以適合 main memory。**
 
-考 buffer overflow 時，你可以這樣記：
+再更短：
 
-`ebp`：目前函式 stack frame 的基準。
-`ebp + 4`：return address。
-`ebp + 8`：return address 後面的位置，或在一般函式呼叫中常是第一個參數位置。
-`ebp - offset`：local variables，例如 local buffer。
+**SRAM 用電路穩住資料；DRAM 用電容暫存電荷。**
 
-但要注意：這是這份講義使用的 32-bit x86 教學模型；不同架構、不同 compiler optimization(編譯器最佳化) 可能會省略 frame pointer 或改變 layout。
+
+
+### SRAM 結構與原理
+
+![alt text](<images/ch 5-6.png>)
+
+!!! danger
+
+
+    #### 1. 口語化小整理
+
+    6T SRAM 可以想成一個很小的「雙邊互鎖開關」。
+
+    它裡面有兩個值：
+
+    `Q` 和 `Q̅`
+
+    這兩個一定相反：
+
+    `Q = 0` 時，`Q̅ = 1`
+    `Q = 1` 時，`Q̅ = 0`
+
+    ---
+
+    #### 2. 維持資料時
+    
+    ![alt text](<images/ch 5-11.png>)
+
+    假設現在存的是：
+
+    `Q = 0`
+    `Q̅ = 1`
+
+    那可以口語化想成：
+
+    `Q` 這邊被 `GND` 拉住，所以它維持 `0`。
+    `Q̅` 這邊被 `VDD` 拉住，所以它維持 `1`。
+
+    而且這兩邊不是各自獨立維持，而是互相鎖住。
+
+    `Q = 0` 會讓左邊的某些開關狀態固定，讓 `Q̅` 繼續被拉到 `1`。
+    `Q̅ = 1` 也會讓右邊的某些開關狀態固定，讓 `Q` 繼續被拉到 `0`。
+
+    所以比較口語可以說：
+
+    > `Q = 0` 被 `GND` 維持，`Q̅ = 1` 被 `VDD` 維持，兩邊互相確認對方的狀態，所以資料會被鎖住。
+
+    ---
+
+    #### 3. 修改資料時
+    
+    ![alt text](<images/ch 5-10.png>)
+
+    假設原本是：
+
+    `Q = 0`
+    `Q̅ = 1`
+
+    現在想改成：
+
+    `Q = 1`
+    `Q̅ = 0`
+
+    這時會打開 `WL`，讓外面的 `BL/BL̅` 接進來。
+
+    你可以口語化記成：
+
+    `WL = 1` 會打開 `M5/M6`。
+    `BL = 1` 透過 `M6` 去拉高 `Q`。
+    `BL̅ = 0` 透過 `M5` 去拉低 `Q̅`。
+
+    所以寫入時是：
+
+    > 外面的 `BL/BL̅` 進來「硬改」裡面的 `Q/Q̅`。
+
+    但不要說「`BL` 電壓比 `GND` 大，所以一定壓過」。
+    比較正確是：
+
+    > 寫入電路夠強，所以可以暫時壓過原本 cell 裡面維持資料的力量。
+
+    也就是：
+
+    > 不是只比電壓大小，而是比誰比較有力。
+
+    ---
+
+    #### 4. 讀取資料時
+
+    讀取跟寫入剛好反過來。
+
+    寫入是：
+
+    > `BL/BL̅` 改 `Q/Q̅`
+
+    讀取是：
+
+    > `Q/Q̅` 影響 `BL/BL̅`
+
+    讀取前，會先把兩邊都拉高：
+
+    `BL = 1`
+    `BL̅ = 1`
+
+    然後：
+
+    `WL = 1`
+
+    這時 `M5/M6` 打開，cell 連到 `BL/BL̅`。
+
+    如果某一邊裡面存的是 `0`，那一邊就會有路徑通到 `GND`，所以那條 bitline 會被稍微拉低。
+
+    例如：
+
+    如果 `Q = 0`，那 `BL` 那邊會被稍微拉低。
+    如果 `Q̅ = 0`，那 `BL̅` 那邊會被稍微拉低。
+
+    所以讀取時可以口語化說：
+
+    > 兩邊一開始都拉成 `1`，然後看哪一邊掉比較多。掉比較多的那邊，就是原本存 `0` 的那邊。
+
+    ---
+
+    #### 5. 最短總結
+
+    維持資料：
+
+    > `Q` 和 `Q̅` 一邊被 `GND` 拉住，一邊被 `VDD` 拉住，兩邊互相鎖住，所以資料不會自己變。
+
+    寫入資料：
+
+    > `WL = 1` 打開 `M5/M6`，讓 `BL/BL̅` 接進來。`BL/BL̅` 夠強時，就能把原本的 `Q/Q̅` 改掉。
+
+    讀取資料：
+
+    > 先把 `BL` 和 `BL̅` 都拉成 `1`，再打開 `WL`。哪一邊原本接到 `0`，哪一邊就會被 `GND` 稍微拉低。最後看哪邊掉比較多，就知道資料是 `0` 還是 `1`。
+
+    最口語一句：
+
+    > **維持是自己鎖住；寫入是外面硬改裡面；讀取是裡面讓外面其中一邊稍微掉下來。**
+
+
+### 錯題
+
+#### ==Q:==
+refresh 為什麼會讓 DRAM 較慢？
+==ANS:==
+因為 refresh 會佔用時間和記憶體內部資源。
+
+DRAM 一邊要服務 CPU 的讀寫要求，一邊還要抽時間去 refresh。  
+所以有時候 CPU 想讀寫 DRAM，但 DRAM 正在 refresh，CPU 就可能要等一下。
+
+因此 DRAM 的速度會被 refresh 拖慢。
+
+SRAM 不用 refresh，所以可以比較直接地讀寫資料，速度通常比 DRAM 快。
