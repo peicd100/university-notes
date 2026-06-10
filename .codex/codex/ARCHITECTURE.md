@@ -21,8 +21,10 @@
 - 後端：`tools/source_jump_hook.py`
   - `on_serve` 提供 `__peicd/source-jump` lookup endpoint。
   - `on_files` 先掃描 Markdown 建立 `_PAGE_INDEX`，支援 `serve --dirty` 與單頁 preview。
-  - `on_page_markdown` 用實際頁面 Markdown 覆寫索引，提升渲染頁準確度。
+  - `on_page_markdown` 仍會在頁面流程中重建索引，但優先讀回原始 Markdown 檔，避免已轉換的頁面 Markdown 污染原始檔行號。
+  - Python-Markdown admonition `!!!` / `???` 不是 CommonMark 原生區塊；後端會額外建立 synthetic blocks，把 admonition 標題與縮排內文解析成渲染後文字，再映射回原始 Markdown 行。
   - 比對時綜合文字、標題路徑、前後 block、tag、block order、section order、page progress。
+  - container-only lookup 對「短文字被長 container 包含」會依覆蓋比例降權，避免表格 cell `3` 之類短內容誤搶長標題定位。
   - 常見渲染標記 `==...==`、`^^...^^` 會在索引階段視為渲染後文字。
 
 ## Single Page Preview
@@ -38,6 +40,12 @@
 - 樣式：`theme/assets/pymdownx-extras/自定義.css`
 - 載入位置：`theme/main.html` 的 `scripts` block，位於 `{{ super() }}` 後。
 - Material `navigation.instant` 啟用時，要使用 `DOMContentLoaded`、`load` 與 `window.document$.subscribe(...)` 補初始化。
+
+## Admonition 標題
+
+- `tools/admonition_title_hook.py` 在 `on_page_markdown` 階段補強 `!!! type "自訂標題"` 的標題文字，並跳過 fenced code block 內的教學範例。
+- 若自訂標題尚未包含類型名稱，輸出會保留預設類型前綴，例如 `!!! danger "記下來"` 渲染為 `Danger 記下來`；未自訂標題的 `!!! danger` 維持 `Danger`，避免重複成 `Danger Danger`。
+- 此 hook 只改渲染流程中的 Markdown 字串，不改 Markdown 原文；優先順序排在 Source Jump 索引之後，避免干擾原文定位。
 
 ## Folder Path Bar
 

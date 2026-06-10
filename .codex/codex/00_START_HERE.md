@@ -27,14 +27,14 @@
 - 右鍵開啟原文檔案：先讀 `ARCHITECTURE.md` 的 Source Jump，再看 `theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py`。
 - 單頁 preview：先讀 `PROJECT.md`、`COMMANDS.md`，再看 `preview.bat`、`p.bat`、`tools/update_preview_config.py`、`mkdocs.preview.yml`。
 - MkDocs 外觀或前端互動：看 `theme/`、`mkdocs.yml`、`ARCHITECTURE.md`。
-- 首頁 blog 方塊：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 Blog excerpt 條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- 首頁 blog 方塊：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - `collapse-code` 折疊程式碼外觀：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css` 的 `.collapse-code` 區段。
-- 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的標題錨點條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - Markdown `---` 分隔線可讀性：先看 `USER_REQUIREMENTS.md` 的 UI 偏好，再改 `theme/assets/pymdownx-extras/自定義.css` 的 `.md-typeset hr` 與相關 CSS 變數。
-- 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的中版面左側目前頁與 primary drawer 背景條目、`VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css`。
-- 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的文章圖片寬度條目，再改 `theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
-- 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的深色主題、右側 TOC 條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
-- Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid 條目，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js` 與 `theme/assets/pymdownx-extras/自定義.css`。
+- 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引、`VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
+- 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid Rendering 高風險索引，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js`、`theme/assets/pymdownx-extras/mermaid-render-fix.js` 與 `theme/assets/pymdownx-extras/自定義.css`。
 - 多益600：看 `docs/md/多益600/`、`PROJECT.md` 的小專案說明。
 
 ## 舊檔封存與映射
@@ -53,6 +53,6 @@
 
 - 工作樹可能已有使用者未提交的 Markdown 內容變更；除非任務直接相關，不要碰現有筆記內容。
 - `.gitignore` 保留舊 `/codex/` 忽略規則，並只忽略 `.codex/` 下的 tmp/private/artifacts/壓縮備份；不要把 `.codex/AGENTS.md` 與 `.codex/codex/` 核心文件整包忽略。
-- `source-jump` 不要只依賴 `on_page_markdown`；目前必須保留 `on_files` 預索引與 `on_page_markdown` 精修。
+- `source-jump` 不要只依賴 `on_page_markdown`；目前必須保留 `on_files` 預索引與 `on_page_markdown` 重建索引，且 serve 階段要讀原始 Markdown 以維持原文行號。
 - 專案啟用 Material `navigation.instant`，前端 DOM 綁定需支援 `window.document$.subscribe(...)`。
 - 驗證輸出要放 `.codex/codex/tmp/`，不要把 `.out.log` / `.err.log` 留在根目錄。

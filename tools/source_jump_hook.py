@@ -28,6 +28,27 @@ _PAGE_INDEX: dict[str, "PageRecord"] = {}
 _VSCODE_COMMAND: str | None = None
 _MARK_EXTENSION_RE = re.compile(r"==([^\s=](?:[^=\n]*?[^\s=])?)==")
 _CARET_EXTENSION_RE = re.compile(r"\^\^([^\s^](?:[^^\n]*?[^\s^])?)\^\^")
+_FENCE_RE = re.compile(r"^(?P<indent>[ \t]{0,3})(?P<fence>`{3,}|~{3,})")
+_ADMONITION_START_RE = re.compile(
+    r'^(?P<indent>[ \t]{0,3})(?P<marker>!!!|\?\?\?\+?)\s+'
+    r'(?P<type>[A-Za-z0-9_-]+)(?:[ \t]+"(?P<title>[^"]*)")?[ \t]*$'
+)
+_ADMONITION_TYPE_LABELS = {
+    "new": "New",
+    "settings": "Settings",
+    "note": "Note",
+    "abstract": "Abstract",
+    "info": "Info",
+    "tip": "Tip",
+    "success": "Success",
+    "question": "Question",
+    "warning": "Warning",
+    "failure": "Failure",
+    "danger": "Danger",
+    "bug": "Bug",
+    "example": "Example",
+    "quote": "Quote",
+}
 
 
 @dataclass
@@ -57,6 +78,18 @@ class PageRecord:
     blocks: list[BlockRecord]
 
 
+@dataclass
+class AdmonitionSpan:
+    start_line: int
+    end_line: int
+    start_offset: int
+    type_name: str
+    title: str | None
+    content_markdown: str
+    content_offset_map: list[int]
+    content_line_number_map: list[int]
+
+
 def on_config(config: Any) -> Any:
     _PAGE_INDEX.clear()
     return config
@@ -81,7 +114,8 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
     if file_obj is None:
         return markdown
 
-    _index_page_markdown(markdown, file_obj)
+    source_markdown = _read_source_markdown_content(file_obj, markdown)
+    _index_page_markdown(source_markdown, file_obj)
 
     return markdown
 
@@ -253,6 +287,17 @@ def _read_markdown_content(file_obj: Any) -> str | None:
     return None
 
 
+def _read_source_markdown_content(file_obj: Any, fallback: str) -> str:
+    abs_src_path = getattr(file_obj, "abs_src_path", None)
+    if abs_src_path and os.path.exists(abs_src_path):
+        return Path(abs_src_path).read_text(encoding="utf-8")
+
+    content = _read_markdown_content(file_obj)
+    if content is not None:
+        return content
+    return fallback
+
+
 def _index_page_markdown(markdown: str, file_obj: Any) -> None:
     try:
         record = _build_page_record(markdown, file_obj)
@@ -282,6 +327,8 @@ def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:
         if block.kind == "heading":
             heading_stack = list(block.heading_path)
 
+    blocks.extend(_build_admonition_block_records(markdown, line_starts, blocks))
+    blocks.sort(key=_block_sort_key)
     _attach_neighbor_context(blocks)
 
     return PageRecord(
@@ -302,6 +349,8 @@ def _build_block_record(
     markdown: str,
     line_starts: list[int],
     heading_stack: list[str],
+    offset_map: list[int] | None = None,
+    line_number_map: list[int] | None = None,
 ) -> BlockRecord | None:
     if not token.map:
         return None
@@ -315,26 +364,270 @@ def _build_block_record(
     source_end = line_starts[end_line0] if end_line0 < len(line_starts) else len(markdown)
     source_slice = markdown[source_start:source_end]
     source_map = _align_visible_text_to_source(visible_text, source_slice, source_start)
+    if offset_map is not None:
+        source_map = [_map_synthetic_offset(offset_map, offset) for offset in source_map]
     normalized_text, normalized_source_offsets = _normalize_text_with_offsets(visible_text, source_map)
 
     if not normalized_text:
         return None
 
     kind, tag, block_heading_path = _resolve_block_context(tokens, token_index, heading_stack, visible_text)
+    start_line = _map_synthetic_line(line_number_map, start_line0)
+    end_line = _map_synthetic_line(line_number_map, max(start_line0, end_line0 - 1))
 
     return BlockRecord(
         kind=kind,
         tag=tag,
         order_index=-1,
         section_index=-1,
-        start_line=start_line0 + 1,
-        end_line=max(start_line0 + 1, end_line0),
+        start_line=start_line if start_line is not None else start_line0 + 1,
+        end_line=end_line if end_line is not None else max(start_line0 + 1, end_line0),
         visible_text=visible_text,
         normalized_text=normalized_text,
         normalized_source_offsets=normalized_source_offsets,
         heading_path=block_heading_path,
         normalized_heading_path=_normalize_heading_path(block_heading_path),
     )
+
+
+def _build_admonition_block_records(
+    markdown: str,
+    line_starts: list[int],
+    existing_blocks: list[BlockRecord],
+) -> list[BlockRecord]:
+    if "!!!" not in markdown and "???" not in markdown:
+        return []
+
+    blocks: list[BlockRecord] = []
+    for span in _iter_admonition_spans(markdown, line_starts):
+        heading_stack = list(_heading_path_before_line(existing_blocks, span.start_line))
+        title_block = _build_admonition_title_block(span, heading_stack)
+        if title_block is not None:
+            blocks.append(title_block)
+
+        if not span.content_markdown.strip():
+            continue
+
+        local_heading_stack = heading_stack
+        tokens = _MARKDOWN.parse(span.content_markdown)
+        span_line_starts = _line_starts(span.content_markdown)
+        for token_index, token in enumerate(tokens):
+            block = _build_block_record(
+                token=token,
+                tokens=tokens,
+                token_index=token_index,
+                markdown=span.content_markdown,
+                line_starts=span_line_starts,
+                heading_stack=local_heading_stack,
+                offset_map=span.content_offset_map,
+                line_number_map=span.content_line_number_map,
+            )
+            if block is None:
+                continue
+            blocks.append(block)
+            if block.kind == "heading":
+                local_heading_stack = list(block.heading_path)
+
+    return blocks
+
+
+def _iter_admonition_spans(markdown: str, line_starts: list[int]) -> list[AdmonitionSpan]:
+    lines = markdown.splitlines(keepends=True)
+    spans: list[AdmonitionSpan] = []
+    fence_marker: str | None = None
+    index = 0
+
+    while index < len(lines):
+        body, _newline = _split_line_ending(lines[index])
+        fence_match = _FENCE_RE.match(body)
+        if fence_match is not None:
+            marker = fence_match.group("fence")
+            if fence_marker is None:
+                fence_marker = marker[0]
+            elif marker.startswith(fence_marker):
+                fence_marker = None
+            index += 1
+            continue
+
+        if fence_marker is not None:
+            index += 1
+            continue
+
+        match = _ADMONITION_START_RE.match(body)
+        if match is None:
+            index += 1
+            continue
+
+        base_indent = _indent_width(match.group("indent"))
+        content_start = index + 1
+        content_end = content_start
+        while content_end < len(lines):
+            content_body, _content_newline = _split_line_ending(lines[content_end])
+            if content_body.strip() and _indent_width(content_body) <= base_indent:
+                break
+            content_end += 1
+
+        content_markdown, offset_map, line_number_map = _dedent_admonition_content(
+            lines=lines,
+            line_starts=line_starts,
+            start_index=content_start,
+            end_index=content_end,
+            target_indent=base_indent + 4,
+        )
+        spans.append(
+            AdmonitionSpan(
+                start_line=index + 1,
+                end_line=max(index + 1, content_end),
+                start_offset=line_starts[index],
+                type_name=match.group("type"),
+                title=match.group("title"),
+                content_markdown=content_markdown,
+                content_offset_map=offset_map,
+                content_line_number_map=line_number_map,
+            )
+        )
+        index = content_end
+
+    return spans
+
+
+def _dedent_admonition_content(
+    *,
+    lines: list[str],
+    line_starts: list[int],
+    start_index: int,
+    end_index: int,
+    target_indent: int,
+) -> tuple[str, list[int], list[int]]:
+    parts: list[str] = []
+    offset_map: list[int] = []
+    line_number_map: list[int] = []
+
+    for line_index in range(start_index, end_index):
+        body, newline = _split_line_ending(lines[line_index])
+        stripped_body, stripped_chars = _strip_indent_to_width(body, target_indent)
+        original_body_offset = line_starts[line_index] + stripped_chars
+        original_newline_offset = line_starts[line_index] + len(body)
+
+        parts.append(stripped_body)
+        offset_map.extend(range(original_body_offset, original_body_offset + len(stripped_body)))
+        if newline:
+            parts.append(newline)
+            offset_map.extend(range(original_newline_offset, original_newline_offset + len(newline)))
+        line_number_map.append(line_index + 1)
+
+    return "".join(parts), offset_map, line_number_map
+
+
+def _build_admonition_title_block(
+    span: AdmonitionSpan,
+    heading_stack: list[str],
+) -> BlockRecord | None:
+    title = _render_admonition_title(span.type_name, span.title)
+    if not title:
+        return None
+
+    offsets = [span.start_offset] * len(title)
+    normalized_text, normalized_offsets = _normalize_text_with_offsets(title, offsets)
+    if not normalized_text:
+        return None
+
+    return BlockRecord(
+        kind="paragraph",
+        tag="p",
+        order_index=-1,
+        section_index=-1,
+        start_line=span.start_line,
+        end_line=span.start_line,
+        visible_text=title,
+        normalized_text=normalized_text,
+        normalized_source_offsets=normalized_offsets,
+        heading_path=tuple(heading_stack),
+        normalized_heading_path=_normalize_heading_path(tuple(heading_stack)),
+    )
+
+
+def _render_admonition_title(type_name: str, raw_title: str | None) -> str:
+    label = _ADMONITION_TYPE_LABELS.get(type_name.lower(), type_name.replace("-", " ").title())
+    if raw_title is None:
+        return label
+
+    title = raw_title.strip()
+    if not title:
+        return ""
+    if _admonition_title_has_label(title, label):
+        return title
+    return f"{label} {title}"
+
+
+def _admonition_title_has_label(title: str, label: str) -> bool:
+    return re.match(rf"^{re.escape(label)}(?:\s|:|$)", title.strip(), re.IGNORECASE) is not None
+
+
+def _heading_path_before_line(blocks: list[BlockRecord], line: int) -> tuple[str, ...]:
+    heading_path: tuple[str, ...] = ()
+    for block in sorted(blocks, key=_block_sort_key):
+        if block.start_line >= line:
+            break
+        if block.kind == "heading":
+            heading_path = block.heading_path
+    return heading_path
+
+
+def _block_sort_key(block: BlockRecord) -> tuple[int, int, str, str]:
+    return (block.start_line, block.end_line, block.tag, block.normalized_text)
+
+
+def _split_line_ending(line: str) -> tuple[str, str]:
+    body = line.rstrip("\r\n")
+    return body, line[len(body) :]
+
+
+def _indent_width(line: str) -> int:
+    width = 0
+    for char in line:
+        if char == " ":
+            width += 1
+        elif char == "\t":
+            width += 4 - (width % 4)
+        else:
+            break
+    return width
+
+
+def _strip_indent_to_width(line: str, target_width: int) -> tuple[str, int]:
+    width = 0
+    index = 0
+    while index < len(line) and width < target_width:
+        char = line[index]
+        if char == " ":
+            width += 1
+        elif char == "\t":
+            width += 4 - (width % 4)
+        else:
+            break
+        index += 1
+    return line[index:], index
+
+
+def _map_synthetic_offset(offset_map: list[int], offset: int) -> int:
+    if not offset_map:
+        return 0
+    if offset < 0:
+        return offset_map[0]
+    if offset >= len(offset_map):
+        return offset_map[-1]
+    return offset_map[offset]
+
+
+def _map_synthetic_line(line_number_map: list[int] | None, line_index: int) -> int | None:
+    if not line_number_map:
+        return None
+    if line_index < 0:
+        return line_number_map[0]
+    if line_index >= len(line_number_map):
+        return line_number_map[-1]
+    return line_number_map[line_index]
 
 
 def _visible_text_from_token(token: Any) -> str:
@@ -731,7 +1024,7 @@ def _block_score(
         elif container_norm in block.normalized_text:
             score += 4200
         elif block.normalized_text in container_norm:
-            score += 3200
+            score += _contained_block_score(block.normalized_text, container_norm, 3200)
         else:
             ratio = SequenceMatcher(None, block.normalized_text[:1500], container_norm[:1500]).ratio()
             score += ratio * 2500
@@ -795,7 +1088,7 @@ def _container_only_score(
         elif container_norm in block.normalized_text:
             score += 4200
         elif block.normalized_text in container_norm:
-            score += 3200
+            score += _contained_block_score(block.normalized_text, container_norm, 3200)
         else:
             ratio = SequenceMatcher(None, block.normalized_text[:1500], container_norm[:1500]).ratio()
             score += ratio * 2500
@@ -850,6 +1143,16 @@ def _context_score(
     if candidate in observed:
         return contain_bonus * 0.72
     return SequenceMatcher(None, candidate[:1200], observed[:1200]).ratio() * ratio_bonus
+
+
+def _contained_block_score(candidate: str, container: str, base_score: float) -> float:
+    if not candidate or not container:
+        return 0.0
+
+    coverage = len(candidate) / max(len(container), 1)
+    if coverage < 0.35:
+        return base_score * coverage * 0.12
+    return base_score * min(1.0, coverage)
 
 
 def _normalize_block_tag(tag: str) -> str:

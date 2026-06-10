@@ -503,12 +503,11 @@ body {
 
   /* 連結色 */
   --md-typeset-a-color: #7ad3ff;
-  --md-typeset-mark-color: rgba(255, 214, 102, 0.34);
-  --peicd-mark-bg-start: rgba(255, 225, 112, 0.42);
-  --peicd-mark-bg-end: rgba(255, 193, 56, 0.30);
-  --peicd-mark-fg: #fff6cf;
-  --peicd-mark-ring: rgba(255, 226, 128, 0.24);
-  --peicd-mark-glow: rgba(255, 214, 102, 0.18);
+  --md-typeset-mark-color: rgba(255, 213, 84, 0.22);
+  --peicd-mark-bg: rgba(255, 211, 77, 0.16);
+  --peicd-mark-fg: #fff7d9;
+  --peicd-mark-border: rgba(255, 221, 120, 0.30);
+  --peicd-mark-stroke: rgba(255, 210, 76, 0.30);
 
   /* 你自訂的 surface / 卡片底色 */
   --peicd-surface-1: #050505;
@@ -521,19 +520,27 @@ body {
   --peicd-collapse-fade-end: rgba(40, 42, 54, 0.94);
 }
 
-/* 深色模式的 ==mark==：提高黑底辨識度，同時保留筆記標記感 */
+/* 深色模式的 ==mark==：用乾淨的連續螢光筆層取代厚重亮塊 */
 [data-md-color-scheme="slate"] .md-typeset mark,
 [data-md-color-scheme="dracula"] .md-typeset mark {
   -webkit-box-decoration-break: clone;
-  background: linear-gradient(180deg, var(--peicd-mark-bg-start), var(--peicd-mark-bg-end)) !important;
-  border-radius: 0.16em;
+  background: var(--peicd-mark-bg) !important;
+  border-radius: 0.14em;
   box-decoration-break: clone;
   box-shadow:
-    0 0 0 1px var(--peicd-mark-ring),
-    0 0 0.55rem var(--peicd-mark-glow),
-    inset 0 -0.14em 0 rgba(255, 238, 150, 0.20);
+    0 0 0 1px var(--peicd-mark-border) inset,
+    inset 0 -0.46em 0 var(--peicd-mark-stroke);
   color: var(--peicd-mark-fg) !important;
-  padding: 0.02em 0.16em;
+  padding: 0.01em 0.14em 0.03em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.42);
+}
+
+[data-md-color-scheme="slate"] .md-typeset mark code,
+[data-md-color-scheme="dracula"] .md-typeset mark code {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: inherit !important;
+  padding-inline: 0.08em;
 }
 
 /* body：採用變數字體 + 微字距 + 字體渲染優化（第二段 body；會覆蓋前面的 body 字體設定） */
