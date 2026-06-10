@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-10 16:47：Danger block 內文字級改回正文大小
+
+- 任務類型：docs
+- 修改範圍：`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/USER_REQUIREMENTS.md`、`.codex/codex/VERIFY.md`。
+- 主要決策：admonition / details 容器改為繼承正文 font-size / line-height；`.admonition-title` 與 `summary` 單獨維持 0.88em，讓標題列精簡但內文不再像註腳。
+- 驗證結果：完整 build returncode 0；Chrome/Playwright 量測 `期末考複習-ch4-1.html` 中 danger 內文 `PC+4` 為 16px、一般正文為 16px、Danger 標題列為 14.08px。
+- 尚未完成：沒有。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Preview 與 UI 偏好、`VERIFY.md` 的 admonition 樣式驗證條目。
+- 相關檔案：`.codex/codex/tmp/20260610-163202-admonition-body-font-build.meta.json`、`.codex/codex/tmp/admonition-font-serve-6.out.log`。
+
 ## 2026-06-10 12:11：Danger block Source Jump 定位修正
 
 - 任務類型：bugfix

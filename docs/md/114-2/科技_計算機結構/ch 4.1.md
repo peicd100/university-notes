@@ -1681,7 +1681,7 @@ flowchart LR
 | `ALUSrc`   | ALU 第二個輸入前的 mux         | 決定 ALU 第二個 input 來自 `busB` 還是 extended immediate           | 選 `busB`            | 選 `Extender` 輸出        | `0`：R-type、`beq`；`1`：`ori`、`lw`、`sw`                     |
 | `ALUCtr`   | ALU                     | 決定 ALU 要做什麼運算                                              | 不是單純 0/1，而是多 bit 編碼 ==(add 是 00(ADD)、sub 是 01(SUB)、ori 是 10(OR)、lw/sw 都是 00(ADD)、beq 是 01(SUB)。)== | 不是單純 0/1，而是多 bit 編碼 ==(add 是 00(ADD)、sub 是 01(SUB)、ori 是 10(OR)、lw/sw 都是 00(ADD)、beq 是 01(SUB)。)==    | `ADD`：`addu`、`lw`、`sw`；`SUB`：`subu`、`beq`；`OR`：`ori`     |
 | `MemWr`    | Data Memory 的 `WrEn` (Enable)    | 決定是否把資料寫入 Data Memory                                      | 不寫 Data Memory      | 寫 Data Memory          | `1`：`sw`；其他多數是 `0`                                       |
-| `MemtoReg` | 右方寫回 mux                | 決定 `busW` 來自 ALU result 還是 Data Memory output              | 選 ALU result        | 選 Data Memory output   | `0`：R-type、`ori`；`1`：`lw`                                |
+| `MemtoReg` | 右方寫回 mux                | ==決定 `busW` 來自 ALU result 還是 Data Memory output==              | 選 ALU result        | 選 Data Memory output   | `0`：R-type、`ori`；`1`：`lw`                                |
 | `nPC_sel`  | IFU / next PC selection | 控制 next PC 的選擇邏輯，尤其是 branch 類指令                            | 一般順序執行 `PC + 4`     | 啟用 branch / next PC 選擇 | `beq` 會啟用；是否真的跳通常還要看 `zero`                              |
 
 補一句很重要的：`nPC_sel = 1` 不一定代表「一定跳」。在 `beq` 裡，它通常代表「這是 branch 類指令，允許 IFU 根據 `zero` 判斷要不要跳」。真正是否跳到 target address，要看 `zero`。

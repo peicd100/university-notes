@@ -38,6 +38,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 - 若修改文章圖片尺寸，桌機量測 `.md-content__inner.md-typeset img:not(.twemoji)` 最大寬度比例應不超過 0.7；手機或窄螢幕應可回到 1.0；全螢幕 image viewer 不應被 70% 規則限制。
 - 若修改 `collapse-code` 樣式，開啟有 `/// collapse-code` 的頁面，收合狀態展開按鈕應約 1.45rem、不是大色塊；展開後 `.code-footer` 不應覆蓋最後幾行程式碼，且 footer 背景應與 code block 背景一致、不可留下突兀黑色底條，console error/warn 應為空。
 - 若修改 admonition 標題處理，驗證 `!!! danger "記下來"` 會輸出 `Danger 記下來`，且 `!!! danger` 仍只輸出 `Danger`，不可重複成 `Danger Danger`。
+- 若修改 admonition / `!!! danger` 樣式，開啟 `docs/md/114-2/科技_計算機結構/期末考複習-ch4-1.md`，量測 `PC+4` 所在 danger 內文與一般正文應同為約 16px；`.admonition-title` 可較小，約 14.08px。
 
 ## 輸出管理
 
