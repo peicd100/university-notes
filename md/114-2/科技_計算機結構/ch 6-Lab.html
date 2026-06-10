@@ -14,7 +14,7 @@
         <link rel="prev" href="ch%205.html">
       
       
-        <link rel="next" href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.html">
+        <link rel="next" href="../../%E5%A4%9A%E7%9B%8A600/4.html">
       
       
         
@@ -6646,8 +6646,10 @@ is now available!
                 
   
   
+    
   
   
+  
     
     
       
@@ -6657,6 +6659,10 @@ is now available!
       
         
       
+        
+      
+        
+      
     
     
     
@@ -6664,11 +6670,11 @@ is now available!
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_13" checked>
         
           
           <label class="md-nav__link" for="__nav_7_13" id="__nav_7_13_label" tabindex="0">
@@ -6689,7 +6695,7 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -6779,6 +6785,797 @@ is now available!
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ch%205.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 6 Lab
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ch%206-Lab.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ch 6 Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stack-layout--為什麼-buffer-overflow-會先從記憶體長相開始學" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Stack Layout — 為什麼 Buffer Overflow 會先從「記憶體長相」開始學？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Stack Layout — 為什麼 Buffer Overflow 會先從「記憶體長相」開始學？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-program-memory-stack程式記憶體配置不同變數放在不同區段" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Program Memory Stack(程式記憶體配置)：不同變數放在不同區段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-function-arguments-in-stack函式參數在堆疊中的位置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Function Arguments in Stack(函式參數在堆疊中的位置)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-function-call-stack函式呼叫堆疊每次呼叫函式都會多一層-stack-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Function Call Stack(函式呼叫堆疊)：每次呼叫函式都會多一層 stack frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-function-call-chain函式呼叫鏈目前函式會蓋在前一層函式下面" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Function Call Chain(函式呼叫鏈)：目前函式會蓋在前一層函式下面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#previous-frame-pointer-和-return-address-一樣嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        previous frame pointer 和 return address 一樣嗎
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="previous frame pointer 和 return address 一樣嗎">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-差異表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 差異表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-用一句話記" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 用一句話記
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-buffer-overflow-特別盯上-return-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 buffer overflow 特別盯上 return address？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vulnerable-program--程式哪裡開始讓-buffer-overflow-變成可能" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Vulnerable Program — 程式哪裡開始讓 buffer overflow 變成可能？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Vulnerable Program — 程式哪裡開始讓 buffer overflow 變成可能？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-第一層main-讀入-attacker-controlled-input攻擊者可控輸入" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一層：main() 讀入 attacker-controlled input(攻擊者可控輸入)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-第二層foo-裡的-buffer100-才是爆點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 第二層：foo() 裡的 buffer[100] 才是爆點
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-資料流圖漏洞怎麼從-badfile-流到-return-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 資料流圖：漏洞怎麼從 badfile 流到 return address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼覆蓋-return-address-是控制流程問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼覆蓋 return address 是控制流程問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-常見錯法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-malicious-code--覆蓋-return-address-之後cpu-為什麼會跑去執行攻擊者的-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐How to Run Malicious Code — 覆蓋 return address 之後，CPU 為什麼會跑去執行攻擊者的 code？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐How to Run Malicious Code — 覆蓋 return address 之後，CPU 為什麼會跑去執行攻擊者的 code？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stack-before--after攻擊前後差在哪裡" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stack before / after：攻擊前後差在哪裡？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-badfile-的概念結構不是只有垃圾資料" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. badfile 的概念結構：不是只有垃圾資料
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-nop-slednop-雪橇為什麼不用跳得超精準" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. NOP sled(NOP 雪橇)：為什麼不用跳得超精準？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-整個流程的安全理解版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 整個流程的安全理解版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-常見錯法_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#所以意思是說會在原本的-return-address-32-bit-換一個新的-return-address-嗎然後既然-new-retrun-address-是自己寫的為何還是需要-nop然後-nop-最後是會滑到惡意程式的-main-開頭對不對" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        所以意思是說會在原本的 return address 32 bit 換一個新的 return address 嗎？然後既然 new retrun address 是自己寫的，為何還是需要 nop？然後 nop 最後是會滑到惡意程式的 main 開頭對不對
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="所以意思是說會在原本的 return address 32 bit 換一個新的 return address 嗎？然後既然 new retrun address 是自己寫的，為何還是需要 nop？然後 nop 最後是會滑到惡意程式的 main 開頭對不對">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-你的理解大方向正確但有三個小地方要修正" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 你的理解大方向正確，但有三個小地方要修正
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼-new-return-address-是自己寫的還需要-nop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼 new return address 是自己寫的，還需要 NOP？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-nop-最後是滑到惡意程式的-main-開頭嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. NOP 最後是滑到「惡意程式的 main 開頭」嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最短正確版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最短正確版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shellcode-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        shellcode 是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shellcode 是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼叫-shellcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼叫 shellcode？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-它跟一般-c-程式差在哪" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 它跟一般 C 程式差在哪？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用生活化比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用生活化比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-社群常見講法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 社群常見講法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#通常-new-return-address-是不是就是他自己的位置--n-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通常 new return address 是不是就是他自己的位置 + n ？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="通常 new return address 是不是就是他自己的位置 + n ？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-base--n的-base-通常是哪個" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 「base + n」的 base 通常是哪個？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼通常會讓它指到-nop-sled而不是直接指到-shellcode-開頭" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼通常會讓它指到 NOP sled，而不是直接指到 shellcode 開頭？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最短正確記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最短正確記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-小圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 小圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#圖中的-0xbffeaf8--8-是怎麼來的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        圖中的 0xbffeaf8 + 8 是怎麼來的
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="圖中的 0xbffeaf8 + 8 是怎麼來的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-最容易混淆的地方rt-的位置-vs-rt-裡面填的值" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 最容易混淆的地方：RT 的位置 vs RT 裡面填的值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼是-8不是-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼是 +8，不是 +4？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用這張圖的數字完整串一次" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用這張圖的數字完整串一次
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ebp-是啥" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ebp 是啥
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ebp 是啥">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼需要-ebp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼需要 ebp？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-用你的圖串起來" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 用你的圖串起來
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -8383,7 +9180,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
       
       
         <a
-          href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.html"
+          href="../../%E5%A4%9A%E7%9B%8A600/4.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -8392,7 +9189,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              期末考複習 ch3
+              Ch4 Travel 全文集中區
             </div>
           </div>
           <div class="md-footer__button md-icon">
