@@ -1952,7 +1952,7 @@
     
       <link rel="stylesheet" href="assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="assets/pymdownx-extras/自定義.css?v=20260527-9">
+      <link rel="stylesheet" href="assets/pymdownx-extras/自定義.css?v=20260610-1">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -5480,6 +5480,8 @@ is now available!
       
         
       
+        
+      
     
     
     
@@ -5810,6 +5812,34 @@ is now available!
   
   
     <li class="md-nav__item">
+      <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%205.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ch 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%206-Lab.html" class="md-nav__link">
         
   
@@ -5842,6 +5872,10 @@ is now available!
       
         
       
+        
+      
+        
+      
     
     
     
@@ -5853,10 +5887,10 @@ is now available!
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_13" >
         
           
-          <label class="md-nav__link" for="__nav_7_12" id="__nav_7_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_13" id="__nav_7_13_label" tabindex="0">
             
   
   
@@ -5874,8 +5908,8 @@ is now available!
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_12">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_13">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5884,6 +5918,62 @@ is now available!
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期末考複習 ch3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期末考複習 ch4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -6173,32 +6263,20 @@ is now available!
 
   <h1>作答</h1>
 
-<p>因為大量 page faults 之後，OS會花大量時間在執行page replacement、swap in/out，使CPU idle time 增加，使系統以為 CPU 很閒，所以增加多工度，讓更多 process 進入 ready queue，卻進而導致 page fault 增加，惡性循環。最後效能會一直下降。</p>
+<p><span class="arithmatex">\(s1+\)</span>s2 written back to the register file.</p>
 <hr />
-<p>os 會把高於 upper bound 的 process 的 frame 增加，會把低於 lower bound 的 process 的 frame 減少。</p>
+<p>錯，是被寫回 rd。</p>
 <hr />
-<p>1<br />
-12<br />
-123<br />
-1234<br />
-1234<br />
-1234<br />
-1245 -&gt; t7 working set = &lt;1,2,4,5&gt;<br />
-125<br />
-125<br />
-1235<br />
-1234<br />
-2345 -&gt; t12 working set = &lt;2,3,4,5&gt;</p>
-<p>t7 working set = &lt;1,2,4,5&gt;<br />
-t12 working set = &lt;2,3,4,5&gt;</p>
-<hr />
-<p>因為temporal locality and spatial locality 可能會讓近期存取的 page 再次被存取，所以知道近期有多少的在被存取，給予對應數量的 frame，就可以預防 thrashing</p>
+<p>ALUCtr 用來選擇要做哪一種運算， add 是 00，sub 是 01。</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
