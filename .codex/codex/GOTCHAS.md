@@ -70,6 +70,16 @@
 - 不要做：不要回到藍灰玻璃底、radial/linear 大面積 glow、可換行 flex 標題錨點、或把全站正文改成 CJK fallback。
 - 驗證方式：依 `VERIFY.md` 的前端互動清單驗證 drawer、TOC、blog、標題錨點、圖片、`==mark==`、`collapse-code` 與 dark theme。壓縮前全文封存在 `.codex/codex/archive/gotchas-2026-06-10-before-source-jump-admonition-compress.md`。
 
+## Details summary pseudo-element 需重置 Material 定位
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-10
+- 影響範圍：`theme/assets/pymdownx-extras/自定義.css` 的 `.md-typeset details:not([class]) > summary::before`。
+- 正確做法：自訂 details 箭頭若使用 `summary::before`，必須重置 Material 既有 pseudo-element 定位與遮罩，例如 `position: static`、`inset: auto`、`mask: none`，並作為 flex item 佔位。
+- 不要做：不要只改 `display`、`width`、`gap`；若保留既有 `position:absolute`，箭頭會蓋到標題文字。
+- 驗證方式：Playwright 量測 `summary::before` computed `position` 為 `static`、`mask` 為 `none`，且文字 `Range.getClientRects()[0].left` 不小於預期箭頭右側。
+
 ## Mermaid Rendering 高風險索引
 
 - 狀態：active

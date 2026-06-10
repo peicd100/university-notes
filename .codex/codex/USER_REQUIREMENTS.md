@@ -1,5 +1,23 @@
 # USER REQUIREMENTS
 
+## Slash admonition 與 details 摺疊語法
+
+- 狀態：active
+- 證據：user-requested
+- 日期：2026-06-10
+- 影響範圍：Markdown 筆記中的 admonition / danger block / details block 渲染。
+- 正確做法：
+  - `!!! danger "重點"`、`/// danger "重點"`、`/// danger|重點`、`/// danger | 重點` 都應渲染為 `Danger | 重點`。
+  - `Danger` 與自訂標題中間固定使用 ` | ` 分隔。
+  - `/// details|摺疊`、`/// details | 摺疊` 保持 pymdownx details 語法，視覺要符合目前深黑、cyan、等寬技術筆記風格。
+  - details 摺疊框內文不可比正文刻意縮小；標題列可以較精簡。
+- 不要做：
+  - 不要把 `details` 當成 admonition 轉成 `!!! details`。
+  - 不要輸出 `Danger Danger` 或 `Danger | Danger`。
+  - 不要使用漸層、光暈或大面積彩色背景改善 details。
+- 驗證方式：執行 hook smoke test、`mkdocs build --clean`，並用 Playwright 截 `details` 關閉與展開狀態。
+- 相關檔案：`tools/admonition_title_hook.py`、`tools/source_jump_hook.py`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`。
+
 ## 長期要求
 
 - 狀態：active
@@ -21,6 +39,7 @@
 - 日期：2026-05-23
 - 正確做法：
   - 單頁 preview 可用 `.\p <Markdown 路徑>`，也可只輸入 `.\p` 沿用上次目標。
+  - 在 cmd 內用 `p <Markdown 路徑>` 或 `preview.bat <Markdown 路徑>` 啟動 preview 後，按 Ctrl+C 應直接結束，不要再停在「要終止批次工作嗎 (Y/N)」。
   - Preview 右鍵「開啟原文檔案」要優先追求定位準確度，避免跳到同頁錯誤段落。
   - Preview 在 `!!! danger` / admonition block 內右鍵時，要定位到實際渲染的內文 block 原文行；只有點 admonition 標題列時才回 `!!! danger` 起始行。
   - Preview 右鍵選單只保留「開啟原文檔案」，不要顯示「複製」。
@@ -36,8 +55,9 @@
   - 深色模式的下拉選單與小工具面板要避免厚重四角框、藍灰大底與過度發光；優先用純黑/近黑底、薄邊框、小圓角、少量 cyan 選取狀態。
   - Markdown `---` 分隔線在亮色模式與暗色模式都要明顯但不要太硬；不要做成整條同樣粗度，應保留中間略粗、左右細且有留白呼吸感的視覺，中央粗線範圍約佔頁面寬度 70%，優先用柔和 cyan 中央線搭配低調左右細線。
   - `collapse-code` 展開/收合按鈕不要太大；應是小型工具按鈕，且展開後底部不要留下黑色底條或與 code block 表面不一致的 footer。
-  - `!!! danger "記下來"` 這類 admonition 自訂標題渲染後要保留類型前綴，例如顯示 `Danger 記下來`；未自訂標題的 `!!! danger` 則維持 `Danger`。
+  - `!!! danger "記下來"` 這類 admonition 自訂標題渲染後要保留類型前綴與分隔線，例如顯示 `Danger | 記下來`；未自訂標題的 `!!! danger` 則維持 `Danger`。
   - Admonition / `!!! danger` 內文不要比正文小；框內段落、清單、表格與標題應回到正文基準字級，只有 `Danger` 標題列可維持較精簡的小一階樣式。
+  - details 摺疊框的箭頭與標題文字不可重疊；若使用 pseudo-element 畫箭頭，必須保留穩定佔位與足夠間距。
 
 ## 多益600
 
@@ -48,3 +68,14 @@
   - `docs/md/多益600` 併入主專案。
   - 保留筆記、圖片、includes、`紀錄.py` 與工具文件。
   - 生成影片、TTS 暫存、測試媒體與本機紀錄不得上傳到 Git。
+
+## Slash admonition 簡寫語法
+
+- 狀態：active
+- 證據：user-requested
+- 日期：2026-06-10
+- 影響範圍：Markdown 筆記中的 admonition / danger block 寫法、Preview 渲染、Source Jump 定位。
+- 正確做法：支援 `/// danger "重點"`、未縮排內文、結尾 `///` 的簡寫語法，渲染時等同 `!!! danger "重點"` 加縮排內文；標題需顯示為 `Danger | 重點`。`/// danger` 沒有自訂標題時維持預設 `Danger`。
+- 不要做：不要把所有 `/// xxx` 都轉成 admonition；`/// collapse-code` 等既有非 admonition block 必須保持原行為。
+- 驗證方式：用 `tools/admonition_title_hook.py` 字串轉換測試、`tools/source_jump_hook.py` synthetic block 行號測試、Python-Markdown admonition smoke test 與 `mkdocs build --clean`。
+- 相關檔案：`tools/admonition_title_hook.py`、`tools/source_jump_hook.py`、`.codex/codex/VERIFY.md`。

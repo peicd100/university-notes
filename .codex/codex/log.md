@@ -1,5 +1,45 @@
 # log
 
+## 2026-06-10 23:36：Preview Ctrl+C 與 details 箭頭重疊修正
+
+- 任務類型：bugfix
+- 修改範圍：`p.bat`、`preview.bat`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：`p.bat` 與 `preview.bat` 改用條件式 `exit /b` 收尾，避免 Ctrl+C 出現批次終止確認；details 箭頭重置為 `position: static` 的 flex item，避免蓋到標題。
+- 驗證結果：`PREVIEW_SKIP_SERVE=1` 的 `p.bat` 通過；`py_compile` 通過；preview build retry returncode 0；Playwright 量測 `beforePosition=static`、`beforeMaskImage=none`、`noOverlap=true`。
+- 尚未完成：無法在非互動工具中實際按 Ctrl+C，只能以 batch 條件式 exit 與手動驗證清單覆蓋；互動 cmd 可再人工確認。
+- 下次建議先讀：`ARCHITECTURE.md` 的 Single Page Preview、`GOTCHAS.md` 的 details pseudo-element 條目、`VERIFY.md` 的 Preview Ctrl+C。
+- 相關檔案：`.codex/codex/tmp/20260610-233544-ctrlc-details-final-preview-build-retry.meta.json`、`.codex/codex/artifacts/details-summary-after.png`。
+
+## 2026-06-10 23:09：Slash pipe 標題與 details 樣式優化
+
+- 任務類型：feature
+- 修改範圍：`tools/admonition_title_hook.py`、`tools/source_jump_hook.py`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/USER_REQUIREMENTS.md`、`.codex/codex/ARCHITECTURE.md`、`.codex/codex/VERIFY.md`、`.codex/codex/log.md`。
+- 主要決策：支援 `/// danger|重點` / `/// danger | 重點` 轉成 `Danger | 重點`；`/// details|摺疊` 保留給 pymdownx details，並以暗色近黑、cyan 細線、精簡 summary 標題列改善外觀。
+- 驗證結果：`py_compile` 通過；hook smoke test 通過；`details-pipe-admonition-build` full build returncode 0；Playwright 截圖確認 details 關閉與展開狀態。
+- 尚未完成：無。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的「Slash admonition 與 details 摺疊語法」、`VERIFY.md` 的「Slash admonition 與 details block」。
+- 相關檔案：`.codex/codex/tmp/20260610-225556-details-pipe-admonition-build.meta.json`、`.codex/codex/artifacts/details-style-playwright.png`、`.codex/codex/artifacts/details-style-playwright-open.png`。
+
+## 2026-06-10 22:43：Slash admonition 簡寫語法支援
+
+- 任務類型：feature
+- 修改範圍：`tools/admonition_title_hook.py`、`tools/source_jump_hook.py`、`.codex/codex/USER_REQUIREMENTS.md`、`.codex/codex/ARCHITECTURE.md`、`.codex/codex/VERIFY.md`。
+- 主要決策：新增 `/// danger "重點"` 到結尾 `///` 的未縮排簡寫語法，渲染前轉成既有 `!!! danger "Danger | 重點"`；只處理已知 admonition 類型，保留 `/// collapse-code`。
+- 驗證結果：`py_compile` 通過；inline 轉換、Source Jump 行號、Python-Markdown admonition smoke test 通過；`slash-admonition-build` full build returncode 0。
+- 尚未完成：未新增實際筆記範例檔，避免污染內容。
+- 下次建議先讀：`USER_REQUIREMENTS.md` 的 Slash admonition 簡寫語法、`ARCHITECTURE.md` 的 Slash admonition shorthand、`VERIFY.md` 的 Slash admonition。
+- 相關檔案：`.codex/codex/tmp/20260610-224150-slash-admonition-build.meta.json`。
+
+## 2026-06-10 18:53：Admonition 自訂標題加入分隔線
+
+- 任務類型：feature
+- 修改範圍：`tools/admonition_title_hook.py`、`tools/source_jump_hook.py`、`.codex/codex/ARCHITECTURE.md`、`.codex/codex/USER_REQUIREMENTS.md`、`.codex/codex/VERIFY.md`。
+- 主要決策：自訂 admonition 標題統一渲染為 `<Type> | <Title>`，例如 `!!! danger "記下來"` 變成 `Danger | 記下來`；已帶 `Danger |`、舊式 `Danger 記下來` 或 `Danger: 記下來` 也會正規化，未自訂標題仍只顯示 `Danger`。
+- 驗證結果：`admonition_title_hook.py` 與 `source_jump_hook.py` 編譯通過；樣本測試確認 plain/already-pipe/old-space/old-colon/default 行為；完整 build returncode 0；輸出 HTML 已出現 `Danger | 重點`、`Danger | bit 數`。
+- 尚未完成：沒有。
+- 下次建議先讀：`ARCHITECTURE.md` 的 Admonition 標題與 `VERIFY.md` 的 admonition 標題驗證。
+- 相關檔案：`.codex/codex/tmp/20260610-185219-admonition-title-pipe-build.meta.json`、`site/blog/2024/02/06/mkdocs-語法.html`、`site/md/114-2/科技_計算機結構/期末考複習-ch3.html`。
+
 ## 2026-06-10 16:47：Danger block 內文字級改回正文大小
 
 - 任務類型：docs

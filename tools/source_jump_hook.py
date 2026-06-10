@@ -33,6 +33,12 @@ _ADMONITION_START_RE = re.compile(
     r'^(?P<indent>[ \t]{0,3})(?P<marker>!!!|\?\?\?\+?)\s+'
     r'(?P<type>[A-Za-z0-9_-]+)(?:[ \t]+"(?P<title>[^"]*)")?[ \t]*$'
 )
+_SLASH_ADMONITION_START_RE = re.compile(
+    r'^(?P<indent>[ \t]{0,3})///\s+'
+    r'(?P<type>[A-Za-z0-9_-]+)'
+    r'(?:(?:[ \t]+"(?P<quoted_title>[^"]*)")|(?:[ \t]*\|[ \t]*(?P<pipe_title>.*?)))?[ \t]*$'
+)
+_SLASH_ADMONITION_END_RE = re.compile(r"^[ \t]{0,3}///[ \t]*$")
 _ADMONITION_TYPE_LABELS = {
     "new": "New",
     "settings": "Settings",
@@ -49,6 +55,7 @@ _ADMONITION_TYPE_LABELS = {
     "example": "Example",
     "quote": "Quote",
 }
+_ADMONITION_TITLE_SEPARATOR = " | "
 
 
 @dataclass
@@ -80,6 +87,7 @@ class PageRecord:
 
 @dataclass
 class AdmonitionSpan:
+    syntax: str
     start_line: int
     end_line: int
     start_offset: int
@@ -310,6 +318,10 @@ def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:
     line_starts = _line_starts(markdown)
     blocks: list[BlockRecord] = []
     heading_stack: list[str] = []
+    admonition_spans = _iter_admonition_spans(markdown, line_starts)
+    slash_admonition_ranges = [
+        (span.start_line, span.end_line) for span in admonition_spans if span.syntax == "slash"
+    ]
     tokens = _MARKDOWN.parse(markdown)
 
     for token_index, token in enumerate(tokens):
@@ -323,11 +335,13 @@ def _build_page_record(markdown: str, file_obj: Any) -> PageRecord:
         )
         if block is None:
             continue
+        if _block_within_line_ranges(block, slash_admonition_ranges):
+            continue
         blocks.append(block)
         if block.kind == "heading":
             heading_stack = list(block.heading_path)
 
-    blocks.extend(_build_admonition_block_records(markdown, line_starts, blocks))
+    blocks.extend(_build_admonition_block_records(admonition_spans, blocks))
     blocks.sort(key=_block_sort_key)
     _attach_neighbor_context(blocks)
 
@@ -391,15 +405,14 @@ def _build_block_record(
 
 
 def _build_admonition_block_records(
-    markdown: str,
-    line_starts: list[int],
+    spans: list[AdmonitionSpan],
     existing_blocks: list[BlockRecord],
 ) -> list[BlockRecord]:
-    if "!!!" not in markdown and "???" not in markdown:
+    if not spans:
         return []
 
     blocks: list[BlockRecord] = []
-    for span in _iter_admonition_spans(markdown, line_starts):
+    for span in spans:
         heading_stack = list(_heading_path_before_line(existing_blocks, span.start_line))
         title_block = _build_admonition_title_block(span, heading_stack)
         if title_block is not None:
@@ -453,6 +466,35 @@ def _iter_admonition_spans(markdown: str, line_starts: list[int]) -> list[Admoni
             index += 1
             continue
 
+        slash_match = _SLASH_ADMONITION_START_RE.match(body)
+        if slash_match is not None and _is_known_admonition_type(slash_match.group("type")):
+            closing_index = _find_slash_admonition_end(lines, index + 1)
+            if closing_index is None:
+                index += 1
+                continue
+
+            content_markdown, offset_map, line_number_map = _copy_admonition_content(
+                lines=lines,
+                line_starts=line_starts,
+                start_index=index + 1,
+                end_index=closing_index,
+            )
+            spans.append(
+                AdmonitionSpan(
+                    syntax="slash",
+                    start_line=index + 1,
+                    end_line=max(index + 1, closing_index + 1),
+                    start_offset=line_starts[index],
+                    type_name=slash_match.group("type"),
+                    title=_slash_admonition_title(slash_match),
+                    content_markdown=content_markdown,
+                    content_offset_map=offset_map,
+                    content_line_number_map=line_number_map,
+                )
+            )
+            index = closing_index + 1
+            continue
+
         match = _ADMONITION_START_RE.match(body)
         if match is None:
             index += 1
@@ -476,6 +518,7 @@ def _iter_admonition_spans(markdown: str, line_starts: list[int]) -> list[Admoni
         )
         spans.append(
             AdmonitionSpan(
+                syntax="python-markdown",
                 start_line=index + 1,
                 end_line=max(index + 1, content_end),
                 start_offset=line_starts[index],
@@ -489,6 +532,51 @@ def _iter_admonition_spans(markdown: str, line_starts: list[int]) -> list[Admoni
         index = content_end
 
     return spans
+
+
+def _find_slash_admonition_end(lines: list[str], start_index: int) -> int | None:
+    fence_marker: str | None = None
+    for index in range(start_index, len(lines)):
+        body, _newline = _split_line_ending(lines[index])
+        fence_match = _FENCE_RE.match(body)
+        if fence_match is not None:
+            marker = fence_match.group("fence")
+            if fence_marker is None:
+                fence_marker = marker[0]
+            elif marker.startswith(fence_marker):
+                fence_marker = None
+            continue
+
+        if fence_marker is None and _SLASH_ADMONITION_END_RE.match(body):
+            return index
+
+    return None
+
+
+def _copy_admonition_content(
+    *,
+    lines: list[str],
+    line_starts: list[int],
+    start_index: int,
+    end_index: int,
+) -> tuple[str, list[int], list[int]]:
+    parts: list[str] = []
+    offset_map: list[int] = []
+    line_number_map: list[int] = []
+
+    for line_index in range(start_index, end_index):
+        body, newline = _split_line_ending(lines[line_index])
+        original_body_offset = line_starts[line_index]
+        original_newline_offset = line_starts[line_index] + len(body)
+
+        parts.append(body)
+        offset_map.extend(range(original_body_offset, original_body_offset + len(body)))
+        if newline:
+            parts.append(newline)
+            offset_map.extend(range(original_newline_offset, original_newline_offset + len(newline)))
+        line_number_map.append(line_index + 1)
+
+    return "".join(parts), offset_map, line_number_map
 
 
 def _dedent_admonition_content(
@@ -547,6 +635,17 @@ def _build_admonition_title_block(
     )
 
 
+def _is_known_admonition_type(type_name: str) -> bool:
+    return type_name.lower() in _ADMONITION_TYPE_LABELS
+
+
+def _slash_admonition_title(match: re.Match[str]) -> str | None:
+    quoted_title = match.group("quoted_title")
+    if quoted_title is not None:
+        return quoted_title
+    return match.group("pipe_title")
+
+
 def _render_admonition_title(type_name: str, raw_title: str | None) -> str:
     label = _ADMONITION_TYPE_LABELS.get(type_name.lower(), type_name.replace("-", " ").title())
     if raw_title is None:
@@ -555,13 +654,22 @@ def _render_admonition_title(type_name: str, raw_title: str | None) -> str:
     title = raw_title.strip()
     if not title:
         return ""
-    if _admonition_title_has_label(title, label):
-        return title
-    return f"{label} {title}"
+    return _format_admonition_title(title, label)
 
 
-def _admonition_title_has_label(title: str, label: str) -> bool:
-    return re.match(rf"^{re.escape(label)}(?:\s|:|$)", title.strip(), re.IGNORECASE) is not None
+def _format_admonition_title(title: str, label: str) -> str:
+    label_match = re.match(
+        rf"^{re.escape(label)}(?:\s*(?P<separator>\||[:：-])\s*|\s+)?(?P<rest>.*)$",
+        title,
+        re.IGNORECASE,
+    )
+    if label_match is None:
+        return f"{label}{_ADMONITION_TITLE_SEPARATOR}{title}"
+
+    rest = label_match.group("rest").strip()
+    if not rest:
+        return label
+    return f"{label}{_ADMONITION_TITLE_SEPARATOR}{rest}"
 
 
 def _heading_path_before_line(blocks: list[BlockRecord], line: int) -> tuple[str, ...]:
@@ -576,6 +684,13 @@ def _heading_path_before_line(blocks: list[BlockRecord], line: int) -> tuple[str
 
 def _block_sort_key(block: BlockRecord) -> tuple[int, int, str, str]:
     return (block.start_line, block.end_line, block.tag, block.normalized_text)
+
+
+def _block_within_line_ranges(block: BlockRecord, ranges: list[tuple[int, int]]) -> bool:
+    for start_line, end_line in ranges:
+        if block.start_line >= start_line and block.end_line <= end_line:
+            return True
+    return False
 
 
 def _split_line_ending(line: str) -> tuple[str, str]:

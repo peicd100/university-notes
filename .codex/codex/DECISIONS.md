@@ -59,3 +59,14 @@
 - 原因：保留 `mkdocs build` / `mkdocs serve` 的預設入口，減少 CI、preview 與 hooks 路徑風險；`docs/.mkdocs/` 為點開頭資料夾，MkDocs 預設不會把設定檔輸出到網站。
 - 後果：之後修改導覽先改 `docs/.mkdocs/site.yml`；修改外觀、模板或自訂 JS/CSS 先看 `theme/`。
 - 相關檔案：`mkdocs.yml`、`docs/.mkdocs/site.yml`、`theme/`
+
+## ADR-0007：Preview 批次入口用條件式 exit 處理 Ctrl+C
+
+- 狀態：accepted
+- 日期：2026-06-10
+- 背景：使用者在 cmd 執行 `p <Markdown 路徑>` 預覽時，按 Ctrl+C 後不希望 Windows cmd 顯示「要終止批次工作嗎 (Y/N)」。
+- 選項：改成非 batch 入口；讓 `p.bat` 複製 preview 邏輯；保留 batch 入口但在長時間執行命令後用 `&& exit /b 0 || exit /b 1` 收尾。
+- 決策：保留 `preview.bat` 為正式入口、`p.bat` 為薄包裝，兩者都用條件式 `exit /b` 收尾；`mkdocs serve` 被 Ctrl+C 中斷時回傳 1。
+- 原因：改動最小，保留既有 `p` 使用方式與單一 preview 邏輯，同時避免 Ctrl+C 批次確認。
+- 後果：`p.bat` 對非 0 錯誤碼統一回 1，不再保留所有子程序錯誤碼細節；一般使用與 Ctrl+C 終止需求優先。
+- 相關檔案：`p.bat`、`preview.bat`、`.codex/codex/VERIFY.md`

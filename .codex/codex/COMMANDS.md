@@ -17,6 +17,8 @@ preview.bat docs\md\114-2\電機_作業系統\ch 6.md
 Y:\conda\envs\mkdocs\python.exe -m mkdocs serve -f mkdocs.preview.yml --dirty
 ```
 
+在 cmd 內用 `p.bat` 或 `preview.bat` 啟動 serve 後，Ctrl+C 應直接結束，不應停在「要終止批次工作嗎 (Y/N)」。
+
 ## Build
 
 ```bat

@@ -33,8 +33,8 @@ if /i "%PREVIEW_SKIP_SERVE%"=="1" (
     exit /b 0
 )
 
-python -m mkdocs serve -f mkdocs.preview.yml --dirty
-exit /b %errorlevel%
+rem Conditional exit prevents Ctrl+C from showing "Terminate batch job (Y/N)".
+python -m mkdocs serve -f mkdocs.preview.yml --dirty && exit /b 0 || exit /b 1
 
 :detect_conda_root
 for %%D in (

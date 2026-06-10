@@ -1,5 +1,18 @@
 # ARCHITECTURE
 
+## Slash admonition 與 plain details block
+
+- `tools/admonition_title_hook.py` 在 MkDocs `on_page_markdown` 階段處理 admonition 標題：
+  - 一般 `!!! type "title"` 會正規化成 `Type | title`。
+  - slash shorthand 支援 `/// type "title"` 與 `/// type|title` / `/// type | title`。
+  - slash shorthand 只處理 `_TYPE_LABELS` 內的 admonition 類型，因此 `/// details|title` 仍交給 `pymdownx.blocks.details`。
+- `tools/source_jump_hook.py` 需要和上述語法同步解析 `quoted_title` 與 `pipe_title`，才能讓渲染後的 `Danger | title` 仍定位回原 Markdown 的 `/// danger|title` 起始行。
+- `theme/assets/pymdownx-extras/自定義.css` 只針對暗色模式的 `.md-typeset details:not([class])` 補 plain details 樣式：
+  - 背景使用 `#050505` / `#0b0d10` 近黑純色。
+  - 左側與外框使用 cyan 細線。
+  - `summary` 使用精簡標題列、箭頭 pseudo-element、右側細分隔線。
+  - 內文維持正文尺寸，只調整摺疊框內距與段落間距。
+
 ## 專案定位
 
 - 型態：MkDocs Material 筆記網站。
@@ -30,7 +43,8 @@
 ## Single Page Preview
 
 - `preview.bat`：正式入口，負責更新 `mkdocs.preview.yml` managed block 並啟動 `python -m mkdocs serve -f mkdocs.preview.yml --dirty`。
-- `p.bat`：短命令薄包裝，只轉送參數給 `preview.bat`。
+- `preview.bat`：`mkdocs serve` 以 `python -m mkdocs serve ... && exit /b 0 || exit /b 1` 收尾，避免使用者在 cmd 按 Ctrl+C 時出現「要終止批次工作嗎 (Y/N)」。
+- `p.bat`：短命令薄包裝，只轉送參數給 `preview.bat`，同樣用條件式 `exit /b` 收尾以避免 Ctrl+C 批次確認。
 - `tools/update_preview_config.py`：正規化路徑，驗證目標位於 `docs/`，管理 `# preview-target:start` 到 `# preview-target:end`。
 
 ## Back To Bottom
@@ -44,7 +58,7 @@
 ## Admonition 標題
 
 - `tools/admonition_title_hook.py` 在 `on_page_markdown` 階段補強 `!!! type "自訂標題"` 的標題文字，並跳過 fenced code block 內的教學範例。
-- 若自訂標題尚未包含類型名稱，輸出會保留預設類型前綴，例如 `!!! danger "記下來"` 渲染為 `Danger 記下來`；未自訂標題的 `!!! danger` 維持 `Danger`，避免重複成 `Danger Danger`。
+- 若自訂標題尚未包含類型名稱，輸出會保留預設類型前綴與分隔線，例如 `!!! danger "記下來"` 渲染為 `Danger | 記下來`；未自訂標題的 `!!! danger` 維持 `Danger`，避免重複成 `Danger Danger`。
 - 此 hook 只改渲染流程中的 Markdown 字串，不改 Markdown 原文；優先順序排在 Source Jump 索引之後，避免干擾原文定位。
 
 ## Folder Path Bar
@@ -72,3 +86,10 @@
 - 位於 `docs/md/多益600/`。
 - Git 保留站點內容、圖片、includes、`紀錄.py`、工具 README 與轉換規則。
 - 生成影音、TTS cache、暫存與本機測試輸出由 `.gitignore` 與 `mkdocs.yml exclude_docs` 排除。
+
+## Slash admonition shorthand
+
+- `tools/admonition_title_hook.py` 會在 `on_page_markdown` 階段把已知 admonition 類型的 `/// type "title"` block 轉成 Python-Markdown admonition：`!!! type "Type | title"`，並把未縮排內文加上 4 空格縮排。
+- 此語法只支援 `_TYPE_LABELS` 中的 admonition 類型，避免誤吃 `/// collapse-code` 等既有 pymdownx block。
+- `tools/source_jump_hook.py` 會直接從原始 `/// ... ///` span 建立 synthetic admonition title/content blocks，並過濾完整落在該 span 內的原始 CommonMark block，讓「開啟原文檔案」定位到原始 `/// danger` 標題行或未縮排內容行。
+- 未閉合的 `/// danger` 不會被轉換，讓錯誤語法保留在輸出中，方便作者發現。

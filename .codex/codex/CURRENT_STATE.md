@@ -16,6 +16,10 @@
 
 ## 最後驗證
 
+- `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& p.bat"`：通過。
+- `Y:\conda\envs\mkdocs\python.exe -m py_compile tools\admonition_title_hook.py tools\source_jump_hook.py`：通過。
+- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name ctrlc-details-final-preview-build-retry -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260610-233544-ctrlc-details-final-preview-build-retry.*`。
+- Playwright 量測 `docs/md/114-2/電機_作業系統/ch 5.md` 的 plain details：`summary::before position=static`、`mask=none`、`noOverlap=true`，截圖在 `.codex/codex/artifacts/details-summary-after.png`。
 - `node --check theme\assets\pymdownx-extras\source-jump.js`：通過。
 - `node --check theme\assets\pymdownx-extras\folder-path-bar.js`：通過。
 - `node --check theme\assets\pymdownx-extras\mermaid-config-override.js`：通過。

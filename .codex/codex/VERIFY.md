@@ -1,5 +1,38 @@
 # VERIFY
 
+## Slash admonition 與 details block
+
+最小驗證命令：
+
+```bat
+Y:\conda\envs\mkdocs\python.exe -m py_compile tools\admonition_title_hook.py tools\source_jump_hook.py
+Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name details-pipe-admonition-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
+```
+
+行為檢查：
+- `/// danger|重點`、`/// danger | 重點`、`/// danger "重點"` 都應重寫成 `!!! danger "Danger | 重點"`。
+- `/// danger|Danger | 重點` 不應變成 `Danger | Danger | 重點`。
+- `/// details|摺疊` 不應被 `admonition_title_hook.py` 改寫，應由 `pymdownx.blocks.details` 輸出 `<details><summary>摺疊</summary>...`。
+- Source Jump synthetic block 應把 `Danger | 重點` 對回 `/// danger|重點` 起始行，內容對回 body 行。
+- `site/assets/pymdownx-extras/自定義.css` 應包含 `.md-typeset details:not([class])` 暗色樣式，`mkdocs.yml` 的 CSS query version 應同步 bump 避免快取。
+- details summary 箭頭應是 `position: static` 的 flex item，且文字起點不可與箭頭重疊。
+
+視覺檢查：
+- 使用 Playwright CLI 開啟已建置站點，截 `details` 元素關閉與展開狀態。
+- 參考產物：`.codex/codex/artifacts/details-style-playwright.png`、`.codex/codex/artifacts/details-style-playwright-open.png`、`.codex/codex/artifacts/details-summary-after.png`。
+
+## Preview Ctrl+C
+
+最小驗證：
+
+```bat
+cmd /d /c "set PREVIEW_SKIP_SERVE=1&& p.bat"
+```
+
+手動驗證：
+- 在 cmd 啟動 `p.bat docs\md\114-2\科技_計算機結構\期末考複習-ch4.2.md`。
+- 等 `mkdocs serve` 開始後按 Ctrl+C，應直接返回命令提示字元，不應顯示「要終止批次工作嗎 (Y/N)」。
+
 ## Source Jump
 
 最小驗證：
@@ -37,7 +70,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 - 若修改 TTS 面板，開啟 header 喇叭按鈕，確認深色面板使用黑底薄線、slider 與選取狀態使用 cyan、控制文字不擠壓，且 console error/warn 為空。
 - 若修改文章圖片尺寸，桌機量測 `.md-content__inner.md-typeset img:not(.twemoji)` 最大寬度比例應不超過 0.7；手機或窄螢幕應可回到 1.0；全螢幕 image viewer 不應被 70% 規則限制。
 - 若修改 `collapse-code` 樣式，開啟有 `/// collapse-code` 的頁面，收合狀態展開按鈕應約 1.45rem、不是大色塊；展開後 `.code-footer` 不應覆蓋最後幾行程式碼，且 footer 背景應與 code block 背景一致、不可留下突兀黑色底條，console error/warn 應為空。
-- 若修改 admonition 標題處理，驗證 `!!! danger "記下來"` 會輸出 `Danger 記下來`，且 `!!! danger` 仍只輸出 `Danger`，不可重複成 `Danger Danger`。
+- 若修改 admonition 標題處理，驗證 `!!! danger "記下來"` 會輸出 `Danger | 記下來`，且 `!!! danger` 仍只輸出 `Danger`，不可重複成 `Danger Danger` 或 `Danger | Danger`。
 - 若修改 admonition / `!!! danger` 樣式，開啟 `docs/md/114-2/科技_計算機結構/期末考複習-ch4-1.md`，量測 `PC+4` 所在 danger 內文與一般正文應同為約 16px；`.admonition-title` 可較小，約 14.08px。
 
 ## 輸出管理
@@ -49,3 +82,19 @@ Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name <name> -- <command...
 ```
 
 輸出應落在 `.codex/codex/tmp/`。
+
+## Slash admonition
+
+最小驗證：
+
+```bat
+Y:\conda\envs\mkdocs\python.exe -m py_compile tools\admonition_title_hook.py tools\source_jump_hook.py
+Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name slash-admonition-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
+```
+
+行為檢查：
+- `/// danger "重點"`、未縮排內文、結尾 `///` 會在渲染前轉為 `!!! danger "Danger | 重點"` 與 4 空格縮排內文。
+- `/// danger` 沒有自訂標題時渲染為預設 `Danger`。
+- `/// collapse-code` 不能被轉成 admonition。
+- fenced code block 裡的 `/// danger "重點"` 不能被改寫。
+- Source Jump synthetic block 要能把 `Danger | 重點` 定位到 `/// danger "重點"` 原始行，把內文與 heading 定位到未縮排的原始內容行。
