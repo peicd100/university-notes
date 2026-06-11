@@ -11,6 +11,15 @@
     toolbarGroup: "peicd-toc-toolbar__group",
     control: "peicd-toc-control",
     modeActive: "peicd-toc-control--active",
+    dangerMode: "peicd-toc-danger-mode",
+    dangerList: "peicd-danger-list",
+    dangerItem: "peicd-danger-item",
+    dangerLink: "peicd-danger-link",
+    dangerLinkTop: "peicd-danger-link__top",
+    dangerBadge: "peicd-danger-badge",
+    dangerMeta: "peicd-danger-meta",
+    dangerCurrentLabel: "peicd-danger-current-label",
+    dangerEmpty: "peicd-danger-empty",
     toggle: "peicd-toc-toggle",
     nested: "peicd-toc-item--nested",
     collapsed: "peicd-toc-item--collapsed",
@@ -85,10 +94,29 @@
     state.mode = nextMode;
     state.sidebar.dataset.peicdTocMode = nextMode;
 
-    state.buttons.auto?.setAttribute("aria-pressed", String(nextMode === "auto"));
-    state.buttons.auto?.classList.toggle(CLASS.modeActive, nextMode === "auto");
-    state.buttons.manual?.setAttribute("aria-pressed", String(nextMode === "manual"));
-    state.buttons.manual?.classList.toggle(CLASS.modeActive, nextMode === "manual");
+    updateToolbarState();
+  }
+
+  function setView(nextView) {
+    if (!state) return;
+
+    const view = nextView === "danger" ? "danger" : "toc";
+    state.view = view;
+    state.sidebar.dataset.peicdTocView = view;
+    state.sidebar.classList.toggle(CLASS.dangerMode, view === "danger");
+    updateToolbarState();
+  }
+
+  function updateToolbarState() {
+    if (!state) return;
+
+    const inDangerView = state.view === "danger";
+    state.buttons.auto?.setAttribute("aria-pressed", String(!inDangerView && state.mode === "auto"));
+    state.buttons.auto?.classList.toggle(CLASS.modeActive, !inDangerView && state.mode === "auto");
+    state.buttons.manual?.setAttribute("aria-pressed", String(!inDangerView && state.mode === "manual"));
+    state.buttons.manual?.classList.toggle(CLASS.modeActive, !inDangerView && state.mode === "manual");
+    state.buttons.danger?.setAttribute("aria-pressed", String(inDangerView));
+    state.buttons.danger?.classList.toggle(CLASS.modeActive, inDangerView);
   }
 
   function setExpanded(item, expanded) {
@@ -108,12 +136,17 @@
       "." + CLASS.currentLink + ", ." + CLASS.proxyLink
     ).forEach((element) => {
       element.classList.remove(CLASS.currentLink, CLASS.proxyLink);
+      element.removeAttribute("aria-current");
     });
 
     state.toc.querySelectorAll(
       "." + CLASS.currentItem + ", ." + CLASS.currentPath
     ).forEach((element) => {
       element.classList.remove(CLASS.currentItem, CLASS.currentPath);
+    });
+
+    state.toc.querySelectorAll("." + CLASS.dangerCurrentLabel).forEach((element) => {
+      element.hidden = true;
     });
   }
 
@@ -144,6 +177,9 @@
     if (!entry) return;
 
     entry.link.classList.add(CLASS.currentLink);
+    entry.link.setAttribute("aria-current", "true");
+    const dangerLabel = entry.link.querySelector("." + CLASS.dangerCurrentLabel);
+    if (dangerLabel) dangerLabel.hidden = false;
 
     let item = entry.link.closest("li.md-nav__item");
     if (item) item.classList.add(CLASS.currentItem);
@@ -184,6 +220,7 @@
   }
 
   function findCurrentEntry() {
+    if (state?.view === "danger") return findCurrentDangerEntry();
     if (!state?.entries?.length) return null;
 
     const activationLine = getHeaderOffset() + ACTIVATION_OFFSET;
@@ -192,6 +229,32 @@
     for (const entry of state.entries) {
       if (entry.target.getBoundingClientRect().top <= activationLine) current = entry;
       else break;
+    }
+
+    return current;
+  }
+
+  function findCurrentDangerEntry() {
+    if (!state?.dangerEntries?.length) return null;
+
+    const activationLine = getHeaderOffset() + ACTIVATION_OFFSET;
+    let current = state.dangerEntries[0];
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (const entry of state.dangerEntries) {
+      const top = entry.target.getBoundingClientRect().top;
+      const distance = Math.abs(top - activationLine);
+      const isBeforeOrHere = top <= activationLine;
+      const bestTop = current.target.getBoundingClientRect().top;
+      const bestIsBeforeOrHere = bestTop <= activationLine;
+
+      if (
+        distance < bestDistance ||
+        (distance === bestDistance && isBeforeOrHere && !bestIsBeforeOrHere)
+      ) {
+        current = entry;
+        bestDistance = distance;
+      }
     }
 
     return current;
@@ -290,6 +353,7 @@
 
     const expandButton = createButton("展開", {
       onClick() {
+        setView("toc");
         setMode("manual");
         holdManual();
         state.nestedItems.forEach((item) => setExpanded(item, true));
@@ -300,6 +364,7 @@
 
     const collapseButton = createButton("收合", {
       onClick() {
+        setView("toc");
         setMode("manual");
         holdManual();
         state.nestedItems.forEach((item) => setExpanded(item, false));
@@ -312,7 +377,12 @@
       mode: "peicd-toc-control--mode",
       pressed: true,
       onClick() {
-        if (state.mode === "auto") return;
+        setView("toc");
+        if (state.mode === "auto") {
+          releaseManualHold();
+          scheduleSync(true);
+          return;
+        }
         setMode("auto");
         releaseManualHold();
         scheduleSync(true);
@@ -324,7 +394,12 @@
       mode: "peicd-toc-control--mode",
       pressed: false,
       onClick() {
-        if (state.mode === "manual") return;
+        setView("toc");
+        if (state.mode === "manual") {
+          holdManual();
+          scheduleSync(false);
+          return;
+        }
         setMode("manual");
         holdManual();
         scheduleSync(false);
@@ -332,13 +407,25 @@
       title: "保留你手動展開的狀態"
     });
 
+    const dangerButton = createButton("Danger", {
+      mode: "peicd-toc-control--danger",
+      pressed: false,
+      onClick() {
+        setView(state.view === "danger" ? "toc" : "danger");
+        releaseManualHold();
+        scheduleSync(true);
+      },
+      title: "切換 Danger Block 目錄"
+    });
+
     actions.append(expandButton, collapseButton);
     modes.append(autoButton, manualButton);
-    toolbar.append(actions, modes);
+    toolbar.append(actions, modes, dangerButton);
 
     state.buttons = {
       auto: autoButton,
-      manual: manualButton
+      manual: manualButton,
+      danger: dangerButton
     };
 
     return toolbar;
@@ -431,9 +518,180 @@
     }).filter(Boolean);
   }
 
+  function normalizeText(text) {
+    return (text || "").replace(/\s+/g, " ").trim();
+  }
+
+  function getHeadingText(heading) {
+    if (!heading) return "";
+
+    const clone = heading.cloneNode(true);
+    clone.querySelectorAll(".headerlink, .anchor, a[href^='#']").forEach((element) => element.remove());
+    return normalizeText(clone.textContent);
+  }
+
+  function getDangerTitle(block) {
+    const title = block.querySelector(":scope > .admonition-title, :scope > summary");
+    const raw = normalizeText(title?.textContent);
+    if (!raw) return "";
+
+    const custom = raw.replace(/^Danger(?:\s*\|\s*|\s*[:：-]\s*|\s+)?/i, "").trim();
+    return custom && custom.toLowerCase() !== "danger" ? custom : "";
+  }
+
+  function getElementTop(element) {
+    return element.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function findNearestHeading(block, headings) {
+    const innerHeading = Array.from(block.querySelectorAll("h1, h2, h3, h4, h5, h6"))
+      .find((heading) => getHeadingText(heading));
+    if (innerHeading) return { heading: innerHeading, relation: "內部標題" };
+
+    const blockTop = getElementTop(block);
+    let previous = null;
+    let next = null;
+
+    for (const heading of headings) {
+      if (block.contains(heading) || !getHeadingText(heading)) continue;
+
+      const headingTop = getElementTop(heading);
+      const candidate = {
+        heading,
+        distance: Math.abs(blockTop - headingTop),
+        relation: headingTop <= blockTop ? "前方標題" : "後方標題"
+      };
+
+      if (headingTop <= blockTop) {
+        if (!previous || headingTop >= getElementTop(previous.heading)) previous = candidate;
+      } else if (!next || headingTop < getElementTop(next.heading)) {
+        next = candidate;
+      }
+    }
+
+    if (previous && next) return previous.distance <= next.distance ? previous : next;
+    return previous || next;
+  }
+
+  function ensureDangerTargetId(block, index) {
+    if (!block.id) block.id = "peicd-danger-block-" + (index + 1);
+    return block.id;
+  }
+
+  function getArticleRoot() {
+    return (
+      document.querySelector(".md-content__inner.md-typeset") ||
+      document.querySelector(".md-content .md-typeset") ||
+      document.querySelector("article.md-content__inner") ||
+      document.querySelector("main .md-typeset")
+    );
+  }
+
+  function createDangerLink(entry) {
+    const link = document.createElement("a");
+    link.className = "md-nav__link " + CLASS.dangerLink;
+    link.href = "#" + encodeURIComponent(entry.id);
+    link.setAttribute("title", entry.title);
+
+    const top = document.createElement("span");
+    top.className = CLASS.dangerLinkTop;
+
+    const badge = document.createElement("span");
+    badge.className = CLASS.dangerBadge;
+    badge.textContent = "Danger";
+
+    const label = document.createElement("span");
+    label.className = "md-ellipsis";
+    label.textContent = entry.title;
+
+    const meta = document.createElement("span");
+    meta.className = CLASS.dangerMeta;
+    meta.textContent = entry.meta;
+
+    const current = document.createElement("span");
+    current.className = CLASS.dangerCurrentLabel;
+    current.textContent = "現在在這裡";
+    current.hidden = true;
+
+    top.append(badge, label);
+    link.append(top, meta, current);
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      setView("danger");
+      releaseManualHold();
+      if (isMobile()) setMobileOpen(false);
+
+      const nextHash = "#" + encodeURIComponent(entry.id);
+      if (window.location.hash !== nextHash) {
+        history.pushState(history.state, "", nextHash);
+      }
+
+      const targetTop = entry.target.getBoundingClientRect().top + window.scrollY - getHeaderOffset() - 12;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: prefersReducedMotion() ? "auto" : "smooth"
+      });
+
+      applyCurrent(entry);
+      followCurrent(entry);
+      window.setTimeout(() => scheduleSync(true), prefersReducedMotion() ? 0 : 260);
+    });
+
+    return link;
+  }
+
+  function buildDangerEntries() {
+    const article = getArticleRoot();
+    const blocks = article ? Array.from(article.querySelectorAll(".admonition.danger, details.danger")) : [];
+    const headings = article ? Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6")) : [];
+
+    state.dangerEntries = blocks.map((block, index) => {
+      const customTitle = getDangerTitle(block);
+      const nearest = customTitle ? null : findNearestHeading(block, headings);
+      const headingTitle = nearest ? getHeadingText(nearest.heading) : "";
+      const title = customTitle || headingTitle || "Danger #" + (index + 1);
+      const id = ensureDangerTargetId(block, index);
+      const meta = customTitle ? "Block 標題" : (nearest ? nearest.relation : "未找到附近標題");
+
+      return {
+        id,
+        target: block,
+        title,
+        meta,
+        link: null
+      };
+    });
+  }
+
+  function renderDangerList() {
+    if (state.dangerList) state.dangerList.remove();
+
+    const list = document.createElement("ul");
+    list.className = "md-nav__list " + CLASS.dangerList;
+
+    if (!state.dangerEntries.length) {
+      const item = document.createElement("li");
+      item.className = "md-nav__item " + CLASS.dangerEmpty;
+      item.textContent = "此筆記沒有任何 Danger Block";
+      list.append(item);
+    } else {
+      state.dangerEntries.forEach((entry) => {
+        const item = document.createElement("li");
+        item.className = "md-nav__item " + CLASS.dangerItem;
+        entry.link = createDangerLink(entry);
+        item.append(entry.link);
+        list.append(item);
+      });
+    }
+
+    state.toc.append(list);
+    state.dangerList = list;
+  }
+
   function createObserver() {
     if (state.observer) state.observer.disconnect();
-    if (!state.entries.length || !("IntersectionObserver" in window)) return;
+    const observedEntries = [...state.entries, ...state.dangerEntries];
+    if (!observedEntries.length || !("IntersectionObserver" in window)) return;
 
     state.observer = new IntersectionObserver(() => scheduleSync(), {
       root: null,
@@ -441,7 +699,7 @@
       threshold: [0, 1]
     });
 
-    state.entries.forEach((entry) => state.observer.observe(entry.target));
+    observedEntries.forEach((entry) => state.observer.observe(entry.target));
   }
 
   function setMobileOpen(open) {
@@ -462,7 +720,7 @@
   function updateMobileUI() {
     if (!state?.mobileButton || !state.sidebar) return;
 
-    const visible = Boolean(state.entries.length) && isMobile();
+    const visible = Boolean(state.entries.length || state.dangerEntries.length) && isMobile();
     state.mobileButton.hidden = !visible;
     state.mobileScrim.hidden = !(visible && state.sidebar.classList.contains(CLASS.mobileVisible));
     state.mobileButton.setAttribute("aria-controls", MOBILE_PANEL_ID);
@@ -564,8 +822,11 @@
   }
 
   function resetSidebar(sidebar) {
-    sidebar.classList.remove(CLASS.sidebar, CLASS.mobileVisible, CLASS.syncing);
+    sidebar.classList.remove(CLASS.sidebar, CLASS.mobileVisible, CLASS.syncing, CLASS.dangerMode);
+    sidebar.removeAttribute("data-peicd-toc-mode");
+    sidebar.removeAttribute("data-peicd-toc-view");
     sidebar.querySelectorAll("." + CLASS.toggle).forEach((element) => element.remove());
+    sidebar.querySelectorAll("." + CLASS.dangerList).forEach((element) => element.remove());
     sidebar.querySelectorAll("." + CLASS.head).forEach((head) => {
       const nav = sidebar.querySelector(".md-nav--secondary");
       const title = head.querySelector(".md-nav__title");
@@ -579,6 +840,7 @@
 
     sidebar.querySelectorAll("a.md-nav__link").forEach((link) => {
       link.classList.remove(CLASS.currentLink, CLASS.proxyLink);
+      link.removeAttribute("aria-current");
     });
   }
 
@@ -618,10 +880,13 @@
       mobileButton: null,
       mobileScrim: null,
       entries: [],
+      dangerEntries: [],
+      dangerList: null,
       nestedItems: [],
       buttons: {},
       observer: null,
       mode: "auto",
+      view: "toc",
       activeKey: "",
       sidebarManualLocked: false,
       autoScrollUntil: 0,
@@ -635,11 +900,14 @@
     buildHead();
     decorateNestedItems();
     buildEntries();
+    buildDangerEntries();
+    renderDangerList();
     buildMobileChrome();
     createObserver();
     bindSidebarEvents();
     bindGlobalEvents();
     setMode("auto");
+    setView("toc");
     updateMobileUI();
     scheduleSync(true);
   }

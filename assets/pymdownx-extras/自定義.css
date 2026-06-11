@@ -3721,7 +3721,7 @@ html.peicd-image-viewer-open body {
 .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toolbar {
   display: grid;
   gap: 0.24rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toolbar__group {
@@ -3833,6 +3833,84 @@ html.peicd-image-viewer-open body {
   border-inline-start: 1px solid var(--peicd-toc-track-strong);
   margin: 0 0 0 0.18rem;
   padding: 0 0 0 0.72rem;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-list {
+  border-inline-start: 1px solid rgba(255, 87, 87, 0.26);
+  display: none;
+  margin: 0 0 0 0.18rem;
+  padding: 0 0 0 0.72rem;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar.peicd-toc-danger-mode [data-md-component="toc"] > .md-nav__list:not(.peicd-danger-list) {
+  display: none !important;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar.peicd-toc-danger-mode [data-md-component="toc"] > li.md-nav__item:not(.peicd-danger-item):not(.peicd-danger-empty) {
+  display: none !important;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar.peicd-toc-danger-mode [data-md-component="toc"] > .peicd-danger-list {
+  display: block !important;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-item {
+  margin: 0;
+  padding: 0;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-danger-link {
+  display: grid;
+  gap: 0.16rem;
+  padding-block: 0.56rem;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-link__top {
+  align-items: center;
+  display: flex;
+  gap: 0.34rem;
+  min-width: 0;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-badge {
+  border: 1px solid rgba(255, 87, 87, 0.34);
+  color: rgba(255, 138, 138, 0.92);
+  flex: 0 0 auto;
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 0.14rem 0.22rem;
+  text-transform: uppercase;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-meta,
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-current-label {
+  font-size: 0.54rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-meta {
+  color: var(--peicd-toc-text-soft);
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-current-label {
+  color: var(--peicd-nav-text);
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .peicd-danger-link.peicd-toc-link--current .peicd-danger-current-label {
+  display: inline-flex;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-danger-empty {
+  border: 1px solid var(--peicd-toc-track);
+  color: var(--peicd-toc-text-soft);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0.08rem 0 0;
+  padding: 0.72rem 0.76rem;
 }
 
 .md-sidebar--secondary.peicd-toc-sidebar [data-md-component="toc"] .md-nav__list .md-nav__list {
