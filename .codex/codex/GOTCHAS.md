@@ -60,6 +60,16 @@
 - 不要做：不要只在 JS 初次載入時綁定一次頁面 DOM。
 - 驗證方式：從首頁 instant navigation 到目標頁後，功能仍可操作。
 
+## Danger TOC 需避開 Material 同頁 hash 重初始化
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-11
+- 影響範圍：`theme/assets/pymdownx-extras/toc-fold.js`、右側 TOC / Danger 目錄。
+- 正確做法：Danger 目錄連結需 `preventDefault()` 後自行 `history.pushState` 與 `scrollTo`，並在 Danger 視圖內同步目前項目；正文容器要分段優先找 `.md-content__inner.md-typeset`，不可用單一 selector list 的第一個 `.md-typeset`。
+- 不要做：不要讓 Danger 連結走預設同頁 hash link；Material instant navigation 可能觸發 `document$` 重新初始化，把 Danger 視圖重設為一般 TOC。也不要假設 `[data-md-component="toc"]` 一定是 nav，它在目前頁面可直接是 `ul.md-nav__list`。
+- 驗證方式：在 `期末考複習-ch4.2.html` 按 Danger 後點 `#peicd-danger-block-7`，URL hash 應停在該 block、Danger 視圖不消失、目前項目顯示「現在在這裡」；一般 TOC link 應不可見。
+
 ## UI 深色主題與版面壓縮索引
 
 - 狀態：active

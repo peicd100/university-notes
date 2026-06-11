@@ -1,5 +1,10 @@
 # 00 START HERE
 
+## 2026-06-11 clean index note
+
+- Right TOC / Danger TOC: start with `ARCHITECTURE.md`, `VERIFY.md`, `GOTCHAS.md`, then edit `theme/assets/pymdownx-extras/toc-fold.js`, `theme/assets/pymdownx-extras/自定義.css`, and bump `mkdocs.yml` asset versions.
+- Danger TOC gotcha: Material same-page hash links can reinitialize `document$`; Danger links should intercept default navigation and self-scroll.
+
 > UI 字體相關任務：正文預設維持原本 `var(--md-text-font), "Cascadia Mono", monospace`；不要再把全站正文改成 CJK fallback，除非使用者重新明確指定。
 
 ## 讀取順序

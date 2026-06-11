@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-11 22:02：右側 Danger Block 目錄
+
+- 任務類型：feature
+- 修改範圍：`theme/assets/pymdownx-extras/toc-fold.js`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/`。
+- 主要決策：右側 TOC 新增 `Danger` 模式；Danger 項目由正文 DOM 掃描產生，優先使用自訂 Danger 標題，無標題時用最近 heading；Danger link 自行處理 hash 與捲動以避開 Material instant navigation 重初始化。
+- 驗證結果：`node --check toc-fold.js` 通過；三次 full build returncode 0；內建瀏覽器驗證 12 筆 Danger、無 Danger 空狀態、點擊 `#peicd-danger-block-7`、按「自動」回一般 TOC，console error/warn 為空。
+- 尚未完成：沒有。
+- 下次建議先讀：`ARCHITECTURE.md` 的 Right TOC 與 Danger TOC、`GOTCHAS.md` 的 Danger TOC 條目、`VERIFY.md` 的前端互動 TOC 檢查。
+- 相關檔案：`.codex/codex/tmp/20260611-215954-danger-toc-build-after-click-fix.meta.json`。
+
 ## 2026-06-10 23:36：Preview Ctrl+C 與 details 箭頭重疊修正
 
 - 任務類型：bugfix

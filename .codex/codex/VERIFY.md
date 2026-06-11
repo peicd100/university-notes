@@ -56,6 +56,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 
 - 使用瀏覽器確認選字右鍵與未選字右鍵都可顯示選單。
 - 若涉及 Material instant navigation，從其他頁切到目標頁後再測一次。
+- 若修改右側 TOC / Danger 目錄，開啟含多個 Danger block 的頁面如 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：按 `Danger` 後應只顯示 Danger 項目，一般 TOC 連結不可同時可見；目前項目應顯示「現在在這裡」；點擊項目應跳到 `#peicd-danger-block-*` 且停留在 Danger 視圖；按「自動」應回到一般 TOC。再開啟無 Danger block 但有標題的頁面如 `site/md/Verilog/首頁.html`，應顯示「此筆記沒有任何 Danger Block」。
 - 若修改 Mermaid 樣式，至少開啟 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係圖，確認 `Priority-based Preemptive Scheduling`、`Shorter period`、`Higher priority` 等英文字下緣沒有被裁切。
 - Mermaid htmlLabels 可用瀏覽器量測：目標圖表每個 `g.node foreignObject` 都應帶 `data-peicd-descender-pad="true"`；單行 label 高度應從原始 19px 增到約 24px，且 `Higher priority`、`Lower priority` 最後的 `y` 必須可見。
 - 若修改 Mermaid 暗色對比，開啟 `docs/md/114-2/電機_作業系統/ch 7.md` 的 deadlock flowchart；`dracula` 主題下 node label 應接近白色、node fill 應為深紫、node stroke 應為 `#72e3fd`，edge label 應為深底白字，console error/warn 應為空。

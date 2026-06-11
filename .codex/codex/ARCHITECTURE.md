@@ -55,6 +55,15 @@
 - 載入位置：`theme/main.html` 的 `scripts` block，位於 `{{ super() }}` 後。
 - Material `navigation.instant` 啟用時，要使用 `DOMContentLoaded`、`load` 與 `window.document$.subscribe(...)` 補初始化。
 
+## Right TOC 與 Danger TOC
+
+- 一般右側 TOC 邏輯在 `theme/assets/pymdownx-extras/toc-fold.js`，樣式在 `theme/assets/pymdownx-extras/自定義.css`。
+- TOC 工具列提供「展開 / 收合 / 自動 / 手動 / Danger」；前四者控制一般 TOC 模式，`Danger` 切換到 Danger Block 目錄。
+- Danger 目錄在前端從 `.md-content__inner.md-typeset` 內掃描 `.admonition.danger` 與 `details.danger` 產生，不依賴 Source Jump endpoint，因此 build 後靜態頁也可使用。
+- Danger 項目標題優先取 `.admonition-title` / `summary` 去掉 `Danger |` 前綴後的自訂標題；若沒有自訂標題，先取 block 內標題，再依渲染後畫面位置比較前後 `h1-h6`，距離相同取前方標題。
+- Danger 項目點擊會攔截同頁 hash link，自行 `history.pushState` 與 `scrollTo`，避免 Material instant navigation 重新初始化後把視圖重設為一般 TOC。
+- `mkdocs.yml` 的 `toc-fold.js` 與 `自定義.css` 使用版本參數；修改 TOC 行為或樣式後需同步 bump，避免手機或瀏覽器快取吃舊檔。
+
 ## Admonition 標題
 
 - `tools/admonition_title_hook.py` 在 `on_page_markdown` 階段補強 `!!! type "自訂標題"` 的標題文字，並跳過 fenced code block 內的教學範例。

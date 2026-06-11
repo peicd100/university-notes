@@ -58,6 +58,8 @@
   - `!!! danger "記下來"` 這類 admonition 自訂標題渲染後要保留類型前綴與分隔線，例如顯示 `Danger | 記下來`；未自訂標題的 `!!! danger` 則維持 `Danger`。
   - Admonition / `!!! danger` 內文不要比正文小；框內段落、清單、表格與標題應回到正文基準字級，只有 `Danger` 標題列可維持較精簡的小一階樣式。
   - details 摺疊框的箭頭與標題文字不可重疊；若使用 pseudo-element 畫箭頭，必須保留穩定佔位與足夠間距。
+  - 右側 TOC 工具列需提供 `Danger` 按鈕；按下後切換為 Danger Block 目錄，項目使用 Danger 自訂標題文字，無自訂標題時使用最近的 `h1-h6` 標題，沒有任何 Danger block 時顯示「此筆記沒有任何 Danger Block」。
+  - Danger 目錄需可點擊跳轉到對應 Danger block，並用「現在在這裡」標示目前最近的 Danger 項目；在 Danger 目錄中按「展開 / 收合 / 自動 / 手動」任一按鈕，必須切回一般 TOC 對應模式。
 
 ## 多益600
 

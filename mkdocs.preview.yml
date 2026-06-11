@@ -7,10 +7,10 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/114-2/科技_計算機結構/期末考複習-ch4.2.md'
+  - 'md/114-2/科技_計算機結構/ch 6-Lab.md'
 
 exclude_docs: |
   *.md
-  !/md/114-2/科技_計算機結構/期末考複習-ch4.2.md
+  !/md/114-2/科技_計算機結構/ch 6-Lab.md
   !/index.md
 # preview-target:end

@@ -70,3 +70,14 @@
 - 原因：改動最小，保留既有 `p` 使用方式與單一 preview 邏輯，同時避免 Ctrl+C 批次確認。
 - 後果：`p.bat` 對非 0 錯誤碼統一回 1，不再保留所有子程序錯誤碼細節；一般使用與 Ctrl+C 終止需求優先。
 - 相關檔案：`p.bat`、`preview.bat`、`.codex/codex/VERIFY.md`
+
+## ADR-0008：Danger 目錄以前端 DOM 產生並自行處理跳轉
+
+- 狀態：accepted
+- 日期：2026-06-11
+- 背景：使用者希望右側 TOC 增加 `Danger` 模式，列出本頁所有 Danger Block，並像 TOC 一樣標示目前位置與支援點擊跳轉。
+- 選項：在 MkDocs build 階段產生 Danger 索引；沿用 Source Jump 的原始 Markdown 行號索引；在前端由渲染後 DOM 掃描 Danger block。
+- 決策：採前端 DOM 掃描 `.admonition.danger` / `details.danger`，標題優先取 Danger 自訂標題，無標題時用渲染後最近 heading fallback；Danger link 攔截預設 hash navigation，自行更新 hash 與捲動。
+- 原因：不依賴本機 preview endpoint，靜態 build 也能使用；與現有 `Danger | title` 渲染規則相容；可避開 Material instant navigation 對同頁 hash link 的重新初始化。
+- 後果：最近 heading 的距離以渲染後畫面位置近似原始行距，不直接讀 Markdown 行號；若未來需要精準原始行距，需在 build 階段注入 source metadata。
+- 相關檔案：`theme/assets/pymdownx-extras/toc-fold.js`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
