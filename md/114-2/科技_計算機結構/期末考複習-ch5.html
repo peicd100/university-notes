@@ -14,7 +14,7 @@
         <link rel="prev" href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.2.html">
       
       
-        <link rel="next" href="ch%206-Lab.html">
+        <link rel="next" href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html">
       
       
         
@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-1">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6235,6 +6235,277 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cpu-和記憶體速度落差--為什麼需要-cache-和-memory-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐CPU 和記憶體速度落差 — 為什麼需要 Cache 和 Memory Hierarchy？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐CPU 和記憶體速度落差 — 為什麼需要 Cache 和 Memory Hierarchy？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段真正想解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段真正想解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cpu-速度成長遠快於-dram-和-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CPU 速度成長遠快於 DRAM 和 Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-cpu-會被記憶體拖慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 CPU 會被記憶體拖慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cache-的角色用-sram-擋在-cpu-和-dram-中間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cache 的角色：用 SRAM 擋在 CPU 和 DRAM 中間
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-memory-hierarchy-的核心不變量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Memory Hierarchy 的核心不變量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪核心流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪核心流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-考試最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 考試最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sram-和-dram--為什麼-cache-用-sram主記憶體用-dram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐SRAM 和 DRAM — 為什麼 Cache 用 SRAM，主記憶體用 DRAM？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐SRAM 和 DRAM — 為什麼 Cache 用 SRAM，主記憶體用 DRAM？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段真正想解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段真正想解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sram-的static是什麼意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SRAM 的「Static」是什麼意思？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sram-為什麼快但貴" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. SRAM 為什麼快但貴？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dram-的dynamic是什麼意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. DRAM 的「Dynamic」是什麼意思？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dram-為什麼慢但便宜" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. DRAM 為什麼慢但便宜？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-sram-vs-dram考試必背表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. SRAM vs DRAM：考試必背表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最容易錯的三句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最容易錯的三句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sram-結構與原理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRAM 結構與原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SRAM 結構與原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-口語化小整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 口語化小整理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-維持資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 維持資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-修改資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 修改資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-讀取資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 讀取資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短總結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短總結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6251,14 +6522,14 @@ is now available!
   
   
     <li class="md-nav__item">
-      <a href="ch%206-Lab.html" class="md-nav__link">
+      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    ch 6 Lab
+    期末考複習 ch6 Lab
   
 
     
@@ -6664,6 +6935,277 @@ is now available!
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cpu-和記憶體速度落差--為什麼需要-cache-和-memory-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐CPU 和記憶體速度落差 — 為什麼需要 Cache 和 Memory Hierarchy？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐CPU 和記憶體速度落差 — 為什麼需要 Cache 和 Memory Hierarchy？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段真正想解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段真正想解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cpu-速度成長遠快於-dram-和-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CPU 速度成長遠快於 DRAM 和 Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼-cpu-會被記憶體拖慢" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼 CPU 會被記憶體拖慢？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cache-的角色用-sram-擋在-cpu-和-dram-中間" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cache 的角色：用 SRAM 擋在 CPU 和 DRAM 中間
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-memory-hierarchy-的核心不變量" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Memory Hierarchy 的核心不變量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本輪核心流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本輪核心流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-考試最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 考試最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sram-和-dram--為什麼-cache-用-sram主記憶體用-dram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐SRAM 和 DRAM — 為什麼 Cache 用 SRAM，主記憶體用 DRAM？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐SRAM 和 DRAM — 為什麼 Cache 用 SRAM，主記憶體用 DRAM？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這一段真正想解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這一段真正想解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sram-的static是什麼意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SRAM 的「Static」是什麼意思？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sram-為什麼快但貴" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. SRAM 為什麼快但貴？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dram-的dynamic是什麼意思" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. DRAM 的「Dynamic」是什麼意思？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dram-為什麼慢但便宜" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. DRAM 為什麼慢但便宜？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-sram-vs-dram考試必背表" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. SRAM vs DRAM：考試必背表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-最容易錯的三句話" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 最容易錯的三句話
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sram-結構與原理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRAM 結構與原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SRAM 結構與原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-口語化小整理" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 口語化小整理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-維持資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 維持資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-修改資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 修改資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-讀取資料時" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 讀取資料時
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短總結" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短總結
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -6873,9 +7415,586 @@ is now available!
 </tr>
 </tbody>
 </table>
+<h2 id="cpu-和記憶體速度落差--為什麼需要-cache-和-memory-hierarchy">⭐CPU 和記憶體速度落差 — 為什麼需要 Cache 和 Memory Hierarchy？<a class="headerlink" href="#cpu-和記憶體速度落差--為什麼需要-cache-和-memory-hierarchy" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 7 ~ PDF viewer page 14／輔助：Chapter 5 — Memory — 7 ~ 14</p>
+<h3 id="1-這一段真正想解決什麼問題">1. 這一段真正想解決什麼問題？<a class="headerlink" href="#1-這一段真正想解決什麼問題" title="Permanent link"></a></h3>
+<p>上一段我們知道：理想記憶體要快、要大、要便宜、要可讀寫、最好還不要斷電消失。</p>
+<p>但現實是：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CPU register(暫存器)</code></td>
+<td>超快</td>
+<td>超小、昂貴</td>
+</tr>
+<tr>
+<td><code>SRAM(Cache 用)</code></td>
+<td>很快</td>
+<td>比 DRAM 貴很多、容量不可能太大</td>
+</tr>
+<tr>
+<td><code>DRAM(Main Memory 主記憶體)</code></td>
+<td>容量較大、價格可接受</td>
+<td>比 CPU 慢很多</td>
+</tr>
+<tr>
+<td><code>Disk(硬碟／儲存裝置)</code></td>
+<td>超大、便宜、非揮發</td>
+<td>慢非常多</td>
+</tr>
+</tbody>
+</table>
+<p>所以這一段的核心問題是：</p>
+<blockquote>
+<p>CPU 越來越快，但 DRAM 和 Disk 沒有跟上 CPU 速度。那 CPU 要怎麼避免一直等記憶體？</p>
+</blockquote>
+<p>答案就是：<strong>在 CPU 和慢速大容量記憶體之間，加上比較快但比較小的中間層，也就是 <code>Cache(快取記憶體)</code>，最後形成 <code>Memory Hierarchy(儲存層次結構)</code>。</strong></p>
+<hr />
+<h3 id="2-cpu-速度成長遠快於-dram-和-disk">2. CPU 速度成長遠快於 DRAM 和 Disk<a class="headerlink" href="#2-cpu-速度成長遠快於-dram-和-disk" title="Permanent link"></a></h3>
+<p>講義 page 7 的表格把 CPU、DRAM、Disk 從 1980 到 2010 的變化放在一起比較。CPU 的 <code>cycle time(時脈週期時間)</code> 從 1000 ns 變成 0.4 ns；如果考慮 2010 年四核心，<code>effective cycle time(有效週期時間)</code> 甚至可看成 0.1 ns。相對地，DRAM access time 從 375 ns 變成 40 ns，只提升 9 倍；Disk access time 從 87 ms 變成 3 ms，只提升 29 倍，而且毫秒和奈秒差了 100 萬倍。</p>
+<p>這裡最容易考的是「倍數落差」：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th style="text-align: right;">1980</th>
+<th style="text-align: right;">2010</th>
+<th style="text-align: right;">改善倍率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU cycle time</td>
+<td style="text-align: right;">1000 ns</td>
+<td style="text-align: right;">0.4 ns</td>
+<td style="text-align: right;">2500 倍</td>
+</tr>
+<tr>
+<td>CPU effective cycle time</td>
+<td style="text-align: right;">1000 ns</td>
+<td style="text-align: right;">0.1 ns</td>
+<td style="text-align: right;">10000 倍</td>
+</tr>
+<tr>
+<td>DRAM access time</td>
+<td style="text-align: right;">375 ns</td>
+<td style="text-align: right;">40 ns</td>
+<td style="text-align: right;">9 倍</td>
+</tr>
+<tr>
+<td>Disk access time</td>
+<td style="text-align: right;">87 ms</td>
+<td style="text-align: right;">3 ms</td>
+<td style="text-align: right;">29 倍</td>
+</tr>
+</tbody>
+</table>
+<p>注意：<br />
+CPU 的速度提升是「週期時間變短」。DRAM/Disk 的速度提升是「access time 變短」。講義重點不是要你死背所有數字，而是要你看出：<strong>CPU 進步太快，記憶體跟不上。</strong></p>
+<hr />
+<h3 id="3-為什麼-cpu-會被記憶體拖慢">3. 為什麼 CPU 會被記憶體拖慢？<a class="headerlink" href="#3-為什麼-cpu-會被記憶體拖慢" title="Permanent link"></a></h3>
+<p>假設 CPU 執行一條指令，需要：</p>
+<ol>
+<li><code>Fetch(取指令)</code>：從記憶體拿指令。</li>
+<li><code>Decode(解碼)</code>：CPU 內部解碼。</li>
+<li><code>Address generation(位址生成)</code>：算資料在哪裡。</li>
+<li><code>Execute(執行)</code>：做運算或取資料。</li>
+<li><code>Write-back(回寫)</code>：結果寫回。</li>
+</ol>
+<p>如果沒有 <code>Cache(快取記憶體)</code>，CPU 直接去等 DRAM。講義用例子說：如果 DRAM 需要約 100 個 CPU cycle 才回資料，那取指令等一次、讀 operand 又等一次，一條指令大部分時間都在等記憶體。這就是 <code>memory wall(記憶體牆)</code> 的直覺：CPU 很會算，但一直在等資料。</p>
+<p>生活化例子：</p>
+<p>CPU 像很快的廚師，DRAM 像倉庫。如果每炒一道菜都要跑到倉庫拿蔥、拿鹽、拿鍋子，廚師再快也沒用。<code>Cache</code> 就像把常用食材先放在料理台旁邊。</p>
+<hr />
+<h3 id="4-cache-的角色用-sram-擋在-cpu-和-dram-中間">4. Cache 的角色：用 SRAM 擋在 CPU 和 DRAM 中間<a class="headerlink" href="#4-cache-的角色用-sram-擋在-cpu-和-dram-中間" title="Permanent link"></a></h3>
+<p><code>Cache(快取記憶體)</code> 通常由 <code>SRAM(Static RAM，靜態隨機存取記憶體)</code> 做成。SRAM 比 DRAM 快很多，所以適合放在 CPU 附近，存放 CPU 最近或最常用的資料與指令。</p>
+<p>但 SRAM 不能直接取代 DRAM，原因不是速度，而是：</p>
+<table>
+<thead>
+<tr>
+<th>比較</th>
+<th>SRAM</th>
+<th>DRAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>速度</td>
+<td>快</td>
+<td>慢</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>容量密度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>常見用途</td>
+<td>Cache</td>
+<td>Main Memory</td>
+</tr>
+</tbody>
+</table>
+<p>講義後面在 page 14 收束成 <code>Memory Hierarchy(儲存層次結構)</code>：越往上容量越小、速度越快、單位成本越高；越往下容量越大、速度越慢、單位成本越低。</p>
+<hr />
+<h3 id="5-memory-hierarchy-的核心不變量">5. Memory Hierarchy 的核心不變量<a class="headerlink" href="#5-memory-hierarchy-的核心不變量" title="Permanent link"></a></h3>
+<p>你可以把 <code>Memory Hierarchy(儲存層次結構)</code> 背成這個方向：</p>
+<table>
+<thead>
+<tr>
+<th>層級</th>
+<th>典型技術</th>
+<th style="text-align: right;">容量</th>
+<th style="text-align: right;">速度</th>
+<th style="text-align: right;">單位成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最上層</td>
+<td><code>Register(暫存器)</code></td>
+<td style="text-align: right;">最小</td>
+<td style="text-align: right;">最快</td>
+<td style="text-align: right;">最高</td>
+</tr>
+<tr>
+<td>中上層</td>
+<td><code>Cache(SRAM)</code></td>
+<td style="text-align: right;">小</td>
+<td style="text-align: right;">快</td>
+<td style="text-align: right;">高</td>
+</tr>
+<tr>
+<td>中下層</td>
+<td><code>Main Memory(DRAM)</code></td>
+<td style="text-align: right;">中大</td>
+<td style="text-align: right;">中慢</td>
+<td style="text-align: right;">中低</td>
+</tr>
+<tr>
+<td>最下層</td>
+<td><code>Disk/SSD(本地二級儲存)</code></td>
+<td style="text-align: right;">最大</td>
+<td style="text-align: right;">最慢</td>
+<td style="text-align: right;">最低</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition danger">
-<p class="admonition-title">重點</p>
-<p>PEICD100</p>
+<p class="admonition-title">上面表格容量的意思是同體積的記憶體容量嗎？</p>
+<p>這裡的 <code>capacity(容量)</code> 指的是該記憶體層級通常能提供的總儲存量，不是嚴格的同體積容量。若討論同體積或同面積能放多少資料，應稱為 <code>density(密度)</code>。Memory hierarchy 越往上容量小、速度快、單位成本高；越往下容量大、速度慢、單位成本低。</p>
+</div>
+<p>最重要的規則：</p>
+<blockquote>
+<p>往上：更快、更小、更貴。<br />
+往下：更慢、更大、更便宜。</p>
+</blockquote>
+<p>所以現代電腦不是選一種完美記憶體，而是用很多層記憶體合作：常用資料放上面，不常用資料放下面。</p>
+<hr />
+<h3 id="6-本輪核心流程圖">6. 本輪核心流程圖<a class="headerlink" href="#6-本輪核心流程圖" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart TD
+    A["CPU 速度快速提升"] --&gt; B["DRAM 速度提升較慢"]
+    B --&gt; C["CPU 取指令或取資料時常等待"]
+    C --&gt; D["效能瓶頸：memory wall(記憶體牆)"]
+    D --&gt; E["在 CPU 和 DRAM 中間加入 SRAM"]
+    E --&gt; F["SRAM 作為 Cache(快取記憶體)"]
+    F --&gt; G["常用資料先放在 Cache"]
+    G --&gt; H["CPU 大多數時間可用較短 access time 取資料"]
+    H --&gt; I["形成 Memory Hierarchy(儲存層次結構)"]</code></pre>
+<hr />
+<h3 id="7-考試最短記法">7. 考試最短記法<a class="headerlink" href="#7-考試最短記法" title="Permanent link"></a></h3>
+<p>這一段你最少要會輸出：</p>
+<blockquote>
+<p>CPU 速度提升遠快於 DRAM 和 Disk，導致 CPU 存取記憶體時會大量等待。為了縮短平均存取時間，系統在 CPU 和 DRAM 之間加入較快但較小、較貴的 SRAM 作為 Cache；再往下用較慢但較大、較便宜的 DRAM 和 Disk，形成 Memory Hierarchy。</p>
+</blockquote>
+<p>英文考試版：</p>
+<blockquote>
+<p>CPU speed has improved much faster than DRAM and disk access time, so the CPU may spend many cycles waiting for memory. To reduce the average memory access time, computers place a small and fast SRAM cache between the CPU and DRAM, while using larger and cheaper but slower memories at lower levels. This forms a memory hierarchy.</p>
+</blockquote>
+<hr />
+<h3 id="8-常見錯法">8. 常見錯法<a class="headerlink" href="#8-常見錯法" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>為什麼錯</th>
+<th>正確觀念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAM 比 CPU 慢一點而已</td>
+<td>錯，差距可能是數十到上百個 cycle</td>
+<td>CPU 速度成長遠快於 DRAM</td>
+</tr>
+<tr>
+<td>Disk 慢但容量大，所以可以直接餵 CPU</td>
+<td>錯，Disk access time 太長</td>
+<td>Disk 適合大量長期儲存，不適合 CPU 直接高頻存取</td>
+</tr>
+<tr>
+<td>SRAM 很快，所以應該全部主記憶體都用 SRAM</td>
+<td>忽略成本與容量</td>
+<td>SRAM 適合做小容量 Cache</td>
+</tr>
+<tr>
+<td>Memory hierarchy 只是容量排序</td>
+<td>不完整</td>
+<td>它同時是速度、容量、成本的取捨</td>
+</tr>
+<tr>
+<td>Cache 是為了讓容量變大</td>
+<td>錯</td>
+<td>Cache 主要是為了降低平均存取時間</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sram-和-dram--為什麼-cache-用-sram主記憶體用-dram">⭐SRAM 和 DRAM — 為什麼 Cache 用 SRAM，主記憶體用 DRAM？<a class="headerlink" href="#sram-和-dram--為什麼-cache-用-sram主記憶體用-dram" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 15 ~ PDF viewer page 29／輔助：Chapter 5 — Memory — 15 ~ 29</p>
+<h3 id="1-這一段真正想解決什麼問題_1">1. 這一段真正想解決什麼問題？<a class="headerlink" href="#1-這一段真正想解決什麼問題_1" title="Permanent link"></a></h3>
+<p>前面你已經知道結論：</p>
+<table>
+<thead>
+<tr>
+<th>記憶體</th>
+<th style="text-align: right;">速度</th>
+<th style="text-align: right;">價格</th>
+<th>常見用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SRAM(Static RAM，靜態隨機存取記憶體)</code></td>
+<td style="text-align: right;">快</td>
+<td style="text-align: right;">貴</td>
+<td>Cache</td>
+</tr>
+<tr>
+<td><code>DRAM(Dynamic RAM，動態隨機存取記憶體)</code></td>
+<td style="text-align: right;">慢</td>
+<td style="text-align: right;">便宜</td>
+<td>Main Memory</td>
+</tr>
+</tbody>
+</table>
+<p>但講義 page 15 說得很清楚：只背「SRAM 快、DRAM 慢；SRAM 貴、DRAM 便宜」很容易，真正重要的是知道<strong>為什麼</strong>。所以這一段開始從電路等級解釋差異。</p>
+<p>核心答案是：</p>
+<blockquote>
+<p>SRAM 用比較複雜的電路穩定保存 1 bit，所以快，但佔面積、成本高；DRAM 用電容存 1 bit，所以密度高、便宜，但電容會漏電，需要 refresh，因此比較慢。</p>
+</blockquote>
+<hr />
+<h3 id="2-sram-的static是什麼意思">2. SRAM 的「Static」是什麼意思？<a class="headerlink" href="#2-sram-的static是什麼意思" title="Permanent link"></a></h3>
+<p><code>Static(靜態)</code>不是指斷電後資料還在。這是最容易錯的地方。</p>
+<p>講義 page 15 說，SRAM 的「靜態」是指：<strong>只要保持通電，裡面的資料就可以恆常保持</strong>；但如果電力供應停止，SRAM 裡的資料還是會消失，所以 SRAM 仍然是 <code>volatile memory(揮發性記憶體)</code>。</p>
+<p>所以正確觀念是：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>SRAM 的答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通電時資料是否穩定？</td>
+<td>是</td>
+</tr>
+<tr>
+<td>是否需要定期 refresh？</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>斷電後資料是否保留？</td>
+<td>不保留</td>
+</tr>
+<tr>
+<td>是否為 volatile memory？</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>最短記法：</p>
+<blockquote>
+<p>Static 只表示「通電時不用 refresh 就能維持」，不表示「斷電不會消失」。</p>
+</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">DRAM 需要 refresh，refresh 是啥？</p>
+<p>refresh(刷新) 是指 DRAM 定期把原本儲存的 0/1 資料重新恢復／寫回，特別是把快漏電的 1 重新補電，避免資料因電容漏電而消失。</p>
+</div>
+<hr />
+<h3 id="3-sram-為什麼快但貴">3. SRAM 為什麼快但貴？<a class="headerlink" href="#3-sram-為什麼快但貴" title="Permanent link"></a></h3>
+<p>SRAM 的 1 bit 儲存單元通常需要多個電晶體。講義 page 16~17 強調：SRAM 的優點是通電狀況下資料不會消失；缺點是需要六個電晶體合在一起才能保存 1 bit，並且它的基本單元有 <code>standby(閒置)</code>、<code>reading(讀取)</code>、<code>writing(寫入)</code>三種狀態。 </p>
+<p>直覺可以這樣想：</p>
+<p>SRAM 像是用一組穩固的機械夾子夾住資料。夾得很穩，所以讀寫快、不用一直補救；但每個 bit 都要很多零件，所以很佔空間，也很貴。</p>
+<p>因此 SRAM 的結果是：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>速度快</td>
+<td>電路可以穩定且快速讀寫</td>
+</tr>
+<tr>
+<td>不需 refresh</td>
+<td>通電時狀態可維持</td>
+</tr>
+<tr>
+<td>集成度低</td>
+<td>1 bit 需要較多電晶體</td>
+</tr>
+<tr>
+<td>價格高</td>
+<td>同容量需要更多硬體資源</td>
+</tr>
+<tr>
+<td>功耗較高</td>
+<td>電晶體數多、電路較複雜</td>
+</tr>
+</tbody>
+</table>
+<p>講義 page 24 直接整理 SRAM 的特點：優點是速度較快；缺點是集成度低、功耗較高、價格較高；現代 CPU 中的快取記憶體通常使用 SRAM。</p>
+<hr />
+<h3 id="4-dram-的dynamic是什麼意思">4. DRAM 的「Dynamic」是什麼意思？<a class="headerlink" href="#4-dram-的dynamic是什麼意思" title="Permanent link"></a></h3>
+<p><code>Dynamic(動態)</code>的意思是：資料不能安安穩穩一直放著，必須週期性維護。</p>
+<p>DRAM 用 <code>capacitor(電容)</code>表示 1 bit：有電荷代表一種值，沒有電荷代表另一種值。但電容會漏電，所以經過一段時間後，原本代表資料的電荷會流失；因此 DRAM 必須定期 <code>refresh(刷新)</code>，把原本代表 1 的電容重新補電。講義 page 27 就是在說這個 refresh 機制。</p>
+<p>直覺例子：</p>
+<p>DRAM 像一個會漏水的水杯。杯子有水代表 1，沒水代表 0。因為水會慢慢漏掉，所以系統要定期巡一遍，把應該有水的杯子補滿。這個「補水」就是 <code>refresh(刷新)</code>。</p>
+<hr />
+<h3 id="5-dram-為什麼慢但便宜">5. DRAM 為什麼慢但便宜？<a class="headerlink" href="#5-dram-為什麼慢但便宜" title="Permanent link"></a></h3>
+<p>DRAM 的 1 bit 儲存單元比 SRAM 簡單很多，主要靠電容儲存電荷，所以可以做得很密、很大、很便宜；但因為電容漏電，必須 refresh，而且讀寫機制也比較受限制，所以速度較慢。</p>
+<div class="admonition danger">
+<p class="admonition-title">為何 refresh 會使 RAM 速度變慢？</p>
+<p>refresh(刷新) 會讓 DRAM 變慢，是因為 DRAM 必須定期花時間去維護原本資料；在某些 refresh 時段，記憶體不能正常服務 CPU 的讀寫請求，等於佔用了記憶體頻寬與時間。</p>
+</div>
+<p>講義 page 28 整理 DRAM：優點是集成度高、功耗較低、價格較低；缺點是速度較慢、需要定時刷新；現代 PC 大多採用 DRAM 作為主記憶體。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>集成度高</td>
+<td>1 bit 儲存單元簡單</td>
+</tr>
+<tr>
+<td>容量容易做大</td>
+<td>同面積可塞更多 bit</td>
+</tr>
+<tr>
+<td>價格低</td>
+<td>同容量成本較低</td>
+</tr>
+<tr>
+<td>功耗較低</td>
+<td>儲存單元較簡單</td>
+</tr>
+<tr>
+<td>速度較慢</td>
+<td>存取與 refresh 造成額外負擔</td>
+</tr>
+<tr>
+<td>需要 refresh</td>
+<td>電容會漏電</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="6-sram-vs-dram考試必背表">6. SRAM vs DRAM：考試必背表<a class="headerlink" href="#6-sram-vs-dram考試必背表" title="Permanent link"></a></h3>
+<p>講義 page 29 的總表非常重要：DRAM 的儲存單元是電容，SRAM 是雙穩態觸發器；DRAM 集成度高、功耗低、價格低、速度慢、需要刷新；SRAM 集成度低、功耗高、價格高、速度快、不需要刷新。</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><code>DRAM(動態 RAM)</code></th>
+<th><code>SRAM(靜態 RAM)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>儲存單元</td>
+<td>電容</td>
+<td>雙穩態觸發器／多電晶體電路</td>
+</tr>
+<tr>
+<td>集成度</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>價格</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>慢</td>
+<td>快</td>
+</tr>
+<tr>
+<td>刷新</td>
+<td>有</td>
+<td>無</td>
+</tr>
+<tr>
+<td>常見用途</td>
+<td>主記憶體</td>
+<td>Cache</td>
+</tr>
+</tbody>
+</table>
+<p>你考試時可以這樣寫：</p>
+<blockquote>
+<p>SRAM is fast but expensive and low-density, so it is used for cache. DRAM is slower but cheaper and high-density, so it is used for main memory. DRAM needs refresh because it stores data as charge in capacitors, while SRAM can keep its state as long as power is supplied.</p>
+</blockquote>
+<hr />
+<h3 id="7-最容易錯的三句話">7. 最容易錯的三句話<a class="headerlink" href="#7-最容易錯的三句話" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>錯誤說法</th>
+<th>錯在哪</th>
+<th>正確說法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRAM 是 non-volatile</td>
+<td>錯，SRAM 斷電會消失</td>
+<td>SRAM 是 volatile，只是通電時不用 refresh</td>
+</tr>
+<tr>
+<td>DRAM 慢是因為容量大</td>
+<td>不精確</td>
+<td>DRAM 慢主要和電容儲存、漏電、refresh、讀寫機制有關</td>
+</tr>
+<tr>
+<td>SRAM 比較好，所以主記憶體都該用 SRAM</td>
+<td>忽略成本與密度</td>
+<td>SRAM 快但貴且容量密度低，只適合做小容量 Cache</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sram-結構與原理">SRAM 結構與原理<a class="headerlink" href="#sram-結構與原理" title="Permanent link"></a></h3>
+<p><img alt="alt text" src="images/ch%205-6.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">SRAM 結構與原理</p>
+<h4 id="1-口語化小整理">1. 口語化小整理<a class="headerlink" href="#1-口語化小整理" title="Permanent link"></a></h4>
+<p>6T SRAM 可以想成一個很小的「雙邊互鎖開關」。</p>
+<p>它裡面有兩個值：</p>
+<p><code>Q</code> 和 <code>Q̅</code></p>
+<p>這兩個一定相反：</p>
+<p><code>Q = 0</code> 時，<code>Q̅ = 1</code><br />
+<code>Q = 1</code> 時，<code>Q̅ = 0</code></p>
+<hr />
+<h4 id="2-維持資料時">2. 維持資料時<a class="headerlink" href="#2-維持資料時" title="Permanent link"></a></h4>
+<p><img alt="alt text" src="images/ch%205-11.png" /></p>
+<p>假設現在存的是：</p>
+<p><code>Q = 0</code><br />
+<code>Q̅ = 1</code></p>
+<p>那可以口語化想成：</p>
+<p><code>Q</code> 這邊被 <code>GND</code> 拉住，所以它維持 <code>0</code>。<br />
+<code>Q̅</code> 這邊被 <code>VDD</code> 拉住，所以它維持 <code>1</code>。</p>
+<p>而且這兩邊不是各自獨立維持，而是互相鎖住。</p>
+<p><code>Q = 0</code> 會讓左邊的某些開關狀態固定，讓 <code>Q̅</code> 繼續被拉到 <code>1</code>。<br />
+<code>Q̅ = 1</code> 也會讓右邊的某些開關狀態固定，讓 <code>Q</code> 繼續被拉到 <code>0</code>。</p>
+<p>所以比較口語可以說：</p>
+<blockquote>
+<p><code>Q = 0</code> 被 <code>GND</code> 維持，<code>Q̅ = 1</code> 被 <code>VDD</code> 維持，兩邊互相確認對方的狀態，所以資料會被鎖住。</p>
+</blockquote>
+<hr />
+<h4 id="3-修改資料時">3. 修改資料時<a class="headerlink" href="#3-修改資料時" title="Permanent link"></a></h4>
+<p><img alt="alt text" src="images/ch%205-10.png" /></p>
+<p>假設原本是：</p>
+<p><code>Q = 0</code><br />
+<code>Q̅ = 1</code></p>
+<p>現在想改成：</p>
+<p><code>Q = 1</code><br />
+<code>Q̅ = 0</code></p>
+<p>這時會打開 <code>WL</code>，讓外面的 <code>BL/BL̅</code> 接進來。</p>
+<p>你可以口語化記成：</p>
+<p><code>WL = 1</code> 會打開 <code>M5/M6</code>。<br />
+<code>BL = 1</code> 透過 <code>M6</code> 去拉高 <code>Q</code>。<br />
+<code>BL̅ = 0</code> 透過 <code>M5</code> 去拉低 <code>Q̅</code>。</p>
+<p>所以寫入時是：</p>
+<blockquote>
+<p>外面的 <code>BL/BL̅</code> 進來「硬改」裡面的 <code>Q/Q̅</code>。</p>
+</blockquote>
+<p>但不要說「<code>BL</code> 電壓比 <code>GND</code> 大，所以一定壓過」。<br />
+比較正確是：</p>
+<blockquote>
+<p>寫入電路夠強，所以可以暫時壓過原本 cell 裡面維持資料的力量。</p>
+</blockquote>
+<p>也就是：</p>
+<blockquote>
+<p>不是只比電壓大小，而是比誰比較有力。</p>
+</blockquote>
+<hr />
+<h4 id="4-讀取資料時">4. 讀取資料時<a class="headerlink" href="#4-讀取資料時" title="Permanent link"></a></h4>
+<p>讀取跟寫入剛好反過來。</p>
+<p>寫入是：</p>
+<blockquote>
+<p><code>BL/BL̅</code> 改 <code>Q/Q̅</code></p>
+</blockquote>
+<p>讀取是：</p>
+<blockquote>
+<p><code>Q/Q̅</code> 影響 <code>BL/BL̅</code></p>
+</blockquote>
+<p>讀取前，會先把兩邊都拉高：</p>
+<p><code>BL = 1</code><br />
+<code>BL̅ = 1</code></p>
+<p>然後：</p>
+<p><code>WL = 1</code></p>
+<p>這時 <code>M5/M6</code> 打開，cell 連到 <code>BL/BL̅</code>。</p>
+<p>如果某一邊裡面存的是 <code>0</code>，那一邊就會有路徑通到 <code>GND</code>，所以那條 bitline 會被稍微拉低。</p>
+<p>例如：</p>
+<p>如果 <code>Q = 0</code>，那 <code>BL</code> 那邊會被稍微拉低。<br />
+如果 <code>Q̅ = 0</code>，那 <code>BL̅</code> 那邊會被稍微拉低。</p>
+<p>所以讀取時可以口語化說：</p>
+<blockquote>
+<p>兩邊一開始都拉成 <code>1</code>，然後看哪一邊掉比較多。掉比較多的那邊，就是原本存 <code>0</code> 的那邊。</p>
+</blockquote>
+<hr />
+<h4 id="5-最短總結">5. 最短總結<a class="headerlink" href="#5-最短總結" title="Permanent link"></a></h4>
+<p>維持資料：</p>
+<blockquote>
+<p><code>Q</code> 和 <code>Q̅</code> 一邊被 <code>GND</code> 拉住，一邊被 <code>VDD</code> 拉住，兩邊互相鎖住，所以資料不會自己變。</p>
+</blockquote>
+<p>寫入資料：</p>
+<blockquote>
+<p><code>WL = 1</code> 打開 <code>M5/M6</code>，讓 <code>BL/BL̅</code> 接進來。<code>BL/BL̅</code> 夠強時，就能把原本的 <code>Q/Q̅</code> 改掉。</p>
+</blockquote>
+<p>讀取資料：</p>
+<blockquote>
+<p>先把 <code>BL</code> 和 <code>BL̅</code> 都拉成 <code>1</code>，再打開 <code>WL</code>。哪一邊原本接到 <code>0</code>，哪一邊就會被 <code>GND</code> 稍微拉低。最後看哪邊掉比較多，就知道資料是 <code>0</code> 還是 <code>1</code>。</p>
+</blockquote>
+<p>最口語一句：</p>
+<blockquote>
+<p><strong>維持是自己鎖住；寫入是外面硬改裡面；讀取是裡面讓外面其中一邊稍微掉下來。</strong></p>
+</blockquote>
 </div>
 
 
@@ -6939,7 +8058,7 @@ is now available!
       
       
         <a
-          href="ch%206-Lab.html"
+          href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -6948,7 +8067,7 @@ is now available!
               <span class="md-footer__direction">
                 Next
               </span>
-              ch 6 Lab
+              期末考複習 ch6 Lab
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -7022,7 +8141,7 @@ is now available!
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/toc-fold.js?v=20260611-1"></script>
+        <script src="../../../assets/pymdownx-extras/toc-fold.js?v=20260611-2"></script>
       
         <script src="../../../assets/pymdownx-extras/image-zoom.js"></script>
       

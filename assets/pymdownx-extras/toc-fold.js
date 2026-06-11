@@ -211,6 +211,22 @@
     return new URL(entry.link.href, window.location.href).hash || "";
   }
 
+  function getCurrentHashId() {
+    const hash = window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "";
+    if (!hash) return "";
+
+    try {
+      return decodeURIComponent(hash);
+    } catch (_) {
+      return hash;
+    }
+  }
+
+  function hasDangerHash() {
+    const hashId = getCurrentHashId();
+    return Boolean(hashId && state?.dangerEntries?.some((entry) => entry.id === hashId));
+  }
+
   function syncHash(entry) {
     const nextHash = getEntryHash(entry);
     if (!nextHash) return;
@@ -411,11 +427,11 @@
       mode: "peicd-toc-control--danger",
       pressed: false,
       onClick() {
-        setView(state.view === "danger" ? "toc" : "danger");
+        setView("danger");
         releaseManualHold();
         scheduleSync(true);
       },
-      title: "切換 Danger Block 目錄"
+      title: "顯示 Danger Block 目錄"
     });
 
     actions.append(expandButton, collapseButton);
@@ -907,7 +923,7 @@
     bindSidebarEvents();
     bindGlobalEvents();
     setMode("auto");
-    setView("toc");
+    setView(hasDangerHash() ? "danger" : "toc");
     updateMobileUI();
     scheduleSync(true);
   }
