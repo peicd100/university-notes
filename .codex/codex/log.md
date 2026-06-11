@@ -1,5 +1,25 @@
 # log
 
+## 2026-06-11 22:58：Preview 改用 p.exe 避開 Ctrl+C 批次詢問
+
+- 任務類型：bugfix
+- 修改範圍：`p.exe`、`tools/p.py`、`p.bat`、`preview.bat`、`.codex/codex/` 記憶文件。
+- 主要決策：因使用者實測 batch 技巧仍會跳「要終止批次工作嗎 (Y/N)」，改以 distlib 產生根目錄 `p.exe`；cmd 輸入 `p` 會優先跑 `.EXE`，長時間 serve 不再處於 batch context。
+- 驗證結果：`tools/p.py` py_compile 通過；`p /?` 顯示 `Usage: p ...`；`PREVIEW_SKIP_SERVE=1 p docs\md\114-2\科技_計算機結構\期末考複習-ch5.md` 通過。
+- 尚未完成：非互動工具無法穩定送 Ctrl+C 到整個 console process group；需使用者在 cmd 互動確認，但這次入口已不再是 batch。
+- 下次建議先讀：`GOTCHAS.md` 的 Preview Ctrl+C 條目、`ARCHITECTURE.md` 的 Single Page Preview。
+- 相關檔案：`p.exe`、`tools/p.py`。
+
+## 2026-06-11 22:30：Danger TOC 按鈕與跳轉狀態修正
+
+- 任務類型：bugfix
+- 修改範圍：`theme/assets/pymdownx-extras/toc-fold.js`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`、`.codex/codex/` 記憶文件。
+- 主要決策：`Danger` 按鈕改為固定進入 Danger 目錄，不再 toggle 回一般 TOC；初始化遇到 `#peicd-danger-block-*` 時維持 Danger 視圖；工具列前四顆按鈕縮窄並保留 Danger 欄寬。
+- 驗證結果：`node --check` 通過；`danger-toc-button-build` full build returncode 0；Playwright CLI 確認重複按 Danger、點 Danger 項目與 hash reload 皆停在 Danger 視圖，Danger 文字不裁切。
+- 尚未完成：沒有。
+- 下次建議先讀：`ARCHITECTURE.md` 的 Right TOC 與 Danger TOC、`GOTCHAS.md` 的 Danger TOC 條目、`VERIFY.md` 的前端互動清單。
+- 相關檔案：`.codex/codex/tmp/20260611-222259-danger-toc-button-build.meta.json`、`.codex/codex/artifacts/danger-toc-toolbar-after.png`。
+
 ## 2026-06-11 22:02：右側 Danger Block 目錄
 
 - 任務類型：feature

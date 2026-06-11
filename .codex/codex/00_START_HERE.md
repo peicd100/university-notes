@@ -3,7 +3,7 @@
 ## 2026-06-11 clean index note
 
 - Right TOC / Danger TOC: start with `ARCHITECTURE.md`, `VERIFY.md`, `GOTCHAS.md`, then edit `theme/assets/pymdownx-extras/toc-fold.js`, `theme/assets/pymdownx-extras/自定義.css`, and bump `mkdocs.yml` asset versions.
-- Danger TOC gotcha: Material same-page hash links can reinitialize `document$`; Danger links should intercept default navigation and self-scroll.
+- Danger TOC gotcha: Material same-page hash links can reinitialize `document$`; Danger links should intercept default navigation and self-scroll. `Danger` button is a one-way entry into Danger view, not a toggle; `#peicd-danger-block-*` reloads must stay in Danger view.
 
 > UI 字體相關任務：正文預設維持原本 `var(--md-text-font), "Cascadia Mono", monospace`；不要再把全站正文改成 CJK fallback，除非使用者重新明確指定。
 
@@ -30,7 +30,7 @@
 
 - 網站資訊、導覽或 `exclude_docs`：直接看 `docs/.mkdocs/site.yml`；根目錄 `mkdocs.yml` 只保留技術設定並用 `INHERIT` 繼承它。
 - 右鍵開啟原文檔案：先讀 `ARCHITECTURE.md` 的 Source Jump，再看 `theme/assets/pymdownx-extras/source-jump.js` 與 `tools/source_jump_hook.py`。
-- 單頁 preview：先讀 `PROJECT.md`、`COMMANDS.md`，再看 `preview.bat`、`p.bat`、`tools/update_preview_config.py`、`mkdocs.preview.yml`。
+- 單頁 preview：先讀 `PROJECT.md`、`COMMANDS.md`，再看 `p.exe`、`tools/p.py`、`tools/update_preview_config.py`、`mkdocs.preview.yml`；`p.bat` / `preview.bat` 只作 legacy fallback。
 - MkDocs 外觀或前端互動：看 `theme/`、`mkdocs.yml`、`ARCHITECTURE.md`。
 - 首頁 blog 方塊：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - details 摺疊框外觀或箭頭重疊：先看 `USER_REQUIREMENTS.md` 的 Slash admonition/details 條目與 `GOTCHAS.md` 的 details pseudo-element 條目，再改 `theme/assets/pymdownx-extras/自定義.css`。
@@ -61,4 +61,5 @@
 - `.gitignore` 保留舊 `/codex/` 忽略規則，並只忽略 `.codex/` 下的 tmp/private/artifacts/壓縮備份；不要把 `.codex/AGENTS.md` 與 `.codex/codex/` 核心文件整包忽略。
 - `source-jump` 不要只依賴 `on_page_markdown`；目前必須保留 `on_files` 預索引與 `on_page_markdown` 重建索引，且 serve 階段要讀原始 Markdown 以維持原文行號。
 - 專案啟用 Material `navigation.instant`，前端 DOM 綁定需支援 `window.document$.subscribe(...)`。
+- Preview Ctrl+C：必須走 `p.exe` console launcher；不要依賴長時間 `.bat`，使用者已實測 batch 技巧仍會讓 cmd 詢問「要終止批次工作嗎 (Y/N)」。
 - 驗證輸出要放 `.codex/codex/tmp/`，不要把 `.out.log` / `.err.log` 留在根目錄。

@@ -12,10 +12,18 @@
 - 導覽、網站名稱、`site_url`、`exclude_docs`：`docs/.mkdocs/site.yml`。
 - MkDocs 技術設定、plugins、hooks、Markdown extensions、extra CSS/JS：`mkdocs.yml`。
 - 自訂 Material template、TTS 面板、前端互動、CSS/JS：`theme/`。
-- Preview 流程：`COMMANDS.md`、`VERIFY.md`、`mkdocs.preview.yml`、`preview.bat`。
+- Preview 流程：`COMMANDS.md`、`VERIFY.md`、`mkdocs.preview.yml`、`p.exe`、`tools/p.py`。
 
 ## 最後驗證
 
+- `Y:\conda\envs\mkdocs_desk\python.exe -m py_compile tools\p.py`：通過。
+- `cmd /d /c "pushd ""\\vmware-host\Shared Folders\github_note\university notes"" && p /? && set PREVIEW_SKIP_SERVE=1&& p docs\md\114-2\科技_計算機結構\期末考複習-ch5.md && popd"`：通過；`p /?` 顯示 `Usage: p ...`，確認目前 `p` 走 `p.exe`。
+- `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& ""\\vmware-host\Shared Folders\github_note\university notes\p.bat"""`：通過。
+- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name preview-absolute-config-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f "\\vmware-host\Shared Folders\github_note\university notes\mkdocs.preview.yml" --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260611-224242-preview-absolute-config-build.*`。
+- 從 `C:\Windows` 執行 `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f "\\vmware-host\Shared Folders\github_note\university notes\mkdocs.preview.yml" -d ".codex/codex/tmp/preview-absolute-cwd-site" --clean`：returncode 0；暫存 site 已刪除。
+- `node --check theme\assets\pymdownx-extras\toc-fold.js`：通過。
+- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name danger-toc-button-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260611-222259-danger-toc-button-build.*`。
+- Playwright CLI 驗證 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：`Danger` 文字完整可見；重複按 `Danger`、點 Danger 項目、帶 `#peicd-danger-block-1` 重載後皆維持 Danger 視圖；截圖在 `.codex/codex/artifacts/danger-toc-toolbar-after.png`。
 - `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& p.bat"`：通過。
 - `Y:\conda\envs\mkdocs\python.exe -m py_compile tools\admonition_title_hook.py tools\source_jump_hook.py`：通過。
 - `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name ctrlc-details-final-preview-build-retry -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260610-233544-ctrlc-details-final-preview-build-retry.*`。

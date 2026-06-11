@@ -3721,7 +3721,7 @@ html.peicd-image-viewer-open body {
 .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toolbar {
   display: grid;
   gap: 0.24rem;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(1.42rem, 0.72fr)) minmax(2.86rem, 1.26fr);
 }
 
 .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toolbar__group {
@@ -3740,7 +3740,7 @@ html.peicd-image-viewer-open body {
   font: inherit;
   font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   line-height: 1;
   min-height: 1.82rem;
   min-width: 0;
@@ -3750,6 +3750,11 @@ html.peicd-image-viewer-open body {
   text-align: center;
   transition: box-shadow 140ms ease, color 140ms ease, background-image 140ms ease !important;
   white-space: nowrap;
+}
+
+.md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control--danger {
+  min-width: 2.86rem;
+  padding-inline: 0.22rem;
 }
 
 .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control:hover,
@@ -4615,6 +4620,7 @@ html.peicd-image-viewer-open body {
 @media (max-width: 38em) {
   .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-toolbar {
     gap: 0.18rem;
+    grid-template-columns: repeat(4, minmax(1.34rem, 0.7fr)) minmax(2.72rem, 1.28fr);
   }
 
   .md-sidebar--secondary.peicd-toc-sidebar .peicd-toc-control {

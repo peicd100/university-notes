@@ -1,7 +1,7 @@
-
+## ⭐如果考試問"buffer overflow 是什麼"，要怎麼回答
 
 ///danger|如果考試問"buffer overflow 是什麼"，要怎麼回答
-
+Buffer overflow(緩衝區溢位) 是指程式把超過 buffer(緩衝區) 容量的資料寫進固定大小的記憶體區塊，導致多出來的資料覆蓋到相鄰的記憶體內容。
 ///
 
 

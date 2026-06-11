@@ -92,7 +92,7 @@ plugins:
 
 extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css  # 自定義 CSS 文件
-  - assets/pymdownx-extras/自定義.css?v=20260611-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
+  - assets/pymdownx-extras/自定義.css?v=20260611-2  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js  # Mermaid 圖表支持
@@ -102,7 +102,7 @@ extra_javascript:
   - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
   - assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
   - assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1  # Mermaid 圖卡化與放大檢視
-  - assets/pymdownx-extras/toc-fold.js?v=20260611-1  # 右側 TOC 可摺疊 / 展開控制
+  - assets/pymdownx-extras/toc-fold.js?v=20260611-2  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
   - assets/pymdownx-extras/markdown-embed.js?v=20260516-1  # Markdown 頁面嵌入框全螢幕控制
   - assets/pymdownx-extras/folder-path-bar.js?v=20260524-1  # H1 上方檔案總管式路徑列（加版本參數避免手機快取吃舊版）

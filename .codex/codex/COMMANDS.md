@@ -11,13 +11,12 @@ python -m pip install -r requirements.txt pyinstaller
 ## Preview
 
 ```bat
-p.bat
-p.bat docs\md\114-2\電機_作業系統\ch 6.md
-preview.bat docs\md\114-2\電機_作業系統\ch 6.md
+p
+p docs\md\114-2\電機_作業系統\ch 6.md
 Y:\conda\envs\mkdocs\python.exe -m mkdocs serve -f mkdocs.preview.yml --dirty
 ```
 
-在 cmd 內用 `p.bat` 或 `preview.bat` 啟動 serve 後，Ctrl+C 應直接結束，不應停在「要終止批次工作嗎 (Y/N)」。
+在 cmd 內用 `p` 啟動 serve；目前 `p` 應解析到根目錄的 `p.exe`，不是 `p.bat`。Ctrl+C 應直接結束，不應停在「要終止批次工作嗎 (Y/N)」。不要用長時間執行的 `.bat` 當主要 preview 入口。
 
 ## Build
 

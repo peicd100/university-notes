@@ -50,6 +50,16 @@
 - 不要做：不要移除 `on_files` 後只依賴 `on_page_markdown`。
 - 驗證方式：`mkdocs serve -f mkdocs.preview.yml --dirty` 下右鍵 lookup 能找到目前 preview 頁。
 
+## Preview Ctrl+C 必須避開 batch context
+
+- 狀態：active
+- 證據：observed
+- 日期：2026-06-11
+- 影響範圍：`p.exe`、`tools/p.py`、`p.bat`、`preview.bat`、cmd 內的單頁 preview 啟動流程。
+- 正確做法：主要入口必須是 `p.exe` console launcher；`p.exe` 由 `tools/p.py` 產生，直接執行 Python launcher 與 MkDocs，不讓長時間 serve 掛在 `.bat` 裡。
+- 不要做：不要用 `python -m mkdocs serve ... && exit /b 0 || exit /b 1`、把 serve 放在 batch 最後一行、或 `p.bat` 不使用 `call` 這類 batch 技巧當 Ctrl+C 解法；使用者已實測仍會出現「要終止批次工作嗎 (Y/N)」。
+- 驗證方式：`cmd /d /c "pushd <repo> && p /? && set PREVIEW_SKIP_SERVE=1&& p <Markdown path> && popd"` 應通過且顯示 `Usage: p ...`；人工在 cmd 跑 `p <檔案位置>` 後按 Ctrl+C，應直接回 prompt。
+
 ## Instant Navigation 前端綁定
 
 - 狀態：active
@@ -66,9 +76,9 @@
 - 證據：verified
 - 日期：2026-06-11
 - 影響範圍：`theme/assets/pymdownx-extras/toc-fold.js`、右側 TOC / Danger 目錄。
-- 正確做法：Danger 目錄連結需 `preventDefault()` 後自行 `history.pushState` 與 `scrollTo`，並在 Danger 視圖內同步目前項目；正文容器要分段優先找 `.md-content__inner.md-typeset`，不可用單一 selector list 的第一個 `.md-typeset`。
-- 不要做：不要讓 Danger 連結走預設同頁 hash link；Material instant navigation 可能觸發 `document$` 重新初始化，把 Danger 視圖重設為一般 TOC。也不要假設 `[data-md-component="toc"]` 一定是 nav，它在目前頁面可直接是 `ul.md-nav__list`。
-- 驗證方式：在 `期末考複習-ch4.2.html` 按 Danger 後點 `#peicd-danger-block-7`，URL hash 應停在該 block、Danger 視圖不消失、目前項目顯示「現在在這裡」；一般 TOC link 應不可見。
+- 正確做法：Danger 目錄連結需 `preventDefault()` 後自行 `history.pushState` 與 `scrollTo`，並在 Danger 視圖內同步目前項目；正文容器要分段優先找 `.md-content__inner.md-typeset`，不可用單一 selector list 的第一個 `.md-typeset`。`Danger` 按鈕是固定進入 Danger 目錄，不是 toggle；若初始化時網址 hash 已是 `#peicd-danger-block-*`，要直接顯示 Danger 視圖。
+- 不要做：不要讓 Danger 連結走預設同頁 hash link；Material instant navigation 可能觸發 `document$` 重新初始化，把 Danger 視圖重設為一般 TOC。也不要假設 `[data-md-component="toc"]` 一定是 nav，它在目前頁面可直接是 `ul.md-nav__list`。不要用 `setView(state.view === "danger" ? "toc" : "danger")` 實作 Danger 按鈕。
+- 驗證方式：在 `期末考複習-ch4.2.html` 按 Danger 後點 `#peicd-danger-block-7`，URL hash 應停在該 block、Danger 視圖不消失、目前項目顯示「現在在這裡」；一般 TOC link 應不可見。重複按 Danger 與帶 Danger hash 重新載入都應維持 Danger 視圖。
 
 ## UI 深色主題與版面壓縮索引
 

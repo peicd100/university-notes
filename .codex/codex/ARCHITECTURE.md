@@ -42,9 +42,9 @@
 
 ## Single Page Preview
 
-- `preview.bat`：正式入口，負責更新 `mkdocs.preview.yml` managed block 並啟動 `python -m mkdocs serve -f mkdocs.preview.yml --dirty`。
-- `preview.bat`：`mkdocs serve` 以 `python -m mkdocs serve ... && exit /b 0 || exit /b 1` 收尾，避免使用者在 cmd 按 Ctrl+C 時出現「要終止批次工作嗎 (Y/N)」。
-- `p.bat`：短命令薄包裝，只轉送參數給 `preview.bat`，同樣用條件式 `exit /b` 收尾以避免 Ctrl+C 批次確認。
+- `p.exe`：cmd preview 主入口。由 `tools/p.py` 產生，輸入 `p <Markdown path>` 時會因 PATHEXT 的 `.EXE` 優先於 `.BAT` 而避開 batch context，避免 Ctrl+C 出現「要終止批次工作嗎 (Y/N)」。
+- `tools/p.py`：自包含 launcher；先用目前 Python 呼叫 `tools/update_preview_config.py` 更新 `mkdocs.preview.yml` managed block，再啟動 `python -m mkdocs serve -f <root>/mkdocs.preview.yml --dirty`，並捕捉 Ctrl+C 等 MkDocs 正常關閉。
+- `p.bat` / `preview.bat`：舊 fallback。不要再把它們當作 Ctrl+C 無詢問的主要解法，因為 cmd 只要仍在 batch context 中被 Ctrl+C 打斷，就可能詢問是否終止批次工作。
 - `tools/update_preview_config.py`：正規化路徑，驗證目標位於 `docs/`，管理 `# preview-target:start` 到 `# preview-target:end`。
 
 ## Back To Bottom
@@ -58,10 +58,11 @@
 ## Right TOC 與 Danger TOC
 
 - 一般右側 TOC 邏輯在 `theme/assets/pymdownx-extras/toc-fold.js`，樣式在 `theme/assets/pymdownx-extras/自定義.css`。
-- TOC 工具列提供「展開 / 收合 / 自動 / 手動 / Danger」；前四者控制一般 TOC 模式，`Danger` 切換到 Danger Block 目錄。
+- TOC 工具列提供「展開 / 收合 / 自動 / 手動 / Danger」；前四者控制一般 TOC 模式，`Danger` 進入並保持 Danger Block 目錄，重複按不回一般 TOC。
 - Danger 目錄在前端從 `.md-content__inner.md-typeset` 內掃描 `.admonition.danger` 與 `details.danger` 產生，不依賴 Source Jump endpoint，因此 build 後靜態頁也可使用。
 - Danger 項目標題優先取 `.admonition-title` / `summary` 去掉 `Danger |` 前綴後的自訂標題；若沒有自訂標題，先取 block 內標題，再依渲染後畫面位置比較前後 `h1-h6`，距離相同取前方標題。
 - Danger 項目點擊會攔截同頁 hash link，自行 `history.pushState` 與 `scrollTo`，避免 Material instant navigation 重新初始化後把視圖重設為一般 TOC。
+- 若頁面載入或重新初始化時網址 hash 指向 `#peicd-danger-block-*`，TOC 初始化應直接維持 Danger 視圖。
 - `mkdocs.yml` 的 `toc-fold.js` 與 `自定義.css` 使用版本參數；修改 TOC 行為或樣式後需同步 bump，避免手機或瀏覽器快取吃舊檔。
 
 ## Admonition 標題

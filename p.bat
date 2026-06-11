@@ -1,5 +1,6 @@
 @echo off
 setlocal EnableExtensions
 
-rem Conditional exit prevents Ctrl+C from showing "Terminate batch job (Y/N)".
-call "%~dp0preview.bat" %* && exit /b 0 || exit /b 1
+rem Legacy fallback. Typing "p" should resolve to p.exe before this file.
+rem Explicitly running p.bat may still be subject to cmd's batch Ctrl+C prompt.
+"%~dp0preview.bat" %*

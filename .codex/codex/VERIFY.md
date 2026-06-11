@@ -26,12 +26,15 @@ Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name details-pipe-admoniti
 最小驗證：
 
 ```bat
-cmd /d /c "set PREVIEW_SKIP_SERVE=1&& p.bat"
+Y:\conda\envs\mkdocs_desk\python.exe -m py_compile tools\p.py
+cmd /d /c "pushd <repo> && p /? && set PREVIEW_SKIP_SERVE=1&& p docs\md\114-2\科技_計算機結構\期末考複習-ch5.md && popd"
+Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name preview-absolute-config-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 ```
 
 手動驗證：
-- 在 cmd 啟動 `p.bat docs\md\114-2\科技_計算機結構\期末考複習-ch4.2.md`。
+- 在 cmd 啟動 `p docs\md\114-2\科技_計算機結構\期末考複習-ch4.2.md`；`p /?` 應顯示 `Usage: p ...`，表示跑到 `p.exe` 而不是 batch fallback。
 - 等 `mkdocs serve` 開始後按 Ctrl+C，應直接返回命令提示字元，不應顯示「要終止批次工作嗎 (Y/N)」。
+- 不要用 `p.bat` 或 `preview.bat` 驗證 Ctrl+C；長時間 `.bat` 在 cmd 中被 Ctrl+C 打斷時仍可能觸發 Y/N 詢問。
 
 ## Source Jump
 
@@ -46,7 +49,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 
 手動驗證：
 
-- 啟動 `p.bat` 或 `preview.bat docs\md\114-2\電機_作業系統\ch 6.md`。
+- 啟動 `p docs\md\114-2\電機_作業系統\ch 6.md`。
 - 在 preview 頁右鍵一般段落、`==...==` 高亮段落、code block、重複短句。
 - 在 `docs/md/114-2/科技_計算機結構/期末考複習-ch3.md` 的 `!!! danger` 區塊內右鍵 `3. mflo 和 mfhi：怎麼把答案拿回一般 register？`，應定位到原文第 1631 行；選字 `mflo` 也應回第 1631 行，不可跳到第 1629 行的 `!!! danger`。
 - 確認 VS Code 開到同一 Markdown 的正確行附近。
@@ -56,7 +59,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 
 - 使用瀏覽器確認選字右鍵與未選字右鍵都可顯示選單。
 - 若涉及 Material instant navigation，從其他頁切到目標頁後再測一次。
-- 若修改右側 TOC / Danger 目錄，開啟含多個 Danger block 的頁面如 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：按 `Danger` 後應只顯示 Danger 項目，一般 TOC 連結不可同時可見；目前項目應顯示「現在在這裡」；點擊項目應跳到 `#peicd-danger-block-*` 且停留在 Danger 視圖；按「自動」應回到一般 TOC。再開啟無 Danger block 但有標題的頁面如 `site/md/Verilog/首頁.html`，應顯示「此筆記沒有任何 Danger Block」。
+- 若修改右側 TOC / Danger 目錄，開啟含多個 Danger block 的頁面如 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：按 `Danger` 後應只顯示 Danger 項目，一般 TOC 連結不可同時可見；目前項目應顯示「現在在這裡」；點擊項目應跳到 `#peicd-danger-block-*` 且停留在 Danger 視圖；重複按 `Danger` 與帶 Danger hash 重新載入都應維持 Danger 視圖；按「自動」應回到一般 TOC。工具列中 `Danger` 文字不可被裁切，其他按鈕可比 Danger 更窄。再開啟無 Danger block 但有標題的頁面如 `site/md/Verilog/首頁.html`，應顯示「此筆記沒有任何 Danger Block」。
 - 若修改 Mermaid 樣式，至少開啟 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係圖，確認 `Priority-based Preemptive Scheduling`、`Shorter period`、`Higher priority` 等英文字下緣沒有被裁切。
 - Mermaid htmlLabels 可用瀏覽器量測：目標圖表每個 `g.node foreignObject` 都應帶 `data-peicd-descender-pad="true"`；單行 label 高度應從原始 19px 增到約 24px，且 `Higher priority`、`Lower priority` 最後的 `y` 必須可見。
 - 若修改 Mermaid 暗色對比，開啟 `docs/md/114-2/電機_作業系統/ch 7.md` 的 deadlock flowchart；`dracula` 主題下 node label 應接近白色、node fill 應為深紫、node stroke 應為 `#72e3fd`，edge label 應為深底白字，console error/warn 應為空。

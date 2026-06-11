@@ -39,7 +39,7 @@
 - 日期：2026-05-23
 - 正確做法：
   - 單頁 preview 可用 `.\p <Markdown 路徑>`，也可只輸入 `.\p` 沿用上次目標。
-  - 在 cmd 內用 `p <Markdown 路徑>` 或 `preview.bat <Markdown 路徑>` 啟動 preview 後，按 Ctrl+C 應直接結束，不要再停在「要終止批次工作嗎 (Y/N)」。
+  - 在 cmd 內用 `p <Markdown 路徑>` 啟動 preview 後，按 Ctrl+C 應直接結束，不要再停在「要終止批次工作嗎 (Y/N)」；此要求需由 `p.exe` console launcher 滿足，不要依賴長時間執行的 `.bat`。
   - Preview 右鍵「開啟原文檔案」要優先追求定位準確度，避免跳到同頁錯誤段落。
   - Preview 在 `!!! danger` / admonition block 內右鍵時，要定位到實際渲染的內文 block 原文行；只有點 admonition 標題列時才回 `!!! danger` 起始行。
   - Preview 右鍵選單只保留「開啟原文檔案」，不要顯示「複製」。
@@ -58,8 +58,9 @@
   - `!!! danger "記下來"` 這類 admonition 自訂標題渲染後要保留類型前綴與分隔線，例如顯示 `Danger | 記下來`；未自訂標題的 `!!! danger` 則維持 `Danger`。
   - Admonition / `!!! danger` 內文不要比正文小；框內段落、清單、表格與標題應回到正文基準字級，只有 `Danger` 標題列可維持較精簡的小一階樣式。
   - details 摺疊框的箭頭與標題文字不可重疊；若使用 pseudo-element 畫箭頭，必須保留穩定佔位與足夠間距。
-  - 右側 TOC 工具列需提供 `Danger` 按鈕；按下後切換為 Danger Block 目錄，項目使用 Danger 自訂標題文字，無自訂標題時使用最近的 `h1-h6` 標題，沒有任何 Danger block 時顯示「此筆記沒有任何 Danger Block」。
+  - 右側 TOC 工具列需提供 `Danger` 按鈕；按下後進入 Danger Block 目錄，項目使用 Danger 自訂標題文字，無自訂標題時使用最近的 `h1-h6` 標題，沒有任何 Danger block 時顯示「此筆記沒有任何 Danger Block」。
   - Danger 目錄需可點擊跳轉到對應 Danger block，並用「現在在這裡」標示目前最近的 Danger 項目；在 Danger 目錄中按「展開 / 收合 / 自動 / 手動」任一按鈕，必須切回一般 TOC 對應模式。
+  - `Danger` 按鈕本身是固定進入 Danger 目錄，不是切換鈕；不管連按幾次都應停在 Danger 目錄，只有「展開 / 收合 / 自動 / 手動」會切回一般 TOC。
 
 ## 多益600
 
