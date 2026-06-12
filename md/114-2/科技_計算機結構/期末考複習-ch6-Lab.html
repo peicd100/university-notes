@@ -1980,6 +1980,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#如果考試問buffer-overflow-是什麼要怎麼回答" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -6094,6 +6099,24 @@ is now available!
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    期末考複習 ch6 Lab
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html" class="md-nav__link md-nav__link--active">
         
   
@@ -6110,6 +6133,776 @@ is now available!
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#如果考試問buffer-overflow-是什麼要怎麼回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐如果考試問"buffer overflow 是什麼"，要怎麼回答
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffer-overflow-attack--這個-lab-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這章真正想問的是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這章真正想問的是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-這個-lab-的五段主線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 這個 Lab 的五段主線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-整章流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 整章流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-這章必背的最短主線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 這章必背的最短主線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-本輪先不要混淆的三件事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 本輪先不要混淆的三件事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-memory-stack--為什麼-buffer-overflow-會碰到-return-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Program Memory Stack — 為什麼 buffer overflow 會碰到 Return Address？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Program Memory Stack — 為什麼 buffer overflow 會碰到 Return Address？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先看整個程式的記憶體地圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先看整個程式的記憶體地圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stack-為什麼特別危險" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stack 為什麼特別危險？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-function-call-stack-的基本版f12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Function Call Stack 的基本版：f(1,2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ebp-是什麼為什麼參數是-812local-variable-是負的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. %ebp 是什麼？為什麼參數是 +8、+12，local variable 是負的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-previous-frame-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 Previous Frame Pointer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何需要 Previous Frame Pointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼只有-return-address-不夠" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼只有 Return Address 不夠？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-用-main--foo--bar-想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 用 main() → foo() → bar() 想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-生活化比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 生活化比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-多層-function-callmain--foo--bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 多層 function call：main() → foo() → bar()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本頁到後面攻擊流程的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本頁到後面攻擊流程的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argumentslocal-variables-有差嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function arguments、local variables 有差嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vulnerable-program--哪一行程式真的造成-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Vulnerable Program — 哪一行程式真的造成 buffer overflow？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Vulnerable Program — 哪一行程式真的造成 buffer overflow？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這兩頁在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這兩頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-page-7目前還沒有-overflow因為-str400-裝得下-300-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Page 7：目前還沒有 overflow，因為 str[400] 裝得下 300 bytes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-8真正危險點是-strcpybuffer-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page 8：真正危險點是 strcpy(buffer, str)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-一句話抓住漏洞本質" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 一句話抓住漏洞本質
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這兩頁在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這兩頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-覆蓋-return-address-的四種可能結果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 覆蓋 Return Address 的四種可能結果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-10攻擊者真正想做的是改變-cpu-下一步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page 10：攻擊者真正想做的是改變 CPU 下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個非操作型例子理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個非操作型例子理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一輪最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一輪最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-setup--為什麼這個-lab-要刻意關掉一些防護" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這頁在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要提到-address-randomization位址隨機化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要提到 address randomization(位址隨機化)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼要讓-stack-可執行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼要讓 stack 可執行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼要關掉-stack-protector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼要關掉 stack protector？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這頁的考試重點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這頁的考試重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-a-offset-distance--為什麼要知道-buffer-開頭到-return-address-的距離" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Task A: Offset Distance — 為什麼要知道 buffer 開頭到 Return Address 的距離？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Task A: Offset Distance — 為什麼要知道 buffer 開頭到 Return Address 的距離？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-offset-distance-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Offset distance 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼講義是-108--4--112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼講義是 108 + 4 = 112？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-offset-太短或太長都不行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 offset 太短或太長都不行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-b-address-of-malicious-code--return-address-要指到哪裡才有意義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-task-a-和-task-b-的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Task A 和 Task B 的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼講義-page-14-提到-function-argument-的-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼講義 page 14 提到 function argument 的 address？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼不要求 Return Address 精準指到 malicious code 第一個 byte？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-page-16-的-badfile-structure-怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Page 16 的 badfile structure 怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼圖中會有某個-stack-位址--offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼圖中會有「某個 stack 位址 + offset」？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nop-和-shell-code-到底如何配置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOP 和 shell code 到底如何配置？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NOP 和 shell code 到底如何配置？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-對你的理解方向是對的確實可以有兩種配置思路" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 對，你的理解方向是對的：確實可以有兩種配置思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 版本 A：講義這張圖的版本，shellcode 在 Return Address 後方較高位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 版本 B：另一種常見版本，shellcode 在 Return Address 前方較低位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-兩種版本真正共同的規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 兩種版本真正共同的規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-你兩個圖的修正版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 你兩個圖的修正版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-如何確定-return-address-欄位的位置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 如何確定 Return Address 欄位的位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-如何確定-rt-內容" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 如何確定 RT 內容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-到底如何寫出-bad-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 到底如何寫出 Bad file：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -6386,6 +7179,767 @@ is now available!
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#如果考試問buffer-overflow-是什麼要怎麼回答" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐如果考試問"buffer overflow 是什麼"，要怎麼回答
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffer-overflow-attack--這個-lab-在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這章真正想問的是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這章真正想問的是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-這個-lab-的五段主線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 這個 Lab 的五段主線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-整章流程圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 整章流程圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-這章必背的最短主線" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 這章必背的最短主線
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-本輪先不要混淆的三件事" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 本輪先不要混淆的三件事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-memory-stack--為什麼-buffer-overflow-會碰到-return-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Program Memory Stack — 為什麼 buffer overflow 會碰到 Return Address？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Program Memory Stack — 為什麼 buffer overflow 會碰到 Return Address？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-先看整個程式的記憶體地圖" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 先看整個程式的記憶體地圖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stack-為什麼特別危險" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stack 為什麼特別危險？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-function-call-stack-的基本版f12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Function Call Stack 的基本版：f(1,2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ebp-是什麼為什麼參數是-812local-variable-是負的" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. %ebp 是什麼？為什麼參數是 +8、+12，local variable 是負的？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#為何需要-previous-frame-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        為何需要 Previous Frame Pointer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="為何需要 Previous Frame Pointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-直接答案" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 直接答案
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼只有-return-address-不夠" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼只有 Return Address 不夠？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-用-main--foo--bar-想" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 用 main() → foo() → bar() 想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-生活化比喻" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 生活化比喻
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-多層-function-callmain--foo--bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 多層 function call：main() → foo() → bar()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-本頁到後面攻擊流程的關係" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 本頁到後面攻擊流程的關係
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-argumentslocal-variables-有差嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        function arguments、local variables 有差嗎？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vulnerable-program--哪一行程式真的造成-buffer-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Vulnerable Program — 哪一行程式真的造成 buffer overflow？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Vulnerable Program — 哪一行程式真的造成 buffer overflow？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這兩頁在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這兩頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-page-7目前還沒有-overflow因為-str400-裝得下-300-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Page 7：目前還沒有 overflow，因為 str[400] 裝得下 300 bytes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-8真正危險點是-strcpybuffer-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page 8：真正危險點是 strcpy(buffer, str)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-一句話抓住漏洞本質" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 一句話抓住漏洞本質
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-常見錯法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 常見錯法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這兩頁在解決什麼問題_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這兩頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-覆蓋-return-address-的四種可能結果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 覆蓋 Return Address 的四種可能結果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-page-10攻擊者真正想做的是改變-cpu-下一步" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Page 10：攻擊者真正想做的是改變 CPU 下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-用一個非操作型例子理解" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 用一個非操作型例子理解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這一輪最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這一輪最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-setup--為什麼這個-lab-要刻意關掉一些防護" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這頁在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這頁在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼要提到-address-randomization位址隨機化" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼要提到 address randomization(位址隨機化)？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼要讓-stack-可執行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼要讓 stack 可執行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼要關掉-stack-protector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼要關掉 stack protector？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-這頁的考試重點" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 這頁的考試重點
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-a-offset-distance--為什麼要知道-buffer-開頭到-return-address-的距離" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Task A: Offset Distance — 為什麼要知道 buffer 開頭到 Return Address 的距離？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Task A: Offset Distance — 為什麼要知道 buffer 開頭到 Return Address 的距離？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-這個知識點在解決什麼問題" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 這個知識點在解決什麼問題？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-offset-distance-是什麼" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Offset distance 是什麼？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼講義是-108--4--112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼講義是 108 + 4 = 112？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-為什麼-offset-太短或太長都不行" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 為什麼 offset 太短或太長都不行？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-b-address-of-malicious-code--return-address-要指到哪裡才有意義" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-task-a-和-task-b-的差別" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Task A 和 Task B 的差別
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-為什麼講義-page-14-提到-function-argument-的-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 為什麼講義 page 14 提到 function argument 的 address？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 為什麼不要求 Return Address 精準指到 malicious code 第一個 byte？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-page-16-的-badfile-structure-怎麼看" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Page 16 的 badfile structure 怎麼看？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-為什麼圖中會有某個-stack-位址--offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 為什麼圖中會有「某個 stack 位址 + offset」？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短考試版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短考試版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nop-和-shell-code-到底如何配置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOP 和 shell code 到底如何配置？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NOP 和 shell code 到底如何配置？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-對你的理解方向是對的確實可以有兩種配置思路" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 對，你的理解方向是對的：確實可以有兩種配置思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 版本 A：講義這張圖的版本，shellcode 在 Return Address 後方較高位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 版本 B：另一種常見版本，shellcode 在 Return Address 前方較低位址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-兩種版本真正共同的規則" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 兩種版本真正共同的規則
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-你兩個圖的修正版" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 你兩個圖的修正版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-最短記法" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 最短記法
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-如何確定-return-address-欄位的位置" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 如何確定 Return Address 欄位的位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-如何確定-rt-內容" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 如何確定 RT 內容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-到底如何寫出-bad-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 到底如何寫出 Bad file：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -6404,7 +7958,1331 @@ is now available!
 
   <h1>期末考複習 ch6 Lab</h1>
 
+<h2 id="如果考試問buffer-overflow-是什麼要怎麼回答">⭐如果考試問"buffer overflow 是什麼"，要怎麼回答<a class="headerlink" href="#如果考試問buffer-overflow-是什麼要怎麼回答" title="Permanent link"></a></h2>
+<div class="admonition danger">
+<p class="admonition-title">如果考試問"buffer overflow 是什麼"，要怎麼回答</p>
+<p>Buffer overflow(緩衝區溢位) 是指程式把超過 buffer(緩衝區) 容量的資料寫進固定大小的記憶體區塊，導致多出來的資料覆蓋到相鄰的記憶體內容。</p>
+</div>
+<h2 id="buffer-overflow-attack--這個-lab-在解決什麼問題">⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？<a class="headerlink" href="#buffer-overflow-attack--這個-lab-在解決什麼問題" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 1 ~ PDF viewer page 2</p>
+<h3 id="1-這章真正想問的是什麼">1. 這章真正想問的是什麼？<a class="headerlink" href="#1-這章真正想問的是什麼" title="Permanent link"></a></h3>
+<p><code>Buffer Overflow Attack(緩衝區溢位攻擊)</code> 這個 Lab 的核心問題是：</p>
+<p>程式把太多資料塞進太小的記憶體空間時，為什麼不只是「資料壞掉」，而是可能讓 CPU 跳去執行攻擊者準備的程式碼？</p>
+<p>用生活例子想：你有一個只能放 100 張紙的抽屜，但有人硬塞 300 張紙。多出來的 200 張不會消失，而是擠到隔壁抽屜。如果隔壁抽屜剛好放的是「等等要去哪裡」的紙條，那攻擊者就能把那張紙條改成：「不要回原本地方，跳去我指定的地方。」</p>
+<p>在程式裡，這張「等等要去哪裡」的紙條就是 <code>Return Address(返回位址)</code>。</p>
+<hr />
+<h3 id="2-這個-lab-的五段主線">2. 這個 Lab 的五段主線<a class="headerlink" href="#2-這個-lab-的五段主線" title="Permanent link"></a></h3>
+<p>PDF viewer page 2 的 Outline(大綱) 把整個 Lab 分成五段：<code>Understanding of Stack Layout</code>、<code>Vulnerable code</code>、<code>Challenges in exploitation</code>、<code>Shellcode</code>、<code>Countermeasures</code> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">順序</th>
+<th>講義主題</th>
+<th>中文理解</th>
+<th>這段在回答什麼問題？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>Understanding of Stack Layout</code></td>
+<td>先看 stack(堆疊) 長什麼樣</td>
+<td><code>buffer</code>、local variable(區域變數)、old frame pointer、return address 各在哪裡？</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>Vulnerable code</code></td>
+<td>找出有漏洞的程式</td>
+<td>哪一行程式讓資料可能超出 buffer？</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>Challenges in exploitation</code></td>
+<td>攻擊不是只要塞爆就會成功</td>
+<td>要算 offset(偏移距離)、找 shellcode address(惡意程式碼位址)、避開 <code>0x00</code> 等問題</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><code>Shellcode</code></td>
+<td>攻擊者想讓 CPU 執行的程式碼</td>
+<td>CPU 被導去執行什麼？為什麼會放在輸入資料裡？</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><code>Countermeasures</code></td>
+<td>防禦方法</td>
+<td>ASLR、NX/DEP、Stack Canary、安全函式如何讓攻擊失敗？</td>
+</tr>
+</tbody>
+</table>
+<p>考試最可能考的不是「背攻擊程式」，而是要你看懂：資料怎麼從 <code>buffer</code> 溢出去、怎麼覆蓋 <code>Return Address</code>、為什麼 <code>NOP sled</code> 增加命中率、以及防禦機制各自擋哪一步。</p>
+<hr />
+<h3 id="3-整章流程圖">3. 整章流程圖<a class="headerlink" href="#3-整章流程圖" title="Permanent link"></a></h3>
+<pre class="diagram"><code>flowchart TD
+    A["輸入資料進入程式&lt;br&gt;例如 badfile"] --&gt; B["資料被複製到 buffer(緩衝區)"]
+    B --&gt; C{"資料長度是否超過&lt;br&gt;buffer 容量？"}
+    C --&gt;|否| D["正常執行&lt;br&gt;Return Address 不被破壞"]
+    C --&gt;|是| E["Buffer Overflow(緩衝區溢位)&lt;br&gt;多出資料覆蓋 stack 其他區域"]
+    E --&gt; F["覆蓋 Return Address(返回位址)"]
+    F --&gt; G["函式 return 時&lt;br&gt;CPU 讀取被改掉的返回位址"]
+    G --&gt; H["CPU 跳到攻擊者指定位置"]
+    H --&gt; I["可能進入 NOP sled&lt;br&gt;一路滑到 shellcode"]
+    I --&gt; J["執行 Shellcode(惡意程式碼)"]
+    J --&gt; K["防禦重點：ASLR／NX／Stack Canary／安全函式"]</code></pre>
+<p>這張圖先當整章地圖。接下來我們會依講義主線，從 PDF viewer page 3 的 <code>Program Memory Stack</code> 開始，逐步補上每一格的細節。</p>
+<hr />
+<h3 id="4-這章必背的最短主線">4. 這章必背的最短主線<a class="headerlink" href="#4-這章必背的最短主線" title="Permanent link"></a></h3>
+<p><code>Buffer Overflow Attack(緩衝區溢位攻擊)</code> 的最短考試版邏輯是：</p>
+<p>資料太長 → 超過 <code>buffer</code> → 覆蓋 stack 上的 <code>Return Address</code> → 函式結束時 CPU 依照被覆蓋的 <code>Return Address</code> 跳轉 → 若跳到 <code>NOP sled</code> 或 <code>shellcode</code>，就可能執行攻擊者程式碼 → 防禦靠 ASLR、NX/DEP、Stack Canary、安全函式降低或阻止成功率。</p>
+<hr />
+<h3 id="5-本輪先不要混淆的三件事">5. 本輪先不要混淆的三件事<a class="headerlink" href="#5-本輪先不要混淆的三件事" title="Permanent link"></a></h3>
+<p>第一，<code>Buffer Overflow(緩衝區溢位)</code> 本身只是「資料寫超界」。它不等於攻擊一定成功。</p>
+<p>第二，覆蓋 <code>Return Address(返回位址)</code> 是控制 CPU 下一步去哪裡的關鍵，但就算蓋到 return address，也可能因為地址猜錯、跳到非法位置、NX 禁止執行等原因失敗。</p>
+<p>第三，<code>NOP sled(NOP 雪橇)</code> 的作用不是惡意程式本身，而是提高跳轉命中率。真正要執行的是後面的 <code>Shellcode(殼層碼／攻擊程式碼)</code>。</p>
+<h2 id="program-memory-stack--為什麼-buffer-overflow-會碰到-return-address">⭐Program Memory Stack — 為什麼 buffer overflow 會碰到 Return Address？<a class="headerlink" href="#program-memory-stack--為什麼-buffer-overflow-會碰到-return-address" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 3 ~ PDF viewer page 6</p>
+<h3 id="1-先看整個程式的記憶體地圖">1. 先看整個程式的記憶體地圖<a class="headerlink" href="#1-先看整個程式的記憶體地圖" title="Permanent link"></a></h3>
+<p>PDF viewer page 3 的圖把一個程式的記憶體大致分成幾段：<code>Text segment(程式碼區段)</code>、<code>Data segment(資料區段)</code>、<code>BSS segment(未初始化資料區段)</code>、<code>Heap(堆積區)</code>、<code>Stack(堆疊區)</code>。講義圖中也用 <code>x</code>、<code>y</code>、<code>a, b, ptr</code>、以及 <code>ptr points to the memory here</code> 來示範不同變數會落在哪裡。</p>
+<p>最重要的對應如下：</p>
+<table>
+<thead>
+<tr>
+<th>記憶體區段</th>
+<th>放什麼</th>
+<th>講義例子</th>
+<th>考試直覺</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Text segment(程式碼區段)</code></td>
+<td>編譯後的 machine code(機器碼)</td>
+<td>程式指令本身</td>
+<td>CPU 要執行的「劇本」</td>
+</tr>
+<tr>
+<td><code>Data segment(資料區段)</code></td>
+<td>已初始化的 global/static 變數</td>
+<td><code>int x = 100;</code></td>
+<td>一開始就有值的全域資料</td>
+</tr>
+<tr>
+<td><code>BSS segment(未初始化資料區段)</code></td>
+<td>未初始化或預設為 0 的 global/static 變數</td>
+<td><code>static int y;</code></td>
+<td>有保留空間，但還沒明確給值</td>
+</tr>
+<tr>
+<td><code>Heap(堆積區)</code></td>
+<td>動態配置的記憶體</td>
+<td><code>malloc(2*sizeof(int))</code> 配出的空間</td>
+<td>程式執行中向系統借的空間</td>
+</tr>
+<tr>
+<td><code>Stack(堆疊區)</code></td>
+<td>function call(函式呼叫)、local variable(區域變數)、return address</td>
+<td><code>a</code>、<code>b</code>、<code>ptr</code></td>
+<td>buffer overflow 最常攻擊的地方</td>
+</tr>
+</tbody>
+</table>
+<p>這裡最容易搞混的是 <code>ptr</code>：<code>ptr</code> 這個指標變數本身是 local variable，所以在 <code>Stack(堆疊區)</code>；但是 <code>ptr</code> 指到的那塊 <code>malloc</code> 出來的記憶體在 <code>Heap(堆積區)</code>。社群討論中，stack、heap 等記憶體位置的用途也常是初學者卡住的點；我們這裡以講義圖為準，不用外部文章取代講義。([Stack Overflow][2])</p>
+<hr />
+<h3 id="2-stack-為什麼特別危險">2. Stack 為什麼特別危險？<a class="headerlink" href="#2-stack-為什麼特別危險" title="Permanent link"></a></h3>
+<p><code>Stack(堆疊區)</code> 特別危險，是因為它不只放普通變數，還放「函式結束後要回哪裡」這種控制流程資料。</p>
+<p>用生活例子想：<br />
+一個 function(函式) 像你去辦公室處理一件事。進辦公室前，你會留一張紙條：「辦完回原本教室。」這張紙條就是 <code>Return Address(返回位址)</code>。如果有人把辦公室桌上的資料塞爆，剛好把那張紙條改掉，你辦完後就不是回教室，而是去攻擊者指定的位置。</p>
+<p>所以 stack overflow 的真正危險點不是「區域變數壞掉」而已，而是可能改到 <code>Return Address(返回位址)</code>。</p>
+<hr />
+<h3 id="3-function-call-stack-的基本版f12">3. Function Call Stack 的基本版：<code>f(1,2)</code><a class="headerlink" href="#3-function-call-stack-的基本版f12" title="Permanent link"></a></h3>
+<p>PDF viewer page 5 的例子是：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>這段程式呼叫 <code>f(1,2)</code> 時，stack 裡會有 <code>f()</code> 的 stack frame(堆疊框架)。講義圖顯示 <code>f()</code> 的 frame 裡包含：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">從高位址到低位址的相對順序</th>
+<th>內容</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td><code>Value of b: 2</code></td>
+<td>argument(參數) <code>b</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>Value of a: 1</code></td>
+<td>argument(參數) <code>a</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>Return Address</code></td>
+<td><code>f()</code> 結束後要回 <code>main()</code> 的哪一行；圖上指向 <code>printf()</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><code>Previous Frame Pointer</code></td>
+<td>前一層 function frame 的基準點</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><code>Value of x</code></td>
+<td><code>f()</code> 的 local variable(區域變數)</td>
+</tr>
+</tbody>
+</table>
+<p>這張圖是後面 buffer overflow 的核心前置知識：如果 <code>x</code> 或某個 local buffer 被寫爆，資料可能往上覆蓋 <code>Previous Frame Pointer</code>，再覆蓋 <code>Return Address</code>。講義圖明確把 <code>Return Address</code> 放在 local variable 上方，並標示它指向 <code>main()</code> 裡的 <code>printf()</code>。</p>
+<hr />
+<h3 id="4-ebp-是什麼為什麼參數是-812local-variable-是負的">4. <code>%ebp</code> 是什麼？為什麼參數是 <code>+8</code>、<code>+12</code>，local variable 是負的？<a class="headerlink" href="#4-ebp-是什麼為什麼參數是-812local-variable-是負的" title="Permanent link"></a></h3>
+<p>PDF viewer page 4 用 assembly(組合語言) 形式標出：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%ebp + 12</code></td>
+<td><code>b</code></td>
+</tr>
+<tr>
+<td><code>%ebp + 8</code></td>
+<td><code>a</code></td>
+</tr>
+<tr>
+<td><code>%ebp - 8</code></td>
+<td><code>x</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>%ebp</code> 可以先理解成 <code>base pointer(基準指標)</code>：它像 stack frame 裡的一條水平基準線。CPU 用它當作參考點，去找「參數在哪裡」與「區域變數在哪裡」。</p>
+<p>為什麼參數是正的、local variable 是負的？因為在講義這個 layout 裡：</p>
+<ul>
+<li>argument(參數) 在 <code>%ebp</code> 的上方，所以用 <code>+ offset</code>。</li>
+<li>local variable(區域變數) 在 <code>%ebp</code> 的下方，所以用 <code>- offset</code>。</li>
+<li><code>Return Address</code> 通常就在參數與 previous frame pointer 附近，是攻擊者想覆蓋的控制流程資料。</li>
+</ul>
+<p>最短記法：</p>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a</code>、<code>b</code> 在哪裡？</td>
+<td>在 <code>%ebp</code> 上方，用正 offset</td>
+</tr>
+<tr>
+<td><code>x</code> 在哪裡？</td>
+<td>在 <code>%ebp</code> 下方，用負 offset</td>
+</tr>
+<tr>
+<td><code>Return Address</code> 有什麼用？</td>
+<td>function return 時決定 CPU 下一步回哪裡</td>
+</tr>
+<tr>
+<td>buffer overflow 為什麼危險？</td>
+<td>因為 local buffer 寫爆後可能覆蓋到 <code>Return Address</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">%ebp 到底是啥？</p>
+<p>%ebp 是目前 function 的 frame pointer register，通常指向目前 stack frame 中 Previous Frame Pointer 那個位置；而 Previous Frame Pointer 裡存的是上一層 caller function 的 %ebp 值。</p>
+<hr />
+<p>最直覺圖</p>
+<div class="highlight"><pre><span></span><code>高位址
+│
+│  參數 b                 ← %ebp + 12
+│  參數 a                 ← %ebp + 8
+│  Return Address         ← %ebp + 4
+│  Previous Frame Pointer ← %ebp + 0，也就是 %ebp 指到的基準附近
+│  local variable / buffer← %ebp - offset
+│
+低位址
+</code></pre></div>
+<p>所以它不放在「開頭」，是因為它像尺的 0 點，不一定放在物件最左邊；有時把 0 點放在中間，左右都能量，反而更好用。</p>
+<hr />
+<p>最短記法</p>
+<p><code>%ebp</code> 不是 frame 的起點，而是 frame 的定位基準點。</p>
+<p>它通常靠近 <code>Previous Frame Pointer</code> 那格；<br />
+<code>%ebp + offset</code> 找參數和 <code>Return Address</code>；<br />
+<code>%ebp - offset</code> 找 local variable 和 buffer。</p>
+</div>
+<h3 id="為何需要-previous-frame-pointer">為何需要 Previous Frame Pointer<a class="headerlink" href="#為何需要-previous-frame-pointer" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">為何需要 Previous Frame Pointer</p>
+<h4 id="1-直接答案">1. 直接答案<a class="headerlink" href="#1-直接答案" title="Permanent link"></a></h4>
+<p>需要 <code>Previous Frame Pointer(前一層框架指標)</code> 的原因是：<strong>現在這個 function 結束時，要能把 <code>%ebp</code> 恢復成 caller(呼叫者) 的 stack frame 基準點</strong>。</p>
+<p>也就是說，<code>Previous Frame Pointer</code> 是「回上一層 function frame 的路標」。</p>
+<p>講義 PDF viewer page 5 的 <code>Function Call Stack</code> 圖裡，<code>f()</code> 的 stack frame 裡同時放了 <code>Return Address</code> 和 <code>Previous Frame Pointer</code>；PDF viewer page 6 進一步畫出 <code>main()</code> → <code>foo()</code> → <code>bar()</code> 的 function call chain，顯示目前 frame 會透過 frame pointer 串回上一層 frame。</p>
+<hr />
+<h4 id="2-為什麼只有-return-address-不夠">2. 為什麼只有 Return Address 不夠？<a class="headerlink" href="#2-為什麼只有-return-address-不夠" title="Permanent link"></a></h4>
+<p><code>Return Address(返回位址)</code> 只回答一件事：</p>
+<p>「這個 function 結束後，CPU 下一條 instruction(指令) 要去哪裡執行？」</p>
+<p>但它沒有回答：</p>
+<p>「回去上一層 function 後，上一層 function 的 local variables、arguments 要怎麼找？」</p>
+<p>這個工作就是 <code>Previous Frame Pointer</code> 的用途。</p>
+<p>所以兩個東西分工不同：</p>
+<table>
+<thead>
+<tr>
+<th>stack 裡的資料</th>
+<th>解決的問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Return Address</code></td>
+<td>function 結束後，程式碼要跳回哪一行</td>
+</tr>
+<tr>
+<td><code>Previous Frame Pointer</code></td>
+<td>function 結束後，<code>%ebp</code> 要恢復成上一層 frame 的基準點</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="3-用-main--foo--bar-想">3. 用 <code>main()</code> → <code>foo()</code> → <code>bar()</code> 想<a class="headerlink" href="#3-用-main--foo--bar-想" title="Permanent link"></a></h4>
+<p>假設現在正在執行 <code>bar()</code>：</p>
+<ul>
+<li><code>%ebp</code> 目前指向 <code>bar()</code> 的 frame。</li>
+<li><code>bar()</code> 的 stack frame 裡會存著 <code>foo()</code> 的 frame pointer，也就是 <code>Previous Frame Pointer</code>。</li>
+<li>
+<p>當 <code>bar()</code> 結束時，CPU 需要：</p>
+</li>
+<li>
+<p>用 <code>Return Address</code> 回到 <code>foo()</code> 裡呼叫 <code>bar()</code> 之後的位置。</p>
+</li>
+<li>用 <code>Previous Frame Pointer</code> 把 <code>%ebp</code> 恢復成 <code>foo()</code> 的 frame 基準點。</li>
+</ul>
+<p>如果沒有 <code>Previous Frame Pointer</code>，回到 <code>foo()</code> 之後，CPU 可能知道「要執行 foo 的哪一行」，但不知道「foo 的 frame 基準點在哪裡」。這樣 <code>foo()</code> 裡的 local variable 和 argument 就不好穩定定位。</p>
+<hr />
+<h4 id="4-生活化比喻">4. 生活化比喻<a class="headerlink" href="#4-生活化比喻" title="Permanent link"></a></h4>
+<p><code>Return Address</code> 像是：</p>
+<p>「我要回到哪個房間？」</p>
+<p><code>Previous Frame Pointer</code> 像是：</p>
+<p>「回到那個房間後，桌子的基準位置在哪裡？」</p>
+<p>只知道房間不夠，因為你還要知道桌上每個抽屜的位置，才能繼續找資料。</p>
+<hr />
+<h4 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h4>
+<p><code>Previous Frame Pointer</code> 是用來保存 caller 的 <code>%ebp</code>。</p>
+<p>當目前 function 結束時：</p>
+<ul>
+<li><code>Return Address</code> 讓 CPU 回到 caller 的程式碼位置。</li>
+<li><code>Previous Frame Pointer</code> 讓 <code>%ebp</code> 回到 caller 的 stack frame 基準位置。</li>
+</ul>
+<p>所以它的用途不是「決定下一條指令去哪裡」，而是「恢復上一層 function 的 stack frame 定位能力」。</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">用表格比較一下 return address 和 Previous Frame Pointer 用途</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><code>Return Address(返回位址)</code></th>
+<th><code>Previous Frame Pointer(前一層框架指標)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>放在哪裡</td>
+<td>放在目前 function 的 <code>stack frame(堆疊框架)</code> 裡</td>
+<td>也放在目前 function 的 <code>stack frame</code> 裡</td>
+</tr>
+<tr>
+<td>裡面存什麼</td>
+<td>caller 裡「呼叫完目前 function 後，要回去繼續執行的 instruction address(指令位址)」</td>
+<td>caller 的 <code>%ebp</code> 值，也就是上一層 function 的 frame 基準點</td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>控制「function return 後，CPU 下一步要去哪裡執行」<mark>也就是"目前函式 return 後要回去執行的下一個位置"</mark></td>
+<td>恢復「上一層 function 的 stack frame 定位基準」</td>
+</tr>
+<tr>
+<td>解決的問題</td>
+<td>程式流程要回到哪一行？ <mark>(要知道要執行哪一個指令)</mark></td>
+<td>回到上一層後，要怎麼繼續用 <code>%ebp + offset</code> / <code>%ebp - offset</code> 找資料？<mark>(要知道拿資料的方式)</mark></td>
+</tr>
+<tr>
+<td>如果被破壞</td>
+<td>CPU 可能跳到錯誤位置、非法位置，甚至攻擊者的 malicious code(惡意程式碼)</td>
+<td>上一層 frame 定位會壞掉，可能導致 local variable / argument 定位錯誤、程式崩潰</td>
+</tr>
+<tr>
+<td>對 buffer overflow 的重要性</td>
+<td>最關鍵攻擊目標；覆蓋它可以改變 control flow(控制流程)</td>
+<td>常會被一起覆蓋，但主要效果是破壞 frame chain(框架鏈)</td>
+</tr>
+<tr>
+<td>簡單比喻</td>
+<td>「回哪個教室繼續上課」</td>
+<td>「回到教室後，講桌基準點在哪裡」</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h3 id="5-多層-function-callmain--foo--bar">5. 多層 function call：<code>main()</code> → <code>foo()</code> → <code>bar()</code><a class="headerlink" href="#5-多層-function-callmain--foo--bar" title="Permanent link"></a></h3>
+<p>PDF viewer page 6 顯示 <code>main()</code> 呼叫 <code>foo()</code>，<code>foo()</code> 再呼叫 <code>bar()</code> 的 stack layout。圖中每一層 function 都有自己的 stack frame，而且 <code>Current Frame Pointer(目前 frame pointer)</code> 指向目前正在執行的那一層。</p>
+<div class="admonition danger">
+<p class="admonition-title"><code>Current Frame Pointer(目前 frame pointer)</code> 用來存現在函數的 %ebp。</p>
+</div>
+<pre class="diagram"><code>flowchart TD
+    A["main() 的 stack frame&lt;br&gt;較早被建立"] --&gt; B["foo() 的 stack frame&lt;br&gt;main 呼叫 foo 時建立"]
+    B --&gt; C["bar() 的 stack frame&lt;br&gt;foo 呼叫 bar 時建立"]
+    C --&gt; D["目前正在執行 bar()&lt;br&gt;Current Frame Pointer 指向 bar 的 frame"]
+    C -. "Previous Frame Pointer&lt;br&gt;可回到上一層" .-&gt; B
+    B -. "Previous Frame Pointer&lt;br&gt;可回到上一層" .-&gt; A</code></pre>
+<p>這個概念對 buffer overflow 很重要：<br />
+每個 function 都像一層便當盒。你在最上層的 function 裡寫爆 buffer，不一定只壞自己的資料；如果寫超過邊界，就可能破壞這層便當盒裡控制「回上一層」的資訊。</p>
+<hr />
+<h3 id="6-本頁到後面攻擊流程的關係">6. 本頁到後面攻擊流程的關係<a class="headerlink" href="#6-本頁到後面攻擊流程的關係" title="Permanent link"></a></h3>
+<p>目前我們還沒有正式進入 <code>Vulnerable Program(有漏洞的程式)</code>，所以先不要急著背 <code>badfile</code>、<code>shellcode</code>、<code>NOP sled</code> 的細節。</p>
+<p>這一輪你只要先建立以下因果鏈：</p>
+<pre class="diagram"><code>flowchart LR
+    A["local buffer(區域緩衝區)&lt;br&gt;通常在 stack frame 裡"] --&gt; B["資料寫太多&lt;br&gt;超出 buffer 邊界"]
+    B --&gt; C["覆蓋鄰近 stack 資料"]
+    C --&gt; D["可能覆蓋 Previous Frame Pointer"]
+    D --&gt; E["可能覆蓋 Return Address"]
+    E --&gt; F["function return 時&lt;br&gt;CPU 可能跳到錯誤位置"]</code></pre>
+<p>考試看到 stack 圖時，要先找三個東西：<code>buffer</code>、<code>Previous Frame Pointer</code>、<code>Return Address</code>。只要你能說出它們的相對位置，就能解釋為什麼 overflow 會變成控制流程攻擊。</p>
+<h3 id="function-argumentslocal-variables-有差嗎">function arguments、local variables 有差嗎？<a class="headerlink" href="#function-argumentslocal-variables-有差嗎" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">function arguments、local variables 有差嗎？</p>
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><code>function arguments(函式參數)</code></th>
+<th><code>local variables(區域變數)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是誰建立／傳進來的</td>
+<td>caller(呼叫者) 傳給目前 function</td>
+<td>目前 function 自己宣告</td>
+</tr>
+<tr>
+<td>例子</td>
+<td><code>void f(int a, int b)</code> 裡的 <code>a</code>、<code>b</code></td>
+<td><code>void f(...) { int x; }</code> 裡的 <code>x</code></td>
+</tr>
+<tr>
+<td>對目前 function 的角色</td>
+<td>外面給我的輸入資料</td>
+<td>我自己在 function 裡暫時使用的資料</td>
+</tr>
+<tr>
+<td>相對 <code>%ebp</code> 的位置</td>
+<td>通常在 <code>%ebp</code> 上方，用 <code>+ offset</code> 找</td>
+<td>通常在 <code>%ebp</code> 下方，用 <code>- offset</code> 找</td>
+</tr>
+<tr>
+<td>講義例子</td>
+<td><code>a = %ebp + 8</code>，<code>b = %ebp + 12</code></td>
+<td><code>x = %ebp - 8</code></td>
+</tr>
+<tr>
+<td>buffer overflow 中的重要性</td>
+<td>可能保存傳進來的 pointer 或資料，例如後面 <code>foo(str)</code> 的 <code>str</code></td>
+<td>常是 overflow 起點，例如 <code>char buffer[100]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">這裡指的 Frame 和 page/frame 的 Frame 不一樣對不對，這邊指的 Frame 是整個函數資料的範圍？</p>
+<p>對，完全不一樣。</p>
+<table>
+<thead>
+<tr>
+<th>名詞</th>
+<th>中文</th>
+<th>所屬章節概念</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stack frame</code> / <code>function frame</code></td>
+<td>堆疊框架／函數框架</td>
+<td>ch6-Lab buffer overflow</td>
+<td>一次 function call 在 stack 上建立的一塊資料範圍</td>
+</tr>
+<tr>
+<td><code>page frame</code></td>
+<td>頁框／實體頁框</td>
+<td>記憶體管理／virtual memory</td>
+<td>physical memory(實體記憶體) 中固定大小的一頁空間</td>
+</tr>
+</tbody>
+</table>
+<p>所以你現在這裡看到的 <code>Frame Pointer</code>、<code>Previous Frame Pointer</code>、<code>Current Frame Pointer</code>，全部都是在講 <strong>function call stack(函式呼叫堆疊)</strong>，不是在講 virtual memory 的 page frame。</p>
+<p>講義這裡的圖是 <code>Function Call Stack</code> 與 <code>Stack Layout for Function Call Chain</code>，內容是 <code>main()</code>、<code>foo()</code>、<code>bar()</code> 這種 function call chain，不是 page table 或 physical frame。</p>
+</div>
+<h2 id="vulnerable-program--哪一行程式真的造成-buffer-overflow">⭐Vulnerable Program — 哪一行程式真的造成 buffer overflow？<a class="headerlink" href="#vulnerable-program--哪一行程式真的造成-buffer-overflow" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 7 ~ PDF viewer page 8</p>
+<h3 id="1-這兩頁在解決什麼問題">1. 這兩頁在解決什麼問題？<a class="headerlink" href="#1-這兩頁在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面我們已經知道 stack frame 裡有 local variables、previous frame pointer、return address。現在講義要回答下一個問題：</p>
+<p>「哪一種程式寫法，會讓輸入資料從普通資料變成可以覆蓋 stack frame 的危險資料？」</p>
+<p>答案就是：把外部可控資料複製進比它小的 local buffer，而且沒有做長度檢查。</p>
+<p>在這份 lab 裡，外部資料來自 <code>badfile</code>。講義 page 7 說明：程式會從 <code>badfile</code> 讀 300 bytes，存進大小為 400 bytes 的 <code>str</code>，然後呼叫 <code>foo(str)</code>；而且 <code>badfile</code> 是由使用者建立，所以內容由使用者控制。</p>
+<h3 id="2-page-7目前還沒有-overflow因為-str400-裝得下-300-bytes">2. Page 7：目前還沒有 overflow，因為 <code>str[400]</code> 裝得下 300 bytes<a class="headerlink" href="#2-page-7目前還沒有-overflow因為-str400-裝得下-300-bytes" title="Permanent link"></a></h3>
+<p>PDF viewer page 7 的 main 程式做的事情可以簡化成這條資料流：</p>
+<pre class="diagram"><code>flowchart LR
+    A["badfile&lt;br&gt;使用者可控制內容"] --&gt; B["讀取 300 bytes"]
+    B --&gt; C["str[400]&lt;br&gt;容量 400 bytes"]
+    C --&gt; D["foo(str)&lt;br&gt;把 str 傳進 foo"]</code></pre>
+<p>這一頁最重要的陷阱是：<code>fread</code> 讀 300 bytes 到 <code>str[400]</code>，這裡本身不是 overflow，因為 300 bytes 小於 400 bytes。</p>
+<p>真正危險的是：這 300 bytes 後面被傳進 <code>foo(str)</code>。也就是說，page 7 是「把可控資料送進危險函式」的前半段，不是 overflow 發生的那一行。</p>
+<h3 id="3-page-8真正危險點是-strcpybuffer-str">3. Page 8：真正危險點是 <code>strcpy(buffer, str)</code><a class="headerlink" href="#3-page-8真正危險點是-strcpybuffer-str" title="Permanent link"></a></h3>
+<p>PDF viewer page 8 的 <code>foo()</code> 裡有：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+
+<span class="w">    </span><span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>這裡 <code>buffer</code> 只有 100 bytes，但 <code>str</code> 可能帶著從 <code>badfile</code> 讀進來的 300 bytes。<code>strcpy(buffer, str)</code> 的問題是：它會一直複製字串內容到 <code>buffer</code>，但這個語句本身沒有保證只複製 100 bytes 以內。</p>
+<p>所以資料流變成：</p>
+<pre class="diagram"><code>flowchart LR
+    A["str&lt;br&gt;可能包含 300 bytes"] --&gt; B["strcpy(buffer, str)"]
+    B --&gt; C["buffer[100]&lt;br&gt;容量只有 100 bytes"]
+    C --&gt; D["超過 100 bytes 的部分&lt;br&gt;寫到 buffer 外面"]
+    D --&gt; E["可能覆蓋 previous frame pointer&lt;br&gt;與 return address"]</code></pre>
+<p>講義 page 8 的 stack 圖也把 <code>buffer[0]</code> 到 <code>buffer[99]</code> 放在 <code>foo()</code> 的 stack frame 裡，並顯示 buffer copy 的方向會往上覆蓋到 <code>Previous Frame Pointer</code>、<code>Return Address</code>，甚至 argument pointer。</p>
+<h3 id="4-一句話抓住漏洞本質">4. 一句話抓住漏洞本質<a class="headerlink" href="#4-一句話抓住漏洞本質" title="Permanent link"></a></h3>
+<p>這個漏洞不是因為「有 <code>badfile</code>」就一定危險，也不是因為「有 <code>foo(str)</code>」就一定危險，而是因為：</p>
+<p><code>badfile</code> 的內容可控，而且可控資料最後被 <code>strcpy</code> 複製進太小的 <code>buffer[100]</code>，沒有做長度檢查。</p>
+<p>考試看到類似程式時，要照這個順序找：</p>
+<table>
+<thead>
+<tr>
+<th>檢查點</th>
+<th>問自己</th>
+<th>本講義對應</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>外部輸入是否可控？</td>
+<td><code>badfile</code> 由使用者建立</td>
+</tr>
+<tr>
+<td>2</td>
+<td>外部輸入是否被讀進程式？</td>
+<td>讀 300 bytes 到 <code>str[400]</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>這份資料是否被傳進其他函式？</td>
+<td><code>foo(str)</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>是否複製到較小 buffer？</td>
+<td><code>buffer[100]</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>是否缺少長度檢查？</td>
+<td><code>strcpy(buffer, str)</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>是否在 stack frame 裡？</td>
+<td><code>buffer</code> 是 <code>foo()</code> 的 local variable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-常見錯法">5. 常見錯法<a class="headerlink" href="#5-常見錯法" title="Permanent link"></a></h3>
+<p>第一個常見錯法：以為 page 7 的 <code>str[400]</code> 是漏洞。<br />
+不精準。<code>str[400]</code> 接收 300 bytes 目前裝得下，真正漏洞在 page 8 的 <code>buffer[100]</code>。</p>
+<p>第二個常見錯法：以為 <code>strcpy</code> 一定危險。<br />
+不精準。<code>strcpy</code> 的危險來自「來源資料可能比目的 buffer 大，而且沒有長度檢查」。如果來源一定很短，或改用安全長度限制，風險才會下降。</p>
+<p>第三個常見錯法：只說「buffer overflow 會發生」，但說不出資料路徑。<br />
+考試要能講出完整路徑：<code>badfile → str[400] → foo(str) → buffer[100] → strcpy → overflow</code>。</p>
+<h2 id="consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎">⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？<a class="headerlink" href="#consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 9 ~ PDF viewer page 10</p>
+<h3 id="1-這兩頁在解決什麼問題_1">1. 這兩頁在解決什麼問題？<a class="headerlink" href="#1-這兩頁在解決什麼問題_1" title="Permanent link"></a></h3>
+<p>前面你已經知道漏洞點是 <code>strcpy(buffer, str)</code>，它可能讓資料超過 <code>buffer[100]</code>，往 stack 上方覆蓋到 <code>Return Address(返回位址)</code>。</p>
+<p>現在 page 9 ~ 10 要回答的是：</p>
+<p>「Return Address 被覆蓋之後，CPU 真的會照攻擊者想要的方式執行嗎？」</p>
+<p>答案是：不一定。<br />
+Buffer overflow 只是讓你有機會改到 return address；但 return address 被改成什麼，才決定後果。</p>
+<p>講義 page 9 說，如果 return address 被某個 random address(隨機位址) 覆蓋，可能導向 invalid instruction、non-existing address、access violation，或者 attacker’s code。</p>
+<hr />
+<h3 id="2-覆蓋-return-address-的四種可能結果">2. 覆蓋 Return Address 的四種可能結果<a class="headerlink" href="#2-覆蓋-return-address-的四種可能結果" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Return Address 被改到哪裡</th>
+<th>會發生什麼</th>
+<th>考試理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Invalid instruction(非法指令)</code></td>
+<td>CPU 跳到某個位置，但那裡的 bytes 不是合法指令</td>
+<td>程式通常 crash</td>
+</tr>
+<tr>
+<td><code>Non-existing address(不存在位址)</code></td>
+<td>CPU 嘗試跳到不存在或未配置的記憶體</td>
+<td>程式通常 crash</td>
+</tr>
+<tr>
+<td><code>Access violation(存取違規)</code></td>
+<td>CPU 嘗試執行或讀取沒有權限的區域</td>
+<td>作業系統阻止，程式終止</td>
+</tr>
+<tr>
+<td><code>Attacker’s code(攻擊者程式碼)</code></td>
+<td>CPU 跳到攻擊者準備的 code</td>
+<td>這才是攻擊者想要的結果</td>
+</tr>
+</tbody>
+</table>
+<p>所以這裡要修正一個很重要的觀念：</p>
+<p>Buffer overflow 成功覆蓋 return address，不代表攻擊一定成功。<br />
+它只代表「控制流程可能被改變」。如果改到錯的地方，程式可能只是 crash；如果改到攻擊者準備的 code，才可能變成 code execution(程式碼執行)。</p>
+<hr />
+<h3 id="3-page-10攻擊者真正想做的是改變-cpu-下一步">3. Page 10：攻擊者真正想做的是改變 CPU 下一步<a class="headerlink" href="#3-page-10攻擊者真正想做的是改變-cpu-下一步" title="Permanent link"></a></h3>
+<p>正常情況下，function return 時 CPU 會讀取 stack 裡的 <code>Return Address</code>，回到 caller(呼叫者) 的下一行繼續執行。</p>
+<p>可以想成：</p>
+<table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>Return Address 的內容</th>
+<th>function return 後 CPU 做什麼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常程式</td>
+<td>原本 <mark>caller</mark> 的下一行位址</td>
+<td>回到正常程式流程</td>
+</tr>
+<tr>
+<td>亂數覆蓋</td>
+<td>無意義或不能用的位址</td>
+<td>crash 或 access violation</td>
+</tr>
+<tr>
+<td>攻擊者控制</td>
+<td>指向攻擊者準備的 code 附近</td>
+<td>可能執行攻擊者程式碼</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">caller 是啥？</p>
+<p>caller(呼叫者) 就是「發出 function call 的那個函式」。</p>
+</div>
+<p>這就是 page 10 的核心：不是「buffer 裡有惡意資料」就會自動執行，而是要讓 <code>Return Address</code> 在 function return 時指到那份資料附近。講義後面會再處理 <code>badfile</code> 的結構、offset、NOP sled 等細節；現在先只掌握高層邏輯。</p>
+<hr />
+<h3 id="4-用一個非操作型例子理解">4. 用一個非操作型例子理解<a class="headerlink" href="#4-用一個非操作型例子理解" title="Permanent link"></a></h3>
+<p>假設原本 <code>foo()</code> 結束後應該回到 <code>main()</code> 的下一行：</p>
+<table>
+<thead>
+<tr>
+<th>Stack 欄位</th>
+<th>正常內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local buffer</td>
+<td>一般資料</td>
+</tr>
+<tr>
+<td>Previous Frame Pointer</td>
+<td>上一層 frame 的基準位置</td>
+</tr>
+<tr>
+<td>Return Address</td>
+<td>回到 <code>main()</code> 下一行</td>
+</tr>
+</tbody>
+</table>
+<p>發生 overflow 後，太長的輸入可能把 <code>Return Address</code> 改掉：</p>
+<table>
+<thead>
+<tr>
+<th>Stack 欄位</th>
+<th>overflow 後可能內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local buffer</td>
+<td>攻擊者控制的資料</td>
+</tr>
+<tr>
+<td>Previous Frame Pointer</td>
+<td>被覆蓋</td>
+</tr>
+<tr>
+<td>Return Address</td>
+<td>被改成新的位址</td>
+</tr>
+</tbody>
+</table>
+<p>接著 <code>foo()</code> return 時，CPU 不會「記得原本該回哪裡」；它只會相信 stack 裡目前的 <code>Return Address</code>。<br />
+所以如果那個新位址是亂的，程式 crash；如果那個新位址剛好指到攻擊者準備的 code，才可能執行 malicious code(惡意程式碼)。</p>
+<hr />
+<h3 id="5-這一輪最短考試版">5. 這一輪最短考試版<a class="headerlink" href="#5-這一輪最短考試版" title="Permanent link"></a></h3>
+<p><code>Buffer overflow</code> 可以覆蓋 stack 上的 <code>Return Address</code>。當 function returns，CPU 會根據被覆蓋後的 return address 決定下一個執行位置。如果 return address 指到 invalid instruction、non-existing address 或 forbidden memory area，程式通常會 crash 或 access violation；如果它指到 attacker’s code，則可能執行 malicious code。因此，覆蓋 return address 是控制流程攻擊的關鍵，但不保證攻擊一定成功。</p>
+<h2 id="environment-setup--為什麼這個-lab-要刻意關掉一些防護">⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？<a class="headerlink" href="#environment-setup--為什麼這個-lab-要刻意關掉一些防護" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 11</p>
+<h3 id="1-這頁在解決什麼問題">1. 這頁在解決什麼問題？<a class="headerlink" href="#1-這頁在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面 page 9 ~ 10 已經說明：如果 <code>Return Address</code> 被改到正確位置，CPU 可能去執行 malicious code。</p>
+<p>但現代系統通常不會讓這件事那麼容易發生。原因是作業系統、compiler(編譯器)、硬體會有很多防護機制，例如：</p>
+<table>
+<thead>
+<tr>
+<th>防護方向</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address randomization(位址隨機化)</td>
+<td>讓攻擊者很難猜到 stack 或 malicious code 的位置</td>
+</tr>
+<tr>
+<td>Stack protector / stack canary(堆疊保護)</td>
+<td>偵測 return address 附近是否被覆蓋</td>
+</tr>
+<tr>
+<td>Non-executable stack(不可執行 stack)</td>
+<td>不讓 stack 上的資料被當成 code 執行</td>
+</tr>
+<tr>
+<td>權限限制</td>
+<td>即使程式被控制，也不一定能取得高權限</td>
+</tr>
+</tbody>
+</table>
+<p>所以 page 11 的重點不是「正常系統都應該這樣設定」，而是：為了讓學生在受控 lab 裡看懂 buffer overflow 的基本機制，講義刻意建立一個比較脆弱、比較容易觀察攻擊效果的實驗環境。</p>
+<h3 id="2-為什麼要提到-address-randomization位址隨機化">2. 為什麼要提到 address randomization(位址隨機化)？<a class="headerlink" href="#2-為什麼要提到-address-randomization位址隨機化" title="Permanent link"></a></h3>
+<p>攻擊者要讓 return address 指到 malicious code，通常需要猜某個 memory address(記憶體位址)。</p>
+<p>但如果系統每次執行時 stack 起始位置都不同，那攻擊者就很難猜到：</p>
+<table>
+<thead>
+<tr>
+<th>有沒有位址隨機化</th>
+<th>攻擊者面臨的狀況</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有</td>
+<td>stack 位置每次可能不同，不容易猜</td>
+</tr>
+<tr>
+<td>沒有</td>
+<td>stack 位置比較固定，比較容易推測</td>
+</tr>
+</tbody>
+</table>
+<p>所以 lab 會提到關閉 address randomization，是為了降低不確定性，讓學生能看見「return address 被改到某個位置」這件事的效果。</p>
+<p>安全理解版：真實系統中，address randomization 是防禦；lab 裡關掉它，是為了教學觀察，不是安全建議。</p>
+<h3 id="3-為什麼要讓-stack-可執行">3. 為什麼要讓 stack 可執行？<a class="headerlink" href="#3-為什麼要讓-stack-可執行" title="Permanent link"></a></h3>
+<p>前面我們一直說「把 malicious code 放到 buffer 附近，讓 CPU 跳過去執行」。但注意：buffer 在 stack 上，而現代系統通常不允許 stack 上的資料被當成 code 執行。</p>
+<p>這就是 <code>Non-executable stack(不可執行 stack)</code> 的防禦概念：</p>
+<table>
+<thead>
+<tr>
+<th>Stack 狀態</th>
+<th>CPU 跳到 stack 上資料時</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可執行 stack</td>
+<td>可能把 stack 上資料當成 code 執行</td>
+</tr>
+<tr>
+<td>不可執行 stack</td>
+<td>系統阻止執行，通常造成錯誤或終止</td>
+</tr>
+</tbody>
+</table>
+<p>所以 lab 若要示範「跳到 buffer 裡的 malicious code」這種古典 stack-based buffer overflow，就會刻意設定成 stack 可執行。這也是為什麼後面 countermeasures 會再講 <code>NX bit / Non-Executable Stack</code>。</p>
+<h3 id="4-為什麼要關掉-stack-protector">4. 為什麼要關掉 stack protector？<a class="headerlink" href="#4-為什麼要關掉-stack-protector" title="Permanent link"></a></h3>
+<p><code>Stack protector(堆疊保護)</code> 或 <code>Stack Canary(堆疊金絲雀)</code> 的概念是：在 return address 附近放一個檢查值。function return 前會檢查這個值有沒有被改掉。</p>
+<p>如果 buffer overflow 覆蓋到了 return address，通常也會破壞 canary。程式在 return 前發現 canary 不對，就會先終止，不讓 CPU 使用被覆蓋後的 return address。</p>
+<table>
+<thead>
+<tr>
+<th>有沒有 stack protector</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有</td>
+<td>overflow 可能被偵測，程式先終止</td>
+</tr>
+<tr>
+<td>沒有</td>
+<td>更容易觀察 return address 被覆蓋後的效果</td>
+</tr>
+</tbody>
+</table>
+<p>所以 lab 提到關掉 stack protector，是為了讓教學實驗更容易展示「覆蓋 return address → 控制流程改變」這條主線。</p>
+<h3 id="5-這頁的考試重點">5. 這頁的考試重點<a class="headerlink" href="#5-這頁的考試重點" title="Permanent link"></a></h3>
+<p>這頁最容易考的是「為什麼 lab 要關掉防護？」而不是要你背操作指令。</p>
+<p>你要會說：</p>
+<table>
+<thead>
+<tr>
+<th>Lab 設定</th>
+<th>概念作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>關掉 address randomization</td>
+<td>讓 stack / code address 較容易預測</td>
+</tr>
+<tr>
+<td>讓 stack 可執行</td>
+<td>讓 stack 上的 injected code 有機會被 CPU 執行</td>
+</tr>
+<tr>
+<td>關掉 stack protector</td>
+<td>避免 overflow 在 return 前被 canary 偵測並終止</td>
+</tr>
+<tr>
+<td>set-uid root 版本</td>
+<td>用來展示若有漏洞的高權限程式被攻擊，後果會更嚴重</td>
+</tr>
+</tbody>
+</table>
+<p>安全版總結：page 11 的環境設定是在「降低防禦、放大漏洞效果」，讓學生看懂 buffer overflow 的攻擊鏈；真實系統則應該反過來啟用這些防護。</p>
+<h2 id="task-a-offset-distance--為什麼要知道-buffer-開頭到-return-address-的距離">⭐Task A: Offset Distance — 為什麼要知道 buffer 開頭到 Return Address 的距離？<a class="headerlink" href="#task-a-offset-distance--為什麼要知道-buffer-開頭到-return-address-的距離" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 12 ~ PDF viewer page 13</p>
+<h3 id="1-這個知識點在解決什麼問題">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題" title="Permanent link"></a></h3>
+<p>前面我們已經知道：buffer overflow 真正危險的地方，是資料超出 local buffer 後，可能覆蓋到 stack frame 裡的 <code>Return Address(返回位址)</code>。</p>
+<p>但現在有一個很實際的問題：</p>
+<p>攻擊輸入是一長串 bytes。那要放多少 bytes，才會剛好碰到 <code>Return Address</code>？</p>
+<p>這就是 page 12 的 Task A：找出 <code>buffer base address(buffer 起始位址)</code> 到 <code>return address</code> 之間的 <code>offset distance(偏移距離)</code>。講義 page 12 把 malicious input 的建立拆成兩件事：Task A 找 offset distance，Task B 找 shellcode 要放的位置。</p>
+<p>本輪只處理 Task A。</p>
+<h3 id="2-offset-distance-是什麼">2. Offset distance 是什麼？<a class="headerlink" href="#2-offset-distance-是什麼" title="Permanent link"></a></h3>
+<p><code>Offset distance(偏移距離)</code> 可以想成：</p>
+<div class="admonition danger">
+<p class="admonition-title">Offset distance 是什麼？</p>
+<p>從 <code>buffer[0]</code> 開始往後數，數到第幾個 byte 會碰到 <code>Return Address</code> 欄位。</p>
+</div>
+<p>用圖像想像：</p>
+<table>
+<thead>
+<tr>
+<th>Stack 裡的位置</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>buffer[0]</code></td>
+<td>buffer 的起點</td>
+</tr>
+<tr>
+<td>buffer 內部</td>
+<td>正常可寫區域</td>
+</tr>
+<tr>
+<td>buffer 後面的 stack 資料</td>
+<td>可能包含 saved frame pointer 等資料</td>
+</tr>
+<tr>
+<td><code>Return Address</code></td>
+<td>function return 時 CPU 要跳回的位置</td>
+</tr>
+</tbody>
+</table>
+<p>所以 offset distance 的核心意義是：<br />
+我要知道輸入資料中哪一段會覆蓋普通 buffer，哪一段會開始覆蓋 return address。</p>
+<h3 id="3-為什麼講義是-108--4--112">3. 為什麼講義是 <code>108 + 4 = 112</code>？<a class="headerlink" href="#3-為什麼講義是-108--4--112" title="Permanent link"></a></h3>
+<p>講義 page 13 的結論是：</p>
+<p><code>distance = 108 + 4 = 112</code>。</p>
+<p>這個式子的概念可以這樣理解：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>108</code></td>
+<td>從 buffer 起點走到 %ebp 的距離</td>
+</tr>
+<tr>
+<td><code>+ 4</code></td>
+<td>再跨過一個 4-byte 欄位(跨過 %ebp)，才到 return address 的位置</td>
+</tr>
+<tr>
+<td><code>112</code></td>
+<td>從 buffer 起點到 return address 欄位的 offset distance</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">108 是不是 buffer 到 %ebp 的距離？</p>
+<p>對，<strong>可以這樣理解：<code>108</code> 是從 <code>buffer</code> 起點到 saved <code>%ebp</code> / <code>Previous Frame Pointer(前一個 frame pointer)</code> 起點的距離</strong>。</p>
+<p>但講義真正要找的是：</p>
+<p><code>buffer base address → Return Address</code></p>
+<p>所以最後距離不是 108，而是：</p>
+<p><code>108 + 4 = 112</code></p>
+<p>講義 page 13 的標題就是在找 <code>Distance Between Buffer Base Address and Return Address</code>，並給出結論 <code>108 + 4 = 112</code>。</p>
+</div>
+<p>這裡的 <code>4 bytes</code> 很常見，因為在 32-bit stack frame 裡，一個 address 或 saved frame pointer 通常是 4 bytes。考試如果問 <code>108 + 4</code>，重點不是死背數字，而是要知道：</p>
+<p><code>+4</code> 是為了跨過 return address 前面的那個 4-byte stack 欄位，使距離定位到 <code>Return Address</code> 欄位。</p>
+<h3 id="4-為什麼-offset-太短或太長都不行">4. 為什麼 offset 太短或太長都不行？<a class="headerlink" href="#4-為什麼-offset-太短或太長都不行" title="Permanent link"></a></h3>
+<p>這一頁最重要的直覺是：overflow 不是只要很長就好，而是要知道「哪一段資料會蓋到哪個 stack 欄位」。</p>
+<table>
+<thead>
+<tr>
+<th>輸入長度／位置</th>
+<th>可能結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>太短</td>
+<td>只覆蓋 buffer 內部或附近資料，還沒碰到 return address</td>
+</tr>
+<tr>
+<td>剛好到 return address</td>
+<td>可以改變 return address 欄位</td>
+</tr>
+<tr>
+<td>太長但位置沒控制好</td>
+<td>可能蓋壞其他欄位，程式 crash 或結果不可預測</td>
+</tr>
+</tbody>
+</table>
+<p>所以 <code>112</code> 的意義不是「輸入總長一定只要 112 bytes」，而是：</p>
+<p>從 buffer 起點算起，第 112 bytes 附近會到達 return address 欄位；因此這個 offset 是理解覆蓋位置的關鍵。</p>
+<h3 id="5-最短考試版">5. 最短考試版<a class="headerlink" href="#5-最短考試版" title="Permanent link"></a></h3>
+<p><code>Offset distance</code> is the number of bytes from the beginning of the local buffer to the saved return address in the stack frame. It tells us where the return address is located relative to the buffer. In the lecture example, the distance is <code>108 + 4 = 112</code>, meaning that after 112 bytes from the buffer base, the input reaches the return address field. This distance is important because overwriting the wrong location may only corrupt data or crash the program, while overwriting the return address can change the control flow.</p>
+<h2 id="task-b-address-of-malicious-code--return-address-要指到哪裡才有意義">⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？<a class="headerlink" href="#task-b-address-of-malicious-code--return-address-要指到哪裡才有意義" title="Permanent link"></a></h2>
+<p>講義位置：PDF viewer page 14 ~ PDF viewer page 18</p>
+<h3 id="1-task-a-和-task-b-的差別">1. Task A 和 Task B 的差別<a class="headerlink" href="#1-task-a-和-task-b-的差別" title="Permanent link"></a></h3>
+<p>Task A 解決的是「我要在輸入的第幾個 byte 開始覆蓋 Return Address？」<br />
+答案是 offset distance，例如講義中的 <code>112 bytes</code>。</p>
+<p>Task B 解決的是另一個問題：</p>
+<p>覆蓋 Return Address 之後，要讓它變成什麼位址？</p>
+<p>這兩件事不同：</p>
+<table>
+<thead>
+<tr>
+<th>任務</th>
+<th>問題</th>
+<th>答案型態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task A</td>
+<td>Return Address 在輸入的哪個 offset？</td>
+<td><code>112 bytes</code> 這種距離</td>
+</tr>
+<tr>
+<td>Task B</td>
+<td>Return Address 要被改成哪個 address？</td>
+<td>指向 buffer / NOP sled / malicious code 附近的位址</td>
+</tr>
+</tbody>
+</table>
+<p>所以你剛剛說「知道 offset 之後就可以修改 Return Address」是對的；但更完整地說是：</p>
+<p>知道 Task A 的 offset 後，才知道輸入中哪裡會蓋到 Return Address；接著 Task B 還要決定新的 Return Address 要指到哪個 stack address。</p>
+<h3 id="2-為什麼講義-page-14-提到-function-argument-的-address">2. 為什麼講義 page 14 提到 function argument 的 address？<a class="headerlink" href="#2-為什麼講義-page-14-提到-function-argument-的-address" title="Permanent link"></a></h3>
+<p>講義 page 14 說 malicious code 被寫在 <code>badfile</code> 裡，而 <code>badfile</code> 的內容會作為 argument 傳入 vulnerable function；因此可以調查 function argument 在記憶體中的 address。</p>
+<p>用概念講就是：</p>
+<p>資料流大概是：</p>
+<p><code>badfile → function argument → buffer</code></p>
+<p>如果 badfile 裡面包含 NOP sled 和 malicious code，那當它被 copy 進 buffer 後，buffer 附近就可能有攻擊者準備的 bytes。</p>
+<p>所以 Task B 想知道的是：</p>
+<p>這些 bytes 被 copy 進 stack 之後，大概會落在哪個記憶體位置？</p>
+<p>這樣新的 Return Address 才有可能指到它們附近。</p>
+<h3 id="3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte">3. 為什麼不要求 Return Address 精準指到 malicious code 第一個 byte？<a class="headerlink" href="#3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte" title="Permanent link"></a></h3>
+<p>因為實際上很難精準猜中 malicious code 的第一個 byte。<br />
+所以講義 page 15 引入 <code>NOP(No Operation)</code>：CPU 執行 NOP 時什麼都不做，然後繼續往下一個 instruction 前進。講義也說可以用很多 NOP instructions 填滿 badfile 的一段，並把 malicious code 放在 buffer 的後端，用來提高跳到正確位置的機率。</p>
+<p>這一大段 NOP 就叫：</p>
+<p><code>NOP sled(NOP 雪橇)</code></p>
+<p>直覺像這樣：</p>
+<table>
+<thead>
+<tr>
+<th>CPU 落點</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精準落在 malicious code 開頭</td>
+<td>直接執行 malicious code</td>
+</tr>
+<tr>
+<td>落在 NOP sled 中間</td>
+<td>先一路執行 NOP，最後滑到 malicious code</td>
+</tr>
+<tr>
+<td>落在完全錯誤的位置</td>
+<td>可能 crash、invalid instruction 或 access violation</td>
+</tr>
+</tbody>
+</table>
+<p>所以 NOP sled 的作用是：降低 Return Address 必須精準命中的難度。</p>
+<h3 id="4-page-16-的-badfile-structure-怎麼看">4. Page 16 的 badfile structure 怎麼看？<a class="headerlink" href="#4-page-16-的-badfile-structure-怎麼看" title="Permanent link"></a></h3>
+<p>page 16 的圖可以拆成四塊：</p>
+<table>
+<thead>
+<tr>
+<th>badfile 區塊</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前段 NOP</td>
+<td>當作 NOP sled，讓 CPU 落進來後一路滑向後方</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>放在 offset distance 對應位置，用來覆蓋 Return Address</td>
+</tr>
+<tr>
+<td>後段 NOP</td>
+<td>增加可命中區域</td>
+</tr>
+<tr>
+<td>Malicious Code</td>
+<td>真正想讓 CPU 最後執行的 code</td>
+</tr>
+</tbody>
+</table>
+<p>其中 <code>Distance = 112</code> 的意思是：從 buffer 起點算起，112 bytes 後會碰到 Return Address 欄位。<br />
+<code>RT</code> 的意思是：這裡放的值會覆蓋 Return Address。講義 page 16 的圖也寫到，RT 位置的 value 會 overwrite Return Address field。</p>
+<p>重點不是背圖，而是理解這個對應關係：</p>
+<table>
+<thead>
+<tr>
+<th>你控制的輸入位置</th>
+<th>對應到 stack 的結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>offset 前面的 bytes</td>
+<td>進入 buffer / NOP sled</td>
+</tr>
+<tr>
+<td>offset = 112 的位置</td>
+<td>覆蓋 Return Address</td>
+</tr>
+<tr>
+<td>Return Address 的新值</td>
+<td>決定 CPU return 後跳去哪裡</td>
+</tr>
+<tr>
+<td>Return Address 指到 NOP sled</td>
+<td>CPU 可能一路滑到 malicious code</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-為什麼圖中會有某個-stack-位址--offset">5. 為什麼圖中會有「某個 stack 位址 + offset」？<a class="headerlink" href="#5-為什麼圖中會有某個-stack-位址--offset" title="Permanent link"></a></h3>
+<p>page 18 用 <code>某個 stack 位址 + 偏移量</code> 來說明：實際 malicious code 可能不是剛好在 buffer 的第一個 byte，而是在 buffer 後面某個位置。<br />
+所以新的 Return Address 可能會估在「buffer 起始附近，再往後加一點」的位置，增加落到 NOP sled 或 malicious code 附近的機率。</p>
+<p>概念上可以記成：</p>
+<p><code>目標位址 ≈ buffer 附近的 stack address + 一小段 offset</code></p>
+<p>這裡的 offset 跟 Task A 的 <code>112 bytes</code> 不完全是同一件事：</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>問題</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task A 的 offset distance</td>
+<td>輸入中第幾個 byte 會覆蓋 Return Address？</td>
+</tr>
+<tr>
+<td>target address + offset</td>
+<td>Return Address 的新值要指向 buffer 裡偏後的位置嗎？</td>
+</tr>
+</tbody>
+</table>
+<p>所以不要混淆：</p>
+<p><code>112</code> 是「覆蓋位置」的 offset。<br />
+<code>target address + offset</code> 是「跳轉目標」的估計方式。</p>
+<h3 id="6-最短考試版">6. 最短考試版<a class="headerlink" href="#6-最短考試版" title="Permanent link"></a></h3>
+<p>Task B is to decide what address should be written into the overwritten Return Address field. The attacker does not only need the offset to the Return Address; they also need a target address that points to attacker-controlled data, such as a NOP sled or malicious code inside the buffer. A NOP sled increases the chance of success because the CPU can land anywhere in the NOP area and continue executing until it reaches the malicious code. Therefore, Task A finds where to overwrite, while Task B decides where the overwritten Return Address should jump.</p>
+<h3 id="nop-和-shell-code-到底如何配置">NOP 和 shell code 到底如何配置？<a class="headerlink" href="#nop-和-shell-code-到底如何配置" title="Permanent link"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger | NOP 和 shell code 到底如何配置？</p>
+<p><mark>Q</mark></p>
+<p>所以你的意思是說其實有兩種版本的，第一種是把shell code 放到後段的 NOP 後面，像是：</p>
+<p>| buffer begin | NOP | saved %ebp | return address | NOP(return address target) | shell code |</p>
+<p>第二種是放在前面的 NOP 位置：</p>
+<p>| buffer begin | NOP(return address target) | shell code | NOP | saved %ebp | return address |</p>
+<p>是這個意思嗎？</p>
+<p><mark>response</mark></p>
+<h4 id="1-對你的理解方向是對的確實可以有兩種配置思路">1. 對，你的理解方向是對的：確實可以有兩種配置思路<a class="headerlink" href="#1-對你的理解方向是對的確實可以有兩種配置思路" title="Permanent link"></a></h4>
+<p>但我會把你的兩種版本修正成更精準的說法：</p>
+<p><strong>核心不是 shellcode 一定在 Return Address 前面或後面，而是：Return Address 裡的 target address 必須跳到某段 NOP sled，且那段 NOP sled 後面要能順著執行到 shellcode。</strong></p>
+<p>因為 CPU 執行 instruction 時，通常是往<strong>較高位址</strong>前進，所以：</p>
+<p><code>NOP sled</code> 必須在 shellcode 的前面，也就是較低位址端。<br />
+CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
+<hr />
+<h4 id="2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址">2. 版本 A：講義這張圖的版本，shellcode 在 Return Address 後方較高位址<a class="headerlink" href="#2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址" title="Permanent link"></a></h4>
+<p>這比較像你寫的第一種：</p>
+<div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
+
+| buffer begin | NOP sled | saved %ebp | Return Address / RT | NOP sled(target 可落點) | shellcode |
+</code></pre></div>
+<p>更精準畫法：</p>
+<div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
+
+| NOP 前段 | overwritten saved %ebp | RT 覆蓋 Return Address | NOP 後段 / target landing zone | shellcode |
+</code></pre></div>
+<p>這個版本裡：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RT</code></td>
+<td>放在 offset 112，覆蓋 Return Address</td>
+</tr>
+<tr>
+<td><code>shellcode</code></td>
+<td>在 Return Address 的較高位址方向</td>
+</tr>
+<tr>
+<td>Return Address target</td>
+<td>通常指到 Return Address 後方的 NOP sled</td>
+</tr>
+<tr>
+<td>CPU 流程</td>
+<td>target → NOP 後段 → shellcode</td>
+</tr>
+</tbody>
+</table>
+<p>所以這份講義圖的核心是：</p>
+<p><strong>Return Address 被 RT 覆蓋後，CPU 可能跳到 RT 後面的 NOP sled，然後往較高位址滑到 shellcode。</strong></p>
+<hr />
+<h4 id="3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址">3. 版本 B：另一種常見版本，shellcode 在 Return Address 前方較低位址<a class="headerlink" href="#3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址" title="Permanent link"></a></h4>
+<p>你寫的第二種概念也可以，但要改得更準一點：</p>
+<p>你寫的是：</p>
+<div class="highlight"><pre><span></span><code>| buffer begin | NOP(return address target) | shell code | NOP | saved %ebp | return address |
+</code></pre></div>
+<p>比較精準應該是：</p>
+<div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
+
+| buffer begin | NOP sled(target 可落點) | shellcode | padding / overflow bytes | saved %ebp | Return Address / RT |
+</code></pre></div>
+<p>這個版本裡：</p>
+<table>
+<thead>
+<tr>
+<th>元件</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shellcode</code></td>
+<td>在 Return Address 的較低位址方向</td>
+</tr>
+<tr>
+<td>Return Address target</td>
+<td>指回前面的 NOP sled</td>
+</tr>
+<tr>
+<td>CPU 流程</td>
+<td>target → NOP sled → shellcode</td>
+</tr>
+<tr>
+<td>saved <code>%ebp</code> / Return Address</td>
+<td>仍然會被後面的 overflow bytes 蓋掉</td>
+</tr>
+</tbody>
+</table>
+<p>這是我前面簡化說「Return Address 指回較低位址 buffer / NOP sled」時比較接近的版本。</p>
+<hr />
+<h4 id="4-兩種版本真正共同的規則">4. 兩種版本真正共同的規則<a class="headerlink" href="#4-兩種版本真正共同的規則" title="Permanent link"></a></h4>
+<p>不管 shellcode 放在 Return Address 前面或後面，都要符合這個規則：</p>
+<div class="highlight"><pre><span></span><code>CPU 落點 → NOP sled → shellcode
+</code></pre></div>
+<p>而且這個順序必須沿著 CPU 正常執行方向，也就是通常往較高位址前進。</p>
+<p>所以可以整理成：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>shellcode 相對 Return Address</th>
+<th>Return Address target 指向哪裡</th>
+<th>CPU 執行方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>講義版</td>
+<td>shellcode 在 Return Address 較高位址</td>
+<td>指到 Return Address 後方的 NOP sled</td>
+<td>往較高位址滑到 shellcode</td>
+</tr>
+<tr>
+<td>另一種常見版</td>
+<td>shellcode 在 Return Address 較低位址</td>
+<td>指回 buffer 前方的 NOP sled</td>
+<td>往較高位址滑到 shellcode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="5-你兩個圖的修正版">5. 你兩個圖的修正版<a class="headerlink" href="#5-你兩個圖的修正版" title="Permanent link"></a></h4>
+<p>你的第一種，修成這樣是對的：</p>
+<div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
+
+| buffer begin | NOP 前段 | saved %ebp | Return Address / RT | NOP(target landing zone) | shellcode |
+</code></pre></div>
+<p>這是講義圖比較像的版本。</p>
+<p>你的第二種，修成這樣比較準：</p>
+<div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
+
+| buffer begin | NOP(target landing zone) | shellcode | padding / overflow bytes | saved %ebp | Return Address / RT |
+</code></pre></div>
+<p>這是 shellcode 放在 Return Address 前方的版本。</p>
+<hr />
+<h4 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h4>
+<p>你可以這樣背：</p>
+<p><strong>有兩種配置思路。講義版是把 shellcode 放在 Return Address 後方的較高位址，Return Address 跳到後方 NOP sled 再滑到 shellcode。另一種常見版是把 shellcode 放在 Return Address 前方的 buffer 區，Return Address 指回前方 NOP sled，再滑到 shellcode。共同規則是：Return Address 裡放 target address，不是 shellcode；target address 要指到 NOP sled，且 NOP sled 後面要接 shellcode。</strong></p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？</p>
+<h3 id="如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？<a class="headerlink" href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" title="Permanent link"></a></h3>
+<p>我們先執行指令：</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">$ebp</span>
+<span class="n">$1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="mh">0xbffeaf8</span>
+
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span>
+<span class="n">$2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)[</span><span class="mi">100</span><span class="p">])</span><span class="w"> </span><span class="mh">0xbffeae8c</span>
+
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="o">/</span><span class="n">d</span><span class="w"> </span><span class="mh">0xbffeaf8</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xbffeae8c</span>
+<span class="n">$3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">108</span>
+
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">quit</span>
+</code></pre></div>
+<p>由上面程式碼可以知道：</p>
+<ul>
+<li><code>$ebp = 0xbffeaf8</code></li>
+<li><code>buffer begin = 0xbffeae8c</code></li>
+<li><code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code></li>
+</ul>
+<p>此時就可以知道，在這份程式、這次編譯與這個 stack layout 下，<code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>。<br />
+注意：不是所有 <code>buffer[100]</code> 都一定會得到 <code>108</code>，因為 compiler 可能會加入 padding / alignment。</p>
+<h4 id="1-如何確定-return-address-欄位的位置">1. 如何確定 Return Address 欄位的位置<a class="headerlink" href="#1-如何確定-return-address-欄位的位置" title="Permanent link"></a></h4>
+<p>因為 <code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>，而 Return Address 欄位在 <code>$ebp + 4</code>，所以：</p>
+<div class="highlight"><pre><span></span><code>Return Address offset from buffer begin
+= 108 + 4
+= 112
+</code></pre></div>
+<p>也就是說，從 <code>buffer begin</code> 開始算，第 <code>112</code> byte 會開始覆蓋到 Return Address 欄位。</p>
+<p>另外，Return Address 欄位的實際記憶體位址是：</p>
+<div class="highlight"><pre><span></span><code>$ebp + 4
+= 0xbffeaf8 + 4
+= 0xbffeafc
+</code></pre></div>
+<p>所以要分清楚：</p>
+<div class="highlight"><pre><span></span><code>112       = 從 buffer begin 開始算的 input offset
+0xbffeafc = Return Address 欄位本身的實際記憶體位址
+</code></pre></div>
+<h4 id="2-如何確定-rt-內容">2. 如何確定 RT 內容<a class="headerlink" href="#2-如何確定-rt-內容" title="Permanent link"></a></h4>
+<p>因為 Return Address 欄位的位置會在 <code>$ebp + 4</code>，如果要跳到後面的 NOP sled，並且講義圖中 RT 後面接著 NOP，那就可以讓 RT 指到 <code>$ebp + 8</code> 附近。</p>
+<div class="highlight"><pre><span></span><code>$ebp + 8
+= 0xbffeaf8 + 8
+= 0xbffeb00
+</code></pre></div>
+<p>所以在這個例子中，可以把：</p>
+<div class="highlight"><pre><span></span><code>RT ≈ 0xbffeb00
+</code></pre></div>
+<p>理解成：RT 指向 Return Address 後面的 NOP sled 附近。</p>
+<p>但要注意，RT 不是一定永遠等於 <code>0xbffeb00</code>。更精準地說：</p>
+<div class="highlight"><pre><span></span><code>RT 是要寫進 Return Address 欄位的 target address，
+而這個 target address 應該落在 NOP sled 裡。
+</code></pre></div>
+<h4 id="3-到底如何寫出-bad-file">3. 到底如何寫出 Bad file：<a class="headerlink" href="#3-到底如何寫出-bad-file" title="Permanent link"></a></h4>
+<p>其實 Bad file 自己做就好。</p>
+<p>先做全部的 NOP：</p>
+<div class="highlight"><pre><span></span><code>0     300
+| NOP |
+</code></pre></div>
+<p>在後面放上 shellcode：</p>
+<div class="highlight"><pre><span></span><code>0     300-len(shellcode)    300
+| NOP |       shellcode     |
+</code></pre></div>
+<p>然後在 offset <code>112 ~ 115</code> 的位置放入 RT，讓 RT 覆蓋 Return Address 欄位：</p>
+<div class="highlight"><pre><span></span><code>0     112             115        300-len(shellcode)    300
+| NOP | RT(0xbffeb00) |    NOP   |       shellcode     |
+</code></pre></div>
+<p>這樣的意思是：</p>
+<ul>
+<li>offset <code>0</code> 開始的 NOP 是前段 NOP sled。</li>
+<li>offset <code>112 ~ 115</code> 的 RT 會覆蓋 Return Address 欄位。</li>
+<li>RT 的內容是 target address，不是 shellcode 本體。</li>
+<li>這裡的 <code>0xbffeb00</code> 是指向後段 NOP sled 附近的 address。</li>
+<li>CPU return 後會跳到 RT 指向的位置，也就是 NOP sled 附近，然後一路滑到 shellcode。</li>
+</ul>
+<p>這樣就完成了。</p>
+</div>
 
 
 
