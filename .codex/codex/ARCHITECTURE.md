@@ -1,5 +1,18 @@
 # ARCHITECTURE
 
+## Conditional Asset Loading
+
+- 2026-06-14: `mkdocs.yml` now emits `search-lazy-guard.js` before the Material bundle and `conditional-loader.js` after it. Optional runtime scripts are no longer listed individually in `extra_javascript`.
+- `conditional-loader.js` scans initial DOM and Material `window.document$` navigations, then loads MathJax refresh, Mermaid helpers, image zoom, markdown embed controls, folder path bar, scroll-bottom, TOC controls, and local `source-jump` only when the current page needs them.
+- `mathjax-refresh.js` inserts the MathJax CDN script only when `.arithmatex` exists, then runs queued `typesetPromise`.
+- `search-lazy-guard.js` delays Material search `search_index` XHR and search worker creation until the user opens/focuses search or lands with `q=`/`h=`.
+- `offline` and `navigation.instant.prefetch` are disabled to avoid first-page background fetches.
+
+## Article Base64 Image Externalization
+
+- 2026-06-14: `tools/image_lazy_loading_hook.py` externalizes article `data:image/...;base64,...` sources during build to `site/assets/generated/base64-images/<sha-prefix>/<sha>.<ext>` and rewrites HTML `src` to a relative generated asset.
+- The hook keeps the first article image eager, all other article images lazy, and adds `decoding="async"` to article images. Logo, twemoji, and viewer runtime images remain excluded.
+
 ## Slash admonition 與 plain details block
 
 - `tools/admonition_title_hook.py` 在 MkDocs `on_page_markdown` 階段處理 admonition 標題：

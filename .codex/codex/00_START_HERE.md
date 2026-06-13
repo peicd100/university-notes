@@ -2,6 +2,7 @@
 
 ## 2026-06-11 clean index note
 
+- Asset loading / performance: start with `ARCHITECTURE.md` sections `Conditional Asset Loading` and `Article Base64 Image Externalization`, then inspect `mkdocs.yml`, `theme/main.html`, `theme/assets/pymdownx-extras/conditional-loader.js`, `search-lazy-guard.js`, `mathjax-refresh.js`, and `tools/image_lazy_loading_hook.py`. Do not re-enable `offline`, `navigation.instant.prefetch`, static MathJax, or global optional scripts without measuring first-page requests.
 - Right TOC / Danger TOC: start with `ARCHITECTURE.md`, `VERIFY.md`, `GOTCHAS.md`, then edit `theme/assets/pymdownx-extras/toc-fold.js`, `theme/assets/pymdownx-extras/自定義.css`, and bump `mkdocs.yml` asset versions.
 - Danger TOC gotcha: Material same-page hash links can reinitialize `document$`; Danger links should intercept default navigation and self-scroll. `Danger` button is a one-way entry into Danger view, not a toggle; `#peicd-danger-block-*` reloads must stay in Danger view.
 

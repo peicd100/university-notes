@@ -1,5 +1,27 @@
 # GOTCHAS
 
+## Search index must not return to first-page eager loading
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-14
+- 影響範圍：`mkdocs.yml`, `theme/main.html`, `theme/assets/pymdownx-extras/search-lazy-guard.js`
+- 正確做法：Keep `search-lazy-guard.js` before the Material bundle and keep Material `search` plugin enabled. Search index and worker should appear only after search is opened/focused or a URL has `q=`/`h=`.
+- 不要做：Do not re-enable `offline` or load search index/worker from global scripts unless accepting first-page search resource cost.
+- 驗證方式：Playwright initial page load should show no `search_index` or `workers/search` resource; filling the search box should then load both and show results.
+- 相關檔案：`theme/main.html`, `theme/assets/pymdownx-extras/search-lazy-guard.js`, `mkdocs.yml`
+
+## Base64 article images must be externalized at build time
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-14
+- 影響範圍：`tools/image_lazy_loading_hook.py`, generated `site/assets/generated/base64-images/`
+- 正確做法：Article `data:image/...;base64,...` sources should be decoded into generated site assets and rewritten to relative URLs.
+- 不要做：Do not leave large base64 image payloads inline in generated HTML; pages like OS `ch 1.html` can grow to 8MB+.
+- 驗證方式：After build, `ch 1.html` should contain zero `data:image`, 48 `data-peicd-externalized-image`, and stay around 476KB rather than 8MB.
+- 相關檔案：`tools/image_lazy_loading_hook.py`
+
 ## Source Jump 不可只靠頁面文字首次命中
 
 - 狀態：active

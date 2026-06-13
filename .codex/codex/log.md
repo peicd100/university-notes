@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-14 01:03：全站重資源條件載入
+
+- 任務類型：feature
+- 修改範圍：`mkdocs.yml`, `theme/main.html`, `conditional-loader.js`, `search-lazy-guard.js`, `mathjax-refresh.js`, `tools/image_lazy_loading_hook.py`, `.codex/codex/`
+- 主要決策：改用小型 loader 按需載入 MathJax/Mermaid/圖片工具/preview 工具；搜尋 index/worker 延到搜尋互動；停用 `offline` 與 instant prefetch；base64 文章圖 build 時外部化。
+- 驗證結果：JS/Python 語法檢查通過；`asset-conditional-search-lazy-build` returncode 0；Playwright `ch 3` DCL 約 2.0s，初始無 search index/worker、MathJax CDN、Mermaid runtime，互動後功能正常。
+- 尚未完成：未拆分 Material 內建 search index 結構，保留全文搜尋與原搜尋 UI。
+- 下次建議先讀：`ARCHITECTURE.md` Conditional Asset Loading、`GOTCHAS.md` Search index eager loading。
+- 相關檔案：`.codex/codex/tmp/20260614-005843-asset-conditional-search-lazy-build.meta.json`
+
 ## 2026-06-14 00:28：Mermaid 與文章圖片動態載入
 
 - 任務類型：feature

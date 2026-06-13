@@ -20,7 +20,7 @@ theme:
     - navigation.footer
     - navigation.indexes
     - navigation.instant
-    - navigation.instant.prefetch
+    # - navigation.instant.prefetch  # 2026-06-14: disabled to keep first-page network quieter
     - navigation.instant.progress
     # - navigation.sections
     - navigation.tabs  # 啟用標籤式導航
@@ -59,7 +59,7 @@ plugins:
       match_path: blog/posts/
       date_from_meta:
         as_creation: date
-  - offline #當您將網站目錄的內容作為下載分發時，內建的離線外掛程式可確保網站搜尋正常運作。只需將以下行新增至：mkdocs.yml
+  # - offline  # 2026-06-14: disabled so search_index/sitemap are not prefetched on first page load
   - tags
   - search:
       # lang:
@@ -95,18 +95,7 @@ extra_css:
   - assets/pymdownx-extras/自定義.css?v=20260614-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # MathJax 支持數學公式
-  - assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1  # Material instant navigation 後刷新 MathJax
-  - assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1  # Mermaid flowchart 啟用 htmlLabels，支援節點內 <br>
-  - assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1  # Mermaid 舊 flowchart 語法相容：方括號節點內未加引號的括號文字自動 fallback
-  - assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1  # Mermaid 動態載入 / lazy render / 主題切換渲染
-  - assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1  # Mermaid 圖卡化與放大檢視
-  - assets/pymdownx-extras/toc-fold.js?v=20260611-2  # 右側 TOC 可摺疊 / 展開控制
-  - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
-  - assets/pymdownx-extras/markdown-embed.js?v=20260516-1  # Markdown 頁面嵌入框全螢幕控制
-  - assets/pymdownx-extras/folder-path-bar.js?v=20260524-1  # H1 上方檔案總管式路徑列（加版本參數避免手機快取吃舊版）
-  - assets/pymdownx-extras/legacy-image-width.js  # 舊圖片百分比語法相容
-  - assets/pymdownx-extras/source-jump.js?v=20260523-2  # 本機選字右鍵可跳回 Markdown 原始檔位置（需 mkdocs serve）
+  - assets/pymdownx-extras/conditional-loader.js?v=20260614-2  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
 
 hooks:
   - tools/fence_id_cleanup_hook.py

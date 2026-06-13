@@ -1,5 +1,17 @@
 # DECISIONS
 
+## ADR-0010：全站重資源改為條件載入
+
+- 狀態：accepted
+- 日期：2026-06-14
+- 背景：Mermaid lazy render 後，`ch 3.html` 仍會載入 MathJax、搜尋索引/worker 與多個全站工具腳本；`ch 1.html` 也因 base64 內嵌圖片達 8MB 級。
+- 選項：保留全站 eager 載入；逐項在 template 條件輸出；或使用小型 loader 依 DOM 按需載入。
+- 決策：使用 `search-lazy-guard.js` 在 Material bundle 前延後搜尋索引/worker，使用 `conditional-loader.js` 在 bundle 後依 DOM 載入 MathJax、Mermaid、圖片工具與 preview 工具；停用 `offline` 與 `navigation.instant.prefetch`。
+- 原因：可保留全文搜尋與現有功能，又能降低首屏 request，避免搜尋索引與 MathJax 在不需要的頁面搶資源。
+- 後果：下載整包離線使用時不再有 Material offline plugin 的搜尋保證；搜尋會在第一次開啟時才載入索引。
+- 取代：
+- 相關檔案：`mkdocs.yml`, `theme/main.html`, `theme/assets/pymdownx-extras/conditional-loader.js`, `theme/assets/pymdownx-extras/search-lazy-guard.js`, `theme/assets/pymdownx-extras/mathjax-refresh.js`, `tools/image_lazy_loading_hook.py`
+
 ## ADR-0001：採用新版協作記憶分層結構
 
 - 狀態：superseded by ADR-0004

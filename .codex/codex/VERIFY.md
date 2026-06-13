@@ -1,5 +1,24 @@
 # VERIFY
 
+## Asset conditional loading
+
+Recommended checks after editing loading hooks/scripts:
+
+```bat
+node --check theme\assets\pymdownx-extras\conditional-loader.js
+node --check theme\assets\pymdownx-extras\search-lazy-guard.js
+node --check theme\assets\pymdownx-extras\mathjax-refresh.js
+Y:\conda\envs\mkdocs\python.exe -m py_compile tools\image_lazy_loading_hook.py
+Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name asset-conditional-search-lazy-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean
+```
+
+Browser checks:
+- Initial `ch 3.html#311-行程process`: no `search_index`, no `workers/search`, no `tex-mml-chtml`, no `mermaid.min.js`; Mermaid hosts exist but rendered count starts at 0.
+- Open/fill search: `search_index` and `workers/search` load, and results are shown.
+- Scroll all Mermaid blocks: 18/18 render with no errors.
+- Math page with `.arithmatex`: MathJax CDN loads and `mjx-container` appears.
+- OS `ch 1.html`: no `data:image`, 48 externalized images, image viewer still opens.
+
 ## Slash admonition 與 details block
 
 最小驗證命令：
