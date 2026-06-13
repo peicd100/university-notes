@@ -90,6 +90,7 @@
 - 樣式：`theme/assets/pymdownx-extras/自定義.css`
 - 功能：在文章 H1 上方插入檔案總管式路徑列，提供章節與頁面下拉切換。
 - 互動：桌機/中版面使用自製 dropdown；開啟頁面 dropdown 時會把目前頁 `.peicd-folder-pathbar__option--current` 捲入可視範圍。窄版使用 native select。
+- 2026-06-14：頁面清單需遞迴讀取 Material primary sidebar 的巢狀 nav，巢狀頁用 `期末考整理 / 期末考重點 ch9` 這類 label 顯示。`__drawer` 或 `__search` 開啟時路徑列需加上 hidden class，並由 CSS 用 `#__search:checked` 保底隱藏，避免手機搜尋 overlay 被路徑列干擾。
 
 ## Dark Theme
 

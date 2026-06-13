@@ -92,6 +92,7 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 - 若修改 `==mark==` 高亮，開啟 `docs/md/114-2/科技_計算機結構/期末考複習-ch3.md` 的 `clock edge 到來時` 表格列；暗色模式下高亮應是連續淡金螢光筆層、文字清楚，`mark` 內 inline code 不應變成分段厚膠囊，console error/warn 應為空。
 - 若修改標題錨點樣式，開啟 `ch 7.html` 的 `⭐Resource-Allocation Graph Algorithm` h2，量測 `.headerlink` 與標題文字第一行應維持同一行，且長標題不應讓 `#` 獨立換到上一行。
 - 若修改中版面左側導覽或路徑列，開啟 `ch 1.html` 並用約 1212px 寬度測試：目前頁的 `label.md-nav__link[for="__toc"]` 應為 `display:none`、左側目前頁只剩一個可見連結；深色路徑列的目前資料夾與頁面文字需有清楚對比。再用約 766px 寬度確認窄版 select 文字同樣清楚。若修改頁面 dropdown，打開 `ch 8.html` 的頁面選單時目前 `Ch 8` 應在選單可視範圍內。
+- 若修改路徑列頁面清單，開啟手機寬度的 `site/md/114-2/電機_作業系統/期末考重點-ch9.html`：第二個 native select 應選中 `期末考整理 / 期末考重點 ch9`，選項中應包含 `期末考整理 / 期末考重點 ch6` 到 `ch9` 與 `期末考整理 / 期末考所有重點`。打開搜尋後 `.peicd-folder-pathbar` 應為 `display:none`，搜尋結果列表不可被路徑列擋住。
 - 若修改 TTS 面板，開啟 header 喇叭按鈕，確認深色面板使用黑底薄線、slider 與選取狀態使用 cyan、控制文字不擠壓，且 console error/warn 為空。
 - 若修改文章圖片尺寸，桌機量測 `.md-content__inner.md-typeset img:not(.twemoji)` 最大寬度比例應不超過 0.7；手機或窄螢幕應可回到 1.0；全螢幕 image viewer 不應被 70% 規則限制。
 - 若修改 `collapse-code` 樣式，開啟有 `/// collapse-code` 的頁面，收合狀態展開按鈕應約 1.45rem、不是大色塊；展開後 `.code-footer` 不應覆蓋最後幾行程式碼，且 footer 背景應與 code block 背景一致、不可留下突兀黑色底條，console error/warn 應為空。

@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-14 01:30：手機路徑列巢狀頁與搜尋遮擋修正
+
+- 任務類型：bugfix
+- 修改範圍：`folder-path-bar.js`, `自定義.css`, `conditional-loader.js`, `mkdocs.yml`, `.codex/codex/`
+- 主要決策：路徑列頁面清單改為遞迴收集目前課程下所有 primary nav 頁面；巢狀頁 label 加上父層；搜尋與 drawer 開啟時隱藏路徑列。
+- 驗證結果：`node --check` 通過；`mobile-pathbar-search-build` returncode 0；Playwright 手機寬度確認 `期末考整理 / 期末考重點 ch9` 可見且 selected，搜尋結果出現時路徑列 `display:none`，console 0。
+- 尚未完成：未改 Material 原生搜尋 UI，只處理自訂路徑列的遮擋。
+- 下次建議先讀：`ARCHITECTURE.md` Folder Path Bar、`GOTCHAS.md` Folder Path Bar nested nav。
+- 相關檔案：`.codex/codex/tmp/20260614-012535-mobile-pathbar-search-build.meta.json`
+
 ## 2026-06-14 01:03：全站重資源條件載入
 
 - 任務類型：feature

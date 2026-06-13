@@ -5,7 +5,7 @@
   const assetBase = new URL(".", currentScript?.src || document.baseURI);
   const loaded = new Map();
   const ASSETS = {
-    folderPath: "folder-path-bar.js?v=20260524-1",
+    folderPath: "folder-path-bar.js?v=20260614-2",
     imageZoom: "image-zoom.js?v=20260614-2",
     legacyImageWidth: "legacy-image-width.js?v=20260614-2",
     markdownEmbed: "markdown-embed.js?v=20260516-1",

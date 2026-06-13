@@ -958,6 +958,10 @@ body {
   visibility: hidden;
 }
 
+[data-md-toggle="search"]:checked ~ .md-container .peicd-folder-pathbar {
+  display: none !important;
+}
+
 @media (max-width: 59.999em) {
   .peicd-folder-pathbar {
     display: flex;

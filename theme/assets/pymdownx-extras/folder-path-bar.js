@@ -3,11 +3,17 @@
 
   const BAR_CLASS = "peicd-folder-pathbar";
   const OPEN_CLASS = "is-open";
+  const HIDDEN_CLASS = BAR_CLASS + "--hidden";
   let outsideBound = false;
 
   function isDrawerOpen() {
     const drawer = document.getElementById("__drawer");
     return Boolean(drawer && drawer.checked);
+  }
+
+  function isSearchOpen() {
+    const search = document.getElementById("__search");
+    return Boolean(search && search.checked);
   }
 
   function getArticleRoot() {
@@ -41,22 +47,91 @@
     return document.querySelector(".md-sidebar--primary li.md-nav__item--section.md-nav__item--active > nav.md-nav[data-md-level=\"1\"]");
   }
 
+  function getDirectChild(element, selector) {
+    if (!element) return null;
+    return Array.from(element.children).find((child) => child.matches(selector)) || null;
+  }
+
+  function getDirectNavList(nav) {
+    return nav ? getDirectChild(nav, "ul.md-nav__list") : null;
+  }
+
+  function getDirectPageLink(item) {
+    return getDirectChild(item, "a.md-nav__link[href]");
+  }
+
+  function getDirectGroupLabel(item) {
+    return getDirectChild(item, "label.md-nav__link");
+  }
+
+  function getDirectChildPageNav(item) {
+    return Array.from(item.children).find((child) => (
+      child.matches("nav.md-nav")
+      && !child.classList.contains("md-nav--secondary")
+    )) || null;
+  }
+
+  function normalizeComparableUrl(value) {
+    try {
+      const url = new URL(value, window.location.href);
+      url.hash = "";
+      return url.href;
+    } catch (_) {
+      return String(value || "").split("#")[0];
+    }
+  }
+
+  function isCurrentPageLink(link) {
+    if (!link) return false;
+    if (link.classList.contains("md-nav__link--active")) return true;
+    return normalizeComparableUrl(link.href) === normalizeComparableUrl(window.location.href);
+  }
+
+  function joinPageLabel(parts, label) {
+    return parts.concat(label).filter(Boolean).join(" / ");
+  }
+
+  function collectPageOptionsFromList(list, parents) {
+    if (!list) return [];
+
+    return Array.from(list.children).flatMap((item) => {
+      if (!item.matches("li.md-nav__item")) return [];
+
+      const options = [];
+      const pageLink = getDirectPageLink(item);
+      if (pageLink) {
+        const label = normalizeLabel(pageLink.textContent);
+        if (label && pageLink.href) {
+          options.push({
+            label: joinPageLabel(parents, label),
+            href: pageLink.href,
+            current: isCurrentPageLink(pageLink)
+          });
+        }
+      }
+
+      const childNav = getDirectChildPageNav(item);
+      if (childNav) {
+        const groupLabel = normalizeLabel(getDirectGroupLabel(item)?.textContent);
+        const nextParents = groupLabel ? parents.concat(groupLabel) : parents;
+        options.push(...collectPageOptionsFromList(getDirectNavList(childNav), nextParents));
+      }
+
+      return options;
+    });
+  }
+
   function getPageOptions() {
     const sectionNav = getCurrentSectionContainer();
     if (!sectionNav) return [];
 
-    return Array.from(sectionNav.querySelectorAll(":scope > ul.md-nav__list > li.md-nav__item > a.md-nav__link"))
-      .map((link) => ({
-        label: normalizeLabel(link.textContent),
-        href: link.href,
-        current: link.classList.contains("md-nav__link--active")
-      }))
+    return collectPageOptionsFromList(getDirectNavList(sectionNav), [])
       .filter((item) => item.label && item.href);
   }
 
   function getActivePageLink() {
-    return document.querySelector(".md-sidebar--primary nav.md-nav[data-md-level=\"1\"] a.md-nav__link.md-nav__link--active")
-      || document.querySelector(".md-sidebar--primary nav.md-nav[data-md-level=\"1\"] li.md-nav__item--active > a.md-nav__link");
+    return document.querySelector(".md-sidebar--primary a.md-nav__link.md-nav__link--active[href]")
+      || document.querySelector(".md-sidebar--primary li.md-nav__item--active > a.md-nav__link[href]");
   }
 
   function normalizeLabel(text) {
@@ -70,6 +145,15 @@
       const button = item.querySelector("." + BAR_CLASS + "__toggle");
       if (button) button.setAttribute("aria-expanded", "false");
     });
+  }
+
+  function syncBarVisibility(bar) {
+    const target = bar || document.querySelector("." + BAR_CLASS);
+    if (!target) return;
+
+    const hidden = isDrawerOpen() || isSearchOpen();
+    target.classList.toggle(HIDDEN_CLASS, hidden);
+    if (hidden) closeMenus(null);
   }
 
   function scrollCurrentOptionIntoView(menu) {
@@ -101,11 +185,9 @@
 
     document.addEventListener("change", (event) => {
       const target = event.target;
-      if (!(target instanceof HTMLInputElement) || target.id !== "__drawer") return;
-      const bar = document.querySelector("." + BAR_CLASS);
-      if (!bar) return;
-      bar.classList.toggle(BAR_CLASS + "--hidden", target.checked);
-      if (target.checked) closeMenus(null);
+      if (!(target instanceof HTMLInputElement)) return;
+      if (target.id !== "__drawer" && target.id !== "__search") return;
+      syncBarVisibility();
     });
   }
 
@@ -195,13 +277,19 @@
     const pageLink = getActivePageLink();
     const sectionOptions = getSectionOptions();
     const pageOptions = getPageOptions();
+    const activePageOption = pageOptions.find((item) => item.current)
+      || (pageLink ? {
+        label: normalizeLabel(pageLink.textContent),
+        href: pageLink.href,
+        current: true
+      } : null);
 
-    if (!sectionLink || !pageLink || sectionOptions.length === 0 || pageOptions.length === 0) return;
+    if (!sectionLink || !activePageOption || sectionOptions.length === 0 || pageOptions.length === 0) return;
 
     const bar = document.createElement("nav");
     bar.className = BAR_CLASS;
     bar.setAttribute("aria-label", "目前資料夾路徑");
-    bar.classList.toggle(BAR_CLASS + "--hidden", isDrawerOpen());
+    bar.classList.toggle(HIDDEN_CLASS, isDrawerOpen() || isSearchOpen());
 
     const prefix = document.createElement("span");
     prefix.className = BAR_CLASS + "__prefix";
@@ -219,11 +307,7 @@
     slash.textContent = "/";
     bar.appendChild(slash);
 
-    bar.appendChild(createSegment({
-      label: normalizeLabel(pageLink.textContent),
-      href: pageLink.href,
-      current: true
-    }, pageOptions, "切換頁面路徑"));
+    bar.appendChild(createSegment(activePageOption, pageOptions, "切換頁面路徑"));
 
     title.parentNode.insertBefore(bar, title);
   }

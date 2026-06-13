@@ -92,10 +92,10 @@ plugins:
 
 extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css  # 自定義 CSS 文件
-  - assets/pymdownx-extras/自定義.css?v=20260614-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
+  - assets/pymdownx-extras/自定義.css?v=20260614-2  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js?v=20260614-2  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
+  - assets/pymdownx-extras/conditional-loader.js?v=20260614-3  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
 
 hooks:
   - tools/fence_id_cleanup_hook.py

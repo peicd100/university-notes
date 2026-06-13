@@ -16,6 +16,7 @@
 
 ## 最後驗證
 
+- 2026-06-14 mobile folder pathbar/search：`node --check folder-path-bar.js` 與 `conditional-loader.js` 通過；`mobile-pathbar-search-build` returncode 0；Playwright mobile 390x844 驗證 `期末考重點-ch9.html` 第二個 select 選中 `期末考整理 / 期末考重點 ch9` 且包含巢狀期末考選項；搜尋開啟與結果出現時 `.peicd-folder-pathbar` 為 `display:none`，console error/warning 0。
 - 2026-06-14 asset conditional loading：`asset-conditional-search-lazy-build` returncode 0；Playwright target `ch 3.html#311-行程process` DCL 約 2.0s，初始無 search index/worker、MathJax CDN、Mermaid runtime；搜尋互動後才載入索引並顯示 28 筆結果；`ch 1.html` base64 圖外部化後約 476KB、48/48 圖可顯示並可放大。
 - 2026-06-14 Mermaid lazy render：`node --check` 通過；`image_lazy_loading_hook.py` py_compile 通過；`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name mermaid-lazy-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean` returncode 0；Playwright local server 量測 `ch 3.html#311-行程process` 初始 DCL 約 2.7s、初始 Mermaid rendered 0，完整捲頁後 18/18 Mermaid render；ch6/ch7 Mermaid 回歸通過。
 - `Y:\conda\envs\mkdocs_desk\python.exe -m py_compile tools\p.py`：通過。

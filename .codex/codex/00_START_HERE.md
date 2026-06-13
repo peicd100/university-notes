@@ -39,6 +39,7 @@
 - 標題錨點或標題換行：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - Markdown `---` 分隔線可讀性：先看 `USER_REQUIREMENTS.md` 的 UI 偏好，再改 `theme/assets/pymdownx-extras/自定義.css` 的 `.md-typeset hr` 與相關 CSS 變數。
 - 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引、`VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css`。
+- 手機路徑列頁面切換或搜尋遮擋：先看 `ARCHITECTURE.md` 的 Folder Path Bar 與 `GOTCHAS.md` 的 Folder Path Bar nested nav，再改 `theme/assets/pymdownx-extras/folder-path-bar.js`、`theme/assets/pymdownx-extras/自定義.css`，並同步 bump `conditional-loader.js` 內的 `folderPath` query version。
 - 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
 - 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - Mermaid 圖表載入速度、裁切或深色對比：先看 `GOTCHAS.md` 的 Mermaid Rendering / lazy render 高風險索引，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`theme/assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js` 與 `theme/assets/pymdownx-extras/自定義.css`；不要把 `mermaid.min.js` 或 `extra-loader` eager render 加回 `mkdocs.yml`。

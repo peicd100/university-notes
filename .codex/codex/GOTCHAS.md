@@ -1,5 +1,16 @@
 # GOTCHAS
 
+## Folder Path Bar must recurse nested nav and hide during search
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-14
+- 影響範圍：`theme/assets/pymdownx-extras/folder-path-bar.js`, `theme/assets/pymdownx-extras/自定義.css`, `theme/assets/pymdownx-extras/conditional-loader.js`, `mkdocs.yml`
+- 正確做法：Page options should be collected recursively from the active primary sidebar section. Nested pages should show a parent-prefixed label such as `期末考整理 / 期末考重點 ch9`. When `#__search` or `#__drawer` is checked, the path bar should close menus and hide.
+- 不要做：Do not only query direct `data-md-level="1"` links; that drops pages inside `期末考整理`. Do not let `.peicd-folder-pathbar` remain visible while Material mobile search is open.
+- 驗證方式：Mobile Playwright on OS `期末考重點-ch9.html` should show selected page option `期末考整理 / 期末考重點 ch9`, include 5 `期末考整理` options, and report `.peicd-folder-pathbar` as `display:none` after search opens.
+- 相關檔案：`theme/assets/pymdownx-extras/folder-path-bar.js`, `theme/assets/pymdownx-extras/自定義.css`
+
 ## Search index must not return to first-page eager loading
 
 - 狀態：active
