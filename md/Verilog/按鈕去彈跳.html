@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6422,7 +6422,7 @@ __________|‾|_|‾‾|_|‾|_|‾‾|_|‾‾‾‾‾‾‾‾‾‾‾
 <p>它不是理想的數位元件，不會像這樣乾淨切換：</p>
 <div class="highlight"><pre><span></span><code>00000000001111111111
 </code></pre></div>
-<p>實際上按下去時，裡面的兩片金屬接點會「撞在一起」。<br />
+<p>實際上按下去時，裡面的兩片金屬接點會「撞在一起」。<br/>
 因為金屬片有 <strong>彈性</strong>、按下去有 <strong>慣性</strong>，接點碰到後可能會短暫彈開、再碰上、再彈開，最後才穩定接觸。這段快速開關的過程就叫 <strong>switch bounce / contact bounce(開關彈跳 / 接點彈跳)</strong>。TI 的 debounce 說明也提到，實體開關可能會彈跳數百微秒，而邏輯電路反應時間只有奈秒等級，所以會造成 false trigger(錯誤觸發)。</p>
 </div>
 <p>所以要去彈跳。</p>
@@ -6449,14 +6449,14 @@ button_current:
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span><span class="w">                  </span><span class="c1">// FPGA 主時脈，例如 100MHz</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk_1k</span><span class="p">,</span><span class="w">               </span><span class="c1">// 1ms 產生一次的取樣 tick</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">button</span><span class="p">,</span><span class="w">               </span><span class="c1">// 原始按鈕訊號，可能會彈跳</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="c1">// 去彈跳後的穩定按鈕狀態</span>
-<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_pulse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="w">    </span><span class="c1">// 按下一次只產生一個 clk 的 pulse</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="w"> </span><span class="c1">// 去彈跳後的穩定按鈕狀態</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_pulse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="w">    </span><span class="c1">// 按下一次只產生一個 clk 的 pulse</span>
 <span class="p">);</span>
 
-<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第一次取樣</span>
-<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第二次取樣</span>
-<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第三次取樣</span>
-<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_pre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w">      </span><span class="c1">// button_current 的前一個 clk 狀態</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第一次取樣</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第二次取樣</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span><span class="w">         </span><span class="c1">// 第三次取樣</span>
+<span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">button_pre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span><span class="w">      </span><span class="c1">// button_current 的前一個 clk 狀態</span>
 
 <span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk_1k</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w">       </span><span class="c1">// 每 1ms 才取樣一次 button</span>
@@ -6465,10 +6465,10 @@ button_current:
 <span class="w">            </span><span class="n">button3</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">button2</span><span class="p">;</span>
 
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">button1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">button2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">button3</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">                </span><span class="n">button_current</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span><span class="w">      </span><span class="c1">// 連續三次都是 1，承認按下</span>
+<span class="w">                </span><span class="n">button_current</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span><span class="w">      </span><span class="c1">// 連續三次都是 1，承認按下</span>
 <span class="w">            </span><span class="k">end</span>
 <span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">~</span><span class="n">button1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">button2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">button3</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">                </span><span class="n">button_current</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span><span class="w">      </span><span class="c1">// 連續三次都是 0，承認放開</span>
+<span class="w">                </span><span class="n">button_current</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span><span class="w">      </span><span class="c1">// 連續三次都是 0，承認放開</span>
 <span class="w">            </span><span class="k">end</span>
 <span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">                </span><span class="n">button_current</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">button_current</span><span class="p">;</span><span class="w"> </span><span class="c1">// 中間彈跳，保持原狀態</span>
@@ -6481,7 +6481,7 @@ button_current:
 
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>最後 <code>button_pulse</code> 就是真正的按鈕訊號。<br />
+<p>最後 <code>button_pulse</code> 就是真正的按鈕訊號。<br/>
 要注意 <code>button_pulse</code> 只能有一個 clk 的時間，不是一個 clk_1k 的時間，所以 <code>button_pre &lt;= button_current</code> 才會放在 if 外面。</p>
 <div class="highlight"><pre><span></span><code>button_current:
 ______________|‾‾‾‾‾‾‾‾‾‾
@@ -6640,17 +6640,15 @@ _________________________|‾|_________________
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

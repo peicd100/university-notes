@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -8282,11 +8282,11 @@ is now available!
 <h4 id="1-來源狀態與整理策略">1. 來源狀態與整理策略<a class="headerlink" href="#1-來源狀態與整理策略" title="Permanent link"></a></h4>
 <p>我這份總覽是用三層資料交叉整理：第一層是你上傳的 Ch6～Ch9 講義 PDF；第二層是你提供的 PEICD100 筆記網站，網站目錄明確列出電機作業系統 Ch6、Ch7、Ch8、Ch9，以及期末考重點 ch6～ch9；第三層是 108 期末考古題，該考古題包含 scheduling criteria、CPU scheduling、priority round-robin、starvation、dynamic priority、Banker’s Algorithm、memory organization schemes、page replacement counter 題型。(<a href="https://peicd100.github.io/university-notes/" title="PEICD100">PEICD100</a>)  </p>
 <p>這份不是照講義順序逐頁教，而是「考前總覽」。重點放在你看完後能快速恢復：定義、公式、流程、比較表、考古題輸出模板、常見錯法。</p>
-<hr />
+<hr/>
 <h4 id="2-ch6-process-scheduling行程排班">2. Ch6 Process Scheduling(行程排班)<a class="headerlink" href="#2-ch6-process-scheduling行程排班" title="Permanent link"></a></h4>
 <h4 id="21-這章在解決什麼問題">2.1 這章在解決什麼問題<a class="headerlink" href="#21-這章在解決什麼問題" title="Permanent link"></a></h4>
 <p>Ch6 的核心問題是：CPU 一次只能跑一個 process/thread，但系統裡有很多 ready process，所以 OS 必須決定「下一個誰跑、跑多久、什麼情況換人」。講義先從 single processor、multiprogramming、CPU burst / I/O burst、CPU scheduler、preemptive scheduling、dispatcher 開始，再進入 scheduling criteria、FCFS、SJF、SRTF、Priority、RR、Multilevel Queue、Multilevel Feedback Queue、thread scheduling、多處理器排班、real-time scheduling、queueing model / Little’s Formula。 (<a href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%206.html" title="Ch 6 - PEICD100">PEICD100</a>)</p>
-<hr />
+<hr/>
 <h4 id="22-最核心-mental-model">2.2 最核心 mental model<a class="headerlink" href="#22-最核心-mental-model" title="Permanent link"></a></h4>
 <p>CPU scheduling(排班)可以用一句話記：</p>
 <p>「CPU scheduler 從 ready queue 挑人；dispatcher 真的把 CPU 交出去；不同 algorithm 只是挑人的規則不同。」</p>
@@ -8300,7 +8300,7 @@ is now available!
     E --&gt;|time quantum 到或被高優先權搶先| A
     E --&gt;|process 結束| G[terminated]
     F --&gt;|I/O 完成| A</code></pre>
-<hr />
+<hr/>
 <h4 id="23-cpu-burst--io-burst">2.3 CPU Burst / I/O Burst<a class="headerlink" href="#23-cpu-burst--io-burst" title="Permanent link"></a></h4>
 <p>Process 的生命不是一直吃 CPU，而是在 CPU burst(CPU 分割) 和 I/O burst(I/O 分割) 之間交替。I/O-bound process 通常有很多短 CPU burst；CPU-bound process 通常有較長 CPU burst。這會影響 scheduling：interactive / I/O-bound 通常希望 response time 好，CPU-bound 則要避免長時間霸佔 CPU。講義也指出多元程式規劃的目的，是讓 CPU 盡量保持有 process 可跑，以提高 CPU utilization。</p>
 <p>必背：</p>
@@ -8335,7 +8335,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="24-cpu-scheduler-vs-dispatcher">2.4 CPU Scheduler vs Dispatcher<a class="headerlink" href="#24-cpu-scheduler-vs-dispatcher" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -8364,11 +8364,11 @@ is now available!
 </tbody>
 </table>
 <p>考試如果問「scheduler 和 dispatcher 差在哪」：</p>
-<p>中文考試版：<br />
+<p>中文考試版：<br/>
 Scheduler 負責決定下一個執行的 process；dispatcher 負責實際完成 CPU 控制權轉移，包括 context switch、切換到 user mode，以及跳到使用者程式正確位置。Dispatch latency 是這個交接所花的時間。</p>
-<p>英文考試版：<br />
+<p>英文考試版：<br/>
 The CPU scheduler selects the next process from the ready queue, while the dispatcher actually transfers control of the CPU to that process by performing a context switch, switching to user mode, and jumping to the proper location in the user program.</p>
-<hr />
+<hr/>
 <h4 id="25-preemptive-vs-nonpreemptive-scheduling">2.5 Preemptive vs Nonpreemptive Scheduling<a class="headerlink" href="#25-preemptive-vs-nonpreemptive-scheduling" title="Permanent link"></a></h4>
 <p>CPU scheduling decision 有四種時機：</p>
 <table>
@@ -8426,7 +8426,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="26-scheduling-criteria排班評定標準">2.6 Scheduling Criteria(排班評定標準)<a class="headerlink" href="#26-scheduling-criteria排班評定標準" title="Permanent link"></a></h4>
 <p>講義列出 CPU utilization、throughput、turnaround time、waiting time、response time，並給出最佳化方向：maximize CPU utilization、maximize throughput、minimize turnaround time、minimize waiting time、minimize response time。</p>
 <table>
@@ -8525,10 +8525,10 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="27-fcfsfirst-come-first-served">2.7 FCFS(First-Come, First-Served)<a class="headerlink" href="#27-fcfsfirst-come-first-served" title="Permanent link"></a></h4>
 <p>規則：誰先進 ready queue，誰先跑。Nonpreemptive。可用 FIFO queue 實作。</p>
-<p>優點：簡單、公平直覺。<br />
+<p>優點：簡單、公平直覺。<br/>
 缺點：Convoy Effect(護航效應)。如果一個長 process 先到，後面很多短 process 都被卡住，平均 waiting time 可能很差。</p>
 <p>計算題流程：</p>
 <ol>
@@ -8537,7 +8537,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 <li>算 turnaround time。</li>
 <li>算 waiting time。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="28-sjfshortest-job-first-與-srtfshortest-remaining-time-first">2.8 SJF(Shortest Job First) 與 SRTF(Shortest Remaining Time First)<a class="headerlink" href="#28-sjfshortest-job-first-與-srtfshortest-remaining-time-first" title="Permanent link"></a></h4>
 <p>SJF 規則：CPU 空時，選下一個 CPU burst 最短的 process；若一樣長，通常用 FCFS tie-break。SRTF 是 preemptive SJF，每次有新 process 到達時，檢查誰的 remaining time 最短。講義 SRTF 例題加入不同 arrival time 與 preemption，考試重點就是能畫 Gantt chart 並計算平均 waiting time。</p>
 <table>
@@ -8599,7 +8599,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="29-priority-scheduling優先權排班">2.9 Priority Scheduling(優先權排班)<a class="headerlink" href="#29-priority-scheduling優先權排班" title="Permanent link"></a></h4>
 <p>Priority Scheduling 規則：CPU 分配給 priority 最高的 process；相同 priority 通常用 FCFS。講義版本常見設定是 smaller integer = higher priority，但考古題可能反過來說 larger priority number = higher priority，所以題目一定要先看 priority 方向。講義也指出 priority scheduling 可為 preemptive 或 nonpreemptive，問題是 starvation，解法是 aging。</p>
 <table>
@@ -8632,7 +8632,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="210-rrround-robin">2.10 RR(Round Robin)<a class="headerlink" href="#210-rrround-robin" title="Permanent link"></a></h4>
 <p>RR 是為 time-sharing system 設計的 preemptive scheduling。每個 process 最多跑一個 time quantum；時間到還沒結束，就 preempt 並放回 ready queue 尾端。講義指出 time quantum 太大會接近 FIFO；太小則 context switch overhead 太高，且 quantum 通常需遠大於 context switch time。</p>
 <table>
@@ -8666,7 +8666,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 <li>新 process 到達時插入 queue tail。</li>
 <li>若題目有 priority，先看 priority，再在同 priority 內 RR。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="211-preemptive-priority--rr-混合題">2.11 Preemptive Priority + RR 混合題<a class="headerlink" href="#211-preemptive-priority--rr-混合題" title="Permanent link"></a></h4>
 <p>108 期末考古題有一題是 preemptive priority + round-robin，題幹指定 higher number = higher priority、quantum = 10、idle task priority = 0，且若被更高 priority process preempt，preempted process 放到 queue 尾端。這類題要先用 priority 分層，再對同 priority 內做 RR。</p>
 <p>考試規則模板：</p>
@@ -8700,7 +8700,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="212-starvation飢餓">2.12 Starvation(飢餓)<a class="headerlink" href="#212-starvation飢餓" title="Permanent link"></a></h4>
 <p>108 考古題問哪些 scheduling algorithm could result in starvation，選項包含 FCFS、SJF、RR、Priority。</p>
 <p>最安全答法：</p>
@@ -8740,7 +8740,7 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="213-dynamic-priority-scheduling-考古題">2.13 Dynamic Priority Scheduling 考古題<a class="headerlink" href="#213-dynamic-priority-scheduling-考古題" title="Permanent link"></a></h4>
 <p>108 考古題 dynamic priority 題：等待時 priority 以 α 變化，執行時 priority 以 β 變化，所有 process 進 ready queue 時 priority = 0，larger number = higher priority。題目問 β &gt; α &gt; 0 與 α &lt; β &lt; 0 會變成什麼 scheduling。</p>
 <p>理解法：</p>
@@ -8765,9 +8765,9 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「看誰 priority 成長比較快；如果正在跑的人越跑越強，就不容易被搶；如果新來的 priority 最高，就像後來先服務。」</p>
-<hr />
+<hr/>
 <h4 id="214-multilevel-queue-vs-multilevel-feedback-queue">2.14 Multilevel Queue vs Multilevel Feedback Queue<a class="headerlink" href="#214-multilevel-queue-vs-multilevel-feedback-queue" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -8800,9 +8800,9 @@ The CPU scheduler selects the next process from the ready queue, while the dispa
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 Multilevel Queue 是「分班但不轉班」；MLFQ 是「依表現升降班」。</p>
-<hr />
+<hr/>
 <h4 id="215-thread-schedulingpcs-vs-scs">2.15 Thread Scheduling：PCS vs SCS<a class="headerlink" href="#215-thread-schedulingpcs-vs-scs" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -8828,9 +8828,9 @@ Multilevel Queue 是「分班但不轉班」；MLFQ 是「依表現升降班」�
 </tr>
 </tbody>
 </table>
-<p>考試最短答法：<br />
+<p>考試最短答法：<br/>
 PCS 是同一 process 內部的 thread 彼此競爭；SCS 是所有 system-level threads 彼此競爭 CPU。</p>
-<hr />
+<hr/>
 <h4 id="216-multiple-processor-scheduling">2.16 Multiple-Processor Scheduling<a class="headerlink" href="#216-multiple-processor-scheduling" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -8882,7 +8882,7 @@ PCS 是同一 process 內部的 thread 彼此競爭；SCS 是所有 system-level
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="217-real-time-scheduling">2.17 Real-Time Scheduling<a class="headerlink" href="#217-real-time-scheduling" title="Permanent link"></a></h4>
 <p>講義 real-time scheduling 提到即時系統需要 priority-based preemptive scheduling；soft real-time 系統會給 real-time process 較高 scheduling priority，hard real-time 必須保證 deadline 前完成；週期性工作有 processing time t、deadline d、period p，且 0 ≤ t ≤ d ≤ p，rate = 1 / p。</p>
 <table>
@@ -8907,11 +8907,11 @@ PCS 是同一 process 內部的 thread 彼此競爭；SCS 是所有 system-level
 </tr>
 </tbody>
 </table>
-<p>EDF 最短記法：<br />
+<p>EDF 最短記法：<br/>
 「誰 deadline 最近，誰 priority 最高。」講義 EDF 也以 deadline 先後訂定 priority。</p>
-<hr />
+<hr/>
 <h4 id="218-littles-formula">2.18 Little’s Formula<a class="headerlink" href="#218-littles-formula" title="Permanent link"></a></h4>
-<p>講義 Ch6 5.7.2 Queueing Model 給 Little’s Formula：<br />
+<p>講義 Ch6 5.7.2 Queueing Model 給 Little’s Formula：<br/>
 n = λ × W。n 是 average queue length，W 是 average waiting time in queue，λ 是 average arrival rate into queue；在 steady state 下，離開 queue 的 process 數等於進入 queue 的 process 數。</p>
 <p>公式變形：</p>
 <table>
@@ -8936,9 +8936,9 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>單位陷阱：<br />
+<p>單位陷阱：<br/>
 λ 若是「每秒 7 個」，W 就用秒；λ 若是「每分鐘 30 個」，W 就用分鐘。</p>
-<hr />
+<hr/>
 <h4 id="219-ch6-必背總表">2.19 Ch6 必背總表<a class="headerlink" href="#219-ch6-必背總表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -8994,11 +8994,11 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="3-ch7-deadlock死結">3. Ch7 Deadlock(死結)<a class="headerlink" href="#3-ch7-deadlock死結" title="Permanent link"></a></h4>
 <h4 id="31-這章在解決什麼問題">3.1 這章在解決什麼問題<a class="headerlink" href="#31-這章在解決什麼問題" title="Permanent link"></a></h4>
 <p>Ch7 的核心問題是：process 使用 resource 時，本來會依 request → use → release 的正常順序運作，但如果多個 process 互相拿著對方需要的 resource，就可能全部卡住。講義 Ch7 範圍包含系統模型、死結特性、處理死結方法、預防、避免、偵測、恢復。 (<a href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%207.html" title="Ch 7 - PEICD100">PEICD100</a>)</p>
-<hr />
+<hr/>
 <h4 id="32-resource-使用三步驟">3.2 Resource 使用三步驟<a class="headerlink" href="#32-resource-使用三步驟" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9022,9 +9022,9 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「死結不是 resource 壞掉，而是大家照規則 request/use/release，卻形成互相等待。」</p>
-<hr />
+<hr/>
 <h4 id="33-四個-deadlock-necessary-conditions死結必要條件">3.3 四個 Deadlock Necessary Conditions(死結必要條件)<a class="headerlink" href="#33-四個-deadlock-necessary-conditions死結必要條件" title="Permanent link"></a></h4>
 <p>死結發生必須四個條件同時成立。講義列為 mutual exclusion、hold and wait、no preemption、circular wait。</p>
 <table>
@@ -9063,16 +9063,16 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「互斥、拿著等、不能搶、繞一圈。」</p>
-<hr />
+<hr/>
 <h4 id="34-mutex-範例直覺">3.4 Mutex 範例直覺<a class="headerlink" href="#34-mutex-範例直覺" title="Permanent link"></a></h4>
 <p>如果 thread one 先 lock A 再 lock B，而 thread two 先 lock B 再 lock A，就可能：</p>
 <pre class="diagram"><code>flowchart LR
     T1[Thread 1&lt;br&gt;拿著 first_mutex] --&gt;|等待 second_mutex| T2[Thread 2&lt;br&gt;拿著 second_mutex]
     T2 --&gt;|等待 first_mutex| T1</code></pre>
 <p>這就是 circular wait。考試寫時要指出：兩個 thread 都 hold 一個 mutex 並 wait for 另一個 mutex，而且 mutex 是 nonsharable，不能被強制 preempt。</p>
-<hr />
+<hr/>
 <h4 id="35-resource-allocation-graph資源配置圖">3.5 Resource-Allocation Graph(資源配置圖)<a class="headerlink" href="#35-resource-allocation-graph資源配置圖" title="Permanent link"></a></h4>
 <p>講義定義 Resource-Allocation Graph 包含 process vertices、resource vertices、request edge、assignment edge。</p>
 <table>
@@ -9124,9 +9124,9 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「單 instance：cycle = deadlock；多 instance：cycle 只是可能 deadlock。」</p>
-<hr />
+<hr/>
 <h4 id="36-handling-deadlocks處理死結三策略">3.6 Handling Deadlocks(處理死結三策略)<a class="headerlink" href="#36-handling-deadlocks處理死結三策略" title="Permanent link"></a></h4>
 <p>講義列三種處理方法：預防/避免讓系統不進入死結；允許死結發生再偵測與恢復；忽視問題。</p>
 <table>
@@ -9160,7 +9160,7 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="37-deadlock-prevention預防死結">3.7 Deadlock Prevention(預防死結)<a class="headerlink" href="#37-deadlock-prevention預防死結" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9193,9 +9193,9 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>考試最常問 circular wait prevention：<br />
+<p>考試最常問 circular wait prevention：<br/>
 對所有 resource type 設定 total ordering，process 只能依遞增順序 request resources，因此不可能形成循環等待。</p>
-<hr />
+<hr/>
 <h4 id="38-deadlock-avoidance避免死結safe-state">3.8 Deadlock Avoidance(避免死結)：Safe State<a class="headerlink" href="#38-deadlock-avoidance避免死結safe-state" title="Permanent link"></a></h4>
 <p>Safe state(安全狀態)不是「現在沒有 deadlock」而已，而是「存在至少一個 safe sequence，讓所有 process 都能依序完成」。講義定義：系統能用某種順序把 resource 分配給各 process 並仍避免 deadlock，就稱為 safe state。</p>
 <table>
@@ -9220,10 +9220,10 @@ n = λ × W。n 是 average queue length，W 是 average waiting time in queue�
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
-Safe ⊂ Not Deadlocked。<br />
+<p>最短記法：<br/>
+Safe ⊂ Not Deadlocked。<br/>
 Unsafe ≠ Deadlock，但 unsafe 可能走向 deadlock。</p>
-<hr />
+<hr/>
 <h4 id="39-bankers-algorithm-必背資料結構">3.9 Banker’s Algorithm 必背資料結構<a class="headerlink" href="#39-bankers-algorithm-必背資料結構" title="Permanent link"></a></h4>
 <p>Banker’s Algorithm 核心矩陣：</p>
 <table>
@@ -9257,7 +9257,7 @@ Unsafe ≠ Deadlock，但 unsafe 可能走向 deadlock。</p>
 </tbody>
 </table>
 <p>講義明確給 Need = Max - Allocation，並用 Work、Finish 做 safety algorithm。</p>
-<hr />
+<hr/>
 <h4 id="310-safety-algorithm-流程">3.10 Safety Algorithm 流程<a class="headerlink" href="#310-safety-algorithm-流程" title="Permanent link"></a></h4>
 <p>Banker’s safety algorithm：</p>
 <ol>
@@ -9277,11 +9277,11 @@ Unsafe ≠ Deadlock，但 unsafe 可能走向 deadlock。</p>
     D --&gt;|是| E[Safe state&lt;br&gt;存在 safe sequence]
     D --&gt;|否| F[Unsafe state&lt;br&gt;沒有可完成序列]</code></pre>
 <p>考試輸出模板：</p>
-<p>中文：<br />
+<p>中文：<br/>
 先計算 Need = Max - Allocation。令 Work = Available，依序尋找 Need ≤ Work 的 process。每找到一個 process，就將它的 Allocation 加回 Work，並把該 process 放入 safe sequence。若最後所有 process 都能完成，狀態 safe；否則 unsafe。</p>
-<p>英文：<br />
+<p>英文：<br/>
 Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = false. Repeatedly find a process whose Need is no greater than Work. If found, assume it finishes, add its Allocation back to Work, and append it to the safe sequence. If all processes can finish, the state is safe; otherwise, it is unsafe.</p>
-<hr />
+<hr/>
 <h4 id="311-resource-request-algorithm">3.11 Resource-Request Algorithm<a class="headerlink" href="#311-resource-request-algorithm" title="Permanent link"></a></h4>
 <p>給 Pi 的 Request_i 時，三關檢查：</p>
 <table>
@@ -9311,7 +9311,7 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tbody>
 </table>
 <p>講義 resource-request algorithm 明確寫出：如果 safe 則配置給 Pi；如果 unsafe 則 Pi must wait，並恢復舊 resource-allocation state。</p>
-<hr />
+<hr/>
 <h4 id="312-bankers-algorithm-變動題increase--decrease-available--max--process">3.12 Banker’s Algorithm 變動題：Increase / Decrease Available / Max / Process<a class="headerlink" href="#312-bankers-algorithm-變動題increase--decrease-available--max--process" title="Permanent link"></a></h4>
 <p>108 考古題 Q8 問如果用 Banker’s Algorithm 控制 deadlock，哪些長期變化可以安全做、條件是什麼。</p>
 <table>
@@ -9355,9 +9355,9 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「讓資源變多或需求變少通常安全；讓資源變少、需求變大、process 變多要重跑 safety。」</p>
-<hr />
+<hr/>
 <h4 id="313-deadlock-detection死結偵測">3.13 Deadlock Detection(死結偵測)<a class="headerlink" href="#313-deadlock-detection死結偵測" title="Permanent link"></a></h4>
 <p>如果系統允許 deadlock 發生，就需要 detection algorithm 和 recovery scheme。單一 instance resource type 可以用 wait-for graph：節點是 process，Pi → Pj 表示 Pi 等 Pj；若圖中有 cycle，就存在 deadlock。講義也提到偵測 cycle 的演算法時間複雜度可為 O(n²)。</p>
 <table>
@@ -9378,7 +9378,7 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="314-deadlock-recovery死結恢復">3.14 Deadlock Recovery(死結恢復)<a class="headerlink" href="#314-deadlock-recovery死結恢復" title="Permanent link"></a></h4>
 <p>常見恢復方式：</p>
 <table>
@@ -9425,7 +9425,7 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="315-ch7-必背總表">3.15 Ch7 必背總表<a class="headerlink" href="#315-ch7-必背總表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9477,11 +9477,11 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="4-ch8-memory-management-strategies記憶體管理策略">4. Ch8 Memory Management Strategies(記憶體管理策略)<a class="headerlink" href="#4-ch8-memory-management-strategies記憶體管理策略" title="Permanent link"></a></h4>
 <h4 id="41-這章在解決什麼問題">4.1 這章在解決什麼問題<a class="headerlink" href="#41-這章在解決什麼問題" title="Permanent link"></a></h4>
 <p>Ch8 的核心問題是：process 要執行必須進入 memory，但 CPU 只能直接存取 main memory/register，而 memory access 比 register 慢，還需要 protection，避免 process 亂碰別人的記憶體。講義 Ch8 範圍包含背景、swapping、contiguous allocation、paging、page table structure、segmentation、Intel Pentium 範例。 (<a href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%208.html" title="Ch 8 - PEICD100">PEICD100</a>)</p>
-<hr />
+<hr/>
 <h4 id="42-base-and-limit-registers">4.2 Base and Limit Registers<a class="headerlink" href="#42-base-and-limit-registers" title="Permanent link"></a></h4>
 <p>Base and Limit Registers 是最直覺的 memory protection：</p>
 <table>
@@ -9506,9 +9506,9 @@ Compute Need = Max - Allocation. Initialize Work = Available and Finish[i] = fal
 </tr>
 </tbody>
 </table>
-<p>考試寫法：<br />
+<p>考試寫法：<br/>
 Base and limit registers define the logical address space of a process. The CPU checks every user-mode memory access to ensure it is within the allowed range; otherwise, a trap occurs.</p>
-<hr />
+<hr/>
 <h4 id="43-address-binding位址連結">4.3 Address Binding(位址連結)<a class="headerlink" href="#43-address-binding位址連結" title="Permanent link"></a></h4>
 <p>Address Binding 是「程式裡的位址什麼時候變成真正 physical address」的問題。講義分 compile time、load time、execution time。</p>
 <table>
@@ -9541,11 +9541,11 @@ Base and limit registers define the logical address space of a process. The CPU 
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
-Compile time：編譯時決定。<br />
-Load time：載入時決定。<br />
+<p>最短記法：<br/>
+Compile time：編譯時決定。<br/>
+Load time：載入時決定。<br/>
 Execution time：執行中才決定，需要 MMU。</p>
-<hr />
+<hr/>
 <h4 id="44-logical-address-vs-physical-address">4.4 Logical Address vs Physical Address<a class="headerlink" href="#44-logical-address-vs-physical-address" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9573,9 +9573,9 @@ Execution time：執行中才決定，需要 MMU。</p>
 </tr>
 </tbody>
 </table>
-<p>講義例子中 relocation register = 14000，logical address = 346，physical address = 14346。最短記法：<br />
+<p>講義例子中 relocation register = 14000，logical address = 346，physical address = 14346。最短記法：<br/>
 physical = relocation/base + logical。</p>
-<hr />
+<hr/>
 <h4 id="45-dynamic-loading-vs-dynamic-linking">4.5 Dynamic Loading vs Dynamic Linking<a class="headerlink" href="#45-dynamic-loading-vs-dynamic-linking" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9602,12 +9602,12 @@ physical = relocation/base + logical。</p>
 </tbody>
 </table>
 <p>講義指出 dynamic linking / shared library 讓同一時間多個應用可使用同一份 library copy，OS 不需要載入多個實例。</p>
-<hr />
+<hr/>
 <h4 id="46-swapping置換">4.6 Swapping(置換)<a class="headerlink" href="#46-swapping置換" title="Permanent link"></a></h4>
 <p>Swapping 是把 process 暫時 swap out 到 backing store，之後再 swap in 回 memory 繼續執行。講義指出 swapping 由 mid-term scheduler 負責，且會牽涉 transfer time 計算。</p>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「memory 不夠或需要調整 multiprogramming 時，把 process 暫時搬到 disk，再搬回來。」</p>
-<hr />
+<hr/>
 <h4 id="47-contiguous-memory-allocation連續記憶體配置">4.7 Contiguous Memory Allocation(連續記憶體配置)<a class="headerlink" href="#47-contiguous-memory-allocation連續記憶體配置" title="Permanent link"></a></h4>
 <p>OS 找一塊夠大的連續 free block 給 process。管理 free blocks 的 list 叫 Available List / Free List。</p>
 <p>配置策略：</p>
@@ -9638,7 +9638,7 @@ physical = relocation/base + logical。</p>
 </tbody>
 </table>
 <p>講義例題：free blocks 100KB, 500KB, 200KB, 300KB, 600KB，processes 需要 212KB, 417KB, 112KB, 426KB；First fit、Best fit、Worst fit 會給出不同配置結果。</p>
-<hr />
+<hr/>
 <h4 id="48-fragmentation斷裂">4.8 Fragmentation(斷裂)<a class="headerlink" href="#48-fragmentation斷裂" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9697,7 +9697,7 @@ physical = relocation/base + logical。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="49-paging分頁">4.9 Paging(分頁)<a class="headerlink" href="#49-paging分頁" title="Permanent link"></a></h4>
 <p>Paging 的核心是：logical memory 切成 pages，physical memory 切成 frames；page size = frame size。Process 不需要連續放在 physical memory。</p>
 <p>講義 paging 優點：解決 external fragmentation、支援 sharing、支援 protection、支援 dynamic loading 與 virtual memory；缺點是 internal fragmentation、logical address 轉 physical address 使有效存取時間較長、需要額外硬體與 page table。</p>
@@ -9736,9 +9736,9 @@ physical = relocation/base + logical。</p>
 </tbody>
 </table>
 <p>講義公式：若 logical address space = 2^m，page size = 2^n bytes，則 page number 佔高位 m-n bits，offset 佔低位 n bits。</p>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「page number 查表，offset 原封不動。」</p>
-<hr />
+<hr/>
 <h4 id="410-tlb-與-effective-access-time">4.10 TLB 與 Effective Access Time<a class="headerlink" href="#410-tlb-與-effective-access-time" title="Permanent link"></a></h4>
 <p>Paging 若每次都先查 page table 再存 memory，會變成兩次 memory access。TLB(Translation Lookaside Buffer) 是快速快取最近用過的 page table entries。</p>
 <p>必背：</p>
@@ -9764,7 +9764,7 @@ physical = relocation/base + logical。</p>
 <p>EAT = α × hit_time_path + (1 - α) × miss_time_path</p>
 <p>若題目簡化為 TLB lookup time = ε，memory access time = m，hit ratio = α：</p>
 <p>EAT = α(ε + m) + (1 - α)(ε + 2m)</p>
-<hr />
+<hr/>
 <h4 id="411-page-table-structure分頁表結構">4.11 Page Table Structure(分頁表結構)<a class="headerlink" href="#411-page-table-structure分頁表結構" title="Permanent link"></a></h4>
 <p>講義 Ch8 8.6 提到 hierarchical / multilevel paging，目的在 page table size 太大且稀疏時，把 page table 再分頁，只抓需要的 page table 進 memory。</p>
 <table>
@@ -9789,7 +9789,7 @@ physical = relocation/base + logical。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="412-segmentation分段">4.12 Segmentation(分段)<a class="headerlink" href="#412-segmentation分段" title="Permanent link"></a></h4>
 <p>Segmentation 是把 process 依使用者邏輯切成 code、global variables、heap、stack、library 等 segment。每個 segment 長度可不同，logical address = segment number + offset。講義指出 segmentation 讓 logical 配置看法與使用者一致，OS 會替每個 process 準備 segment table，STLR 記錄段大小，STBR 記錄 segment table base。</p>
 <table>
@@ -9842,7 +9842,7 @@ physical = relocation/base + logical。</p>
 </tbody>
 </table>
 <p>講義也明確列 segmentation 無 internal fragmentation、支援 memory sharing/protection，但有 external fragmentation。</p>
-<hr />
+<hr/>
 <h4 id="413-contiguous-vs-segmentation-vs-paging-考古題比較">4.13 Contiguous vs Segmentation vs Paging 考古題比較<a class="headerlink" href="#413-contiguous-vs-segmentation-vs-paging-考古題比較" title="Permanent link"></a></h4>
 <p>108 期末考古題 Q9 要比較 contiguous memory allocation、pure segmentation、pure paging 在 external fragmentation、internal fragmentation、ability to share code across processes 上的差異。</p>
 <table>
@@ -9887,12 +9887,12 @@ physical = relocation/base + logical。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="414-intel-pentiumpaged-segmentation">4.14 Intel Pentium：Paged Segmentation<a class="headerlink" href="#414-intel-pentiumpaged-segmentation" title="Permanent link"></a></h4>
 <p>講義 8.7 Intel Pentium 是 paged segment memory management：先分段、再分頁。user program 由 segments 組成，每個 segment 又由 pages 組成；目的保有 segmentation 的使用者邏輯視角與 sharing/protection 優點，同時用 paging 避免 segmentation 的 external fragmentation。</p>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「Pentium：先 segment，再 page；用 segmentation 表達程式邏輯，用 paging 解決外部斷裂。」</p>
-<hr />
+<hr/>
 <h4 id="415-ch8-必背總表">4.15 Ch8 必背總表<a class="headerlink" href="#415-ch8-必背總表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9956,11 +9956,11 @@ physical = relocation/base + logical。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="5-ch9-virtual-memory虛擬記憶體管理">5. Ch9 Virtual Memory(虛擬記憶體管理)<a class="headerlink" href="#5-ch9-virtual-memory虛擬記憶體管理" title="Permanent link"></a></h4>
 <h4 id="51-這章在解決什麼問題">5.1 這章在解決什麼問題<a class="headerlink" href="#51-這章在解決什麼問題" title="Permanent link"></a></h4>
 <p>Ch9 的核心問題是：讓程式以為自己有一大塊連續且足夠的 memory，但 OS 實際上只把需要的 pages 放在 RAM，其餘放在 disk / backing store，需要時再搬進來。講義 Ch9 範圍包含 virtual memory、demand paging、copy-on-write、page replacement、frame allocation、thrashing、memory-mapped files、kernel memory allocation 等。 (<a href="https://peicd100.github.io/university-notes/md/114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/ch%209.html" title="Ch 9 - PEICD100">PEICD100</a>)</p>
-<hr />
+<hr/>
 <h4 id="52-virtual-memory虛擬記憶體">5.2 Virtual Memory(虛擬記憶體)<a class="headerlink" href="#52-virtual-memory虛擬記憶體" title="Permanent link"></a></h4>
 <p>Virtual Memory 的核心直覺：</p>
 <table>
@@ -9990,7 +9990,7 @@ physical = relocation/base + logical。</p>
 </tbody>
 </table>
 <p>講義指出 virtual memory 可用 disk 的部分空間模擬 RAM，讓應用程式認為自己擁有連續可用的位址空間，但實際上可能被分散在 physical memory 和外部磁碟中。</p>
-<hr />
+<hr/>
 <h4 id="53-demand-paging需求分頁">5.3 Demand Paging(需求分頁)<a class="headerlink" href="#53-demand-paging需求分頁" title="Permanent link"></a></h4>
 <p>Demand Paging：一開始不把所有 pages 載入 memory，只在真正需要時載入。講義說 demand paging 以 paging 為基礎，採 lazy swapper 技巧，只載入執行所需 pages；若發生 page fault，由 OS 處理。</p>
 <p>Valid/Invalid Bit：</p>
@@ -10012,7 +10012,7 @@ physical = relocation/base + logical。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="54-page-fault分頁錯誤-流程">5.4 Page Fault(分頁錯誤) 流程<a class="headerlink" href="#54-page-fault分頁錯誤-流程" title="Permanent link"></a></h4>
 <p>Page fault 發生時，OS 大致流程：</p>
 <pre class="diagram"><code>flowchart TD
@@ -10029,9 +10029,9 @@ physical = relocation/base + logical。</p>
     J --&gt; K
     K --&gt; L[更新 page table / valid bit]
     L --&gt; M[restart interrupted instruction]</code></pre>
-<p>必背句：<br />
+<p>必背句：<br/>
 Page fault 很貴，因為可能需要 trap、找 frame、page out、page in、更新 page table、restart instruction。</p>
-<hr />
+<hr/>
 <h4 id="55-effective-access-timeeat">5.5 Effective Access Time(EAT)<a class="headerlink" href="#55-effective-access-timeeat" title="Permanent link"></a></h4>
 <p>講義給 Page Fault Rate p，0 ≤ p ≤ 1，且 EAT：</p>
 <p>EAT = (1 - p) × memory access</p>
@@ -10039,9 +10039,9 @@ Page fault 很貴，因為可能需要 trap、找 frame、page out、page in、�
 <li>p × (page fault overhead + swap page out + swap page in + restart overhead)</li>
 </ul>
 <p>講義例子：memory access time = 200 ns，average page-fault service time = 8 ms，因此 EAT = 200 + p × 7,999,800；若 1000 次 access 有 1 次 page fault，EAT = 8.2 microseconds，slowdown by factor of 40。</p>
-<p>考試最短記法：<br />
+<p>考試最短記法：<br/>
 「p 很小也很可怕，因為 page fault service time 是 disk I/O 等級，遠大於 memory access。」</p>
-<hr />
+<hr/>
 <h4 id="56-copy-on-writecow">5.6 Copy-on-Write(COW)<a class="headerlink" href="#56-copy-on-writecow" title="Permanent link"></a></h4>
 <p>COW 是最佳化策略：多個 caller / process 一開始共享同一份 resource/page，直到有人要 write 時才真正 copy 一份。講義指出 COW 共享相同資源直到某呼叫者試圖修改，系統才建立專用副本。</p>
 <table>
@@ -10070,14 +10070,14 @@ Page fault 很貴，因為可能需要 trap、找 frame、page out、page in、�
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 「COW：read 共享，write 才 copy。」</p>
-<hr />
+<hr/>
 <h4 id="57-page-replacement分頁替換">5.7 Page Replacement(分頁替換)<a class="headerlink" href="#57-page-replacement分頁替換" title="Permanent link"></a></h4>
 <p>當 page fault 發生且沒有 free frame，就要選 victim page。講義指出 demand paging 需要解決 frame allocation algorithm 和 page-replacement algorithm，選 replacement algorithm 通常希望 lowest page-fault rate。</p>
-<p>Dirty Bit 重點：<br />
+<p>Dirty Bit 重點：<br/>
 page out 不一定必要；若 victim page 沒被修改，不必寫回 disk，可省 I/O。講義明確說 page in 必要，但 page out 視 victim page 是否被修改，用 dirty bit 判斷。</p>
-<hr />
+<hr/>
 <h4 id="58-fifo-page-replacement">5.8 FIFO Page Replacement<a class="headerlink" href="#58-fifo-page-replacement" title="Permanent link"></a></h4>
 <p>FIFO：最早載入 memory 的 page 先當 victim。簡單但效果可能差。講義指出 FIFO 可能有 Belady Anomaly：frames 變多，page fault ratio 反而上升。</p>
 <p>必背：</p>
@@ -10099,12 +10099,12 @@ page out 不一定必要；若 victim page 沒被修改，不必寫回 disk，�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="59-optimal-page-replacement">5.9 Optimal Page Replacement<a class="headerlink" href="#59-optimal-page-replacement" title="Permanent link"></a></h4>
 <p>Optimal：選「未來最久不會再用」的 page 當 victim。講義指出效果最佳、不會有 Belady Anomaly，但不可能實作，因為需要知道未來。</p>
-<p>考試用途：<br />
+<p>考試用途：<br/>
 Optimal 通常是理論下限，用來比較其他 algorithm。</p>
-<hr />
+<hr/>
 <h4 id="510-lruleast-recently-used">5.10 LRU(Least Recently Used)<a class="headerlink" href="#510-lruleast-recently-used" title="Permanent link"></a></h4>
 <p>LRU：選「最近最久沒用」的 page 當 victim。講義指出 LRU 效果不錯、不會有 Belady Anomaly，但製作成本高，需要 counter 或 stack 等硬體支援。</p>
 <table>
@@ -10129,9 +10129,9 @@ Optimal 通常是理論下限，用來比較其他 algorithm。</p>
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
-<hr />
+<hr/>
 <h4 id="511-second-chance--clock-algorithm">5.11 Second-Chance / Clock Algorithm<a class="headerlink" href="#511-second-chance--clock-algorithm" title="Permanent link"></a></h4>
 <p>Second-Chance 是 FIFO 的改良，用 reference bit 給 page 第二次機會：</p>
 <table>
@@ -10152,9 +10152,9 @@ FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
 </tr>
 </tbody>
 </table>
-<p>Clock Algorithm 用 circular queue 實作 second chance。<br />
+<p>Clock Algorithm 用 circular queue 實作 second chance。<br/>
 最短記法：「R=1 代表最近用過，先饒它一次。」</p>
-<hr />
+<hr/>
 <h4 id="512-counting-algorithmslfu--mfu">5.12 Counting Algorithms：LFU / MFU<a class="headerlink" href="#512-counting-algorithmslfu--mfu" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10180,7 +10180,7 @@ FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="513-frame-allocation頁框配置">5.13 Frame Allocation(頁框配置)<a class="headerlink" href="#513-frame-allocation頁框配置" title="Permanent link"></a></h4>
 <p>講義提到要執行 demand paging，除了 replacement algorithm，還要決定每個 process 分幾個 frames。講義列 equal allocation、proportional allocation、priority allocation；proportional allocation 依 process size 分配，公式近似 ai = (si / S) × m。</p>
 <table>
@@ -10236,7 +10236,7 @@ FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="514-global-vs-local-replacement">5.14 Global vs Local Replacement<a class="headerlink" href="#514-global-vs-local-replacement" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10262,7 +10262,7 @@ FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="515-thrashing輾轉現象">5.15 Thrashing(輾轉現象)<a class="headerlink" href="#515-thrashing輾轉現象" title="Permanent link"></a></h4>
 <p>Thrashing 是 Ch9 超高頻概念。講義說，如果 process 分配到的 frames 不足，就常 page fault；若用 global replacement，process 可能互相搶 frames，最後所有 process 都忙著 swap in/out，CPU idle。CPU idle 時 OS 可能誤以為應增加 multiprogramming degree，讓更多 process 進入系統，thrashing 更嚴重。</p>
 <p>Thrashing 因果鏈：</p>
@@ -10274,9 +10274,9 @@ FIFO 看進場時間；LRU 看最近使用時間；Optimal 看未來。</p>
     E --&gt; F[OS 以為 CPU 太閒&lt;br&gt;增加 multiprogramming degree]
     F --&gt; G[更多 process 搶 frames]
     G --&gt; B</code></pre>
-<p>考試最短答法：<br />
+<p>考試最短答法：<br/>
 Thrashing occurs when processes do not have enough frames, causing frequent page faults and excessive paging I/O. As a result, the CPU becomes idle while the system is busy swapping pages. Increasing the degree of multiprogramming can make thrashing worse because more processes compete for the same frames.</p>
-<hr />
+<hr/>
 <h4 id="516-page-fault-frequencypff">5.16 Page-Fault Frequency(PFF)<a class="headerlink" href="#516-page-fault-frequencypff" title="Permanent link"></a></h4>
 <p>PFF 是用 page fault rate 控制 frames：</p>
 <table>
@@ -10302,7 +10302,7 @@ Thrashing occurs when processes do not have enough frames, causing frequent page
 </tbody>
 </table>
 <p>講義也指出可以利用 page fault ratio 控制防止 thrashing。</p>
-<hr />
+<hr/>
 <h4 id="517-working-set-model">5.17 Working Set Model<a class="headerlink" href="#517-working-set-model" title="Permanent link"></a></h4>
 <p>Working Set Model 用 locality 解釋 process 近期需要哪些 pages。講義定義 working set 是最近 Δ time units / window 中 process reference 過的 pages；working set size(WSS) 是其中 page/frame 個數。若要 replace page，應優先找不在 working set 內的 pages。</p>
 <table>
@@ -10335,9 +10335,9 @@ Thrashing occurs when processes do not have enough frames, causing frequent page
 </tr>
 </tbody>
 </table>
-<p>考試流程題：<br />
+<p>考試流程題：<br/>
 給 reference string 和 window Δ，working set 就是「最近 Δ 個 references 中出現過的不同 pages」。</p>
-<hr />
+<hr/>
 <h4 id="518-memory-mapped-files">5.18 Memory-Mapped Files<a class="headerlink" href="#518-memory-mapped-files" title="Permanent link"></a></h4>
 <p>Memory-mapped file 把 file I/O 映射成 memory access。Process 可以用 memory load/store 方式讀寫 file；OS 透過 paging 把 file 的部分內容載入 memory。</p>
 <p>必背：</p>
@@ -10363,7 +10363,7 @@ Thrashing occurs when processes do not have enough frames, causing frequent page
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="519-kernel-memory-allocation">5.19 Kernel Memory Allocation<a class="headerlink" href="#519-kernel-memory-allocation" title="Permanent link"></a></h4>
 <p>常見 kernel memory allocation 包含 Buddy System 與 Slab Allocation：</p>
 <table>
@@ -10384,9 +10384,9 @@ Thrashing occurs when processes do not have enough frames, causing frequent page
 </tr>
 </tbody>
 </table>
-<p>必背差異：<br />
+<p>必背差異：<br/>
 Buddy system 解決不同大小 block 的切割與合併；slab allocation 適合頻繁配置固定型別 kernel objects。</p>
-<hr />
+<hr/>
 <h4 id="520-108-期末考古-q10page-replacement-counter-題">5.20 108 期末考古 Q10：Page Replacement Counter 題<a class="headerlink" href="#520-108-期末考古-q10page-replacement-counter-題" title="Permanent link"></a></h4>
 <p>108 考古題 Q10 要你定義一個 page-replacement algorithm：每個 page frame 有 counter，代表有多少 pages associated with that frame；replacement 時找 counter 最小的 frame，並回答 initial value、何時增加、何時減少、如何選 victim，以及給 reference string 算 page faults，還要算 optimal 最少 page faults。</p>
 <p>這題不是標準 FIFO/LRU 題，而是「根據題意設計 algorithm」。考試答法要完整回答四點：</p>
@@ -10424,7 +10424,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="521-ch9-必背總表">5.21 Ch9 必背總表<a class="headerlink" href="#521-ch9-必背總表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10492,7 +10492,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="6-ch6ch9-跨章整合表">6. Ch6～Ch9 跨章整合表<a class="headerlink" href="#6-ch6ch9-跨章整合表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10549,7 +10549,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="7-必背公式集中區">7. 必背公式集中區<a class="headerlink" href="#7-必背公式集中區" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10617,7 +10617,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="8-考古題高風險清單">8. 考古題高風險清單<a class="headerlink" href="#8-考古題高風險清單" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10675,7 +10675,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="9-最後-30-分鐘複習順序">9. 最後 30 分鐘複習順序<a class="headerlink" href="#9-最後-30-分鐘複習順序" title="Permanent link"></a></h4>
 <h4 id="91-第一輪背公式與判斷句">9.1 第一輪：背公式與判斷句<a class="headerlink" href="#91-第一輪背公式與判斷句" title="Permanent link"></a></h4>
 <p>先背這 12 句：</p>
@@ -10693,7 +10693,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 <li>Segmentation 無 internal fragmentation，但有 external fragmentation。</li>
 <li>Thrashing 是 frame 不足造成大量 page fault 與 swap I/O，CPU 反而 idle。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="92-第二輪看比較表">9.2 第二輪：看比較表<a class="headerlink" href="#92-第二輪看比較表" title="Permanent link"></a></h4>
 <p>最該背的三張表：</p>
 <table>
@@ -10718,7 +10718,7 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="93-第三輪練輸出模板">9.3 第三輪：練輸出模板<a class="headerlink" href="#93-第三輪練輸出模板" title="Permanent link"></a></h4>
 <p>你考前至少要能不用看講義寫出這些模板：</p>
 <ol>
@@ -10728,15 +10728,15 @@ Buddy system 解決不同大小 block 的切割與合併；slab allocation 適�
 <li>Memory scheme comparison：external / internal / sharing 三欄。</li>
 <li>Page replacement：每次 reference 判斷 hit/fault，fault 才選 victim。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="10-一頁版極限濃縮">10. 一頁版極限濃縮<a class="headerlink" href="#10-一頁版極限濃縮" title="Permanent link"></a></h4>
-<p>Ch6：<br />
+<p>Ch6：<br/>
 CPU scheduling 是 ready queue 選人問題。Scheduler 選 process，dispatcher 交出 CPU。Preemptive 是 OS 可重新排班並可能搶 CPU；nonpreemptive 是 process 自己讓出 CPU 才換。Criteria：CPU utilization / throughput 越高越好；turnaround / waiting / response 越低越好。FCFS 簡單但 convoy effect；SJF 平均等待低但可能 starvation；SRTF 是 preemptive SJF；Priority 看題幹 priority 方向，可能 starvation，aging 可解；RR 用 quantum 輪流跑，quantum 太大像 FCFS，太小 overhead 高。Multilevel Queue 固定分隊；MLFQ 可升降隊。Little’s Law：n = λW。</p>
-<p>Ch7：<br />
+<p>Ch7：<br/>
 Deadlock 要四條件同時成立：mutual exclusion、hold and wait、no preemption、circular wait。RAG 中 Pi → Rj 是 request，Rj → Pi 是 assignment；單 instance 有 cycle 就 deadlock，多 instance 有 cycle 不一定 deadlock。處理死結：prevention、avoidance、detection/recovery、ignore。Prevention 是破壞四條件之一。Avoidance 用 safe state；safe state 是存在 safe sequence。Banker：Need = Max - Allocation；Work = Available；找 Need ≤ Work 的 process，完成後 Work += Allocation。Request 要先檢查 Request ≤ Need、Request ≤ Available，再假裝分配並跑 safety。</p>
-<p>Ch8：<br />
+<p>Ch8：<br/>
 Memory management 要讓 process 能進 memory、CPU 能存取、又不能亂碰別人。Base/limit 做保護。Address binding 有 compile/load/execution time。Logical address 是 CPU 產生，physical address 是 memory 看到，MMU 轉換。Dynamic loading 是 routine 被呼叫才載入；dynamic linking/shared library 是 library routine 被呼叫才 link/load，可共享。Contiguous allocation 用 first/best/worst fit，但有 external fragmentation。Paging 把 logical memory 切 pages、physical memory 切 frames；page number 查 page table，offset 不變；無 external fragmentation，有 internal fragmentation。Segmentation 符合程式邏輯，無 internal fragmentation，但有 external fragmentation。Pentium 是先 segmentation 再 paging。</p>
-<p>Ch9：<br />
+<p>Ch9：<br/>
 Virtual memory 讓 process 以為有大且連續 address space；實際 pages 可在 RAM 或 disk。Demand paging 是需要時才載入 page。Page fault 流程：trap、檢查是否合法、找 frame/victim、dirty 才 page out、page in、更新 page table、restart。EAT = (1-p)×memory access + p×page fault service。COW 是 read 共享、write 才 copy。FIFO 換最早進來，可能 Belady anomaly；Optimal 換未來最久不用，最佳但不能實作；LRU 換最近最久沒用，效果好但成本高；Second chance 用 reference bit。Frame allocation 有 equal/proportional/priority。Global replacement 彈性高但 process 互相影響；local replacement 隔離高。Thrashing 是 frames 不足造成 page fault 爆量、swap I/O 爆量、CPU idle，OS 若增加 multiprogramming 會更糟。Working set 是最近 Δ window 用過的不同 pages；PFF 高給 frames，低收回 frames。</p>
 
 
@@ -10869,17 +10869,15 @@ Virtual memory 讓 process 以為有大且連續 address space；實際 pages �
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

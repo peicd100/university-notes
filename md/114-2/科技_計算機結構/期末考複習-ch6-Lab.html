@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7970,7 +7970,7 @@ is now available!
 <p>程式把太多資料塞進太小的記憶體空間時，為什麼不只是「資料壞掉」，而是可能讓 CPU 跳去執行攻擊者準備的程式碼？</p>
 <p>用生活例子想：你有一個只能放 100 張紙的抽屜，但有人硬塞 300 張紙。多出來的 200 張不會消失，而是擠到隔壁抽屜。如果隔壁抽屜剛好放的是「等等要去哪裡」的紙條，那攻擊者就能把那張紙條改成：「不要回原本地方，跳去我指定的地方。」</p>
 <p>在程式裡，這張「等等要去哪裡」的紙條就是 <code>Return Address(返回位址)</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-這個-lab-的五段主線">2. 這個 Lab 的五段主線<a class="headerlink" href="#2-這個-lab-的五段主線" title="Permanent link"></a></h3>
 <p>PDF viewer page 2 的 Outline(大綱) 把整個 Lab 分成五段：<code>Understanding of Stack Layout</code>、<code>Vulnerable code</code>、<code>Challenges in exploitation</code>、<code>Shellcode</code>、<code>Countermeasures</code> </p>
 <table>
@@ -8016,7 +8016,7 @@ is now available!
 </tbody>
 </table>
 <p>考試最可能考的不是「背攻擊程式」，而是要你看懂：資料怎麼從 <code>buffer</code> 溢出去、怎麼覆蓋 <code>Return Address</code>、為什麼 <code>NOP sled</code> 增加命中率、以及防禦機制各自擋哪一步。</p>
-<hr />
+<hr/>
 <h3 id="3-整章流程圖">3. 整章流程圖<a class="headerlink" href="#3-整章流程圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["輸入資料進入程式&lt;br&gt;例如 badfile"] --&gt; B["資料被複製到 buffer(緩衝區)"]
@@ -8030,11 +8030,11 @@ is now available!
     I --&gt; J["執行 Shellcode(惡意程式碼)"]
     J --&gt; K["防禦重點：ASLR／NX／Stack Canary／安全函式"]</code></pre>
 <p>這張圖先當整章地圖。接下來我們會依講義主線，從 PDF viewer page 3 的 <code>Program Memory Stack</code> 開始，逐步補上每一格的細節。</p>
-<hr />
+<hr/>
 <h3 id="4-這章必背的最短主線">4. 這章必背的最短主線<a class="headerlink" href="#4-這章必背的最短主線" title="Permanent link"></a></h3>
 <p><code>Buffer Overflow Attack(緩衝區溢位攻擊)</code> 的最短考試版邏輯是：</p>
 <p>資料太長 → 超過 <code>buffer</code> → 覆蓋 stack 上的 <code>Return Address</code> → 函式結束時 CPU 依照被覆蓋的 <code>Return Address</code> 跳轉 → 若跳到 <code>NOP sled</code> 或 <code>shellcode</code>，就可能執行攻擊者程式碼 → 防禦靠 ASLR、NX/DEP、Stack Canary、安全函式降低或阻止成功率。</p>
-<hr />
+<hr/>
 <h3 id="5-本輪先不要混淆的三件事">5. 本輪先不要混淆的三件事<a class="headerlink" href="#5-本輪先不要混淆的三件事" title="Permanent link"></a></h3>
 <p>第一，<code>Buffer Overflow(緩衝區溢位)</code> 本身只是「資料寫超界」。它不等於攻擊一定成功。</p>
 <p>第二，覆蓋 <code>Return Address(返回位址)</code> 是控制 CPU 下一步去哪裡的關鍵，但就算蓋到 return address，也可能因為地址猜錯、跳到非法位置、NX 禁止執行等原因失敗。</p>
@@ -8087,13 +8087,13 @@ is now available!
 </tbody>
 </table>
 <p>這裡最容易搞混的是 <code>ptr</code>：<code>ptr</code> 這個指標變數本身是 local variable，所以在 <code>Stack(堆疊區)</code>；但是 <code>ptr</code> 指到的那塊 <code>malloc</code> 出來的記憶體在 <code>Heap(堆積區)</code>。社群討論中，stack、heap 等記憶體位置的用途也常是初學者卡住的點；我們這裡以講義圖為準，不用外部文章取代講義。([Stack Overflow][2])</p>
-<hr />
+<hr/>
 <h3 id="2-stack-為什麼特別危險">2. Stack 為什麼特別危險？<a class="headerlink" href="#2-stack-為什麼特別危險" title="Permanent link"></a></h3>
 <p><code>Stack(堆疊區)</code> 特別危險，是因為它不只放普通變數，還放「函式結束後要回哪裡」這種控制流程資料。</p>
-<p>用生活例子想：<br />
+<p>用生活例子想：<br/>
 一個 function(函式) 像你去辦公室處理一件事。進辦公室前，你會留一張紙條：「辦完回原本教室。」這張紙條就是 <code>Return Address(返回位址)</code>。如果有人把辦公室桌上的資料塞爆，剛好把那張紙條改掉，你辦完後就不是回教室，而是去攻擊者指定的位置。</p>
 <p>所以 stack overflow 的真正危險點不是「區域變數壞掉」而已，而是可能改到 <code>Return Address(返回位址)</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-function-call-stack-的基本版f12">3. Function Call Stack 的基本版：<code>f(1,2)</code><a class="headerlink" href="#3-function-call-stack-的基本版f12" title="Permanent link"></a></h3>
 <p>PDF viewer page 5 的例子是：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
@@ -8104,7 +8104,7 @@ is now available!
 <span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>這段程式呼叫 <code>f(1,2)</code> 時，stack 裡會有 <code>f()</code> 的 stack frame(堆疊框架)。講義圖顯示 <code>f()</code> 的 frame 裡包含：</p>
@@ -8145,7 +8145,7 @@ is now available!
 </tbody>
 </table>
 <p>這張圖是後面 buffer overflow 的核心前置知識：如果 <code>x</code> 或某個 local buffer 被寫爆，資料可能往上覆蓋 <code>Previous Frame Pointer</code>，再覆蓋 <code>Return Address</code>。講義圖明確把 <code>Return Address</code> 放在 local variable 上方，並標示它指向 <code>main()</code> 裡的 <code>printf()</code>。</p>
-<hr />
+<hr/>
 <h3 id="4-ebp-是什麼為什麼參數是-812local-variable-是負的">4. <code>%ebp</code> 是什麼？為什麼參數是 <code>+8</code>、<code>+12</code>，local variable 是負的？<a class="headerlink" href="#4-ebp-是什麼為什麼參數是-812local-variable-是負的" title="Permanent link"></a></h3>
 <p>PDF viewer page 4 用 assembly(組合語言) 形式標出：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
@@ -8215,7 +8215,7 @@ is now available!
 <div class="admonition danger">
 <p class="admonition-title">%ebp 到底是啥？</p>
 <p>%ebp 是目前 function 的 frame pointer register，通常指向目前 stack frame 中 Previous Frame Pointer 那個位置；而 Previous Frame Pointer 裡存的是上一層 caller function 的 %ebp 值。</p>
-<hr />
+<hr/>
 <p>最直覺圖</p>
 <div class="highlight"><pre><span></span><code>高位址
 │
@@ -8228,11 +8228,11 @@ is now available!
 低位址
 </code></pre></div>
 <p>所以它不放在「開頭」，是因為它像尺的 0 點，不一定放在物件最左邊；有時把 0 點放在中間，左右都能量，反而更好用。</p>
-<hr />
+<hr/>
 <p>最短記法</p>
 <p><code>%ebp</code> 不是 frame 的起點，而是 frame 的定位基準點。</p>
-<p>它通常靠近 <code>Previous Frame Pointer</code> 那格；<br />
-<code>%ebp + offset</code> 找參數和 <code>Return Address</code>；<br />
+<p>它通常靠近 <code>Previous Frame Pointer</code> 那格；<br/>
+<code>%ebp + offset</code> 找參數和 <code>Return Address</code>；<br/>
 <code>%ebp - offset</code> 找 local variable 和 buffer。</p>
 </div>
 <h3 id="為何需要-previous-frame-pointer">為何需要 Previous Frame Pointer<a class="headerlink" href="#為何需要-previous-frame-pointer" title="Permanent link"></a></h3>
@@ -8242,7 +8242,7 @@ is now available!
 <p>需要 <code>Previous Frame Pointer(前一層框架指標)</code> 的原因是：<strong>現在這個 function 結束時，要能把 <code>%ebp</code> 恢復成 caller(呼叫者) 的 stack frame 基準點</strong>。</p>
 <p>也就是說，<code>Previous Frame Pointer</code> 是「回上一層 function frame 的路標」。</p>
 <p>講義 PDF viewer page 5 的 <code>Function Call Stack</code> 圖裡，<code>f()</code> 的 stack frame 裡同時放了 <code>Return Address</code> 和 <code>Previous Frame Pointer</code>；PDF viewer page 6 進一步畫出 <code>main()</code> → <code>foo()</code> → <code>bar()</code> 的 function call chain，顯示目前 frame 會透過 frame pointer 串回上一層 frame。</p>
-<hr />
+<hr/>
 <h4 id="2-為什麼只有-return-address-不夠">2. 為什麼只有 Return Address 不夠？<a class="headerlink" href="#2-為什麼只有-return-address-不夠" title="Permanent link"></a></h4>
 <p><code>Return Address(返回位址)</code> 只回答一件事：</p>
 <p>「這個 function 結束後，CPU 下一條 instruction(指令) 要去哪裡執行？」</p>
@@ -8268,7 +8268,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="3-用-main--foo--bar-想">3. 用 <code>main()</code> → <code>foo()</code> → <code>bar()</code> 想<a class="headerlink" href="#3-用-main--foo--bar-想" title="Permanent link"></a></h4>
 <p>假設現在正在執行 <code>bar()</code>：</p>
 <ul>
@@ -8283,14 +8283,14 @@ is now available!
 <li>用 <code>Previous Frame Pointer</code> 把 <code>%ebp</code> 恢復成 <code>foo()</code> 的 frame 基準點。</li>
 </ul>
 <p>如果沒有 <code>Previous Frame Pointer</code>，回到 <code>foo()</code> 之後，CPU 可能知道「要執行 foo 的哪一行」，但不知道「foo 的 frame 基準點在哪裡」。這樣 <code>foo()</code> 裡的 local variable 和 argument 就不好穩定定位。</p>
-<hr />
+<hr/>
 <h4 id="4-生活化比喻">4. 生活化比喻<a class="headerlink" href="#4-生活化比喻" title="Permanent link"></a></h4>
 <p><code>Return Address</code> 像是：</p>
 <p>「我要回到哪個房間？」</p>
 <p><code>Previous Frame Pointer</code> 像是：</p>
 <p>「回到那個房間後，桌子的基準位置在哪裡？」</p>
 <p>只知道房間不夠，因為你還要知道桌上每個抽屜的位置，才能繼續找資料。</p>
-<hr />
+<hr/>
 <h4 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h4>
 <p><code>Previous Frame Pointer</code> 是用來保存 caller 的 <code>%ebp</code>。</p>
 <p>當目前 function 結束時：</p>
@@ -8349,7 +8349,7 @@ is now available!
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h3 id="5-多層-function-callmain--foo--bar">5. 多層 function call：<code>main()</code> → <code>foo()</code> → <code>bar()</code><a class="headerlink" href="#5-多層-function-callmain--foo--bar" title="Permanent link"></a></h3>
 <p>PDF viewer page 6 顯示 <code>main()</code> 呼叫 <code>foo()</code>，<code>foo()</code> 再呼叫 <code>bar()</code> 的 stack layout。圖中每一層 function 都有自己的 stack frame，而且 <code>Current Frame Pointer(目前 frame pointer)</code> 指向目前正在執行的那一層。</p>
 <div class="admonition danger">
@@ -8361,9 +8361,9 @@ is now available!
     C --&gt; D["目前正在執行 bar()&lt;br&gt;Current Frame Pointer 指向 bar 的 frame"]
     C -. "Previous Frame Pointer&lt;br&gt;可回到上一層" .-&gt; B
     B -. "Previous Frame Pointer&lt;br&gt;可回到上一層" .-&gt; A</code></pre>
-<p>這個概念對 buffer overflow 很重要：<br />
+<p>這個概念對 buffer overflow 很重要：<br/>
 每個 function 都像一層便當盒。你在最上層的 function 裡寫爆 buffer，不一定只壞自己的資料；如果寫超過邊界，就可能破壞這層便當盒裡控制「回上一層」的資訊。</p>
-<hr />
+<hr/>
 <h3 id="6-本頁到後面攻擊流程的關係">6. 本頁到後面攻擊流程的關係<a class="headerlink" href="#6-本頁到後面攻擊流程的關係" title="Permanent link"></a></h3>
 <p>目前我們還沒有正式進入 <code>Vulnerable Program(有漏洞的程式)</code>，所以先不要急著背 <code>badfile</code>、<code>shellcode</code>、<code>NOP sled</code> 的細節。</p>
 <p>這一輪你只要先建立以下因果鏈：</p>
@@ -8529,11 +8529,11 @@ is now available!
 </tbody>
 </table>
 <h3 id="5-常見錯法">5. 常見錯法<a class="headerlink" href="#5-常見錯法" title="Permanent link"></a></h3>
-<p>第一個常見錯法：以為 page 7 的 <code>str[400]</code> 是漏洞。<br />
+<p>第一個常見錯法：以為 page 7 的 <code>str[400]</code> 是漏洞。<br/>
 不精準。<code>str[400]</code> 接收 300 bytes 目前裝得下，真正漏洞在 page 8 的 <code>buffer[100]</code>。</p>
-<p>第二個常見錯法：以為 <code>strcpy</code> 一定危險。<br />
+<p>第二個常見錯法：以為 <code>strcpy</code> 一定危險。<br/>
 不精準。<code>strcpy</code> 的危險來自「來源資料可能比目的 buffer 大，而且沒有長度檢查」。如果來源一定很短，或改用安全長度限制，風險才會下降。</p>
-<p>第三個常見錯法：只說「buffer overflow 會發生」，但說不出資料路徑。<br />
+<p>第三個常見錯法：只說「buffer overflow 會發生」，但說不出資料路徑。<br/>
 考試要能講出完整路徑：<code>badfile → str[400] → foo(str) → buffer[100] → strcpy → overflow</code>。</p>
 <h2 id="consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎">⭐Consequences of Buffer Overflow — 覆蓋 Return Address 之後一定會攻擊成功嗎？<a class="headerlink" href="#consequences-of-buffer-overflow--覆蓋-return-address-之後一定會攻擊成功嗎" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 9 ~ PDF viewer page 10</p>
@@ -8541,10 +8541,10 @@ is now available!
 <p>前面你已經知道漏洞點是 <code>strcpy(buffer, str)</code>，它可能讓資料超過 <code>buffer[100]</code>，往 stack 上方覆蓋到 <code>Return Address(返回位址)</code>。</p>
 <p>現在 page 9 ~ 10 要回答的是：</p>
 <p>「Return Address 被覆蓋之後，CPU 真的會照攻擊者想要的方式執行嗎？」</p>
-<p>答案是：不一定。<br />
+<p>答案是：不一定。<br/>
 Buffer overflow 只是讓你有機會改到 return address；但 return address 被改成什麼，才決定後果。</p>
 <p>講義 page 9 說，如果 return address 被某個 random address(隨機位址) 覆蓋，可能導向 invalid instruction、non-existing address、access violation，或者 attacker’s code。</p>
-<hr />
+<hr/>
 <h3 id="2-覆蓋-return-address-的四種可能結果">2. 覆蓋 Return Address 的四種可能結果<a class="headerlink" href="#2-覆蓋-return-address-的四種可能結果" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8578,9 +8578,9 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tbody>
 </table>
 <p>所以這裡要修正一個很重要的觀念：</p>
-<p>Buffer overflow 成功覆蓋 return address，不代表攻擊一定成功。<br />
+<p>Buffer overflow 成功覆蓋 return address，不代表攻擊一定成功。<br/>
 它只代表「控制流程可能被改變」。如果改到錯的地方，程式可能只是 crash；如果改到攻擊者準備的 code，才可能變成 code execution(程式碼執行)。</p>
-<hr />
+<hr/>
 <h3 id="3-page-10攻擊者真正想做的是改變-cpu-下一步">3. Page 10：攻擊者真正想做的是改變 CPU 下一步<a class="headerlink" href="#3-page-10攻擊者真正想做的是改變-cpu-下一步" title="Permanent link"></a></h3>
 <p>正常情況下，function return 時 CPU 會讀取 stack 裡的 <code>Return Address</code>，回到 caller(呼叫者) 的下一行繼續執行。</p>
 <p>可以想成：</p>
@@ -8615,7 +8615,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 <p>caller(呼叫者) 就是「發出 function call 的那個函式」。</p>
 </div>
 <p>這就是 page 10 的核心：不是「buffer 裡有惡意資料」就會自動執行，而是要讓 <code>Return Address</code> 在 function return 時指到那份資料附近。講義後面會再處理 <code>badfile</code> 的結構、offset、NOP sled 等細節；現在先只掌握高層邏輯。</p>
-<hr />
+<hr/>
 <h3 id="4-用一個非操作型例子理解">4. 用一個非操作型例子理解<a class="headerlink" href="#4-用一個非操作型例子理解" title="Permanent link"></a></h3>
 <p>假設原本 <code>foo()</code> 結束後應該回到 <code>main()</code> 的下一行：</p>
 <table>
@@ -8663,9 +8663,9 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tr>
 </tbody>
 </table>
-<p>接著 <code>foo()</code> return 時，CPU 不會「記得原本該回哪裡」；它只會相信 stack 裡目前的 <code>Return Address</code>。<br />
+<p>接著 <code>foo()</code> return 時，CPU 不會「記得原本該回哪裡」；它只會相信 stack 裡目前的 <code>Return Address</code>。<br/>
 所以如果那個新位址是亂的，程式 crash；如果那個新位址剛好指到攻擊者準備的 code，才可能執行 malicious code(惡意程式碼)。</p>
-<hr />
+<hr/>
 <h3 id="5-這一輪最短考試版">5. 這一輪最短考試版<a class="headerlink" href="#5-這一輪最短考試版" title="Permanent link"></a></h3>
 <p><code>Buffer overflow</code> 可以覆蓋 stack 上的 <code>Return Address</code>。當 function returns，CPU 會根據被覆蓋後的 return address 決定下一個執行位置。如果 return address 指到 invalid instruction、non-existing address 或 forbidden memory area，程式通常會 crash 或 access violation；如果它指到 attacker’s code，則可能執行 malicious code。因此，覆蓋 return address 是控制流程攻擊的關鍵，但不保證攻擊一定成功。</p>
 <h2 id="environment-setup--為什麼這個-lab-要刻意關掉一些防護">⭐Environment Setup — 為什麼這個 Lab 要刻意關掉一些防護？<a class="headerlink" href="#environment-setup--為什麼這個-lab-要刻意關掉一些防護" title="Permanent link"></a></h2>
@@ -8838,7 +8838,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tr>
 </tbody>
 </table>
-<p>所以 offset distance 的核心意義是：<br />
+<p>所以 offset distance 的核心意義是：<br/>
 我要知道輸入資料中哪一段會覆蓋普通 buffer，哪一段會開始覆蓋 return address。</p>
 <h3 id="3-為什麼講義是-108--4--112">3. 為什麼講義是 <code>108 + 4 = 112</code>？<a class="headerlink" href="#3-為什麼講義是-108--4--112" title="Permanent link"></a></h3>
 <p>講義 page 13 的結論是：</p>
@@ -8908,7 +8908,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 <h2 id="task-b-address-of-malicious-code--return-address-要指到哪裡才有意義">⭐Task B: Address of Malicious Code — Return Address 要指到哪裡才有意義？<a class="headerlink" href="#task-b-address-of-malicious-code--return-address-要指到哪裡才有意義" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 14 ~ PDF viewer page 18</p>
 <h3 id="1-task-a-和-task-b-的差別">1. Task A 和 Task B 的差別<a class="headerlink" href="#1-task-a-和-task-b-的差別" title="Permanent link"></a></h3>
-<p>Task A 解決的是「我要在輸入的第幾個 byte 開始覆蓋 Return Address？」<br />
+<p>Task A 解決的是「我要在輸入的第幾個 byte 開始覆蓋 Return Address？」<br/>
 答案是 offset distance，例如講義中的 <code>112 bytes</code>。</p>
 <p>Task B 解決的是另一個問題：</p>
 <p>覆蓋 Return Address 之後，要讓它變成什麼位址？</p>
@@ -8946,7 +8946,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 <p>這些 bytes 被 copy 進 stack 之後，大概會落在哪個記憶體位置？</p>
 <p>這樣新的 Return Address 才有可能指到它們附近。</p>
 <h3 id="3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte">3. 為什麼不要求 Return Address 精準指到 malicious code 第一個 byte？<a class="headerlink" href="#3-為什麼不要求-return-address-精準指到-malicious-code-第一個-byte" title="Permanent link"></a></h3>
-<p>因為實際上很難精準猜中 malicious code 的第一個 byte。<br />
+<p>因為實際上很難精準猜中 malicious code 的第一個 byte。<br/>
 所以講義 page 15 引入 <code>NOP(No Operation)</code>：CPU 執行 NOP 時什麼都不做，然後繼續往下一個 instruction 前進。講義也說可以用很多 NOP instructions 填滿 badfile 的一段，並把 malicious code 放在 buffer 的後端，用來提高跳到正確位置的機率。</p>
 <p>這一大段 NOP 就叫：</p>
 <p><code>NOP sled(NOP 雪橇)</code></p>
@@ -9002,7 +9002,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tr>
 </tbody>
 </table>
-<p>其中 <code>Distance = 112</code> 的意思是：從 buffer 起點算起，112 bytes 後會碰到 Return Address 欄位。<br />
+<p>其中 <code>Distance = 112</code> 的意思是：從 buffer 起點算起，112 bytes 後會碰到 Return Address 欄位。<br/>
 <code>RT</code> 的意思是：這裡放的值會覆蓋 Return Address。講義 page 16 的圖也寫到，RT 位置的 value 會 overwrite Return Address field。</p>
 <p>重點不是背圖，而是理解這個對應關係：</p>
 <table>
@@ -9032,7 +9032,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tbody>
 </table>
 <h3 id="5-為什麼圖中會有某個-stack-位址--offset">5. 為什麼圖中會有「某個 stack 位址 + offset」？<a class="headerlink" href="#5-為什麼圖中會有某個-stack-位址--offset" title="Permanent link"></a></h3>
-<p>page 18 用 <code>某個 stack 位址 + 偏移量</code> 來說明：實際 malicious code 可能不是剛好在 buffer 的第一個 byte，而是在 buffer 後面某個位置。<br />
+<p>page 18 用 <code>某個 stack 位址 + 偏移量</code> 來說明：實際 malicious code 可能不是剛好在 buffer 的第一個 byte，而是在 buffer 後面某個位置。<br/>
 所以新的 Return Address 可能會估在「buffer 起始附近，再往後加一點」的位置，增加落到 NOP sled 或 malicious code 附近的機率。</p>
 <p>概念上可以記成：</p>
 <p><code>目標位址 ≈ buffer 附近的 stack address + 一小段 offset</code></p>
@@ -9056,7 +9056,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tbody>
 </table>
 <p>所以不要混淆：</p>
-<p><code>112</code> 是「覆蓋位置」的 offset。<br />
+<p><code>112</code> 是「覆蓋位置」的 offset。<br/>
 <code>target address + offset</code> 是「跳轉目標」的估計方式。</p>
 <h3 id="6-最短考試版">6. 最短考試版<a class="headerlink" href="#6-最短考試版" title="Permanent link"></a></h3>
 <p>Task B is to decide what address should be written into the overwritten Return Address field. The attacker does not only need the offset to the Return Address; they also need a target address that points to attacker-controlled data, such as a NOP sled or malicious code inside the buffer. A NOP sled increases the chance of success because the CPU can land anywhere in the NOP area and continue executing until it reaches the malicious code. Therefore, Task A finds where to overwrite, while Task B decides where the overwritten Return Address should jump.</p>
@@ -9074,9 +9074,9 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 <p>但我會把你的兩種版本修正成更精準的說法：</p>
 <p><strong>核心不是 shellcode 一定在 Return Address 前面或後面，而是：Return Address 裡的 target address 必須跳到某段 NOP sled，且那段 NOP sled 後面要能順著執行到 shellcode。</strong></p>
 <p>因為 CPU 執行 instruction 時，通常是往<strong>較高位址</strong>前進，所以：</p>
-<p><code>NOP sled</code> 必須在 shellcode 的前面，也就是較低位址端。<br />
+<p><code>NOP sled</code> 必須在 shellcode 的前面，也就是較低位址端。<br/>
 CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
-<hr />
+<hr/>
 <h4 id="2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址">2. 版本 A：講義這張圖的版本，shellcode 在 Return Address 後方較高位址<a class="headerlink" href="#2-版本-a講義這張圖的版本shellcode-在-return-address-後方較高位址" title="Permanent link"></a></h4>
 <p>這比較像你寫的第一種：</p>
 <div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
@@ -9117,7 +9117,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 </table>
 <p>所以這份講義圖的核心是：</p>
 <p><strong>Return Address 被 RT 覆蓋後，CPU 可能跳到 RT 後面的 NOP sled，然後往較高位址滑到 shellcode。</strong></p>
-<hr />
+<hr/>
 <h4 id="3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址">3. 版本 B：另一種常見版本，shellcode 在 Return Address 前方較低位址<a class="headerlink" href="#3-版本-b另一種常見版本shellcode-在-return-address-前方較低位址" title="Permanent link"></a></h4>
 <p>你寫的第二種概念也可以，但要改得更準一點：</p>
 <p>你寫的是：</p>
@@ -9156,7 +9156,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 </tbody>
 </table>
 <p>這是我前面簡化說「Return Address 指回較低位址 buffer / NOP sled」時比較接近的版本。</p>
-<hr />
+<hr/>
 <h4 id="4-兩種版本真正共同的規則">4. 兩種版本真正共同的規則<a class="headerlink" href="#4-兩種版本真正共同的規則" title="Permanent link"></a></h4>
 <p>不管 shellcode 放在 Return Address 前面或後面，都要符合這個規則：</p>
 <div class="highlight"><pre><span></span><code>CPU 落點 → NOP sled → shellcode
@@ -9187,7 +9187,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="5-你兩個圖的修正版">5. 你兩個圖的修正版<a class="headerlink" href="#5-你兩個圖的修正版" title="Permanent link"></a></h4>
 <p>你的第一種，修成這樣是對的：</p>
 <div class="highlight"><pre><span></span><code>較低位址 ─────────────────────────────────────────→ 較高位址
@@ -9201,7 +9201,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 | buffer begin | NOP(target landing zone) | shellcode | padding / overflow bytes | saved %ebp | Return Address / RT |
 </code></pre></div>
 <p>這是 shellcode 放在 Return Address 前方的版本。</p>
-<hr />
+<hr/>
 <h4 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h4>
 <p>你可以這樣背：</p>
 <p><strong>有兩種配置思路。講義版是把 shellcode 放在 Return Address 後方的較高位址，Return Address 跳到後方 NOP sled 再滑到 shellcode。另一種常見版是把 shellcode 放在 Return Address 前方的 buffer 區，Return Address 指回前方 NOP sled，再滑到 shellcode。共同規則是：Return Address 裡放 target address，不是 shellcode；target address 要指到 NOP sled，且 NOP sled 後面要接 shellcode。</strong></p>
@@ -9227,7 +9227,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 <li><code>buffer begin = 0xbffeae8c</code></li>
 <li><code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code></li>
 </ul>
-<p>此時就可以知道，在這份程式、這次編譯與這個 stack layout 下，<code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>。<br />
+<p>此時就可以知道，在這份程式、這次編譯與這個 stack layout 下，<code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>。<br/>
 注意：不是所有 <code>buffer[100]</code> 都一定會得到 <code>108</code>，因為 compiler 可能會加入 padding / alignment。</p>
 <h4 id="1-如何確定-return-address-欄位的位置">1. 如何確定 Return Address 欄位的位置<a class="headerlink" href="#1-如何確定-return-address-欄位的位置" title="Permanent link"></a></h4>
 <p>因為 <code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>，而 Return Address 欄位在 <code>$ebp + 4</code>，所以：</p>
@@ -9414,17 +9414,15 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7944,7 +7944,7 @@ is now available!
 <p>講義先給一個最基本的資源使用生命週期：<code>request(要求)</code>、<code>use(使用)</code>、<code>release(釋放)</code>。也就是行程不能憑空使用資源，必須先要求；拿到後才使用；用完再釋放。若要求不能立刻被允許，行程就必須等待。</p>
 <p>生活化例子：兩個人要煮飯。A 先拿鍋子，再等刀子；B 先拿刀子，再等鍋子。每個人都沒有違規，因為他們只是「拿到一個工具後，等待另一個工具」。但如果兩個人都不願意先放下手上的工具，就會卡住。</p>
 <p>這就是 Deadlock(死結) 的直覺：不是沒有人想做事，而是每個人都在等別人先釋放某個東西。</p>
-<hr />
+<hr/>
 <h3 id="2-講義的-mutex-範例相反順序拿-lock-會製造死結風險">2. 講義的 mutex 範例：相反順序拿 lock 會製造死結風險<a class="headerlink" href="#2-講義的-mutex-範例相反順序拿-lock-會製造死結風險" title="Permanent link"></a></h3>
 <p>PDF viewer page 4 給了兩個 thread 的程式片段：thread one 先鎖 <code>first_mutex</code> 再鎖 <code>second_mutex</code>；thread two 則先鎖 <code>second_mutex</code> 再鎖 <code>first_mutex</code>。</p>
 <p>最小化後，重點長這樣：</p>
@@ -7995,7 +7995,7 @@ is now available!
 </tbody>
 </table>
 <p>這個表就是 Deadlock(死結) 的最小心智模型：每個行程手上都有一部分資源，同時又在等別人手上的資源。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="3-四個必要條件死結不是單一原因而是四個條件同時成立">3. 四個必要條件：死結不是單一原因，而是四個條件同時成立<a class="headerlink" href="#3-四個必要條件死結不是單一原因而是四個條件同時成立" title="Permanent link"></a></h3>
@@ -8034,7 +8034,7 @@ is now available!
 <p>最重要的不變量是：<strong>只破壞其中一個條件，就可以防止死結形成。</strong></p>
 <p>例如：若強制所有 thread 都必須先拿 <code>first_mutex</code> 再拿 <code>second_mutex</code>，就破壞了 <code>circular wait(循環式等候)</code>。這也是後面 <code>Deadlock Prevention(死結預防)</code> 會用到的核心想法。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="4-mermaid-視覺化兩個-thread-如何互相卡住">4. Mermaid 視覺化：兩個 thread 如何互相卡住<a class="headerlink" href="#4-mermaid-視覺化兩個-thread-如何互相卡住" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart LR
     T1[thread one&lt;br&gt;已持有 first_mutex] --&gt;|等待| M2[second_mutex]
@@ -8042,12 +8042,12 @@ is now available!
     M1 --&gt;|目前被持有| T1
     M2 --&gt;|目前被持有| T2</code></pre>
 <p>讀法很簡單：箭頭如果形成「等候圈」，而且資源又不能被搶走，就會卡死。這裡不是 CPU 不夠快，也不是某個 thread 忘記工作，而是系統狀態本身形成互相等待。</p>
-<hr />
+<hr/>
 <h3 id="5-常見錯法">5. 常見錯法<a class="headerlink" href="#5-常見錯法" title="Permanent link"></a></h3>
 <p>第一個常見錯法：以為只要有等待就是死結。這不對。等待可能只是暫時的，例如 thread one 等一下 <code>second_mutex</code>，如果 thread two 很快釋放，那就不是死結。</p>
 <p>第二個常見錯法：以為只要有 mutex 就一定會死結。這也不對。mutex 只是互斥資源；真正危險的是「多個 mutex 被不同 thread 以不一致順序持有與等待」。</p>
 <p>第三個常見錯法：只背四個名詞，卻無法對照到實際情境。考試通常不是只問你列出四條，而是給你一段情境或程式，問哪些條件成立、要怎麼破壞其中一條。</p>
-<hr />
+<hr/>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
 <p>Deadlock(死結) 的最短判斷句：</p>
 <p>「有人拿著資源不放，又等別人手上的資源；資源不能被硬搶，而且等待關係形成一圈。」</p>
@@ -8066,7 +8066,7 @@ is now available!
 <li>等待關係是否形成 cycle(循環)？</li>
 </ul>
 <p>講義 page 6 定義 graph 由 vertices(頂點) 與 edges(邊) 組成，頂點分成 process set <code>P = {P1, P2, ..., Pn}</code> 與 resource set <code>R = {R1, R2, ..., Rm}</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-兩種邊request-edge要求邊-與-assignment-edge分配邊">2. 兩種邊：request edge(要求邊) 與 assignment edge(分配邊)<a class="headerlink" href="#2-兩種邊request-edge要求邊-與-assignment-edge分配邊" title="Permanent link"></a></h3>
 <p>資源配置圖最重要的是箭頭方向。</p>
 <table>
@@ -8092,13 +8092,13 @@ is now available!
 </table>
 <p>講義 page 6 直接列出：<code>request edge</code> 是 <code>Pi → Rj</code>，<code>assignment edge</code> 是 <code>Rj → Pi</code>。</p>
 <p>最短記法：</p>
-<p><code>process → resource</code>：我想要它。<br />
+<p><code>process → resource</code>：我想要它。<br/>
 <code>resource → process</code>：它已經給我了。</p>
-<hr />
+<hr/>
 <h3 id="3-instance實例一種資源可能不只一份">3. instance(實例)：一種資源可能不只一份<a class="headerlink" href="#3-instance實例一種資源可能不只一份" title="Permanent link"></a></h3>
 <p>講義 page 7 標出 <code>instance</code>，page 8 的圖中，resource 方框裡面的小黑點就是 instances(實例)。意思是：同一種 resource type 可能有多份。</p>
 <p>例如 <code>R2</code> 有兩個小黑點，代表 <code>R2</code> 有兩個 instances。這很重要，因為「有 cycle(循環)」不一定永遠代表 deadlock(死結)。如果某個 resource type 有多個 instances，cycle 可能被其他 process 釋放資源後解除。講義 page 8 右圖就是「含循環但無死結現象」的資源配置圖，因為 <code>P4</code> 可以釋放 <code>R2</code> 的 instance，之後再分配給 <code>P3</code> 以消除此循環。</p>
-<hr />
+<hr/>
 <h3 id="4-怎麼用圖判斷-deadlock-風險">4. 怎麼用圖判斷 deadlock 風險？<a class="headerlink" href="#4-怎麼用圖判斷-deadlock-風險" title="Permanent link"></a></h3>
 <p>先用一個簡化版圖來看：</p>
 <pre class="diagram"><code>flowchart LR
@@ -8109,9 +8109,9 @@ is now available!
 <p>這張圖的等待路徑是：</p>
 <p><code>P1 → R1 → P2 → R2 → P1</code></p>
 <p>這是一個 cycle(循環)。直覺上就是：</p>
-<p>P1 在等 R1，但 R1 給了 P2；P2 在等 R2，但 R2 給了 P1。<br />
+<p>P1 在等 R1，但 R1 給了 P2；P2 在等 R2，但 R2 給了 P1。<br/>
 所以 P1 等 P2，P2 又等 P1。</p>
-<hr />
+<hr/>
 <h3 id="5-cycle循環-的考試判斷規則">5. Cycle(循環) 的考試判斷規則<a class="headerlink" href="#5-cycle循環-的考試判斷規則" title="Permanent link"></a></h3>
 <p>這裡要小心，不能把「有 cycle」直接粗暴地等於「一定 deadlock」。</p>
 <table>
@@ -8137,15 +8137,15 @@ is now available!
 </tbody>
 </table>
 <p>講義 page 8 特別放了兩張圖：左圖是「含死結的資源配置圖」，右圖是「含循環但無死結現象之資源配置圖」。這正是在提醒我們：cycle 是重要警訊，但多 instance 時不能只靠 cycle 下結論。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
-<p>第一個錯法：把箭頭方向看反。<br />
+<p>第一個錯法：把箭頭方向看反。<br/>
 <code>Pi → Rj</code> 不是資源給 process，而是 process 正在要求資源。<code>Rj → Pi</code> 才是資源已分配給 process。</p>
-<p>第二個錯法：看到 cycle 就直接說 deadlock。<br />
+<p>第二個錯法：看到 cycle 就直接說 deadlock。<br/>
 如果每個 resource type 都只有一個 instance，這樣通常可以；但如果有多個 instances，就要看是否仍有 process 可以完成並釋放資源。</p>
-<p>第三個錯法：忽略 resource 方框裡的小黑點。<br />
+<p>第三個錯法：忽略 resource 方框裡的小黑點。<br/>
 小黑點代表 instance 數量，是判斷 cycle 是否必然造成 deadlock 的關鍵。</p>
-<hr />
+<hr/>
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
 <p><code>Resource-Allocation Graph(資源配置圖)</code> 的三句考試記法：</p>
 <ol>
@@ -8157,7 +8157,7 @@ is now available!
 <p>講義位置：PDF viewer page 9</p>
 <h3 id="1-這一段在解決什麼問題_2">1. 這一段在解決什麼問題？<a class="headerlink" href="#1-這一段在解決什麼問題_2" title="Permanent link"></a></h3>
 <p>前面我們已經學會兩件事：</p>
-<p>第一，deadlock(死結) 什麼時候會發生。<br />
+<p>第一，deadlock(死結) 什麼時候會發生。<br/>
 第二，怎麼用 resource-allocation graph(資源配置圖) 看出等待關係是否形成 cycle(循環)。</p>
 <p>接下來 page 9 問的是另一個層次的問題：</p>
 <p>如果系統可能發生 deadlock，作業系統到底要採取什麼政策？</p>
@@ -8192,36 +8192,36 @@ is now available!
 </table>
 <p>講義 page 9 明確列出這三種方法：可以用協議防止或避免死結、可以允許系統進入死結後偵測並恢復、也可以忽視問題並假裝沒有發生過死結。</p>
 </div>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="2-prevention預防-與-avoidance避免-的差別">2. Prevention(預防) 與 Avoidance(避免) 的差別<a class="headerlink" href="#2-prevention預防-與-avoidance避免-的差別" title="Permanent link"></a></h3>
 <p>這兩個很容易混在一起，但考試常會問比較。</p>
-<p><code>Deadlock Prevention(死結預防)</code> 的想法是：直接破壞 deadlock 的四個必要條件之一。<br />
+<p><code>Deadlock Prevention(死結預防)</code> 的想法是：直接破壞 deadlock 的四個必要條件之一。<br/>
 也就是前面學過的四條：<code>mutual exclusion(互斥)</code>、<code>hold and wait(佔用與等候)</code>、<code>no preemption(不可搶先)</code>、<code>circular wait(循環式等候)</code>。只要強制讓其中一條不成立，就不可能發生 deadlock。</p>
 <p><code>Deadlock Avoidance(死結避免)</code> 的想法比較精細：系統先知道 process 生命週期中可能需要哪些資源，然後每次 process 要求資源時，OS 判斷「現在給它，未來會不會變危險」。如果給了之後仍安全，就給；如果可能進入不安全狀態，就讓它等。講義 page 9 也說 avoidance 需要 OS 預先取得行程生命期會要求與使用哪些資源，才能決定每個 request 是否該等待。</p>
 <p>生活化例子：</p>
 <p><code>Prevention(預防)</code> 像是規定：「每個人進實驗室前，只能一次借齊所有工具，不然不能開始。」這會破壞 <code>hold and wait(佔用與等候)</code>，但可能浪費工具。</p>
 <p><code>Avoidance(避免)</code> 像是管理員每次有人借工具時，都先算一下：「如果現在借出去，剩下工具還夠不夠讓所有人最後都完成？」如果不夠，就暫時不借。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="3-detection-and-recovery偵測與恢復">3. Detection and Recovery(偵測與恢復)<a class="headerlink" href="#3-detection-and-recovery偵測與恢復" title="Permanent link"></a></h3>
 <p>第二種策略比較務實：系統可以允許 deadlock 發生，但要能偵測出來，然後做 recovery(恢復)。</p>
 <p>這表示 OS 不一定事前阻止所有危險狀態，而是定期或在需要時檢查系統是否已經 deadlock。如果真的 deadlock，就用某些方法恢復，例如終止某些 process，或回收資源。</p>
 <p>這個方法的 trade-off(取捨) 是：</p>
 <p>事前限制比較少，所以系統平常可能比較自由；但一旦 deadlock 發生，恢復成本可能很高。</p>
-<hr />
+<hr/>
 <h3 id="4-ignore-the-problem忽視問題">4. Ignore the problem(忽視問題)<a class="headerlink" href="#4-ignore-the-problem忽視問題" title="Permanent link"></a></h3>
 <p>第三種策略看起來很奇怪：假裝系統沒有發生 deadlock。</p>
 <p>但它反映的是工程取捨：如果 deadlock 很少發生，而處理 deadlock 的成本很高，系統可能選擇不特別處理。某些一般用途系統可能寧可讓使用者或管理員手動處理，例如重啟程式或重開機。</p>
 <p>這不是說 deadlock 不存在，而是系統設計上選擇不花成本處理。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
 <p>三種處理 deadlock 的方法可以這樣背：</p>
-<p><code>Prevention/Avoidance</code>：事前不要讓 deadlock 發生。<br />
-<code>Detection/Recovery</code>：事後發現 deadlock，再處理。<br />
+<p><code>Prevention/Avoidance</code>：事前不要讓 deadlock 發生。<br/>
+<code>Detection/Recovery</code>：事後發現 deadlock，再處理。<br/>
 <code>Ignore</code>：不處理，假裝它不會發生。</p>
 </div>
 <p>英文考試版：</p>
@@ -8259,16 +8259,16 @@ is now available!
 <p><code>Deadlock Prevention(預防死結)</code> 的核心原理很簡單：</p>
 <p>只要 deadlock 必須四個條件同時成立，那我們就設計規則，故意讓至少一個條件永遠不成立。</p>
 <p>講義 page 10 說 7.4 的目標就是「想辦法破壞形成 deadlock 的四個條件」，並分別討論 <code>mutual exclusion</code>、<code>hold and wait</code>、<code>no preemption</code>；page 11 接著討論 <code>circular wait</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-破壞-mutual-exclusion互斥通常很難">2. 破壞 Mutual Exclusion(互斥)：通常很難<a class="headerlink" href="#2-破壞-mutual-exclusion互斥通常很難" title="Permanent link"></a></h3>
 <p><code>Mutual Exclusion(互斥)</code> 是說某些資源不能同時給多人使用。</p>
 <p>例如：</p>
-<p>印表機一次只能真正印一份工作。<br />
-mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
+<p>印表機一次只能真正印一份工作。<br/>
+mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br/>
 某些硬體裝置一次只能服務一個 process。</p>
 <p>如果資源本來就是 <code>nonsharable resource(不可共用資源)</code>，那 mutual exclusion 幾乎無法破壞。你不能硬說「這台印表機同時印十個人的文件」，因為實體上做不到。</p>
 <p>所以這一條常常不是最好下手的地方。</p>
-<hr />
+<hr/>
 <h3 id="3-破壞-hold-and-wait佔用與等候不要讓-process-邊拿邊等">3. 破壞 Hold and Wait(佔用與等候)：不要讓 process 邊拿邊等<a class="headerlink" href="#3-破壞-hold-and-wait佔用與等候不要讓-process-邊拿邊等" title="Permanent link"></a></h3>
 <p><code>Hold and Wait(佔用與等候)</code> 的危險是：</p>
 <p>process 手上已經拿著一些資源，然後又去等別的資源。</p>
@@ -8296,10 +8296,10 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </tbody>
 </table>
 <p>缺點也很明顯：</p>
-<p>資源利用率低，因為 process 可能很早就拿走一堆暫時用不到的資源。<br />
+<p>資源利用率低，因為 process 可能很早就拿走一堆暫時用不到的資源。<br/>
 可能 starvation(飢餓)，因為某個 process 一直等不到「全部資源同時可用」的時機。</p>
 <p>講義 page 10 也列出 <code>hold and wait</code> 的預防方式：要求 process 在請求資源時不可佔用其他資源，並指出缺點是資源利用率低且可能 starvation。</p>
-<hr />
+<hr/>
 <h3 id="4-破壞-no-preemption不可搶先拿不到新資源就先吐回舊資源">4. 破壞 No Preemption(不可搶先)：拿不到新資源，就先吐回舊資源<a class="headerlink" href="#4-破壞-no-preemption不可搶先拿不到新資源就先吐回舊資源" title="Permanent link"></a></h3>
 <p><code>No Preemption(不可搶先)</code> 是說：</p>
 <p>資源不能被 OS 強制拿回來，只能等 process 自己用完後釋放。</p>
@@ -8309,7 +8309,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p>你已經拿著剪刀，現在想借膠水，但膠水借不到。規則要求你不能繼續拿著剪刀乾等，而是要先把剪刀放回去。等到剪刀和膠水都能重新取得時，再繼續做事。</p>
 <p>這可以減少「我拿著你要的，你拿著我要的」的僵局。</p>
 <p>但它不適用所有資源。像 CPU register(暫存器)、memory state(記憶體狀態) 這類可以儲存與恢復的東西比較可能處理；但印表機印到一半，通常不能很漂亮地「搶先收回」。</p>
-<hr />
+<hr/>
 <h3 id="5-破壞-circular-wait循環式等候資源排序只能照順序申請">5. 破壞 Circular Wait(循環式等候)：資源排序，只能照順序申請<a class="headerlink" href="#5-破壞-circular-wait循環式等候資源排序只能照順序申請" title="Permanent link"></a></h3>
 <p><code>Circular Wait(循環式等候)</code> 是最常見、也最考試友善的預防方法。</p>
 <p>做法是：</p>
@@ -8339,10 +8339,10 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </table>
 <p>那 process 可以先要求 <code>R1</code> 再要求 <code>R2</code>，也可以先要求 <code>R2</code> 再要求 <code>R3</code>，但不能已經拿著 <code>R3</code> 又回頭要求 <code>R1</code>。</p>
 <p>為什麼這能防止 cycle？</p>
-<p>因為 cycle 的本質是「繞一圈回到起點」。<br />
+<p>因為 cycle 的本質是「繞一圈回到起點」。<br/>
 但如果所有 request 都只能往資源編號越來越大的方向走，就不可能繞回較小的資源編號，因此不會形成 circular wait。</p>
 <p>講義 page 11 明確說：為了確保 circular wait 條件不成立，可以對所有資源做總排序，並要求每個 process 以遞增順序請求資源。</p>
-<hr />
+<hr/>
 <h3 id="6-四種-prevention-方法的考試整理">6. 四種 prevention 方法的考試整理<a class="headerlink" href="#6-四種-prevention-方法的考試整理" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8376,9 +8376,9 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><code>Prevention(預防)</code> = 破壞四條件之一。<br />
+<p><code>Prevention(預防)</code> = 破壞四條件之一。<br/>
 其中考試最常問的直覺是：</p>
-<p><code>Hold and wait</code>：不要邊拿邊等。<br />
+<p><code>Hold and wait</code>：不要邊拿邊等。<br/>
 <code>Circular wait</code>：資源排序，不准繞圈。</p>
 <h3 id="hold-and-wait佔用與等候-和-no-preemption不可搶先-預防方式有差嗎">Hold and Wait(佔用與等候) 和 No Preemption(不可搶先) 預防方式有差嗎？<a class="headerlink" href="#hold-and-wait佔用與等候-和-no-preemption不可搶先-預防方式有差嗎" title="Permanent link"></a></h3>
 <div class="admonition danger">
@@ -8424,7 +8424,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p>「如果我現在把資源給你，未來是否還有一條安全路徑，讓所有 process 都能完成？」</p>
 <p>所以 <code>Safe State(安全狀態)</code> 的核心不是「現在有沒有卡住」，而是「從現在開始，有沒有一個完成順序，可以讓所有 process 都跑完」。講義在 page 12 定義：系統能以某種順序分配資源給各行程且仍能避免死結，就稱為 safe state。</p>
 <p>生活化例子：假設我們有一間實驗室，只有 12 台儀器。每個學生目前借了一些儀器，未來還可能需要更多。老師要判斷「現在再借出去一台」會不會讓大家最後都卡住。不是看現在誰有沒有儀器，而是看有沒有一種順序：先讓某個需求少的人完成並歸還，接著下一個人完成，再下一個人完成。</p>
-<hr />
+<hr/>
 <h3 id="2-safe-sequence安全序列-是什麼">2. Safe Sequence(安全序列) 是什麼？<a class="headerlink" href="#2-safe-sequence安全序列-是什麼" title="Permanent link"></a></h3>
 <p><code>Safe sequence(安全序列)</code> 是一個 process 完成順序：</p>
 <p><code>&lt;P1, P0, P2&gt;</code></p>
@@ -8445,7 +8445,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
     E --&gt; B
     B --&gt; F["所有 process 都能完成&lt;br&gt;=&gt; safe state(安全狀態)"]
     B --&gt; G["找不到任何可完成 process&lt;br&gt;=&gt; unsafe state(不安全狀態)"]</code></pre>
-<hr />
+<hr/>
 <h3 id="3-講義-page-14-的直覺例子">3. 講義 page 14 的直覺例子<a class="headerlink" href="#3-講義-page-14-的直覺例子" title="Permanent link"></a></h3>
 <p>講義例子如下：</p>
 <table>
@@ -8517,14 +8517,14 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p>所以 safe sequence 是：</p>
 <p><code>&lt;P1, P0, P2&gt;</code></p>
 <p>因此這是 <code>safe state(安全狀態)</code>。講義 page 14 也用同一個 sequence <code>&lt;P1, P0, P2&gt;</code> 作為 safe example。</p>
-<hr />
+<hr/>
 <h3 id="4-unsafe-state不安全狀態-不等於現在已經-deadlock">4. Unsafe State(不安全狀態) 不等於「現在已經 deadlock」<a class="headerlink" href="#4-unsafe-state不安全狀態-不等於現在已經-deadlock" title="Permanent link"></a></h3>
 <p>這裡很容易混淆：</p>
-<p><code>Deadlock(死結)</code>：現在已經卡住。<br />
+<p><code>Deadlock(死結)</code>：現在已經卡住。<br/>
 <code>Unsafe state(不安全狀態)</code>：現在不一定卡住，但如果繼續照某些請求分配，可能走到 deadlock。</p>
 <p>所以 <code>unsafe</code> 比 <code>deadlock</code> 更早警告。它像是開車看到前面路越來越窄：車還沒撞上，但如果繼續開，就可能卡死。</p>
 <p>講義 page 14 的 unsafe 例子是：如果在某時刻把額外一台 tape drive 分給 <code>P2</code>，狀態會變成 unsafe，講義直接標註該請求是 mistake。</p>
-<hr />
+<hr/>
 <h3 id="5-最短記法_1">5. 最短記法<a class="headerlink" href="#5-最短記法_1" title="Permanent link"></a></h3>
 <p>考試遇到 <code>safe state</code> 題，直接照這四步：</p>
 <ol>
@@ -8543,14 +8543,14 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </div>
 <h2 id="resource-allocation-graph-algorithm--單一資源實例時怎麼避免系統走進不安全的循環">⭐Resource-Allocation Graph Algorithm — 單一資源實例時，怎麼避免系統走進不安全的循環？<a class="headerlink" href="#resource-allocation-graph-algorithm--單一資源實例時怎麼避免系統走進不安全的循環" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 15</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch7.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch7.png"/></p>
 <h3 id="1-這個演算法在解決什麼問題">1. 這個演算法在解決什麼問題？<a class="headerlink" href="#1-這個演算法在解決什麼問題" title="Permanent link"></a></h3>
 <p>前面我們已經知道：在 <code>Resource-Allocation Graph(資源配置圖)</code> 裡，如果每種資源都只有一個 instance(實例)，只要出現 cycle(循環)，就會形成 deadlock。</p>
 <p>但 <code>Deadlock Avoidance(死結避免)</code> 想做的事情不是「等死結出現再處理」，而是在 process 要資源的那一刻先問：</p>
 <p>這個 request 如果現在答應，會不會讓圖形成 cycle？</p>
 <p>如果會，就先不給；如果不會，才給。</p>
 <p>講義這頁的核心規則是：只有當把 <code>request edge(請求邊)</code> 轉成 <code>assignment edge(分配邊)</code> 不會造成 cycle 時，才可以同意該 request。</p>
-<hr />
+<hr/>
 <h3 id="2-三種-edge邊-的意義">2. 三種 edge(邊) 的意義<a class="headerlink" href="#2-三種-edge邊-的意義" title="Permanent link"></a></h3>
 <p><code>Claim edge(聲明邊)</code>：<code>Pi → Rj</code></p>
 <p>意思是：<code>Pi</code> 未來「可能會」請求 <code>Rj</code>。它通常用虛線表示。這不是現在正在等，只是先聲明最大可能需求。講義說 <code>claim edge Pi → Rj</code> 表示 process <code>Pi</code> 可能請求 resource <code>Rj</code>。</p>
@@ -8558,7 +8558,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p>意思是：<code>Pi</code> 現在真的在請求 <code>Rj</code>，但還沒有拿到。</p>
 <p><code>Assignment edge(分配邊)</code>：<code>Rj → Pi</code></p>
 <p>意思是：<code>Rj</code> 已經分配給 <code>Pi</code>，也就是 <code>Pi</code> 目前正在持有這個資源。</p>
-<hr />
+<hr/>
 <h3 id="3-edge-轉換流程">3. Edge 轉換流程<a class="headerlink" href="#3-edge-轉換流程" title="Permanent link"></a></h3>
 <p>流程是這樣：</p>
 <pre class="diagram"><code>flowchart LR
@@ -8567,12 +8567,12 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
     C --&gt;|不會| D["assignment edge(分配邊)&lt;br&gt;同意請求，Rj 分配給 Pi"]
     C --&gt;|會| E["Pi 必須等待&lt;br&gt;暫時不能分配 Rj"]</code></pre>
 <p>用生活化例子看：你可以把資源想成實驗室器材。<code>claim edge(聲明邊)</code> 像是學生先登記「我這學期可能會用顯微鏡」；<code>request edge(請求邊)</code> 是他現在真的來借；<code>assignment edge(分配邊)</code> 是器材已經借給他。管理員在借出去前要先檢查：借出去後會不會造成大家互相等器材，最後沒人能完成實驗。</p>
-<hr />
+<hr/>
 <h3 id="4-為什麼這只適合每種-resource-type-只有一個-instance">4. 為什麼這只適合「每種 resource type 只有一個 instance」？<a class="headerlink" href="#4-為什麼這只適合每種-resource-type-只有一個-instance" title="Permanent link"></a></h3>
 <p>這點很重要。</p>
 <p><code>Resource-Allocation Graph Algorithm(資源配置圖演算法)</code> 的 cycle 檢查在「每種 resource type 只有一個 instance」時很直覺：有 cycle 就代表互相卡住。</p>
 <p>但如果一種 resource 有多個 instances，圖上有 cycle 不一定等於 deadlock，因為可能有其他 instance 之後會釋放出來。這就是為什麼下一個主線會進入 <code>Banker’s Algorithm(銀行家演算法)</code>：它處理的是每種資源可以有多個 instances 的情況。講義後續也接著列出 Banker’s Algorithm 的特性，例如每個資源有多個 instances、每個 process 必須事先聲明最大使用量。</p>
-<hr />
+<hr/>
 <h3 id="5-最短記法_2">5. 最短記法<a class="headerlink" href="#5-最短記法_2" title="Permanent link"></a></h3>
 <p><code>Claim edge</code>：未來可能要。</p>
 <p><code>Request edge</code>：現在正在要。</p>
@@ -8582,10 +8582,10 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p>講義位置：PDF viewer page 16 ~ PDF viewer page 25</p>
 <h3 id="1-這個演算法在解決什麼問題_1">1. 這個演算法在解決什麼問題？<a class="headerlink" href="#1-這個演算法在解決什麼問題_1" title="Permanent link"></a></h3>
 <p>前面 <code>Resource-Allocation Graph Algorithm(資源配置圖演算法)</code> 適合每種資源只有一個 instance(實例) 的情況；但真實系統常常是「同一種資源有多個 instance」，例如有 10 台 tape drive、5 個印表機、7 個某類 I/O 裝置。</p>
-<p><code>Banker’s Algorithm(銀行家演算法)</code> 的核心想法像銀行借錢：<br />
+<p><code>Banker’s Algorithm(銀行家演算法)</code> 的核心想法像銀行借錢：<br/>
 銀行不是只看「現在有沒有錢借你」，還要看「借你之後，我是否還能讓所有客戶在某種順序下都完成需求」。作業系統也是一樣，不只檢查 <code>Available(目前可用資源)</code> 夠不夠，還要檢查「假裝分配後是否仍是 <code>safe state(安全狀態)</code>」。</p>
 <p>講義 p16 說明它的前提：每種資源可以有多個 instances、每個 process 必須事先聲明最大需求量、請求資源時可能必須等待、取得所有資源後要在有限時間內完成並釋放資源。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="2-四個資料結構availablemaxallocationneed">2. 四個資料結構：Available、Max、Allocation、Need<a class="headerlink" href="#2-四個資料結構availablemaxallocationneed" title="Permanent link"></a></h3>
@@ -8623,11 +8623,11 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </table>
 <p>最重要的不變量是：</p>
 <p><code>Need = Max - Allocation</code></p>
-<p>這句話的生活化意思是：<br />
+<p>這句話的生活化意思是：<br/>
 某 process 最多可能要 7 個 A，現在已經拿了 2 個 A，那它最多還可能再要 5 個 A。</p>
 <p>講義 p17 正是用這四個資料結構定義 Banker’s Algorithm 的輸入狀態。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="3-safety-algorithm判斷目前狀態是不是-safe-state">3. Safety Algorithm：判斷目前狀態是不是 safe state<a class="headerlink" href="#3-safety-algorithm判斷目前狀態是不是-safe-state" title="Permanent link"></a></h3>
 <p><code>Safety Algorithm(安全性演算法)</code> 的問題是：</p>
 <p>「照現在的資源狀態，有沒有一種 process 完成順序，可以讓全部 process 都跑完？」</p>
@@ -8640,10 +8640,10 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
     B -- "找不到" --&gt; D{"所有 Finish[i] 都是 true？"}
     D -- "是" --&gt; E["safe state(安全狀態)&lt;br&gt;存在 safe sequence(安全序列)"]
     D -- "否" --&gt; F["unsafe state(不安全狀態)&lt;br&gt;無法保證全部完成"]</code></pre>
-<p>這裡的 <code>Work</code> 可以想成「目前手上可用資源，加上已完成 process 歸還的資源」。<br />
+<p>這裡的 <code>Work</code> 可以想成「目前手上可用資源，加上已完成 process 歸還的資源」。<br/>
 每完成一個 process，就把它原本持有的 <code>Allocation_i</code> 加回來，代表它釋放資源。</p>
 <p>講義 p18 的 Safety Algorithm 就是這個流程：初始化 <code>Work = Available</code>，找 <code>Need_i &lt;= Work</code> 且未完成的 process，完成後把 <code>Allocation_i</code> 加回 <code>Work</code>，最後若所有 <code>Finish[i]</code> 都是 true，系統就是 safe state。</p>
-<hr />
+<hr/>
 <h3 id="4-resource-request-algorithm某次請求能不能立刻同意">4. Resource-Request Algorithm：某次請求能不能立刻同意？<a class="headerlink" href="#4-resource-request-algorithm某次請求能不能立刻同意" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -8676,7 +8676,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </tbody>
 </table>
 <p><mark>注意！是小於等於</mark></p>
-<p>第三層最容易考：<br />
+<p>第三層最容易考：<br/>
 不是 <code>Available</code> 夠就一定可以給。還要「假裝先給它」，更新三個東西：</p>
 <table>
 <thead>
@@ -8701,25 +8701,25 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </tbody>
 </table>
 <p><mark>也就是兩個檢查的被減(Need、Available)，Allocation 被加</mark></p>
-<p>然後再跑 <code>Safety Algorithm</code>。<br />
+<p>然後再跑 <code>Safety Algorithm</code>。<br/>
 如果 safe，才真的分配；如果 unsafe，就讓 process 等待，並把舊狀態復原。</p>
 <p>講義 p19 正是這樣定義：若 request 沒超過 need、目前 available 也夠，就先 pretend to allocate；若 safe 才配置，若 unsafe 則 process must wait，並恢復舊狀態。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="5-常見錯法_1">5. 常見錯法<a class="headerlink" href="#5-常見錯法_1" title="Permanent link"></a></h3>
-<p>第一個錯法：只看 <code>Request &lt;= Available</code> 就說可以給。<br />
+<p>第一個錯法：只看 <code>Request &lt;= Available</code> 就說可以給。<br/>
 這不夠，因為 Banker’s Algorithm 還要檢查「給了之後是否仍 safe」。</p>
-<p>第二個錯法：把 <code>unsafe state</code> 直接等於 <code>deadlock</code>。<br />
+<p>第二個錯法：把 <code>unsafe state</code> 直接等於 <code>deadlock</code>。<br/>
 <code>unsafe state</code> 是「不能保證安全完成」，可能導致 deadlock；<code>deadlock</code> 是「現在已經卡住」。</p>
-<p>第三個錯法：Safety Algorithm 中忘記把完成 process 的 <code>Allocation</code> 加回 <code>Work</code>。<br />
+<p>第三個錯法：Safety Algorithm 中忘記把完成 process 的 <code>Allocation</code> 加回 <code>Work</code>。<br/>
 這會讓你誤判很多 safe state 為 unsafe state。</p>
-<p>第四個錯法：算 <code>Need</code> 時方向寫反。<br />
+<p>第四個錯法：算 <code>Need</code> 時方向寫反。<br/>
 永遠是 <code>Need = Max - Allocation</code>，不是 <code>Allocation - Max</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
-<p>判斷目前狀態是否 safe：<br />
+<p>判斷目前狀態是否 safe：<br/>
 算 <code>Need = Max - Allocation</code>，找 <code>Need_i &lt;= Work</code> 的 process，完成它，<code>Work += Allocation_i</code>，重複直到所有 process 完成；若能完成全部，就是 safe。</p>
-<p>判斷某次 request 可不可以 grant：<br />
+<p>判斷某次 request 可不可以 grant：<br/>
 先檢查 <code>Request &lt;= Need</code>，再檢查 <code>Request &lt;= Available</code>，再假裝分配並跑 Safety Algorithm；safe 才 grant，unsafe 就 wait 並 restore old state。</p>
 <h2 id="bankers-algorithm-的系統變動題--系統資料變了怎麼判斷還安不安全">⭐Banker’s Algorithm 的系統變動題 — 系統資料變了，怎麼判斷還安不安全？<a class="headerlink" href="#bankers-algorithm-的系統變動題--系統資料變了怎麼判斷還安不安全" title="Permanent link"></a></h2>
 <p>講義位置：講義_chapter 7_20240505.pdf／PDF viewer page 16～19；考古題位置：期末考古_108／Q8／source page 3</p>
@@ -8754,7 +8754,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </table>
 <p>只要某個變動讓系統「資源更多」或「未來需求更少」，它通常不會讓原本 safe 的狀態變壞。</p>
 <p>只要某個變動讓系統「資源更少」或「未來需求更多」，它可能讓原本 safe 的狀態變成 unsafe，所以必須重新跑 Safety Algorithm。</p>
-<hr />
+<hr/>
 <h3 id="2-最核心的不變量safe-state-只在乎能不能排出一條完成順序">2. 最核心的不變量：safe state 只在乎「能不能排出一條完成順序」<a class="headerlink" href="#2-最核心的不變量safe-state-只在乎能不能排出一條完成順序" title="Permanent link"></a></h3>
 <p>Q8 的每一小題都可以用同一個規則判斷：</p>
 <blockquote>
@@ -8762,7 +8762,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 </blockquote>
 <p>如果答案一定是「原本的 safe sequence 還能用，甚至更容易完成」，那就可以安全地做。</p>
 <p>如果答案是「原本的 safe sequence 可能失效」，那就不能無條件說安全，必須重新跑 Safety Algorithm。</p>
-<hr />
+<hr/>
 <h3 id="3-單調變好-vs-單調變壞">3. 單調變好 vs 單調變壞<a class="headerlink" href="#3-單調變好-vs-單調變壞" title="Permanent link"></a></h3>
 <p>這題最好用 <code>monotonicity(單調性)</code> 來想。</p>
 <p><code>Available</code> 變大：Work 起點變大，原本做得到的 sequence 仍然做得到。</p>
@@ -8771,7 +8771,7 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p><code>Need</code> 變大：某 process 變得更難滿足，原本 safe sequence 可能卡住。</p>
 <p>新增 process：多了一個需要被完成的對象，可能卡住。</p>
 <p>移除 process：少了一個需要被完成的對象，通常只會更容易；若移除時也釋放它持有的資源，會更安全。</p>
-<hr />
+<hr/>
 <h3 id="4-判斷流程圖">4. 判斷流程圖<a class="headerlink" href="#4-判斷流程圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A[系統狀態發生改變] --&gt; B{改變方向是什麼？}
@@ -8786,13 +8786,13 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
     H --&gt; I{改完後仍 safe？}
     I --&gt;|是| J[可安全接受]
     I --&gt;|否| K[不可接受或必須等待／調整]</code></pre>
-<hr />
+<hr/>
 <h3 id="5-非題目型示範">5. 非題目型示範<a class="headerlink" href="#5-非題目型示範" title="Permanent link"></a></h3>
 <p>假設原本有一個 safe sequence：</p>
 <p><code>&lt;P1, P3, P0&gt;</code></p>
 <p>如果現在只是「多買了 2 台印表機」，也就是 <code>Available</code> 增加，那 <code>&lt;P1, P3, P0&gt;</code> 原本就能跑，現在資源更多，當然還是能跑。</p>
 <p>但如果現在「壞掉 2 台印表機」，也就是 <code>Available</code> 減少，那原本第一個可以完成的 <code>P1</code> 可能突然不夠資源，所以不能直接說安全。這時候一定要重新跑 Safety Algorithm。</p>
-<hr />
+<hr/>
 <h3 id="6-考試最短記法">6. 考試最短記法<a class="headerlink" href="#6-考試最短記法" title="Permanent link"></a></h3>
 <p>遇到 Q8 這類題，不要直接背六條，而是先分成兩類：</p>
 <table>
@@ -8821,21 +8821,21 @@ mutex lock(互斥鎖) 一次只能被一個 thread 持有。<br />
 <p class="admonition-title">Danger</p>
 <h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
 <p>For each of the following changes in a system controlled by the Banker’s Algorithm, state whether it can be made safely. If it is always safe, explain why. If it is only conditionally safe, state the condition.</p>
-<p>a. Increase Available because new resources are added.<br />
-b. Decrease Available because some resources are permanently removed from the system.<br />
-c. Increase Max for one process because the process wants more resources than originally declared.<br />
-d. Decrease Max for one process because the process decides it does not need as many resources.<br />
-e. Increase the number of processes.<br />
+<p>a. Increase Available because new resources are added.<br/>
+b. Decrease Available because some resources are permanently removed from the system.<br/>
+c. Increase Max for one process because the process wants more resources than originally declared.<br/>
+d. Decrease Max for one process because the process decides it does not need as many resources.<br/>
+e. Increase the number of processes.<br/>
 f. Decrease the number of processes.</p>
 <p><mark>Me:</mark></p>
-<p>a.永遠安全，因為增加資源只會變得更安全。<br />
-b.有條件的安全，減少資源不能確保還是可以處於 safe state。<br />
-c.有條件的安全，增加 max 等同於增加 need，不能確保還是可以處於 safe state。<br />
-d.永遠安全，因為減少 max 代表會減少 need ，會變得更安全。<br />
-e.有條件的安全，增加的 process 可能 need 超過 available，所以不能確保還是可以處於 safe state。<br />
+<p>a.永遠安全，因為增加資源只會變得更安全。<br/>
+b.有條件的安全，減少資源不能確保還是可以處於 safe state。<br/>
+c.有條件的安全，增加 max 等同於增加 need，不能確保還是可以處於 safe state。<br/>
+d.永遠安全，因為減少 max 代表會減少 need ，會變得更安全。<br/>
+e.有條件的安全，增加的 process 可能 need 超過 available，所以不能確保還是可以處於 safe state。<br/>
 f.有條件的安全，減少 process 可能會因為減少釋放 allocation 導致無法執行完，所以不能確保還是可以處於 safe state。</p>
-<p><mark>ANS:</mark><br />
-f 的寫錯，他是永遠安全，如果沒有這個 process ，他的 allocation 會被歸還給系統，所以一定可以。<br />
+<p><mark>ANS:</mark><br/>
+f 的寫錯，他是永遠安全，如果沒有這個 process ，他的 allocation 會被歸還給系統，所以一定可以。<br/>
 畢竟 allocation 是"持有"，他只是拿走了資源</p>
 <p><mark>參考</mark></p>
 <table>
@@ -8985,19 +8985,19 @@ f 的寫錯，他是永遠安全，如果沒有這個 process ，他的 allocati
 </tbody>
 </table>
 <p>Available = {3 3 2 1}</p>
-<p>P0:{2 2 1 1}&lt;={3 3 2 1} -&gt; {3 3 2 1}+{2 0 0 1} = {5 3 2 2}<br />
-P3:{0 1 1 2}&lt;={5 3 2 2} -&gt; {5 3 2 2}+{1 3 1 2} = {6 6 3 4}<br />
-P1:{2 1 3 1}&lt;={6 6 3 4} -&gt; {6 6 3 4}+{3 1 2 1} = {9 7 5 5}<br />
-P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br />
+<p>P0:{2 2 1 1}&lt;={3 3 2 1} -&gt; {3 3 2 1}+{2 0 0 1} = {5 3 2 2}<br/>
+P3:{0 1 1 2}&lt;={5 3 2 2} -&gt; {5 3 2 2}+{1 3 1 2} = {6 6 3 4}<br/>
+P1:{2 1 3 1}&lt;={6 6 3 4} -&gt; {6 6 3 4}+{3 1 2 1} = {9 7 5 5}<br/>
+P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br/>
 P4:{2 2 3 3}&lt;={11 8 5 8} -&gt; {11 8 5 8}+{1 4 3 2} = {12 12 8 10}</p>
 <p>是 safe state，safe sequence = <code>&lt;P0,P3,P1,P2,P4&gt;</code></p>
-<hr />
+<hr/>
 <ol>
 <li>P1-request {1 1 0 0} &lt;  P1-need {2 1 3 1}</li>
 <li>P1-request {1 1 0 0} &lt;  Available {3 3 2 1}</li>
 </ol>
-<p>P1-need = {2 1 3 1} - {1 1 0 0} = {1 0 3 1}         //先改兩個剛剛小於等於的(小於等於才能減)<br />
-Available = {3 3 2 1} - {1 1 0 0} = {2 2 2 1}       //先改兩個剛剛小於等於的(小於等於才能減)<br />
+<p>P1-need = {2 1 3 1} - {1 1 0 0} = {1 0 3 1}         //先改兩個剛剛小於等於的(小於等於才能減)<br/>
+Available = {3 3 2 1} - {1 1 0 0} = {2 2 2 1}       //先改兩個剛剛小於等於的(小於等於才能減)<br/>
 P1-Allocation = {3 1 2 1} + {1 1 0 0} = {4 2 2 1}   //再改加上的</p>
 <table>
 <thead>
@@ -9042,19 +9042,19 @@ P1-Allocation = {3 1 2 1} + {1 1 0 0} = {4 2 2 1}   //再改加上的</p>
 </tbody>
 </table>
 <p>Available = {2 2 2 1}</p>
-<p>P0:{2 2 1 1}&lt;={2 2 2 1} -&gt; {2 2 2 1}+{2 0 0 1} = {4 2 2 2}<br />
-P3:{0 1 1 2}&lt;={4 2 2 2} -&gt; {4 2 2 2}+{1 3 1 2} = {5 5 3 4}<br />
-P1:{1 0 3 1}&lt;={5 5 3 4} -&gt; {5 5 3 4}+{4 2 2 1} = {9 7 5 5}       //改的是 P1，所以 P1 之後的計算會長的一模一樣<br />
-P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br />
+<p>P0:{2 2 1 1}&lt;={2 2 2 1} -&gt; {2 2 2 1}+{2 0 0 1} = {4 2 2 2}<br/>
+P3:{0 1 1 2}&lt;={4 2 2 2} -&gt; {4 2 2 2}+{1 3 1 2} = {5 5 3 4}<br/>
+P1:{1 0 3 1}&lt;={5 5 3 4} -&gt; {5 5 3 4}+{4 2 2 1} = {9 7 5 5}       //改的是 P1，所以 P1 之後的計算會長的一模一樣<br/>
+P2:{0 2 1 3}&lt;={9 7 5 5} -&gt; {9 7 5 5}+{2 1 0 3} = {11 8 5 8}<br/>
 P4:{2 2 3 3}&lt;={11 8 5 8} -&gt; {11 8 5 8}+{1 4 3 2} = {12 12 8 10}</p>
 <p>允許請求，因為是 safe state，safe sequence = <code>&lt;P0,P3,P1,P2,P4&gt;</code></p>
-<hr />
+<hr/>
 <ol>
 <li>P4-request {0 0 2 0} &lt; P4-need {2 2 3 3}</li>
 <li>P4-request {0 0 2 0} &lt; Available {3 3 2 1}</li>
 </ol>
-<p>P4-need = {2 2 3 3}-{0 0 2 0} = {2 2 1 3}<br />
-Available = {3 3 2 1}-{0 0 2 0} = {3 3 0 1}<br />
+<p>P4-need = {2 2 3 3}-{0 0 2 0} = {2 2 1 3}<br/>
+Available = {3 3 2 1}-{0 0 2 0} = {3 3 0 1}<br/>
 P4-Allocation = {1 4 3 2}+{0 0 2 0} = {1 4 5 2}</p>
 <table>
 <thead>
@@ -9236,17 +9236,15 @@ P4-Allocation = {1 4 3 2}+{0 0 2 0} = {1 4 5 2}</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

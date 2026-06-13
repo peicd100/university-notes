@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6413,7 +6413,7 @@ is now available!
 
 <h1 id="直接相加的-adder">直接相加的 adder<a class="headerlink" href="#直接相加的-adder" title="Permanent link"></a></h1>
 <p>題目：<a href="https://hdlbits.01xz.net/wiki/Exams/m2014_q4j">https://hdlbits.01xz.net/wiki/Exams/m2014_q4j</a></p>
-<p><img alt="alt text" src="images/adder.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/adder.png"/></p>
 <p>這題會怎麼寫？</p>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
@@ -6424,7 +6424,7 @@ is now available!
 <span class="w">    </span>
 <span class="w">    </span><span class="k">genvar</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="w">    </span>
-<span class="w">    </span><span class="n">full_adder</span><span class="w"> </span><span class="n">g1</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="n">cout</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">sum</span><span class="p">[</span><span class="mh">0</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">full_adder</span><span class="w"> </span><span class="n">g1</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="n">cout</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="n">sum</span><span class="p">[</span><span class="mh">0</span><span class="p">]);</span>
 <span class="w">    </span><span class="k">generate</span>
 <span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mh">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="mh">3</span><span class="p">;</span><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span><span class="k">begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">g</span>
 <span class="w">            </span><span class="n">full_adder</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">cout</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">],</span><span class="n">cout</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">sum</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
@@ -6452,12 +6452,12 @@ is now available!
 <span class="k">endmodule</span>
 </code></pre></div>
 <p>第二種超快，為何可以這樣呢？</p>
-<p>這題：<br />
+<p>這題：<br/>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-</code></pre></div><br />
-實際上你可以把它腦中展開成：<br />
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">};</span>
-</code></pre></div><br />
+</code></pre></div><br/>
+實際上你可以把它腦中展開成：<br/>
+<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">};</span>
+</code></pre></div><br/>
 因為 sum 是 5-bit，而 x、y 都是預設 unsigned(無號) 的 4-bit 向量，所以在這個 assignment context 裡，它們會先做 zero-extension(補 0 擴位) 成 5-bit，再做加法。也就是說，這行不是在做「4-bit 加法再塞進 5-bit」，而是直接做「5-bit 加法」。</p>
 <p>詳見：<a href="%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html#四則運算與邏輯運算的位寬">四則運算與邏輯運算的位寬</a></p>
 
@@ -6591,17 +6591,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

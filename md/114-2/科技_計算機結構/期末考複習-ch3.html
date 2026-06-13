@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -9345,11 +9345,11 @@ is now available!
 <h3 id="1-這章不是只在算數字而是在問cpu-如何可靠地算數字">1. 這章不是只在算數字，而是在問「CPU 如何可靠地算數字？」<a class="headerlink" href="#1-這章不是只在算數字而是在問cpu-如何可靠地算數字" title="Permanent link"></a></h3>
 <p>我們平常算 <code>7 + 6</code>、<code>88 - 10</code>、<code>1.5 × 2.0</code>，好像只是數學問題。</p>
 <p>但在 <code>Computer Architecture(計算機結構)</code> 裡，這些問題會變成硬體問題：</p>
-<p>CPU 不是拿紙筆算，它只能操作固定寬度的 bit。<br />
+<p>CPU 不是拿紙筆算，它只能操作固定寬度的 bit。<br/>
 例如 32-bit 暫存器就只有 32 格，算出來的結果如果塞不下，就可能發生 <code>overflow(滿溢)</code>。</p>
 <p>所以第 3 章真正要處理的是：</p>
 <p>「當所有數字都必須變成 bit，CPU 要如何表示、計算、偵測錯誤，並把這些能力反映到指令集？」</p>
-<hr />
+<hr/>
 <h3 id="2-本章四個主軸">2. 本章四個主軸<a class="headerlink" href="#2-本章四個主軸" title="Permanent link"></a></h3>
 <p>講義 page 2 把本章目標列成四個方向：<code>real number representation(實數表示法)</code>、<code>arithmetic algorithms(算術演算法)</code>、<code>hardware for algorithms(演算法的硬體)</code>、以及這些內容對 <code>instruction set(指令集)</code> 的意義 。</p>
 <p>可以把它想成四層：</p>
@@ -9358,9 +9358,9 @@ is now available!
     B --&gt; C["演算法要落到電路&lt;br&gt;Hardware implementation(硬體實作)"]
     C --&gt; D["最後反映成指令行為&lt;br&gt;Instruction set meaning(指令集意義)"]</code></pre>
 <p>生活化地說，這章像是在問：</p>
-<p>我們不只是要會「算菜單價格」，還要設計一台收銀機。<br />
+<p>我們不只是要會「算菜單價格」，還要設計一台收銀機。<br/>
 收銀機要知道金額怎麼存、加減乘除怎麼做、超出顯示範圍怎麼辦，以及按下哪個鍵會觸發哪種硬體行為。</p>
-<hr />
+<hr/>
 <h3 id="3-第-3-章目錄告訴我們的主線順序">3. 第 3 章目錄告訴我們的主線順序<a class="headerlink" href="#3-第-3-章目錄告訴我們的主線順序" title="Permanent link"></a></h3>
 <p>PDF viewer page 1 的章節目錄依序是：</p>
 <ol>
@@ -9372,7 +9372,7 @@ is now available!
 <li>後面再接平行性、x86 SIMD、矩陣乘法、謬誤與陷阱、總結等內容 </li>
 </ol>
 <p>我們會照這個 PDF viewer page 主線走，不先跳到浮點或乘法。</p>
-<hr />
+<hr/>
 <h3 id="4-先建立本章的核心心智模型">4. 先建立本章的核心心智模型<a class="headerlink" href="#4-先建立本章的核心心智模型" title="Permanent link"></a></h3>
 <p>這章每個主題都可以用同一個框架理解：</p>
 <table>
@@ -9411,9 +9411,9 @@ is now available!
 </tr>
 </tbody>
 </table>
-<p>最重要的是：<br />
+<p>最重要的是：<br/>
 <code>Arithmetic(算術)</code> 在計算機結構裡不是純數學，而是「有限 bit + 有限硬體 + 指令行為」共同決定的結果。</p>
-<hr />
+<hr/>
 <h3 id="5-本輪最短記法">5. 本輪最短記法<a class="headerlink" href="#5-本輪最短記法" title="Permanent link"></a></h3>
 <p>第 3 章主線可以先記成一句話：</p>
 <p>CPU 算術 = 數字怎麼表示 + 怎麼用硬體演算法計算 + 超出範圍怎麼處理 + 指令集怎麼暴露這些行為。</p>
@@ -9426,7 +9426,7 @@ is now available!
 <p>但硬體不會「一眼看懂整個數字」。CPU 的加法電路比較像一排工人，每個工人只負責一個 bit。每一位都做同一件事：</p>
 <p>目前這一位的 bit 相加，算出本位結果，並把可能產生的 <code>carry(進位)</code> 傳給左邊下一位。</p>
 <p>講義 page 3 也明確說，計算機中的加法是「各位數由右向左逐位元相加，進位則向左方一個位數傳遞」。</p>
-<hr />
+<hr/>
 <h3 id="2-一位元加法half-adder半加器">2. 一位元加法：Half Adder(半加器)<a class="headerlink" href="#2-一位元加法half-adder半加器" title="Permanent link"></a></h3>
 <p><code>Half Adder(半加器)</code> 處理的是最簡單情況：只加兩個 bit，沒有前一位傳來的 carry。</p>
 <table>
@@ -9474,7 +9474,7 @@ is now available!
 <p><code>1 + 1 = 10₂</code></p>
 <p>這不是「二」，而是二進位中的 <code>10</code>。意思是：本位留下 <code>0</code>，往左邊進位 <code>1</code>。</p>
 <p>生活化地說，就像十進位的 <code>9 + 1 = 10</code>：個位留下 0，十位進 1。二進位只是更容易進位，因為每一格只能放 0 或 1。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼需要-full-adder全加器">3. 為什麼需要 Full Adder(全加器)？<a class="headerlink" href="#3-為什麼需要-full-adder全加器" title="Permanent link"></a></h3>
 <p>當加法不只一位時，某一位不只要加 A 和 B，還可能要加右邊傳來的 <code>carry-in(輸入進位)</code>。</p>
 <p>所以 <code>Full Adder(全加器)</code> 的任務是：</p>
@@ -9501,7 +9501,7 @@ is now available!
 <p>例如：</p>
 <p><code>1 + 1 + 1 = 11₂</code></p>
 <p>意思是：本位留下 <code>1</code>，再往左進位 <code>1</code>。</p>
-<hr />
+<hr/>
 <h3 id="4-多位元加法carry進位-是從右往左傳">4. 多位元加法：carry(進位) 是從右往左傳<a class="headerlink" href="#4-多位元加法carry進位-是從右往左傳" title="Permanent link"></a></h3>
 <p>假設我們要算：</p>
 <p><code>10010110 + 00101011</code></p>
@@ -9513,7 +9513,7 @@ is now available!
     C --&gt; D["下一位做&lt;br&gt;A + B + carry-in"]
     D --&gt; E["一路重複到最高位"]</code></pre>
 <p>這就是為什麼加法器的速度會被 carry 影響：如果每一位都要等右邊的 carry，最左邊最高位可能要等很久。後面講義 page 21 提到的 <code>carry lookahead(進位前瞻)</code>，就是想辦法更早知道高位的 carry，用來加速加法；但本輪先不展開。</p>
-<hr />
+<hr/>
 <h3 id="5-最小示範用-full-adder-追一個-4-bit-加法">5. 最小示範：用 full adder 追一個 4-bit 加法<a class="headerlink" href="#5-最小示範用-full-adder-追一個-4-bit-加法" title="Permanent link"></a></h3>
 <p>我們算：</p>
 <p><code>1011 + 0110</code></p>
@@ -9572,7 +9572,7 @@ is now available!
 <p>所以 4-bit 內留下來的是 <code>0001</code>，最左邊還多出一個 carry-out <code>1</code>，完整結果是：</p>
 <p><code>10001₂</code></p>
 <p>檢查十進位：<code>1011₂ = 11</code>，<code>0110₂ = 6</code>，總和是 <code>17 = 10001₂</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
 <p>第一個常見錯法是把 <code>1 + 1 = 10₂</code> 看成「結果是 10 兩位都直接塞在同一格」。不對。對單一 bit 來說，本位只能留下 0，另一個 1 必須變成 carry 傳出去。</p>
 <p>第二個常見錯法是從左邊開始加。硬體邏輯與手算二進位加法都要從右邊低位元開始，因為左邊高位元可能需要等右邊來的 carry。</p>
@@ -9584,7 +9584,7 @@ is now available!
 <p>減法也很像，只是傳遞的東西從 <code>carry(進位)</code> 變成 <code>borrow(借位)</code>。</p>
 <p>減法的核心問題是：</p>
 <p>如果某一位不夠減，要向左邊高位元借 <code>1</code>。但二進位借來的 <code>1</code> 不是十進位的 10，而是二進位的 <code>10₂</code>，也就是本位可以多出 <code>2</code> 來減。</p>
-<hr />
+<hr/>
 <h3 id="2-一位元減法最重要的是-0---1">2. 一位元減法：最重要的是 <code>0 - 1</code><a class="headerlink" href="#2-一位元減法最重要的是-0---1" title="Permanent link"></a></h3>
 <p>一位元二進位減法有幾種基本情況：</p>
 <table>
@@ -9629,7 +9629,7 @@ is now available!
 <p>所以：</p>
 <p><code>10₂ - 1₂ = 1₂</code></p>
 <p>也就是本位結果留下 <code>1</code>，但左邊那一位被借走 <code>1</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-borrow借位-和-carry進位-的方向一樣但意義相反">3. borrow(借位) 和 carry(進位) 的方向一樣，但意義相反<a class="headerlink" href="#3-borrow借位-和-carry進位-的方向一樣但意義相反" title="Permanent link"></a></h3>
 <p><code>carry(進位)</code> 是加法中「本位太大，往左邊送一個」。</p>
 <p><code>borrow(借位)</code> 是減法中「本位不夠，向左邊拿一個」。</p>
@@ -9655,14 +9655,14 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-多位元減法借位會連鎖影響左邊">4. 多位元減法：借位會連鎖影響左邊<a class="headerlink" href="#4-多位元減法借位會連鎖影響左邊" title="Permanent link"></a></h3>
-<p>假設某一位做了借位，左邊那一位原本的值就會少 1。<br />
+<p>假設某一位做了借位，左邊那一位原本的值就會少 1。<br/>
 這代表多位元減法不能只看單一欄，必須追蹤 borrow 對後續高位元的影響。</p>
 <p>講義 PDF viewer page 10 的多位元減法圖就是在展示這件事：某些位元需要借位，借位後會改變左側位元的可用值。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你手上這一格錢不夠找零，就跟左邊一格借。可是左邊借給你之後，左邊自己也變少了；如果左邊接下來也不夠，可能還要繼續往更左邊借。</p>
-<hr />
+<hr/>
 <h3 id="5-最小示範1000₂---0011₂">5. 最小示範：<code>1000₂ - 0011₂</code><a class="headerlink" href="#5-最小示範1000₂---0011₂" title="Permanent link"></a></h3>
 <p>我們算：</p>
 <p><code>1000₂ - 0011₂</code></p>
@@ -9711,7 +9711,7 @@ is now available!
 <p>最後結果是：</p>
 <p><code>0101₂</code></p>
 <p>檢查十進位：<code>1000₂ = 8</code>，<code>0011₂ = 3</code>，<code>8 - 3 = 5 = 0101₂</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-重要銜接為什麼下一頁要講-binary-complements二補數">6. 重要銜接：為什麼下一頁要講 Binary Complements(二補數)？<a class="headerlink" href="#6-重要銜接為什麼下一頁要講-binary-complements二補數" title="Permanent link"></a></h3>
 <p>直接做借位減法很直覺，但對硬體來說不一定最方便。</p>
 <p>因為如果 CPU 已經有加法器，那我們會想問：</p>
@@ -9729,9 +9729,9 @@ is now available!
 <p>改寫成：</p>
 <p>A + negative B(B 的負數)</p>
 <p>也就是講義前面提到的核心想法：減法會先把 subtrahend(減數)變號，再加到 minuend(被減數)上。</p>
-<p>生活化來說，假設你欠我 10 元，我要算「88 − 10」，也可以說成「88 加上 -10」。<br />
+<p>生活化來說，假設你欠我 10 元，我要算「88 − 10」，也可以說成「88 加上 -10」。<br/>
 電腦的問題是：binary(二進位)裡面要怎麼表示 <code>-10</code>？答案就是 Two's Complement(二補數)。</p>
-<hr />
+<hr/>
 <h3 id="2-1s-complement一補數先把每個-bit-反過來">2. 1's Complement(一補數)：先把每個 bit 反過來<a class="headerlink" href="#2-1s-complement一補數先把每個-bit-反過來" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 11 先講 1's complement(一補數)。規則很簡單：</p>
 <table>
@@ -9784,13 +9784,13 @@ is now available!
 <p>所以：</p>
 <p>10010111 的 1's complement 是 01101000。</p>
 <p>核心觀念是：一補數不是「真正完成變號」，它只是變號的第一步。</p>
-<hr />
+<hr/>
 <h3 id="3-twos-complement二補數一補數再加-1">3. Two's Complement(二補數)：一補數再加 1<a class="headerlink" href="#3-twos-complement二補數一補數再加-1" title="Permanent link"></a></h3>
 <p>Two's Complement(二補數)的規則：</p>
 <p>先做 1's complement(一補數)，再加上 1。</p>
 <p>例如剛剛：</p>
-<p>10010111<br />
-1's complement = 01101000<br />
+<p>10010111<br/>
+1's complement = 01101000<br/>
 再加 1：</p>
 <p>01101000 + 1 = 01101001</p>
 <p>所以：</p>
@@ -9804,10 +9804,10 @@ is now available!
 <p>Two's Complement(二補數)：一補數+1 = 全部取反+1</p>
 <p>ex.10010111 的 2's complement 是 01101001。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="4-為什麼這樣可以代表負數">4. 為什麼這樣可以代表「負數」？<a class="headerlink" href="#4-為什麼這樣可以代表負數" title="Permanent link"></a></h3>
 <p>關鍵在這個性質：</p>
-<p>原數 + 1's complement = 全部都是 1<br />
+<p>原數 + 1's complement = 全部都是 1<br/>
 再 + 1 = 1 後面接一串 0</p>
 <p>例如 8-bit：</p>
 <table>
@@ -9837,13 +9837,13 @@ is now available!
 </tbody>
 </table>
 <p>但電腦如果是 8-bit hardware(8 位元硬體)，只能留下低 8 bits：</p>
-<p>1 00000000<br />
+<p>1 00000000<br/>
 丟掉最左邊超出的 carry-out(進位輸出)後，留下：</p>
 <p>00000000</p>
 <p>所以：</p>
 <p>X + X 的 2's complement = 0</p>
 <p>這就是二補數的秘密：它讓「加上一個數的二補數」在固定 bit-width(位元寬度)下等價於「減掉那個數」。PDF viewer page 12 也用「該數與 1 補數相加」以及「該數與 2 補數相加」呈現這個核心現象。</p>
-<hr />
+<hr/>
 <h3 id="5-二補數減法流程a--b-變成-a--2s-complementb">5. 二補數減法流程：A − B 變成 A + 2's complement(B)<a class="headerlink" href="#5-二補數減法流程a--b-變成-a--2s-complementb" title="Permanent link"></a></h3>
 <p>之後我們看到減法時，不要再用借位一路硬算，而是用這個流程：</p>
 <pre class="diagram"><code>flowchart TD
@@ -9904,7 +9904,7 @@ is now available!
 <p>所以：</p>
 <p>88 − 10 = 78</p>
 <p>注意：這裡最左邊那個額外的 <code>1</code> 是超出 8-bit 的 carry-out(進位輸出)，在固定 8-bit 運算中會被丟掉。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="6-快速求-twos-complement二補數的技巧">6. 快速求 Two's Complement(二補數)的技巧<a class="headerlink" href="#6-快速求-twos-complement二補數的技巧" title="Permanent link"></a></h3>
@@ -9912,7 +9912,7 @@ is now available!
 <p>例如要求：</p>
 <p>10101000 的 2's complement</p>
 <p>從右邊開始：</p>
-<p>10101000<br />
+<p>10101000<br/>
 最右邊一路遇到 <code>0</code>，直到第一個 <code>1</code>：</p>
 <p>1010 1 000</p>
 <p>保留「第一個 1 和它右邊全部」：</p>
@@ -9923,14 +9923,14 @@ is now available!
 <p>10101000 的 2's complement 是 01011000。</p>
 <p>這個技巧本質上只是把「反轉全部 bits 再加 1」濃縮成比較快的手算方法。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="7-二補數的二補數會回到原本-bit-pattern">7. 二補數的二補數會回到原本 bit pattern<a class="headerlink" href="#7-二補數的二補數會回到原本-bit-pattern" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 15 問：如果十進位中 <code>5</code> 取負變 <code>-5</code>，再取負會回到 <code>5</code>；那二進位二補數是不是也一樣？講義用 <code>45</code> 的例子展示：對一個數做 Two's Complement(二補數)，再做一次 Two's Complement(二補數)，會回到原本 bit pattern。</p>
 <p>直覺上就是：</p>
-<p>第一次：X → -X<br />
+<p>第一次：X → -X<br/>
 第二次：-X → X</p>
 <p>補充一個小陷阱：在固定 n-bit two's complement 表示法裡，最負數例如 4-bit 的 <code>1000</code> 比較特殊，因為 <code>+8</code> 無法用 4-bit signed two's complement 表示；但從「bit operation(位元操作)」角度看，對 <code>1000</code> 做二補數仍會得到 <code>1000</code>。這是因為它發生表示範圍上的特殊情況，後面講 Overflow(滿溢)時會更重要。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
@@ -9942,14 +9942,14 @@ is now available!
 <li><mark>超出位元寬度的 carry-out(進位輸出)丟掉。</mark></li>
 <li>剩下的 bits 就是結果。</li>
 </ol>
-<p>中文理解版：二補數讓「減 B」變成「加 -B」。<br />
+<p>中文理解版：二補數讓「減 B」變成「加 -B」。<br/>
 英文考試版：Two's complement allows subtraction to be implemented as addition by adding the two's complement representation of the subtrahend.</p>
 </div>
 <h2 id="overflow-與-mips-exception--cpu-怎麼知道算出來的答案放不下">⭐Overflow 與 MIPS Exception — CPU 怎麼知道「算出來的答案放不下」？<a class="headerlink" href="#overflow-與-mips-exception--cpu-怎麼知道算出來的答案放不下" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 17 ~ PDF viewer page 21</p>
 <h3 id="1-overflow滿溢-不是有-carry-out-就一定錯">1. Overflow(滿溢) 不是「有 carry-out 就一定錯」<a class="headerlink" href="#1-overflow滿溢-不是有-carry-out-就一定錯" title="Permanent link"></a></h3>
 <p>在固定 32-bit 或固定 n-bit 的硬體裡，數字能表示的範圍有限。講義說，當運算結果無法用硬體的 32-bit word 表示時，就發生 <code>overflow(滿溢)</code>。</p>
-<p>這裡最容易錯的是：<br />
+<p>這裡最容易錯的是：<br/>
 <code>carry-out(最高位外進位)</code> 不等於 signed overflow。</p>
 <p>例如你剛剛算：</p>
 <p><code>00110110 + 11110011 = 1 00101001</code></p>
@@ -9957,11 +9957,11 @@ is now available!
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="啥是-overflow-">啥是 overflow ？<a class="headerlink" href="#啥是-overflow-" title="Permanent link"></a></h3>
-<p>也就是說有 carry-out 是允許的，就像 <code>00110110 + 11110011 = 1 00101001</code>( 54+(-13)=41 )。<br />
-發生 overflow 要看符號是否合理，像是正+正要是正數，不能是負數，如果是負數就是 overflow 。<br />
+<p>也就是說有 carry-out 是允許的，就像 <code>00110110 + 11110011 = 1 00101001</code>( 54+(-13)=41 )。<br/>
+發生 overflow 要看符號是否合理，像是正+正要是正數，不能是負數，如果是負數就是 overflow 。<br/>
 也就是說如果沒有正負之分，就不用管 overflow。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="2-加法的-overflow-判斷同號相加才可能滿溢">2. 加法的 overflow 判斷：同號相加才可能滿溢<a class="headerlink" href="#2-加法的-overflow-判斷同號相加才可能滿溢" title="Permanent link"></a></h3>
 <p>加法時：</p>
 <table>
@@ -10018,7 +10018,7 @@ is now available!
 </tbody>
 </table>
 <p>這就是講義 page 17~18 的重點。</p>
-<hr />
+<hr/>
 <h3 id="3-減法的-overflow-判斷異號相減才可能滿溢">3. 減法的 overflow 判斷：異號相減才可能滿溢<a class="headerlink" href="#3-減法的-overflow-判斷異號相減才可能滿溢" title="Permanent link"></a></h3>
 <p>減法其實會轉成加法：</p>
 <p><code>A - B = A + (-B)</code></p>
@@ -10066,7 +10066,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="4-mips-怎麼處理-overflow">4. MIPS 怎麼處理 overflow？<a class="headerlink" href="#4-mips-怎麼處理-overflow" title="Permanent link"></a></h3>
@@ -10106,25 +10106,25 @@ is now available!
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><code>add / addi / sub</code>：有號數，會檢查 overflow。<br />
+<p><code>add / addi / sub</code>：有號數，會檢查 overflow。<br/>
 <code>addu / addiu / subu</code>：無號版本，不呼叫 overflow exception。</p>
 <p><mark>注意：<code>addu</code> 裡面的 <code>u</code> 不是說 ALU 不做加法，而是說「不因 overflow 觸發 exception」。</mark></p>
 </div>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="5-exception例外epcmfc0-是在幹嘛">5. Exception(例外)、EPC、mfc0 是在幹嘛？<a class="headerlink" href="#5-exception例外epcmfc0-是在幹嘛" title="Permanent link"></a></h3>
 <p>當 MIPS 偵測到 overflow，它不是默默給錯答案，而是透過 <code>exception(例外)</code> 讓系統處理。講義說 MIPS 有一個 <code>EPC(exception program counter，例外程式計數器)</code>，用來存放造成 exception 的指令位址；<code>mfc0</code> 可以把 EPC 複製到一般暫存器，讓軟體有機會回到造成 exception 的地方。</p>
 <p>你可以把它想成：</p>
-<p>CPU 說：「這個加法結果放不下，我不能假裝沒事。」<br />
+<p>CPU 說：「這個加法結果放不下，我不能假裝沒事。」<br/>
 於是它記下「是哪一條指令出事」，交給 exception handler(例外處理程式)處理。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="6-saturating-operations-與-carry-lookahead">6. Saturating Operations 與 Carry Lookahead<a class="headerlink" href="#6-saturating-operations-與-carry-lookahead" title="Permanent link"></a></h3>
 <p>page 21 是 3.2 的收束補充。講義提到兩件事：</p>
-<p>第一，<code>saturating operations(飽和運算)</code>：<br />
+<p>第一，<code>saturating operations(飽和運算)</code>：<br/>
 如果 overflow，不讓結果繞回奇怪的值，而是直接設成最大正值或最小負值。這常見於影像、音訊這種不想讓數值突然反向的情境。</p>
-<p>第二，<code>carry lookahead(進位前瞻)</code>：<br />
+<p>第二，<code>carry lookahead(進位前瞻)</code>：<br/>
 普通加法如果一直等 carry 從低位一路傳到高位，會慢。carry lookahead 的想法是提早判斷高位 carry，讓加法更快。</p>
 <p>本輪先把它們當成 3.2 的補充觀念，不深入電路細節。</p>
 <div class="admonition danger">
@@ -10132,7 +10132,7 @@ is now available!
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
 <p>In fixed-width two's complement arithmetic, explain why a carry-out from the most significant bit is not enough to conclude that signed overflow occurred. Use the difference between unsigned carry-out and signed overflow in your explanation.</p>
-<p><mark>ANS</mark><br />
+<p><mark>ANS</mark><br/>
 因為超出位元不一定是溢位，還要看看正負號對不對。</p>
 <h4 id="q_1"><mark>Q:</mark><a class="headerlink" href="#q_1" title="Permanent link"></a></h4>
 <p>Assume 8-bit two's complement numbers. For each operation below, decide whether signed overflow occurs and explain why.</p>
@@ -10142,26 +10142,26 @@ is now available!
 <li><code>00100000 - 11100000 = 01000000</code></li>
 </ol>
 <p><mark>ANS</mark></p>
-<p>1.signed overflow occurs，因為正+正變成負是錯的<br />
-2.signed overflow occurs，因為負+負變成正是錯的<br />
+<p>1.signed overflow occurs，因為正+正變成負是錯的<br/>
+2.signed overflow occurs，因為負+負變成正是錯的<br/>
 3.正常，正減負是正的</p>
 <p><mark>注意</mark></p>
 <p><mark>我看到這題我要怎麼知道是有號數加法？有沒有可能是無號數加法？</mark></p>
 <p>1. 直接判斷：這題已經明講是有號數</p>
 <p>你看到題目：</p>
 <blockquote>
-<p>Assume 8-bit two's complement numbers.<br />
+<p>Assume 8-bit two's complement numbers.<br/>
 decide whether <strong>signed overflow</strong> occurs</p>
 </blockquote>
 <p>關鍵有兩個：</p>
 <ol>
 <li>
-<p><strong>two's complement numbers(二補數數字)</strong><br />
+<p><strong>two's complement numbers(二補數數字)</strong><br/>
     通常代表用二補數來表示 <strong>signed integer(有號整數)</strong>。</p>
 </li>
 <li>
-<p>題目直接問 <strong>signed overflow(有號滿溢)</strong><br />
-    所以你要用 signed range 判斷：8-bit two's complement 的範圍是<br />
+<p>題目直接問 <strong>signed overflow(有號滿溢)</strong><br/>
+    所以你要用 signed range 判斷：8-bit two's complement 的範圍是<br/>
 <code>-128 ~ +127</code></p>
 </li>
 </ol>
@@ -10179,7 +10179,7 @@ decide whether <strong>signed overflow</strong> occurs</p>
 <p><strong>能不能把 multiplication(乘法) 拆成 CPU 比較容易做的 add + shift？</strong></p>
 <p>答案是可以。這就是二進位乘法比十進位乘法適合硬體的原因。</p>
 <p>講義從 PDF viewer page 22 開始進入 3.3 乘法，先用 <code>1000₂ × 1001₂</code> 作為二進位乘法例子。</p>
-<hr />
+<hr/>
 <h3 id="2-先回到手工乘法乘法其實是在做-partial-products部分乘積">2. 先回到手工乘法：乘法其實是在做 partial products(部分乘積)<a class="headerlink" href="#2-先回到手工乘法乘法其實是在做-partial-products部分乘積" title="Permanent link"></a></h3>
 <p>你在十進位小學乘法看到的形式，其實是：</p>
 <table>
@@ -10196,7 +10196,7 @@ decide whether <strong>signed overflow</strong> occurs</p>
 </tr>
 <tr>
 <td>每往左一位，部分乘積就左移一格</td>
-<td>代表乘上 10、100、1000&hellip;</td>
+<td>代表乘上 10、100、1000…</td>
 </tr>
 <tr>
 <td>最後把所有部分乘積加起來</td>
@@ -10207,14 +10207,14 @@ decide whether <strong>signed overflow</strong> occurs</p>
 <p>講義 PDF viewer page 23 ~ 28 用 <code>2345 × 9876</code> 類似的手工乘法過程展示 partial products 逐列產生。</p>
 <p>所以乘法不是一個神秘的新運算，而是：</p>
 <p><strong>乘法 = 產生很多列 partial products + 把它們加起來。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-二進位乘法為什麼更簡單">3. 二進位乘法為什麼更簡單？<a class="headerlink" href="#3-二進位乘法為什麼更簡單" title="Permanent link"></a></h3>
 <p>十進位乘法麻煩的地方是：每一位可能是 <code>0~9</code>，所以你需要知道：</p>
 <ul>
 <li>被乘數 × 0</li>
 <li>被乘數 × 1</li>
 <li>被乘數 × 2</li>
-<li>&hellip;</li>
+<li>…</li>
 <li>被乘數 × 9</li>
 </ul>
 <p>這等於需要一張乘法表。</p>
@@ -10240,7 +10240,7 @@ decide whether <strong>signed overflow</strong> occurs</p>
 <p>所以二進位乘法的核心規則是：</p>
 <p><strong>看目前 multiplier bit：如果是 1，就加 shifted multiplicand；如果是 0，就加 0。</strong></p>
 <p>講義後面也比較十進位與二進位計算機，指出二進位可簡化乘法與除法，特別是乘法不再需要十進位乘法表。</p>
-<hr />
+<hr/>
 <h3 id="4-例子1000₂--1001₂">4. 例子：<code>1000₂ × 1001₂</code><a class="headerlink" href="#4-例子1000₂--1001₂" title="Permanent link"></a></h3>
 <p>先標角色：</p>
 <table>
@@ -10315,11 +10315,11 @@ decide whether <strong>signed overflow</strong> occurs</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="英文單字">英文單字<a class="headerlink" href="#英文單字" title="Permanent link"></a></h3>
-<p>multiplicand(被乘數) <br />
-multiplier(乘數)   <br />
+<p>multiplicand(被乘數) <br/>
+multiplier(乘數)   <br/>
 product(乘積)        </p>
 </div>
-<hr />
+<hr/>
 <h3 id="5-為什麼這會接到硬體">5. 為什麼這會接到硬體？<a class="headerlink" href="#5-為什麼這會接到硬體" title="Permanent link"></a></h3>
 <p>到目前為止，我們還是在「手算」角度看乘法。</p>
 <p>但硬體不喜歡一次排很多列 partial products，因為那需要很多加法器或很複雜的資料路徑。硬體比較喜歡反覆做簡單動作：</p>
@@ -10330,7 +10330,7 @@ product(乘積)        </p>
 <li>重複。</li>
 </ol>
 <p>這就是 PDF viewer page 39 之後會開始處理的問題：<strong>如何把手工乘法改寫成硬體友善的流程。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法_1">6. 常見錯法<a class="headerlink" href="#6-常見錯法_1" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10524,12 +10524,12 @@ product(乘積)        </p>
 <p>講義位置：PDF viewer page 50 ~ 64／輔助：投影片頁碼 50–64</p>
 <h3 id="1-這個知識點在解決什麼問題_4">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題_4" title="Permanent link"></a></h3>
 <p>前面你已經會「硬體友善版」的乘法概念：</p>
-<p><code>Product</code> 從 0 開始。<br />
-如果 multiplier 某一位是 1，就把 shifted multiplicand 加進 Product。<br />
-如果 multiplier 某一位是 0，就不加。<br />
+<p><code>Product</code> 從 0 開始。<br/>
+如果 multiplier 某一位是 1，就把 shifted multiplicand 加進 Product。<br/>
+如果 multiplier 某一位是 0，就不加。<br/>
 每一輪 multiplicand 左移一位。</p>
 <p>但 CPU 不能只停在「觀念」。CPU 需要一組硬體元件真的把這件事做出來，所以 PDF viewer page 50 開始進入 <code>Multiplier Structure(乘法器結構)</code>。</p>
-<p>這一輪要學的是：<br />
+<p>這一輪要學的是：<br/>
 乘法器硬體裡有哪些暫存器？每一輪誰被檢查？誰被加？誰左移？誰右移？什麼時候停止？</p>
 <h3 id="2-第一版乘法器需要哪些硬體角色">2. 第一版乘法器需要哪些硬體角色？<a class="headerlink" href="#2-第一版乘法器需要哪些硬體角色" title="Permanent link"></a></h3>
 <p>你可以把第一版乘法器想成四個主要角色：</p>
@@ -10571,11 +10571,11 @@ product(乘積)        </p>
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-3.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-3.png"/></p>
 </div>
 <p>最重要的控制邏輯只有一句：</p>
-<p>看 <code>Multiplier Register</code> 的最低位。<br />
-最低位是 <code>1</code>，就加。<br />
+<p>看 <code>Multiplier Register</code> 的最低位。<br/>
+最低位是 <code>1</code>，就加。<br/>
 最低位是 <code>0</code>，就不加。</p>
 <h3 id="3-為什麼-multiplier-要右移">3. 為什麼 multiplier 要右移？<a class="headerlink" href="#3-為什麼-multiplier-要右移" title="Permanent link"></a></h3>
 <p>因為硬體每一輪只想檢查同一個位置：最低位。</p>
@@ -10606,7 +10606,7 @@ product(乘積)        </p>
 </tr>
 </tbody>
 </table>
-<p>所以硬體不需要設計「第 0 位、第 1 位、第 2 位、第 3 位」各自不同的檢查電路。<br />
+<p>所以硬體不需要設計「第 0 位、第 1 位、第 2 位、第 3 位」各自不同的檢查電路。<br/>
 它只要每輪看最低位，然後把 multiplier 右移，下一個 bit 自然就會跑到最低位。</p>
 <p>這就是 <code>Shift right(右移)</code> 的意義。</p>
 <h3 id="4-為什麼-multiplicand-要左移">4. 為什麼 multiplicand 要左移？<a class="headerlink" href="#4-為什麼-multiplicand-要左移" title="Permanent link"></a></h3>
@@ -10645,7 +10645,7 @@ product(乘積)        </p>
 </table>
 <p>所以每一輪把 multiplicand 左移，其實就是在準備下一個 bit 位置對應的 partial product。</p>
 <h3 id="5-第一版乘法器的完整流程">5. 第一版乘法器的完整流程<a class="headerlink" href="#5-第一版乘法器的完整流程" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-1.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-1.png"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>對 N-bit multiplier，流程是：</p>
@@ -10680,12 +10680,12 @@ product(乘積)        </p>
 </tbody>
 </table>
 </div>
-<p>注意：<br />
-不是看 multiplier 變成 0 就一定停。<br />
+<p>注意：<br/>
+不是看 multiplier 變成 0 就一定停。<br/>
 第一版固定寬度硬體通常是做滿 N 輪，因為它處理的是 N-bit multiplier。</p>
 <h3 id="6-用你剛剛的例子對照一次">6. 用你剛剛的例子對照一次<a class="headerlink" href="#6-用你剛剛的例子對照一次" title="Permanent link"></a></h3>
-<p>題目：<code>00001000 × 1001</code><br />
-也就是 <code>8 × 9</code>。<br />
+<p>題目：<code>00001000 × 1001</code><br/>
+也就是 <code>8 × 9</code>。<br/>
 假設 Product 和 Multiplicand 用 8-bit 表示，Multiplier 用 4-bit 表示。</p>
 <table>
 <thead>
@@ -10749,16 +10749,16 @@ product(乘積)        </p>
 </table>
 <p>最後 <code>Product = 01001000</code>，也就是十進位 72。</p>
 <h3 id="7-常見錯法">7. 常見錯法<a class="headerlink" href="#7-常見錯法" title="Permanent link"></a></h3>
-<p>第一個常見錯法是「每一輪都加」。<br />
+<p>第一個常見錯法是「每一輪都加」。<br/>
 不對。每一輪都會 shift，但不一定會 add。只有 multiplier 最低位是 1 才加。</p>
-<p>第二個常見錯法是「只左移 multiplicand，忘記右移 multiplier」。<br />
+<p>第二個常見錯法是「只左移 multiplicand，忘記右移 multiplier」。<br/>
 這樣硬體就不知道下一輪要看哪一個 multiplier bit。右移 multiplier 的目的，就是讓下一個 bit 移到最低位給硬體檢查。</p>
-<p>第三個常見錯法是「Product 重新算，而不是累加」。<br />
+<p>第三個常見錯法是「Product 重新算，而不是累加」。<br/>
 硬體的 <code>Product Register</code> 是 running sum。它不是每輪清空，而是把新的 partial product 加到目前累積的 Product 裡。</p>
 <h2 id="乘法器優化-1--為什麼乘法器可以從每輪-3-個-cycle-變成每輪-1-個-cycle">⭐乘法器優化 1 — 為什麼乘法器可以從每輪 3 個 cycle 變成每輪 1 個 cycle？<a class="headerlink" href="#乘法器優化-1--為什麼乘法器可以從每輪-3-個-cycle-變成每輪-1-個-cycle" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 65 ~ PDF viewer page 75</p>
 <h3 id="1-第一版乘法器慢在哪裡">1. 第一版乘法器慢在哪裡？<a class="headerlink" href="#1-第一版乘法器慢在哪裡" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.png" /><br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.png"/><br/>
 第一版乘法器每一輪做三件事：</p>
 <table>
 <thead>
@@ -10808,7 +10808,7 @@ product(乘積)        </p>
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-2.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-2.png"/></p>
 <p>因此，加法、左移、右移不一定要拆成三個 cycle。只要硬體路徑設計好，它們可以在同一個 cycle 內「準備好下一狀態」，然後在同一個 clock edge 寫入。</p>
 <h3 id="3-優化後一輪的正確-mental-model">3. 優化後一輪的正確 mental model<a class="headerlink" href="#3-優化後一輪的正確-mental-model" title="Permanent link"></a></h3>
 <p>每一輪不是「先真的改掉 multiplicand，再用新的 multiplicand 加」。正確觀念是：</p>
@@ -10894,7 +10894,7 @@ product(乘積)        </p>
 <h2 id="shiftadd-取代乘法--編譯器為什麼可以把某些乘法改成左移和加法">⭐Shift/Add 取代乘法 — 編譯器為什麼可以把某些乘法改成左移和加法？<a class="headerlink" href="#shiftadd-取代乘法--編譯器為什麼可以把某些乘法改成左移和加法" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 76 ~ PDF viewer page 79</p>
 <h3 id="1-這個概念在解決什麼問題">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題" title="Permanent link"></a></h3>
-<p>乘法在硬體上通常比單純的 shift(位移) 和 add(加法) 更貴。<br />
+<p>乘法在硬體上通常比單純的 shift(位移) 和 add(加法) 更貴。<br/>
 所以 compiler(編譯器) 會問一個問題：</p>
 <p>「如果這個乘法的常數很簡單，我能不能不要真的用乘法器，而是改用更快、更便宜的 shift/add？」</p>
 <p>講義 PDF viewer page 76 說，有些 compiler 會用幾個短常數配合一串 shift 和 add 來取代乘法；其中幾乎所有 compiler 都會做 <code>乘以 2 的次方</code> 的 strength reduction(強度減弱) 最佳化。</p>
@@ -10908,10 +10908,10 @@ product(乘積)        </p>
 <p>直覺上可以想成：每個 <code>1</code> 都搬到更左邊的位置，而越左邊的 bit 權重越大，所以整體數值加倍。</p>
 <h3 id="3-但-left-shift-不是永遠等於數學上的完整乘-2">3. 但 left shift 不是永遠等於「數學上的完整乘 2」<a class="headerlink" href="#3-但-left-shift-不是永遠等於數學上的完整乘-2" title="Permanent link"></a></h3>
 <p>這裡最容易錯。</p>
-<p>如果 bit width(位元寬度) 固定，左移可能會把最左邊的 bit 擠掉。<br />
+<p>如果 bit width(位元寬度) 固定，左移可能會把最左邊的 bit 擠掉。<br/>
 例如 4-bit unsigned 裡：</p>
 <p><code>1111 = 15</code></p>
-<p>數學上 <code>15 × 2 = 30</code>。<br />
+<p>數學上 <code>15 × 2 = 30</code>。<br/>
 可是 4-bit 只能表示 <code>0 ~ 15</code>，放不下 30。</p>
 <p>左移後：</p>
 <p><code>1111 &lt;&lt; 1 = 1110</code></p>
@@ -10927,8 +10927,8 @@ product(乘積)        </p>
 <p>所以：</p>
 <p><code>3 × 7 = 3 × 4 + 3 × 2 + 3 × 1</code></p>
 <p>用 shift 表示：</p>
-<p><code>3 × 4 = 3 &lt;&lt; 2</code><br />
-<code>3 × 2 = 3 &lt;&lt; 1</code><br />
+<p><code>3 × 4 = 3 &lt;&lt; 2</code><br/>
+<code>3 × 2 = 3 &lt;&lt; 1</code><br/>
 <code>3 × 1 = 3</code></p>
 <p>所以可以改寫成：</p>
 <p><code>3 × 7 = (3 &lt;&lt; 2) + (3 &lt;&lt; 1) + 3</code></p>
@@ -10944,8 +10944,8 @@ product(乘積)        </p>
 <h3 id="1-這頁在解決什麼問題">1. 這頁在解決什麼問題？<a class="headerlink" href="#1-這頁在解決什麼問題" title="Permanent link"></a></h3>
 <p>前面我們做的乘法，多半把 bit pattern(位元型態)當成非負數來看，例如 <code>0010 × 0011 = 2 × 3</code>。</p>
 <p>但實際程式裡會有 signed integer(有號整數)，例如：</p>
-<p><code>-6 × 5</code><br />
-<code>-6 × -5</code><br />
+<p><code>-6 × 5</code><br/>
+<code>-6 × -5</code><br/>
 <code>7 × -3</code></p>
 <p>這時候問題變成：乘法硬體到底要不要直接拿負數的 two's complement(二補數) bit pattern 去跑原本的 unsigned-style shift/add algorithm(無號式移位加法演算法)？</p>
 <p>講義 page 80 給的是一個最簡單的方法：先把符號拿出來處理，把數值本體轉成正數來乘，最後再決定乘積要不要變負。</p>
@@ -11009,7 +11009,7 @@ product(乘積)        </p>
 <p>講義是在 32-bit signed number(32 位元有號數)的背景下講這件事。</p>
 <p>32-bit signed number 裡面，最高位元通常用來表示 sign(符號)。最簡單的 signed multiplication 方法會先把符號拿出來處理，剩下的 magnitude(大小值)再進入乘法流程。</p>
 <p>所以講義寫「執行 31 個反覆」的意思是：不要把 sign bit(符號位元)當成普通 magnitude bit(數值位元)來跑，而是先處理符號，再對數值部分做乘法。</p>
-<p>這是重點：<br />
+<p>這是重點：<br/>
 <code>sign bit(符號位元)</code> 不是一般的 <code>2^31</code> 正權重位元；在 two's complement 裡，它代表負權重或符號資訊。若你用不支援 signed arithmetic(有號算術)的普通 shift/add algorithm 直接處理負數 bit pattern，就容易得到錯誤解讀。</p>
 <h3 id="4-範例-6--5">4. 範例：<code>-6 × 5</code><a class="headerlink" href="#4-範例-6--5" title="Permanent link"></a></h3>
 <p>用講義的最簡單方法：</p>
@@ -11077,11 +11077,11 @@ product(乘積)        </p>
 </table>
 <p>所以 <code>-6 × -5 = +30</code>。</p>
 <h3 id="6-常見錯法_2">6. 常見錯法<a class="headerlink" href="#6-常見錯法_2" title="Permanent link"></a></h3>
-<p>第一個常見錯法是：直接把負數的 two's complement bit pattern 當成 unsigned number(無號數)來乘。<br />
+<p>第一個常見錯法是：直接把負數的 two's complement bit pattern 當成 unsigned number(無號數)來乘。<br/>
 例如 4-bit 裡 <code>1110</code> 若當 signed 是 <code>-2</code>，但若當 unsigned 是 <code>14</code>。同一串 bits，用不同 interpretation(解讀方式)會代表不同數字。</p>
-<p>第二個常見錯法是：只算出 magnitude product(大小值乘積)，忘記最後改符號。<br />
+<p>第二個常見錯法是：只算出 magnitude product(大小值乘積)，忘記最後改符號。<br/>
 例如 <code>-6 × 5</code>，如果只做 <code>6 × 5 = 30</code>，但忘記補負號，就會錯成 <code>+30</code>。</p>
-<p>第三個常見錯法是：看到講義說 31 rounds，就誤以為乘法少算 1 bit。<br />
+<p>第三個常見錯法是：看到講義說 31 rounds，就誤以為乘法少算 1 bit。<br/>
 更精準說法是：在這個簡單方法中，sign bit 先被拿出來處理，不當作一般 magnitude bit 參與同一個 unsigned-style loop。</p>
 <h2 id="乘法演算法範例追蹤--怎麼讀出每一輪暫存器變化">⭐乘法演算法範例追蹤 — 怎麼讀出每一輪暫存器變化？<a class="headerlink" href="#乘法演算法範例追蹤--怎麼讀出每一輪暫存器變化" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 81 ~ 83／輔助：投影片頁碼 81–83</p>
@@ -11171,7 +11171,7 @@ product(乘積)        </p>
 </tbody>
 </table>
 <h3 id="3-用-2--3-追一次流程">3. 用 <code>2 × 3</code> 追一次流程<a class="headerlink" href="#3-用-2--3-追一次流程" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-4.png" /><br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-4.png"/><br/>
 初始狀態可以理解成：</p>
 <table>
 <thead>
@@ -11273,11 +11273,11 @@ product(乘積)        </p>
 <li>進入下一輪。</li>
 </ol>
 <h3 id="5-最常見錯法">5. 最常見錯法<a class="headerlink" href="#5-最常見錯法" title="Permanent link"></a></h3>
-<p>第一個錯法：以為每輪都要加 multiplicand。<br />
+<p>第一個錯法：以為每輪都要加 multiplicand。<br/>
 不對。只有 multiplier LSB 是 <code>1</code> 才加；LSB 是 <code>0</code> 時，product 不變。</p>
-<p>第二個錯法：先把 multiplicand 左移，再拿新 multiplicand 去加。<br />
+<p>第二個錯法：先把 multiplicand 左移，再拿新 multiplicand 去加。<br/>
 不對。這輪加法使用的是「本輪開始時的 multiplicand」。加完後，才準備下一輪，把 multiplicand 左移。</p>
-<p>第三個錯法：忘記 product 通常需要比較寬的 bit width。<br />
+<p>第三個錯法：忘記 product 通常需要比較寬的 bit width。<br/>
 如果兩個 4-bit 數字相乘，結果最多可能需要 8-bit 才放得下，所以 product 通常用 8-bit 來追。</p>
 <h3 id="6-考試最短記法">6. 考試最短記法<a class="headerlink" href="#6-考試最短記法" title="Permanent link"></a></h3>
 <p>看到乘法演算法 trace 題，就照這句話：</p>
@@ -11286,17 +11286,17 @@ product(乘積)        </p>
 <p>講義位置：PDF viewer page 84 ~ 86／輔助：投影片頁碼 84–86</p>
 <h3 id="1-原本慢在哪裡">1. 原本慢在哪裡？<a class="headerlink" href="#1-原本慢在哪裡" title="Permanent link"></a></h3>
 <p>前面你學的 sequential multiplier(循序乘法器)核心做法是：</p>
-<p>每一輪只看 Multiplier(乘數) 的一個 bit。<br />
-如果該 bit 是 1，就把目前的 Multiplicand(被乘數) 加到 Product(乘積)。<br />
+<p>每一輪只看 Multiplier(乘數) 的一個 bit。<br/>
+如果該 bit 是 1，就把目前的 Multiplicand(被乘數) 加到 Product(乘積)。<br/>
 然後 Multiplicand 左移、Multiplier 右移，再處理下一個 bit。</p>
 <p>這種做法的問題是：它把「每個 multiplier bit 對乘積的貢獻」一個一個慢慢算。</p>
 <p>對 32-bit 乘法來說，概念上要處理 32 個 multiplier bits。若硬體只有一個主要 adder(加法器)，就像只有一個人排隊處理 32 個工作，速度會受限。</p>
 <h3 id="2-較快乘法的核心想法一開始就看完所有-multiplier-bits">2. 較快乘法的核心想法：一開始就看完所有 multiplier bits<a class="headerlink" href="#2-較快乘法的核心想法一開始就看完所有-multiplier-bits" title="Permanent link"></a></h3>
 <p>講義這裡的關鍵轉變是：</p>
-<p>不要每輪才看一個 bit。<br />
-乘法一開始時，32-bit multiplier 的所有 bits 其實都已經在暫存器裡了。<br />
+<p>不要每輪才看一個 bit。<br/>
+乘法一開始時，32-bit multiplier 的所有 bits 其實都已經在暫存器裡了。<br/>
 所以硬體可以「同時知道」哪些 bit 是 1、哪些 bit 是 0。</p>
-<p>如果某個 multiplier bit 是 1，那一個位置就需要一份 shifted multiplicand(位移後的被乘數)。<br />
+<p>如果某個 multiplier bit 是 1，那一個位置就需要一份 shifted multiplicand(位移後的被乘數)。<br/>
 如果某個 multiplier bit 是 0，那一個位置就只會產生 0。</p>
 <p>所以硬體可以先產生很多 partial products(部分乘積)，再把它們快速加起來。</p>
 <p>例如 multiplier 是 <code>1010</code>，代表：</p>
@@ -11315,7 +11315,7 @@ product(乘積)        </p>
 <p>Faster multiplier(較快乘法器) 的策略是：</p>
 <p>使用更多硬體，讓很多工作並行。</p>
 <p>講義說可以為 multiplier 的每個 bit 配置加法相關硬體。每個位置先用 AND(且閘) 判斷：</p>
-<p>Multiplier bit 是 1 → 讓 shifted multiplicand 通過。<br />
+<p>Multiplier bit 是 1 → 讓 shifted multiplicand 通過。<br/>
 Multiplier bit 是 0 → 產生 0。</p>
 <p>接著把這些 partial products 用一棵 parallel tree(平行樹) 加起來。</p>
 <p>直覺上：</p>
@@ -11368,13 +11368,13 @@ Multiplier bit 是 0 → 產生 0。</p>
 <h3 id="5-carry-save-adder進位保留加法器與-pipelining管線化">5. Carry-save adder(進位保留加法器)與 pipelining(管線化)<a class="headerlink" href="#5-carry-save-adder進位保留加法器與-pipelining管線化" title="Permanent link"></a></h3>
 <p>講義接著補一句：乘法甚至可以比 5 個加法時間更快，因為可以使用 carry-save adder(進位保留加法器)。</p>
 <p>你現在先抓核心直覺就好：</p>
-<p>一般加法慢的原因之一是 carry(進位) 需要傳遞。<br />
+<p>一般加法慢的原因之一是 carry(進位) 需要傳遞。<br/>
 Carry-save adder 的想法是先不要急著把所有 carry 傳完，而是把 sum(和) 和 carry(進位) 分開保留，等最後再整合。</p>
 <p>這讓很多 partial products 可以更快被壓縮。</p>
 <p>講義也提到這種設計容易 pipeline(管線化)。意思是乘法器可以切成多個階段，讓不同乘法同時在不同階段中前進。這會讓 throughput 更好。</p>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
-<p>Sequential multiplier：少硬體，多輪重複，慢。<br />
-Faster multiplier：多硬體，平行產生 partial products，再用 tree 加總，快。<br />
+<p>Sequential multiplier：少硬體，多輪重複，慢。<br/>
+Faster multiplier：多硬體，平行產生 partial products，再用 tree 加總，快。<br/>
 核心取捨：用硬體面積與複雜度換 latency / throughput。</p>
 <h2 id="mips-中的乘法--32-bit-乘-32-bit-的-64-bit-乘積要放哪裡">⭐MIPS 中的乘法 — 32-bit 乘 32-bit 的 64-bit 乘積要放哪裡？<a class="headerlink" href="#mips-中的乘法--32-bit-乘-32-bit-的-64-bit-乘積要放哪裡" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 87</p>
@@ -11459,7 +11459,7 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 <p>但要小心：只拿 <code>Lo</code> 不代表一定沒有 overflow(滿溢)。如果完整 64-bit 結果放不進 32-bit，只拿 <code>Lo</code> 會丟掉高 32-bit。</p>
 <h3 id="4-mips-乘法不會自動處理-overflow">4. MIPS 乘法不會自動處理 overflow<a class="headerlink" href="#4-mips-乘法不會自動處理-overflow" title="Permanent link"></a></h3>
 <p>這頁最容易考的陷阱是：</p>
-<p><code>mult</code> 和 <code>multu</code> 都不理會 overflow。<br />
+<p><code>mult</code> 和 <code>multu</code> 都不理會 overflow。<br/>
 也就是說，MIPS 乘法不會像某些 signed add/sub 指令那樣自動丟 exception(例外)。</p>
 <p>所以 overflow 要由 software(軟體) 自己檢查。</p>
 <p>檢查方式：</p>
@@ -11514,16 +11514,16 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 </div>
 <h3 id="5-最短考試記法">5. 最短考試記法<a class="headerlink" href="#5-最短考試記法" title="Permanent link"></a></h3>
 <p>MIPS 乘法的最短記法可以背成：</p>
-<p><code>mult/multu</code> 不把答案直接放進一般 register，而是把 64-bit product 放進 <code>Hi:Lo</code>。<br />
-<code>mflo</code> 取低 32-bit，<code>mfhi</code> 取高 32-bit。<br />
+<p><code>mult/multu</code> 不把答案直接放進一般 register，而是把 64-bit product 放進 <code>Hi:Lo</code>。<br/>
+<code>mflo</code> 取低 32-bit，<code>mfhi</code> 取高 32-bit。<br/>
 乘法不自動檢查 overflow；unsigned 看 <code>Hi==0</code>，signed 看 <code>Hi</code> 是否為 <code>Lo</code> sign bit 的 sign extension。</p>
 <h2 id="floating-point浮點入門--這個概念在解決什麼問題">⭐Floating Point(浮點)入門 — 這個概念在解決什麼問題？<a class="headerlink" href="#floating-point浮點入門--這個概念在解決什麼問題" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 121 ~ PDF viewer page 125／輔助：頁面右下角投影片頁碼約 122 ~ 126</p>
 <h3 id="1-為什麼需要-floating-point浮點">1. 為什麼需要 Floating Point(浮點)？<a class="headerlink" href="#1-為什麼需要-floating-point浮點" title="Permanent link"></a></h3>
 <p>前面加、減、乘、除主要都在處理 integer(整數)。可是程式語言也常需要表示 real numbers(實數)，例如：</p>
-<p>3.14159265，也就是圓周率 π。<br />
-2.71828，也就是自然常數 e。<br />
-0.000000001，也就是非常小的數。<br />
+<p>3.14159265，也就是圓周率 π。<br/>
+2.71828，也就是自然常數 e。<br/>
+0.000000001，也就是非常小的數。<br/>
 3,155,760,000，也就是非常大的數。</p>
 <p>這些數的共同問題是：它們不一定剛好是整數，而且大小差距可能非常巨大。</p>
 <p>如果只用 fixed-point(定點) 表示法，小數點的位置固定，那會很不方便。例如假設固定保留 6 位小數，那很小的數可能還是不夠精確；但如果固定保留很多小數，又會浪費很多位元在表示普通數字。</p>
@@ -11552,7 +11552,7 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 </table>
 <p>所以科學記號法本質上是在說：</p>
 <p>數字 = 有效數字 × 基底的指數次方</p>
-<p>在十進位裡，基底是 10。<br />
+<p>在十進位裡，基底是 10。<br/>
 在二進位浮點裡，基底是 2。</p>
 <p>所以二進位浮點的基本形狀會變成：</p>
 <p>1.xxxxx₂ × 2^yyyy</p>
@@ -11570,17 +11570,17 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 <h3 id="4-指數其實是在控制位值">4. 指數其實是在控制「位值」<a class="headerlink" href="#4-指數其實是在控制位值" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 124 用表格提醒你：</p>
 <p>十進位的位值是：</p>
-<p>10³, 10², 10¹, 10⁰, 10⁻¹, 10⁻², &hellip;</p>
+<p>10³, 10², 10¹, 10⁰, 10⁻¹, 10⁻², …</p>
 <p>也就是：</p>
-<p>1000, 100, 10, 1, 0.1, 0.01, &hellip;</p>
+<p>1000, 100, 10, 1, 0.1, 0.01, …</p>
 <p>二進位的位值是：</p>
-<p>2², 2¹, 2⁰, 2⁻¹, 2⁻², 2⁻³, &hellip;</p>
+<p>2², 2¹, 2⁰, 2⁻¹, 2⁻², 2⁻³, …</p>
 <p>也就是：</p>
-<p>4, 2, 1, 0.5, 0.25, 0.125, &hellip;</p>
+<p>4, 2, 1, 0.5, 0.25, 0.125, …</p>
 <p>所以 binary point(二進位小數點)的左右移動，其實就是在改變每個 bit(位元)的 place value(位值)。</p>
 <p>例如：</p>
-<p>101.1₂ = 1×2² + 0×2¹ + 1×2⁰ + 1×2⁻¹<br />
-= 4 + 0 + 1 + 0.5<br />
+<p>101.1₂ = 1×2² + 0×2¹ + 1×2⁰ + 1×2⁻¹<br/>
+= 4 + 0 + 1 + 0.5<br/>
 = 5.5₁₀</p>
 <h3 id="5-浮點到底浮在哪裡">5. 「浮」點到底浮在哪裡？<a class="headerlink" href="#5-浮點到底浮在哪裡" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 125 的例子是：</p>
@@ -11588,8 +11588,8 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 <p>它可以改寫成：</p>
 <p>1.00101101010110₂ × 2⁸</p>
 <p>這裡的意思是：</p>
-<p>原本 binary point(二進位小數點)在 <code>100101101.010110</code> 中間。<br />
-為了變成 normalized form(常規化形式)，我們把小數點移到第一個 <code>1</code> 後面，變成 <code>1.00101101010110</code>。<br />
+<p>原本 binary point(二進位小數點)在 <code>100101101.010110</code> 中間。<br/>
+為了變成 normalized form(常規化形式)，我們把小數點移到第一個 <code>1</code> 後面，變成 <code>1.00101101010110</code>。<br/>
 因為小數點被往左移了 8 格，所以要乘上 2⁸，才能保持原本數值不變。</p>
 <p>所以「浮點」不是說數值亂浮，而是說小數點的位置可以用 exponent(指數)記錄，不必固定死在某一格。</p>
 <h3 id="6-本輪最短記法">6. 本輪最短記法<a class="headerlink" href="#6-本輪最短記法" title="Permanent link"></a></h3>
@@ -11622,15 +11622,15 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 </tbody>
 </table>
 <p>要怎麼輕易的判斷正負？</p>
-<p>假設原本是 0.000101₂ ，變成 1.01₂ 他小數點往右邊，所以他變大了，所以就要讓他變小來平衡，所以是 2^(-4)。<br />
+<p>假設原本是 0.000101₂ ，變成 1.01₂ 他小數點往右邊，所以他變大了，所以就要讓他變小來平衡，所以是 2^(-4)。<br/>
 也就是說對於 A * B^n ，A 變大了，n 就要是負，A 變小了，n 就要是正的。</p>
 </div>
 <h3 id="7-常見錯法_1">7. 常見錯法<a class="headerlink" href="#7-常見錯法_1" title="Permanent link"></a></h3>
-<p>第一個錯法：以為 floating point 一定很精準。<br />
+<p>第一個錯法：以為 floating point 一定很精準。<br/>
 其實 floating point 是在「範圍」和「精度」之間取平衡。它可以表示很大或很小的數，但不代表所有小數都能精準表示。</p>
-<p>第二個錯法：把 decimal point(十進位小數點)和 binary point(二進位小數點)混在一起。<br />
+<p>第二個錯法：把 decimal point(十進位小數點)和 binary point(二進位小數點)混在一起。<br/>
 十進位小數點移動是乘 10 的次方；二進位小數點移動是乘 2 的次方。</p>
-<p>第三個錯法：看到 <code>1.xxxxx₂ × 2^E</code> 就忘記 <code>₂</code>。<br />
+<p>第三個錯法：看到 <code>1.xxxxx₂ × 2^E</code> 就忘記 <code>₂</code>。<br/>
 這裡的 <code>1.xxxxx</code> 是二進位，不是十進位。</p>
 <h2 id="ieee-754-floating-point-encoding--浮點數最後到底怎麼塞進-32-bit-或-64-bit">⭐IEEE 754 Floating-Point Encoding — 浮點數最後到底怎麼塞進 32-bit 或 64-bit？<a class="headerlink" href="#ieee-754-floating-point-encoding--浮點數最後到底怎麼塞進-32-bit-或-64-bit" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 126 ~ 135</p>
@@ -11972,8 +11972,8 @@ Faster multiplier：多硬體，平行產生 partial products，再用 tree 加�
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="小技巧">小技巧<a class="headerlink" href="#小技巧" title="Permanent link"></a></h3>
-<p>如何快速把 10 進位 exponent 轉成 2 進位？<br />
-exponent 是 8 bit，8 bit 可以表示 255(2^8-1)，7 bit 可以表示 127(2^7-1)。<br />
+<p>如何快速把 10 進位 exponent 轉成 2 進位？<br/>
+exponent 是 8 bit，8 bit 可以表示 255(2^8-1)，7 bit 可以表示 127(2^7-1)。<br/>
 當要把 124 變成 2 進位時，可以先算 127-124 = 3，然後 3 = 1 + 2，所以 124 = 1111111(127) 拿掉 01(1) 和 10(2) 就是 1111100，湊成 8 bit = 01111100</p>
 </div>
 
@@ -12107,17 +12107,15 @@ exponent 是 8 bit，8 bit 可以表示 255(2^8-1)，7 bit 可以表示 127(2^7-
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -8910,8 +8910,8 @@ is now available!
     A --&gt; B --&gt; C --&gt; D --&gt; E</code></pre>
 <p>生活化一點講，這就像你不是先畫一間餐廳的平面圖，而是先問：「我要賣哪些餐點？」如果菜單需要煎、炸、烤、冷藏，廚房設備就會被菜單需求決定。CPU 也是一樣：不是先背硬體圖，而是由指令需求反推硬體。</p>
 <p>講義 PDF viewer page 3 明確列出五步：分析指令需求、選元件、連數據通路、分析控制訊號、整合控制邏輯；到 PDF viewer page 12，前兩步已被標記完成，表示本輪自然收束點就在「需求分析＋元件需求」這一段。</p>
-<p><img alt="alt text" src="images/ch%204.png" /></p>
-<hr />
+<p><img alt="alt text" decoding="async" src="images/ch%204.png"/></p>
+<hr/>
 <h3 id="2-這份-ch4-1-先限制-cpu-要支援哪些-mips-指令">2. 這份 ch4-1 先限制 CPU 要支援哪些 MIPS 指令？<a class="headerlink" href="#2-這份-ch4-1-先限制-cpu-要支援哪些-mips-指令" title="Permanent link"></a></h3>
 <p>本輪講義不是設計完整 MIPS，而是設計能支援這幾類指令的處理器：</p>
 <table>
@@ -8947,7 +8947,7 @@ is now available!
 </table>
 <p>這裡最重要的不是記指令格式，而是看出「不同指令會逼 CPU 加不同硬體」。例如：</p>
 <p><code>addu</code> 需要 ALU 做加法，<code>ori</code> 需要立即數擴展，<code>lw</code> 和 <code>sw</code> 需要 Data Memory(資料記憶體)，<code>beq</code> 需要比較兩個暫存器並改變 PC。講義 PDF viewer page 4 ~ 7 就是用這些指令逐步導出硬體需求。</p>
-<hr />
+<hr/>
 <h3 id="3-r-type-和-i-type-的差別為什麼會影響-datapath">3. R-type 和 I-type 的差別，為什麼會影響 datapath？<a class="headerlink" href="#3-r-type-和-i-type-的差別為什麼會影響-datapath" title="Permanent link"></a></h3>
 <p>講義在 PDF viewer page 5 先拆指令位元域：</p>
 <table>
@@ -8974,13 +8974,13 @@ is now available!
 <p>關鍵差異是：R-type 的目的暫存器通常是 <code>rd</code>，但 I-type 的目的暫存器常常是 <code>rt</code>，例如 <code>ori</code> 和 <code>lw</code> 都寫回 <code>rt</code>。</p>
 <p>這就會導出第一個很重要的硬體需求：CPU 不能永遠把寫入目標接死在 <code>rd</code>。它需要一個 multiplexer(多工器／多選器)，在 <code>rd</code> 和 <code>rt</code> 之間選一個送到 Register File(暫存器堆) 的寫入編號 <code>Rw</code>。</p>
 <p>這就是後面 <code>RegDst</code> control signal(控制訊號) 的來源。</p>
-<hr />
+<hr/>
 <h3 id="4-從運算指令推出-alu-和-register-file-的需求">4. 從運算指令推出 ALU 和 Register File 的需求<a class="headerlink" href="#4-從運算指令推出-alu-和-register-file-的需求" title="Permanent link"></a></h3>
 <p>以：</p>
-<p><code>addu rd, rs, rt</code><br />
+<p><code>addu rd, rs, rt</code><br/>
 <code>subu rd, rs, rt</code></p>
 <p>來看，講義把語意寫成：</p>
-<p><code>R[rd] ← R[rs] + R[rt]</code><br />
+<p><code>R[rd] ← R[rs] + R[rt]</code><br/>
 <code>R[rd] ← R[rs] - R[rt]</code></p>
 <p>所以硬體至少需要：</p>
 <table>
@@ -9010,7 +9010,7 @@ is now available!
 </tbody>
 </table>
 <p>這裡有一個常見錯法：很多人看到 <code>rs</code>、<code>rt</code>、<code>rd</code> 會把它們當資料本身。其實它們是 register number(暫存器編號)，真正的資料在暫存器堆裡。<code>rs</code> 和 <code>rt</code> 是「地址／編號」，busA 和 busB 才是讀出來的 32-bit data(資料)。</p>
-<hr />
+<hr/>
 <h3 id="5-從-ori-推出-extender擴展器和-alu-input-mux輸入多選器">5. 從 <code>ori</code> 推出 extender(擴展器)和 ALU input mux(輸入多選器)<a class="headerlink" href="#5-從-ori-推出-extender擴展器和-alu-input-mux輸入多選器" title="Permanent link"></a></h3>
 <p><code>ori rt, rs, imm16</code> 的語意是：</p>
 <p><code>R[rt] ← R[rs] | zero_ext(Imm16)</code></p>
@@ -9044,7 +9044,7 @@ is now available!
 <li>Extender(擴展器)：把 16-bit 立即數變成 32-bit。</li>
 </ol>
 <p>為什麼 <code>ori</code> 用 zero extension(零擴展)？因為邏輯 OR 通常把立即數當 bit pattern(位元樣式)，不是當有正負號的偏移量；保留位元意義就好。</p>
-<hr />
+<hr/>
 <h3 id="6-從-lwsw-推出-sign-extension符號擴展和-data-memory資料記憶體">6. 從 <code>lw/sw</code> 推出 sign extension(符號擴展)和 Data Memory(資料記憶體)<a class="headerlink" href="#6-從-lwsw-推出-sign-extension符號擴展和-data-memory資料記憶體" title="Permanent link"></a></h3>
 <p><code>lw rt, imm16(rs)</code> 的語意是：</p>
 <p><code>R[rt] ← MEM[R[rs] + SignExt(imm16)]</code></p>
@@ -9081,7 +9081,7 @@ is now available!
 <p>常見錯法是把 <code>lw</code> 想成「ALU 算完就直接寫回」。不對。<code>lw</code> 的 ALU result(結果)是 address(位址)，不是最後資料。真正要寫回暫存器的是 Data Memory 讀出來的資料。</p>
 <p>所以 <code>lw</code> 會導出 <code>MemtoReg</code> mux：寫回 Register File 的資料來源，要能在 ALU result 和 Memory output 中選一個。</p>
 <p><code>sw</code> 則導出 <code>MemWr</code> control signal(記憶體寫入控制)：只有 store 時才能寫 Data Memory，否則不能亂寫。</p>
-<hr />
+<hr/>
 <h3 id="7-從-beq-推出比較與-pc-更新需求">7. 從 <code>beq</code> 推出比較與 PC 更新需求<a class="headerlink" href="#7-從-beq-推出比較與-pc-更新需求" title="Permanent link"></a></h3>
 <p><code>beq rs, rt, imm16</code> 的語意是：</p>
 <p>若 <code>R[rs] == R[rt]</code>，則：</p>
@@ -9094,7 +9094,7 @@ is now available!
 <li>PC 不能只會 <code>+4</code>，還要能選 branch target address(分支目標位址)。</li>
 </ol>
 <p>因此 IFU(Instruction Fetch Unit，取指單元)裡面會需要 PC、Instruction Memory、Adder、以及選擇下一個 PC 的 mux。講義 PDF viewer page 16 ~ 19 後面會正式把這段展開成取指與 PC 更新；這屬於下一個相鄰知識點，不在本輪宣稱完成。</p>
-<hr />
+<hr/>
 <h3 id="8-本輪最短記法">8. 本輪最短記法<a class="headerlink" href="#8-本輪最短記法" title="Permanent link"></a></h3>
 <p>這一段可以用一句話記：</p>
 <p>CPU datapath 是由「指令語意」反推硬體需求；每多一種指令格式或資料來源，就通常需要新的 mux、extender、memory path 或 control signal。</p>
@@ -9175,7 +9175,7 @@ is now available!
 <p>也就是不要背圖，而是問每條指令需要資料怎麼走。先從所有指令都一定會做的事情開始：Fetch(取指令)。</p>
 <p>所有指令，不管是 <code>addu</code>、<code>ori</code>、<code>lw</code>、<code>sw</code>、<code>beq</code>，第一步都一定要先從 Instruction Memory(指令記憶體) 取出 instruction word(指令編碼)。</p>
 <p>生活化例子：你要做任何一道菜之前，第一步都要先讀食譜。不同菜後面流程不同，但「先拿到食譜」是共同需求。</p>
-<hr />
+<hr/>
 <h3 id="2-pc-是什麼它不是資料暫存器而是指令地址暫存器">2. PC 是什麼？它不是資料暫存器，而是「指令地址暫存器」<a class="headerlink" href="#2-pc-是什麼它不是資料暫存器而是指令地址暫存器" title="Permanent link"></a></h3>
 <p>PC(Program Counter，程式計數器) 裡放的是 instruction address(指令位址)。</p>
 <p>也就是：</p>
@@ -9186,7 +9186,7 @@ is now available!
     PC["PC&lt;br&gt;存目前指令位址"] --&gt; IM["Instruction Memory&lt;br&gt;依位址取指令"]
     IM --&gt; IW["Instruction Word&lt;br&gt;指令編碼"]</code></pre>
 <p>講義 PDF viewer page 16 ~ 19 的共同需求就是這件事：PC 的內容是指令地址，用 PC 的內容作為位址，存取 Instruction Memory 取得指令編碼。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼一般情況是-pc--pc--4">3. 為什麼一般情況是 <code>PC ← PC + 4</code>？<a class="headerlink" href="#3-為什麼一般情況是-pc--pc--4" title="Permanent link"></a></h3>
 <p>MIPS 一條指令是 32-bit，也就是 4 bytes。</p>
 <p>Memory address(記憶體位址)通常以 byte(位元組)為單位編號，所以如果現在指令在位址 <code>PC</code>，下一條連續指令會在：</p>
@@ -9221,7 +9221,7 @@ is now available!
 <pre class="diagram"><code>flowchart LR
     PC["PC&lt;br&gt;目前指令位址"] --&gt; ADD["Adder&lt;br&gt;加 4"]
     ADD --&gt; NPC["下一個循序位址&lt;br&gt;PC + 4"]</code></pre>
-<hr />
+<hr/>
 <h3 id="4-為什麼-pc-更新需要-mux">4. 為什麼 PC 更新需要 mux？<a class="headerlink" href="#4-為什麼-pc-更新需要-mux" title="Permanent link"></a></h3>
 <p>如果程式完全沒有分支，PC 永遠 <code>+4</code> 就好。</p>
 <p>但講義支援 <code>beq rs, rt, imm16</code>。<code>beq</code> 成立時，下一條指令不是 <code>PC+4</code>，而是 branch target address(分支目標位址)。</p>
@@ -9255,7 +9255,7 @@ is now available!
 <p>branch 存的 offset 是 <code>PC ← PC + 4 + (SignExt(imm16) || 00)</code> 裡面的 imm16，所以上面流程圖的 Target address 是 PC + 4 + (SignExt(imm16) &lt;&lt; 2) 不是單純的 branch 的 offset</p>
 <p>這邊是先知道 PC 如何切換就好，所以沒有畫出 <code>PC ← PC + 4 + (SignExt(imm16) || 00)</code> 計算。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="5-ifu-是什麼">5. IFU 是什麼？<a class="headerlink" href="#5-ifu-是什麼" title="Permanent link"></a></h3>
 <p>IFU(Instruction Fetch Unit，取指單元) 可以看成把「取指令＋更新 PC」包起來的一個小模組。</p>
 <p>它裡面至少包含：</p>
@@ -9303,10 +9303,10 @@ is now available!
     PC --&gt; ADD
     ADD --&gt; MUX
     TARGET --&gt; MUX
-    MUX --&gt; PC</code></pre><br />
-<img alt="alt text" src="images/ch%204-1.png" /><br />
+    MUX --&gt; PC</code></pre><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-1.png"/><br/>
 這就是為什麼講義在 PDF viewer page 19 把 PC、Instruction Memory、Adder、mux 包成 Instruction Fetch Unit, IFU。</p>
-<hr />
+<hr/>
 <h3 id="6-本輪最短記法">6. 本輪最短記法<a class="headerlink" href="#6-本輪最短記法" title="Permanent link"></a></h3>
 <p>所有指令共同需求可以記成一句：</p>
 <p>每條指令都先用 PC 去 Instruction Memory 取指令，然後 PC 根據 <code>nPC_sel</code> 選擇更新成 <code>PC+4</code> 或 branch target address。</p>
@@ -9380,7 +9380,7 @@ is now available!
     C["rd 欄位&lt;br&gt;選目的暫存器"] --&gt; RF
     W --&gt; RF</code></pre>
 <p>重點是：<code>rs</code>、<code>rt</code>、<code>rd</code> 都不是資料本身，而是 register number(暫存器編號)。</p>
-<hr />
+<hr/>
 <h3 id="2-rsrtrd-分別接到哪裡">2. <code>rs</code>、<code>rt</code>、<code>rd</code> 分別接到哪裡？<a class="headerlink" href="#2-rsrtrd-分別接到哪裡" title="Permanent link"></a></h3>
 <p>對 <code>addu rd, rs, rt</code> 來說：</p>
 <table>
@@ -9416,7 +9416,7 @@ is now available!
 <li>在 clock 上升沿，如果 <code>RegWr = 1</code>，就把 <code>busW</code> 的資料寫進 <code>Rw = rd</code> 指定的暫存器。</li>
 </ol>
 <p>所以 <code>addu/subu</code> 的資料來源是兩個暫存器，目的地是 <code>rd</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-alu-做加法還是減法誰決定">3. ALU 做加法還是減法，誰決定？<a class="headerlink" href="#3-alu-做加法還是減法誰決定" title="Permanent link"></a></h3>
 <p><code>addu</code> 和 <code>subu</code> 都用同一顆 ALU。</p>
 <p>差別不是換硬體，而是給 ALU 不同的 control signal(控制訊號)：</p>
@@ -9441,7 +9441,7 @@ is now available!
 <p>所以：</p>
 <p><code>ALUCtr</code> 決定 ALU 這次要做什麼運算。</p>
 <p>這也是為什麼講義說 <code>ALUCtr</code> 是由 instruction decode(指令解碼)產生的控制訊號：CPU 看到 instruction opcode/funct 後，就知道這次要叫 ALU 加還是減。</p>
-<hr />
+<hr/>
 <h3 id="4-regwr-為什麼要是-1">4. <code>RegWr</code> 為什麼要是 1？<a class="headerlink" href="#4-regwr-為什麼要是-1" title="Permanent link"></a></h3>
 <p>因為 <code>addu/subu</code> 最後要把 ALU result(運算結果)寫回暫存器 <code>rd</code>。</p>
 <p>如果 <code>RegWr = 0</code>，那就算 ALU 算出結果，也不會真的寫回 Register File。</p>
@@ -9488,7 +9488,7 @@ is now available!
 </tbody>
 </table>
 <p>這一段最重要的是看出：控制訊號不是亂背，而是由「這條指令的資料要怎麼走」決定。</p>
-<hr />
+<hr/>
 <h3 id="5-本輪最短記法">5. 本輪最短記法<a class="headerlink" href="#5-本輪最短記法" title="Permanent link"></a></h3>
 <p><code>addu/subu</code> 的 datapath 可以記成：</p>
 <p><code>rs, rt → RegFile → busA, busB → ALU → busW → rd</code></p>
@@ -9533,9 +9533,9 @@ is now available!
 <p>上一頁 <code>addu/subu</code> 的資料流是：</p>
 <p><code>R[rd] = R[rs] op R[rt]</code></p>
 <p>所以很自然：</p>
-<p><code>rs → Ra → busA</code><br />
-<code>rt → Rb → busB</code><br />
-<code>rd → Rw</code><br />
+<p><code>rs → Ra → busA</code><br/>
+<code>rt → Rb → busB</code><br/>
+<code>rd → Rw</code><br/>
 <code>busA</code> 和 <code>busB</code> 進 ALU，結果寫回 <code>rd</code></p>
 <p>但 <code>ori</code> 不是這樣。</p>
 <p><code>ori rt, rs, imm16</code> 的語意是：</p>
@@ -9564,7 +9564,7 @@ is now available!
 </tbody>
 </table>
 <p>所以 <code>ori</code> 的本質是：它把 R-type 的「兩個 register operand」改成「一個 register operand + 一個 immediate operand」。</p>
-<hr />
+<hr/>
 <h3 id="2-問題-1為什麼需要-regdst-mux">2. 問題 1：為什麼需要 <code>RegDst</code> mux？<a class="headerlink" href="#2-問題-1為什麼需要-regdst-mux" title="Permanent link"></a></h3>
 <p><code>addu/subu</code> 寫回 <code>rd</code>：</p>
 <p><code>R[rd] = R[rs] op R[rt]</code></p>
@@ -9611,7 +9611,7 @@ is now available!
 </tbody>
 </table>
 <p>所以 <code>ori</code> 要 <code>RegDst = 0</code>，因為它寫回 <code>rt</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-問題-2為什麼需要-alusrc-mux">3. 問題 2：為什麼需要 <code>ALUSrc</code> mux？<a class="headerlink" href="#3-問題-2為什麼需要-alusrc-mux" title="Permanent link"></a></h3>
 <p><code>addu/subu</code> 的 ALU 第二輸入是：</p>
 <p><code>busB = R[rt]</code></p>
@@ -9658,7 +9658,7 @@ is now available!
 </tbody>
 </table>
 <p>所以 <code>ori</code> 要 <code>ALUSrc = 1</code>，因為它要用 immediate 當 ALU 第二輸入。</p>
-<hr />
+<hr/>
 <h3 id="4-問題-3為什麼需要-zero-extension">4. 問題 3：為什麼需要 zero extension？<a class="headerlink" href="#4-問題-3為什麼需要-zero-extension" title="Permanent link"></a></h3>
 <p><code>imm16</code> 只有 16-bit，但 ALU 是處理 32-bit operand。</p>
 <p>所以 <code>ori</code> 不能直接把 <code>imm16</code> 丟進 ALU，而要先變成 32-bit：</p>
@@ -9683,7 +9683,7 @@ is now available!
 </tbody>
 </table>
 <p>這裡特別用 zero extension(零擴展)，不是 sign extension(符號擴展)，因為 <code>ori</code> 是 bitwise OR(位元 OR)邏輯運算，立即數被當作 bit pattern(位元樣式)，不是有正負號的數值偏移。</p>
-<hr />
+<hr/>
 <h3 id="5-ori-的完整資料流">5. <code>ori</code> 的完整資料流<a class="headerlink" href="#5-ori-的完整資料流" title="Permanent link"></a></h3>
 <p><code>ori rt, rs, imm16</code> 的資料流可以整理成：</p>
 <pre class="diagram"><code>flowchart LR
@@ -9700,12 +9700,12 @@ is now available!
     busW --&gt; RF</code></pre>
 <p>用一句話說：</p>
 <p><code>ori</code> 從 <code>rs</code> 讀出 <code>R[rs]</code>，把 <code>imm16</code> 零擴展成 32-bit，兩者做 OR，最後寫回 <code>rt</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-本輪最短記法_1">6. 本輪最短記法<a class="headerlink" href="#6-本輪最短記法_1" title="Permanent link"></a></h3>
 <p><code>ori</code> 可以記成：</p>
-<p><code>rs → busA</code><br />
-<code>imm16 → ZeroExt → ALU 第二輸入</code><br />
-<code>ALU 做 OR</code><br />
+<p><code>rs → busA</code><br/>
+<code>imm16 → ZeroExt → ALU 第二輸入</code><br/>
+<code>ALU 做 OR</code><br/>
 <code>結果寫回 rt</code></p>
 <p>控制訊號最短記：</p>
 <table>
@@ -9816,13 +9816,13 @@ is now available!
 </table>
 <p>所以 <code>lw</code> 的關鍵不是「ALU 算完直接寫回」，而是：</p>
 <p>ALU result 是 address；Memory output 才是要寫回的 data。</p>
-<hr />
+<hr/>
 <h3 id="2-lw-為什麼需要-sign-extension">2. <code>lw</code> 為什麼需要 sign extension？<a class="headerlink" href="#2-lw-為什麼需要-sign-extension" title="Permanent link"></a></h3>
 <p><code>lw rt, imm16(rs)</code> 裡的 <code>imm16</code> 是 offset(位移量)，可以是正的，也可以是負的。</p>
 <p>例如：</p>
-<p><code>lw $t0, 8($sp)</code><br />
+<p><code>lw $t0, 8($sp)</code><br/>
 代表從 <code>R[$sp] + 8</code> 的位址載入資料。</p>
-<p><code>lw $t0, -4($sp)</code><br />
+<p><code>lw $t0, -4($sp)</code><br/>
 代表從 <code>R[$sp] - 4</code> 的位址載入資料。</p>
 <p>所以這裡的 <code>imm16</code> 不是純 bit pattern，而是有正負號的 signed offset(有號位移量)。因此要用 sign extension(符號擴展)，不是 zero extension(零擴展)。</p>
 <table>
@@ -9847,7 +9847,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 24 也說 <code>lw</code> 的位址是由 <code>rs</code> 指定暫存器內容加上符號擴展後的立即數得到。</p>
-<hr />
+<hr/>
 <h3 id="3-lw-為什麼需要-data-memory">3. <code>lw</code> 為什麼需要 Data Memory？<a class="headerlink" href="#3-lw-為什麼需要-data-memory" title="Permanent link"></a></h3>
 <p>因為 <code>lw</code> 的目標不是做一般 ALU 運算，而是從記憶體拿資料。</p>
 <p>流程是：</p>
@@ -9867,12 +9867,12 @@ is now available!
     WB --&gt; RF
     RW --&gt; RF</code></pre>
 <p>這裡最容易錯的點是：</p>
-<p><code>Adr = R[rs] + SignExt(imm16)</code><br />
+<p><code>Adr = R[rs] + SignExt(imm16)</code><br/>
 但 <code>busW = DataMemory[Adr]</code></p>
 <p>所以 <code>Adr</code> 和 <code>busW</code> 不是同一個東西。</p>
-<hr />
+<hr/>
 <h3 id="4-lw-為什麼需要-memtoreg">4. <code>lw</code> 為什麼需要 <code>MemtoReg</code>？<a class="headerlink" href="#4-lw-為什麼需要-memtoreg" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%204-2.png" /><br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-2.png"/><br/>
 前面幾個運算指令：</p>
 <table>
 <thead>
@@ -9920,7 +9920,7 @@ is now available!
 </table>
 <p>因此 <code>lw</code> 要 <code>MemtoReg = 1</code>。</p>
 <p>講義後面的 <code>lw</code> datapath 圖也標出：<code>ALUSrc=1</code>、<code>RegDst=0</code>、<code>RegWr=1</code>、<code>ExtOp="sign"</code>、<code>ALUCtr="ADD"</code>、<code>MemtoReg=1</code>、<code>MemWr=0</code>。</p>
-<hr />
+<hr/>
 <h3 id="5-lw-的控制訊號最短記法">5. <code>lw</code> 的控制訊號最短記法<a class="headerlink" href="#5-lw-的控制訊號最短記法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -9983,7 +9983,7 @@ is now available!
 <p>也就是：</p>
 <p>先用 <code>R[rs] + SignExt[imm16]</code> 算出一個 effective address(有效位址)，再把 <code>R[rt]</code> 的資料寫進 Data Memory(資料記憶體) 的那個位置。講義在 <code>sw</code> 操作步驟中就是這樣寫的：<code>DataMemory{R[rs]+SignExt[imm16]}=R[rt]</code>。</p>
 <p>外部 MIPS32 指令手冊也用同樣概念描述 load/store 位址計算：16-bit signed offset 會加到 base register 內容上形成 effective address；所以這裡的 <code>imm16</code> 是 signed byte offset(有號位元組偏移量)，不是 word index(字索引)。([康奈爾大學計算機科學系][1])</p>
-<hr />
+<hr/>
 <h3 id="2-sw-的資料流誰提供-address誰提供-data">2. <code>sw</code> 的資料流：誰提供 address？誰提供 data？<a class="headerlink" href="#2-sw-的資料流誰提供-address誰提供-data" title="Permanent link"></a></h3>
 <p><code>sw</code> 有兩條重要資料線：</p>
 <table>
@@ -10027,7 +10027,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="3-sw-的控制信號為什麼是這樣">3. <code>sw</code> 的控制信號為什麼是這樣？<a class="headerlink" href="#3-sw-的控制信號為什麼是這樣" title="Permanent link"></a></h3>
 <p>講義頁面直接標出 <code>sw</code> 的控制信號：<code>RegDst=x</code>、<code>RegWr=0</code>、<code>ALUCtr=ADD</code>、<code>MemtoReg=x</code>、<code>MemWr=1</code>、<code>ExtOp=sign</code>、<code>ALUSrc=1</code>、<code>nPC_sel=+4</code>。</p>
 <table>
@@ -10082,7 +10082,7 @@ is now available!
 </tbody>
 </table>
 <p><code>x</code> 的意思是 don’t care(不重要)，不是 <code>0</code>，也不是 <code>1</code>。因為這條控制線後面的結果根本不會被用到。</p>
-<hr />
+<hr/>
 <h3 id="4-用一個例子走一次">4. 用一個例子走一次<a class="headerlink" href="#4-用一個例子走一次" title="Permanent link"></a></h3>
 <p>假設：</p>
 <table>
@@ -10175,13 +10175,13 @@ is now available!
 <p>意思是：</p>
 <p>從 <code>M[0x1001000C]</code> 讀資料，放進 <code>$t0</code>。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="5-最容易錯的地方">5. 最容易錯的地方<a class="headerlink" href="#5-最容易錯的地方" title="Permanent link"></a></h3>
-<p>第一個錯法：把 <code>ALU result</code> 當成要存進 register 的資料。<br />
+<p>第一個錯法：把 <code>ALU result</code> 當成要存進 register 的資料。<br/>
 這是 <code>lw</code> 也不對、<code>sw</code> 更不對。<code>ALU result</code> 在 load/store 裡是 memory address(記憶體位址)，不是資料本身。</p>
-<p>第二個錯法：以為 <code>sw</code> 會寫回 <code>rt</code>。<br />
+<p>第二個錯法：以為 <code>sw</code> 會寫回 <code>rt</code>。<br/>
 <code>sw</code> 的 <code>rt</code> 是資料來源，不是目的地。<code>R[rt]</code> 的內容被拿出來，寫到 memory。</p>
-<p>第三個錯法：把 <code>imm16</code> 乘以 4。<br />
+<p>第三個錯法：把 <code>imm16</code> 乘以 4。<br/>
 <code>lw/sw</code> 的 <code>imm16</code> 是 byte offset(位元組偏移)，不是第幾個 word。外部社群問答也常見這種 base+offset 尺度混淆；這裡我們以講義與 MIPS 手冊為主：effective address 是 base register 加 signed offset。([康奈爾大學計算機科學系][1])</p>
 <pre class="diagram"><code>flowchart LR
     A["Register File&lt;br&gt;Ra = rs&lt;br&gt;busA = R[rs]"] --&gt; B["ALU&lt;br&gt;做加法"]
@@ -10200,21 +10200,21 @@ is now available!
 <p>講義位置：PDF viewer page 28 ~ PDF viewer page 33／輔助：投影片頁碼 28–33</p>
 <h3 id="1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走">1. Datapath(資料路徑) 接好，不代表 CPU 會自動知道怎麼走<a class="headerlink" href="#1-datapath資料路徑-接好不代表-cpu-會自動知道怎麼走" title="Permanent link"></a></h3>
 <p>前面我們已經把 <code>addu/subu/ori/lw/sw</code> 需要的 datapath 接出來了。可是硬體接好後，還需要有人告訴每個 mux(多工器)、Register File(暫存器堆)、Data Memory(資料記憶體)、ALU(算術邏輯單元)：</p>
-<p>這一條指令要不要寫 register？<br />
-ALU 第二個輸入要選 <code>busB</code> 還是 <code>imm16</code>？<br />
-結果要從 ALU 回寫，還是從 memory 回寫？<br />
-Data Memory 要不要寫入？<br />
+<p>這一條指令要不要寫 register？<br/>
+ALU 第二個輸入要選 <code>busB</code> 還是 <code>imm16</code>？<br/>
+結果要從 ALU 回寫，還是從 memory 回寫？<br/>
+Data Memory 要不要寫入？<br/>
 Extender(擴展器) 要做 zero extension(零擴展) 還是 sign extension(符號擴展)？</p>
 <p>這些答案就是 control signals(控制訊號)。</p>
 <p>講義在 PDF viewer page 28 明確把前面三步打勾：分析需求、選元件、建立 datapath；接著進入第 4 步：分析每條指令的實現，以確定控制訊號。</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼要先看-r-型i-型j-型">2. 為什麼要先看 R 型、I 型、J 型？<a class="headerlink" href="#2-為什麼要先看-r-型i-型j-型" title="Permanent link"></a></h3>
 <p>因為 control unit(控制器) 不是看組合語言文字，而是看 instruction bits(指令位元)。</p>
 <p>例如 CPU 不是真的看到這一行文字：</p>
 <p><code>sw $t0, 12($sp)</code></p>
 <p>CPU 看到的是 32-bit instruction word(指令字)。所以控制器要先知道：這 32-bit 裡面哪幾個 bit 是 <code>opcode</code>、哪幾個 bit 是 <code>rs</code>、哪幾個 bit 是 <code>rt</code>、哪幾個 bit 是 <code>rd</code> 或 <code>immediate</code>。</p>
 <p>講義 page 29 說 MIPS 指令主要分為三種：<code>R(Register) 型</code>、<code>I(Immediate) 型</code>、<code>J(Jump) 型</code>。這個分類的目的，就是讓控制器知道欄位要怎麼解讀。</p>
-<hr />
+<hr/>
 <h3 id="3-r-型指令的欄位怎麼看">3. R 型指令的欄位怎麼看？<a class="headerlink" href="#3-r-型指令的欄位怎麼看" title="Permanent link"></a></h3>
 <p>R 型格式是：</p>
 <table>
@@ -10260,7 +10260,7 @@ Extender(擴展器) 要做 zero extension(零擴展) 還是 sign extension(符�
 </table>
 <p>重點是：R 型不是只靠 <code>opcode</code> 判斷 <code>add/sub/and/or</code>，因為很多 R 型指令的 <code>opcode</code> 都一樣，所以還要看 <code>funct</code> 欄位。</p>
 <p>生活化說法：<code>opcode</code> 先告訴 CPU「這是一大類 R 型料理」，<code>funct</code> 再告訴 CPU「這道菜到底是加法、減法、AND 還是 OR」。</p>
-<hr />
+<hr/>
 <h3 id="4-目前這份講義主線中哪些指令屬於哪一型">4. 目前這份講義主線中，哪些指令屬於哪一型？<a class="headerlink" href="#4-目前這份講義主線中哪些指令屬於哪一型" title="Permanent link"></a></h3>
 <p>目前我們正在追的這批指令可以先這樣分：</p>
 <table>
@@ -10305,15 +10305,15 @@ Extender(擴展器) 要做 zero extension(零擴展) 還是 sign extension(符�
 </tbody>
 </table>
 <p><code>J 型</code>目前只是分類上會提到，還不是我們現在這條 datapath 主線的高優先級重點。</p>
-<hr />
+<hr/>
 <h3 id="5-這一頁真正要建立的觀念">5. 這一頁真正要建立的觀念<a class="headerlink" href="#5-這一頁真正要建立的觀念" title="Permanent link"></a></h3>
 <p>接下來講 control signals 時，不要死背表格。你要先問：</p>
-<p>這條指令是哪一型？<br />
-它要讀哪些 register？<br />
-它要不要寫 register？<br />
-它要不要使用 immediate？<br />
-它要不要讀或寫 Data Memory？<br />
-ALU 要做什麼？<br />
+<p>這條指令是哪一型？<br/>
+它要讀哪些 register？<br/>
+它要不要寫 register？<br/>
+它要不要使用 immediate？<br/>
+它要不要讀或寫 Data Memory？<br/>
+ALU 要做什麼？<br/>
 PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p>控制訊號表其實就是把這些問題全部變成 <code>0/1/x</code>。</p>
 <h2 id="addu-rd-rs-rt--r-型加法指令如何走完整-datapath">⭐addu rd, rs, rt — R 型加法指令如何走完整 datapath？<a class="headerlink" href="#addu-rd-rs-rt--r-型加法指令如何走完整-datapath" title="Permanent link"></a></h2>
@@ -10323,7 +10323,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p><code>R[rd] = R[rs] + R[rt]</code></p>
 <p>也就是：</p>
 <p>從 <code>rs</code> 指定的暫存器拿資料，從 <code>rt</code> 指定的暫存器拿資料，兩個資料進 ALU(Arithmetic Logic Unit，算術邏輯單元) 做加法，結果寫回 <code>rd</code> 指定的暫存器。講義在 PDF viewer page 33 明確列出三件事：取指令、執行 <code>R[rd]=R[rs]+R[rt]</code>、更新 <code>PC=PC+4</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-第一段fetch取指令">2. 第一段：Fetch(取指令)<a class="headerlink" href="#2-第一段fetch取指令" title="Permanent link"></a></h3>
 <p>這一步所有指令都會做：</p>
 <pre class="diagram"><code>flowchart LR
@@ -10331,7 +10331,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
     IM --&gt; IW["Instruction Word&lt;br&gt;32-bit 指令內容"]
     PC --&gt; ADD["Adder&lt;br&gt;PC + 4"]
     ADD --&gt; NPC["下一個 PC 候選值"]</code></pre>
-<p>這裡重點不是加法資料運算，而是「拿到這條指令本身」。<br />
+<p>這裡重點不是加法資料運算，而是「拿到這條指令本身」。<br/>
 所以此時：</p>
 <table>
 <thead>
@@ -10355,7 +10355,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="3-第二段decode--register-read解碼與讀暫存器">3. 第二段：Decode / Register Read(解碼與讀暫存器)<a class="headerlink" href="#3-第二段decode--register-read解碼與讀暫存器" title="Permanent link"></a></h3>
 <p><code>addu rd, rs, rt</code> 是 R 型格式：</p>
 <table>
@@ -10412,7 +10412,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </tbody>
 </table>
 <p>這裡你前面已經抓得很準：<code>rs/rt/rd</code> 不是資料本身，是 register number(暫存器編號)。真正的資料是 Register File 讀出來後放在 <code>busA</code> 和 <code>busB</code> 上。</p>
-<hr />
+<hr/>
 <h3 id="4-第三段execute執行-alu-加法">4. 第三段：Execute(執行 ALU 加法)<a class="headerlink" href="#4-第三段execute執行-alu-加法" title="Permanent link"></a></h3>
 <p><code>addu</code> 的兩個 ALU 輸入都來自暫存器：</p>
 <table>
@@ -10435,7 +10435,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </table>
 <p>所以 <code>ALUSrc = 0</code>，因為第二個 ALU input(輸入) 要選 <code>busB</code>，不是 immediate(立即數)。</p>
 <p>ALU 要做加法，所以 <code>ALUCtr = ADD</code>。講義 PDF viewer page 38~39 的 datapath 標出 <code>ALUSrc=0</code>、<code>RegDst=1</code>、<code>RegWr=1</code>、<code>ALUCtr="ADD"</code>、<code>MemtoReg=0</code>、<code>MemWr=0</code>、<code>nPC_sel="+4"</code>。 </p>
-<hr />
+<hr/>
 <h3 id="5-第四段write-back寫回">5. 第四段：Write-back(寫回)<a class="headerlink" href="#5-第四段write-back寫回" title="Permanent link"></a></h3>
 <p><code>addu</code> 的 ALU result(運算結果) 要寫回 Register File。</p>
 <p>所以：</p>
@@ -10514,11 +10514,11 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </tbody>
 </table>
 <p>所以對 <code>addu</code> 來說：</p>
-<p><code>Rw = rd</code><br />
-<code>busW = R[rs] + R[rt]</code><br />
+<p><code>Rw = rd</code><br/>
+<code>busW = R[rs] + R[rt]</code><br/>
 <code>RegWr = 1</code></p>
 <p>這跟你前面釐清 <code>lw/sw</code> 時的觀念一致：<code>Rw</code> 是「位置編號」，<code>busW</code> 是「資料內容」。</p>
-<hr />
+<hr/>
 <h3 id="6-用一個完整例子跑一次">6. 用一個完整例子跑一次<a class="headerlink" href="#6-用一個完整例子跑一次" title="Permanent link"></a></h3>
 <p>假設：</p>
 <table>
@@ -10616,19 +10616,19 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </table>
 <p>最後結果：</p>
 <p><code>R[$t2] = 0x0000000C</code></p>
-<hr />
+<hr/>
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
 <p><code>addu</code> 的最短記法：</p>
-<p><code>rs, rt</code> 是來源。<br />
-<code>rd</code> 是目的地。<br />
-<code>busA = R[rs]</code>。<br />
-<code>busB = R[rt]</code>。<br />
-<code>ALU result = busA + busB</code>。<br />
-<code>Rw = rd</code>。<br />
-<code>busW = ALU result</code>。<br />
-<code>RegWr = 1</code>。<br />
+<p><code>rs, rt</code> 是來源。<br/>
+<code>rd</code> 是目的地。<br/>
+<code>busA = R[rs]</code>。<br/>
+<code>busB = R[rt]</code>。<br/>
+<code>ALU result = busA + busB</code>。<br/>
+<code>Rw = rd</code>。<br/>
+<code>busW = ALU result</code>。<br/>
+<code>RegWr = 1</code>。<br/>
 <code>MemWr = 0</code>。</p>
-<hr />
+<hr/>
 <h3 id="8-常見錯法">8. 常見錯法<a class="headerlink" href="#8-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10674,7 +10674,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p>這個 <code>imm16</code> 就是 immediate(立即數)，也就是「直接寫在指令裡的 16-bit 數字」。</p>
 <p>所以 I-type instruction(Immediate-type instruction，立即數型指令) 要解決的問題是：</p>
 <p>「如果指令需要一個直接寫在 instruction word(指令字) 裡的數字，32-bit 指令格式要怎麼切欄位？」</p>
-<hr />
+<hr/>
 <h3 id="2-i-型指令格式怎麼切">2. I 型指令格式怎麼切？<a class="headerlink" href="#2-i-型指令格式怎麼切" title="Permanent link"></a></h3>
 <p>I-type instruction 的 32-bit 格式是：</p>
 <table>
@@ -10716,7 +10716,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p>最重要的是：I 型沒有 <code>rd</code> 欄位。</p>
 <p>所以像 <code>ori</code> 和 <code>lw</code> 要寫回暫存器時，目的地通常會用 <code>rt</code>，不是 <code>rd</code>。</p>
 <p>但不要背成「I 型的 <code>rt</code> 永遠是目的地」。這句會害你在 <code>sw</code> 出錯。</p>
-<hr />
+<hr/>
 <h3 id="3-rt-的角色要看指令不是只看-i-型格式">3. <code>rt</code> 的角色要看指令，不是只看 I 型格式<a class="headerlink" href="#3-rt-的角色要看指令不是只看-i-型格式" title="Permanent link"></a></h3>
 <p>同樣都是 I-type instruction，<code>rt</code> 可能扮演不同角色：</p>
 <div class="admonition danger">
@@ -10754,9 +10754,9 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </table>
 </div>
 <p>所以我們要分清楚兩層：</p>
-<p>「欄位名稱」是 instruction format(指令格式) 的固定切法。<br />
+<p>「欄位名稱」是 instruction format(指令格式) 的固定切法。<br/>
 「實際用途」是 instruction semantics(指令語意) 決定的。</p>
-<hr />
+<hr/>
 <h3 id="4-pdf-viewer-page-4243-的真正重點分類有兩個維度">4. PDF viewer page 42~43 的真正重點：分類有兩個維度<a class="headerlink" href="#4-pdf-viewer-page-4243-的真正重點分類有兩個維度" title="Permanent link"></a></h3>
 <p>這裡很容易誤會，以為「R 型 = 運算」、「I 型 = 存取」、「J 型 = 分支」。這樣不對。</p>
 <p>講義這裡其實在提醒：指令可以用不同維度分類。</p>
@@ -10772,19 +10772,19 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
     C --&gt; C2["存取指令&lt;br&gt;例如 lw、sw"]
     C --&gt; C3["分支指令&lt;br&gt;例如 beq"]</code></pre>
 <p>最關鍵的例子是 <code>ori</code>：</p>
-<p><code>ori</code> 是 I 型，因為它有 <code>imm16</code>。<br />
+<p><code>ori</code> 是 I 型，因為它有 <code>imm16</code>。<br/>
 但 <code>ori</code> 也是運算指令，因為它做 OR 運算。</p>
 <p>所以「格式分類」和「功能分類」不是同一件事。</p>
-<hr />
+<hr/>
 <h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
-<p><code>R-type</code>：通常用 <code>rs</code>、<code>rt</code> 當來源，<code>rd</code> 當目的地。<br />
-<code>I-type</code>：有 <code>rs</code>、<code>rt</code>、<code>imm16</code>，沒有 <code>rd</code>。<br />
-<code>rt</code> 在 I 型裡不一定是目的地，要看指令語意。<br />
-<code>ori/lw/sw/beq</code> 都是 I 型，但功能不同。<br />
-<code>ori</code> 是 I 型運算指令。<br />
-<code>lw/sw</code> 是 I 型存取指令。<br />
+<p><code>R-type</code>：通常用 <code>rs</code>、<code>rt</code> 當來源，<code>rd</code> 當目的地。<br/>
+<code>I-type</code>：有 <code>rs</code>、<code>rt</code>、<code>imm16</code>，沒有 <code>rd</code>。<br/>
+<code>rt</code> 在 I 型裡不一定是目的地，要看指令語意。<br/>
+<code>ori/lw/sw/beq</code> 都是 I 型，但功能不同。<br/>
+<code>ori</code> 是 I 型運算指令。<br/>
+<code>lw/sw</code> 是 I 型存取指令。<br/>
 <code>beq</code> 是 I 型分支指令。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10823,11 +10823,11 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p>這條指令要做的是：</p>
 <p><code>R[rt] = R[rs] | ZeroExt(imm16)</code></p>
 <p>白話說：</p>
-<p>從 <code>rs</code> 指定的暫存器拿出一個 32-bit 資料，<br />
-再把指令裡的 <code>imm16</code> 用 zero extension(零延伸) 變成 32-bit，<br />
-接著用 ALU 做 OR，<br />
+<p>從 <code>rs</code> 指定的暫存器拿出一個 32-bit 資料，<br/>
+再把指令裡的 <code>imm16</code> 用 zero extension(零延伸) 變成 32-bit，<br/>
+接著用 ALU 做 OR，<br/>
 最後把結果寫回 <code>rt</code> 指定的暫存器。</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼-ori-要用-zeroext">2. 為什麼 <code>ori</code> 要用 <code>ZeroExt</code>？<a class="headerlink" href="#2-為什麼-ori-要用-zeroext" title="Permanent link"></a></h3>
 <p>因為 <code>ori</code> 是 bitwise OR(位元 OR) 指令，它把 <code>imm16</code> 當成 bit pattern(位元樣式)，不是當成有號數值。</p>
 <p>所以 <code>imm16 = 0x00FF</code> 時：</p>
@@ -10838,9 +10838,9 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 <p><code>ZeroExt(0xFFFF) = 0x0000FFFF</code></p>
 <p>不是：</p>
 <p><code>SignExt(0xFFFF) = 0xFFFFFFFF</code></p>
-<p>這就是 <code>ori</code> 和 <code>lw/sw/beq</code> 常見差異之一：<br />
+<p>這就是 <code>ori</code> 和 <code>lw/sw/beq</code> 常見差異之一：<br/>
 <code>ori</code> 用 zero extension；<code>lw/sw/beq</code> 的 offset 通常用 sign extension(符號延伸)。</p>
-<hr />
+<hr/>
 <h3 id="3-ori-的-datapath-流程">3. <code>ori</code> 的 datapath 流程<a class="headerlink" href="#3-ori-的-datapath-流程" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart LR
     A["PC 提供位址"] --&gt; B["Instruction Memory&lt;br&gt;取出 instruction"]
@@ -10890,7 +10890,7 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-ori-的完整-control-signals">4. <code>ori</code> 的完整 control signals<a class="headerlink" href="#4-ori-的完整-control-signals" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10943,11 +10943,11 @@ PC 是 <code>PC + 4</code> 還是 branch target？</p>
 </tr>
 </tbody>
 </table>
-<p>注意：<code>ori</code> 雖然有 <code>rt</code>，但 <code>rt</code> 在這裡是 destination register，不是 ALU 的第二個資料來源。<br />
+<p>注意：<code>ori</code> 雖然有 <code>rt</code>，但 <code>rt</code> 在這裡是 destination register，不是 ALU 的第二個資料來源。<br/>
 ALU 的兩個輸入是：</p>
-<p><code>busA = R[rs]</code><br />
+<p><code>busA = R[rs]</code><br/>
 第二輸入 = <code>ZeroExt(imm16)</code></p>
-<hr />
+<hr/>
 <h3 id="5-小例子">5. 小例子<a class="headerlink" href="#5-小例子" title="Permanent link"></a></h3>
 <p>假設：</p>
 <p><code>ori $t0, $t1, 0x00FF</code></p>
@@ -10960,7 +10960,7 @@ ALU 的兩個輸入是：</p>
 <p>所以最後：</p>
 <p><code>R[$t0] = 0x123456FF</code></p>
 <p>這裡 <code>$t0</code> 是 <code>rt</code>，也就是寫回目的地。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法_1">6. 常見錯法<a class="headerlink" href="#6-常見錯法_1" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11003,10 +11003,10 @@ ALU 的兩個輸入是：</p>
 <p>但 <code>beq rs, rt, imm16</code> 是 branch instruction(分支指令)，它要處理的是：</p>
 <p>「如果 <code>R[rs]</code> 和 <code>R[rt]</code> 相等，就不要照順序走，而是跳到 branch target address(分支目標位址)。」</p>
 <p>講義寫的語意是：</p>
-<p><code>beq rs, rt, imm16</code><br />
+<p><code>beq rs, rt, imm16</code><br/>
 如果 <code>R[rs] - R[rt] == 0</code>，代表兩者相等，就走分支；否則走 <code>PC + 4</code>。講義也列出 <code>then PC = PC + 4 + SignExt[imm16] * 4; else PC = PC + 4</code>。</p>
 <p>外部課程資料也用同樣的 PC-relative branch(PC 相對分支)概念：分支目標以目前指令後面的 <code>PC + 4</code> 為基準，再加上 immediate offset 乘以 4。([cs.nthu.edu.tw][1])</p>
-<hr />
+<hr/>
 <h3 id="2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等">2. <code>beq</code> 的 ALU 不是拿來產生資料，而是拿來比較是否相等<a class="headerlink" href="#2-beq-的-alu-不是拿來產生資料而是拿來比較是否相等" title="Permanent link"></a></h3>
 <p><code>beq</code> 會讀兩個暫存器：</p>
 <table>
@@ -11055,10 +11055,10 @@ ALU 的兩個輸入是：</p>
 </tbody>
 </table>
 <p>所以 <code>beq</code> 的 ALU result 本身通常不是重點，重點是 ALU 額外輸出的 <code>zero</code> signal(零訊號)。講義說 ALU 增加一個功能：判斷目前運算結果是否為 0；如果結果為 0，<code>zero</code> 置為 1，否則置為 0。</p>
-<p>生活化講法：<br />
-<code>beq</code> 像是問「這兩張學生證是不是同一個人？」<br />
+<p>生活化講法：<br/>
+<code>beq</code> 像是問「這兩張學生證是不是同一個人？」<br/>
 ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
-<hr />
+<hr/>
 <h3 id="3-beq-的-pc-更新有兩層判斷">3. <code>beq</code> 的 PC 更新有兩層判斷<a class="headerlink" href="#3-beq-的-pc-更新有兩層判斷" title="Permanent link"></a></h3>
 <p><code>beq</code> 的下一個 PC 不是只看 <code>zero</code>，而是看兩件事：</p>
 <table>
@@ -11109,7 +11109,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tbody>
 </table>
 <p>這裡要特別注意：如果某段文字看起來寫成 <code>zero == 0</code> 時走 branch target，那會和 <code>beq</code> 的操作步驟及 page 70 表格衝突；本輪以 page 66 的操作步驟與 page 70 的表格為準。</p>
-<hr />
+<hr/>
 <h3 id="4-branch-target-address-怎麼算">4. Branch target address 怎麼算？<a class="headerlink" href="#4-branch-target-address-怎麼算" title="Permanent link"></a></h3>
 <p><code>beq</code> 的目標位址不是直接等於 <code>imm16</code>，而是：</p>
 <p><code>TargetAddress = PC + 4 + SignExt(imm16) * 4</code></p>
@@ -11148,7 +11148,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tbody>
 </table>
 <p>所以 <code>beq</code> 若成立，下一個 PC 會變成 <code>0x00400030</code>；若不成立，下一個 PC 會是 <code>0x00400024</code>。</p>
-<hr />
+<hr/>
 <h3 id="5-beq-的控制訊號">5. <code>beq</code> 的控制訊號<a class="headerlink" href="#5-beq-的控制訊號" title="Permanent link"></a></h3>
 <p>講義控制表列出 <code>beq</code> 的控制訊號如下：</p>
 <table>
@@ -11202,9 +11202,9 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<p>最容易錯的是 <code>ALUSrc</code>：<br />
+<p>最容易錯的是 <code>ALUSrc</code>：<br/>
 <code>beq</code> 雖然是 I-type instruction(I 型指令)，有 <code>imm16</code>，但 ALU 比較兩個暫存器時，第二個 ALU input 仍然是 <code>R[rt]</code>，所以 <code>ALUSrc = 0</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
 <p><code>beq</code> 的核心不是「寫資料」，而是「決定下一個 PC」。</p>
 <p>最短流程：</p>
@@ -11248,7 +11248,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 <h3 id="為何-beq-的-memtoreg--x">為何 <code>beq</code> 的 <code>MemtoReg = x</code>？<a class="headerlink" href="#為何-beq-的-memtoreg--x" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><img alt="alt text" src="images/ch%204-3.png" /><br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-3.png"/><br/>
 因為 RegWr = 0 ， 所以選 MemtoReg 完全沒有意義，MemtoReg = 0 時是把 AUL result 作為 busW，MemtoReg = 0 時是把 Data Memory out 作為 busW，但是用不到 busW，所以 MemtoReg = x (don't care)。</p>
 </div>
 <h3 id="在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎">在 IFU 中，為何是 mux 前就 +4，為何不 mux 之後+4？這樣不是可以省一個 ALU 嗎？<a class="headerlink" href="#在-ifu-中為何是-mux-前就-4為何不-mux-之後4這樣不是可以省一個-alu-嗎" title="Permanent link"></a></h3>
@@ -11261,7 +11261,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
     B --&gt; MUX
     MUX --&gt; NPC[更新 PC]</code></pre>
 <h2 id="控制訊號小整理">⭐控制訊號小整理<a class="headerlink" href="#控制訊號小整理" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%204-4.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-4.png"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>以下整理所有的訊號用途。</p>
@@ -11304,7 +11304,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="2-control-signal控制訊號">2. Control signal(控制訊號)<a class="headerlink" href="#2-control-signal控制訊號" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11385,7 +11385,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tbody>
 </table>
 <p>補一句很重要的：<code>nPC_sel = 1</code> 不一定代表「一定跳」。在 <code>beq</code> 裡，它通常代表「這是 branch 類指令，允許 IFU 根據 <code>zero</code> 判斷要不要跳」。真正是否跳到 target address，要看 <code>zero</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-status-signal狀態訊號">3. Status signal(狀態訊號)<a class="headerlink" href="#3-status-signal狀態訊號" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11414,9 +11414,9 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<p><code>zero</code> 不是 control signal(控制訊號)，它比較像 ALU 回報出來的 condition/status(條件狀態)。<br />
+<p><code>zero</code> 不是 control signal(控制訊號)，它比較像 ALU 回報出來的 condition/status(條件狀態)。<br/>
 例如 <code>beq</code>：ALU 做減法，若 <code>busA - busB = 0</code>，<code>zero = 1</code>，才代表 branch condition 成立。</p>
-<hr />
+<hr/>
 <h3 id="4-register-number-route暫存器編號路線5-bit">4. Register number route(暫存器編號路線，5-bit)<a class="headerlink" href="#4-register-number-route暫存器編號路線5-bit" title="Permanent link"></a></h3>
 <p>這一類最容易和資料搞混。它們都是 5-bit register number(暫存器編號)，不是暫存器裡面的 32-bit 內容。</p>
 <table>
@@ -11482,7 +11482,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tbody>
 </table>
 <p>最重要一句：<code>Rw</code> 決定「寫去哪個暫存器」，<code>busW</code> 決定「寫進去的 32-bit 資料是什麼」。</p>
-<hr />
+<hr/>
 <h3 id="5-data-bus--data-route資料匯流排與資料路線通常-32-bit">5. Data bus / data route(資料匯流排與資料路線，通常 32-bit)<a class="headerlink" href="#5-data-bus--data-route資料匯流排與資料路線通常-32-bit" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11594,7 +11594,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="6-mux多工器整理">6. MUX(多工器)整理<a class="headerlink" href="#6-mux多工器整理" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11657,7 +11657,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="7-functional-unit功能元件">7. Functional unit(功能元件)<a class="headerlink" href="#7-functional-unit功能元件" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11701,7 +11701,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="8-依指令看路線最容易記的版本">8. 依指令看路線：最容易記的版本<a class="headerlink" href="#8-依指令看路線最容易記的版本" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11733,7 +11733,7 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="9-最容易混淆的對照表">9. 最容易混淆的對照表<a class="headerlink" href="#9-最容易混淆的對照表" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11807,12 +11807,12 @@ ALU 做減法只是檢查差異；如果差異是 0，就代表相等。</p>
 </tr>
 </tbody>
 </table>
-<p>但 CPU 不可能靠人工說：「現在這條是 <code>lw</code>，請把 <code>RegWr</code> 打開。」<br />
+<p>但 CPU 不可能靠人工說：「現在這條是 <code>lw</code>，請把 <code>RegWr</code> 打開。」<br/>
 CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode</code> 和 <code>funct</code>。</p>
 <p>所以本輪核心問題是：</p>
 <p>CPU 要如何根據 <code>opcode</code> / <code>funct</code>，自動產生 <code>RegDst</code>、<code>ALUSrc</code>、<code>MemtoReg</code>、<code>RegWr</code>、<code>MemWr</code>、<code>nPC_sel</code>、<code>ExtOp</code>、<code>ALUctr</code>？</p>
 <p>講義把這一步稱為把 control signals(控制訊號) 集成成完整 control logic(控制邏輯)。</p>
-<hr />
+<hr/>
 <h3 id="2-第一層先判斷目前是哪一種指令">2. 第一層：先判斷目前是哪一種指令<a class="headerlink" href="#2-第一層先判斷目前是哪一種指令" title="Permanent link"></a></h3>
 <p>控制邏輯第一步不是直接算 <code>RegWr</code>，而是先根據 <code>opcode</code> / <code>funct</code> 判斷：</p>
 <table>
@@ -11876,7 +11876,7 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
 </tbody>
 </table>
 <p>所以 <code>R-type</code> 指令要多看 <code>funct</code>，但 I-type 指令大多只靠 <code>opcode</code> 就可以辨識。</p>
-<hr />
+<hr/>
 <h3 id="3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式">3. 第二層：把「哪條指令會讓控制訊號等於 1」寫成邏輯式<a class="headerlink" href="#3-第二層把哪條指令會讓控制訊號等於-1寫成邏輯式" title="Permanent link"></a></h3>
 <p>講義的控制表已經告訴我們每條指令的控制訊號值，例如 <code>lw</code> 會讓 <code>MemtoReg = 1</code>，<code>sw</code> 會讓 <code>MemWr = 1</code>，<code>beq</code> 會讓 <code>nPC_sel = 1</code>。</p>
 <p>接著把表格轉成 boolean equation(布林邏輯式)：</p>
@@ -11936,13 +11936,13 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
 </tr>
 </tbody>
 </table>
-<p>這裡的 <code>+</code> 不是加法，而是 OR(或閘)。<br />
+<p>這裡的 <code>+</code> 不是加法，而是 OR(或閘)。<br/>
 例如：</p>
 <p><code>RegWr = add + sub + ori + lw</code></p>
 <p>意思是：只要現在指令是 <code>add</code>、<code>sub</code>、<code>ori</code>、<code>lw</code> 任一種，<code>RegWr</code> 就要等於 1。講義也列出同樣的控制器邏輯運算式。</p>
-<hr />
+<hr/>
 <h3 id="4-第三層把指令名稱本身也變成邏輯式">4. 第三層：把指令名稱本身也變成邏輯式<a class="headerlink" href="#4-第三層把指令名稱本身也變成邏輯式" title="Permanent link"></a></h3>
-<p>像 <code>lw</code>、<code>sw</code>、<code>beq</code> 不是 CPU 腦中真正存在的中文或英文單字。<br />
+<p>像 <code>lw</code>、<code>sw</code>、<code>beq</code> 不是 CPU 腦中真正存在的中文或英文單字。<br/>
 硬體真正看到的是 bit pattern(位元樣式)。</p>
 <p>例如 <code>beq</code> 的 <code>opcode = 000100</code>。</p>
 <p>如果把 <code>opcode</code> 依序寫成：</p>
@@ -12011,7 +12011,7 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
 <li>用 OR 把「哪些指令需要某控制訊號」合併起來。</li>
 </ol>
 <p>講義在 PDF viewer page 80 ~ 81 正是在做這件事：先寫出 <code>add</code>、<code>sub</code>、<code>rtype</code>、<code>ori</code>、<code>lw</code>、<code>sw</code>、<code>beq</code> 的偵測式，再寫出 <code>RegDst</code>、<code>ALUSrc</code>、<code>MemtoReg</code> 等控制訊號的總邏輯式。</p>
-<hr />
+<hr/>
 <h3 id="5-生活化例子控制器像分類後自動開關">5. 生活化例子：控制器像「分類後自動開關」<a class="headerlink" href="#5-生活化例子控制器像分類後自動開關" title="Permanent link"></a></h3>
 <p>你可以把 CPU 控制器想成捷運站閘門：</p>
 <ol>
@@ -12024,7 +12024,7 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
 <li>再根據指令類型，自動打開需要的控制訊號。</li>
 </ol>
 <p>所以控制邏輯不是新資料路徑，而是「讓前面那些 mux、RegFile、Memory、ALU 自動選對路」。</p>
-<hr />
+<hr/>
 <h3 id="6-最短記法_2">6. 最短記法<a class="headerlink" href="#6-最短記法_2" title="Permanent link"></a></h3>
 <p>控制邏輯的最短理解：</p>
 <p>先偵測 instruction type(指令種類)，再用 OR gate(或閘) 合成控制訊號。</p>
@@ -12074,9 +12074,9 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
 <h3 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><img alt="alt text" src="images/ch%204-5.png" /></p>
-<p><img alt="alt text" src="images/ch%204-6.png" /></p>
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Control_Logic</span><span class="w"> </span><span class="p">(</span>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-5.png"/></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-6.png"/></p>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Control_Logic</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="n">func</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">RegDst</span><span class="p">,</span><span class="w"> </span><span class="n">ALUSrc</span><span class="p">,</span><span class="w"> </span><span class="n">MemtoReg</span><span class="p">,</span><span class="w"> </span><span class="n">RegWr</span><span class="p">,</span><span class="w"> </span><span class="n">MemWr</span><span class="p">,</span><span class="w"> </span><span class="n">nPC_sel</span><span class="p">,</span><span class="w"> </span><span class="n">ExtOp</span><span class="p">,</span><span class="w"> </span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">ALUctr</span>
@@ -12300,17 +12300,15 @@ CPU 只能看 instruction word(指令位元) 裡的欄位，例如 <code>opcode<
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7959,7 +7959,7 @@ is now available!
 <h1 id="ch-5">ch 5<a class="headerlink" href="#ch-5" title="Permanent link"></a></h1>
 <details>
 <summary>簡報</summary>
-<p><img alt="alt text" src="images/ch%205-32.png" /> <img alt="alt text" src="images/ch%205-20.png" /> <img alt="alt text" src="images/ch%205-21.png" /> <img alt="alt text" src="images/ch%205-19.png" /> <img alt="alt text" src="images/ch%205-18.png" /> <img alt="alt text" src="images/ch%205-22.png" /> <img alt="alt text" src="images/ch%205-25.png" /> <img alt="alt text" src="images/ch%205-24.png" /> <img alt="alt text" src="images/ch%205-23.png" /> <img alt="alt text" src="images/ch%205-28.png" /> <img alt="alt text" src="images/ch%205-26.png" /> <img alt="alt text" src="images/ch%205-31.png" /> <img alt="alt text" src="images/ch%205-27.png" /> <img alt="alt text" src="images/ch%205-33.png" /> <img alt="alt text" src="images/ch%205-30.png" /> <img alt="alt text" src="images/ch%205-29.png" /> <img alt="alt text" src="images/ch%205-34.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/ch%205-32.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-20.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-21.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-19.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-18.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-22.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-25.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-24.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-23.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-28.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-26.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-31.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-27.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-33.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-30.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-29.png"/> <img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-34.png"/></p>
 </details>
 <h2 id="同步synchronization">同步(Synchronization)<a class="headerlink" href="#同步synchronization" title="Permanent link"></a></h2>
 <h3 id="講解">講解<a class="headerlink" href="#講解" title="Permanent link"></a></h3>
@@ -7975,7 +7975,7 @@ is now available!
     E --&gt; F[軟體解法&lt;br&gt;Peterson]
     E --&gt; G[硬體解法&lt;br&gt;TestAndSet / compare_and_swap]
     E --&gt; H[實務工具&lt;br&gt;mutex / semaphore]</code></pre>
-<hr />
+<hr/>
 <h4 id="2-先講直覺為什麼明明只有-count--count--還會出事">2. 先講直覺：為什麼明明只有 <code>count++</code> / <code>count--</code>，還會出事？<a class="headerlink" href="#2-先講直覺為什麼明明只有-count--count--還會出事" title="Permanent link"></a></h4>
 <p>直覺上你可能會想：</p>
 <ul>
@@ -7998,10 +7998,10 @@ is now available!
 <li>生產者把 6 寫回去</li>
 <li>消費者再把 4 寫回去</li>
 </ul>
-<p>最後白板是 4。<br />
+<p>最後白板是 4。<br/>
 但真實世界其實「先加一再減一」之後應該還是 5。</p>
 <p>這就是 <strong>結果取決於執行先後順序</strong>，也就是講義定義的 race condition。</p>
-<hr />
+<hr/>
 <h4 id="3-什麼是-critical-section臨界區">3. 什麼是 critical section(臨界區)？<a class="headerlink" href="#3-什麼是-critical-section臨界區" title="Permanent link"></a></h4>
 <p>critical section 的直覺就是：</p>
 <p><strong>一段不能讓兩個人同時進來操作共享資料的程式碼區。</strong></p>
@@ -8014,25 +8014,25 @@ is now available!
 </ul>
 <p>這些都可能是 critical section。</p>
 <p>講義說，任何能解決 critical-section problem 的方案，必須同時滿足三個條件：mutual exclusion(互斥)、progress(進行)、bounded waiting(有限等待)。</p>
-<hr />
+<hr/>
 <h4 id="4-三個條件到底在說什麼">4. 三個條件到底在說什麼<a class="headerlink" href="#4-三個條件到底在說什麼" title="Permanent link"></a></h4>
 <h4 id="41-mutual-exclusion互斥">4.1 mutual exclusion(互斥)<a class="headerlink" href="#41-mutual-exclusion互斥" title="Permanent link"></a></h4>
-<p>同一時間，<strong>最多只能有一個</strong> process 進入 critical section。<br />
+<p>同一時間，<strong>最多只能有一個</strong> process 進入 critical section。<br/>
 這是最基本的要求。</p>
-<p>白話就是：<br />
+<p>白話就是：<br/>
 廁所一次只能一個人進去。</p>
 <p>如果做不到 mutual exclusion，兩個人同時改共享資料，race condition 就回來了。</p>
 <h4 id="42-progress進行">4.2 progress(進行)<a class="headerlink" href="#42-progress進行" title="Permanent link"></a></h4>
-<p>如果現在沒有人在臨界區裡，而有人想進去，<br />
+<p>如果現在沒有人在臨界區裡，而有人想進去，<br/>
 那就應該<strong>讓某個符合資格的人趕快決定並進去</strong>，不能無限拖延。</p>
 <p>白話就是：</p>
 <p>廁所明明空著，你也在排隊，但門口管理員一直不決定讓誰進，這就不行。</p>
 <h4 id="43-bounded-waiting有限等待">4.3 bounded waiting(有限等待)<a class="headerlink" href="#43-bounded-waiting有限等待" title="Permanent link"></a></h4>
-<p>某個 process 已經表明「我想進 critical section」，<br />
+<p>某個 process 已經表明「我想進 critical section」，<br/>
 那它不能永遠被別人插隊，必須保證它等待次數有上限。</p>
 <p>白話就是：</p>
 <p>你排隊排到了，不能每次都被後面的人無限插隊。</p>
-<hr />
+<hr/>
 <h4 id="5-petersons-solution-在幹嘛">5. Peterson’s Solution 在幹嘛<a class="headerlink" href="#5-petersons-solution-在幹嘛" title="Permanent link"></a></h4>
 <p>這是講義中的<strong>軟體解法</strong>，而且是很經典的考題。它假設只有 <strong>兩個 process</strong>。講義明確寫出它共享兩個變數：</p>
 <ul>
@@ -8058,7 +8058,7 @@ is now available!
 </ul>
 <p>所以 Peterson 不是單純「搶鎖」，而是「<strong>先表達需求，再用 turn 打破平手</strong>」。這就是它能同時滿足互斥、進行、有限等待的原因，也是講義要求你證明的三點。</p>
 <h4 id="51-通用模板">5.1 通用模板<a class="headerlink" href="#51-通用模板" title="Permanent link"></a></h4>
-<div class="highlight"><pre><span></span><code><span class="cm">/* Peterson&#39;s Solution for two processes */</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Peterson's Solution for two processes */</span>
 <span class="cm">/* textbook version */</span>
 
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
@@ -8126,7 +8126,7 @@ is now available!
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="6-peterson-最容易搞混的地方">6. Peterson 最容易搞混的地方<a class="headerlink" href="#6-peterson-最容易搞混的地方" title="Permanent link"></a></h4>
 <p>很多人第一次看會以為：</p>
 <blockquote>
@@ -8139,9 +8139,9 @@ is now available!
 <li><strong>而且目前輪到對方</strong>：<code>turn == j</code></li>
 </ul>
 <p>這兩個要同時成立，我才等。</p>
-<p>也就是說，<code>turn</code> <strong>不是單獨決定權限</strong>，它只是用來處理「雙方都想進」時的平手情況。<br />
+<p>也就是說，<code>turn</code> <strong>不是單獨決定權限</strong>，它只是用來處理「雙方都想進」時的平手情況。<br/>
 這是 Peterson 最容易考的點。</p>
-<hr />
+<hr/>
 <h4 id="7-peterson-為什麼課堂上重要但真實系統很少直接這樣用">7. Peterson 為什麼課堂上重要，但真實系統很少直接這樣用<a class="headerlink" href="#7-peterson-為什麼課堂上重要但真實系統很少直接這樣用" title="Permanent link"></a></h4>
 <p>就講義範圍來說，Peterson 是拿來教你理解：</p>
 <ul>
@@ -8152,7 +8152,7 @@ is now available!
 </ul>
 <p>但補充一個比較現代的背景：</p>
 <p>講義裡假設 load/store 是 atomic(原子、不可中斷) 的。可是在現代多核心系統上，單靠程式表面順序不一定夠，因為 compiler(編譯器) 與 CPU 可能對 memory access(記憶體存取) 做 reordering(重排序)。Linux kernel 文件明講 memory barriers(記憶體屏障) 的用途就是限制這種重排序；社群討論也常指出 Peterson 在現代多處理器架構上若沒有適當的 memory ordering，就不保證正確。換句話說，<strong>考試你照講義寫 Peterson；實作你通常用 mutex/atomic primitives，而不是手刻 Peterson。</strong> ([Kernel Documentation][1])</p>
-<hr />
+<hr/>
 <h4 id="8-為什麼要講硬體支援">8. 為什麼要講硬體支援<a class="headerlink" href="#8-為什麼要講硬體支援" title="Permanent link"></a></h4>
 <p>講義接著說，很多系統會提供 synchronization hardware(同步硬體支援)。在單處理器上，可以靠 disable interrupts(關中斷) 暫時避免搶先，但在 multiprocessor(多處理器) 系統上通常效率差、可擴展性也不好；因此現代機器會提供 special atomic hardware instructions(特殊原子硬體指令)。</p>
 <p>這裡的重點不是背硬體細節，而是理解：</p>
@@ -8198,7 +8198,7 @@ is now available!
 <p>這確實能做到 mutual exclusion，但有一個代價：</p>
 <p><strong>busy waiting(忙等、自旋等待)</strong></p>
 <p>也就是等的人不是睡著，而是在那邊一直檢查、一直空轉 CPU。</p>
-<hr />
+<hr/>
 <h4 id="9-compare_and_swapcas-又是什麼">9. compare_and_swap(CAS) 又是什麼<a class="headerlink" href="#9-compare_and_swapcas-又是什麼" title="Permanent link"></a></h4>
 <p>投影片也給了 compare_and_swap：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">compare_and_swap</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">new_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -8219,7 +8219,7 @@ is now available!
 </ul>
 <p>如果門早就被別人鎖了，我就不動它。</p>
 <p>所以 CAS 也是一種「原子地檢查並更新」的工具。投影片用它做出的 lock，邏輯上跟 TestAndSet 很像，也能保證互斥。</p>
-<hr />
+<hr/>
 <h4 id="10-為什麼單純的-testandset--cas-還不夠好">10. 為什麼單純的 TestAndSet / CAS 還不夠好<a class="headerlink" href="#10-為什麼單純的-testandset--cas-還不夠好" title="Permanent link"></a></h4>
 <p>雖然它們能保證 mutual exclusion，但單純版本有兩個常見問題。</p>
 <h5 id="101-busy-waiting忙等">10.1 busy waiting(忙等)<a class="headerlink" href="#101-busy-waiting忙等" title="Permanent link"></a></h5>
@@ -8228,7 +8228,7 @@ is now available!
 <p>你可能一直很倒楣，每次都搶輸，於是雖然系統一直在運作，但你可能長期進不去。這就碰到 bounded waiting 的要求了。</p>
 <p>所以投影片才又放出一個比較進階的版本：</p>
 <p><strong>Bounded-waiting Mutual Exclusion with TestAndSet()</strong></p>
-<hr />
+<hr/>
 <h4 id="11-那張最難的圖bounded-waiting-testandset到底在幹嘛">11. 那張最難的圖：Bounded-waiting TestAndSet，到底在幹嘛<a class="headerlink" href="#11-那張最難的圖bounded-waiting-testandset到底在幹嘛" title="Permanent link"></a></h4>
 <p>這一段很重要，因為它不是只求「鎖住」，而是還想求「不要讓人一直餓死」。</p>
 <p>投影片的核心想法是：</p>
@@ -8280,14 +8280,14 @@ is now available!
 <li>你不會無限期地等下去</li>
 </ul>
 <p>這就是 bounded waiting 的本質。</p>
-<hr />
+<hr/>
 <h4 id="12-這一段最容易混淆的地方">12. 這一段最容易混淆的地方<a class="headerlink" href="#12-這一段最容易混淆的地方" title="Permanent link"></a></h4>
 <h5 id="121-race-condition--deadlock">12.1 race condition ≠ deadlock<a class="headerlink" href="#121-race-condition--deadlock" title="Permanent link"></a></h5>
 <p>很多人會把這兩個混掉。</p>
-<p><strong>race condition(競爭條件)</strong><br />
-是大家都還在跑，但因為執行順序不同，結果錯了。<br />
+<p><strong>race condition(競爭條件)</strong><br/>
+是大家都還在跑，但因為執行順序不同，結果錯了。<br/>
 像 <code>count</code> 最後變 4 而不是 5。</p>
-<p><strong>deadlock(死結)</strong><br />
+<p><strong>deadlock(死結)</strong><br/>
 是大家互相等，最後誰都不動。</p>
 <p>前者是「動了但結果錯」，後者是「根本動不了」。</p>
 <h5 id="122-mutual-exclusion-不等於-bounded-waiting">12.2 mutual exclusion 不等於 bounded waiting<a class="headerlink" href="#122-mutual-exclusion-不等於-bounded-waiting" title="Permanent link"></a></h5>
@@ -8303,9 +8303,9 @@ is now available!
 <li>是否滿足 progress 與 bounded waiting？</li>
 </ul>
 <h5 id="123-turn--j-不是-bug">12.3 <code>turn = j</code> 不是 bug<a class="headerlink" href="#123-turn--j-不是-bug" title="Permanent link"></a></h5>
-<p>這真的是 Peterson 最常見誤解。<br />
+<p>這真的是 Peterson 最常見誤解。<br/>
 它不是寫反，而是<strong>故意把平手裁決權讓給對方</strong>，讓衝突有辦法被打破。</p>
-<hr />
+<hr/>
 <h4 id="13-用一張圖把這批內容串起來">13. 用一張圖把這批內容串起來<a class="headerlink" href="#13-用一張圖把這批內容串起來" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[多個 process / thread&lt;br&gt;同時碰 shared data] --&gt; B[可能發生 race condition]
@@ -8317,29 +8317,29 @@ is now available!
     G --&gt; H[可做 mutex lock]
     H --&gt; I[但可能 busy waiting / 不公平]
     I --&gt; J[加入 waiting 機制&lt;br&gt;追求 bounded waiting]</code></pre>
-<hr />
+<hr/>
 <h4 id="14-這一段你現在應該真正記住什麼">14. 這一段你現在應該真正記住什麼<a class="headerlink" href="#14-這一段你現在應該真正記住什麼" title="Permanent link"></a></h4>
 <p>先不要背 code，先背下面這條主線：</p>
 <ol>
 <li><strong>共享資料會因為同時修改而出錯</strong></li>
 <li>這種錯叫 <strong>race condition(競爭條件)</strong></li>
 <li>所以碰共享資料的區域要當成 <strong>critical section(臨界區)</strong></li>
-<li>好的同步解法要同時滿足<br />
+<li>好的同步解法要同時滿足<br/>
 <strong>mutual exclusion、progress、bounded waiting</strong></li>
 <li><strong>Peterson</strong> 是經典兩行程軟體解法</li>
-<li>現代系統更常靠 <strong>atomic hardware instruction</strong><br />
+<li>現代系統更常靠 <strong>atomic hardware instruction</strong><br/>
    像 <strong>TestAndSet / compare_and_swap</strong></li>
-<li>單純鎖住還不夠，還要考慮<br />
+<li>單純鎖住還不夠，還要考慮<br/>
 <strong>busy waiting、公平性、是否會飢餓</strong></li>
 </ol>
-<hr />
+<hr/>
 <h4 id="15-最後幫你做一句話版總結">15. 最後幫你做一句話版總結<a class="headerlink" href="#15-最後幫你做一句話版總結" title="Permanent link"></a></h4>
 <p>這批投影片的本質就是：</p>
 <blockquote>
 <p><strong>為了讓共享資料保持正確，我們必須把「誰能在什麼時候碰共享資料」這件事管理起來；而同步機制，就是在做這件事。</strong></p>
 </blockquote>
 <p>下一段最自然就是接著講 <code>mutex lock</code>、<code>semaphore(號誌)</code>、以及 bounded-buffer / readers-writers / dining philosophers 這些經典同步問題。</p>
-<p><img alt="alt text" src="images/ch%205-35.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-35.png"/></p>
 <h4 id="1-這段在回答什麼問題">1. 這段在回答什麼問題<a class="headerlink" href="#1-這段在回答什麼問題" title="Permanent link"></a></h4>
 <p>這段其實是在回答：</p>
 <p><strong>如果很多 process / thread 都想同時進入 critical section(臨界區)，怎麼保證一次只有一個能進去？</strong></p>
@@ -8350,7 +8350,7 @@ is now available!
 <li>bounded waiting(有限等待) </li>
 </ol>
 <p>而 <code>compare_and_swap</code> 就是硬體提供的一種 <strong>atomic(原子化、不可中斷)</strong> 指令，用來幫我們做 lock(鎖)。講義也明講現代機器會提供這類 atomic hardware instructions。</p>
-<hr />
+<hr/>
 <h4 id="2-直覺理解它到底在做什麼">2. 直覺理解：它到底在做什麼<a class="headerlink" href="#2-直覺理解它到底在做什麼" title="Permanent link"></a></h4>
 <p>你可以把 <code>lock</code> 想成廁所門牌：</p>
 <ul>
@@ -8359,18 +8359,18 @@ is now available!
 </ul>
 <p><code>compare_and_swap(&amp;lock, 0, 1)</code> 的意思就是：</p>
 <blockquote>
-<p>「幫我看一下 lock 現在是不是 0。<br />
-如果是 0，就立刻把它改成 1。<br />
+<p>「幫我看一下 lock 現在是不是 0。<br/>
+如果是 0，就立刻把它改成 1。<br/>
 而且這整件事要一次做完，中間不能被別人插進來。」</p>
 </blockquote>
-<p>這個「看是不是 0」加上「如果是就改成 1」必須綁成一個不可分割動作。<br />
+<p>這個「看是不是 0」加上「如果是就改成 1」必須綁成一個不可分割動作。<br/>
 不然如果分兩步：</p>
 <ol>
 <li>我先看 lock 是不是 0</li>
 <li>我再把它改成 1</li>
 </ol>
 <p>那兩個 process 可能都看到 0，最後兩個都進 critical section，就壞了。</p>
-<hr />
+<hr/>
 <h4 id="3-正式概念compare_and_swap-instruction-是什麼">3. 正式概念：compare_and_swap Instruction 是什麼<a class="headerlink" href="#3-正式概念compare_and_swap-instruction-是什麼" title="Permanent link"></a></h4>
 <p>講義的定義是：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">compare_and_swap</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">expected</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">new_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
@@ -8389,7 +8389,7 @@ is now available!
 <h4 id="32-回傳值是什麼">3.2 回傳值是什麼<a class="headerlink" href="#32-回傳值是什麼" title="Permanent link"></a></h4>
 <p>它回傳的是 <strong>舊值 old value</strong>，也就是 <code>*value</code> 原本的值，存在 <code>temp</code> 裡。</p>
 <p>這點超重要。</p>
-<hr />
+<hr/>
 <h4 id="4-一步一步拆解-compare_and_swap">4. 一步一步拆解 compare_and_swap<a class="headerlink" href="#4-一步一步拆解-compare_and_swap" title="Permanent link"></a></h4>
 <p>假設現在：</p>
 <div class="highlight"><pre><span></span><code><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -8409,7 +8409,7 @@ is now available!
 <li><strong>回傳 0</strong> 代表「原本沒鎖住，我成功搶到鎖了」</li>
 <li><strong>回傳 1</strong> 代表「原本已經有人鎖住，我沒搶到」</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="5-solution-using-compare_and_swap-怎麼看">5. Solution using compare_and_swap 怎麼看<a class="headerlink" href="#5-solution-using-compare_and_swap-怎麼看" title="Permanent link"></a></h4>
 <p>講義的解法是：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
@@ -8419,7 +8419,7 @@ is now available!
 <span class="w">     </span><span class="cm">/* remainder section */</span><span class="w"> </span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w"> </span>
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="6-這段程式在幹嘛">6. 這段程式在幹嘛<a class="headerlink" href="#6-這段程式在幹嘛" title="Permanent link"></a></h4>
 <h4 id="61-while-compare_and_swaplock-0-1--0-">6.1 <code>while (compare_and_swap(&amp;lock, 0, 1) != 0) ;</code><a class="headerlink" href="#61-while-compare_and_swaplock-0-1--0-" title="Permanent link"></a></h4>
 <p>意思是：</p>
@@ -8433,13 +8433,13 @@ is now available!
 <p><strong>一直自旋(spin)等到鎖變空，然後原子化地把它搶下來</strong></p>
 </blockquote>
 <p>所以這是一種 <strong>spinlock(自旋鎖)</strong> 寫法。</p>
-<hr />
+<hr/>
 <h4 id="62--critical-section-">6.2 <code>/* critical section */</code><a class="headerlink" href="#62--critical-section-" title="Permanent link"></a></h4>
 <p>只要某個 process 成功把 <code>lock</code> 從 <code>0</code> 改成 <code>1</code>，它就能進 critical section。</p>
-<hr />
+<hr/>
 <h4 id="63-lock--0">6.3 <code>lock = 0;</code><a class="headerlink" href="#63-lock--0" title="Permanent link"></a></h4>
 <p>離開 critical section 時，把鎖釋放掉，讓別人有機會進來。</p>
-<hr />
+<hr/>
 <h4 id="7-兩個-process-同時搶鎖時實際會怎樣">7. 兩個 process 同時搶鎖時，實際會怎樣<a class="headerlink" href="#7-兩個-process-同時搶鎖時實際會怎樣" title="Permanent link"></a></h4>
 <p>假設 <code>P0</code> 和 <code>P1</code> 同時跑到：</p>
 <div class="highlight"><pre><span></span><code><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
@@ -8469,9 +8469,9 @@ is now available!
 <li>回傳 <code>1</code></li>
 <li><code>P1</code> 留在 while 迴圈裡一直等</li>
 </ul>
-<p>所以只會有一個 process 進 critical section。<br />
+<p>所以只會有一個 process 進 critical section。<br/>
 這就是 <strong>mutual exclusion(互斥)</strong>。</p>
-<hr />
+<hr/>
 <h4 id="8-用流程圖看比較直覺">8. 用流程圖看比較直覺<a class="headerlink" href="#8-用流程圖看比較直覺" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[開始嘗試進入 critical section] --&gt; B[執行 compare_and_swap(&amp;lock, 0, 1)]
@@ -8482,7 +8482,7 @@ is now available!
     E --&gt; F[進入 critical section]
     F --&gt; G[離開時 lock = 0]
     G --&gt; H[進入 remainder section]</code></pre>
-<hr />
+<hr/>
 <h4 id="9-為什麼這能保證-mutual-exclusion互斥">9. 為什麼這能保證 mutual exclusion(互斥)<a class="headerlink" href="#9-為什麼這能保證-mutual-exclusion互斥" title="Permanent link"></a></h4>
 <p>關鍵只有一句：</p>
 <blockquote>
@@ -8494,9 +8494,9 @@ is now available!
 <li><code>P1</code> 也看見 lock=0</li>
 <li>兩個都進去</li>
 </ul>
-<p>因為硬體保證這不是兩步，而是一個不可拆開的動作。<br />
+<p>因為硬體保證這不是兩步，而是一個不可拆開的動作。<br/>
 因此同一瞬間，最多只有一個人能把 <code>lock</code> 從 0 變成 1。</p>
-<hr />
+<hr/>
 <h4 id="10-它有沒有滿足-progress進行-與-bounded-waiting有限等待">10. 它有沒有滿足 progress(進行) 與 bounded waiting(有限等待)<a class="headerlink" href="#10-它有沒有滿足-progress進行-與-bounded-waiting有限等待" title="Permanent link"></a></h4>
 <p>這裡要小心，不能直接亂說「三個都滿足」。</p>
 <h4 id="101-mutual-exclusion">10.1 mutual exclusion<a class="headerlink" href="#101-mutual-exclusion" title="Permanent link"></a></h4>
@@ -8509,10 +8509,10 @@ is now available!
 <p>原因是它只是一直重試：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
-<p>誰先搶到，取決於排程與時機。<br />
+<p>誰先搶到，取決於排程與時機。<br/>
 有可能某個倒楣 process 一直搶輸，產生 starvation(飢餓)。</p>
 <p>這也是為什麼講義後面另外給了 <strong>Bounded-waiting Mutual Exclusion with TestAndSet()</strong> 的版本，表示前面那種最簡單硬體鎖法，重點主要是先做到互斥，不一定保證有限等待。</p>
-<hr />
+<hr/>
 <h4 id="11-這份投影片有一個小地方你要注意">11. 這份投影片有一個小地方你要注意<a class="headerlink" href="#11-這份投影片有一個小地方你要注意" title="Permanent link"></a></h4>
 <p>投影片在 compare_and_swap 那頁寫：</p>
 <blockquote>
@@ -8527,27 +8527,27 @@ is now available!
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
 <p><strong>根本沒用到 <code>key</code>。</strong></p>
-<p>所以這裡你不要硬背成「CAS 解法一定要有 key」。<br />
+<p>所以這裡你不要硬背成「CAS 解法一定要有 key」。<br/>
 這頁真正有在用的只有：</p>
 <ul>
 <li>shared <code>lock</code></li>
 <li>atomic <code>compare_and_swap</code></li>
 </ul>
 <p><code>key</code> 比較像是前一個 <code>TestAndSet</code> 或 bounded-waiting 版本殘留的描述。</p>
-<hr />
+<hr/>
 <h4 id="12-它的缺點是什麼">12. 它的缺點是什麼<a class="headerlink" href="#12-它的缺點是什麼" title="Permanent link"></a></h4>
 <h4 id="121-busy-waiting忙等">12.1 busy waiting(忙等)<a class="headerlink" href="#121-busy-waiting忙等" title="Permanent link"></a></h4>
 <p>在 while 裡什麼事都不做，一直重試：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
-<p>這會一直吃 CPU。<br />
+<p>這會一直吃 CPU。<br/>
 所以這種 lock 叫 <strong>spinlock(自旋鎖)</strong>。講義後面也明講這類 lock 需要 busy waiting。</p>
 <h4 id="122-不能保證公平">12.2 不能保證公平<a class="headerlink" href="#122-不能保證公平" title="Permanent link"></a></h4>
 <p>誰先搶到鎖，不一定公平。</p>
 <h4 id="123-臨界區太長時不划算">12.3 臨界區太長時不划算<a class="headerlink" href="#123-臨界區太長時不划算" title="Permanent link"></a></h4>
-<p>如果 critical section 很長，別人一直 spin 會很浪費。<br />
+<p>如果 critical section 很長，別人一直 spin 會很浪費。<br/>
 這時通常 semaphore / mutex with blocking 會更適合。</p>
-<hr />
+<hr/>
 <h4 id="13-跟-testandset-有什麼差別">13. 跟 TestAndSet 有什麼差別<a class="headerlink" href="#13-跟-testandset-有什麼差別" title="Permanent link"></a></h4>
 <p>兩者都屬於：</p>
 <ul>
@@ -8566,9 +8566,9 @@ is now available!
 <blockquote>
 <p>只有當目前值等於 expected 時，才改成 new_value</p>
 </blockquote>
-<p>所以 CAS 比較一般化、比較靈活。<br />
+<p>所以 CAS 比較一般化、比較靈活。<br/>
 你可以把它理解成「帶條件的原子更新」。</p>
-<hr />
+<hr/>
 <h4 id="14-你真正要記住的考點">14. 你真正要記住的考點<a class="headerlink" href="#14-你真正要記住的考點" title="Permanent link"></a></h4>
 <h4 id="141-compare_and_swap-的本質">14.1 compare_and_swap 的本質<a class="headerlink" href="#141-compare_and_swap-的本質" title="Permanent link"></a></h4>
 <p>它是：</p>
@@ -8587,16 +8587,16 @@ is now available!
 <li>❌ 不一定保證 bounded waiting</li>
 <li>❌ 有 busy waiting</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="15-小結">15. 小結<a class="headerlink" href="#15-小結" title="Permanent link"></a></h4>
 <p>一句話總結：</p>
 <blockquote>
 <p><code>compare_and_swap</code> 是一個 atomic instruction，用來「原子化地檢查某值是否等於 expected，若是就改成 new value，並回傳舊值」；拿它做 lock 時，大家一直嘗試把 <code>lock</code> 從 <code>0</code> 改成 <code>1</code>，成功的人進 critical section，離開後再把 <code>lock</code> 設回 <code>0</code>。這能保證 mutual exclusion，但會 busy waiting，而且簡單版本不保證 bounded waiting。</p>
 </blockquote>
-<p>如果你要，我下一則可以直接接著幫你講：<br />
+<p>如果你要，我下一則可以直接接著幫你講：<br/>
 <strong>「這題考試要怎麼手寫證明 mutual exclusion」</strong>，或是 <strong>「compare_and_swap、test_and_set、mutex、semaphore 四者差異表」</strong>。</p>
 <p>最後看到p.16</p>
-<p>file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#112;&#101;&#105;&#99;&#100;&#49;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%95%99%E6%9D%90/chapter%205_20240405.pdf</p>
+<p>file:///D:/%E6%88%91%E7%9A%84%E9%9B%B2%E7%AB%AF%E7%A1%AC%E7%A2%9F%20(<a href="mailto:peicd100@gmail.com">peicd100@gmail.com</a>)/0_%E5%A4%A7%E5%AD%B8/0_%E7%AD%86%E8%A8%98/0_%E5%B8%AB%E5%A4%A7114-2/%E9%9B%BB%E6%A9%9F_%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E6%95%99%E6%9D%90/chapter%205_20240405.pdf</p>
 
 
 
@@ -8728,17 +8728,15 @@ is now available!
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

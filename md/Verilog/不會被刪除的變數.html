@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6497,7 +6497,7 @@ is now available!
   <h1>不會被刪除的變數</h1>
 
 <h2 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h2>
-<p>變數要在 always 裡面初始化(等於0)。<br />
+<p>變數要在 always 裡面初始化(等於0)。<br/>
 變數如下：</p>
 <h2 id="問題">問題<a class="headerlink" href="#問題" title="Permanent link"></a></h2>
 <p>請看以下程式碼(<a href="https://hdlbits.01xz.net/wiki/Popcount3">題目網址</a>)。</p>
@@ -6514,7 +6514,7 @@ is now available!
 <span class="w">    </span><span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這個電路目的是計算 in 有多少 bit 是 1 ，但是其實電路會有問題，會有 bug 。<br />
+<p>這個電路目的是計算 in 有多少 bit 是 1 ，但是其實電路會有問題，會有 bug 。<br/>
 因為第一次宣告 integer j=0; 時，他之後就不會再變成 0 了，因為 verilog 的變數不像是 C++ 出了函數之後就會被丟棄。也就是說會像是 C++ 的靜態(static)變數。</p>
 <p>所以在 always 中要用到時，等於左邊的 reg(output reg) 或是 integer 盡量都先初始化(等於0)，這樣也可以<a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html#組合邏輯電路變成-latch-的問題">防止變成 latch</a>。</p>
 
@@ -6648,17 +6648,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

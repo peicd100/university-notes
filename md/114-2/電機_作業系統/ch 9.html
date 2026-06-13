@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -8919,7 +8919,7 @@ is now available!
 <li>真正放資料的位置可能在 RAM 的不同 frame(頁框)，也可能暫時在 disk 上。</li>
 </ul>
 <p>講義對 Virtual Memory(虛擬記憶體) 的定位是：它把磁碟部分空間模擬成 RAM，使得應用程式能在 RAM 不足或多程式同時執行時仍可運作；程式看到的是連續可用的位址空間，但實際資料可能分散在實體記憶體碎片與磁碟上。</p>
-<hr />
+<hr/>
 <h3 id="2-程式看到的世界-vs-os-管理的世界">2. 程式看到的世界 vs. OS 管理的世界<a class="headerlink" href="#2-程式看到的世界-vs-os-管理的世界" title="Permanent link"></a></h3>
 <p>程式通常不想知道資料到底在 RAM 哪一格，或是不是被暫時放到 disk。程式只想說：「我要存取我的某個位址。」</p>
 <p>但 OS 背後做的事情是：</p>
@@ -8930,7 +8930,7 @@ is now available!
     C --&gt; E["程式繼續執行"]
     D --&gt; F["需要時再搬回 RAM&lt;br&gt;後續 9.2 會正式講 Demand Paging(需求分頁)"]</code></pre>
 <p>PDF viewer page 4 的圖示就是在畫這件事：左邊是 virtual memory(虛擬記憶體) 的 pages，中間是 physical memory(實體記憶體) 與 memory map，右邊是 disk，旁邊還有 process address space(行程位址空間) 的 stack/heap/data/code。這張圖的重點不是要你背圖，而是要看懂「程式位址空間」和「實際資料位置」被 OS 分開管理。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼這樣做有用">3. 為什麼這樣做有用？<a class="headerlink" href="#3-為什麼這樣做有用" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -8941,7 +8941,7 @@ is now available!
 <p>第四，可以 Shared Pages(共享分頁)。</p>
 <p>跨來源補充／一般系統經驗，非目前講義主線：Linux 社群文件常會討論 swap 與 <code>vm.swappiness</code> 這類調整，這對應到實務上「哪些頁面留在 RAM、哪些頁面可以被換出」的行為；社群使用者也常把 RAM 和 swap 都吃滿時的桌面卡死經驗描述成接近 thrashing(輾轉現象) 的現象。這些只幫你建立直覺，考試仍以講義主線為準。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">Arch Wiki</a>)</p>
 </div>
-<hr />
+<hr/>
 <h3 id="4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份">4. Shared Pages(共享分頁)：為什麼同一份函式庫不用每個行程都複製一份？<a class="headerlink" href="#4-shared-pages共享分頁為什麼同一份函式庫不用每個行程都複製一份" title="Permanent link"></a></h3>
 <p>PDF viewer page 6 補了一個很重要的點：Virtual Memory(虛擬記憶體) 也允許不同 process(行程) 透過 shared pages(共享分頁) 共用函式庫。</p>
 <p>生活化例子：很多人都在看同一本參考書，如果每個人都影印一整本，很浪費。比較好的做法是：大家共用同一本，只要不改它，就不需要複製。</p>
@@ -8952,7 +8952,7 @@ is now available!
 <li>實際 RAM 不必重複存同一份唯讀 library code。</li>
 <li>這是 Virtual Memory(虛擬記憶體) 的典型好處之一。</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="5-這一輪最短記法">5. 這一輪最短記法<a class="headerlink" href="#5-這一輪最短記法" title="Permanent link"></a></h3>
 <p>Virtual Memory(虛擬記憶體) 的一句話版本：</p>
 <p><strong>讓 process(行程) 看到一個大的、連續的、自己的 virtual address space(虛擬位址空間)，但 OS 可以把實際資料分散放在 RAM frames(實體頁框) 與 disk swap(交換空間)，並支援 shared pages(共享分頁) 來節省記憶體。</strong></p>
@@ -8991,7 +8991,7 @@ is now available!
 <p>Demand Paging(需求分頁) 的答案是：<strong>不要。只載入目前真的需要的 pages。</strong></p>
 <p>講義定義是：Demand Paging(需求分頁) 以 paging(分頁) 為基礎，使用 lazy swapper(延遲置換者／懶載入策略)，程式執行之初不把所有 pages 載入 memory，只載入執行所需的 pages；如果發生 page fault(分頁錯誤)，再由 OS 處理。</p>
 <p>生活化例子：搬家時你不會把所有箱子都打開放滿整間房，只會先打開今天要用的牙刷、衣服、電腦。其他箱子先放倉庫，需要時再拿。Demand Paging 就是這種「需要才搬」的策略。</p>
-<hr />
+<hr/>
 <h3 id="2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram">2. Valid/Invalid Bit(有效／無效位元)：OS 怎麼知道 page 在不在 RAM？<a class="headerlink" href="#2-validinvalid-bit有效無效位元os-怎麼知道-page-在不在-ram" title="Permanent link"></a></h3>
 <p>要做 Demand Paging，page table(分頁表) 需要多一個 Valid/Invalid Bit(有效／無效位元)，用來表示 page 是否在 memory 中。講義 page 8 明確寫到：分頁表上多加 Valid/Invalid Bit，用來指示 page 是否在 memory 中。</p>
 <p>簡化理解：</p>
@@ -9014,7 +9014,7 @@ is now available!
 </tbody>
 </table>
 <p>更精準地說，Invalid 有時也可能代表 illegal address(非法位址)，所以 OS 在 page fault handler(分頁錯誤處理程序) 裡還要檢查「這個位址到底是合法但不在 RAM，還是真的非法」。</p>
-<hr />
+<hr/>
 <h3 id="3-page-fault分頁錯誤-發生時os-做什麼">3. Page Fault(分頁錯誤) 發生時，OS 做什麼？<a class="headerlink" href="#3-page-fault分頁錯誤-發生時os-做什麼" title="Permanent link"></a></h3>
 <p>Page fault 不是程式壞掉，而是「process 要用的 page 現在不在 RAM」。OS 會暫停目前指令，去把需要的 page 搬進來。</p>
 <pre class="diagram"><code>flowchart TD
@@ -9029,7 +9029,7 @@ is now available!
     I --&gt; J["更新 page table&lt;br&gt;把 bit 設為 valid"]
     J --&gt; K["restart instruction(重新執行指令)"]</code></pre>
 <p>講義 page 9 的圖就是這個流程：reference(參用) 觸發 invalid 狀態後，trap(陷阱) 到作業系統，找到空框、載入需要的頁面、重新設定分頁表，最後重新啟始指令。</p>
-<hr />
+<hr/>
 <h3 id="4-demand-paging-的關鍵代價page-fault-很貴">4. Demand Paging 的關鍵代價：Page Fault 很貴<a class="headerlink" href="#4-demand-paging-的關鍵代價page-fault-很貴" title="Permanent link"></a></h3>
 <p>Demand Paging 可以節省一開始載入的成本，但代價是：如果 page fault 太常發生，效能會非常差。</p>
 <p>講義 page 10 定義 Page Fault Rate(分頁錯誤率)：</p>
@@ -9046,7 +9046,7 @@ is now available!
 </ul>
 <p>講義例子：memory access time 是 200 ns，平均 page-fault service time 是 8 ms，若每 1000 次存取有 1 次 page fault，EAT 會變成 8.2 microseconds，約慢 40 倍。</p>
 <p>跨來源補充／社群經驗，非目前講義主線：Linux 使用者社群常討論 swap、zram、zswap、swappiness，核心經驗都是一樣的：swap 可以增加彈性，但它不是和 RAM 一樣快的替代品；例如 Arch Wiki 把 swappiness 視為記憶體壓力下 kernel 在回收 file cache 與移動 pages 到 swap 之間的傾向設定，社群也常提醒 disk-based swap 或壓縮 swap 都有額外成本。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">Arch Wiki</a>)</p>
-<hr />
+<hr/>
 <h3 id="5-這一輪最短記法_1">5. 這一輪最短記法<a class="headerlink" href="#5-這一輪最短記法_1" title="Permanent link"></a></h3>
 <p>Demand Paging(需求分頁) 的一句話版本：</p>
 <p><strong>程式開始時不把所有 pages 載入 RAM；page table 用 Valid/Invalid Bit 記錄 page 是否在 memory，若 process 存取不在 memory 的合法 page，就產生 page fault，由 OS 把 page 從 disk 載入 RAM，再重新執行指令。</strong></p>
@@ -9083,7 +9083,7 @@ is now available!
 <p>所以它本質上是「加權平均」：</p>
 <p>EAT=(1-p)m+pS</p>
 <p>其中講義的 <code>p</code> 是 Page Fault Rate(分頁錯誤率)，<code>p = 0</code> 代表沒有 page fault，<code>p = 1</code> 代表每次 reference 都 fault；講義也用 <code>memory access time = 200 ns</code>、<code>average page-fault service time = 8 ms</code> 示範代入。</p>
-<hr />
+<hr/>
 <h4 id="2-三個符號這樣背">2. 三個符號這樣背<a class="headerlink" href="#2-三個符號這樣背" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -9111,7 +9111,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="3-最重要的觀念一次存取只分成兩條路">3. 最重要的觀念：一次存取只分成兩條路<a class="headerlink" href="#3-最重要的觀念一次存取只分成兩條路" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TD
     A["一次 memory reference(記憶體參考)"] --&gt; B{"page 在 RAM 嗎？"}
@@ -9121,9 +9121,9 @@ is now available!
     D --&gt; E</code></pre>
 <p>所以不是「page fault 後又回去算 <code>(1-p)</code>」。</p>
 <p>是：</p>
-<p><strong>一開始就沒 fault → 算 <code>(1-p)m</code>。<br />
+<p><strong>一開始就沒 fault → 算 <code>(1-p)m</code>。<br/>
 一開始有 fault → 算 <code>pS</code>。</strong></p>
-<hr />
+<hr/>
 <h4 id="4-講義展開式怎麼看">4. 講義展開式怎麼看<a class="headerlink" href="#4-講義展開式怎麼看" title="Permanent link"></a></h4>
 <p>講義把 <code>S</code> 展開成：</p>
 <p><code>page fault overhead + swap page out + swap page in + restart overhead</code></p>
@@ -9131,7 +9131,7 @@ is now available!
 <p><code>EAT = (1-p)m + p(page fault overhead + swap out + swap in + restart overhead)</code></p>
 <p>你不用把每個字死背成唯一版本。考試最穩是記：</p>
 <p><strong><code>S</code> 就是 page fault 那條路的整包平均成本。</strong></p>
-<hr />
+<hr/>
 <h4 id="5-為什麼-p-那邊不用再寫-memory-access">5. 為什麼 <code>p</code> 那邊不用再寫 <code>memory access</code><a class="headerlink" href="#5-為什麼-p-那邊不用再寫-memory-access" title="Permanent link"></a></h4>
 <p>考試記這句：</p>
 <p><strong>因為講義的 <code>S</code> 已經把 fault path 當成整包平均成本；最後重新執行後的 RAM access 要嘛被包含在 <code>S</code> 裡，要嘛相對 disk I/O 太小而忽略。</strong></p>
@@ -9139,21 +9139,21 @@ is now available!
 <p><code>EAT = (1-p)m + p(S+m)</code></p>
 <p>一般照講義寫：</p>
 <p><code>EAT = (1-p)m + pS</code></p>
-<hr />
+<hr/>
 <h4 id="6-最短背法">6. 最短背法<a class="headerlink" href="#6-最短背法" title="Permanent link"></a></h4>
 <p>你可以直接背這四行：</p>
-<p><strong>EAT 是平均一次記憶體存取要花多久。<br />
-沒 page fault：機率 <code>1-p</code>，成本 <code>m</code>。<br />
-有 page fault：機率 <code>p</code>，成本 <code>S</code>。<br />
+<p><strong>EAT 是平均一次記憶體存取要花多久。<br/>
+沒 page fault：機率 <code>1-p</code>，成本 <code>m</code>。<br/>
+有 page fault：機率 <code>p</code>，成本 <code>S</code>。<br/>
 所以 <code>EAT = (1-p)m + pS</code>。</strong></p>
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><mark>Q:</mark><br />
+<p><mark>Q:</mark><br/>
 A process references virtual page 5. The page table says that page 5 is a legal page of the process, but its valid/invalid bit is invalid because the page is currently on disk, not in RAM. Describe the main steps the operating system takes to handle this page fault.</p>
-<p><mark>Me:</mark><br />
+<p><mark>Me:</mark><br/>
 OS 收到 page fault 之後，會執行 page swap，把某些 process 換下來換成需要的，然後再讓CPU重新使用記憶體。</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁框)，若沒有 free frame，才選 victim page(犧牲頁) 做 page replacement(分頁替換)</mark>，然後再讓CPU重新使用記憶體。</p>
 </div>
 <h2 id="copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體">⭐Copy on Write(COW，寫入時複製) — 為什麼 fork 後不用立刻複製整個記憶體？<a class="headerlink" href="#copy-on-writecow寫入時複製--為什麼-fork-後不用立刻複製整個記憶體" title="Permanent link"></a></h2>
@@ -9164,7 +9164,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 <p>Copy on Write(COW，寫入時複製) 的答案是：<strong>先不要複製。大家先共用同一份；等到有人要修改時，再替修改者複製一份。</strong></p>
 <p>講義定義是：如果多個 caller(呼叫者) 同時要求相同資源，例如 memory(記憶體) 或 disk data(磁碟資料)，它們會先共同取得指向相同資源的指標；直到某個 caller 試圖修改內容時，系統才真正複製一份專用副本給它，其他 caller 仍看到原本資源。</p>
 <p>生活化例子：Google 文件複製一份作業範本。大家一開始都看同一份範本，不需要每個人立刻複製。等某個人開始改內容時，系統才幫他產生自己的版本。</p>
-<hr />
+<hr/>
 <h3 id="2-cow-的流程">2. COW 的流程<a class="headerlink" href="#2-cow-的流程" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["parent process(父行程)&lt;br&gt;有一些 memory pages(記憶體頁)"] --&gt; B["fork() 建立 child process(子行程)"]
@@ -9175,7 +9175,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
     F --&gt; G["OS 複製該 page&lt;br&gt;給寫入者自己的副本"]
     G --&gt; H["寫入者修改副本&lt;br&gt;另一方仍使用原本 page"]</code></pre>
 <p>這裡的 page fault 要小心：它不完全等於前面 Demand Paging 裡「page 不在 RAM」的 page fault。COW 常常是因為該 page 被標成 read-only/protected，當 process 嘗試寫入時觸發 fault，OS 再判斷這是 COW，要複製一份。</p>
-<hr />
+<hr/>
 <h3 id="3-cow-的三個優點">3. COW 的三個優點<a class="headerlink" href="#3-cow-的三個優點" title="Permanent link"></a></h3>
 <p>講義列出三個好處：</p>
 <table>
@@ -9201,7 +9201,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </tbody>
 </table>
 <p>這就是為什麼 COW 很適合搭配 <code>fork()</code>：很多程式 <code>fork()</code> 後很快就 <code>exec()</code> 載入新程式，如果一開始就複製 parent 的整個 address space，會非常浪費。講義 page 14 也用 UNIX-like OS 的 <code>fork()</code> 說明：child 一開始共享 parent memory pages，只有修改時才 copy。</p>
-<hr />
+<hr/>
 <h3 id="4-fork-和-vfork-的差異要怎麼看">4. fork() 和 vfork() 的差異要怎麼看？<a class="headerlink" href="#4-fork-和-vfork-的差異要怎麼看" title="Permanent link"></a></h3>
 <p>講義 page 16 ~ 19 給了一段 <code>glob=6</code>、<code>var=88</code> 的程式，並比較 <code>fork()</code> 與 <code>vfork()</code> 的輸出。重點如下：</p>
 <table>
@@ -9235,13 +9235,13 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </tr>
 </tbody>
 </table>
-<p>最容易考錯的是：<strong>fork() 不是讓 child 直接改 parent 的變數。</strong><br />
+<p>最容易考錯的是：<strong>fork() 不是讓 child 直接改 parent 的變數。</strong><br/>
 即使一開始物理頁可能因 COW 被共享，只要 child 要寫入，OS 就會幫 child 複製一份，所以 parent 的 <code>glob</code>、<code>var</code> 不會被 child 改掉。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><mark>Q:</mark><br />
+<p><mark>Q:</mark><br/>
 喔我懂了，所以 cow 是 fork 的，我以為這邊強調 vfork 是在說 vfork 會 cow。所以 fork 一開始共用，要改時 cow，然後 vfork 是一直共用？</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 對，<strong>COW(Copy on Write，寫入時複製) 是在講一般 <code>fork()</code> 的最佳化實作</strong>。</p>
 <p>但 <code>vfork()</code> 不是「一直共用」，更精準是：</p>
 <p><strong><code>vfork()</code>：child 暫時共用 parent 的 address space(位址空間)，直到 child 呼叫 <code>exec()</code> 或 <code>_exit()</code>；期間 parent 會被 block/suspended(暫停)。</strong></p>
@@ -9271,7 +9271,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h3 id="5-cow-的缺點">5. COW 的缺點<a class="headerlink" href="#5-cow-的缺點" title="Permanent link"></a></h3>
 <p>COW 不是永遠免費。講義 page 15 提到兩個 drawbacks(缺點)：</p>
 <table>
@@ -9293,9 +9293,9 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </tbody>
 </table>
 <p>所以 COW 的核心 trade-off 是：</p>
-<p><strong>如果大多數資料只是讀、不改，COW 很省。<br />
+<p><strong>如果大多數資料只是讀、不改，COW 很省。<br/>
 如果大量資料都會被改，COW 只是把複製成本延後，最後仍然要付。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
 <p>Copy on Write(COW) 一句話：</p>
 <p><strong>先共享，不先複製；等有人 write(寫入) 時，才 copy(複製) 一份給寫入者。</strong></p>
@@ -9337,7 +9337,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 <p>Page Replacement(分頁替換) 就是在處理這件事：</p>
 <p><strong>選一個目前在 RAM 裡的 victim page(犧牲頁) 換出去，空出 frame，再把現在需要的 lost page 放進來。</strong></p>
 <p>講義 page 20 的定義就是：當 page fault 發生而 memory 沒有可用 page/frame 時，OS 必須執行 page replacement；OS 要選擇一個 victim page，將它 swap out/page out 到 disk，空出 frame，再將 lost page swap in/page in 到這個 frame。</p>
-<hr />
+<hr/>
 <h3 id="2-page-replacement-的基本流程">2. Page Replacement 的基本流程<a class="headerlink" href="#2-page-replacement-的基本流程" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["process 存取某個 page"] --&gt; B{"page 在 RAM 嗎？"}
@@ -9368,7 +9368,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 <p>最核心判斷是這句：</p>
 <p><strong>Page in 通常必要；page out 不一定必要。</strong></p>
 <p>因為 page in 是把你現在需要的 lost page 放進 RAM，沒有它指令不能繼續。但 page out 只有在 victim page 被修改過時才需要。講義 page 21 也明確說：page out 和 page in 都是 disk I/O，很慢；page in 是必要的，但 page out 不一定必要，要看 victim page 是否曾被修改，利用 dirty bit 來判斷，藉此節省不必要的 I/O。</p>
-<hr />
+<hr/>
 <h3 id="3-dirty-bit髒位元-是什麼">3. Dirty Bit(髒位元) 是什麼？<a class="headerlink" href="#3-dirty-bit髒位元-是什麼" title="Permanent link"></a></h3>
 <p>Dirty Bit(髒位元) 用來回答：</p>
 <p><strong>RAM 裡這個 page 跟 disk 上的版本是不是一樣？</strong></p>
@@ -9396,10 +9396,10 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 <p>生活化例子：你從雲端下載一份文件到本機。</p>
 <p>如果你只是打開看，沒有修改，那關掉本機副本也沒關係，雲端上還是同一份。這像 dirty bit = 0。</p>
 <p>如果你改了內容但還沒上傳，這時本機版本比較新，不能直接丟掉，要先存回雲端。這像 dirty bit = 1。</p>
-<hr />
+<hr/>
 <h3 id="4-為什麼-page-replacement-algorithm分頁替換演算法-很重要">4. 為什麼 Page Replacement Algorithm(分頁替換演算法) 很重要？<a class="headerlink" href="#4-為什麼-page-replacement-algorithm分頁替換演算法-很重要" title="Permanent link"></a></h3>
 <p>page 22 開始說：Demand Paging 要解決兩個主要問題：</p>
-<p>第一，Frame Allocation Algorithm(頁框配置演算法)：每個 process 要分幾個 frames？<br />
+<p>第一，Frame Allocation Algorithm(頁框配置演算法)：每個 process 要分幾個 frames？<br/>
 第二，Page-Replacement Algorithm(分頁替換演算法)：沒有 free frame 時，要換掉哪個 page？</p>
 <p>選 replacement algorithm 的目標通常是：<strong>讓 page fault ratio(分頁錯誤率) 越低越好。</strong></p>
 <p>接下來講義會照順序進入：</p>
@@ -9437,7 +9437,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </table>
 </div>
 <p>但本輪先不要急著算 FIFO/LRU，因為我們要先確定你真的會分辨：<strong>page fault、有無 free frame、是否需要 page out、dirty bit 的角色。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
 <p>Page Replacement 一句話：</p>
 <p><strong>Page fault 發生且沒有 free frame 時，OS 選一個 victim page；若 victim page 是 dirty，就先 page out，然後把需要的 lost page page in。</strong></p>
@@ -9507,7 +9507,7 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 <p><strong>最早被載入 RAM 的 page，最早被選成 victim page。</strong></p>
 <p>講義 page 23 也是這樣定義：最先載入的 page 優先視為 victim page；它簡單、易於實作，但效果不一定好。</p>
 <p>生活化例子：排隊買便當。誰最早進隊伍，誰最先被處理。FIFO 的 frame queue(頁框佇列) 也是這樣：最早進 RAM 的 page 排在最前面，下一次需要 replacement 時就先被踢出去。</p>
-<hr />
+<hr/>
 <h3 id="2-fifo-怎麼-trace">2. FIFO 怎麼 trace？<a class="headerlink" href="#2-fifo-怎麼-trace" title="Permanent link"></a></h3>
 <p>FIFO trace 時，你要追兩件事：</p>
 <table>
@@ -9580,9 +9580,9 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </tbody>
 </table>
 <p><mark>注意 3 的 frames 和 FIFO 順序不一樣，FIFO 是 queue。</mark></p>
-<p>注意第 3 步：<code>1</code> 被 hit，不代表它變年輕。<br />
+<p>注意第 3 步：<code>1</code> 被 hit，不代表它變年輕。<br/>
 FIFO 不管最近有沒有用過，只管誰最早載入。</p>
-<hr />
+<hr/>
 <h3 id="3-belady-anomaly貝拉迪異常-是什麼">3. Belady Anomaly(貝拉迪異常) 是什麼？<a class="headerlink" href="#3-belady-anomaly貝拉迪異常-是什麼" title="Permanent link"></a></h3>
 <p>直覺上，我們會以為：</p>
 <p><strong>frame 越多，page fault 應該越少。</strong></p>
@@ -9590,7 +9590,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <p>這不是因為 frame 多本身不好，而是 FIFO 的 victim 選擇規則太笨：它只看「誰最早進來」，不管那個 page 最近是不是常被用。</p>
 <p>所以考試看到 FIFO，要記：</p>
 <p><strong>FIFO 簡單，但可能有 Belady Anomaly。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-fifo-最短記法">4. FIFO 最短記法<a class="headerlink" href="#4-fifo-最短記法" title="Permanent link"></a></h3>
 <p>FIFO 一句話：</p>
 <p><strong>沒 free frame 時，踢掉最早載入 RAM 的 page。</strong></p>
@@ -9639,7 +9639,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <p><strong>踢掉「未來最久都不會再被使用」的 page。</strong></p>
 <p>講義寫法是：以將來長期不會使用的 page 視為 victim page；效果最佳、不會有 Belady Anomaly，但不可能辦到，因為它需要看未來。</p>
 <p>外部作業系統教材也使用同樣定義，稱它為 OPT 或 MIN：replace the page that will not be used for the longest period of time，也就是替換未來最久不用的 page；它主要作為比較其他演算法的 benchmark(基準)。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h3 id="2-optimal-的核心規則">2. Optimal 的核心規則<a class="headerlink" href="#2-optimal-的核心規則" title="Permanent link"></a></h3>
 <p>當發生 page fault 且沒有 free frame 時，Optimal 會看目前在 RAM 裡的每個 page：</p>
 <table>
@@ -9670,7 +9670,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </table>
 <p>所以一句話：</p>
 <p><strong>Optimal 不是看「誰最早進來」，也不是看「誰最近最少用」，而是看「誰未來最晚再用」。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-非題目型示範">3. 非題目型示範<a class="headerlink" href="#3-非題目型示範" title="Permanent link"></a></h3>
 <p>假設有 3 個 frames，目前 RAM 裡是：</p>
 <table>
@@ -9746,7 +9746,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </tbody>
 </table>
 <p>這就是 Optimal 的完整思路：<strong>每次 fault 時，看未來，踢掉最晚才會用到的 page。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-為什麼-optimal-不可能實作">4. 為什麼 Optimal 不可能實作？<a class="headerlink" href="#4-為什麼-optimal-不可能實作" title="Permanent link"></a></h3>
 <p>因為真正的 OS 在程式執行時，通常不知道未來完整的 memory reference string。</p>
 <p>OS 可以知道：</p>
@@ -9762,7 +9762,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <li>實務上不能真的拿來當一般演算法。</li>
 <li>但可以拿來當 benchmark，判斷 FIFO、LRU、Second Chance 等演算法離最佳結果差多少。</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="5-optimal-vs-fifo-vs-下一個-lru">5. Optimal vs FIFO vs 下一個 LRU<a class="headerlink" href="#5-optimal-vs-fifo-vs-下一個-lru" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -9794,9 +9794,9 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </tr>
 </tbody>
 </table>
-<p>這也是為什麼下一個主線會講 LRU(Least Recently-Used，最近最少使用)：<br />
+<p>這也是為什麼下一個主線會講 LRU(Least Recently-Used，最近最少使用)：<br/>
 <strong>LRU 嘗試用「過去很久沒用」去近似「未來可能也不會很快用」。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-最短記法_1">6. 最短記法<a class="headerlink" href="#6-最短記法_1" title="Permanent link"></a></h3>
 <p>Optimal Page Replacement 一句話：</p>
 <p><strong>沒有 free frame 時，踢掉未來最久不會再被 reference(參考／存取) 的 page。</strong></p>
@@ -9837,7 +9837,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <p>所以 LRU 的 victim page 是：</p>
 <p><strong>最近最久沒有被 reference(參考／存取) 的 page。</strong></p>
 <p>講義寫法是：LRU 以最近不常使用的 page 視為 victim page，效果不錯、不會有 Belady Anomaly，但製作成本高，需要硬體支援，例如 counter 或 stack。</p>
-<hr />
+<hr/>
 <h3 id="2-lru-和-fifooptimal-的差別">2. LRU 和 FIFO、Optimal 的差別<a class="headerlink" href="#2-lru-和-fifooptimal-的差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -9866,14 +9866,14 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </tbody>
 </table>
 <p>最容易混淆的是 FIFO 和 LRU：</p>
-<p><strong>FIFO 看「誰最早進來」。</strong><br />
+<p><strong>FIFO 看「誰最早進來」。</strong><br/>
 <strong>LRU 看「誰最久沒被用」。</strong></p>
 <p>如果 page 很早進來，但剛剛才被用過：</p>
 <ul>
 <li>FIFO 可能會踢它。</li>
 <li>LRU 不會踢它，因為它最近才用過。</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="3-非題目型示範_1">3. 非題目型示範<a class="headerlink" href="#3-非題目型示範_1" title="Permanent link"></a></h3>
 <p>假設有 3 個 frames，目前在 RAM 裡：</p>
 <table>
@@ -9928,7 +9928,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </table>
 <p>所以 LRU 會換掉 page <code>1</code>。</p>
 <p>重點是：LRU 不需要看未來，只看過去。</p>
-<hr />
+<hr/>
 <h3 id="4-lru-的兩種-implementation實作方式">4. LRU 的兩種 implementation(實作方式)<a class="headerlink" href="#4-lru-的兩種-implementation實作方式" title="Permanent link"></a></h3>
 <p>講義列出兩種：Counter implementation(計數器實作) 與 Stack implementation(堆疊實作)。</p>
 <table>
@@ -9955,14 +9955,14 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <p>生活化記法：</p>
 <p>Counter 像每張圖書館借書卡都蓋「最後借閱日期」。要丟書時，丟最後借閱日期最久以前的那本。</p>
 <p>Stack 像常用 App 排序。每次你打開某個 App，就把它移到最上面；最下面的 App 就是最久沒用的。</p>
-<hr />
+<hr/>
 <h3 id="5-lru-的成本問題">5. LRU 的成本問題<a class="headerlink" href="#5-lru-的成本問題" title="Permanent link"></a></h3>
 <p>LRU 效果通常比 FIFO 合理，因為它會根據使用情況調整；但它的問題是：</p>
 <p><strong>精確 LRU 很貴。</strong></p>
 <p>因為每次 page 被 reference，你都要更新 counter 或 stack。講義也說 LRU 製作成本高，需要大量硬體支援。</p>
 <p>所以後面才會出現 LRU-approximation(LRU 近似法)：</p>
 <p><strong>不做完整精確 LRU，而是用 reference bit 等硬體資訊，便宜地近似 LRU。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-最短記法_2">6. 最短記法<a class="headerlink" href="#6-最短記法_2" title="Permanent link"></a></h3>
 <p>LRU 一句話：</p>
 <p><strong>沒有 free frame 時，踢掉最近最久沒被使用的 page。</strong></p>
@@ -9997,10 +9997,10 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 <h4 id="1-直接答案">1. 直接答案<a class="headerlink" href="#1-直接答案" title="Permanent link"></a></h4>
 <p>你說得對：<strong>FIFO 也要記錄 order(順序)</strong>。但 FIFO 只需要記錄「page 載入 RAM 的先後順序」，而且通常只在 <strong>page fault 並載入新 page</strong> 時更新 queue(佇列)。</p>
 <p>LRU 比 FIFO 貴，是因為 LRU 要記錄「每一次 page 被使用的最近時間」。也就是：</p>
-<p><strong>FIFO 只在 page 被載入時記一次。<br />
+<p><strong>FIFO 只在 page 被載入時記一次。<br/>
 LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong></p>
 <p>講義也這樣分：FIFO 是「最先載入的 page 優先視為 victim page」，簡單、易於實作；LRU 則需要 counter 或 stack，且製作成本高、需要大量硬體支援。 </p>
-<hr />
+<hr/>
 <h4 id="2-用-hit-來看差別最清楚">2. 用 hit 來看差別最清楚<a class="headerlink" href="#2-用-hit-來看差別最清楚" title="Permanent link"></a></h4>
 <p>假設 frames 裡已經有 <code>[1, 2, 3]</code>。</p>
 <p>現在 reference page <code>2</code>，這是 hit。</p>
@@ -10027,7 +10027,7 @@ LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong
 </table>
 <p>這就是成本差異。</p>
 <p>FIFO 的 queue 只在 page fault 載入新 page 時變動；LRU 的 metadata(中繼資料) 每次 hit 也要變動。</p>
-<hr />
+<hr/>
 <h4 id="3-為什麼-lru-需要更多硬體或資料結構">3. 為什麼 LRU 需要更多硬體或資料結構？<a class="headerlink" href="#3-為什麼-lru-需要更多硬體或資料結構" title="Permanent link"></a></h4>
 <p>講義列兩種 LRU implementation(實作)：</p>
 <table>
@@ -10055,7 +10055,7 @@ LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong
 </tbody>
 </table>
 <p>外部教材也用同樣說法：LRU 的 counter 方法會在每次 memory access 增加 counter，並把目前值存到該 page 的 page-table entry；stack 方法則是在 page 被 access 時，把它從 stack 中取出放到 top，bottom 就是 LRU page。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
-<hr />
+<hr/>
 <h4 id="4-為什麼-fifo-相對便宜">4. 為什麼 FIFO 相對便宜？<a class="headerlink" href="#4-為什麼-fifo-相對便宜" title="Permanent link"></a></h4>
 <p>FIFO 只需要維護一個「載入順序」queue：</p>
 <ol>
@@ -10064,16 +10064,16 @@ LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong
 <li>hit → 什麼都不用改。</li>
 </ol>
 <p>所以 FIFO 的維護頻率低很多。外部教材也把 FIFO 描述成新 pages 載入後加到 queue tail，queue head 是下一個 victim；並明確說 FIFO simple and easy。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
-<hr />
+<hr/>
 <h4 id="5-生活化例子">5. 生活化例子<a class="headerlink" href="#5-生活化例子" title="Permanent link"></a></h4>
 <p>FIFO 像「誰最早進教室」：</p>
-<p>你只要在每個人進教室時記一下順序。<br />
+<p>你只要在每個人進教室時記一下順序。<br/>
 之後他在教室裡講話、喝水、舉手，都不影響順序。</p>
 <p>LRU 像「誰最久沒講話」：</p>
-<p>每次有人講話，你都要更新「他剛剛講過」的紀錄。<br />
+<p>每次有人講話，你都要更新「他剛剛講過」的紀錄。<br/>
 所以不是只在進教室時記一次，而是每次互動都要更新。</p>
 <p>這就是為什麼 LRU 比 FIFO 貴。</p>
-<hr />
+<hr/>
 <h4 id="6-最短記法_3">6. 最短記法<a class="headerlink" href="#6-最短記法_3" title="Permanent link"></a></h4>
 <p><strong>FIFO 要記 order，但只記「進 RAM 的順序」。</strong></p>
 <p><strong>LRU 要記 recency，而且每次 reference 都要更新。</strong></p>
@@ -10082,13 +10082,13 @@ LRU 幾乎每次 memory reference(記憶體參考) 都要更新狀態。</strong
 <h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><mark>Q:</mark><br />
+<p><mark>Q:</mark><br/>
 In LRU page replacement, suppose the current frames are <code>[1, 2, 3]</code>. Page <code>1</code> was last used at time 4, page <code>2</code> at time 9, and page <code>3</code> at time 6. The next referenced page is <code>4</code>, and there is no free frame. Which page should be replaced, and why?</p>
-<p><mark>Me:</mark><br />
+<p><mark>Me:</mark><br/>
 2，因為他最早之前用的。</p>
-<p><mark>Ans:</mark><br />
+<p><mark>Ans:</mark><br/>
 1，因為他最早之前用的。</p>
-<p><mark>注意：</mark><br />
+<p><mark>注意：</mark><br/>
 time 是使用的時間點，不是多久前，所以越小是越久之前。</p>
 </div>
 <h2 id="lru-approximationlru-近似換頁法--lru-太貴時怎麼用-bit-便宜模仿">⭐LRU-approximation(LRU 近似換頁法) — LRU 太貴時，怎麼用 bit 便宜模仿？<a class="headerlink" href="#lru-approximationlru-近似換頁法--lru-太貴時怎麼用-bit-便宜模仿" title="Permanent link"></a></h2>
@@ -10118,9 +10118,9 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>所以它不是精確時間戳，但可以提供一點「最近有沒有用」的線索。這也是 Second Chance / Clock 類演算法的核心；外部 OS 教材也把 Second Chance 描述為 FIFO 加上 reference bit：reference bit = 1 代表最近被使用，reference bit = 0 代表最近沒使用。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">GeeksforGeeks</a>)</p>
-<hr />
+<hr/>
 <h3 id="2-additional-reference-bits額外參考位元法">2. Additional Reference Bits(額外參考位元法)<a class="headerlink" href="#2-additional-reference-bits額外參考位元法" title="Permanent link"></a></h3>
-<p>Additional Reference Bits 的想法是：<br />
+<p>Additional Reference Bits 的想法是：<br/>
 <strong>不要只留 1 個 reference bit，而是定期把 reference bit 的歷史記錄進一個 8-bit register(8 位元暫存器)。</strong></p>
 <p>講義規則是：</p>
 <ol>
@@ -10154,7 +10154,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>這裡要注意：它不是精確 LRU，但比單一 reference bit 有更多歷史資訊。</p>
-<hr />
+<hr/>
 <h3 id="3-second-chance-algorithm第二次機會替換法">3. Second Chance Algorithm(第二次機會替換法)<a class="headerlink" href="#3-second-chance-algorithm第二次機會替換法" title="Permanent link"></a></h3>
 <p>Second Chance 是：</p>
 <p><strong>FIFO + Reference Bit。</strong></p>
@@ -10179,7 +10179,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </table>
 <p>講義 page 34 寫得很明確：需要 replacement 時，演算法沿著 circular queue 順時針檢查；若 page 的 reference bit 是 0，代表最近沒用，就選它；若 reference bit 是 1，就清成 0，然後移到下一個 page；持續到找到 reference bit = 0 的 page 為止。</p>
 <p>外部教材也用同樣規則描述 Clock / Second Chance：若 R = 1，清為 0 並讓指標前進；重複直到找到 R = 0 的 page。(<a href="https://stackoverflow.com/questions/39884407/working-set-size-if-thrashing-occurs?utm_source=chatgpt.com" title="Working Set Size- if thrashing occurs - Stack Overflow">TutorialsPoint</a>)</p>
-<hr />
+<hr/>
 <h3 id="4-second-chance-非題目型示範">4. Second Chance 非題目型示範<a class="headerlink" href="#4-second-chance-非題目型示範" title="Permanent link"></a></h3>
 <p>假設現在有 4 個 frames，clock hand(時鐘指標) 指向 page <code>1</code>：</p>
 <table>
@@ -10244,7 +10244,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>結果：page <code>3</code> 被替換。page <code>1</code>、page <code>2</code> 因為最近有用過，所以先逃過一次。</p>
 <p>Second Chance 的核心不是「永遠不踢 bit = 1 的 page」，而是：</p>
 <p><strong>bit = 1 只保護它一輪；清成 0 之後，如果下一輪還沒有再被使用，之後還是可能被踢。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-enhanced-second-chance加強第二次機會替換法">5. Enhanced Second Chance(加強第二次機會替換法)<a class="headerlink" href="#5-enhanced-second-chance加強第二次機會替換法" title="Permanent link"></a></h3>
 <p>Enhanced Second Chance 的目的不是只減少 page faults，而是更明確地：<strong>減少 I/O。</strong></p>
 <p>它同時看兩個 bit：</p>
@@ -10294,7 +10294,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>所以 Enhanced Second Chance 的最短判斷是：</p>
 <p><strong>先找最近沒用的，再優先找乾淨的。</strong></p>
 </div>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="6-三個方法的關係">6. 三個方法的關係<a class="headerlink" href="#6-三個方法的關係" title="Permanent link"></a></h3>
@@ -10326,7 +10326,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </table>
 <p>講義 page 36 也說 Second Chance 的好處是改善 FIFO，因為它會考慮 page 是否最近被使用，而且實作相對簡單、在複雜度與效能之間取得平衡。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
 <p>LRU-approximation 一句話：</p>
 <p><strong>用少量 bit 便宜地近似「最近有沒有使用」，不要真的每次都維護完整 LRU。</strong></p>
@@ -10392,10 +10392,10 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tr>
 </tbody>
 </table>
-<p>生活化例子：<br />
-9.4 像是你已經分到一個 4 格書架，現在新書來了，要決定丟掉哪一本。<br />
+<p>生活化例子：<br/>
+9.4 像是你已經分到一個 4 格書架，現在新書來了，要決定丟掉哪一本。<br/>
 9.5 像是圖書館總共有 100 格書架，要先決定每個人分幾格。</p>
-<hr />
+<hr/>
 <h3 id="2-frame-數量越多page-fault-ratio-通常越低但不是無限給">2. frame 數量越多，page fault ratio 通常越低，但不是無限給<a class="headerlink" href="#2-frame-數量越多page-fault-ratio-通常越低但不是無限給" title="Permanent link"></a></h3>
 <p>講義說一般來說，process 分配到的 frame 越多，page fault ratio(分頁錯誤率) 越低。原因很直覺：你給一個 process 的 RAM 格子越多，它能留在 RAM 裡的 pages 越多，下次再用到同一頁時就比較不會 page fault。</p>
 <p>但不能無限給，因為有兩個限制：</p>
@@ -10423,7 +10423,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>最少 frame 數最容易考概念題。它不是隨便訂的，而是因為：</p>
 <p>如果一條 instruction 執行到一半就 page fault，這條 instruction 通常要 restart(重新執行)。所以 OS 至少要給 process 足夠的 frames，讓一條 instruction 需要的 memory accesses 能完成。</p>
 <p>講義例子是 IF - ID - EX - MEM - WB pipeline，其中 IF 一定要存取 memory，MEM、WB 也可能需要 memory access，所以最少 frame 數可以是 3。</p>
-<hr />
+<hr/>
 <h3 id="3-fixed-allocation固定配置先決定每個-process-拿多少">3. Fixed Allocation(固定配置)：先決定每個 process 拿多少<a class="headerlink" href="#3-fixed-allocation固定配置先決定每個-process-拿多少" title="Permanent link"></a></h3>
 <p>Fixed Allocation(固定配置) 的核心是：</p>
 <p>每個 process 分到一個預先決定好的 frame 數量，之後不管它實際需要多少，數量不變。</p>
@@ -10450,13 +10450,13 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-equal-allocation同等分配大家平均分">4. Equal Allocation(同等分配)：大家平均分<a class="headerlink" href="#4-equal-allocation同等分配大家平均分" title="Permanent link"></a></h3>
 <p>Equal Allocation(同等分配) 是 fixed allocation 的最簡單版本：</p>
 <p>如果有 <code>m</code> 個 frames，要分給 <code>n</code> 個 processes，每個 process 約拿 <code>m/n</code> 個 frames。</p>
-<p>講義例子：<br />
+<p>講義例子：<br/>
 如果有 93 個 frames 和 5 個 processes，每個 process 可以分到 18 個 frames，剩下 3 個 frames 當 free-frame buffer pool(空白頁框緩衝庫存)。</p>
-<p>這個方法的核心優點是：簡單。<br />
+<p>這個方法的核心優點是：簡單。<br/>
 核心缺點是：沒看 process 大小。</p>
 <p>例如：</p>
 <table>
@@ -10478,7 +10478,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>如果兩者都分 18 frames，P1 可能夠用甚至浪費，P2 可能一直 page fault。</p>
-<hr />
+<hr/>
 <h3 id="5-proportional-allocation比例配置大的-process-拿比較多">5. Proportional Allocation(比例配置)：大的 process 拿比較多<a class="headerlink" href="#5-proportional-allocation比例配置大的-process-拿比較多" title="Permanent link"></a></h3>
 <p>Proportional Allocation(比例配置) 的核心是：</p>
 <p>process 越大，分到越多 frames。</p>
@@ -10564,7 +10564,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>外部課程筆記也用相同說法：equal allocation 是每個 process 得到 <code>m/n</code> frames，proportional allocation 則依 process size 的比例分配 frames；這和本講義內容一致。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
-<hr />
+<hr/>
 <h3 id="6-priority-allocation優先權配置重要-process-拿比較多">6. Priority Allocation(優先權配置)：重要 process 拿比較多<a class="headerlink" href="#6-priority-allocation優先權配置重要-process-拿比較多" title="Permanent link"></a></h3>
 <p>Priority Allocation(優先權配置) 是：</p>
 <p>高 priority(優先權) 的 process 分到更多 frames。</p>
@@ -10601,7 +10601,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>這常用在系統希望某些工作更穩定、更快完成的情境，例如互動式 process 或高優先權服務。</p>
-<hr />
+<hr/>
 <h3 id="7-這節和-96-thrashing-的關係">7. 這節和 9.6 Thrashing 的關係<a class="headerlink" href="#7-這節和-96-thrashing-的關係" title="Permanent link"></a></h3>
 <p>9.5 的 frame allocation 會直接影響 9.6 的 Thrashing(輾轉現象)。</p>
 <p>核心因果鏈是：</p>
@@ -10614,7 +10614,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
     F --&gt; G["可能形成 Thrashing(輾轉現象)"]</code></pre>
 <p>所以 9.5 不是單純背名詞，而是在鋪 9.6：</p>
 <p>如果每個 process 都拿太少 frames，大家都一直 page fault，系統就會忙著搬 pages，而不是執行真正的程式。</p>
-<hr />
+<hr/>
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
 <p>9.5 可以這樣背：</p>
 <table>
@@ -10656,10 +10656,10 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <h3 id="1-thrashing輾轉現象在解決什麼問題">1. Thrashing(輾轉現象)在解決什麼問題？<a class="headerlink" href="#1-thrashing輾轉現象在解決什麼問題" title="Permanent link"></a></h3>
 <p><code>Thrashing(輾轉現象)</code> 要解釋的是：</p>
 <p>為什麼明明系統有很多 process 在跑，但 CPU 反而常常 idle(閒置)，整體效能變很差？</p>
-<p>直覺例子：<br />
+<p>直覺例子：<br/>
 想像你寫作業時，桌上只能放 1 張紙，但你每 10 秒就需要換另一張講義。你大部分時間不是在寫作業，而是在「收紙、找紙、拿紙、放紙」。這就像 OS 一直做 swap in/out，而不是讓 CPU 執行真正的程式。</p>
 <p>講義的說法是：如果 process 被分配到的 frame 不足，就會經常 page fault，接著必須做 page replacement。若採 global replacement policy，還可能把其他 process 的 page 換出去，造成其他 process 也 page fault，最後所有 process 都忙著處理 page fault 與 swap in/out。</p>
-<hr />
+<hr/>
 <h3 id="2-thrashing-的核心因果鏈">2. Thrashing 的核心因果鏈<a class="headerlink" href="#2-thrashing-的核心因果鏈" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["process 分配到的 frames 太少"] --&gt; B["working set(工作集合)&lt;br&gt;放不進 RAM"]
@@ -10674,14 +10674,14 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>最重要的是這條惡性循環：</p>
 <p>frames 太少 → page fault 變多 → swap 變多 → CPU 變閒 → OS 可能引入更多 process → frames 更不夠 → page fault 更多。</p>
 <p>所以 thrashing 不是單一 process 慢而已，而是整個系統被 page fault 拖垮。</p>
-<hr />
+<hr/>
 <h3 id="3-解法一降低-multiprogramming-degree多工程度">3. 解法一：降低 Multiprogramming Degree(多工程度)<a class="headerlink" href="#3-解法一降低-multiprogramming-degree多工程度" title="Permanent link"></a></h3>
 <p><code>Multiprogramming degree(多工程度)</code> 就是同時放進 memory 裡競爭 CPU 與 frames 的 process 數量。</p>
 <p>如果太多 process 同時在 memory 裡，每個 process 分到的 frames 就太少。這時候一個直接解法是：</p>
 <p>減少同時活躍的 process 數量，讓剩下的 process 每個人拿到比較多 frames。</p>
-<p>生活化講法：<br />
+<p>生活化講法：<br/>
 桌子太小時，不是叫 10 個人一起擠著寫作業，而是先讓 3 個人寫完，再換下一批。這樣每個人桌面空間夠，反而整體更快。</p>
-<hr />
+<hr/>
 <h3 id="4-解法二用-page-fault-ratio分頁錯誤率控制-frame-分配">4. 解法二：用 Page Fault Ratio(分頁錯誤率)控制 frame 分配<a class="headerlink" href="#4-解法二用-page-fault-ratio分頁錯誤率控制-frame-分配" title="Permanent link"></a></h3>
 <p>講義提到可以設定 page fault ratio 的上限與下限。核心規則如下：</p>
 <table>
@@ -10710,9 +10710,9 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tr>
 </tbody>
 </table>
-<p>這個方法的直覺是：<br />
+<p>這個方法的直覺是：<br/>
 不要硬背每個 process 該拿幾個 frames，而是觀察「它會不會一直 page fault」。page fault 太多就表示它桌面太小，要加桌面空間；page fault 太少可能代表桌面空間太奢侈，可以挪一點給別人。</p>
-<hr />
+<hr/>
 <h3 id="5-解法三working-set-model工作集合模型">5. 解法三：Working Set Model(工作集合模型)<a class="headerlink" href="#5-解法三working-set-model工作集合模型" title="Permanent link"></a></h3>
 <p><code>Working set(工作集合)</code> 是一個 process 在最近一段時間內實際用到的 pages 集合。講義說 working set model 會預估各 process 在不同執行時期所需的 frame 數目，並提供足夠 frames 來防止 thrashing。這個想法建立在 locality(區域性)上：process 通常會重複使用最近用過的附近資料。</p>
 <p>講義有兩種 locality：</p>
@@ -10740,7 +10740,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>所以 working set model 的精神是：</p>
 <p>不要問「process 總共有多少 pages」，而是問「它最近真正活躍使用的 pages 有哪些」。</p>
 <p>如果 OS 能讓 process 的 working set 大部分留在 RAM，就能大幅減少 page fault。</p>
-<hr />
+<hr/>
 <h3 id="6-working-set-window工作集合視窗">6. Working Set Window(工作集合視窗)<a class="headerlink" href="#6-working-set-window工作集合視窗" title="Permanent link"></a></h3>
 <p>講義設定一個 <code>working set window size Δ</code>，意思是只看最近 Δ 次記憶體存取，或最近 Δ 個時間單位內被 reference(參考)過的 pages。</p>
 <p>例如 reference string：</p>
@@ -10750,7 +10750,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p>所以 working set 是：</p>
 <p><code>{1, 2, 4, 5}</code></p>
 <p>注意：working set 是集合，所以重複出現只算一次。</p>
-<hr />
+<hr/>
 <h3 id="7-page-fault-frequency-pff分頁錯誤頻率">7. Page-Fault Frequency, PFF(分頁錯誤頻率)<a class="headerlink" href="#7-page-fault-frequency-pff分頁錯誤頻率" title="Permanent link"></a></h3>
 <p><code>PFF(Page-Fault Frequency，分頁錯誤頻率)</code> 是比 working set 更直接的控制法。它不一定先估 working set，而是直接看 page fault rate 是否太高或太低。</p>
 <p>核心規則：</p>
@@ -10780,9 +10780,9 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tr>
 </tbody>
 </table>
-<p>考試上你可以把 <code>PFF</code> 記成「用 page fault rate 當溫度計」。<br />
+<p>考試上你可以把 <code>PFF</code> 記成「用 page fault rate 當溫度計」。<br/>
 太高代表發燒，frames 不夠；太低代表資源可能過剩。</p>
-<hr />
+<hr/>
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
 <p>Thrashing 的最短記法：</p>
 <p>frames 太少 → page fault 太多 → swap 太多 → CPU idle → OS 可能加更多 process → 更嚴重。</p>
@@ -10793,7 +10793,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <p><code>Global replacement policy(全域替換策略)</code> 的意思是：</p>
 <p>當某個 process 發生 <code>page fault(分頁錯誤)</code>，而且沒有 <code>free frame(空頁框)</code> 時，OS 選 <code>victim page(犧牲頁)</code> 的範圍不是只限於這個 process 自己的 pages，而是可以從「所有 process 的 pages」裡面挑一個換出去。講義寫到：global allocation 會在所有 processes 的所有 pages 中選 page 來 replace，所以 page fault 發生時，任何 process 的 page 都可能被替換。</p>
 <p>chapter 9_20240527</p>
-<hr />
+<hr/>
 <h4 id="2-跟-local-replacement-policy區域替換策略的差別">2. 跟 Local Replacement Policy(區域替換策略)的差別<a class="headerlink" href="#2-跟-local-replacement-policy區域替換策略的差別" title="Permanent link"></a></h4>
 <p>假設目前有：</p>
 <table>
@@ -10815,9 +10815,9 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 </tbody>
 </table>
 <p>現在 P1 要用 page D，但 D 不在 RAM，發生 <code>page fault</code>。</p>
-<p><code>Local replacement policy(區域替換策略)</code>：<br />
+<p><code>Local replacement policy(區域替換策略)</code>：<br/>
 P1 只能從自己的 A, B, C 裡面選一個踢掉。</p>
-<p><code>Global replacement policy(全域替換策略)</code>：<br />
+<p><code>Global replacement policy(全域替換策略)</code>：<br/>
 P1 可以從 A, B, C, X, Y, Z 裡面選一個踢掉，所以可能踢掉 P2 的 page，例如 X。</p>
 <h3 id="我看不懂-working-set-model工作集合模型-是啥">我看不懂 Working Set Model(工作集合模型) 是啥<a class="headerlink" href="#我看不懂-working-set-model工作集合模型-是啥" title="Permanent link"></a></h3>
 <p>第 4 次對話</p>
@@ -10825,7 +10825,7 @@ P1 可以從 A, B, C, X, Y, Z 裡面選一個踢掉，所以可能踢掉 P2 的 
 <p><code>Working Set Model(工作集合模型)</code> 是 OS 用來估計：</p>
 <p>「某個 process 最近正在用哪幾個 pages，所以至少應該給它幾個 frames，才不會一直 page fault。」</p>
 <p>講義的定義是：在最近 <code>Δ</code> 個 time units / memory references 內，被 process 參考過的 pages 集合，叫 <code>working set(工作集合)</code>；這個集合的 page 數量叫 <code>WSS(working set size，工作集合大小)</code>。講義也說它用來預估各 process 在不同執行時期需要多少 frames，避免 <code>thrashing(輾轉現象)</code>。</p>
-<hr />
+<hr/>
 <h4 id="2-生活化理解">2. 生活化理解<a class="headerlink" href="#2-生活化理解" title="Permanent link"></a></h4>
 <p>想像你在讀書桌上寫作業。</p>
 <p>你書包裡可能有 20 本書，但你現在真正會用的可能只有：</p>
@@ -10856,10 +10856,10 @@ P1 可以從 A, B, C, X, Y, Z 裡面選一個踢掉，所以可能踢掉 P2 的 
 </tbody>
 </table>
 <p><code>Working Set Model</code> 的想法就是：</p>
-<p>不要把 process 所有 pages 都放進 RAM，因為太浪費；<br />
-但也不能給太少 frames，否則它會一直 page fault。<br />
+<p>不要把 process 所有 pages 都放進 RAM，因為太浪費；<br/>
+但也不能給太少 frames，否則它會一直 page fault。<br/>
 所以 OS 觀察「最近一段時間真的用過哪些 pages」，把這些 pages 當成目前應該保留在 RAM 的核心集合。</p>
-<hr />
+<hr/>
 <h4 id="3-δ-到底是什麼">3. Δ 到底是什麼？<a class="headerlink" href="#3-δ-到底是什麼" title="Permanent link"></a></h4>
 <p><code>Δ(working set window，工作集合視窗)</code> 就是「往前看多久」。</p>
 <p>例如 page reference string 是：</p>
@@ -10901,42 +10901,42 @@ P1 可以從 A, B, C, X, Y, Z 裡面選一個踢掉，所以可能踢掉 P2 的 
 </tr>
 </tbody>
 </table>
-<p>注意：working set 是「集合」，所以重複出現不重複算。<br />
+<p>注意：working set 是「集合」，所以重複出現不重複算。<br/>
 例如最近 4 次是 <code>1, 2, 1, 2</code>，working set 是 <code>{1,2}</code>，不是 4 個 pages。</p>
 <p>講義範例也用 <code>Δ = 4</code> 來看 <code>1,2,3,4,1,2,5,...</code> 這串 reference，並在 t7 得到 <code>{1,2,4,5}</code>、t12 得到 <code>{2,3,4,5}</code>。</p>
-<hr />
+<hr/>
 <h4 id="4-它到底拿來幹嘛">4. 它到底拿來幹嘛？<a class="headerlink" href="#4-它到底拿來幹嘛" title="Permanent link"></a></h4>
 <p>它主要拿來解決這個問題：</p>
 <p>「每個 process 到底要給幾個 frames 才夠？」</p>
-<p>如果某 process 的 <code>WSS = 5</code>，代表它最近活躍使用 5 個不同 pages。<br />
-那 OS 最好至少給它 5 個 frames。<br />
+<p>如果某 process 的 <code>WSS = 5</code>，代表它最近活躍使用 5 個不同 pages。<br/>
+那 OS 最好至少給它 5 個 frames。<br/>
 如果只給 2 個 frames，它就會一直把剛踢掉的 page 又叫回來，造成大量 page fault。</p>
 <p>更正式一點：</p>
-<p><code>WSS_i</code> = process i 目前 working set 裡有幾個 pages。<br />
+<p><code>WSS_i</code> = process i 目前 working set 裡有幾個 pages。<br/>
 <code>D = Σ WSS_i</code> = 所有 process 目前總共需要的 frames。</p>
-<p>如果 <code>D &lt;= total frames</code>：<br />
+<p>如果 <code>D &lt;= total frames</code>：<br/>
 系統大致撐得住，可以讓這些 processes 繼續跑。</p>
-<p>如果 <code>D &gt; total frames</code>：<br />
+<p>如果 <code>D &gt; total frames</code>：<br/>
 代表目前 RAM 放不下所有 process 的 working set，thrashing 風險很高。這時 OS 應該降低 <code>multiprogramming degree(多道程式程度)</code>，例如暫停或 swap out 某些 process。Stanford OS 課程也用同樣觀念描述：若所有 runnable threads/processes 的 working sets 總和超過 memory size，就應該暫時停止執行一部分，避免 thrashing。(<a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter12/lecture.php?topic=thrashing&amp;utm_source=chatgpt.com" title="Thrashing and Working Sets - Stanford University">Stanford University</a>)</p>
-<hr />
+<hr/>
 <h4 id="5-跟-page-replacement分頁替換的關係">5. 跟 Page Replacement(分頁替換)的關係<a class="headerlink" href="#5-跟-page-replacement分頁替換的關係" title="Permanent link"></a></h4>
 <p>Working Set Model 不是單純在問「下一個 victim page 是誰」。</p>
 <p>它比較像是在問：</p>
 <p>「哪些 pages 是這個 process 最近真正需要的？哪些 pages 可以被犧牲？」</p>
 <p>所以它的替換直覺是：</p>
-<p>在 working set 裡面的 pages：最近正在用，盡量不要踢。<br />
+<p>在 working set 裡面的 pages：最近正在用，盡量不要踢。<br/>
 不在 working set 裡面的 pages：最近沒用到，比較適合當 victim page。</p>
 <p>講義也寫到：當需要 replacement 時，OS 會找不在 working set 裡的 pages，因為 working set 外的 pages 比較不可能很快再被需要。</p>
-<hr />
+<hr/>
 <h4 id="6-最容易混淆的地方">6. 最容易混淆的地方<a class="headerlink" href="#6-最容易混淆的地方" title="Permanent link"></a></h4>
-<p><code>working set</code> 不是 process 的所有 pages。<br />
+<p><code>working set</code> 不是 process 的所有 pages。<br/>
 它只代表「最近這段時間活躍用到的 pages」。</p>
-<p><code>working set</code> 也不完全等於 RAM 裡目前真的有的 pages。<br />
+<p><code>working set</code> 也不完全等於 RAM 裡目前真的有的 pages。<br/>
 它是 OS 希望保留在 RAM 裡的目標集合；如果 RAM 不夠，working set 裡的 page 也可能不在 RAM，然後就會 page fault。</p>
-<p><code>WSS</code> 不是固定值。<br />
+<p><code>WSS</code> 不是固定值。<br/>
 process 跑到不同階段，working set 會變。例如一開始跑初始化 code，可能用 pages <code>{1,2,3}</code>；後來進入大型迴圈，可能變成 <code>{7,8,9,10}</code>。</p>
 <p>社群討論裡常見錯法是把每個時間點的 working set size 全部加總，然後拿去判斷 thrashing；這樣通常不是 working set model 的核心用法。我們通常是在某個時間點看每個 process 當下的 WSS，再把各 process 的 WSS 加總。(<a href="https://stackoverflow.com/questions/39884407/working-set-size-if-thrashing-occurs?utm_source=chatgpt.com" title="Working Set Size- if thrashing occurs - Stack Overflow">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h4 id="7-最短記法_1">7. 最短記法<a class="headerlink" href="#7-最短記法_1" title="Permanent link"></a></h4>
 <p><code>Working Set Model</code>：</p>
 <p>「看 process 最近 Δ 時間內用過哪些 pages，這些 pages 就是它現在真正需要的 working set；WSS 就是它現在大概要多少 frames。若所有 process 的 WSS 總和超過 RAM frames，就容易 thrashing。」</p>
@@ -11107,17 +11107,15 @@ process 跑到不同階段，working set 會變。例如一開始跑初始化 co
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

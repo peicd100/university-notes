@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6501,11 +6501,11 @@ is now available!
 
 
 <h1 id="雙邊緣觸發">雙邊緣觸發<a class="headerlink" href="#雙邊緣觸發" title="Permanent link"></a></h1>
-<p>題目：<br />
+<p>題目：<br/>
 <a href="https://hdlbits.01xz.net/wiki/Dualedge">https://hdlbits.01xz.net/wiki/Dualedge</a></p>
-<p><img alt="alt text" src="images/%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.png"/></p>
 <h2 id="解題">解題<a class="headerlink" href="#解題" title="Permanent link"></a></h2>
-<p>看到這題，我們會第一直覺用一個 always + posedge、negedge 來寫。<br />
+<p>看到這題，我們會第一直覺用一個 always + posedge、negedge 來寫。<br/>
 如下：</p>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
@@ -6518,7 +6518,7 @@ is now available!
 
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>其實這是不允許的，因為這不是一個標準可以用的元件，對於相同訊號不能同時有正邊和負邊，例如<code>always @(posedge clk or negedge reset)</code>。<br />
+<p>其實這是不允許的，因為這不是一個標準可以用的元件，對於相同訊號不能同時有正邊和負邊，例如<code>always @(posedge clk or negedge reset)</code>。<br/>
 但是可以對於不同的訊號有正邊和負邊，像是<code>always @(posedge clk or negedge reset)</code>。</p>
 <p>既然不行，那我們就把他拆開來阿！像下面這樣。</p>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
@@ -6535,7 +6535,7 @@ is now available!
 
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這樣其實也不行，因為對於不同的 always ，不能同時驅動相同的 reg ，像這邊的 q 不能同時用兩個 always 驅動。<br />
+<p>這樣其實也不行，因為對於不同的 always ，不能同時驅動相同的 reg ，像這邊的 q 不能同時用兩個 always 驅動。<br/>
 那我們還有什麼辦法？</p>
 <p>我們或許可以像下面這樣。</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
@@ -6555,15 +6555,15 @@ is now available!
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">q_pos</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">q_neg</span><span class="p">;</span>
 
 <span class="k">endmodule</span>
-</code></pre></div><br />
-q_pos 是 d 在上邊緣的數值。<br />
-q_neg 是 d 在下邊緣的數值。<br />
+</code></pre></div><br/>
+q_pos 是 d 在上邊緣的數值。<br/>
+q_neg 是 d 在下邊緣的數值。<br/>
 <code>q = clk ? q_pos : q_neg</code>：當 clk == 1 ，給上邊緣的數值，clk == 0 則反之。</p>
 <p>這樣會有什麼問題呢？</p>
 <blockquote>
 <p>因為當<code>assign q = clk ? q_pos : q_neg;</code>的 clk 從 0 變成 1 時，會選擇 q_pos 。但是在這個瞬間<code>always @(posedge clk)q_pos &lt;= d;</code>其實還沒有把 d 給 q_pos，他會延遲一下下，會導致 q_pos 在 d 傳遞給 q_pos 之前不是正確的資料。</p>
 </blockquote>
-<p>那我們還有沒有其他解決方法？<br />
+<p>那我們還有沒有其他解決方法？<br/>
 有的，以下是最標準的解決方法。</p>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
@@ -6616,7 +6616,7 @@ x ^ 1 = ~x
 <span class="n">Q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">c</span>
 </code></pre></div>
 <blockquote>
-<p>這種寫法成立，靠的是這個前提：<br />
+<p>這種寫法成立，靠的是這個前提：<br/>
 每次事件只改一個變數，其它變數都當成固定舊值來抵消。</p>
 </blockquote>
 
@@ -6750,17 +6750,15 @@ x ^ 1 = ~x
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

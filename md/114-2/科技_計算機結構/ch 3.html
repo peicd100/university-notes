@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -13118,11 +13118,11 @@ is now available!
 <h2 id="第-3-章到底在處理什麼問題">第 3 章到底在處理什麼問題？<a class="headerlink" href="#第-3-章到底在處理什麼問題" title="Permanent link"></a></h2>
 <p>這章的主問題是：</p>
 <p><strong>電腦只會操作固定長度的 bit pattern(位元樣式)，那它要怎麼可靠地表示數字、做加減乘除、處理小數，並把這些運算做成硬體與指令？</strong></p>
-<p>生活化地說，電腦像是一台只能用固定格子填 0/1 的計算機。<br />
+<p>生活化地說，電腦像是一台只能用固定格子填 0/1 的計算機。<br/>
 假設只有 4 個格子，那最多只有 16 種圖案：</p>
 <p><code>0000</code> 到 <code>1111</code></p>
 <p>但問題來了：</p>
-<p>同一個圖案可以有不同解讀。<br />
+<p>同一個圖案可以有不同解讀。<br/>
 例如 <code>1111</code>：</p>
 <ul>
 <li>當作 Unsigned Integer(無號整數)：它是 15。</li>
@@ -13141,17 +13141,17 @@ is now available!
 <p>答案是可以。方法是：</p>
 <div class="highlight"><pre><span></span><code>A - B = A + (-B)
 </code></pre></div>
-<p>所以問題變成：<br />
+<p>所以問題變成：<br/>
 我們要怎麼用固定 n-bit 的 bit pattern 表示 <code>-B</code>？</p>
 <p>Two’s Complement(二補數) 的規則是：</p>
 <div class="highlight"><pre><span></span><code>Step 1: invert all bits
 Step 2: add 1
 </code></pre></div>
 <p>也就是：</p>
-<div class="highlight"><pre><span></span><code>2&#39;s complement = 1&#39;s complement + 1
+<div class="highlight"><pre><span></span><code>2's complement = 1's complement + 1
 </code></pre></div>
 <p>講義 PDF page 11 也是先列出 1 補數，再說「再加上 1」得到 2 補數。</p>
-<hr />
+<hr/>
 <h3 id="先看一個-8-bit-例子10-變成--10">先看一個 8-bit 例子：10 變成 -10<a class="headerlink" href="#先看一個-8-bit-例子10-變成--10" title="Permanent link"></a></h3>
 <p><code>10₁₀</code> 的 8-bit binary 是：</p>
 <div class="highlight"><pre><span></span><code>00001010
@@ -13169,7 +13169,7 @@ Step 2: add 1
 <div class="highlight"><pre><span></span><code>11110110 = -10
 </code></pre></div>
 <p>這就是講義 PDF page 13 裡 <code>88 - 10</code> 會使用 <code>-10</code> 的二補數表示的原因。</p>
-<hr />
+<hr/>
 <h3 id="用二補數做-88---10">用二補數做 88 - 10<a class="headerlink" href="#用二補數做-88---10" title="Permanent link"></a></h3>
 <p>直接想是：</p>
 <div class="highlight"><pre><span></span><code>88 - 10 = 78
@@ -13186,9 +13186,9 @@ Step 2: add 1
 <p>因為我們固定只看 8-bit，所以最左邊多出來的 carry-out 丟掉：</p>
 <div class="highlight"><pre><span></span><code>01001110 = 78
 </code></pre></div>
-<p>這裡有一個重要觀念：<br />
+<p>這裡有一個重要觀念：<br/>
 <strong>丟掉最高位 carry-out 不等於「隨便忽略錯誤」；它是在固定 n-bit arithmetic(固定寬度算術) 的規則下，只保留 n 個 bits。</strong> 社群討論中也常提醒，Two’s Complement 裡 carry-out 和 signed overflow(有號滿溢) 不是同一件事；有號滿溢要看結果是否超出可表示範圍，或同號相加卻得到相反符號。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h3 id="為什麼反相加-1會得到負數">為什麼「反相加 1」會得到負數？<a class="headerlink" href="#為什麼反相加-1會得到負數" title="Permanent link"></a></h3>
 <p>用 4-bit 比較直觀。</p>
 <p>假設：</p>
@@ -13198,7 +13198,7 @@ Step 2: add 1
 <div class="highlight"><pre><span></span><code>1100
 </code></pre></div>
 <p><code>0011 + 1100 = 1111</code></p>
-<p>也就是所有 bits 都變成 1。<br />
+<p>也就是所有 bits 都變成 1。<br/>
 再加 1：</p>
 <div class="highlight"><pre><span></span><code>1111 + 1 = 1 0000
 </code></pre></div>
@@ -13214,10 +13214,10 @@ Step 2: add 1
 <p>核心直覺是：</p>
 <p><strong>一個數加上自己的二補數，會在固定 bit 寬度下回到 0。</strong></p>
 <p>這也是講義 PDF page 12「二補數的秘密」在展示的重點：原數加上一補數會得到全 1；再加 1 後會回到全 0。</p>
-<hr />
+<hr/>
 <h3 id="快速技巧從右往左找第一個-1">快速技巧：從右往左找第一個 1<a class="headerlink" href="#快速技巧從右往左找第一個-1" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%203.png" /></p>
-<p>講義 PDF page 14 給了一個常用 shortcut(捷徑)：<br />
+<p><img alt="alt text" decoding="async" src="images/ch%203.png"/></p>
+<p>講義 PDF page 14 給了一個常用 shortcut(捷徑)：<br/>
 計算二補數時，從右邊開始掃：</p>
 <ol>
 <li>從最右邊開始，直到遇到第一個 <code>1</code>，包含這個 <code>1</code> 之前都照抄。</li>
@@ -13236,17 +13236,17 @@ Step 2: add 1
 <p>所以得到：</p>
 <div class="highlight"><pre><span></span><code>01011000
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="常見錯法">常見錯法<a class="headerlink" href="#常見錯法" title="Permanent link"></a></h3>
-<p>第一個錯法：只反相，忘記加 1。<br />
+<p>第一個錯法：只反相，忘記加 1。<br/>
 這只得到 1’s complement(一補數)，不是 Two’s Complement(二補數)。</p>
-<p>第二個錯法：沒有固定 bit width(位寬)。<br />
+<p>第二個錯法：沒有固定 bit width(位寬)。<br/>
 例如 <code>1010</code> 到底是 4-bit 的 -6，還是 8-bit 的 +10？沒有指定位寬與解讀方式，答案不完整。</p>
-<p>第三個錯法：把 carry-out 當成一定是 overflow。<br />
+<p>第三個錯法：把 carry-out 當成一定是 overflow。<br/>
 Two’s Complement 中，最高位 carry-out 可能被丟掉，但 signed overflow 要看符號與可表示範圍。Stack Overflow 上的常見討論也指出，兩個正數相加變負數，或兩個負數相加變非負數，才是典型 signed overflow 判斷。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">Stack Overflow</a>)</p>
 <h2 id="instruction-set-architecture-isa指令集架構-對-overflow滿溢-的政策">Instruction Set Architecture, ISA(指令集架構) 對 overflow(滿溢) 的政策<a class="headerlink" href="#instruction-set-architecture-isa指令集架構-對-overflow滿溢-的政策" title="Permanent link"></a></h2>
 <h3 id="會檢查-overflow-並呼叫-exception-的指令">會檢查 overflow 並呼叫 exception 的指令<a class="headerlink" href="#會檢查-overflow-並呼叫-exception-的指令" title="Permanent link"></a></h3>
-<p><code>add</code>、<code>addi</code>、<code>sub</code> 這組指令，重點是 checked arithmetic(會檢查的算術)。<br />
+<p><code>add</code>、<code>addi</code>、<code>sub</code> 這組指令，重點是 checked arithmetic(會檢查的算術)。<br/>
 當結果超出 32-bit two’s complement signed integer(32 位元二補數有號整數) 可表示範圍時，它們會觸發 exception(例外)。</p>
 <p>也就是：</p>
 <ul>
@@ -13255,9 +13255,9 @@ Two’s Complement 中，最高位 carry-out 可能被丟掉，但 signed overfl
 <li><code>sub</code>：register - register，檢查 overflow</li>
 </ul>
 <p>這組適合「程式希望系統幫我抓錯」的情況。</p>
-<hr />
+<hr/>
 <h3 id="不呼叫-exception-的指令">不呼叫 exception 的指令<a class="headerlink" href="#不呼叫-exception-的指令" title="Permanent link"></a></h3>
-<p><code>addu</code>、<code>addiu</code>、<code>subu</code> 這組指令，重點是 unchecked arithmetic(不檢查的算術)。<br />
+<p><code>addu</code>、<code>addiu</code>、<code>subu</code> 這組指令，重點是 unchecked arithmetic(不檢查的算術)。<br/>
 <mark>就算產生 overflow，也不觸發 exception</mark> ；硬體結果會像固定寬度位元運算一樣留下可表示的部分。</p>
 <p>也就是：</p>
 <ul>
@@ -13265,9 +13265,9 @@ Two’s Complement 中，最高位 carry-out 可能被丟掉，但 signed overfl
 <li><code>addiu</code>：register + immediate，不因 overflow exception</li>
 <li><code>subu</code>：register - register，不因 overflow exception</li>
 </ul>
-<p>常見陷阱：<br />
+<p>常見陷阱：<br/>
 <code>addu</code> 的 <code>u</code> 很容易被理解成「只能做 unsigned number(無號數)」。但在這頁考點裡，更重要的是「不呼叫 overflow exception」。也就是說，考試問差異時，不要只寫「一個 signed、一個 unsigned」，要寫出「是否偵測／觸發 overflow exception」。</p>
-<hr />
+<hr/>
 <h3 id="用一張流程圖記住">用一張流程圖記住<a class="headerlink" href="#用一張流程圖記住" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A[執行 MIPS 加減法指令] --&gt; B{是哪一組指令？}
@@ -13277,11 +13277,11 @@ Two’s Complement 中，最高位 carry-out 可能被丟掉，但 signed overfl
     E --&gt;|是| F[觸發 exception]
     E --&gt;|否| G[正常寫回結果]
     D --&gt; H[不因 overflow 觸發 exception&lt;br&gt;結果由固定 bit 寬度留下]</code></pre>
-<hr />
+<hr/>
 <h3 id="最短記法">最短記法<a class="headerlink" href="#最短記法" title="Permanent link"></a></h3>
-<p><code>add/addi/sub</code>：overflow → exception<br />
+<p><code>add/addi/sub</code>：overflow → exception<br/>
 <code>addu/addiu/subu</code>：overflow → no exception</p>
-<p>中文理解版：<br />
+<p>中文理解版：<br/>
 MIPS 提供兩套加減法指令；一套幫你抓 signed overflow，另一套不抓，讓軟體自己負責。</p>
 <p>英文考試版：</p>
 <p><code>add</code>, <code>addi</code>, and <code>sub</code> raise an exception on overflow, while <code>addu</code>, <code>addiu</code>, and <code>subu</code> do not raise an overflow exception. The key distinction is overflow trapping behavior, not merely whether the programmer thinks of the operands as signed or unsigned.</p>
@@ -13290,16 +13290,16 @@ MIPS 提供兩套加減法指令；一套幫你抓 signed overflow，另一套�
 <h3 id="兩種指令都會判斷-overflow-嗎">兩種指令都會判斷 Overflow 嗎？<a class="headerlink" href="#兩種指令都會判斷-overflow-嗎" title="Permanent link"></a></h3>
 <p>對於這兩種指令，底層硬體通常可以產生 overflow 訊號；但在 MIPS ISA 語意上，add/addi/sub 會把 signed overflow 轉成 exception，addu/addiu/subu 則忽略 overflow，不產生 exception。</p>
 <h3 id="差別到底是啥">差別到底是啥？<a class="headerlink" href="#差別到底是啥" title="Permanent link"></a></h3>
-<p>add/addi/sub：在發生 signed overflow(有號滿溢) 時會呼叫 exception(例外)。<br />
+<p>add/addi/sub：在發生 signed overflow(有號滿溢) 時會呼叫 exception(例外)。<br/>
 addu/addiu/subu：即使發生 overflow，也不會呼叫 overflow exception。</p>
 <h2 id="exception-handling--cpu-如何知道是哪條指令造成-overflow">Exception Handling — CPU 如何知道是哪條指令造成 overflow？<a class="headerlink" href="#exception-handling--cpu-如何知道是哪條指令造成-overflow" title="Permanent link"></a></h2>
-<p>第 19 頁先說：<code>add/addi/sub</code> 發生 signed overflow(有號滿溢) 時會觸發 exception。<br />
+<p>第 19 頁先說：<code>add/addi/sub</code> 發生 signed overflow(有號滿溢) 時會觸發 exception。<br/>
 第 20 頁接著問：<strong>觸發 exception 之後，CPU／作業系統要怎麼知道是哪一條指令出事？</strong></p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 想像你在跑一長串指令，像老師在批改一整疊考卷。某一題爆掉了，老師不能只知道「有錯」，還要知道「是哪一題錯」。EPC 就像是那個「錯題頁碼標籤」。</p>
-<hr />
+<hr/>
 <h3 id="epc-是什麼">EPC 是什麼？<a class="headerlink" href="#epc-是什麼" title="Permanent link"></a></h3>
-<p><code>EPC(exception program counter，例外程式計數器)</code> 是一個特殊暫存器。<br />
+<p><code>EPC(exception program counter，例外程式計數器)</code> 是一個特殊暫存器。<br/>
 它的工作是：</p>
 <p><strong>當 exception 發生時，記錄造成 exception 的指令位址。</strong></p>
 <p>所以如果某條 <code>add</code> 指令發生 overflow，MIPS 會跳去 exception handler，同時 EPC 會保留「剛剛是哪條指令造成 exception」。</p>
@@ -13311,9 +13311,9 @@ addu/addiu/subu：即使發生 overflow，也不會呼叫 overflow exception。<
 <li>做某種補救動作。</li>
 </ol>
 <p>沒有 EPC，exception handler 就只知道「有錯」，但不知道「錯在哪」。</p>
-<hr />
+<hr/>
 <h3 id="mfc0-是什麼"><code>mfc0</code> 是什麼？<a class="headerlink" href="#mfc0-是什麼" title="Permanent link"></a></h3>
-<p><code>mfc0</code> 是 <code>move from system control</code>，也常理解成 <code>move from coprocessor 0</code>。<br />
+<p><code>mfc0</code> 是 <code>move from system control</code>，也常理解成 <code>move from coprocessor 0</code>。<br/>
 在這頁講義裡，我們先用最小必要理解：</p>
 <p><strong><code>mfc0</code> 可以把 EPC 這種系統控制暫存器的內容，複製到一般通用暫存器。</strong></p>
 <p>也就是：</p>
@@ -13322,10 +13322,10 @@ addu/addiu/subu：即使發生 overflow，也不會呼叫 overflow exception。<
 <p>概念上是在做：</p>
 <div class="highlight"><pre><span></span><code>general_register = EPC
 </code></pre></div>
-<p>重點：<br />
-<code>mfc0</code> 本身不是「返回」指令。它只是把 EPC 的值拿出來。<br />
+<p>重點：<br/>
+<code>mfc0</code> 本身不是「返回」指令。它只是把 EPC 的值拿出來。<br/>
 真的要回去，還需要後續用 jump register 類的控制流程，例如講義說的「經由暫存器跳躍指令返回造成例外的指令」。</p>
-<hr />
+<hr/>
 <h3 id="整個流程怎麼串起來">整個流程怎麼串起來？<a class="headerlink" href="#整個流程怎麼串起來" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A[執行 add / addi / sub] --&gt; B{發生 signed overflow?}
@@ -13338,50 +13338,50 @@ addu/addiu/subu：即使發生 overflow，也不會呼叫 overflow exception。<
     H --&gt; I[軟體可選擇用 register jump 返回或做其他處理]</code></pre>
 <p>把它想成一句話：</p>
 <p><strong>overflow exception 發生時，EPC 記住「哪條指令出事」，<code>mfc0</code> 讓軟體把這個位址讀出來使用。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_1">常見錯法<a class="headerlink" href="#常見錯法_1" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-把 EPC 說成「存 overflow 的結果」。<br />
+<p>第一個錯法：<br/>
+把 EPC 說成「存 overflow 的結果」。<br/>
 錯。EPC 存的是造成 exception 的 instruction address(指令位址)，不是運算結果。</p>
-<p>第二個錯法：<br />
-把 <code>mfc0</code> 說成「處理 overflow 的指令」。<br />
+<p>第二個錯法：<br/>
+把 <code>mfc0</code> 說成「處理 overflow 的指令」。<br/>
 不精準。<code>mfc0</code> 是把 EPC 從系統控制暫存器複製到通用暫存器，讓 exception handler 的軟體能使用那個位址。</p>
-<p>第三個錯法：<br />
-以為 exception handler 自動知道要回哪裡。<br />
+<p>第三個錯法：<br/>
+以為 exception handler 自動知道要回哪裡。<br/>
 不完整。它需要 EPC 這類資訊來知道原本發生 exception 的位置。</p>
-<hr />
+<hr/>
 <h3 id="四件套暫存筆記">四件套暫存筆記<a class="headerlink" href="#四件套暫存筆記" title="Permanent link"></a></h3>
-<p>中文理解版：<br />
+<p>中文理解版：<br/>
 MIPS 發生 overflow exception 時，會用 EPC 記錄造成例外的指令位址；<code>mfc0</code> 可以把 EPC 的內容搬到一般暫存器，讓軟體決定如何返回或處理。</p>
-<p>英文考試版：<br />
+<p>英文考試版：<br/>
 When an overflow exception occurs in MIPS, the EPC register stores the address of the instruction that caused the exception. The <code>mfc0</code> instruction can copy the EPC value into a general-purpose register so that software can use it to return to or handle the faulting instruction.</p>
-<p>最短記法：<br />
-<code>EPC = faulting instruction address</code><br />
+<p>最短記法：<br/>
+<code>EPC = faulting instruction address</code><br/>
 <code>mfc0 = copy EPC to GPR</code></p>
-<p>常見錯法：<br />
+<p>常見錯法：<br/>
 EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；<code>mfc0</code> 只是把系統控制暫存器的值搬出來。</p>
-<hr />
+<hr/>
 <h3 id="本輪練習題">本輪練習題<a class="headerlink" href="#本輪練習題" title="Permanent link"></a></h3>
 <p>請用中文或英文回答 1～5。</p>
 <ol>
 <li>
-<p>What problem does the EPC register solve when an overflow exception occurs in MIPS?<br />
+<p>What problem does the EPC register solve when an overflow exception occurs in MIPS?<br/>
    [Source: ch3.pdf／PDF viewer page 20]</p>
 </li>
 <li>
-<p>In the lecture slide, what information is stored in the EPC register? Be precise: is it the overflow result, the exception type, or the instruction address?<br />
+<p>In the lecture slide, what information is stored in the EPC register? Be precise: is it the overflow result, the exception type, or the instruction address?<br/>
    [Source: ch3.pdf／PDF viewer page 20]</p>
 </li>
 <li>
-<p>Explain the role of <code>mfc0</code> in the exception-handling process described on the slide.<br />
+<p>Explain the role of <code>mfc0</code> in the exception-handling process described on the slide.<br/>
    [Source: ch3.pdf／PDF viewer page 20]</p>
 </li>
 <li>
-<p>A student says: “When overflow happens, <code>mfc0</code> fixes the overflow and returns the correct arithmetic result.” Identify what is wrong with this statement.<br />
+<p>A student says: “When overflow happens, <code>mfc0</code> fixes the overflow and returns the correct arithmetic result.” Identify what is wrong with this statement.<br/>
    [Generated: based on ch3.pdf／PDF viewer page 20]</p>
 </li>
 <li>
-<p>Connect page 19 and page 20 in one explanation: What happens when a MIPS <code>add</code> instruction causes signed overflow, and why is EPC needed afterward?<br />
+<p>Connect page 19 and page 20 in one explanation: What happens when a MIPS <code>add</code> instruction causes signed overflow, and why is EPC needed afterward?<br/>
    [Source: ch3.pdf／PDF viewer pages 19–20]</p>
 </li>
 </ol>
@@ -13389,9 +13389,9 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 <h4 id="直接原因">直接原因<a class="headerlink" href="#直接原因" title="Permanent link"></a></h4>
 <p>因為 <code>EPC(exception program counter，例外程式計數器)</code> 是<strong>特殊控制暫存器</strong>，一般程式的普通指令不方便直接拿它來做運算、判斷或跳躍；所以要用 <code>mfc0</code> 把 EPC 的值搬到 <code>general-purpose register(通用暫存器)</code>，讓軟體可以使用它。</p>
 <p>講義第 20 頁的說法是：<code>mfc0</code> 用來將 EPC 複製到通用暫存器，讓 MIPS 軟體可以經由 register jump(暫存器跳躍指令) 選擇返回造成 exception 的指令。</p>
-<hr />
+<hr/>
 <h4 id="生活化理解">生活化理解<a class="headerlink" href="#生活化理解" title="Permanent link"></a></h4>
-<p>把 <code>EPC</code> 想成「事故紀錄本」：它記著哪一條指令造成 exception。<br />
+<p>把 <code>EPC</code> 想成「事故紀錄本」：它記著哪一條指令造成 exception。<br/>
 但 exception handler(例外處理程式) 真正要做事時，不能只把紀錄本放在櫃子裡，它要把地址抄到工作桌上。</p>
 <p>這個「抄到工作桌上」就是 <code>mfc0</code>。</p>
 <ul>
@@ -13400,7 +13400,7 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 <li>通用暫存器：軟體真正方便操作的地方。</li>
 <li>register jump：可以用通用暫存器裡的位址決定跳回哪裡。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="為什麼不直接用-epc-跳回去">為什麼不直接用 EPC 跳回去？<a class="headerlink" href="#為什麼不直接用-epc-跳回去" title="Permanent link"></a></h4>
 <p>在這張投影片的模型裡，重點是：<strong>返回動作需要一般指令流程配合，而一般 jump register 類指令使用的是通用暫存器中的位址。</strong></p>
 <p>所以流程是：</p>
@@ -13412,7 +13412,7 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
     E --&gt; F[用 register jump 類指令返回或跳到其他地方]</code></pre>
 <h3 id="register-jump-是指-j-型指令嗎">register jump 是指 J 型指令嗎<a class="headerlink" href="#register-jump-是指-j-型指令嗎" title="Permanent link"></a></h3>
 <p>不是。這裡講義第 20 頁的 <strong>register jump(暫存器跳躍)</strong> 比較像是指 <code>jr</code> / <code>jalr</code> 這類「跳到某個暫存器裡存的位址」的指令，不是一般說的 J-type instruction(J 型指令)。講義原文是：<code>mfc0</code> 把 EPC 複製到通用暫存器，讓 MIPS 軟體可以經由 register jump 返回造成 exception 的指令。</p>
-<hr />
+<hr/>
 <h4 id="差異一看就懂">差異一看就懂<a class="headerlink" href="#差異一看就懂" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -13439,7 +13439,7 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 </tbody>
 </table>
 <p>MIPS 官方手冊對 <code>JR rs</code> 的描述是：跳到某個 register 裡的 instruction address，操作概念是 <code>PC ← GPR[rs]</code>；格式欄位也顯示它用 <code>SPECIAL</code> opcode 與 function code，不是 J-type 的 26-bit target 欄位。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">studylib.net</a>) 其他教學資料也直接列出 <code>j</code> 是 J Type，而 <code>jr</code> 是 R Type。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">維基教科書</a>)</p>
-<hr />
+<hr/>
 <h4 id="放回第-20-頁流程">放回第 20 頁流程<a class="headerlink" href="#放回第-20-頁流程" title="Permanent link"></a></h4>
 <p>第 20 頁的意思是：</p>
 <ol>
@@ -13450,18 +13450,18 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 </ol>
 <p>所以這裡的 register jump 強調的是：</p>
 <p><strong>target address(目標位址) 在 register 裡，不是寫死在 J-type 指令的 target field 裡。</strong></p>
-<hr />
+<hr/>
 <h4 id="最短記法_1">最短記法<a class="headerlink" href="#最短記法_1" title="Permanent link"></a></h4>
-<p><code>j label</code>：J-type，跳到指令內指定的 label/target。<br />
+<p><code>j label</code>：J-type，跳到指令內指定的 label/target。<br/>
 <code>jr $reg</code>：register jump，跳到 <code>$reg</code> 裡存的位址，通常屬於 R-type。</p>
 <p>所以你的問題答案是：</p>
 <p><strong>register jump 不是指 J 型指令；它是 jump 類功能，但格式通常是 R-type，例如 <code>jr</code>。</strong></p>
-<p>【學習進度摘要｜精簡版】<br />
-目前主線：ch3.pdf／第 3 章／3.2 加法與減法<br />
-講義位置：PDF viewer page 20／投影片頁碼 20<br />
-目前知識點：EPC、<code>mfc0</code>、register jump 的分工<br />
-狀態：已釐清 register jump 不是 J-type，而是像 <code>jr</code> 這類用暫存器內位址跳躍的指令<br />
-待回補：第 20 頁練習題 1～5 尚未作答；考古題／作業題目前未提供<br />
+<p>【學習進度摘要｜精簡版】<br/>
+目前主線：ch3.pdf／第 3 章／3.2 加法與減法<br/>
+講義位置：PDF viewer page 20／投影片頁碼 20<br/>
+目前知識點：EPC、<code>mfc0</code>、register jump 的分工<br/>
+狀態：已釐清 register jump 不是 J-type，而是像 <code>jr</code> 這類用暫存器內位址跳躍的指令<br/>
+待回補：第 20 頁練習題 1～5 尚未作答；考古題／作業題目前未提供<br/>
 下一步：回到第 20 頁練習題，確認你能完整說出 EPC → <code>mfc0</code> → register jump 的流程</p>
 <h2 id="saturating-operation--overflow-時不要繞回而是卡在最大或最小值">Saturating Operation — overflow 時不要繞回，而是卡在最大或最小值<a class="headerlink" href="#saturating-operation--overflow-時不要繞回而是卡在最大或最小值" title="Permanent link"></a></h2>
 <div class="admonition danger">
@@ -13470,17 +13470,17 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 </div>
 <p>前面我們講過一般 fixed-width arithmetic(固定位寬算術) 發生 overflow 時，常見結果可能會變成看起來「繞回去」的 bit pattern。</p>
 <p>例如 4-bit unsigned(無號數)：</p>
-<p>15 + 1 的真實數學結果是 16。<br />
-但 4-bit unsigned 只能表示 0 到 15。<br />
+<p>15 + 1 的真實數學結果是 16。<br/>
+但 4-bit unsigned 只能表示 0 到 15。<br/>
 一般 wraparound(繞回) 結果會變成 0。</p>
 <p>saturating operation(飽和運算) 的想法不一樣：</p>
 <p><strong>結果太大，就卡在最大值；結果太小，就卡在最小值。</strong></p>
 <p>所以同樣 4-bit unsigned：</p>
-<p>15 + 1 不會變成 0。<br />
+<p>15 + 1 不會變成 0。<br/>
 它會被設為 15。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 音量最大只能到 100。你現在音量 95，再加 10。一般數學是 105，但系統不會讓音量變成奇怪的 5，也不會報錯；它直接卡在 100。這就是 saturating 的精神。</p>
-<hr />
+<hr/>
 <h3 id="三種-overflow-處理方式對比">三種 overflow 處理方式對比<a class="headerlink" href="#三種-overflow-處理方式對比" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -13509,11 +13509,11 @@ EPC 不是存運算結果；<code>mfc0</code> 不是 exception handler 本身；
 </tbody>
 </table>
 <p>這頁的 saturating operation 和第 19 頁的 <code>addu</code> 不一樣：</p>
-<p><code>addu</code>：overflow ignored，結果照 bit pattern 留下。<br />
+<p><code>addu</code>：overflow ignored，結果照 bit pattern 留下。<br/>
 saturating operation：overflow 時把結果設成最大正值或最負值。</p>
 <h2 id="binary-multiplication--為什麼乘法可以變成-shift-and-add">Binary Multiplication — 為什麼乘法可以變成 shift-and-add？<a class="headerlink" href="#binary-multiplication--為什麼乘法可以變成-shift-and-add" title="Permanent link"></a></h2>
 <p>二進位乘法比十進位乘法簡單很多，因為二進位每一位只可能是 <code>0</code> 或 <code>1</code>。</p>
-<p>十進位乘法要背很多結果，例如 <code>7 × 8 = 56</code>。<br />
+<p>十進位乘法要背很多結果，例如 <code>7 × 8 = 56</code>。<br/>
 但二進位只有四種基本規則：</p>
 <table>
 <thead>
@@ -13544,19 +13544,19 @@ saturating operation：overflow 時把結果設成最大正值或最負值。</p
 <p>所以乘法的核心變成：</p>
 <p><strong>看 multiplier(乘數) 的每一個 bit；如果該 bit 是 1，就把 multiplicand(被乘數) 放到對應位置；如果該 bit 是 0，就放 0；最後把所有 partial products(部分乘積) 加起來。</strong></p>
 <p>外部資料也用同樣方式說明 binary multiplication(二進位乘法)：每個 multiplier bit 若為 1，就加入 shifted multiplicand；若為 0，就加入 0；最後把 partial products 相加。這和講義第 29–36 頁的展示一致。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">ChipVerify</a>)</p>
-<hr />
+<hr/>
 <h3 id="用講義例子看1000₂--1001₂">用講義例子看：<code>1000₂ × 1001₂</code><a class="headerlink" href="#用講義例子看1000₂--1001₂" title="Permanent link"></a></h3>
 <p>講義第 22 頁開始的例子是：</p>
 <div class="highlight"><pre><span></span><code>   1000
 ×  1001
 </code></pre></div>
 <p>我們先看數值：</p>
-<p><code>1000₂ = 8₁₀</code><br />
-<code>1001₂ = 9₁₀</code><br />
+<p><code>1000₂ = 8₁₀</code><br/>
+<code>1001₂ = 9₁₀</code><br/>
 所以結果應該是：</p>
 <p><code>8 × 9 = 72₁₀ = 1001000₂</code></p>
 <p>但重點不是直接換十進位算，而是理解二進位乘法流程。</p>
-<hr />
+<hr/>
 <h3 id="逐位元看-multiplier">逐位元看 multiplier<a class="headerlink" href="#逐位元看-multiplier" title="Permanent link"></a></h3>
 <p>這裡：</p>
 <ul>
@@ -13597,7 +13597,7 @@ saturating operation：overflow 時把結果設成最大正值或最負值。</p
 ------------
     1001000
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="為什麼要-shift">為什麼要 shift？<a class="headerlink" href="#為什麼要-shift" title="Permanent link"></a></h3>
 <p>因為每個 bit 的位置代表不同的 power of 2(2 的次方)。</p>
 <p><code>1001₂</code> 其實是：</p>
@@ -13612,7 +13612,7 @@ saturating operation：overflow 時把結果設成最大正值或最負值。</p
 </code></pre></div>
 <p>也就是說：</p>
 <p><strong>shift left(左移) 不是裝飾，它代表乘上 2 的次方。</strong></p>
-<hr />
+<hr/>
 <h3 id="這一段和硬體有什麼關係">這一段和硬體有什麼關係？<a class="headerlink" href="#這一段和硬體有什麼關係" title="Permanent link"></a></h3>
 <p>這一段是後面乘法器硬體的基礎。</p>
 <p>硬體不需要真的「背乘法表」。它只需要重複做三件事：</p>
@@ -13627,30 +13627,30 @@ saturating operation：overflow 時把結果設成最大正值或最負值。</p
     F --&gt;|是| G[得到 product]</code></pre>
 <p>所以乘法器後面會變成一個很典型的程序：</p>
 <p><strong>check bit → add or not add → shift → repeat</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_2">常見錯法<a class="headerlink" href="#常見錯法_2" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-把 multiplier 和 multiplicand 搞混。<br />
+<p>第一個錯法：<br/>
+把 multiplier 和 multiplicand 搞混。<br/>
 雖然數學上 <code>A × B = B × A</code>，但硬體流程裡，multiplier 是被檢查 bit 的那個數；multiplicand 是被加進 product 的那個數。</p>
-<p>第二個錯法：<br />
-看到 multiplier bit 是 0 時，以為要停止。<br />
+<p>第二個錯法：<br/>
+看到 multiplier bit 是 0 時，以為要停止。<br/>
 不是。bit 是 0 只代表該列 partial product 是 0，下一個 bit 還是要繼續看。</p>
-<p>第三個錯法：<br />
-忘記 shift。<br />
+<p>第三個錯法：<br/>
+忘記 shift。<br/>
 如果 multiplier 的高位是 1，不能只加原本的 multiplicand，必須加 shifted multiplicand。</p>
-<p>第四個錯法：<br />
-以為乘法結果還是 n bits。<br />
+<p>第四個錯法：<br/>
+以為乘法結果還是 n bits。<br/>
 兩個 n-bit 數相乘，結果最多需要 2n bits。這就是後面 MIPS 乘法會用 <code>Hi</code> 和 <code>Lo</code> 放 64-bit product 的原因，但這是後面頁面才會正式處理。</p>
-<hr />
+<hr/>
 <h3 id="四件套暫存筆記_1">四件套暫存筆記<a class="headerlink" href="#四件套暫存筆記_1" title="Permanent link"></a></h3>
-<p>中文理解版：<br />
+<p>中文理解版：<br/>
 二進位乘法就是看 multiplier 的每一個 bit；bit 為 1 就把 shifted multiplicand 加進 product，bit 為 0 就加 0，最後把所有 partial products 加起來。</p>
-<p>英文考試版：<br />
+<p>英文考試版：<br/>
 Binary multiplication uses a shift-and-add method. For each bit of the multiplier, if the bit is 1, the shifted multiplicand is added to the product; if the bit is 0, zero is added. The sum of all partial products gives the final product.</p>
-<p>最短記法：<br />
-<code>multiplier bit = 1 → add shifted multiplicand</code><br />
+<p>最短記法：<br/>
+<code>multiplier bit = 1 → add shifted multiplicand</code><br/>
 <code>multiplier bit = 0 → add 0</code></p>
-<p>常見錯法：<br />
+<p>常見錯法：<br/>
 不要忘記 shift；不要把 bit = 0 當成停止；不要以為 n-bit × n-bit 一定仍是 n-bit。</p>
 <h2 id="binary-vs-decimal-hardware--為什麼硬體偏愛二進位">Binary vs Decimal Hardware — 為什麼硬體偏愛二進位？<a class="headerlink" href="#binary-vs-decimal-hardware--為什麼硬體偏愛二進位" title="Permanent link"></a></h2>
 <p>第 37–38 頁在回答一個很核心的問題：</p>
@@ -13664,25 +13664,25 @@ Binary multiplication uses a shift-and-add method. For each bit of the multiplie
 <li>有電流 / 沒電流</li>
 <li>1 / 0</li>
 </ul>
-<p>這就是講義說的 <code>all-or-none(全或無)</code>。<br />
+<p>這就是講義說的 <code>all-or-none(全或無)</code>。<br/>
 硬體最容易穩定區分兩種狀態，所以二進位自然適合硬體。</p>
-<hr />
+<hr/>
 <h3 id="為什麼十進位對硬體比較麻煩">為什麼十進位對硬體比較麻煩？<a class="headerlink" href="#為什麼十進位對硬體比較麻煩" title="Permanent link"></a></h3>
 <p>十進位每一位有 10 種可能：</p>
 <p>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</p>
-<p>這代表硬體要可靠地分辨 10 種狀態。<br />
+<p>這代表硬體要可靠地分辨 10 種狀態。<br/>
 但二進位每一位只有 2 種可能：</p>
 <p>0, 1</p>
 <p>這對硬體比較簡單。</p>
-<p>生活化例子：<br />
-如果你要設計一盞燈來傳訊息，最簡單就是「亮」和「不亮」。<br />
+<p>生活化例子：<br/>
+如果你要設計一盞燈來傳訊息，最簡單就是「亮」和「不亮」。<br/>
 如果你要它精準表示 10 種亮度，硬體設計和錯誤判斷就麻煩很多。</p>
 <p>所以二進位不是因為人類比較愛看，而是因為硬體比較容易做、比較穩定。</p>
-<hr />
+<hr/>
 <h3 id="為什麼二進位可以簡化乘法">為什麼二進位可以簡化乘法？<a class="headerlink" href="#為什麼二進位可以簡化乘法" title="Permanent link"></a></h3>
-<p>十進位乘法需要乘法表。<br />
+<p>十進位乘法需要乘法表。<br/>
 例如：</p>
-<p><code>7 × 8 = 56</code><br />
+<p><code>7 × 8 = 56</code><br/>
 <code>9 × 6 = 54</code></p>
 <p>每一位相乘都可能產生不同結果。</p>
 <p>但二進位乘法只有：</p>
@@ -13718,7 +13718,7 @@ Binary multiplication uses a shift-and-add method. For each bit of the multiplie
 <li>bit = 1 → 加 shifted multiplicand</li>
 </ul>
 <p>這就是前面你已經練過的 <code>shift-and-add(移位加法)</code>。工程實作教材也用同樣方式說明：binary multiplication 每一列 partial product 不是 0，就是一份位移後的 multiplicand，因此比 decimal long multiplication 更適合硬體。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">ChipVerify</a>)</p>
-<hr />
+<hr/>
 <h3 id="那為什麼人還是用十進位">那為什麼人還是用十進位？<a class="headerlink" href="#那為什麼人還是用十進位" title="Permanent link"></a></h3>
 <p>講義第 38 頁也提醒：<strong>十進位才是適合人使用的表示法。</strong></p>
 <p>人類日常使用：</p>
@@ -13737,26 +13737,26 @@ Binary multiplication uses a shift-and-add method. For each bit of the multiplie
     D --&gt; E[人類看到十進位結果]</code></pre>
 <p>一句話：</p>
 <p><strong>人喜歡十進位，硬體喜歡二進位，所以 I/O 負責轉換。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_3">常見錯法<a class="headerlink" href="#常見錯法_3" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-說「二進位比十進位數學上更正確」。<br />
+<p>第一個錯法：<br/>
+說「二進位比十進位數學上更正確」。<br/>
 不對。它們都能表示數字，只是硬體實作成本不同。</p>
-<p>第二個錯法：<br />
-說「十進位不能做電腦」。<br />
+<p>第二個錯法：<br/>
+說「十進位不能做電腦」。<br/>
 不對。講義就提到 ENIAC 採用十進位。更精準是：十進位硬體通常較複雜，而二進位更符合 all-or-none 電子元件。</p>
-<p>第三個錯法：<br />
-以為二進位只影響儲存，不影響運算。<br />
+<p>第三個錯法：<br/>
+以為二進位只影響儲存，不影響運算。<br/>
 不對。二進位也簡化了乘法與除法，尤其是乘法可以變成 shift-and-add。</p>
-<hr />
+<hr/>
 <h3 id="四件套暫存筆記_2">四件套暫存筆記<a class="headerlink" href="#四件套暫存筆記_2" title="Permanent link"></a></h3>
-<p>中文理解版：<br />
+<p>中文理解版：<br/>
 二進位適合硬體，因為電子元件容易表示兩種狀態；二進位乘法也比較簡單，multiplier bit 只會決定加 0 或加 shifted multiplicand。十進位適合人使用，所以輸入輸出需要做十進位與二進位轉換。</p>
-<p>英文考試版：<br />
+<p>英文考試版：<br/>
 Binary arithmetic is preferred in hardware because electronic devices naturally represent two stable states. Binary multiplication is also simpler than decimal multiplication because each multiplier bit is either 0 or 1, so each partial product is either zero or a shifted copy of the multiplicand. Decimal notation is more convenient for humans, so I/O systems convert between decimal and binary.</p>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 <strong>hardware likes binary; humans like decimal; I/O converts.</strong></p>
-<p>常見錯法：<br />
+<p>常見錯法：<br/>
 不要說十進位不能做電腦；要說二進位更適合硬體、更能簡化運算。</p>
 <h3 id="eniac-和-edvac-是啥">ENIAC 和 EDVAC 是啥<a class="headerlink" href="#eniac-和-edvac-是啥" title="Permanent link"></a></h3>
 <h4 id="1-eniac-是什麼">1. ENIAC 是什麼？<a class="headerlink" href="#1-eniac-是什麼" title="Permanent link"></a></h4>
@@ -13764,7 +13764,7 @@ Binary arithmetic is preferred in hardware because electronic devices naturally 
 <p>在我們這張投影片的重點不是要背 ENIAC 的完整歷史，而是：</p>
 <p><strong>ENIAC 採用 decimal arithmetic(十進位運算)。</strong></p>
 <p>也就是說，它比較接近人類日常用的 0～9 十進位數字系統。</p>
-<hr />
+<hr/>
 <h4 id="2-edvac-是什麼">2. EDVAC 是什麼？<a class="headerlink" href="#2-edvac-是什麼" title="Permanent link"></a></h4>
 <p><code>EDVAC(Electronic Discrete Variable Automatic Computer，電子離散變數自動計算機)</code> 是 ENIAC 之後的早期電子計算機之一。它常被拿來和 ENIAC 對比，因為 EDVAC 的設計採用 binary(二進位)，而且和 stored-program computer(儲存程式計算機) 的概念密切相關。資料也整理成：EDVAC 是 ENIAC 的 successor(後繼者) 之一，和 ENIAC 不同，它是 binary rather than decimal(二進位而非十進位)，並設計為 stored-program computer。<a href="https://en.wikipedia.org/wiki/EDVAC?utm_source=chatgpt.com">維基百科</a></p>
 <p>在這張投影片的重點是：</p>
@@ -13773,9 +13773,9 @@ Binary arithmetic is preferred in hardware because electronic devices naturally 
 <h2 id="hardware-multiplication-flow--為什麼不要先列完所有-partial-products">Hardware Multiplication Flow — 為什麼不要先列完所有 partial products？<a class="headerlink" href="#hardware-multiplication-flow--為什麼不要先列完所有-partial-products" title="Permanent link"></a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>英文：<br />
-Multiplication 乘法<br />
-Multiplicand 被乘數    (and：來自 Latin gerundive，表示「將被……的」，被動型態)<br />
+<p>英文：<br/>
+Multiplication 乘法<br/>
+Multiplicand 被乘數    (and：來自 Latin gerundive，表示「將被……的」，被動型態)<br/>
 Multiplier 乘數</p>
 </div>
 <p>前面你做的手算乘法是這樣：</p>
@@ -13783,13 +13783,13 @@ Multiplier 乘數</p>
 <li>先把每一列 partial product(部分乘積) 都寫出來。</li>
 <li>最後一次把所有 partial products 加總。</li>
 </ol>
-<p>這很適合人手算，因為版面上可以排整齊。<br />
+<p>這很適合人手算，因為版面上可以排整齊。<br/>
 但硬體不喜歡「先列一堆東西再全部加」。硬體更適合重複做固定的小步驟。</p>
 <p>所以講義把流程改成：</p>
 <p><strong>Product 一開始是 0；每次看一個 multiplier bit，若需要就把目前的 multiplicand 加到 Product，然後 multiplicand 左移，繼續下一輪。</strong></p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你不用先把所有購物明細都寫完再一次總和；你可以每掃一個商品，就把金額加到目前總額。這個「目前總額」就是 Product。</p>
-<hr />
+<hr/>
 <h3 id="從手算版改成硬體版">從手算版改成硬體版<a class="headerlink" href="#從手算版改成硬體版" title="Permanent link"></a></h3>
 <p>手算版像這樣：</p>
 <div class="highlight"><pre><span></span><code>先產生所有 partial products
@@ -13828,7 +13828,7 @@ Multiplier 乘數</p>
 </tbody>
 </table>
 <p>ChipVerify 的二進位乘法教學也用相同的核心演算法：逐 bit 檢查 multiplier，bit 為 1 就寫入／加入 multiplicand，bit 為 0 就寫 0，每列向左 shift，最後加總。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">ChipVerify</a>)</p>
-<hr />
+<hr/>
 <h3 id="為什麼-multiplicand-要左移">為什麼 Multiplicand 要左移？<a class="headerlink" href="#為什麼-multiplicand-要左移" title="Permanent link"></a></h3>
 <p>因為我們每次往 multiplier 的更高位走一格，位權就乘上 2。</p>
 <p>例如 multiplier 的：</p>
@@ -13839,19 +13839,19 @@ Multiplier 乘數</p>
 <li>bit 3 代表 <code>2^3</code></li>
 </ul>
 <p>所以每往左看下一個 multiplier bit，multiplicand 也要左移一位，代表乘上 2。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_4">常見錯法<a class="headerlink" href="#常見錯法_4" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為 Product 一開始就是 multiplicand。<br />
+<p>第一個錯法：<br/>
+以為 Product 一開始就是 multiplicand。<br/>
 不對。硬體流程中 Product 一開始是 0，之後逐輪累加。</p>
-<p>第二個錯法：<br />
-以為每一輪都一定要加 multiplicand。<br />
+<p>第二個錯法：<br/>
+以為每一輪都一定要加 multiplicand。<br/>
 不對。只有當目前 multiplier bit 是 1 時才加；bit 是 0 時 Product 不變。</p>
-<p>第三個錯法：<br />
-忘記 multiplicand 每輪要左移。<br />
+<p>第三個錯法：<br/>
+忘記 multiplicand 每輪要左移。<br/>
 不左移就會把不同位權的 partial product 全部加在同一個位置，結果會錯。</p>
 <h2 id="multiplier-hardware-structure--shift-and-add-要用哪些硬體元件實作">Multiplier Hardware Structure — shift-and-add 要用哪些硬體元件實作？<a class="headerlink" href="#multiplier-hardware-structure--shift-and-add-要用哪些硬體元件實作" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-1.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-1.png"/></p>
 <p>前面你已經會「流程」。現在要把流程對應到硬體元件。</p>
 <p>一個硬體乘法器最少要能做四件事：</p>
 <table>
@@ -13882,7 +13882,7 @@ Multiplier 乘數</p>
 </table>
 <p>所以這一段不是在換一個新乘法規則，而是在回答：</p>
 <p><strong>剛剛那個 shift-and-add 流程，如果真的做成硬體，需要哪些 register 和控制動作？</strong></p>
-<hr />
+<hr/>
 <h3 id="每一輪硬體做什麼">每一輪硬體做什麼？<a class="headerlink" href="#每一輪硬體做什麼" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -13903,19 +13903,19 @@ Multiplier 乘數</p>
 <li><code>Multiplicand</code> 左移，準備對應下一個更高位權。</li>
 <li><code>Multiplier</code> 右移，讓下一個 multiplier bit 進到最低位，方便下一輪檢查。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="常見錯法_5">常見錯法<a class="headerlink" href="#常見錯法_5" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為 <code>Multiplier register</code> 左移。<br />
+<p>第一個錯法：<br/>
+以為 <code>Multiplier register</code> 左移。<br/>
 這個版本的流程是：<strong>Multiplier 右移</strong>，因為每輪都要檢查最低位。</p>
-<p>第二個錯法：<br />
-以為 <code>Multiplicand register</code> 右移。<br />
+<p>第二個錯法：<br/>
+以為 <code>Multiplicand register</code> 右移。<br/>
 這個版本的流程是：<strong>Multiplicand 左移</strong>，因為越高位的 multiplier bit 對應越大的 <code>2^n</code> 位權。</p>
-<p>第三個錯法：<br />
-以為每輪都會加。<br />
+<p>第三個錯法：<br/>
+以為每輪都會加。<br/>
 錯。只有 multiplier LSB = 1 時才加。</p>
 <h2 id="multiplier-optimization-1--為什麼加法和移位可以並行">Multiplier Optimization 1 — 為什麼加法和移位可以並行？<a class="headerlink" href="#multiplier-optimization-1--為什麼加法和移位可以並行" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-2.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-2.png"/></p>
 <p>原本的想法像這樣：</p>
 <ol>
 <li>先做加法。</li>
@@ -13924,7 +13924,7 @@ Multiplier 乘數</p>
 </ol>
 <p>所以一輪要 3 個 cycle。</p>
 <p>但硬體裡的 register(暫存器) 通常不是你一改輸入，它的內容就馬上改掉；而是在 clock edge(時脈邊緣) 來的時候，才一起更新內容。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 像老師收作業。你可以在上課時間同時讓大家寫不同部分，但真正「收上來記錄成績」是在鐘響那一刻一起收。暫存器也是類似：加法器可以先算好結果，shift 的輸入也可以先準備好，等時脈邊緣來時一起寫入。</p>
 <p>所以優化 1 的核心是：</p>
 <p><strong>加法結果、multiplicand 左移結果、multiplier 右移結果，可以在同一個 cycle 裡準備好，然後同一個 clock edge 一起更新。</strong></p>
@@ -13936,32 +13936,32 @@ Multiplier 乘數</p>
 <div class="highlight"><pre><span></span><code>add / shift left / shift right 並行
 一個 cycle
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="這個優化沒有改變乘法邏輯">這個優化沒有改變乘法邏輯<a class="headerlink" href="#這個優化沒有改變乘法邏輯" title="Permanent link"></a></h3>
-<p>很重要：<br />
+<p>很重要：<br/>
 優化 1 不是改變乘法答案，而是改變硬體排程。</p>
-<p>原本是「一件做完再做下一件」。<br />
+<p>原本是「一件做完再做下一件」。<br/>
 優化後是「能同時準備的事情一起準備，到 clock edge 一起更新」。</p>
 <p>所以結果一樣，但速度更快。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_6">常見錯法<a class="headerlink" href="#常見錯法_6" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為優化後不用檢查 multiplier LSB。<br />
+<p>第一個錯法：<br/>
+以為優化後不用檢查 multiplier LSB。<br/>
 錯。仍然要檢查 LSB，LSB = 1 才做有效加法。</p>
-<p>第二個錯法：<br />
-以為優化後不用 shift。<br />
+<p>第二個錯法：<br/>
+以為優化後不用 shift。<br/>
 錯。multiplicand 仍左移，multiplier 仍右移，只是和加法並行。</p>
-<p>第三個錯法：<br />
-以為並行代表 register 內容會在 cycle 中間一直變。<br />
+<p>第三個錯法：<br/>
+以為並行代表 register 內容會在 cycle 中間一直變。<br/>
 不精準。更好的理解是：cycle 中間組合邏輯可以先算，register 在 clock edge 才更新。</p>
 <h2 id="improved-multiplication-hardware--為什麼乘數和乘積可以共用暫存器">Improved Multiplication Hardware — 為什麼乘數和乘積可以共用暫存器？<a class="headerlink" href="#improved-multiplication-hardware--為什麼乘數和乘積可以共用暫存器" title="Permanent link"></a></h2>
 <p>前面的版本比較直覺，但硬體有點浪費。它把 multiplicand、multiplier、product 分開放，而且 product 通常要能容納 2n-bit 結果。</p>
 <p>改良版本的核心觀察是：</p>
 <p><strong>乘法進行時，multiplier 的 bits 會一個一個被消耗掉；被用過的 multiplier bits 其實不需要再保留。</strong></p>
 <p>所以那塊空出來的位置，可以慢慢拿來放 product 的低位部分。這就是「multiplier 與 product 共用 register」的直覺。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你有一張待辦清單。每完成一項，就把那一格劃掉。既然那格已經不用保存原本任務，就可以在旁邊寫上目前累積成果。這不是改變工作內容，而是更省紙。</p>
-<hr />
+<hr/>
 <h3 id="這個改良到底省在哪">這個改良到底省在哪？<a class="headerlink" href="#這個改良到底省在哪" title="Permanent link"></a></h3>
 <p>改良版主要省兩個地方：</p>
 <div class="admonition danger">
@@ -14004,7 +14004,7 @@ Multiplier 乘數</p>
 </table>
 </div>
 <p>所以它不是讓乘法變成「不用加」或「不用移位」，而是讓同樣的 shift-and-add 流程用更少硬體完成。</p>
-<hr />
+<hr/>
 <h3 id="和前一個優化的差異">和前一個優化的差異<a class="headerlink" href="#和前一個優化的差異" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -14039,27 +14039,27 @@ Multiplier 乘數</p>
 </table>
 <p>一句話：</p>
 <p><strong>Optimization 1 是把時間壓短；improved hardware 是把硬體用少。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_7">常見錯法<a class="headerlink" href="#常見錯法_7" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為改良版本改變了乘法規則。<br />
+<p>第一個錯法：<br/>
+以為改良版本改變了乘法規則。<br/>
 錯。它仍然是 shift-and-add，只是資料放的位置更省。</p>
-<p>第二個錯法：<br />
-以為 multiplier 和 product 一開始就是同一個值。<br />
+<p>第二個錯法：<br/>
+以為 multiplier 和 product 一開始就是同一個值。<br/>
 錯。它們是共用硬體空間，不是數學意義上相等。</p>
-<p>第三個錯法：<br />
-以為 adder 縮半代表只能算一半答案。<br />
+<p>第三個錯法：<br/>
+以為 adder 縮半代表只能算一半答案。<br/>
 錯。完整 product 仍然會產生，只是每輪只需要對相關半部做加法。</p>
 <h3 id="可不可以給我一個-910-小舉例比較硬體優化前後的資料變化流程">可不可以給我一個 9*10 小舉例，比較硬體優化前後的資料變化流程<a class="headerlink" href="#可不可以給我一個-910-小舉例比較硬體優化前後的資料變化流程" title="Permanent link"></a></h3>
 <p>可以。我們用 <strong>4-bit unsigned</strong> 小例子：</p>
 <p><code>9 × 10</code></p>
 <p>也就是：</p>
-<p><code>9 = 1001₂</code><br />
-<code>10 = 1010₂</code><br />
+<p><code>9 = 1001₂</code><br/>
+<code>10 = 1010₂</code><br/>
 正確答案：</p>
 <p><code>90₁₀ = 01011010₂</code></p>
 <p>這剛好可以看出「優化前」和「改良版硬體」的差異。講義第 64–65 頁的原始流程是檢查 <code>Multiplier</code> 最低位、必要時把 <code>Multiplicand</code> 加到 <code>Product</code>，再讓 <code>Multiplicand</code> 左移、<code>Multiplier</code> 右移；第 74–75 頁則說改良版會把加法器與部分暫存器縮成一半寬，並讓 <code>Multiplier</code> 與 <code>Product</code> 共用 register。  外部教材也用相同方式說明 refined multiplication hardware：把 multiplier 放在 product register 的右半部，並讓 product register 右移，最後 product register 中形成完整乘積。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">studylib.net</a>)</p>
-<hr />
+<hr/>
 <h4 id="優化前三個東西分開放">優化前：三個東西分開放<a class="headerlink" href="#優化前三個東西分開放" title="Permanent link"></a></h4>
 <p>優化前比較直覺：</p>
 <ul>
@@ -14147,7 +14147,7 @@ Multiplier 乘數</p>
 </table>
 <p>最後：</p>
 <p><code>Product = 01011010₂ = 90₁₀</code></p>
-<hr />
+<hr/>
 <h4 id="優化後multiplier-和-product-共用暫存器">優化後：Multiplier 和 Product 共用暫存器<a class="headerlink" href="#優化後multiplier-和-product-共用暫存器" title="Permanent link"></a></h4>
 <p>改良版的重點是：</p>
 <p><strong>不要另外放一個 Multiplier register；把 multiplier 放在 Product register 的右半部。</strong></p>
@@ -14172,7 +14172,7 @@ Multiplier 乘數</p>
 </table>
 <p>這裡 <code>Product register</code> 分成兩半看：</p>
 <p><code>0000 1010</code></p>
-<p>左半 <code>0000</code>：目前 product 的高半部。<br />
+<p>左半 <code>0000</code>：目前 product 的高半部。<br/>
 右半 <code>1010</code>：原本的 multiplier。</p>
 <p>每輪做：</p>
 <ol>
@@ -14231,7 +14231,7 @@ Multiplier 乘數</p>
 </table>
 <p>最後：</p>
 <p><code>Product register = 0101 1010₂ = 90₁₀</code></p>
-<hr />
+<hr/>
 <h4 id="兩者到底差在哪">兩者到底差在哪？<a class="headerlink" href="#兩者到底差在哪" title="Permanent link"></a></h4>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -14277,14 +14277,14 @@ Multiplier 乘數</p>
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h4 id="最重要的直覺">最重要的直覺<a class="headerlink" href="#最重要的直覺" title="Permanent link"></a></h4>
 <p>優化前像是：</p>
 <p><strong>我把 multiplicand 一直往左搬，對齊 multiplier 的每個 bit。</strong></p>
 <p>改良後像是：</p>
 <p><strong>我不搬 multiplicand，而是讓 product/multiplier 共用的 register 往右移，慢慢把結果長出來。</strong></p>
 <p>所以一句話記：</p>
-<p><strong>優化前：Multiplicand 左移。<br />
+<p><strong>優化前：Multiplicand 左移。<br/>
 改良後：Product register 右移，Multiplier 被慢慢消耗，Product 慢慢形成。</strong></p>
 <p>這就是為什麼講義說 <code>Multiplier</code> 和 <code>Product</code> 可以共用 register：因為 multiplier 的 bit 用過後就不需要保留，右半部空間可以逐漸變成 product 的一部分。</p>
 <h3 id="為何-adder-要縮成一半寬">為何 adder 要縮成一半寬<a class="headerlink" href="#為何-adder-要縮成一半寬" title="Permanent link"></a></h3>
@@ -14305,7 +14305,7 @@ Product_register 整體右移
 <div class="highlight"><pre><span></span><code>Product_full = Product_full + Multiplicand_full
 </code></pre></div>
 <p>這就是 adder 可以縮成一半寬的原因。</p>
-<hr />
+<hr/>
 <h4 id="為什麼結果不會少一半">為什麼結果不會少一半？<a class="headerlink" href="#為什麼結果不會少一半" title="Permanent link"></a></h4>
 <p>因為完整結果還是存在整個 <code>Product register</code> 裡，只是<strong>加法只發生在需要加的那一半</strong>。</p>
 <p>用生活化例子：</p>
@@ -14316,7 +14316,7 @@ Product_register 整體右移
 <li><code>Adder</code> 只需要 n-bit，因為每輪只加 <code>Multiplicand</code> 到 Product 的高半部。</li>
 <li>低半部靠 shifting(移位) 逐步形成，不需要每輪進 adder。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="最短記法_2">最短記法<a class="headerlink" href="#最短記法_2" title="Permanent link"></a></h4>
 <p><strong>Product 是 2n-bit，但每輪只把 n-bit multiplicand 加到 Product 的高 n bits，所以 adder 只需要 n-bit。</strong></p>
 <p>或更短：</p>
@@ -14326,11 +14326,11 @@ Product_register 整體右移
 <p>左移的核心很簡單：</p>
 <p><strong>每往左移 1 bit，數值通常等於乘以 2。</strong></p>
 <p>例如講義第 77 頁：</p>
-<p><code>0110₂ = 6₁₀</code><br />
+<p><code>0110₂ = 6₁₀</code><br/>
 左移 1 bit：</p>
 <p><code>1100₂ = 12₁₀</code></p>
 <p>所以：</p>
-<p><code>0110₂ &lt;&lt; 1 = 1100₂</code><br />
+<p><code>0110₂ &lt;&lt; 1 = 1100₂</code><br/>
 也就是：</p>
 <p><code>6 × 2 = 12</code></p>
 <p>更一般地說：</p>
@@ -14361,7 +14361,7 @@ Product_register 整體右移
 </tbody>
 </table>
 <p>這也是 compiler optimization(編譯器最佳化) 裡的 <code>strength reduction(強度減弱)</code>：把比較昂貴的 multiplication(乘法) 換成較簡單的 shift(移位)。外部資料也把 strength reduction 定義為用等價但成本較低的運算取代昂貴運算；社群討論也常提醒，左移可直接處理乘以 2 的次方，若乘以不是 2 的次方，則要拆成多個 shift 與 add。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">維基百科</a>)</p>
-<hr />
+<hr/>
 <h3 id="但要注意-overflow">但要注意 overflow<a class="headerlink" href="#但要注意-overflow" title="Permanent link"></a></h3>
 <p>左移不代表結果永遠正確地保留完整數學值。</p>
 <p>講義第 78 頁的例子是 4-bit：</p>
@@ -14374,7 +14374,7 @@ Product_register 整體右移
 <p><code>30 mod 16 = 14</code></p>
 <p>所以考試要分清楚：</p>
 <p><strong>左移的數學意義是乘以 2；但在固定位寬硬體中，若超出範圍，結果會被截斷成低 n bits。</strong></p>
-<hr />
+<hr/>
 <h3 id="乘以-7-怎麼辦">乘以 7 怎麼辦？<a class="headerlink" href="#乘以-7-怎麼辦" title="Permanent link"></a></h3>
 <p>講義第 79 頁用 4-bit 說明：如果要乘以 7，可以拆成 shift 與 add。</p>
 <p>因為：</p>
@@ -14384,26 +14384,26 @@ Product_register 整體右移
 <p>用 shift 表示：</p>
 <p><code>x × 7 = (x &lt;&lt; 2) + (x &lt;&lt; 1) + x</code></p>
 <p>但同樣要小心固定位寬 overflow。講義第 79 頁的例子中，<code>3 × 7 = 21</code>，但 4-bit 裝不下 21，所以最後以 <code>21 mod 16 = 5</code> 的形式留下 <code>0101₂</code>。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_8">常見錯法<a class="headerlink" href="#常見錯法_8" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-說「左移永遠等於正確乘法結果」。<br />
+<p>第一個錯法：<br/>
+說「左移永遠等於正確乘法結果」。<br/>
 不精準。左移的數學意義是乘以 2 的次方，但固定位寬下可能 overflow，只留下低 n bits。</p>
-<p>第二個錯法：<br />
-說「乘以任何數都可以只用一次左移」。<br />
+<p>第二個錯法：<br/>
+說「乘以任何數都可以只用一次左移」。<br/>
 不對。只有乘以 <code>2^n</code> 才能一次左移完成；乘以 3、5、7 這類常數，需要拆成 shift 加 add。社群討論也常用 <code>x * 3 = (x &lt;&lt; 1) + x</code>、<code>x * 5 = (x &lt;&lt; 2) + x</code> 這類拆法說明。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">Stack Overflow</a>)</p>
-<p>第三個錯法：<br />
-忘記有 signed / unsigned 與 overflow 差異。<br />
+<p>第三個錯法：<br/>
+忘記有 signed / unsigned 與 overflow 差異。<br/>
 目前講義第 77–79 頁主要用 unsigned / fixed-width 直覺說明 left shift 與 overflow；若進到 signed number(有號數)，還要另外小心符號位與語言定義。</p>
 <h2 id="signed-multiplication--有號乘法先處理大小最後處理正負">Signed Multiplication — 有號乘法先處理「大小」，最後處理「正負」<a class="headerlink" href="#signed-multiplication--有號乘法先處理大小最後處理正負" title="Permanent link"></a></h2>
 <p>前面我們做的乘法大多先假設數字都是非負數，例如：</p>
-<p><code>8 × 9</code><br />
-<code>9 × 10</code><br />
+<p><code>8 × 9</code><br/>
+<code>9 × 10</code><br/>
 <code>2 × 3</code></p>
 <p>這時候只要看 multiplier bit 是 0 還是 1，決定要不要加 shifted multiplicand。</p>
 <p>但如果遇到：</p>
-<p><code>-5 × 3</code><br />
-<code>5 × -3</code><br />
+<p><code>-5 × 3</code><br/>
+<code>5 × -3</code><br/>
 <code>-5 × -3</code></p>
 <p>就多了一個問題：</p>
 <p><strong>乘法流程本身可以算大小，但還要知道最後答案是正還是負。</strong></p>
@@ -14429,13 +14429,13 @@ Product_register 整體右移
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="為什麼要先轉成正數">為什麼要先轉成正數？<a class="headerlink" href="#為什麼要先轉成正數" title="Permanent link"></a></h3>
 <p>因為前面學的硬體乘法流程比較直覺地處理「正的 magnitude(大小)」。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>英文：<br />
-magnitude(大小／絕對值) 在這裡可以先理解成：<br />
+<p>英文：<br/>
+magnitude(大小／絕對值) 在這裡可以先理解成：<br/>
 先不看正負號，只看這個數的大小。</p>
 </div>
 <p>例如要算：</p>
@@ -14447,9 +14447,9 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <li>算 <code>5 × 3 = 15</code>。</li>
 <li>因為原本一負一正，符號不同，所以最後答案改成 <code>-15</code>。</li>
 </ol>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你要算欠款金額，可能先算「數量大小」：5 個商品 × 3 元 = 15 元。最後再看這筆是收入還是支出。如果是欠錢，就把結果標成負數。</p>
-<hr />
+<hr/>
 <h3 id="符號規則">符號規則<a class="headerlink" href="#符號規則" title="Permanent link"></a></h3>
 <p>signed multiplication 的符號規則就是一般數學乘法規則：</p>
 <table>
@@ -14483,66 +14483,66 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <p>這也可以寫成：</p>
 <p><code>product sign = signA XOR signB</code></p>
 <p>因為只有一正一負時，XOR 才會是 1，也就是結果為負。UCSD 的電腦架構投影片也用這個規則描述 signed multiplication：先把 operands 轉正，product sign 等於兩個 operand sign 做 XOR，最後如果結果應為負就 negate(取負)。(<a href="https://cseweb.ucsd.edu/classes/su04/cse141/su04_03.pdf?utm_source=chatgpt.com" title="CSE 141 – Computer Architecture">cseweb.ucsd.edu</a>)</p>
-<hr />
+<hr/>
 <h3 id="為什麼講義寫31-個反覆">為什麼講義寫「31 個反覆」？<a class="headerlink" href="#為什麼講義寫31-個反覆" title="Permanent link"></a></h3>
 <p>因為在 32-bit signed integer(有號整數) 中，最高位 MSB 通常用來表示 sign bit(符號位)，剩下 31 bits 表示 magnitude 或有效數值部分。</p>
 <p>所以這個簡單版本的想法是：</p>
 <p><strong>先把符號另外記起來，真正拿去做乘法反覆處理的是剩下的 31-bit 大小。</strong></p>
 <p>這不是說 product 只會有 31 bits。兩個 32-bit 數相乘，完整 product 仍可能需要 64 bits。這裡的「31 個反覆」是在講 signed operand 轉正後，針對 magnitude 做乘法流程。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_9">常見錯法<a class="headerlink" href="#常見錯法_9" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-說「有號乘法就是直接用 unsigned multiplier 做，完全不用管符號」。<br />
+<p>第一個錯法：<br/>
+說「有號乘法就是直接用 unsigned multiplier 做，完全不用管符號」。<br/>
 錯。大小可以用類似 unsigned 的流程算，但符號必須另外決定。</p>
-<p>第二個錯法：<br />
-說「只要其中一個是負數，最後一定是正」。<br />
+<p>第二個錯法：<br/>
+說「只要其中一個是負數，最後一定是正」。<br/>
 錯。一正一負才是負；兩個都是負反而是正。</p>
-<p>第三個錯法：<br />
-忘記最後要把 product 改成負值。<br />
+<p>第三個錯法：<br/>
+忘記最後要把 product 改成負值。<br/>
 例如 <code>-5 × 3</code>，如果只算大小會得到 <code>15</code>，但正確 signed product 是 <code>-15</code>。</p>
-<hr />
+<hr/>
 <h3 id="本輪練習題_1">本輪練習題<a class="headerlink" href="#本輪練習題_1" title="Permanent link"></a></h3>
 <p>請用中文或英文回答 1～5。</p>
 <ol>
 <li>
-<p>In the simple signed multiplication method described on page 80, why are both operands first converted to positive values?<br />
+<p>In the simple signed multiplication method described on page 80, why are both operands first converted to positive values?<br/>
    [Source: ch3.pdf／PDF viewer page 80]</p>
 </li>
 <li>
-<p>How does the hardware or software decide whether the final product should be positive or negative?<br />
+<p>How does the hardware or software decide whether the final product should be positive or negative?<br/>
    [Source: ch3.pdf／PDF viewer page 80]</p>
 </li>
 <li>
-<p>Why does the lecture mention 31 iterations instead of 32 iterations for this simple signed multiplication method?<br />
+<p>Why does the lecture mention 31 iterations instead of 32 iterations for this simple signed multiplication method?<br/>
    [Source: ch3.pdf／PDF viewer page 80]</p>
 </li>
 <li>
-<p>A student says: “If both operands are negative, the product should also be negative.” Identify what is wrong with this statement.<br />
+<p>A student says: “If both operands are negative, the product should also be negative.” Identify what is wrong with this statement.<br/>
    [Generated: based on ch3.pdf／PDF viewer page 80]</p>
 </li>
 <li>
-<p>Use the simple signed multiplication method to explain how to compute <code>-6 × 5</code>. Do not focus on the full binary trace; explain the sign handling and magnitude multiplication.<br />
+<p>Use the simple signed multiplication method to explain how to compute <code>-6 × 5</code>. Do not focus on the full binary trace; explain the sign handling and magnitude multiplication.<br/>
    [Generated: based on ch3.pdf／PDF viewer page 80]</p>
 </li>
 </ol>
 <p>第 1 次對話</p>
 <h3 id="處理正負數的流程">處理正負數的流程<a class="headerlink" href="#處理正負數的流程" title="Permanent link"></a></h3>
-<p>【學習進度摘要｜精簡版】<br />
-目前主線：ch3.pdf／第 3 章／3.3 乘法<br />
-講義位置：PDF viewer page 80／有號乘法<br />
-目前知識點：signed multiplication(有號乘法)<br />
-狀態：正在補強流程圖，明確畫出「如何把 multiplier 轉成正數 magnitude」<br />
-待回補：page 80 練習題尚未作答；page 81–83 乘法演算法範例；page 84–85 faster multiplication；page 86 carry-save adder / pipeline<br />
+<p>【學習進度摘要｜精簡版】<br/>
+目前主線：ch3.pdf／第 3 章／3.3 乘法<br/>
+講義位置：PDF viewer page 80／有號乘法<br/>
+目前知識點：signed multiplication(有號乘法)<br/>
+狀態：正在補強流程圖，明確畫出「如何把 multiplier 轉成正數 magnitude」<br/>
+待回補：page 80 練習題尚未作答；page 81–83 乘法演算法範例；page 84–85 faster multiplication；page 86 carry-save adder / pipeline<br/>
 下一步：看完流程圖後，回到 page 80 練習題</p>
-<hr />
-<p>可以，這次我把 <strong>「multiplier 如何轉成正數 magnitude」</strong> 明確畫進去。<br />
+<hr/>
+<p>可以，這次我把 <strong>「multiplier 如何轉成正數 magnitude」</strong> 明確畫進去。<br/>
 這裡預設數字是用 <code>two’s complement(二補數)</code> 表示，所以：</p>
 <ul>
 <li>如果 <code>multiplier</code> 是正數 → 直接當作 magnitude</li>
 <li>如果 <code>multiplier</code> 是負數 → <strong>取反 + 1</strong>，變成正的 magnitude</li>
 </ul>
 <p>講義 page 80 的核心是：先把 <code>multiplicand</code> 和 <code>multiplier</code> 轉成正數，記住原本符號，再做 magnitude multiplication，最後依符號決定 product 正負。</p>
-<hr />
+<hr/>
 <h4 id="mermaid-流程圖">Mermaid 流程圖<a class="headerlink" href="#mermaid-流程圖" title="Permanent link"></a></h4>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -14577,7 +14577,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
     N --&gt; P[輸出 signed product]
     O --&gt; P
     P --&gt; Q[End]</code></pre>
-<hr />
+<hr/>
 <h4 id="這張圖你要抓的重點">這張圖你要抓的重點<a class="headerlink" href="#這張圖你要抓的重點" title="Permanent link"></a></h4>
 <h5 id="multiplier-不是一律取反--1"><code>multiplier</code> 不是一律取反 + 1<a class="headerlink" href="#multiplier-不是一律取反--1" title="Permanent link"></a></h5>
 <p>只有在：</p>
@@ -14585,7 +14585,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <p>時，才要做：</p>
 <p><strong>位元取反 + 1</strong></p>
 <p>如果 <code>multiplier</code> 原本就是正數，就直接拿來當 magnitude。</p>
-<hr />
+<hr/>
 <h5 id="把-multiplier-轉成正數-magnitude的意思">「把 multiplier 轉成正數 magnitude」的意思<a class="headerlink" href="#把-multiplier-轉成正數-magnitude的意思" title="Permanent link"></a></h5>
 <p>如果是 <code>two’s complement</code>：</p>
 <ul>
@@ -14600,7 +14600,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 </ul>
 <p>所以：</p>
 <p><code>1011 (-5)</code> → <code>0101 (+5 magnitude)</code></p>
-<hr />
+<hr/>
 <h5 id="整體流程其實是兩段">整體流程其實是兩段<a class="headerlink" href="#整體流程其實是兩段" title="Permanent link"></a></h5>
 <p><strong>第一段：處理 magnitude</strong></p>
 <ul>
@@ -14612,14 +14612,14 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <li>若原本兩數符號相同 → product 為正</li>
 <li>若原本兩數符號不同 → product 轉成負數</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="最短記法_3">最短記法<a class="headerlink" href="#最短記法_3" title="Permanent link"></a></h4>
 <p><strong>負的 multiplier 若用 two’s complement 表示，轉成正數 magnitude 的方法就是：取反 + 1。</strong></p>
-<p>如果你要，我下一則可以再幫你畫一個 <strong>更細的版本</strong>，把<br />
-<code>multiplier = 1011 (-5)</code> 如何一步一步變成 <code>0101 (+5)</code><br />
+<p>如果你要，我下一則可以再幫你畫一個 <strong>更細的版本</strong>，把<br/>
+<code>multiplier = 1011 (-5)</code> 如何一步一步變成 <code>0101 (+5)</code><br/>
 也畫成小流程圖。</p>
 <h3 id="31-個反覆的例外情況">31 個反覆的例外情況<a class="headerlink" href="#31-個反覆的例外情況" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%203-3.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-3.png"/></p>
 <p>講義說：「執行 31 個反覆」其實不夠精準，因為如果遇到轉為正數但還是 32 位元的情況就會需要額位處理，像是最小負數(基本上只有最小負數這了例外)。</p>
 <p><code>-2^31 = 10000000 00000000 00000000 00000000</code></p>
 <p>取反：</p>
@@ -14631,7 +14631,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <h2 id="multiplication-algorithm-example--用-2--3-追蹤三個-register-怎麼變">Multiplication Algorithm Example — 用 <code>2 × 3</code> 追蹤三個 register 怎麼變<a class="headerlink" href="#multiplication-algorithm-example--用-2--3-追蹤三個-register-怎麼變" title="Permanent link"></a></h2>
 <p>這一段不是新規則，而是把前面學過的 shift-and-add multiplication(移位加法乘法) 用具體例子跑一次。</p>
 <p>我們用 4-bit 小例子：</p>
-<p><code>2 = 0010₂</code><br />
+<p><code>2 = 0010₂</code><br/>
 <code>3 = 0011₂</code></p>
 <p>初始化：</p>
 <table>
@@ -14726,26 +14726,26 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <p><code>Product = 0000 0110₂ = 6₁₀</code></p>
 <p>所以：</p>
 <p><code>2 × 3 = 6</code></p>
-<hr />
+<hr/>
 <h4 id="這頁你要注意什麼">這頁你要注意什麼？<a class="headerlink" href="#這頁你要注意什麼" title="Permanent link"></a></h4>
 <p>這裡最重要的不是背表格，而是會看「哪個 bit 決定加不加」。</p>
 <p>講義 page 81–82 說圈起來的 bit 是用來決定下一步動作的 bit。那個 bit 就是：</p>
 <p><strong>Multiplier register 的最低位 LSB。</strong></p>
-<p>如果是 <code>1</code>，就把目前的 <code>Multiplicand</code> 加到 <code>Product</code>。<br />
+<p>如果是 <code>1</code>，就把目前的 <code>Multiplicand</code> 加到 <code>Product</code>。<br/>
 如果是 <code>0</code>，就不加，直接進入移位。</p>
-<hr />
+<hr/>
 <h4 id="常見錯法_10">常見錯法<a class="headerlink" href="#常見錯法_10" title="Permanent link"></a></h4>
-<p>第一個錯法：<br />
-以為每一輪都會加。<br />
+<p>第一個錯法：<br/>
+以為每一輪都會加。<br/>
 錯。只有 <code>Multiplier LSB = 1</code> 才加。</p>
-<p>第二個錯法：<br />
-以為加的是原始 multiplicand。<br />
+<p>第二個錯法：<br/>
+以為加的是原始 multiplicand。<br/>
 不精準。加的是「目前這一輪的 multiplicand register 內容」，它可能已經左移過。</p>
-<p>第三個錯法：<br />
-以為 multiplier 右移只是為了變小。<br />
+<p>第三個錯法：<br/>
+以為 multiplier 右移只是為了變小。<br/>
 不精準。它右移的主要目的，是讓下一個要檢查的 multiplier bit 移到 LSB。</p>
 <h2 id="faster-multiplication--用更多加法器換更短等待時間">Faster Multiplication — 用更多加法器換更短等待時間<a class="headerlink" href="#faster-multiplication--用更多加法器換更短等待時間" title="Permanent link"></a></h2>
-<p>前面我們學的是 sequential multiplier(循序乘法器)：<br />
+<p>前面我們學的是 sequential multiplier(循序乘法器)：<br/>
 用一個 adder(加法器)，一輪一輪處理 multiplier 的 bit。</p>
 <p>這樣很省硬體，但慢，因為要等很多輪。</p>
 <p>page 84–85 的想法是另一個方向：</p>
@@ -14778,30 +14778,30 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 </tbody>
 </table>
 <p>講義 page 84 說，可以為乘數每一個 bit 配置 32-bit adder；其中一個輸入是 <code>multiplicand AND multiplier bit</code>，另一個輸入是前一個 adder 的輸出，並把這些 adders 組成 parallel tree(平行樹)。page 85 進一步說，這相當於把 loop unroll(迴圈展開)，相對於等待 32 個加法時間，只需要約 <code>log₂(32) = 5</code> 個 32-bit 加法時間。</p>
-<hr />
+<hr/>
 <h3 id="為什麼平行樹會比較快">為什麼平行樹會比較快？<a class="headerlink" href="#為什麼平行樹會比較快" title="Permanent link"></a></h3>
 <p>假設有 32 個 partial products(部分乘積) 要加。</p>
 <p>循序做法像排隊結帳：</p>
-<p>第 1 個加完，才能加第 2 個；<br />
-第 2 個加完，才能加第 3 個；<br />
+<p>第 1 個加完，才能加第 2 個；<br/>
+第 2 個加完，才能加第 3 個；<br/>
 一路等下去。</p>
 <p>平行樹做法像分組合併：</p>
-<p>先兩兩相加，得到 16 個結果；<br />
-再兩兩相加，得到 8 個結果；<br />
+<p>先兩兩相加，得到 16 個結果；<br/>
+再兩兩相加，得到 8 個結果；<br/>
 再變 4、2、1。</p>
 <p>所以時間不是 32 層，而是大約：</p>
 <p><code>log₂(32) = 5</code> 層。</p>
 <p>這就是「用更多硬體換速度」。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_11">常見錯法<a class="headerlink" href="#常見錯法_11" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-說「較快乘法器是因為少算了某些 partial products」。<br />
+<p>第一個錯法：<br/>
+說「較快乘法器是因為少算了某些 partial products」。<br/>
 錯。它沒有少算，只是把很多加法平行化。</p>
-<p>第二個錯法：<br />
-說「速度變快而且硬體也變少」。<br />
+<p>第二個錯法：<br/>
+說「速度變快而且硬體也變少」。<br/>
 錯。速度變快通常是因為用了更多 adder，硬體成本上升。</p>
-<p>第三個錯法：<br />
-把 page 84–85 和前面的 optimization 1 混在一起。<br />
+<p>第三個錯法：<br/>
+把 page 84–85 和前面的 optimization 1 混在一起。<br/>
 前面的 optimization 1 是把同一輪中的 add / shift 平行化；page 84–85 是把多個 partial product additions 用 parallel tree 加速。</p>
 <h3 id="平行化流程圖">平行化流程圖<a class="headerlink" href="#平行化流程圖" title="Permanent link"></a></h3>
 <p>下面用 <strong>4-bit multiplier</strong> 畫簡化版 <code>parallel tree multiplier(平行樹乘法器)</code>。</p>
@@ -14868,7 +14868,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <div class="highlight"><pre><span></span><code>64-bit product = Hi || Lo
 </code></pre></div>
 <p>也就是 <code>Hi</code> 接在前面，<code>Lo</code> 接在後面。</p>
-<hr />
+<hr/>
 <h3 id="mult-和-multu-的差異"><code>mult</code> 和 <code>multu</code> 的差異<a class="headerlink" href="#mult-和-multu-的差異" title="Permanent link"></a></h3>
 <p>這裡要特別小心，因為它跟 <code>add</code> / <code>addu</code> 的差異不完全一樣。</p>
 <table>
@@ -14919,7 +14919,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 </tbody>
 </table>
 <p>這個很容易考。</p>
-<hr />
+<hr/>
 <h3 id="mflo-和-mfhi-在做什麼"><code>mflo</code> 和 <code>mfhi</code> 在做什麼？<a class="headerlink" href="#mflo-和-mfhi-在做什麼" title="Permanent link"></a></h3>
 <p>因為乘法結果先放在特殊暫存器 <code>Hi/Lo</code>，所以如果程式想把結果拿到一般暫存器中使用，就需要搬移指令。</p>
 <table>
@@ -14951,9 +14951,9 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <span class="nf">mfhi</span><span class="w">  </span><span class="no">$t1</span><span class="w">           </span><span class="c1"># $t1 = Hi，取得高 32-bit product</span>
 </code></pre></div>
 </div>
-<p>若你只想要 32-bit 乘積，通常會看 <code>Lo</code>。<br />
+<p>若你只想要 32-bit 乘積，通常會看 <code>Lo</code>。<br/>
 但如果你要檢查結果是否超過 32-bit，就必須看 <code>Hi</code>。</p>
-<hr />
+<hr/>
 <h3 id="mips-乘法-overflow-怎麼檢查">MIPS 乘法 overflow 怎麼檢查？<a class="headerlink" href="#mips-乘法-overflow-怎麼檢查" title="Permanent link"></a></h3>
 <p>因為 <code>mult</code> / <code>multu</code> 不會自動 exception，所以 overflow 要靠軟體檢查。</p>
 <h4 id="unsigned-multiplicationmultu">unsigned multiplication：<code>multu</code><a class="headerlink" href="#unsigned-multiplicationmultu" title="Permanent link"></a></h4>
@@ -14961,7 +14961,7 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 <p>所以：</p>
 <p><strong>對 <code>multu</code>：如果 <code>Hi = 0</code>，代表沒有 overflow。</strong></p>
 <p>如果 <code>Hi ≠ 0</code>，代表乘積需要超過 32 bits，放不進單一 32-bit register。</p>
-<hr />
+<hr/>
 <h4 id="signed-multiplicationmult">signed multiplication：<code>mult</code><a class="headerlink" href="#signed-multiplicationmult" title="Permanent link"></a></h4>
 <p>signed 的情況不能只看 <code>Hi = 0</code>。</p>
 <p>因為 signed 32-bit 結果如果是負數，64-bit sign extension(符號延伸) 的高 32 bits 應該全部是 1。</p>
@@ -14987,27 +14987,27 @@ magnitude(大小／絕對值) 在這裡可以先理解成：<br />
 </tbody>
 </table>
 <p>如果 <code>Hi</code> 不是 <code>Lo</code> 符號位的延伸，就代表完整 64-bit product 不能用 32-bit signed integer 正確表示。</p>
-<hr />
+<hr/>
 <h3 id="生活化例子">生活化例子<a class="headerlink" href="#生活化例子" title="Permanent link"></a></h3>
 <p>想像你用兩個盒子裝一個很長的答案：</p>
 <ul>
 <li><code>Lo</code> 是下面的盒子，裝低 32 bits。</li>
 <li><code>Hi</code> 是上面的盒子，裝高 32 bits。</li>
 </ul>
-<p>如果你只看 <code>Lo</code>，可能會以為答案剛好放得下。<br />
+<p>如果你只看 <code>Lo</code>，可能會以為答案剛好放得下。<br/>
 但如果 <code>Hi</code> 裡還有重要內容，就代表答案其實超過 32 bits。</p>
 <p>所以 <code>mfhi</code> 的用途就是：</p>
 <p><strong>把上半部拿出來檢查，看乘積是否真的能被壓成 32-bit。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_12">常見錯法<a class="headerlink" href="#常見錯法_12" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-說 <code>mult</code> 會在 overflow 時呼叫 exception，<code>multu</code> 不會。<br />
+<p>第一個錯法：<br/>
+說 <code>mult</code> 會在 overflow 時呼叫 exception，<code>multu</code> 不會。<br/>
 錯。<strong><code>mult</code> 和 <code>multu</code> 都不會 trap overflow。</strong></p>
-<p>第二個錯法：<br />
-說 <code>mult</code> 和 <code>multu</code> 只是名字不同，運算完全一樣。<br />
+<p>第二個錯法：<br/>
+說 <code>mult</code> 和 <code>multu</code> 只是名字不同，運算完全一樣。<br/>
 錯。它們對 operands 的解讀不同，一個是 signed，一個是 unsigned。</p>
-<p>第三個錯法：<br />
-只用 <code>mflo</code> 拿結果，卻宣稱一定沒有 overflow。<br />
+<p>第三個錯法：<br/>
+只用 <code>mflo</code> 拿結果，卻宣稱一定沒有 overflow。<br/>
 不精準。若要判斷 64-bit product 能否放進 32-bit，還要看 <code>Hi</code>。</p>
 <h3 id="hilo-的-hi-和-lo-是用固定的暫存器嗎">Hi:Lo 的 hi 和 lo 是用固定的暫存器嗎<a class="headerlink" href="#hilo-的-hi-和-lo-是用固定的暫存器嗎" title="Permanent link"></a></h3>
 <p>對，你的理解正確。</p>
@@ -15096,7 +15096,7 @@ mflo  $t0     # $t0 = Lo
 <p><code>Dividend = Quotient × Divisor + Remainder</code></p>
 <p>也就是：</p>
 <p><code>13 = 3 × 4 + 1</code></p>
-<hr />
+<hr/>
 <h3 id="為什麼-remainder-必須小於-divisor">為什麼 remainder 必須小於 divisor？<a class="headerlink" href="#為什麼-remainder-必須小於-divisor" title="Permanent link"></a></h3>
 <p>如果餘數還大於或等於除數，代表你其實還可以再多拿一個除數出來，商還沒有算完。</p>
 <p>例如有人說：</p>
@@ -15110,10 +15110,10 @@ mflo  $t0     # $t0 = Lo
 <p>因此合法的除法結果必須滿足：</p>
 <p><strong>0 ≤ remainder &lt; divisor</strong></p>
 <p>這就是 page 89 寫「餘數需小於除數」的意思。</p>
-<hr />
+<hr/>
 <h3 id="這頁為什麼先假設都是正數">這頁為什麼先假設都是正數？<a class="headerlink" href="#這頁為什麼先假設都是正數" title="Permanent link"></a></h3>
 <p>因為除法硬體演算法一開始要先處理「怎麼找 quotient bits(商的位元)」和「怎麼更新 remainder(餘數)」。</p>
-<p>如果一開始就混入正負號，會讓流程變複雜。<br />
+<p>如果一開始就混入正負號，會讓流程變複雜。<br/>
 所以講義先做簡化：</p>
 <ol>
 <li>先假設 dividend 和 divisor 都是正數。</li>
@@ -15121,16 +15121,16 @@ mflo  $t0     # $t0 = Lo
 <li>後面再討論 signed division(有號除法) 怎麼處理符號。</li>
 </ol>
 <p>這和前面 signed multiplication 很像：先把符號問題拆開，再處理大小運算。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_13">常見錯法<a class="headerlink" href="#常見錯法_13" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-把 quotient 和 remainder 混在一起。<br />
+<p>第一個錯法：<br/>
+把 quotient 和 remainder 混在一起。<br/>
 <code>Quotient</code> 是「可以拿幾個 divisor」，<code>Remainder</code> 是「剩下多少」。</p>
-<p>第二個錯法：<br />
-只檢查等式成立，忘記檢查 <code>remainder &lt; divisor</code>。<br />
+<p>第二個錯法：<br/>
+只檢查等式成立，忘記檢查 <code>remainder &lt; divisor</code>。<br/>
 例如 <code>13 = 2 × 4 + 5</code> 等式成立，但不是合法除法結果。</p>
-<p>第三個錯法：<br />
-看到 32-bit operands 就以為除法一定只產生一個 32-bit result。<br />
+<p>第三個錯法：<br/>
+看到 32-bit operands 就以為除法一定只產生一個 32-bit result。<br/>
 不精準。整數除法有兩個結果：quotient 和 remainder。後面 MIPS 也會用 <code>Lo</code> 放 quotient、<code>Hi</code> 放 remainder；這點和其他 MIPS 教材對 <code>div/divu</code> 的說法一致。(<a href="https://www.geeksforgeeks.org/multiplication-algorithm-in-signed-magnitude-representation/?utm_source=chatgpt.com" title="Multiplication Algorithm in Signed Magnitude Representation - GeeksforGeeks">Engineering LibreTexts</a>)</p>
 <h2 id="division-layout--直式除法圖裡四個角色各在哪裡">Division Layout — 直式除法圖裡四個角色各在哪裡？<a class="headerlink" href="#division-layout--直式除法圖裡四個角色各在哪裡" title="Permanent link"></a></h2>
 <p>page 90 要你把公式和直式除法位置對起來。</p>
@@ -15166,7 +15166,7 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你有 29 顆糖，每 5 顆裝一包。</p>
 <ul>
 <li><code>Dividend = 29</code>：總共有 29 顆糖。</li>
@@ -15176,14 +15176,14 @@ mflo  $t0     # $t0 = Lo
 </ul>
 <p>所以：</p>
 <p><code>29 = 5 × 5 + 4</code></p>
-<hr />
+<hr/>
 <h3 id="page-90-的重點">page 90 的重點<a class="headerlink" href="#page-90-的重點" title="Permanent link"></a></h3>
 <p>page 90 不是要你背圖，而是要你建立一個 mental model(心智模型)：</p>
 <p><strong>除法演算法其實是在反覆嘗試：目前的 remainder 能不能再扣掉 divisor？如果可以，就在 quotient 裡記一個 bit。</strong></p>
-<p>後面 page 91 開始就會把這件事變成二進位硬體流程：<br />
+<p>後面 page 91 開始就會把這件事變成二進位硬體流程：<br/>
 <code>Divisor</code> 會移動，<code>Quotient</code> 會逐 bit 產生，<code>Remainder</code> 會被更新。</p>
 <h2 id="binary-division-process--除法硬體在反覆做夠不夠減">Binary Division Process — 除法硬體在反覆做「夠不夠減」<a class="headerlink" href="#binary-division-process--除法硬體在反覆做夠不夠減" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-4.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-4.png"/></p>
 <p>乘法前面是：</p>
 <p><strong>看 multiplier bit，要不要加 shifted multiplicand。</strong></p>
 <p>除法現在變成：</p>
@@ -15207,14 +15207,14 @@ mflo  $t0     # $t0 = Lo
 </table>
 <p>所以除法硬體的核心不是「一直加」，而是：</p>
 <p><strong>嘗試相減 → 判斷結果 → 產生商的一個 bit → 移位 → 下一輪。</strong></p>
-<hr />
+<hr/>
 <h3 id="page-91-三個移動方向">page 91 三個移動方向<a class="headerlink" href="#page-91-三個移動方向" title="Permanent link"></a></h3>
 <h4 id="divisor除數視為不斷右移">Divisor(除數)：視為不斷右移<a class="headerlink" href="#divisor除數視為不斷右移" title="Permanent link"></a></h4>
-<p>一開始 divisor 會放在比較高的位置，對齊 dividend 的高位。<br />
+<p>一開始 divisor 會放在比較高的位置，對齊 dividend 的高位。<br/>
 每一輪之後 divisor 往右移一位，意思是：</p>
 <p><strong>下一輪改檢查更低位的位置。</strong></p>
 <p>這很像手算除法時，除數的位置會跟著目前要處理的位數對齊。</p>
-<hr />
+<hr/>
 <h4 id="quotient商每輪產生一個-bit視為左移">Quotient(商)：每輪產生一個 bit，視為左移<a class="headerlink" href="#quotient商每輪產生一個-bit視為左移" title="Permanent link"></a></h4>
 <p>page 91 說商的每個 bit 依次產生，可以視為不斷左移。</p>
 <p>意思是：</p>
@@ -15224,13 +15224,13 @@ mflo  $t0     # $t0 = Lo
 <li>若不夠減，該 bit 放 0。</li>
 <li>商暫存器會往左移，準備放下一個 bit。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="remainder餘數一開始可以視為-dividend">Remainder(餘數)：一開始可以視為 dividend<a class="headerlink" href="#remainder餘數一開始可以視為-dividend" title="Permanent link"></a></h4>
 <p>這點很重要：</p>
 <p><strong>被除數可以視為初始時的 remainder。</strong></p>
-<p>例如 <code>Dividend = 29</code>，一開始你還沒扣任何 divisor，所以目前剩下的就是整個 29。<br />
+<p>例如 <code>Dividend = 29</code>，一開始你還沒扣任何 divisor，所以目前剩下的就是整個 29。<br/>
 之後每成功扣掉一次對齊後的 divisor，remainder 就會變小。</p>
-<hr />
+<hr/>
 <h3 id="用流程圖看">用流程圖看<a class="headerlink" href="#用流程圖看" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A[Start&lt;br&gt;Remainder = Dividend&lt;br&gt;Quotient = 0&lt;br&gt;Divisor 對齊高位] --&gt; B[嘗試 Remainder - Divisor]
@@ -15242,19 +15242,19 @@ mflo  $t0     # $t0 = Lo
     F --&gt; G{是否完成所有 bit？}
     G -- 否 --&gt; B
     G -- 是 --&gt; H[End&lt;br&gt;輸出 Quotient 與 Remainder]</code></pre>
-<p>這裡先看懂大方向就好：<br />
+<p>這裡先看懂大方向就好：<br/>
 <strong>每一輪都在問「目前夠不夠減？」夠就記 1，不夠就記 0。</strong></p>
 <p>後面如果講義繼續展開，就會把它變成更精確的 restoring division(回復型除法)流程。</p>
-<hr />
+<hr/>
 <h3 id="常見錯法_14">常見錯法<a class="headerlink" href="#常見錯法_14" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為 quotient 是最後一次才一次算出來。<br />
+<p>第一個錯法：<br/>
+以為 quotient 是最後一次才一次算出來。<br/>
 錯。商的 bit 是一輪一輪產生的。</p>
-<p>第二個錯法：<br />
-以為 divisor 一直固定不動。<br />
+<p>第二個錯法：<br/>
+以為 divisor 一直固定不動。<br/>
 不精準。page 91 的圖把 divisor 視為不斷右移，逐步和目前位置對齊。</p>
-<p>第三個錯法：<br />
-以為 remainder 一開始是 0。<br />
+<p>第三個錯法：<br/>
+以為 remainder 一開始是 0。<br/>
 錯。除法中 remainder 可以視為一開始就是 dividend，因為還沒扣任何 divisor。</p>
 <h3 id="你的意思是說硬體本來設計比較大小就是用先減然後除法本來就是要減就不用再重複用一次比較大小的減了">你的意思是說，硬體本來設計比較大小就是用先減。然後除法本來就是要減，就不用再重複用一次比較大小的減了<a class="headerlink" href="#你的意思是說硬體本來設計比較大小就是用先減然後除法本來就是要減就不用再重複用一次比較大小的減了" title="Permanent link"></a></h3>
 <p>更精準地說：</p>
@@ -15352,8 +15352,8 @@ mflo  $t0     # $t0 = Lo
 <p>所以你問「實際上是加回去還是直接拿原本的變數做 =」：</p>
 <p>在講義 page 92 的流程圖語意裡，比較像是已經先更新成 Remainder - Divisor，如果發現負數，就用 Remainder = Remainder + Divisor 加回去。 講義流程圖先做 Remainder = Remainder - Divisor，若 Remainder &lt; 0，就回復第一步操作，再讓 quotient 左移並補 0。</p>
 <h2 id="4-bit-divider-datapath--除法器需要哪些硬體元件">4-bit Divider Datapath — 除法器需要哪些硬體元件？<a class="headerlink" href="#4-bit-divider-datapath--除法器需要哪些硬體元件" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-5.png" /></p>
-<p>page 93 的重點是：<br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-5.png"/></p>
+<p>page 93 的重點是：<br/>
 <strong>如果要讓剛剛的 restoring division 流程真的跑起來，硬體至少要能存三種東西，並且能做加減法。</strong></p>
 <table>
 <thead>
@@ -15387,7 +15387,7 @@ mflo  $t0     # $t0 = Lo
 </tbody>
 </table>
 <p>為什麼 <code>Remainder</code> 和 <code>Divisor</code> 是 8-bit，但 <code>Quotient</code> 是 4-bit？</p>
-<p>因為這是 <strong>4-bit division example(4-bit 除法器範例)</strong>。<br />
+<p>因為這是 <strong>4-bit division example(4-bit 除法器範例)</strong>。<br/>
 被除數會放進 8-bit 餘數暫存器，除數也要能左移到高位再逐步右移，所以除數暫存器也用 8-bit。商的結果最多是 4-bit，所以商暫存器用 4-bit。</p>
 <h3 id="4bit除法器是指-8-bit-除以-4-bit-嗎">4bit除法器是指 8 bit 除以 4 bit 嗎<a class="headerlink" href="#4bit除法器是指-8-bit-除以-4-bit-嗎" title="Permanent link"></a></h3>
 <p><strong>在這份講義的例子裡，可以把它理解成：用 8-bit dividend(被除數) 除以 4-bit divisor(除數)，產生 4-bit quotient(商) 和 remainder(餘數)。</strong></p>
@@ -15426,7 +15426,7 @@ mflo  $t0     # $t0 = Lo
     D --&gt; E[Quotient register&lt;br&gt;4-bit，有左移功能]
 
     E --&gt; D</code></pre>
-<hr />
+<hr/>
 <h3 id="每個元件在迴圈裡做什麼">每個元件在迴圈裡做什麼？<a class="headerlink" href="#每個元件在迴圈裡做什麼" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -15460,16 +15460,16 @@ mflo  $t0     # $t0 = Lo
 </table>
 <p>所以整體不是單純「ALU 算完就結束」，而是：</p>
 <p><strong>ALU 算出 trial remainder → control test 判斷結果 → 決定 quotient bit 與 remainder 是否保留／回復 → divisor 右移 → 下一輪。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_15">常見錯法<a class="headerlink" href="#常見錯法_15" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為 <code>Control test</code> 是拿來做加減法。<br />
+<p>第一個錯法：<br/>
+以為 <code>Control test</code> 是拿來做加減法。<br/>
 不對。加減法是 ALU 做的；control test 是決定下一步控制訊號。</p>
-<p>第二個錯法：<br />
-以為 ALU 結果一定會變成新的餘數。<br />
+<p>第二個錯法：<br/>
+以為 ALU 結果一定會變成新的餘數。<br/>
 不一定。如果相減結果是負數，就要 restore，不能保留負的 trial remainder。</p>
-<p>第三個錯法：<br />
-以為 quotient register 只在最後才寫入。<br />
+<p>第三個錯法：<br/>
+以為 quotient register 只在最後才寫入。<br/>
 不對。商的 bit 是每輪左移補 0 或 1 逐步形成的。</p>
 <h2 id="divider-initialization--除法器一開始要先把三個暫存器放好">Divider Initialization — 除法器一開始要先把三個暫存器放好<a class="headerlink" href="#divider-initialization--除法器一開始要先把三個暫存器放好" title="Permanent link"></a></h2>
 <p>這頁在解決的問題是：</p>
@@ -15596,18 +15596,18 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<p>這一輪的意義是：<br />
+<p>這一輪的意義是：<br/>
 <strong>測試 <code>2 &lt;&lt; 4 = 32</code> 能不能從 7 裡面扣掉。不能，所以商這個高位試探補 0。</strong></p>
-<hr />
+<hr/>
 <h3 id="常見錯法_16">常見錯法<a class="headerlink" href="#常見錯法_16" title="Permanent link"></a></h3>
-<p>第一個錯法：<br />
-以為相減結果是負數也可以保留。<br />
+<p>第一個錯法：<br/>
+以為相減結果是負數也可以保留。<br/>
 不行，因為這代表除數太大，這次扣錯了，必須 restore。</p>
-<p>第二個錯法：<br />
-以為商補 0 就是什麼都不做。<br />
+<p>第二個錯法：<br/>
+以為商補 0 就是什麼都不做。<br/>
 不精準。硬體仍然會「商左移並補 0」，只是因為目前商是 <code>0000</code>，看起來沒有變。</p>
-<p>第三個錯法：<br />
-以為第一輪完全沒意義。<br />
+<p>第三個錯法：<br/>
+以為第一輪完全沒意義。<br/>
 對 <code>7 ÷ 2</code> 來說它必然失敗，但它仍是在測最高位對齊；若這輪成功，代表商可能超過 4-bit。</p>
 <h2 id="second-to-fourth-iterations--什麼時候商補-0什麼時候商補-1">Second to Fourth Iterations — 什麼時候商補 0，什麼時候商補 1？<a class="headerlink" href="#second-to-fourth-iterations--什麼時候商補-0什麼時候商補-1" title="Permanent link"></a></h2>
 <p>page 104–105 把第二輪到第四輪整理成表格。核心仍然完全一樣：</p>
@@ -15635,7 +15635,7 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="第二輪">第二輪<a class="headerlink" href="#第二輪" title="Permanent link"></a></h3>
 <p>做：</p>
 <p><code>00000111 - 00010000</code></p>
@@ -15664,7 +15664,7 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="第三輪">第三輪<a class="headerlink" href="#第三輪" title="Permanent link"></a></h3>
 <p>做：</p>
 <p><code>00000111 - 00001000</code></p>
@@ -15693,7 +15693,7 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="第四輪">第四輪<a class="headerlink" href="#第四輪" title="Permanent link"></a></h3>
 <p>做：</p>
 <p><code>00000111 - 00000100</code></p>
@@ -15723,7 +15723,7 @@ mflo  $t0     # $t0 = Lo
 </tbody>
 </table>
 <p>注意：這輪不用 restore，因為相減成功。也就是說，餘數真的從 7 變成 3。</p>
-<hr />
+<hr/>
 <h3 id="整體表格">整體表格<a class="headerlink" href="#整體表格" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -15768,7 +15768,7 @@ mflo  $t0     # $t0 = Lo
 </tbody>
 </table>
 <p>page 105 的表格數值也呈現：第二、三輪相減後為負，所以 restore 並補 0；第四輪相減後得到 <code>00000011</code>，因此商補 1，除數再右移。</p>
-<hr />
+<hr/>
 <h3 id="小提醒page-105-的-2a-用語要以流程圖為準">小提醒：page 105 的 2a 用語要以流程圖為準<a class="headerlink" href="#小提醒page-105-的-2a-用語要以流程圖為準" title="Permanent link"></a></h3>
 <p>如果你看 page 105 的表格文字覺得 2a 好像也寫到「加回除數」，那要小心。依 page 92 流程圖與 page 108 的 2a 說明，<strong>相減結果非負時只需要商左移補 1，不需要 restore</strong>。數值也證明第四輪是保留 <code>7 - 4 = 3</code>，不是加回去變 7。</p>
 <p>所以正確規則仍是：</p>
@@ -15883,12 +15883,12 @@ mflo  $t0     # $t0 = Lo
 </table>
 <p>這就是 <code>restoring division(回復型除法)</code> 的核心：</p>
 <p><strong>先試減；減成負數就代表扣錯了，所以 restore；非負就代表扣成功，所以保留。</strong></p>
-<p>用生活例子講：<br />
-你有 7 元，要測試能不能付 16 元。先扣會變 -9，代表不能付，所以要加回來，商補 0。<br />
+<p>用生活例子講：<br/>
+你有 7 元，要測試能不能付 16 元。先扣會變 -9，代表不能付，所以要加回來，商補 0。<br/>
 你有 7 元，要測試能不能付 4 元。先扣變 3，代表可以付，所以保留 3，商補 1。</p>
 <h2 id="division-algorithm-summary--為什麼看-sign-bit為什麼是-n1-步">Division Algorithm Summary — 為什麼看 sign bit、為什麼是 n+1 步？<a class="headerlink" href="#division-algorithm-summary--為什麼看-sign-bit為什麼是-n1-步" title="Permanent link"></a></h2>
 <p>page 113 把前面幾頁收束成三個重點。</p>
-<p>第一，<strong>檢查餘數正負，其實就是看 sign bit(符號位元)</strong>。<br />
+<p>第一，<strong>檢查餘數正負，其實就是看 sign bit(符號位元)</strong>。<br/>
 因為餘數暫存器用二補數形式表示相減結果，所以：</p>
 <table>
 <thead>
@@ -15911,9 +15911,9 @@ mflo  $t0     # $t0 = Lo
 </tr>
 </tbody>
 </table>
-<p>第二，<strong>這個 restoring division 需要 <code>n+1</code> 步</strong>。<br />
+<p>第二，<strong>這個 restoring division 需要 <code>n+1</code> 步</strong>。<br/>
 在 4-bit 範例裡，商是 4-bit，但流程跑 5 輪；在 32-bit 版本裡，流程圖寫 33 輪。原因是它先從最高對齊位置開始測試，再一路右移到原本除數位置。</p>
-<p>第三，<strong>這個硬體還可以改良</strong>。<br />
+<p>第三，<strong>這個硬體還可以改良</strong>。<br/>
 講義 page 113 說，演算法與硬體可以變得更快、更省：加速來自把運算元與商的移位和減法同時進行；而且暫存器與加法器有沒用到的部分，因此寬度可以減半。這會接到後面的改良除法硬體。</p>
 <h2 id="division-hardware-optimization-and-signed-division--為什麼除法器可以變快但有號數要另外處理符號">Division Hardware Optimization and Signed Division — 為什麼除法器可以變快，但有號數要另外處理符號？<a class="headerlink" href="#division-hardware-optimization-and-signed-division--為什麼除法器可以變快但有號數要另外處理符號" title="Permanent link"></a></h2>
 <p>p.114 其實在收束前面 <code>Restoring Division(回復型除法)</code> 的硬體流程，並補上兩個問題：</p>
@@ -15921,7 +15921,7 @@ mflo  $t0     # $t0 = Lo
 <li><strong>同一個除法流程，硬體可不可以做得更快、更省？</strong></li>
 <li><strong>如果被除數或除數是負數，原本只假設正數的演算法怎麼辦？</strong></li>
 </ol>
-<hr />
+<hr/>
 <h3 id="1-除法硬體優化把移位和減法盡量重疊做">1. 除法硬體優化：把「移位」和「減法」盡量重疊做<a class="headerlink" href="#1-除法硬體優化把移位和減法盡量重疊做" title="Permanent link"></a></h3>
 <p>前面除法流程大意是：</p>
 <div class="highlight"><pre><span></span><code>Remainder = Remainder - Divisor
@@ -15952,9 +15952,9 @@ Divisor 右移，準備下一輪
 </tr>
 </tbody>
 </table>
-<p>生活化比喻：<br />
+<p>生活化比喻：<br/>
 原本像你洗衣服時「洗完才曬、曬完才摺、摺完才收」，優化後是「洗衣機在洗下一批時，你同時摺上一批」。不是改變數學答案，而是把硬體中可以並行的動作排得更有效率。</p>
-<hr />
+<hr/>
 <h3 id="2-有號數除法先算絕對值最後再處理正負號">2. 有號數除法：先算絕對值，最後再處理正負號<a class="headerlink" href="#2-有號數除法先算絕對值最後再處理正負號" title="Permanent link"></a></h3>
 <p>p.114 也說前面的除法流程「未考慮有號數的除法」。也就是說，前面比較像在處理：</p>
 <div class="highlight"><pre><span></span><code>positive dividend ÷ positive divisor
@@ -16019,15 +16019,15 @@ Divisor 右移，準備下一輪
 → 才能進入下一步
 </code></pre></div>
 <p>乘法比較像「先把所有可能要加的 partial product 準備好，再用樹狀加法器加起來」。但除法不是這樣，因為下一步依賴上一輪的正負結果。</p>
-<hr />
+<hr/>
 <h3 id="1-為什麼快速乘法那招不能直接搬到除法">1. 為什麼快速乘法那招不能直接搬到除法？<a class="headerlink" href="#1-為什麼快速乘法那招不能直接搬到除法" title="Permanent link"></a></h3>
-<p>乘法中，看到 multiplier 的每個 bit 後，我們很早就知道哪些 <code>partial product(部分乘積)</code> 要加。<br />
+<p>乘法中，看到 multiplier 的每個 bit 後，我們很早就知道哪些 <code>partial product(部分乘積)</code> 要加。<br/>
 所以可以一次生出很多部分乘積，再用平行加法器樹加快。</p>
-<p>除法中，商的每一個 bit 往往要等前一步 remainder 的符號出來才能決定。<br />
+<p>除法中，商的每一個 bit 往往要等前一步 remainder 的符號出來才能決定。<br/>
 所以不能一開始就可靠地算出全部 quotient bits。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 乘法像你已經知道要買哪些東西，可以請很多人分頭去拿；除法像走迷宮，每一步要看上一個路口走對還走錯，才能決定下一步往哪裡走。</p>
-<hr />
+<hr/>
 <h3 id="2-srt-divisionsrt-除法技術-在做什麼">2. <code>SRT Division(SRT 除法技術)</code> 在做什麼？<a class="headerlink" href="#2-srt-divisionsrt-除法技術-在做什麼" title="Permanent link"></a></h3>
 <p>p.115 說另一種加速除法的方法是：<strong>一步產生多個 quotient bits(商位元)</strong>。</p>
 <p>SRT division 的想法不是每次只產生 1 個商位元，而是根據：</p>
@@ -16063,7 +16063,7 @@ Divisor 右移，準備下一輪
 </tbody>
 </table>
 <h2 id="mips-division--除法為什麼要把結果放在-hi-和-lo">MIPS Division — 除法為什麼要把結果放在 Hi 和 Lo？<a class="headerlink" href="#mips-division--除法為什麼要把結果放在-hi-和-lo" title="Permanent link"></a></h2>
-<p>除法跟加減法不一樣：<br />
+<p>除法跟加減法不一樣：<br/>
 加法通常只有一個主要結果，但除法有兩個結果：</p>
 <table>
 <thead>
@@ -16112,7 +16112,7 @@ Divisor 右移，準備下一輪
 <div class="highlight"><pre><span></span><code>Lo = $s2 / $s3
 Hi = $s2 mod $s3
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="1-div-和-divu-的差別">1. <code>div</code> 和 <code>divu</code> 的差別<a class="headerlink" href="#1-div-和-divu-的差別" title="Permanent link"></a></h3>
 <p>MIPS 提供兩種除法指令：</p>
 <table>
@@ -16136,9 +16136,9 @@ Hi = $s2 mod $s3
 </tr>
 </tbody>
 </table>
-<p>差別在於它們如何解讀 bit pattern。<br />
+<p>差別在於它們如何解讀 bit pattern。<br/>
 同一串 bits，如果當作 signed integer 和 unsigned integer，數值可能不同，所以除法結果也可能不同。</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼需要-mflo-和-mfhi">2. 為什麼需要 <code>mflo</code> 和 <code>mfhi</code>？<a class="headerlink" href="#2-為什麼需要-mflo-和-mfhi" title="Permanent link"></a></h3>
 <p><code>div</code> 或 <code>divu</code> 做完後，結果不會直接放進一般暫存器 <code>$s0</code>, <code>$t0</code> 那類地方，而是先放在特殊暫存器 <code>Hi</code> / <code>Lo</code>。</p>
 <p>所以程式師若要拿商數，要用：</p>
@@ -16150,7 +16150,7 @@ Hi = $s2 mod $s3
 <p>你可以把 <code>Hi</code> / <code>Lo</code> 想成「除法運算的收件匣」：CPU 先把商和餘數放進這兩個特殊信箱，之後程式再用 <code>mflo</code> / <code>mfhi</code> 把結果搬到一般暫存器。</p>
 <h3 id="為何是商數放在-lo餘數放在-hi有啥特別考量嗎">為何是商數放在 Lo，餘數放在 Hi，有啥特別考量嗎<a class="headerlink" href="#為何是商數放在-lo餘數放在-hi有啥特別考量嗎" title="Permanent link"></a></h3>
 <p>可以把它理解成：<strong>不是因為 quotient(商數) 天生一定要在 Lo，而是 MIPS 為了和乘法共用 <code>Hi/Lo</code> 這組特殊暫存器，做出的一個一致性設計。</strong>講義明確說：MIPS 的乘法與除法都使用 32-bit <code>Hi</code> 和 32-bit <code>Lo</code>；除法結束後，<code>Hi</code> 放 <code>remainder(餘數)</code>，<code>Lo</code> 放 <code>quotient(商數)</code>。</p>
-<hr />
+<hr/>
 <h4 id="最重要原因沿用乘法的-hilo-慣例">最重要原因：沿用乘法的 Hi/Lo 慣例<a class="headerlink" href="#最重要原因沿用乘法的-hilo-慣例" title="Permanent link"></a></h4>
 <p>在 MIPS 乘法中，兩個 32-bit 數相乘會產生 64-bit product(乘積)，所以自然拆成：</p>
 <table>
@@ -16216,12 +16216,12 @@ Hi = $s2 mod $s3
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="1-為什麼除法也會有-overflow">1. 為什麼除法也會有 overflow？<a class="headerlink" href="#1-為什麼除法也會有-overflow" title="Permanent link"></a></h3>
-<p>一般人容易以為 overflow 只出現在加法、減法、乘法。<br />
+<p>一般人容易以為 overflow 只出現在加法、減法、乘法。<br/>
 但除法也可能有「結果放不下」的狀況，也就是商數太大。</p>
 <p>這頁不要求我們展開所有 signed overflow 細節；講義主旨是：<strong>MIPS 的 division instruction 本身不幫你偵測，所以 software 要負責。</strong></p>
-<hr />
+<hr/>
 <h3 id="2-為什麼-divide-by-zero-特別重要">2. 為什麼 divide by zero 特別重要？<a class="headerlink" href="#2-為什麼-divide-by-zero-特別重要" title="Permanent link"></a></h3>
 <p>因為除法的基本式子是：</p>
 <div class="highlight"><pre><span></span><code>Dividend = Quotient × Divisor + Remainder
@@ -16234,7 +16234,7 @@ else:
     perform division
     check whether quotient is too large if needed
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="3-這頁和前面加減法-overflow-的差別">3. 這頁和前面加減法 overflow 的差別<a class="headerlink" href="#3-這頁和前面加減法-overflow-的差別" title="Permanent link"></a></h3>
 <p>前面加減法提過：MIPS 的 <code>add</code>、<code>addi</code>、<code>sub</code> 在 overflow 時會呼叫例外處理；但這頁說 MIPS 的除法指令<strong>不處理 overflow detection</strong>。所以不能把加減法的規則直接套到除法。</p>
 <table>
@@ -16266,11 +16266,11 @@ else:
 <p>最短記法：<strong>MIPS divide：商太大、除以 0，都靠 software check。</strong></p>
 <h3 id="所以除法到底會不會溢位造成-overflow">所以除法到底會不會溢位造成 overflow<a class="headerlink" href="#所以除法到底會不會溢位造成-overflow" title="Permanent link"></a></h3>
 <p>會，但要分清楚兩件事：</p>
-<p><strong>1. 數學上的除法結果會不會太大？</strong><br />
+<p><strong>1. 數學上的除法結果會不會太大？</strong><br/>
 會，尤其是 <code>signed integer division(有號整數除法)</code> 可能發生。</p>
-<p><strong>2. MIPS 的 <code>div/divu</code> 會不會自動偵測並丟 exception？</strong><br />
+<p><strong>2. MIPS 的 <code>div/divu</code> 會不會自動偵測並丟 exception？</strong><br/>
 講義 p.118 說：<strong>MIPS 的除法指令不處理滿溢偵測，所以 software(軟體) 必須自己判斷商數是否太大</strong>；同頁也說除法還要檢查 <code>divide by zero(除以 0)</code>。</p>
-<hr />
+<hr/>
 <h4 id="1-最典型的-signed-overflow-例子">1. 最典型的 signed overflow 例子<a class="headerlink" href="#1-最典型的-signed-overflow-例子" title="Permanent link"></a></h4>
 <p>假設 4-bit signed two’s complement 範圍是：</p>
 <div class="highlight"><pre><span></span><code>-8 ~ +7
@@ -16288,7 +16288,7 @@ else:
 <div class="highlight"><pre><span></span><code>+2147483647
 </code></pre></div>
 <p>所以 overflow。</p>
-<hr />
+<hr/>
 <h4 id="2-那-unsigned-division-呢">2. 那 unsigned division 呢？<a class="headerlink" href="#2-那-unsigned-division-呢" title="Permanent link"></a></h4>
 <p>如果是一般 <code>unsigned division(無號除法)</code>，而且 divisor 不是 0，通常 quotient 不會超過 dividend：</p>
 <div class="highlight"><pre><span></span><code>quotient = dividend / divisor
@@ -16323,7 +16323,7 @@ divisor &gt;= 1
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="3-你可以這樣記">3. 你可以這樣記<a class="headerlink" href="#3-你可以這樣記" title="Permanent link"></a></h4>
 <p><strong>Division overflow 不是像 addition overflow 那麼常見，但它存在。</strong></p>
 <p>最短記法：</p>
@@ -16428,7 +16428,7 @@ MIPS div/divu: hardware instruction does not trap; software checks
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="1-為什麼叫-restoring回復型">1. 為什麼叫 <code>Restoring(回復型)</code>？<a class="headerlink" href="#1-為什麼叫-restoring回復型" title="Permanent link"></a></h3>
 <p>因為它的流程是：</p>
 <div class="highlight"><pre><span></span><code>Remainder = Remainder - Divisor
@@ -16438,20 +16438,20 @@ if Remainder &lt; 0:
 else:
     quotient bit = 1
 </code></pre></div>
-<p>也就是說，一旦減過頭，就把剛剛那次減法「復原」。<br />
+<p>也就是說，一旦減過頭，就把剛剛那次減法「復原」。<br/>
 像你拿錢結帳，發現錢不夠，就把商品放回去，回到原本狀態。</p>
-<hr />
+<hr/>
 <h3 id="2-nonrestoring非回復型-在省什麼">2. <code>Nonrestoring(非回復型)</code> 在省什麼？<a class="headerlink" href="#2-nonrestoring非回復型-在省什麼" title="Permanent link"></a></h3>
-<p>非回復型除法的直覺是：<br />
+<p>非回復型除法的直覺是：<br/>
 不要每次一發現負數就馬上 restore，而是把這個狀態留到下一輪，用下一輪的加或減去補償。</p>
-<p>它不是改變除法答案，而是改變「中間步驟怎麼排」。<br />
+<p>它不是改變除法答案，而是改變「中間步驟怎麼排」。<br/>
 講義重點只要求我們知道：<code>Nonrestoring Division</code> 每個步驟只耗費 1 個時脈週期。</p>
-<hr />
+<hr/>
 <h3 id="3-nonperforming非施行型-在省什麼">3. <code>Nonperforming(非施行型)</code> 在省什麼？<a class="headerlink" href="#3-nonperforming非施行型-在省什麼" title="Permanent link"></a></h3>
-<p><code>Nonperforming Division</code> 的重點是：<br />
+<p><code>Nonperforming Division</code> 的重點是：<br/>
 有些算術操作其實做了也會被復原或沒有幫助，所以乾脆不要做。</p>
-<p>生活化例子：<br />
-如果你已經知道這次刷卡一定失敗，就不要真的刷卡再退款；直接跳過那個無效操作。<br />
+<p>生活化例子：<br/>
+如果你已經知道這次刷卡一定失敗，就不要真的刷卡再退款；直接跳過那個無效操作。<br/>
 所以講義說它平均可減少三分之一的算術運算。</p>
 <h2 id="binary-arithmetic-summary--加減乘除其實各自在重複什麼基本動作">Binary Arithmetic Summary — 加減乘除其實各自在重複什麼基本動作？<a class="headerlink" href="#binary-arithmetic-summary--加減乘除其實各自在重複什麼基本動作" title="Permanent link"></a></h2>
 <p>p.120 是 3.4 <code>Division(除法)</code> 結尾前的總結頁，把二進位四則運算壓成四句話：</p>
@@ -16489,10 +16489,10 @@ else:
 </tr>
 </tbody>
 </table>
-<p>這頁的核心不是新演算法，而是幫你把前面加、減、乘、除的共同結構收束起來：<br />
+<p>這頁的核心不是新演算法，而是幫你把前面加、減、乘、除的共同結構收束起來：<br/>
 <strong>加減是基本動作；乘法主要是重複加法；除法主要是重複減法。</strong></p>
 </div>
-<hr />
+<hr/>
 <h3 id="最短記法_4">最短記法<a class="headerlink" href="#最短記法_4" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -16522,7 +16522,7 @@ else:
 </table>
 <p>但要注意：「除法各數相除」這句容易讓人誤會成普通十進位長除法。放回本章硬體流程來看，更精準是：<strong>用減法試探 divisor 是否能扣掉，並逐步產生 quotient bit。</strong></p>
 <h2 id="floating-point--為什麼整數表示法不夠">Floating Point — 為什麼整數表示法不夠？<a class="headerlink" href="#floating-point--為什麼整數表示法不夠" title="Permanent link"></a></h2>
-<p>到目前為止，我們大多在處理 <code>Integer(整數)</code>，像 7、-3、35 這種數。<br />
+<p>到目前為止，我們大多在處理 <code>Integer(整數)</code>，像 7、-3、35 這種數。<br/>
 但很多真實世界的數字不是整數，或範圍差非常大，例如：</p>
 <table>
 <thead>
@@ -16534,12 +16534,12 @@ else:
 </thead>
 <tbody>
 <tr>
-<td>π ≈ 3.14159265&hellip;</td>
+<td>π ≈ 3.14159265…</td>
 <td>有小數且無限延伸</td>
 <td>不能只用整數精準表示</td>
 </tr>
 <tr>
-<td>e ≈ 2.71828&hellip;</td>
+<td>e ≈ 2.71828…</td>
 <td>有小數且無限延伸</td>
 <td>同樣需要小數表示</td>
 </tr>
@@ -16557,9 +16557,9 @@ else:
 </table>
 <p>所以 <code>Floating Point(浮點)</code> 要解決的核心問題是：</p>
 <p><strong>在有限 bit 數下，同時表示很小、很大、帶小數的 real numbers(實數)。</strong></p>
-<hr />
+<hr/>
 <h3 id="1-浮點到底浮在哪裡">1. 「浮」點到底浮在哪裡？<a class="headerlink" href="#1-浮點到底浮在哪裡" title="Permanent link"></a></h3>
-<p><code>Fixed Point(定點)</code> 像尺上的刻度：小數點位置固定。<br />
+<p><code>Fixed Point(定點)</code> 像尺上的刻度：小數點位置固定。<br/>
 例如你規定永遠保留 3 位小數，那所有數都長得像：</p>
 <table>
 <thead>
@@ -16588,16 +16588,16 @@ else:
 </tbody>
 </table>
 <p><code>Floating Point(浮點)</code> 的想法比較像 scientific notation(科學記號)：</p>
-<p>3,155,760,000 可以寫成 3.15576 × 10^9<br />
+<p>3,155,760,000 可以寫成 3.15576 × 10^9<br/>
 0.000000001 可以寫成 1.0 × 10^-9</p>
 <p>小數點不是固定在某個位置，而是靠 exponent(指數) 移動位置。這就是「浮」的意思。</p>
-<hr />
+<hr/>
 <h3 id="2-本章接下來會把十進位科學記號搬到二進位">2. 本章接下來會把十進位科學記號搬到二進位<a class="headerlink" href="#2-本章接下來會把十進位科學記號搬到二進位" title="Permanent link"></a></h3>
 <p>十進位中我們用：</p>
 <p><code>1.23 × 10^4</code></p>
 <p>二進位浮點會用類似形式：</p>
 <p><code>1.xxxxx₂ × 2^yyyy</code></p>
-<p>現在先抓核心直覺即可：<br />
+<p>現在先抓核心直覺即可：<br/>
 <code>Sign(符號)</code> 決定正負，<code>Significand / Fraction(有效數／分數)</code> 決定有效數字，<code>Exponent(指數)</code> 決定小數點要往哪裡移。</p>
 <h2 id="scientific-notation-and-normalization--為什麼浮點數通常寫成-1x--2e">Scientific Notation and Normalization — 為什麼浮點數通常寫成 1.x × 2^E？<a class="headerlink" href="#scientific-notation-and-normalization--為什麼浮點數通常寫成-1x--2e" title="Permanent link"></a></h2>
 <p>這頁正式把 <code>Floating Point(浮點)</code> 定義出來。</p>
@@ -16622,17 +16622,17 @@ else:
 </tbody>
 </table>
 <p>例如十進位：</p>
-<p>3,155,760,000 可以寫成 3.15576 × 10^9。<br />
+<p>3,155,760,000 可以寫成 3.15576 × 10^9。<br/>
 0.000000001 可以寫成 1.0 × 10^-9。</p>
 <p>二進位浮點也是同一個精神，只是底數從 10 變成 2。</p>
-<hr />
+<hr/>
 <h3 id="2-normalized常規化-是什麼">2. <code>Normalized(常規化)</code> 是什麼？<a class="headerlink" href="#2-normalized常規化-是什麼" title="Permanent link"></a></h3>
 <p>講義說：科學記號法在小數點左方具有一個位數；如果表示的數字不是以 0 開頭，就稱為 <code>normalized(常規化)</code> 的數。</p>
-<p>在二進位中，常規化後的小數點左邊會有一個非零位元。<br />
+<p>在二進位中，常規化後的小數點左邊會有一個非零位元。<br/>
 但二進位的非零位元只可能是 <code>1</code>，所以二進位常規化浮點通常長這樣：</p>
 <p><code>1.xxxxxxxxx₂ × 2^yyyy</code></p>
 <p>這就是為什麼你常看到浮點數寫成 <code>1.xxx × 2^E</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼常規化有用">3. 為什麼常規化有用？<a class="headerlink" href="#3-為什麼常規化有用" title="Permanent link"></a></h3>
 <p>常規化的好處是：表示方式比較唯一，也比較不浪費有效數字。</p>
 <p>例如十進位的 123 可以寫成很多種：</p>
@@ -16709,21 +16709,21 @@ else:
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="1-正指數小數點往右移">1. 正指數：小數點往右移<a class="headerlink" href="#1-正指數小數點往右移" title="Permanent link"></a></h3>
 <p>例如：</p>
 <p><code>1.011₂ × 2²</code></p>
 <p>代表把 binary point 往右移 2 位：</p>
 <p><code>1.011₂ → 101.1₂</code></p>
 <p>所以指數 <code>+2</code> 代表數值變大。</p>
-<hr />
+<hr/>
 <h3 id="2-負指數小數點往左移">2. 負指數：小數點往左移<a class="headerlink" href="#2-負指數小數點往左移" title="Permanent link"></a></h3>
 <p>例如：</p>
 <p><code>1.011₂ × 2^-2</code></p>
 <p>代表把 binary point 往左移 2 位：</p>
 <p><code>1.011₂ → 0.01011₂</code></p>
 <p>所以指數 <code>-2</code> 代表數值變小。</p>
-<hr />
+<hr/>
 <h3 id="3-考試最短記法">3. 考試最短記法<a class="headerlink" href="#3-考試最短記法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -16784,7 +16784,7 @@ else:
 <p>binary point 往左移 3 位：</p>
 <p><code>1.001₂ → 0.001001₂</code></p>
 <p>所以它表示比較小的數。</p>
-<hr />
+<hr/>
 <h3 id="容易錯的地方">容易錯的地方<a class="headerlink" href="#容易錯的地方" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -16838,7 +16838,7 @@ else:
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="1-single-precision單精確度32-bit">1. Single Precision(單精確度)：32-bit<a class="headerlink" href="#1-single-precision單精確度32-bit" title="Permanent link"></a></h3>
 <p>p.126 圖中 single precision 的欄位是：</p>
 <table>
@@ -16870,7 +16870,7 @@ else:
 <p>講義右邊公式寫成：</p>
 <p><code>(±)1.F × 2^(E−127)</code></p>
 <p>這裡的 <code>127</code> 是 <code>bias(偏移值)</code>。現在先記住：<strong>Exponent 欄位存的不是直接的真實指數，而是加過 bias 的值。</strong></p>
-<hr />
+<hr/>
 <h3 id="2-double-precision雙精確度64-bit">2. Double Precision(雙精確度)：64-bit<a class="headerlink" href="#2-double-precision雙精確度64-bit" title="Permanent link"></a></h3>
 <p>double precision 的欄位是：</p>
 <table>
@@ -16902,9 +16902,9 @@ else:
 <p>講義右邊公式寫成：</p>
 <p><code>(±)1.F × 2^(E−1023)</code></p>
 <p>double precision 有更多 exponent bits 與 fraction bits，所以能表示更大的範圍，也能保留更高精度。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼-fraction-只存-f不是存完整-1f">3. 為什麼 Fraction 只存 <code>.F</code>，不是存完整 <code>1.F</code>？<a class="headerlink" href="#3-為什麼-fraction-只存-f不是存完整-1f" title="Permanent link"></a></h3>
-<p>因為 normalized binary number 的小數點左邊一定是 <code>1</code>。<br />
+<p>因為 normalized binary number 的小數點左邊一定是 <code>1</code>。<br/>
 既然永遠知道它是 <code>1</code>，就不用真的存，這個 1 之後會叫做 <code>implicit leading 1(隱含前導 1)</code>。</p>
 <p>現在先抓住：</p>
 <table>
@@ -16928,8 +16928,8 @@ else:
 <h3 id="4-要注意">4. 要注意<a class="headerlink" href="#4-要注意" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Sign,Exponent,Fraction<br />
-1,8,23 = 32  ,-127  , (±)1.F × 2^(E−127)<br />
+<p>Sign,Exponent,Fraction<br/>
+1,8,23 = 32  ,-127  , (±)1.F × 2^(E−127)<br/>
 1,11,52 = 64  ,-1023 , (±)1.F × 2^(E−1023)</p>
 <p>要注意 Fraction 欄位是小數點後的，不包含 1 ，如：(±)1. <mark>F</mark> × 2^(E−127)。因為小數點前面一定是 1 ，不需要寫。</p>
 </div>
@@ -16989,12 +16989,12 @@ else:
 Exponent = 10101101
 Fraction = 01101101011000000000000
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="2-sign-bit-決定正負">2. Sign bit 決定正負<a class="headerlink" href="#2-sign-bit-決定正負" title="Permanent link"></a></h3>
-<p><code>Sign = 1</code> 代表這個數是負數。<br />
+<p><code>Sign = 1</code> 代表這個數是負數。<br/>
 <code>Sign = 0</code> 才是正數。</p>
 <p>所以這題最後一定會是負值。</p>
-<hr />
+<hr/>
 <h3 id="3-exponent-欄位要扣掉-bias">3. Exponent 欄位要扣掉 bias<a class="headerlink" href="#3-exponent-欄位要扣掉-bias" title="Permanent link"></a></h3>
 <p>Single precision 的公式是：</p>
 <div class="highlight"><pre><span></span><code>value = (-1)^S × 1.F × 2^(E - 127)
@@ -17009,7 +17009,7 @@ Fraction = 01101101011000000000000
 <p>所以真實指數是：</p>
 <div class="highlight"><pre><span></span><code>173 - 127 = 46
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="4-fraction-要補回隱含前導-1">4. Fraction 要補回隱含前導 1<a class="headerlink" href="#4-fraction-要補回隱含前導-1" title="Permanent link"></a></h3>
 <p>Fraction 欄位是：</p>
 <div class="highlight"><pre><span></span><code>01101101011000000000000
@@ -17022,7 +17022,7 @@ Fraction = 01101101011000000000000
 <div class="highlight"><pre><span></span><code>-1.01101101011000000000000₂ × 2^46
 </code></pre></div>
 <p>這已經是正確的解碼形式。若題目要求十進位值，下一步才把 significand 和 <code>2^46</code> 展開。</p>
-<hr />
+<hr/>
 <h3 id="5-最短流程">5. 最短流程<a class="headerlink" href="#5-最短流程" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17057,7 +17057,7 @@ Fraction = 01101101011000000000000
 <h3 id="為何要偏移-127-和-1023">為何要偏移 127 和 1023<a class="headerlink" href="#為何要偏移-127-和-1023" title="Permanent link"></a></h3>
 <p>對，<code>127</code> 和 <code>1023</code> 的核心目的就是：<strong>用 unsigned bits(無號位元) 來方便地表示 signed exponent(有正負的真實指數)</strong>。</p>
 <p>講義後面會正式說這叫 <code>biased notation(偏移表示法)</code>，並提到 IEEE 754 single precision 使用 <code>127</code> 作為偏移值；前面 p.126 的公式也已經先出現 single 用 <code>E−127</code>、double 用 <code>E−1023</code>。 </p>
-<hr />
+<hr/>
 <h4 id="1-為什麼-exponent-需要偏移">1. 為什麼 exponent 需要偏移？<a class="headerlink" href="#1-為什麼-exponent-需要偏移" title="Permanent link"></a></h4>
 <p>浮點數的真實指數可能是正的，也可能是負的：</p>
 <table>
@@ -17088,7 +17088,7 @@ Fraction = 01101101011000000000000
 true exponent = stored exponent - bias
 </code></pre></div>
 <p>這樣 exponent 欄位本身可以當作 unsigned integer 來存。</p>
-<hr />
+<hr/>
 <h4 id="2-為什麼-single-是-127">2. 為什麼 single 是 127？<a class="headerlink" href="#2-為什麼-single-是-127" title="Permanent link"></a></h4>
 <p>Single precision 的 exponent 欄位有 8 bits。</p>
 <p>8 bits 可以表示：</p>
@@ -17125,7 +17125,7 @@ true exponent = stored exponent - bias
 </tbody>
 </table>
 <p>也就是說，<code>127</code> 讓真實指數 <code>0</code> 可以剛好落在 exponent 編碼範圍中間附近。</p>
-<hr />
+<hr/>
 <h4 id="3-為什麼-double-是-1023">3. 為什麼 double 是 1023？<a class="headerlink" href="#3-為什麼-double-是-1023" title="Permanent link"></a></h4>
 <p>Double precision 的 exponent 欄位有 11 bits。</p>
 <p>11 bits 可以表示：</p>
@@ -17158,7 +17158,7 @@ true exponent = stored exponent - bias
 </tbody>
 </table>
 <p>概念和 single 完全一樣，只是 double 的 exponent 欄位比較長，所以 bias 也比較大。</p>
-<hr />
+<hr/>
 <h4 id="4-為什麼不是-128-或-1024">4. 為什麼不是 128 或 1024？<a class="headerlink" href="#4-為什麼不是-128-或-1024" title="Permanent link"></a></h4>
 <p>因為 IEEE 754 通常用：</p>
 <div class="highlight"><pre><span></span><code>bias = 2^(k−1) − 1
@@ -17218,7 +17218,7 @@ true exponent = stored exponent - bias
 =&gt; 1 − 1023 ~ 2046 − 1023
 =&gt; -1022 ~ +1023
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -17253,9 +17253,9 @@ true exponent = stored exponent - bias
 <p>一句話：<strong>127 和 1023 是 IEEE 754 用來把有正負的 exponent 平移成無號欄位的偏移量。</strong></p>
 <h2 id="floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision">Floating-Point Encoding — 給你一個二進位小數時，怎麼編成 IEEE 754 single precision？<a class="headerlink" href="#floating-point-encoding--給你一個二進位小數時怎麼編成-ieee-754-single-precision" title="Permanent link"></a></h2>
 <h3 id="1-編碼和解碼剛好反過來">1. 編碼和解碼剛好反過來<a class="headerlink" href="#1-編碼和解碼剛好反過來" title="Permanent link"></a></h3>
-<p>剛剛 p.127 是 decoding(解碼)：<br />
+<p>剛剛 p.127 是 decoding(解碼)：<br/>
 已知 32-bit pattern，拆成 <code>S / E / F</code>，再還原成數值。</p>
-<p>p.128 開始是 encoding(編碼)：<br />
+<p>p.128 開始是 encoding(編碼)：<br/>
 已知一個二進位數，要把它塞進 single precision 的三個欄位：</p>
 <table>
 <thead>
@@ -17279,15 +17279,15 @@ true exponent = stored exponent - bias
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="2-第一步先把原數常規化">2. 第一步：先把原數常規化<a class="headerlink" href="#2-第一步先把原數常規化" title="Permanent link"></a></h3>
 <p>講義給的數是：</p>
 <p><code>0.000000110110100101₂</code></p>
 <p>第一個 <code>1</code> 出現在小數點後第 7 位，所以要把 binary point 往右移 7 位，變成：</p>
 <p><code>1.10110100101₂ × 2^-7</code></p>
-<p>注意這裡最容易錯：<br />
+<p>注意這裡最容易錯：<br/>
 binary point「為了常規化」是往右移 7 位，但為了保持原值不變，指數要寫成 <code>−7</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-第二步決定-sign-和-exponent">3. 第二步：決定 Sign 和 Exponent<a class="headerlink" href="#3-第二步決定-sign-和-exponent" title="Permanent link"></a></h3>
 <p>這個數是正數，所以：</p>
 <p><code>Sign = 0</code></p>
@@ -17298,7 +17298,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 <p><code>120₁₀ = 01111000₂</code></p>
 <p>所以：</p>
 <p><code>Exponent = 01111000</code></p>
-<hr />
+<hr/>
 <h3 id="4-第三步決定-fraction">4. 第三步：決定 Fraction<a class="headerlink" href="#4-第三步決定-fraction" title="Permanent link"></a></h3>
 <p>常規化後是：</p>
 <p><code>1.10110100101₂ × 2^-7</code></p>
@@ -17307,7 +17307,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 <p><code>F = 10110100101</code></p>
 <p>但 single precision fraction 欄位要 23 bits，所以右邊補 0：</p>
 <p><code>Fraction = 10110100101000000000000</code></p>
-<hr />
+<hr/>
 <h3 id="5-最後組合成-32-bits">5. 最後組合成 32 bits<a class="headerlink" href="#5-最後組合成-32-bits" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17337,7 +17337,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 <h3 id="1-第一個好處簡化資料交換">1. 第一個好處：簡化資料交換<a class="headerlink" href="#1-第一個好處簡化資料交換" title="Permanent link"></a></h3>
 <p>如果每台機器都用自己的浮點格式，那同一串 bits 在不同電腦上可能代表不同數值。</p>
 <p>IEEE 754 這類 standardized format(標準化格式) 的價值是：大家都知道 <code>sign / exponent / fraction</code> 怎麼切、bias 怎麼扣、fraction 怎麼補 implicit leading 1。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 就像大家約定身分證格式或日期格式。如果有人寫 <code>2026-05-13</code>，大家比較容易知道它是年月日；但如果每個國家、每個系統都自己定義格式，資料交換就會變得很麻煩。</p>
 <h3 id="2-第二個好處簡化浮點算術演算法">2. 第二個好處：簡化浮點算術演算法<a class="headerlink" href="#2-第二個好處簡化浮點算術演算法" title="Permanent link"></a></h3>
 <p>浮點數若都被整理成類似 <code>1.F × 2^E</code> 的 normalized form(常規化形式)，硬體做加、減、乘、除時就比較有固定流程可依循。</p>
@@ -17363,7 +17363,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 <p>原本前面一堆 0 很浪費位置；常規化後，我們把真正有資訊量的 <code>1101...</code> 放進 fraction，讓有限 bits 儘量拿來存有效數字。</p>
 <h2 id="floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大">Floating-Point Trade-off — 為什麼 exponent 和 fraction 不能都無限大？<a class="headerlink" href="#floating-point-trade-off--為什麼-exponent-和-fraction-不能都無限大" title="Permanent link"></a></h2>
 <h3 id="1-固定-word-size字組大小-代表資源有限">1. 固定 word size(字組大小) 代表資源有限<a class="headerlink" href="#1-固定-word-size字組大小-代表資源有限" title="Permanent link"></a></h3>
-<p>浮點數通常要塞進固定長度的 word，例如 single precision 是 32 bits。<br />
+<p>浮點數通常要塞進固定長度的 word，例如 single precision 是 32 bits。<br/>
 扣掉 <code>sign bit(符號位元)</code> 後，剩下的 bits 要分給：</p>
 <table>
 <thead>
@@ -17383,10 +17383,10 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 </tr>
 </tbody>
 </table>
-<p>所以這是一個資源分配問題：<br />
+<p>所以這是一個資源分配問題：<br/>
 如果 exponent 多拿一些 bits，fraction 就會少一些；如果 fraction 多拿一些 bits，exponent 就會少一些。</p>
 <h3 id="2-增加-fraction-會提高-precision精度">2. 增加 fraction 會提高 precision(精度)<a class="headerlink" href="#2-增加-fraction-會提高-precision精度" title="Permanent link"></a></h3>
-<p><code>Fraction(分數)</code> 越長，能保留的有效位元越多。<br />
+<p><code>Fraction(分數)</code> 越長，能保留的有效位元越多。<br/>
 這代表數字可以表示得更細、更接近原本的實數。</p>
 <p>例如你用尺量長度：</p>
 <table>
@@ -17413,7 +17413,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 </table>
 <p>fraction bits 就像刻度細緻度。fraction 越多，數字越不容易因為位元不夠而被截斷或四捨五入得太粗。</p>
 <h3 id="3-增加-exponent-會擴大-range範圍">3. 增加 exponent 會擴大 range(範圍)<a class="headerlink" href="#3-增加-exponent-會擴大-range範圍" title="Permanent link"></a></h3>
-<p><code>Exponent(指數)</code> 越長，可以表示的小數點移動範圍越大。<br />
+<p><code>Exponent(指數)</code> 越長，可以表示的小數點移動範圍越大。<br/>
 也就是可以表示更大的數，也可以表示更接近 0 的小數。</p>
 <p>但 exponent 多不代表數字更精細；它只是讓可表示的尺度變廣。</p>
 <table>
@@ -17461,7 +17461,7 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 </table>
 <p>所以 <code>S</code> 不負責大小，也不負責小數點位置；它只負責正負號。</p>
 <h3 id="2-f-負責有效數字長什麼樣">2. <code>F</code> 負責有效數字長什麼樣<a class="headerlink" href="#2-f-負責有效數字長什麼樣" title="Permanent link"></a></h3>
-<p>公式中的 <code>F</code> 可以先理解成 significand(有效數字)。<br />
+<p>公式中的 <code>F</code> 可以先理解成 significand(有效數字)。<br/>
 它決定「這個數字本體長什麼樣」。</p>
 <p>例如：</p>
 <p><code>1.101₂ × 2^3</code></p>
@@ -17495,16 +17495,16 @@ binary point「為了常規化」是往右移 7 位，但為了保持原值不�
 <p><strong>Sign 決定正負，F 決定有效數字，E 決定尺度。</strong></p>
 <h2 id="floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小">Floating-Point Overflow and Underflow — 浮點數什麼時候會太大或太小？<a class="headerlink" href="#floating-point-overflow-and-underflow--浮點數什麼時候會太大或太小" title="Permanent link"></a></h2>
 <h3 id="1-overflow滿溢指數太大超出-exponent-field-可表示範圍">1. Overflow(滿溢)：指數太大，超出 exponent field 可表示範圍<a class="headerlink" href="#1-overflow滿溢指數太大超出-exponent-field-可表示範圍" title="Permanent link"></a></h3>
-<p>浮點數的大小主要由 <code>exponent(指數)</code> 控制。<br />
+<p>浮點數的大小主要由 <code>exponent(指數)</code> 控制。<br/>
 如果一個數太大，需要的 exponent 超過 exponent field 能表示的最大值，就會發生 <code>overflow(滿溢)</code>。</p>
-<p>直覺例子：<br />
+<p>直覺例子：<br/>
 如果格式只能表示到 <code>×2^127</code>，但計算結果需要 <code>×2^200</code>，那 exponent 欄位裝不下，這就是 overflow。</p>
 <p>所以 floating-point overflow 不是 fraction 不夠精細，而是「尺度太大」。</p>
 <h3 id="2-underflow短值負指數太大太接近-0-而裝不下">2. Underflow(短值)：負指數太大，太接近 0 而裝不下<a class="headerlink" href="#2-underflow短值負指數太大太接近-0-而裝不下" title="Permanent link"></a></h3>
-<p><code>Underflow(短值)</code> 是另一個方向：數字太小、太接近 0。<br />
+<p><code>Underflow(短值)</code> 是另一個方向：數字太小、太接近 0。<br/>
 如果一個數需要非常大的負 exponent，例如 <code>×2^-200</code>，但 exponent field 最小只能表示到大約 <code>×2^-126</code>，那也裝不下。</p>
 <p>講義中文寫「當負的指數大到指數欄位無法容納時」，意思就是：需要表示的負 exponent 太極端，導致數字小到格式無法正常表示。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量不到。</p>
 <h3 id="3-為什麼更大的-exponent-field-可以降低-overflow--underflow">3. 為什麼更大的 exponent field 可以降低 overflow / underflow？<a class="headerlink" href="#3-為什麼更大的-exponent-field-可以降低-overflow--underflow" title="Permanent link"></a></h3>
 <p>因為 exponent field 越大，可表示的 exponent 範圍越廣。</p>
@@ -17526,7 +17526,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </tr>
 </tbody>
 </table>
-<p>這也呼應前一頁的 trade-off：<br />
+<p>這也呼應前一頁的 trade-off：<br/>
 如果我們把更多 bits 給 exponent，就能擴大 range；如果把更多 bits 給 fraction，就能提高 precision。</p>
 <h3 id="4-double-precision雙精確度-的角色">4. Double precision(雙精確度) 的角色<a class="headerlink" href="#4-double-precision雙精確度-的角色" title="Permanent link"></a></h3>
 <p>講義 p.133 接著說，降低 short value 或 overflow 可能性的一種方式，是提供更大的 exponent field；C 語言中這類數字稱為 <code>double</code>，對應 <code>double precision floating-point arithmetic(雙精確度浮點算術)</code>。</p>
@@ -17537,12 +17537,12 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>significand 翻譯成 「有效數字」</p>
-<p>就是 <code>-1.101 * 2^9</code> 的 <code>-1.101</code><br />
+<p>就是 <code>-1.101 * 2^9</code> 的 <code>-1.101</code><br/>
 也就是說科學記號可以寫成 <code>significand × 2^exponent</code></p>
 </div>
 <p>浮點數長得像：</p>
 <p><code>significand × 2^exponent</code></p>
-<p>所以兩個浮點數相加前，必須先讓它們的 exponent 相同。<br />
+<p>所以兩個浮點數相加前，必須先讓它們的 exponent 相同。<br/>
 這就像十進位加法中，不能直接把「幾百」和「幾十分之一」的數字位數亂加；要先對齊位值。</p>
 <p>p.137 的例子是：</p>
 <p><code>0.5₁₀ + (−0.4375₁₀)</code></p>
@@ -17568,7 +17568,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <h3 id="2-對齊-exponent把較小-exponent-的數右移">2. 對齊 exponent：把較小 exponent 的數右移<a class="headerlink" href="#2-對齊-exponent把較小-exponent-的數右移" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>兩個 exponent 分別是 <code>-1</code> 和 <code>-2</code>。<br />
+<p>兩個 exponent 分別是 <code>-1</code> 和 <code>-2</code>。<br/>
 加法時要對齊到較大的 exponent，也就是 <code>-1</code>。</p>
 </div>
 <p>所以把：</p>
@@ -17679,7 +17679,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <p>其中 1.101₂ 就是 significand(有效數字)。</p>
 <h2 id="floating-point-addition-datapath--浮點加法流程怎麼變成硬體">Floating-Point Addition Datapath — 浮點加法流程怎麼變成硬體？<a class="headerlink" href="#floating-point-addition-datapath--浮點加法流程怎麼變成硬體" title="Permanent link"></a></h2>
 <h3 id="1-先用小-alu-比較兩個-exponent">1. 先用小 ALU 比較兩個 exponent<a class="headerlink" href="#1-先用小-alu-比較兩個-exponent" title="Permanent link"></a></h3>
-<p>浮點加法第一步是 align exponents(對齊指數)。<br />
+<p>浮點加法第一步是 align exponents(對齊指數)。<br/>
 硬體要先知道兩個 operand 哪一個 exponent 比較大、差多少。</p>
 <p>所以圖 3.15 先用一個小 <code>ALU(算術邏輯單元)</code> 去做：</p>
 <p><code>Exponent A − Exponent B</code></p>
@@ -17702,10 +17702,10 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </tr>
 </tbody>
 </table>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 像你要把「公尺」和「公分」加起來，不能直接把數字相加，要先知道單位差多少，先換成同一個單位。</p>
 <h3 id="2-差值控制-multiplexers多工器">2. 差值控制 multiplexers(多工器)<a class="headerlink" href="#2-差值控制-multiplexers多工器" title="Permanent link"></a></h3>
-<p>講義說這個差值會控制三個 <code>multiplexer(多工器)</code>。<br />
+<p>講義說這個差值會控制三個 <code>multiplexer(多工器)</code>。<br/>
 多工器可以想成「選擇器」，根據控制訊號選其中一路資料輸出。</p>
 <p>三個多工器大致負責選：</p>
 <table>
@@ -17732,10 +17732,10 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </table>
 <p>也就是說，硬體不是用人眼判斷誰大誰小，而是用 exponent subtraction 的結果控制資料走哪條路。</p>
 <h3 id="3-將較小數的-significand-右移後再做-signed-addition">3. 將較小數的 significand 右移後再做 signed addition<a class="headerlink" href="#3-將較小數的-significand-右移後再做-signed-addition" title="Permanent link"></a></h3>
-<p>前面我們已經修正過記法：<br />
+<p>前面我們已經修正過記法：<br/>
 浮點加法不是永遠把兩個正的 significand 直接相加，而是：</p>
 <p><strong>帶著 sign 做 signed significand addition。</strong></p>
-<p>在硬體流程中，較小 exponent 的那個 significand 會先右移，對齊到較大的 exponent。<br />
+<p>在硬體流程中，較小 exponent 的那個 significand 會先右移，對齊到較大的 exponent。<br/>
 接著大 ALU 才處理 significand operation。</p>
 <p>例如概念上是：</p>
 <p><code>(+1.000₂) + (−0.111₂)</code></p>
@@ -17745,11 +17745,11 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <p>significand 做完 signed addition 後，結果可能不是 normalized form。</p>
 <p>例如：</p>
 <p><code>0.001₂ × 2^-1</code></p>
-<p>這不是 normalized form，因為小數點左邊不是 <code>1</code>。<br />
+<p>這不是 normalized form，因為小數點左邊不是 <code>1</code>。<br/>
 所以要 normalize 成：</p>
 <p><code>1.000₂ × 2^-4</code></p>
 <p>講義圖 3.15 也說，normalize 會把總和左移或右移，並對 exponent 做遞增或遞減；rounding 後得到最後結果，但如果 rounding 又讓結果變成非常規化，可能還需要再 normalize 一次。</p>
-<hr />
+<hr/>
 <h3 id="最短記法_5">最短記法<a class="headerlink" href="#最短記法_5" title="Permanent link"></a></h3>
 <p>圖 3.15 的硬體流程可以記成：</p>
 <table>
@@ -17783,7 +17783,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </tbody>
 </table>
 <h3 id="三個多工器到底是啥">三個多工器到底是啥<a class="headerlink" href="#三個多工器到底是啥" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%203-6.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-6.png"/></p>
 <p>這三個多工器要來選擇誰是較大的 exponent 、較小數的 significand、較大數的 significand</p>
 <h4 id="1-多工器到底在幹嘛">1. 多工器到底在幹嘛？<a class="headerlink" href="#1-多工器到底在幹嘛" title="Permanent link"></a></h4>
 <p><code>Multiplexer(多工器)</code> 不是拿來算加法的。</p>
@@ -17793,7 +17793,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </code></pre></div>
 <p>所以你可以先記：</p>
 <p><strong>多工器 = 硬體版的選擇器。</strong></p>
-<hr />
+<hr/>
 <h4 id="2-用例子看會比較清楚">2. 用例子看會比較清楚<a class="headerlink" href="#2-用例子看會比較清楚" title="Permanent link"></a></h4>
 <p>假設有兩個浮點數：</p>
 <table>
@@ -17852,7 +17852,7 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 <p>然後才可以相加：</p>
 <div class="highlight"><pre><span></span><code>(+1.100₂ × 2^5) + (+0.01010₂ × 2^5)
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="3-那張表其實可以改成這樣記">3. 那張表其實可以改成這樣記<a class="headerlink" href="#3-那張表其實可以改成這樣記" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -17882,18 +17882,18 @@ overflow 像水桶裝不下太多水；underflow 像秤太粗，輕到幾乎量�
 </table>
 <p>所以最重要的是：</p>
 <p><strong>不是三個多工器各自亂選，而是同一個 exponent 比較結果，同時告訴三個多工器該選 A 還是 B。</strong></p>
-<hr />
+<hr/>
 <h4 id="4-最短記法">4. 最短記法<a class="headerlink" href="#4-最短記法" title="Permanent link"></a></h4>
 <p>圖 3.15 這段你可以只記：</p>
 <blockquote>
-<p>先比較 exponent。<br />
-exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<br />
+<p>先比較 exponent。<br/>
+exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<br/>
 多工器只是負責幫硬體選出「誰大、誰小」。</p>
 </blockquote>
 <h2 id="floating-point-multiplication--浮點乘法和浮點加法到底差在哪">Floating-Point Multiplication — 浮點乘法和浮點加法到底差在哪？<a class="headerlink" href="#floating-point-multiplication--浮點乘法和浮點加法到底差在哪" title="Permanent link"></a></h2>
 <h3 id="1-浮點加法要先-align-exponents但乘法不用">1. 浮點加法要先 align exponents，但乘法不用<a class="headerlink" href="#1-浮點加法要先-align-exponents但乘法不用" title="Permanent link"></a></h3>
 <p>浮點加法麻煩在：兩個數要先對齊 exponent，significand 才能相加。</p>
-<p>但浮點乘法不一樣。<br />
+<p>但浮點乘法不一樣。<br/>
 如果兩個數是：</p>
 <p><code>A × 10^x</code> 和 <code>B × 10^y</code></p>
 <p>相乘時會變成：</p>
@@ -17924,7 +17924,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 <p>講義範例第一步就是把指數相加：</p>
 <p><code>10 + (-5) = 5</code></p>
 <p>所以新 exponent 先得到 <code>5</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-若用-biased-exponent要記得只扣一次-bias">2. 若用 biased exponent，要記得只扣一次 bias<a class="headerlink" href="#2-若用-biased-exponent要記得只扣一次-bias" title="Permanent link"></a></h3>
 <p>這裡很容易錯。</p>
 <p>如果你直接拿 true exponent 做乘法：</p>
@@ -17933,7 +17933,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 <p>但 IEEE 754 裡面 exponent field 存的是 biased exponent。以 single precision 為例：</p>
 <p><code>true exponent + 127</code></p>
 <p>所以：</p>
-<p><code>10</code> 存成 <code>10 + 127 = 137</code><br />
+<p><code>10</code> 存成 <code>10 + 127 = 137</code><br/>
 <code>-5</code> 存成 <code>-5 + 127 = 122</code></p>
 <p>如果直接相加：</p>
 <p><code>137 + 122 = 259</code></p>
@@ -17960,15 +17960,15 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="3-接著把-significands-相乘">3. 接著把 significands 相乘<a class="headerlink" href="#3-接著把-significands-相乘" title="Permanent link"></a></h3>
 <p>講義範例的有效數字相乘是：</p>
 <p><code>1.110 × 9.200 = 10.212000</code></p>
-<p>因為假設每個 operand 小數點右方都有三位，所以乘完後小數點右方會有六位。<br />
+<p>因為假設每個 operand 小數點右方都有三位，所以乘完後小數點右方會有六位。<br/>
 如果只能保留小數點右方三位，會先寫成：</p>
 <p><code>10.212 × 10^5</code></p>
 <p>這時注意：<code>10.212</code> 還不是 normalized form，因為科學記號左邊應該只留一位非零數字。</p>
-<hr />
+<hr/>
 <h3 id="4-normalize乘完後可能需要把-significand-右移">4. Normalize：乘完後可能需要把 significand 右移<a class="headerlink" href="#4-normalize乘完後可能需要把-significand-右移" title="Permanent link"></a></h3>
 <p><code>10.212 × 10^5</code></p>
 <p>要 normalize 成：</p>
@@ -17976,7 +17976,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 <p>因為 significand 從 <code>10.212</code> 右移成 <code>1.0212</code>，所以 exponent 要加 <code>1</code>。</p>
 <p>這和浮點加法一樣：最後結果必須回到 normalized form。</p>
 <p>但乘法常見情況是：兩個 normalized significand 相乘後，結果可能介於 <code>1.x</code> 到接近 <code>4</code> 之間，所以有時需要右移一位並讓 exponent 加 1。</p>
-<hr />
+<hr/>
 <h3 id="5-round再決定-sign">5. Round，再決定 sign<a class="headerlink" href="#5-round再決定-sign" title="Permanent link"></a></h3>
 <p>講義範例假設有效數字只保留四位，所以：</p>
 <p><code>1.0212 × 10^6</code></p>
@@ -18003,7 +18003,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 </table>
 <p>講義範例兩個 operand 都是正，所以結果是：</p>
 <p><code>+1.021 × 10^6</code></p>
-<hr />
+<hr/>
 <h3 id="最短記法_6">最短記法<a class="headerlink" href="#最短記法_6" title="Permanent link"></a></h3>
 <p>浮點乘法流程：</p>
 <table>
@@ -18060,7 +18060,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 </tbody>
 </table>
 <h2 id="floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體">Floating-Point Multiplication Datapath — 浮點乘法流程怎麼變成硬體？<a class="headerlink" href="#floating-point-multiplication-datapath--浮點乘法流程怎麼變成硬體" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-7.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-7.png"/></p>
 <h3 id="1-exponent-path指數路徑先加-exponent再修正-bias">1. Exponent path(指數路徑)：先加 exponent，再修正 bias<a class="headerlink" href="#1-exponent-path指數路徑先加-exponent再修正-bias" title="Permanent link"></a></h3>
 <p>浮點乘法中，指數部分不是對齊，而是相加。</p>
 <p>如果用 true exponent：</p>
@@ -18131,7 +18131,7 @@ exponent 大的那邊不用動；exponent 小的那邊 significand 要右移。<
 </table>
 <p>所以硬體可以一開始就算好 sign，只是最後才和 exponent、fraction 組合回完整 floating-point result。</p>
 <h3 id="4-normalize--round最後仍然要塞回固定格式">4. Normalize / Round：最後仍然要塞回固定格式<a class="headerlink" href="#4-normalize--round最後仍然要塞回固定格式" title="Permanent link"></a></h3>
-<p>乘完 significands 後，結果可能不是 normalized form，所以要 normalize。<br />
+<p>乘完 significands 後，結果可能不是 normalized form，所以要 normalize。<br/>
 Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 <p>講義圖 3.16 特別提醒：正常路徑會執行 normalize 與 round 各一次；但如果 rounding 造成結果又變成非常規化，就必須再次 normalize。</p>
 <p>最短理解：</p>
@@ -18163,12 +18163,12 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </table>
 <h2 id="accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入">Accurate Arithmetic and Rounding — 為什麼浮點數還要額外位元幫忙捨入？<a class="headerlink" href="#accurate-arithmetic-and-rounding--為什麼浮點數還要額外位元幫忙捨入" title="Permanent link"></a></h2>
 <h3 id="1-浮點數常常只是近似值">1. 浮點數常常只是近似值<a class="headerlink" href="#1-浮點數常常只是近似值" title="Permanent link"></a></h3>
-<p>很多 real numbers(實數) 沒辦法被有限 bits 完全表示。<br />
+<p>很多 real numbers(實數) 沒辦法被有限 bits 完全表示。<br/>
 例如十進位的 <code>0.1</code> 在二進位中通常無法有限表示，所以電腦裡存的會是很接近 <code>0.1</code> 的某個值，而不一定是數學上完全精確的 <code>0.1</code>。</p>
 <p>所以浮點運算的核心問題不是只有「怎麼算」，還有：</p>
 <p><strong>算完以後，如何把結果近似成格式能存的值，而且誤差盡量小。</strong></p>
 <h3 id="2-guard-bit-和-round-bit-是中間計算用的額外位元">2. Guard bit 和 round bit 是中間計算用的額外位元<a class="headerlink" href="#2-guard-bit-和-round-bit-是中間計算用的額外位元" title="Permanent link"></a></h3>
-<p>講義說，為了精準 rounding，硬體在計算中會使用額外 bits。<br />
+<p>講義說，為了精準 rounding，硬體在計算中會使用額外 bits。<br/>
 在加法過程中，右邊會多帶兩個額外位元：</p>
 <table>
 <thead>
@@ -18191,13 +18191,13 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </tr>
 </tbody>
 </table>
-<p>直覺例子：<br />
+<p>直覺例子：<br/>
 你最後只能存到小數點後三位，但中間先多算到小數點後五位，這樣才能判斷 <code>1.2349</code> 應該存成 <code>1.235</code>，而不是粗暴切成 <code>1.234</code>。</p>
 <p>在 IEEE 754 裡也是同樣概念，只是十進位小數位換成二進位 bits。</p>
 <h3 id="3-ulp-是用來衡量浮點誤差的單位">3. <code>ulp</code> 是用來衡量浮點誤差的單位<a class="headerlink" href="#3-ulp-是用來衡量浮點誤差的單位" title="Permanent link"></a></h3>
 <p><code>ulp(units in the last place，最後位置的單元數)</code> 可以理解成：</p>
 <p><strong>最後一個可儲存位元所代表的間距。</strong></p>
-<p>如果兩個可表示浮點數很接近，它們之間的最小間距就和 ulp 有關。<br />
+<p>如果兩個可表示浮點數很接近，它們之間的最小間距就和 ulp 有關。<br/>
 講義說，在沒有 overflow(滿溢)、underflow(短值)、invalid operation exception(無效運算例外) 的情況下，IEEE 754 保證誤差在半個 <code>ulp</code> 之內。</p>
 <p>最短理解：</p>
 <table>
@@ -18290,17 +18290,17 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </tr>
 </tbody>
 </table>
-<p>最短記法：<br />
+<p>最短記法：<br/>
 <strong><code>.s</code> 是 float，<code>.d</code> 是 double。</strong></p>
-<hr />
-<h3 id="2-浮點數不是放在一般-s0t0而是放在-f0f1">2. 浮點數不是放在一般 <code>$s0</code>、<code>$t0</code>，而是放在 <code>$f0</code>、<code>$f1</code>&hellip;<a class="headerlink" href="#2-浮點數不是放在一般-s0t0而是放在-f0f1" title="Permanent link"></a></h3>
+<hr/>
+<h3 id="2-浮點數不是放在一般-s0t0而是放在-f0f1">2. 浮點數不是放在一般 <code>$s0</code>、<code>$t0</code>，而是放在 <code>$f0</code>、<code>$f1</code>…<a class="headerlink" href="#2-浮點數不是放在一般-s0t0而是放在-f0f1" title="Permanent link"></a></h3>
 <p>講義說 MIPS 另外加入 floating-point registers(浮點暫存器)：</p>
 <p><code>$f0, $f1, $f2, ...</code></p>
 <p>所以浮點加法通常長這樣：</p>
 <div class="highlight"><pre><span></span><code><span class="nf">add.s</span><span class="w"> </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="no">$f1</span><span class="p">,</span><span class="w"> </span><span class="no">$f2</span><span class="w">   </span><span class="c1"># $f0 = $f1 + $f2, single precision</span>
 <span class="nf">add.d</span><span class="w"> </span><span class="no">$f0</span><span class="p">,</span><span class="w"> </span><span class="no">$f2</span><span class="p">,</span><span class="w"> </span><span class="no">$f4</span><span class="w">   </span><span class="c1"># $f0 = $f2 + $f4, double precision</span>
 </code></pre></div>
-<p>注意：<br />
+<p>注意：<br/>
 這裡不能寫成：</p>
 <div class="highlight"><pre><span></span><code><span class="nf">add.s</span><span class="w"> </span><span class="no">$s0</span><span class="p">,</span><span class="w"> </span><span class="no">$s1</span><span class="p">,</span><span class="w"> </span><span class="no">$s2</span>
 </code></pre></div>
@@ -18330,7 +18330,7 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </li>
 </ol>
 <p>所以硬體通常會把它分成另一套 FPU。既然 FPU 是另一套運算硬體，讓它有自己的暫存器 <code>$f0 ~ $f31</code>，就可以讓資料直接待在 FPU 附近，不用每次都從一般 register 搬來搬去。</p>
-<hr />
+<hr/>
 <h3 id="3-浮點-loadstore用-lwc1-和-swc1">3. 浮點 load/store：用 <code>lwc1</code> 和 <code>swc1</code><a class="headerlink" href="#3-浮點-loadstore用-lwc1-和-swc1" title="Permanent link"></a></h3>
 <p>浮點資料如果在 memory(記憶體) 裡，要先載入到 floating-point register，算完再存回去。</p>
 <table>
@@ -18370,7 +18370,7 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-浮點比較與分支">4. 浮點比較與分支<a class="headerlink" href="#4-浮點比較與分支" title="Permanent link"></a></h3>
 <p>講義列出 floating-point comparison(浮點比較) 指令，可以寫成：</p>
 <table>
@@ -18456,7 +18456,7 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </tbody>
 </table>
 <p>這裡的 <code>c1</code> 可以先記成：浮點相關的 coprocessor 1。</p>
-<hr />
+<hr/>
 <h3 id="最短記法_7">最短記法<a class="headerlink" href="#最短記法_7" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -18555,7 +18555,7 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 </tr>
 </tbody>
 </table>
-<p>最短理解：<br />
+<p>最短理解：<br/>
 <strong>memory → <code>$f</code> 暫存器 → 浮點運算 → 浮點比較 → 浮點分支 → 存回 memory。</strong></p>
 
 
@@ -18688,17 +18688,15 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

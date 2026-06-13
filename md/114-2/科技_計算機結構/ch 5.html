@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7273,13 +7273,13 @@ is now available!
 <li><code>BIOS chip(BIOS 晶片)</code> 像開店流程手冊，開機時先用，但平常不常改寫。</li>
 </ul>
 <p>所以本章的 <code>memory(記憶體)</code> 不是只等於 RAM，而是泛指電腦中「能保存資料或程式狀態」的元件。</p>
-<hr />
+<hr/>
 <h3 id="2-第一個需求non-volatility非揮發性">2. 第一個需求：Non-volatility(非揮發性)<a class="headerlink" href="#2-第一個需求non-volatility非揮發性" title="Permanent link"></a></h3>
 <p>講義的第一個需求是：系統通電啟動時，需要執行的程式與資料要已經存在，而且斷電後不會消失。這種斷電後仍能保留資訊的記憶體稱為 <code>non-volatile memory(非揮發性記憶體)</code>。講義同時指出，<code>main memory(主記憶體)</code> 與 CPU 中的通用暫存器通常是 <code>volatile memory(揮發性記憶體)</code>，斷電後資料會遺失；而 BIOS 晶片與硬碟是非揮發性的，所以 CPU 通電後要先從 BIOS 開始執行，再把更多程式與資料從硬碟搬到記憶體中。</p>
 <p>核心原理是：</p>
 <p><strong>電腦需要某些地方能在斷電後還記得「開機要怎麼開始」。</strong></p>
 <p>如果所有記憶體都像 RAM 一樣斷電就忘光，電腦一開機會完全不知道第一條指令在哪裡。</p>
-<hr />
+<hr/>
 <h3 id="3-第二個需求readwrite可讀可寫">3. 第二個需求：Read/Write(可讀可寫)<a class="headerlink" href="#3-第二個需求readwrite可讀可寫" title="Permanent link"></a></h3>
 <p>講義第二個需求是：記憶體最好能 <code>read(讀)</code> 又能 <code>write(寫)</code>。主記憶體和硬碟一般都可讀可寫；BIOS 晶片雖然不是完全不能寫，但寫入需要特殊設備或特殊流程，不適合經常性寫入。</p>
 <p>生活化例子：</p>
@@ -7288,19 +7288,19 @@ is now available!
 <li>印好的說明書：你可以讀，但不方便改，像 BIOS 晶片。</li>
 </ul>
 <p>所以 <code>read/write(可讀可寫)</code> 不是在問「能不能存資料」而已，而是在問：<strong>CPU 或系統能不能很方便地更新這份資料。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-第三個需求random-access隨機存取">4. 第三個需求：Random Access(隨機存取)<a class="headerlink" href="#4-第三個需求random-access隨機存取" title="Permanent link"></a></h3>
 <p>講義第三個需求是：記憶體必須支援 <code>random access(隨機存取)</code>。意思是：存取任何位置的資料，時間不應該強烈依賴它在第幾個位置。講義用磁帶作為反例：如果你要聽第十首歌，必須先快轉經過前九首，這就不是隨機存取；程式執行時常常會跳到任意位置讀資料，如果記憶體不能隨機存取，效能會很差。</p>
 <p>這裡的關鍵不是「隨便亂存」，而是：</p>
 <p><strong>Address(位址) 可以直接指定位置，而不是一定要從頭掃到那裡。</strong></p>
 <p>這對 CPU 非常重要，因為程式不是永遠照順序讀資料。像 array、pointer、function call、branch、load/store 都可能要求 CPU 去某個特定位址拿資料。</p>
-<hr />
+<hr/>
 <h3 id="5-第四個需求access-time存取時間">5. 第四個需求：Access Time(存取時間)<a class="headerlink" href="#5-第四個需求access-time存取時間" title="Permanent link"></a></h3>
 <p>講義第四個需求是速度，也就是 <code>access time(存取時間)</code>。CPU 運轉很快，因此當 CPU 要資料時，最好能在很短時間內拿到；如果記憶體太慢，CPU 就會等資料，後續操作會被阻塞。講義也指出主記憶體速度明顯高於硬碟速度。</p>
 <p>這裡有一個很重要的不變量：</p>
 <p><strong>CPU 不只是要資料正確，也要資料來得及。</strong></p>
 <p>如果 CPU 一秒可以做很多次運算，但每次都要等很慢的硬碟，它就像一個超快廚師一直站在原地等倉庫搬食材。CPU 很快也沒用，因為資料供應跟不上。</p>
-<hr />
+<hr/>
 <h3 id="6-為什麼講義還列出-capacity容量cost價格power功耗">6. 為什麼講義還列出 Capacity(容量)、Cost(價格)、Power(功耗)？<a class="headerlink" href="#6-為什麼講義還列出-capacity容量cost價格power功耗" title="Permanent link"></a></h3>
 <p>PDF viewer page 5 把記憶體特性整理成：非易失性、可讀可寫、隨機存取、存取時間、容量、價格、功耗，並用 CPU 通用暫存器、主記憶體、BIOS 晶片、硬碟作為對照物件。</p>
 <p>這其實是在鋪陳後面的 <code>memory hierarchy(儲存層次結構)</code>：</p>
@@ -7320,7 +7320,7 @@ is now available!
 </div>
 <p>那我們就不需要分層了，全部都用那一種就好。</p>
 <p>但現實是：越快的記憶體通常越貴、容量越小；越大越便宜的儲存通常越慢。這就是後面要進入 <code>CPU/DRAM/Disk comparison(CPU 和記憶體特性對比)</code> 與 <code>memory hierarchy(儲存層次結構)</code> 的原因。</p>
-<hr />
+<hr/>
 <h3 id="7-本輪概念圖">7. 本輪概念圖<a class="headerlink" href="#7-本輪概念圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["電腦需要保存程式與資料"] --&gt; B["有哪些元件有儲存功能？"]
@@ -7335,7 +7335,7 @@ is now available!
     G --&gt; J["random access(隨機存取)&lt;br&gt;可直接用 address(位址) 找資料"]
     G --&gt; K["access time(存取時間)&lt;br&gt;資料要來得及供應 CPU"]
     G --&gt; L["capacity / cost / power&lt;br&gt;容量、價格、功耗"]</code></pre>
-<hr />
+<hr/>
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
 <p>本輪你先抓住一句話就好：</p>
 <p><strong>記憶體不是只有 RAM；只要能存資料或程式狀態，都可以納入記憶體／儲存系統的討論。而電腦真正想要的是：不會忘、可讀寫、能直接找、夠快、夠大、夠便宜、夠省電。</strong></p>
@@ -7361,7 +7361,7 @@ is now available!
 <p>Which memory requirement from this lecture does it fail to satisfy most directly? Explain why that requirement matters for CPU execution.</p>
 <p><mark>ANS:</mark></p>
 <p>隨機存取，因為他說要讀100 要先經過 1~99。對CPU很重要是因為如果每次都要從 1 開始會花很多時間，效率很低。</p>
-<p><mark>注意</mark><br />
+<p><mark>注意</mark><br/>
 他要問的是哪一個講義中提到的"記憶體要求"不符合。</p>
 </div>
 <h2 id="memory-hierarchy--為什麼電腦不能只用一種超大的記憶體">⭐Memory Hierarchy — 為什麼電腦不能只用一種超大的記憶體？<a class="headerlink" href="#memory-hierarchy--為什麼電腦不能只用一種超大的記憶體" title="Permanent link"></a></h2>
@@ -7372,20 +7372,20 @@ is now available!
 <p><strong>現實世界沒有一種記憶體同時滿足所有需求。</strong></p>
 <p>講義在 PDF viewer page 7 用 CPU、DRAM、Disk 的歷史資料對比速度、容量與價格。CPU 的 cycle time(週期時間)從 1980 年的 1000 ns 到 2010 年的 0.4 ns，速度進步非常快；DRAM access time(存取時間)從 375 ns 到 40 ns，雖然也變快，但遠遠追不上 CPU；Disk 的 access time 用 ms(毫秒) 當單位，和 CPU 的 ns(奈秒) 差距更大。</p>
 <p>生活化例子：</p>
-<p>CPU 像一個超快廚師，一秒可以切很多菜；DRAM 像廚房旁邊的冰箱；Disk 像地下倉庫。<br />
+<p>CPU 像一個超快廚師，一秒可以切很多菜；DRAM 像廚房旁邊的冰箱；Disk 像地下倉庫。<br/>
 廚師越來越快，但冰箱和倉庫送食材的速度沒有等比例變快，結果廚師常常不是在做菜，而是在等食材。</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼-disk硬碟不能直接當-cpu-的主要工作記憶體">2. 為什麼 Disk(硬碟)不能直接當 CPU 的主要工作記憶體？<a class="headerlink" href="#2-為什麼-disk硬碟不能直接當-cpu-的主要工作記憶體" title="Permanent link"></a></h3>
 <p>Disk 的優點是容量大、單位價格低、斷電不會消失；但它的缺點是太慢。講義在 PDF viewer page 7 特別強調，硬碟的 access time 單位是 ms，而 CPU 與 DRAM 的比較常用 ns；ms 和 ns 差了非常多個數量級。</p>
 <p>所以 disk 適合當「大倉庫」，不適合直接當 CPU 每個 cycle 都要碰的工作區。</p>
 <p>用一句話記：</p>
 <p><strong>Disk 很會存，但不會快。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-為什麼-main-memory主記憶體dram也不夠">3. 為什麼 Main Memory(主記憶體/DRAM)也不夠？<a class="headerlink" href="#3-為什麼-main-memory主記憶體dram也不夠" title="Permanent link"></a></h3>
 <p>DRAM 比 disk 快很多，也可以和 CPU 直接交換資料；但 CPU 進步得更快。講義說 1980 年時 DRAM 甚至還比 CPU 需求快一些，因此不用太擔心資料供應；到了 1990 年，DRAM 速度已經比 CPU 慢，而且差距越來越大。</p>
-<p>這就是常見的 <code>memory wall(記憶體牆)</code> 直覺：<br />
+<p>這就是常見的 <code>memory wall(記憶體牆)</code> 直覺：<br/>
 CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效能被資料供應卡住。</p>
-<hr />
+<hr/>
 <h3 id="4-cache快取記憶體為什麼出現">4. Cache(快取記憶體)為什麼出現？<a class="headerlink" href="#4-cache快取記憶體為什麼出現" title="Permanent link"></a></h3>
 <p>講義在 PDF viewer page 13 用 1980 年代 x86 CPU 的 cache 設計說明這個演化：早期 8088、80286 還不需要 cache；到了 80386，DRAM 已明顯慢於 CPU，因此用片外 SRAM 作為 cache；到了 80486，cache 被設計到 CPU 晶片內部。</p>
 <p>這裡的核心不是背年份，而是理解因果：</p>
@@ -7394,9 +7394,9 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
     B --&gt; C["CPU 等資料的時間變多"]
     C --&gt; D["加入 cache(快取記憶體)"]
     D --&gt; E["把常用資料放在更靠近 CPU、速度更快的位置"]</code></pre>
-<p><code>cache(快取記憶體)</code> 的角色像「廚師手邊的小食材盒」：<br />
+<p><code>cache(快取記憶體)</code> 的角色像「廚師手邊的小食材盒」：<br/>
 不是把整個倉庫搬到手邊，而是把最近常用、可能再用到的東西先放近一點，減少每次都跑去慢速記憶體拿資料。</p>
-<hr />
+<hr/>
 <h3 id="5-memory-hierarchy儲存層次結構的核心規則">5. Memory Hierarchy(儲存層次結構)的核心規則<a class="headerlink" href="#5-memory-hierarchy儲存層次結構的核心規則" title="Permanent link"></a></h3>
 <p>PDF viewer page 14 把儲存層次結構整理成由上到下：</p>
 <ol>
@@ -7408,7 +7408,7 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <p>講義給出的關鍵規則是：越往上，容量越小、速度越快、單位位元組成本越高；越往下，容量越大、速度越慢、單位位元組成本越低。</p>
 <p>所以 Memory Hierarchy(儲存層次結構)不是隨便排列，它是在解決一個 trade-off(取捨)：</p>
 <p><strong>我們想讓 CPU 感覺資料很快就拿得到，同時又想讓系統真的能存很多資料，而且成本不能爆炸。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
 <p>這一輪先背這句就好：</p>
 <p><strong>越靠近 CPU：越快、越小、越貴；越遠離 CPU：越慢、越大、越便宜。Memory Hierarchy 就是在用多層儲存，假裝我們同時擁有「很快」和「很大」。</strong></p>
@@ -7418,14 +7418,14 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <p>前面我們說 memory hierarchy(儲存層次結構)的上層比較快、比較小、比較貴；下層比較慢、比較大、比較便宜。這一輪講義開始追問更底層的原因：</p>
 <p><strong>為什麼 cache(快取記憶體)常用 SRAM，而 main memory(主記憶體)常用 DRAM？</strong></p>
 <p>PDF viewer page 15 先給結論：<code>SRAM(Static Random-access Memory，靜態隨機存取記憶體)</code> 比較快、比較貴；<code>DRAM(Dynamic Random-access Memory，動態隨機存取記憶體)</code> 比較慢、比較便宜。但講義也強調，不只要背結論，還要知道為什麼。</p>
-<hr />
+<hr/>
 <h3 id="2-sram靜態隨機存取記憶體通電時狀態可以穩定維持">2. SRAM(靜態隨機存取記憶體)：通電時狀態可以穩定維持<a class="headerlink" href="#2-sram靜態隨機存取記憶體通電時狀態可以穩定維持" title="Permanent link"></a></h3>
 <p><code>SRAM(靜態隨機存取記憶體)</code> 的「Static(靜態)」不是指斷電後資料還在，而是指：</p>
 <p><strong>只要保持供電，資料狀態就能穩定維持，不需要像 DRAM 那樣週期性刷新。</strong></p>
 <p>所以 SRAM 仍然是 <code>volatile memory(揮發性記憶體)</code>：一旦斷電，資料還是會消失。這點很容易跟 ROM、Flash 混淆，考試如果問「SRAM 是不是 non-volatile(非揮發性)？」答案是 <strong>不是</strong>。</p>
 <p>生活化例子：</p>
 <p>SRAM 像你用手一直穩穩拿著一張牌。只要你還醒著、手還有力氣，牌就不會掉；但你睡著或斷電，牌就沒了。</p>
-<hr />
+<hr/>
 <h3 id="3-sram-為什麼快因為它用電路狀態直接維持-01">3. SRAM 為什麼快？因為它用電路狀態直接維持 0/1<a class="headerlink" href="#3-sram-為什麼快因為它用電路狀態直接維持-01" title="Permanent link"></a></h3>
 <p>講義中的 SRAM 基本儲存單元用 6 個 transistor(電晶體)保存 1 bit。它可以想成兩個互相支撐的反相器，形成穩定的 0/1 狀態。讀寫時會透過 <code>WL(word line，字元線)</code> 控制是否連接到外部，並透過 <code>BL/BLbar(bit line/反相位元線，位元線與反相位元線)</code> 傳送資料。</p>
 <p>你先不用把每個 transistor 的開關細節全部背到會畫，但要抓住三個考點：</p>
@@ -7435,7 +7435,7 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <li>電路複雜代表面積大、成本高、容量密度低，但速度快。</li>
 </ol>
 <p>PDF viewer page 24 也收束 SRAM 的特點：速度較快，但集成度低、功耗較高、價格較高；現代 CPU 中的 cache 通常使用 SRAM。</p>
-<hr />
+<hr/>
 <h3 id="4-sram-的寫入與讀取先抓高層流程">4. SRAM 的寫入與讀取：先抓高層流程<a class="headerlink" href="#4-sram-的寫入與讀取先抓高層流程" title="Permanent link"></a></h3>
 <p>SRAM 的寫入流程可以用這樣理解：</p>
 <pre class="diagram"><code>flowchart TD
@@ -7450,9 +7450,9 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
     B --&gt; C["WL(word line) 拉高"]
     C --&gt; D["內部狀態影響 BL / BLbar"]
     D --&gt; E["感測電路判斷哪一邊代表 1、哪一邊代表 0"]</code></pre>
-<p>用生活例子講，SRAM 像一個很穩的雙開關機構：<br />
+<p>用生活例子講，SRAM 像一個很穩的雙開關機構：<br/>
 寫入時，是外部把開關推到指定狀態；讀取時，是看這組開關目前偏向哪一邊。</p>
-<hr />
+<hr/>
 <h3 id="5-dram動態隨機存取記憶體用電容存-01所以要-refresh刷新">5. DRAM(動態隨機存取記憶體)：用電容存 0/1，所以要 refresh(刷新)<a class="headerlink" href="#5-dram動態隨機存取記憶體用電容存-01所以要-refresh刷新" title="Permanent link"></a></h3>
 <p><code>DRAM(動態隨機存取記憶體)</code> 的「Dynamic(動態)」來自它需要週期性更新。DRAM 的基本概念是用 capacitor(電容)是否帶電來表示資料：</p>
 <ul>
@@ -7461,10 +7461,10 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 </ul>
 <p>問題是 capacitor(電容)會漏電。過一段時間後，原本代表 1 的電荷會慢慢流失，資料就可能錯掉。所以 DRAM 必須定期做 <code>refresh(刷新)</code>：把原本代表 1 的電容補電，讓資料維持住。PDF viewer page 27 明確說明電容漏電會導致資訊丟失，因此要定期 refresh。</p>
 <p>生活化例子：</p>
-<p>DRAM 像一個會漏水的小杯子。<br />
-杯子有水代表 1，沒水代表 0。<br />
+<p>DRAM 像一個會漏水的小杯子。<br/>
+杯子有水代表 1，沒水代表 0。<br/>
 但杯子一直漏，所以你要定期補水，不然本來的 1 會慢慢變得看不出來。</p>
-<hr />
+<hr/>
 <h3 id="6-dram-為什麼便宜容量大但比較慢">6. DRAM 為什麼便宜、容量大，但比較慢？<a class="headerlink" href="#6-dram-為什麼便宜容量大但比較慢" title="Permanent link"></a></h3>
 <p>DRAM 的 <mark>每個 bit 可以用很少的元件儲存</mark> ，核心是 capacitor(電容)加上控制元件，所以 <code>integration density(集成度)</code> 高，也就是同樣晶片面積可以塞更多 bit。這讓 DRAM 容量大、成本低、功耗較低。</p>
 <p>但缺點是：</p>
@@ -7474,7 +7474,7 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <li>整體速度比 SRAM 慢。</li>
 </ol>
 <p>PDF viewer page 28 收束 DRAM 的特點：集成度高、功耗較低、價格較低；缺點是速度較慢、需要定時刷新；現代 PC 多用 DRAM 作為主記憶體。</p>
-<hr />
+<hr/>
 <h3 id="7-最終比較表考試最常要你輸出的版本">7. 最終比較表：考試最常要你輸出的版本<a class="headerlink" href="#7-最終比較表考試最常要你輸出的版本" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -7530,16 +7530,16 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" src="images/ch%205-9.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/ch%205-9.png"/></p>
 </div>
-<hr />
+<hr/>
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
-<p><strong>SRAM：快、貴、小、不用 refresh，所以適合 cache。</strong><br />
+<p><strong>SRAM：快、貴、小、不用 refresh，所以適合 cache。</strong><br/>
 <strong>DRAM：慢、便宜、大、要 refresh，所以適合 main memory。</strong></p>
 <p>再更短：</p>
 <p><strong>SRAM 用電路穩住資料；DRAM 用電容暫存電荷。</strong></p>
 <h3 id="sram-結構與原理">SRAM 結構與原理<a class="headerlink" href="#sram-結構與原理" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%205-6.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-6.png"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h4 id="1-口語化小整理">1. 口語化小整理<a class="headerlink" href="#1-口語化小整理" title="Permanent link"></a></h4>
@@ -7547,43 +7547,43 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <p>它裡面有兩個值：</p>
 <p><code>Q</code> 和 <code>Q̅</code></p>
 <p>這兩個一定相反：</p>
-<p><code>Q = 0</code> 時，<code>Q̅ = 1</code><br />
+<p><code>Q = 0</code> 時，<code>Q̅ = 1</code><br/>
 <code>Q = 1</code> 時，<code>Q̅ = 0</code></p>
-<hr />
+<hr/>
 <h4 id="2-維持資料時">2. 維持資料時<a class="headerlink" href="#2-維持資料時" title="Permanent link"></a></h4>
-<p><img alt="alt text" src="images/ch%205-11.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-11.png"/></p>
 <p>假設現在存的是：</p>
-<p><code>Q = 0</code><br />
+<p><code>Q = 0</code><br/>
 <code>Q̅ = 1</code></p>
 <p>那可以口語化想成：</p>
-<p><code>Q</code> 這邊被 <code>GND</code> 拉住，所以它維持 <code>0</code>。<br />
+<p><code>Q</code> 這邊被 <code>GND</code> 拉住，所以它維持 <code>0</code>。<br/>
 <code>Q̅</code> 這邊被 <code>VDD</code> 拉住，所以它維持 <code>1</code>。</p>
 <p>而且這兩邊不是各自獨立維持，而是互相鎖住。</p>
-<p><code>Q = 0</code> 會讓左邊的某些開關狀態固定，讓 <code>Q̅</code> 繼續被拉到 <code>1</code>。<br />
+<p><code>Q = 0</code> 會讓左邊的某些開關狀態固定，讓 <code>Q̅</code> 繼續被拉到 <code>1</code>。<br/>
 <code>Q̅ = 1</code> 也會讓右邊的某些開關狀態固定，讓 <code>Q</code> 繼續被拉到 <code>0</code>。</p>
 <p>所以比較口語可以說：</p>
 <blockquote>
 <p><code>Q = 0</code> 被 <code>GND</code> 維持，<code>Q̅ = 1</code> 被 <code>VDD</code> 維持，兩邊互相確認對方的狀態，所以資料會被鎖住。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="3-修改資料時">3. 修改資料時<a class="headerlink" href="#3-修改資料時" title="Permanent link"></a></h4>
-<p><img alt="alt text" src="images/ch%205-10.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-10.png"/></p>
 <p>假設原本是：</p>
-<p><code>Q = 0</code><br />
+<p><code>Q = 0</code><br/>
 <code>Q̅ = 1</code></p>
 <p>現在想改成：</p>
-<p><code>Q = 1</code><br />
+<p><code>Q = 1</code><br/>
 <code>Q̅ = 0</code></p>
 <p>這時會打開 <code>WL</code>，讓外面的 <code>BL/BL̅</code> 接進來。</p>
 <p>你可以口語化記成：</p>
-<p><code>WL = 1</code> 會打開 <code>M5/M6</code>。<br />
-<code>BL = 1</code> 透過 <code>M6</code> 去拉高 <code>Q</code>。<br />
+<p><code>WL = 1</code> 會打開 <code>M5/M6</code>。<br/>
+<code>BL = 1</code> 透過 <code>M6</code> 去拉高 <code>Q</code>。<br/>
 <code>BL̅ = 0</code> 透過 <code>M5</code> 去拉低 <code>Q̅</code>。</p>
 <p>所以寫入時是：</p>
 <blockquote>
 <p>外面的 <code>BL/BL̅</code> 進來「硬改」裡面的 <code>Q/Q̅</code>。</p>
 </blockquote>
-<p>但不要說「<code>BL</code> 電壓比 <code>GND</code> 大，所以一定壓過」。<br />
+<p>但不要說「<code>BL</code> 電壓比 <code>GND</code> 大，所以一定壓過」。<br/>
 比較正確是：</p>
 <blockquote>
 <p>寫入電路夠強，所以可以暫時壓過原本 cell 裡面維持資料的力量。</p>
@@ -7592,7 +7592,7 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <blockquote>
 <p>不是只比電壓大小，而是比誰比較有力。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="4-讀取資料時">4. 讀取資料時<a class="headerlink" href="#4-讀取資料時" title="Permanent link"></a></h4>
 <p>讀取跟寫入剛好反過來。</p>
 <p>寫入是：</p>
@@ -7604,20 +7604,20 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 <p><code>Q/Q̅</code> 影響 <code>BL/BL̅</code></p>
 </blockquote>
 <p>讀取前，會先把兩邊都拉高：</p>
-<p><code>BL = 1</code><br />
+<p><code>BL = 1</code><br/>
 <code>BL̅ = 1</code></p>
 <p>然後：</p>
 <p><code>WL = 1</code></p>
 <p>這時 <code>M5/M6</code> 打開，cell 連到 <code>BL/BL̅</code>。</p>
 <p>如果某一邊裡面存的是 <code>0</code>，那一邊就會有路徑通到 <code>GND</code>，所以那條 bitline 會被稍微拉低。</p>
 <p>例如：</p>
-<p>如果 <code>Q = 0</code>，那 <code>BL</code> 那邊會被稍微拉低。<br />
+<p>如果 <code>Q = 0</code>，那 <code>BL</code> 那邊會被稍微拉低。<br/>
 如果 <code>Q̅ = 0</code>，那 <code>BL̅</code> 那邊會被稍微拉低。</p>
 <p>所以讀取時可以口語化說：</p>
 <blockquote>
 <p>兩邊一開始都拉成 <code>1</code>，然後看哪一邊掉比較多。掉比較多的那邊，就是原本存 <code>0</code> 的那邊。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="5-最短總結">5. 最短總結<a class="headerlink" href="#5-最短總結" title="Permanent link"></a></h4>
 <p>維持資料：</p>
 <blockquote>
@@ -7638,10 +7638,10 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
 </div>
 <h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
 <h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
-<p>refresh 為什麼會讓 DRAM 較慢？<br />
-<mark>ANS:</mark><br />
+<p>refresh 為什麼會讓 DRAM 較慢？<br/>
+<mark>ANS:</mark><br/>
 因為 refresh 會佔用時間和記憶體內部資源。</p>
-<p>DRAM 一邊要服務 CPU 的讀寫要求，一邊還要抽時間去 refresh。<br />
+<p>DRAM 一邊要服務 CPU 的讀寫要求，一邊還要抽時間去 refresh。<br/>
 所以有時候 CPU 想讀寫 DRAM，但 DRAM 正在 refresh，CPU 就可能要等一下。</p>
 <p>因此 DRAM 的速度會被 refresh 拖慢。</p>
 <p>SRAM 不用 refresh，所以可以比較直接地讀寫資料，速度通常比 DRAM 快。</p>
@@ -7776,17 +7776,15 @@ CPU 很快，但它需要的資料在慢很多的記憶體裡，於是 CPU 效�
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

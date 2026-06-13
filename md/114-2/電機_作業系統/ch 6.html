@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -11132,9 +11132,9 @@ is now available!
 <p>講義位置：PDF viewer page 1 ~ PDF viewer page 6／輔助：投影片 1 ~ 6</p>
 <h3 id="1-這章真正處理的問題cpu-不能空著也不能同時跑所有-process">1. 這章真正處理的問題：CPU 不能空著，也不能同時跑所有 process<a class="headerlink" href="#1-這章真正處理的問題cpu-不能空著也不能同時跑所有-process" title="Permanent link"></a></h3>
 <p>在單一處理器系統裡，同一瞬間只能有一個 Process(行程) 真正在 CPU 上 Running(執行)。如果有很多 process 都準備好了，它們不能全部同時跑，只能排隊等 CPU。講義的基本觀念是：Multiprogramming(多元程式規劃) 的目標，是盡量讓 CPU 一直有 process 可以執行，提高 CPU Utilization(CPU 使用率)。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐，但老闆一次只能服務一人。Scheduling(排班) 就是在決定：「下一個輪到誰？」</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼-process-不是一直用-cpu因為會在-cpu-burst-和-io-burst-之間交替">2. 為什麼 process 不是一直用 CPU？因為會在 CPU Burst 和 I/O Burst 之間交替<a class="headerlink" href="#2-為什麼-process-不是一直用-cpu因為會在-cpu-burst-和-io-burst-之間交替" title="Permanent link"></a></h3>
 <p>一個 process 的執行不是「從頭到尾都佔著 CPU」。它通常會在兩種時間段之間來回：</p>
 <ul>
@@ -11167,9 +11167,9 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
     A[Process ready&lt;br&gt;等待 CPU] --&gt; B[CPU Burst&lt;br&gt;使用 CPU 計算]
     B --&gt; C[I/O Burst&lt;br&gt;等待磁碟/網路/鍵盤等]
     C --&gt; A</code></pre>
-<p>重點不是背名詞，而是理解：<br />
+<p>重點不是背名詞，而是理解：<br/>
 當某個 process 進入 I/O waiting 時，CPU 如果繼續等它，就浪費了。所以 OS 會把 CPU 分給另一個 ready process。</p>
-<hr />
+<hr/>
 <h3 id="3-io-bound-和-cpu-bound-的直覺差異">3. I/O-bound 和 CPU-bound 的直覺差異<a class="headerlink" href="#3-io-bound-和-cpu-bound-的直覺差異" title="Permanent link"></a></h3>
 <p>這裡講義用 CPU Burst duration(CPU 分割時間長度) 的分佈來暗示一件事：大部分 process 的 CPU burst 很短，尤其 I/O-bound process 很常出現短 CPU burst。</p>
 <div class="admonition danger">
@@ -11214,7 +11214,7 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
 </tbody>
 </table>
 <p>期中考古也直接問過 I/O-bound process 和 CPU-bound process 的差異，所以這個概念不只是背景，而是考試可輸出點。</p>
-<hr />
+<hr/>
 <h3 id="4-cpu-scheduler-的核心任務從-ready-queue-選一個-process">4. CPU Scheduler 的核心任務：從 Ready Queue 選一個 process<a class="headerlink" href="#4-cpu-scheduler-的核心任務從-ready-queue-選一個-process" title="Permanent link"></a></h3>
 <p>當 CPU Idle(閒置) 時，OS 必須從 Ready Queue(就緒佇列) 中選出一個 process 來執行。這件事由 Short-term Scheduler(短程排班程式)，也就是 CPU Scheduler(CPU 排班程式) 負責。講義明確說：scheduler 會從記憶體中準備要執行的數個行程中選一個，並將 CPU 配置給它。</p>
 <p>可以把流程想成：</p>
@@ -11228,26 +11228,26 @@ CPU 像一個只有一個窗口的便當店老闆。很多客人都準備點餐�
 <p>Ready Queue 裡有很多 process 時，OS 要根據什麼規則選下一個？</p>
 </blockquote>
 <p>這也是後面 FCFS、SJF、Priority、Round Robin 全部在回答的問題。</p>
-<hr />
+<hr/>
 <h3 id="5-本輪最短記法">5. 本輪最短記法<a class="headerlink" href="#5-本輪最短記法" title="Permanent link"></a></h3>
-<p>CPU Scheduling(處理器排班)：<br />
+<p>CPU Scheduling(處理器排班)：<br/>
 當 CPU 空下來時，OS 從 Ready Queue 中選一個 process 來執行，目標是讓 CPU 不閒置，同時兼顧不同效能指標。</p>
-<p>CPU-I/O Burst Cycle(CPU-I/O 分割週期)：<br />
+<p>CPU-I/O Burst Cycle(CPU-I/O 分割週期)：<br/>
 Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU burst 短，CPU-bound 通常 CPU burst 長。</p>
-<p>Short-term Scheduler(短程排班程式)：<br />
+<p>Short-term Scheduler(短程排班程式)：<br/>
 負責在 Ready Queue 中選出下一個要使用 CPU 的 process。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
-<p>錯法 1：以為 process 一開始跑就會一路用 CPU 到結束。<br />
+<p>錯法 1：以為 process 一開始跑就會一路用 CPU 到結束。<br/>
 修正：process 常常會等待 I/O；等待期間 CPU 可以拿去跑別的 process。</p>
-<p>錯法 2：把 CPU Scheduler 和 Long-term Scheduler 混在一起。<br />
+<p>錯法 2：把 CPU Scheduler 和 Long-term Scheduler 混在一起。<br/>
 修正：CPU Scheduler / Short-term Scheduler 是高頻率地從 Ready Queue 選下一個跑 CPU 的 process；Long-term Scheduler 是控制哪些 process 被帶入 ready queue，頻率較低。這點期中考古也出現過。</p>
-<p>錯法 3：以為 scheduling 只是在追求 CPU utilization。<br />
+<p>錯法 3：以為 scheduling 只是在追求 CPU utilization。<br/>
 修正：CPU utilization 很重要，但後面還會同時考慮 response time、waiting time、turnaround time、throughput 等標準；這會在 PDF viewer page 10 ~ 11 正式處理。</p>
 <h3 id="所以-cpu-bound-process-和-io-bound-process-是兩種不同的-process-嗎">所以 CPU bound process 和 IO bound process 是兩種不同的 process 嗎?<a class="headerlink" href="#所以-cpu-bound-process-和-io-bound-process-是兩種不同的-process-嗎" title="Permanent link"></a></h3>
 <p>不是「兩種完全不同的 process 種族」，而是 <strong>同一種 Process(行程) 依照它的 workload behavior(工作負載行為) 分成兩種傾向</strong>。</p>
 <p><strong>重點：I/O-bound 和 CPU-bound 是分類標籤，不是 process 的固定身分。</strong></p>
-<hr />
+<hr/>
 <h4 id="1-正確理解">1. 正確理解<a class="headerlink" href="#1-正確理解" title="Permanent link"></a></h4>
 <p>一個 process 可以被描述成：</p>
 <table>
@@ -11272,7 +11272,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 </tbody>
 </table>
 <p>講義 Chapter 6 說，process 會在 CPU Burst(CPU 分割) 和 I/O Burst(I/O 分割) 之間交替，而且 I/O-bound 程式特別多短 CPU Burst。 Chapter 3 也補充：I/O-bound process 花比較多時間做 I/O、很多短 CPU burst；CPU-bound process 花比較多時間做 computation、少數很長 CPU burst。</p>
-<hr />
+<hr/>
 <h4 id="2-它不是永遠固定的">2. 它不是永遠固定的<a class="headerlink" href="#2-它不是永遠固定的" title="Permanent link"></a></h4>
 <p>同一個程式在不同階段可能改變傾向。</p>
 <p>例如影片剪輯軟體：</p>
@@ -11285,7 +11285,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <blockquote>
 <p>在某段執行期間，這個 process 的主要瓶頸偏向 I/O 或 CPU。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="3-為什麼-os-要分這兩類">3. 為什麼 OS 要分這兩類？<a class="headerlink" href="#3-為什麼-os-要分這兩類" title="Permanent link"></a></h4>
 <p>因為 scheduling(排班) 會受影響。</p>
 <p>I/O-bound process 通常算一下就去等 I/O。如果 OS 很快讓它跑，它很快又會把 CPU 讓出來，然後去等 I/O，這樣可以讓 I/O 裝置也忙起來。</p>
@@ -11296,7 +11296,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <h3 id="所以這兩種-process-和-scheduling-到底有什麼關係">所以這兩種 process 和 scheduling 到底有什麼關係?<a class="headerlink" href="#所以這兩種-process-和-scheduling-到底有什麼關係" title="Permanent link"></a></h3>
 <p>它們跟 Scheduling(排班) 的關係是：<strong>Scheduling 要決定「下一個 CPU 給誰」，而 I/O-bound / CPU-bound 會影響這個決定的好壞。</strong></p>
 <p><strong>重點：I/O-bound 和 CPU-bound 不是為了分類好看，而是用來預測 process 會怎麼使用 CPU，進而影響排班策略。</strong></p>
-<hr />
+<hr/>
 <h4 id="1-cpu-scheduler-在做什麼">1. CPU Scheduler 在做什麼？<a class="headerlink" href="#1-cpu-scheduler-在做什麼" title="Permanent link"></a></h4>
 <p>CPU Scheduler(CPU 排班程式) 的任務是：</p>
 <blockquote>
@@ -11307,7 +11307,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <blockquote>
 <p>Ready Queue 裡同時有 I/O-bound 和 CPU-bound process 時，要先給誰？</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="2-如果排班排得不好會發生什麼">2. 如果排班排得不好，會發生什麼？<a class="headerlink" href="#2-如果排班排得不好會發生什麼" title="Permanent link"></a></h4>
 <p>假設 Ready Queue 裡有：</p>
 <table>
@@ -11344,7 +11344,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <li>CPU-bound process 一直佔 CPU，造成其他 process waiting time 變長。</li>
 </ol>
 <p>這就是為什麼 scheduling 不能只看「誰先來」，還要看 process 的行為特徵。</p>
-<hr />
+<hr/>
 <h4 id="3-io-bound-通常適合比較快被服務">3. I/O-bound 通常適合比較快被服務<a class="headerlink" href="#3-io-bound-通常適合比較快被服務" title="Permanent link"></a></h4>
 <p>I/O-bound process 通常 CPU Burst(CPU 分割) 短，跑一下就會進入 I/O Burst(I/O 分割)。講義也提到 process 會在 CPU burst 和 I/O burst 之間交替，而且 I/O-bound 的程式特別多短 CPU burst。</p>
 <p>所以如果 scheduler 早點讓 I/O-bound process 跑：</p>
@@ -11360,7 +11360,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <li>系統整體比較不會閒置。</li>
 </ul>
 <p><strong>重點：讓 I/O-bound process 早點跑，常常可以讓 CPU 和 I/O 裝置同時忙起來。</strong></p>
-<hr />
+<hr/>
 <h4 id="4-cpu-bound-需要避免霸佔-cpu">4. CPU-bound 需要避免「霸佔 CPU」<a class="headerlink" href="#4-cpu-bound-需要避免霸佔-cpu" title="Permanent link"></a></h4>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -11398,7 +11398,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="5-最核心的因果關係">5. 最核心的因果關係<a class="headerlink" href="#5-最核心的因果關係" title="Permanent link"></a></h4>
 <p>可以這樣記：</p>
 <pre class="diagram"><code>flowchart TD
@@ -11406,7 +11406,7 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
     B --&gt; C[Scheduling decision&lt;br&gt;下一個 CPU 給誰]
     C --&gt; D[System performance&lt;br&gt;CPU utilization, response time, waiting time]</code></pre>
 <p><strong>必背：I/O-bound / CPU-bound 會影響 CPU burst 長度，而 CPU burst 長度會影響 scheduler 應該怎麼選 process。</strong></p>
-<hr />
+<hr/>
 <h4 id="6-考試寫法">6. 考試寫法<a class="headerlink" href="#6-考試寫法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>I/O-bound and CPU-bound processes are important for CPU scheduling because they have different CPU burst patterns. I/O-bound processes usually have many short CPU bursts and frequently wait for I/O, while CPU-bound processes usually have fewer but longer CPU bursts. A good scheduler should keep both the CPU and I/O devices busy, improve response time, and prevent long CPU-bound processes from delaying short or interactive I/O-bound processes too much.
 </code></pre></div>
@@ -11416,10 +11416,10 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
 <h2 id="preemptive-scheduling--cpu-什麼時候可以重新決定下一個行程">⭐Preemptive Scheduling — CPU 什麼時候可以重新決定下一個行程？<a class="headerlink" href="#preemptive-scheduling--cpu-什麼時候可以重新決定下一個行程" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 7 ~ PDF viewer page 8</p>
 <h3 id="1-這個概念在解決什麼問題">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題" title="Permanent link"></a></h3>
-<p>在單核心 CPU 上，同一個時間點只能有一個 <code>Process(行程)</code> 真正在 CPU 上跑。<br />
+<p>在單核心 CPU 上，同一個時間點只能有一個 <code>Process(行程)</code> 真正在 CPU 上跑。<br/>
 所以 <code>CPU Scheduling(CPU 排班)</code> 要回答一個核心問題：</p>
 <p><strong>現在 CPU 要不要繼續給目前這個 process？還是要改分配給別人？</strong></p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 想像一個服務櫃台。現在 A 客人正在辦事，後面 B、C、D 都在排隊。櫃台什麼時候需要重新決定「下一位是誰」？</p>
 <p>可能是：</p>
 <ol>
@@ -11471,16 +11471,16 @@ Process 通常在 CPU Burst 和 I/O Burst 之間交替；I/O-bound 通常 CPU bu
     Waiting --&gt;|I/O or event completion| Ready
     Running --&gt;|interrupt| Ready
     Running --&gt;|exit| Terminated[terminated]</code></pre>
-<p>這張圖的重點不是背箭頭，而是要看懂：<br />
+<p>這張圖的重點不是背箭頭，而是要看懂：<br/>
 <strong>只要 CPU 目前的主人可能要換，scheduler 就可能被叫出來做決定。</strong></p>
 <h3 id="3-nonpreemptive不可搶先cpu-只能等目前-process-自己讓出來">3. Nonpreemptive(不可搶先)：CPU 只能等目前 process 自己讓出來<a class="headerlink" href="#3-nonpreemptive不可搶先cpu-只能等目前-process-自己讓出來" title="Permanent link"></a></h3>
 <p><code>Nonpreemptive Scheduling(不可搶先排班)</code> 的核心規則是：</p>
 <p><strong>一旦 CPU 分給某個 process，OS 不會硬把它趕下 CPU；除非它自己不能跑，或它結束。</strong></p>
 <p>所以講義 page 8 說：情況 1 和 4 屬於 <code>Nonpreemptive(不可搶先)</code>。</p>
 <p>為什麼？</p>
-<p>情況 1：<code>Running → Waiting</code><br />
+<p>情況 1：<code>Running → Waiting</code><br/>
 process 自己去等 I/O，所以它主動離開 CPU。</p>
-<p>情況 4：<code>Running → Terminated</code><br />
+<p>情況 4：<code>Running → Terminated</code><br/>
 process 結束了，所以 CPU 當然空出來。</p>
 <p>這兩種都不是 OS 硬搶 CPU，而是目前 process 已經無法或不需要繼續使用 CPU。</p>
 <div class="admonition danger">
@@ -11495,13 +11495,13 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p><strong>即使目前 process 還能跑，OS 也可以因為某些事件重新分配 CPU。</strong></p>
 <p>講義 page 8 說：除了 1 和 4 之外，其他 scheduling 都是 <code>Preemptive(可搶先)</code>。</p>
 <p>也就是：</p>
-<p>情況 2：<code>Running → Ready</code><br />
+<p>情況 2：<code>Running → Ready</code><br/>
 目前 process 被 interrupt 打斷，回到 ready queue。這是最典型的搶先。</p>
-<p>情況 3：<code>Waiting → Ready</code><br />
+<p>情況 3：<code>Waiting → Ready</code><br/>
 某個原本在等 I/O 的 process 回來了。這時 OS 可能重新比較誰比較該跑，例如高優先權 process 回來，就可能搶走 CPU。</p>
 <h3 id="5-最容易混淆的地方interrupt-不等於一定換人">5. 最容易混淆的地方：interrupt 不等於一定換人<a class="headerlink" href="#5-最容易混淆的地方interrupt-不等於一定換人" title="Permanent link"></a></h3>
 <p>這裡很重要。</p>
-<p><code>Interrupt(中斷)</code> 代表 CPU 被迫停下來進 kernel 處理事件；<br />
+<p><code>Interrupt(中斷)</code> 代表 CPU 被迫停下來進 kernel 處理事件；<br/>
 但「中斷發生」不必然代表「最後一定換另一個 process 跑」。</p>
 <p>比較精準地說：</p>
 <ul>
@@ -11512,8 +11512,8 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p>這也是社群討論中常見的卡點：很多人會把「可以被搶先」誤解成「每次事件都一定會搶先」。比較安全的考試寫法是：<strong>preemptive scheduling allows the OS to interrupt a running process and possibly choose another ready process to run.</strong> (<a href="https://www.csie.ntu.edu.tw/~ktw/uos/uos2005-Chp5.pdf?utm_source=chatgpt.com" title="Chapter 5 Process Scheduling">Computer Science Stack Exchange</a>)</p>
 <h3 id="6-page-8-的-race-condition-提醒">6. Page 8 的 race condition 提醒<a class="headerlink" href="#6-page-8-的-race-condition-提醒" title="Permanent link"></a></h3>
 <p>講義 page 8 還補一句：當很多 process 共用資料時，<code>Preemptive Scheduling(可搶先排班)</code> 可能造成 <code>Race Condition(競爭情況)</code>。</p>
-<p>原因是：<br />
-如果 process A 正在改 shared variable ( <mark>然後 A 沒有處理 Synchronization(同步)</mark> )，還沒改完就被搶先；process B 接著也去改同一份資料，就可能讓結果取決於執行交錯順序。<br />
+<p>原因是：<br/>
+如果 process A 正在改 shared variable ( <mark>然後 A 沒有處理 Synchronization(同步)</mark> )，還沒改完就被搶先；process B 接著也去改同一份資料，就可能讓結果取決於執行交錯順序。<br/>
 <mark>(其實這和平行執行的 race condition 一樣)</mark></p>
 <p>這不是說 preemptive scheduling 不好，而是說它需要搭配 <code>Synchronization(同步)</code> 機制，例如 lock、semaphore、mutex，來保護 shared data。</p>
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
@@ -11548,7 +11548,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p><strong>ready queue 的內容改變了，所以 OS 有機會重新比較「現在誰最該用 CPU」。</strong></p>
 <p>也就是說，<code>Waiting → Ready</code> 不是「搶先動作本身」，而是「可能觸發搶先判斷的事件」。</p>
 </div>
-<hr />
+<hr/>
 <h4 id="1-精準區分直接搶先-vs-觸發重新排班">1. 精準區分：直接搶先 vs 觸發重新排班<a class="headerlink" href="#1-精準區分直接搶先-vs-觸發重新排班" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -11577,7 +11577,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p>所以你的直覺要修正成：</p>
 <p><strong><code>Waiting → Ready</code> 不會直接搶 core；但在 preemptive scheduling 中，它可能導致 OS 搶走目前 running process 的 core。</strong></p>
 <p>講義 Chapter 3 也有對應概念：ready queue 是保存「位於主記憶體中且就緒等待執行」的 process；scheduler 的工作就是從可用 process 中選一個配置 CPU。 另外，考古題的 preemptive priority round-robin 題也明講：如果 process 被更高優先權 process 搶先，被搶先的 process 會放到 queue 的尾端。</p>
-<hr />
+<hr/>
 <h4 id="2-用例子看就很清楚">2. 用例子看就很清楚<a class="headerlink" href="#2-用例子看就很清楚" title="Permanent link"></a></h4>
 <p>假設現在：</p>
 <ul>
@@ -11594,12 +11594,12 @@ process 結束了，所以 CPU 當然空出來。</p>
 <li>Scheduler 重新看 ready queue：發現 <code>P2</code> priority 比 <code>P1</code> 高。</li>
 <li>OS 把 <code>P1</code> 從 <code>Running → Ready</code>，讓 <code>P2</code> 進 <code>Running</code>。</li>
 </ol>
-<p>真正被搶的是第 6 步的 <code>P1: Running → Ready</code>。<br />
+<p>真正被搶的是第 6 步的 <code>P1: Running → Ready</code>。<br/>
 但「導火線」是第 4 步的 <code>P2: Waiting → Ready</code>。</p>
 <p>所以課本把情況 3 放進 preemptive 的討論，是因為：</p>
 <p><strong>在可搶先系統中，某個 process 變成 ready 之後，可能立刻搶走 CPU。</strong></p>
 <p>UIC 的 OS course notes 也把 CPU scheduling decision 的情況 3 寫成：process 從 waiting state 變成 ready state，例如 I/O 完成或從 <code>wait()</code> 返回；而 preemptive scheduling 涵蓋這類重新排班時機。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/5_CPU_Scheduling.html?utm_source=chatgpt.com" title="Operating Systems: CPU Scheduling">cs.uic.edu</a>) NTU 的 OS 投影片也用更直覺的說法：preemptive scheduling 會在 process 進入 ready queue 或 running process 離開 running state 時被呼叫。(<a href="https://www.csie.ntu.edu.tw/~ktw/uos/uos2005-Chp5.pdf?utm_source=chatgpt.com" title="Chapter 5 Process Scheduling">國立臺灣大學資訊工程學系</a>)</p>
-<hr />
+<hr/>
 <h4 id="3-什麼情況下-waiting--ready-不會真的搶">3. 什麼情況下 <code>Waiting → Ready</code> 不會真的搶？<a class="headerlink" href="#3-什麼情況下-waiting--ready-不會真的搶" title="Permanent link"></a></h4>
 <p>如果新回來的 process 沒有更高優先權，或演算法規則不允許立刻搶，那就不會換人。</p>
 <p>例如：</p>
@@ -11609,11 +11609,11 @@ process 結束了，所以 CPU 當然空出來。</p>
 </ul>
 <p>這時 <code>P2</code> 只是進 ready queue 排隊，<code>P1</code> 繼續跑。</p>
 <p>所以考試寫法要避免太絕對：</p>
-<p>錯誤寫法：<br />
+<p>錯誤寫法：<br/>
 <code>Waiting → Ready preempts the running process.</code></p>
-<p>精準寫法：<br />
+<p>精準寫法：<br/>
 <code>When a process moves from waiting to ready, the ready queue changes. In a preemptive scheduler, the OS may preempt the currently running process if the newly ready process should run according to the scheduling policy.</code></p>
-<hr />
+<hr/>
 <h4 id="4-一句話總結">4. 一句話總結<a class="headerlink" href="#4-一句話總結" title="Permanent link"></a></h4>
 <p><strong>你說得對：<code>Waiting → Ready</code> 不直接影響 core 內的 process；但它會改變 ready queue，而 preemptive scheduler 可以因此重新排班，必要時再把目前 running process 搶下來。</strong></p>
 <p>第 4 次對話</p>
@@ -11624,7 +11624,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p><strong><code>Waiting → Ready</code> 之所以被歸到 preemptive 的情境，是因為它「可能導致」目前正在跑的 process 發生 <code>Running → Ready</code>；不是因為 <code>Waiting → Ready</code> 這個轉換本身就直接搶 CPU。</strong></p>
 <p>==也就是說真正的 preemption(搶先本體) 是 <code>Running → Ready</code> ， <code>Waiting → Ready</code> 是觸發重新排班的事件，不是搶先本體。</p>
 </div>
-<hr />
+<hr/>
 <h4 id="1-正確因果鏈">1. 正確因果鏈<a class="headerlink" href="#1-正確因果鏈" title="Permanent link"></a></h4>
 <p>假設：</p>
 <ul>
@@ -11640,7 +11640,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p>現在 P2 回 ready queue 了，P2 是否比 P1 更該跑？</p>
 </blockquote>
 <p>如果答案是是，例如 P2 priority 比 P1 高，或 P2 remaining time 比 P1 短，才會再發生：</p>
-<p><code>P1: Running → Ready</code><br />
+<p><code>P1: Running → Ready</code><br/>
 <code>P2: Ready → Running</code></p>
 <p>所以完整流程是：</p>
 <div class="highlight"><pre><span></span><code>P2: Waiting → Ready
@@ -11653,13 +11653,13 @@ P1: Running → Ready
 P2: Ready → Running
 </code></pre></div>
 <p>講義 page 7 把 <code>Waiting → Ready</code> 列為 CPU scheduling decision 的情況之一；page 8 則說只有情況 1 和 4 是 nonpreemptive，其他 scheduling 是 preemptive。 這也和 UIC OS notes 的分類一致：如果排班只在 1 和 4 發生，就是 nonpreemptive；否則就是 preemptive。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/5_CPU_Scheduling.html?utm_source=chatgpt.com" title="Operating Systems: CPU Scheduling">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h4 id="2-你可以這樣記">2. 你可以這樣記<a class="headerlink" href="#2-你可以這樣記" title="Permanent link"></a></h4>
 <p><strong><code>Waiting → Ready</code> 是 preemptive 的 trigger，不是 preemption 本體。</strong></p>
 <p>真正的 <code>Preemption(搶先)</code> 本體是：</p>
 <p><code>Running → Ready</code></p>
 <p>也就是目前正在 CPU 上跑的 process 被 OS 放回 ready queue。</p>
-<hr />
+<hr/>
 <h4 id="3-考試最安全寫法">3. 考試最安全寫法<a class="headerlink" href="#3-考試最安全寫法" title="Permanent link"></a></h4>
 <p>不要寫：</p>
 <blockquote>
@@ -11674,20 +11674,20 @@ P2: Ready → Running
 <p><strong><code>Waiting → Ready</code> 本身只是某個 process 回到 ready queue；但在可搶先排班中，這會讓 OS 有機會重新排班，若新回來的 process 更該跑，就會把目前 running process 搶下來。</strong></p>
 <p>第 5 次對話</p>
 <h3 id="考古錯題">考古錯題<a class="headerlink" href="#考古錯題" title="Permanent link"></a></h3>
-<p>Q:<br />
-A system uses preemptive priority scheduling. P1 is running with priority 20. P2 completes I/O and moves from waiting to ready with priority 50. Explain the sequence of state transitions that may happen, and identify which transition is the actual preemption.<br />
+<p>Q:<br/>
+A system uses preemptive priority scheduling. P1 is running with priority 20. P2 completes I/O and moves from waiting to ready with priority 50. Explain the sequence of state transitions that may happen, and identify which transition is the actual preemption.<br/>
 [Generated: based on 講義_chapter 6_20240505.pdf／PDF viewer page 7 ~ 8]</p>
-<p>ANS:<br />
+<p>ANS:<br/>
 P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從 Waiting → Ready，表示它已經可以被排程。因為 P2 的 priority 比 P1 高，所以在 preemptive priority scheduling 裡，OS 會重新比較目前 running process 和 ready queue 裡的 process。若 P2 應該優先執行，OS 會把 P1 從 Running → Ready，再讓 P2 從 Ready → Running。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Priority 50 是指優先程度是 50 ，優先度越大，越優先。<br />
+<p>Priority 50 是指優先程度是 50 ，優先度越大，越優先。<br/>
 所以 50 比 20 優先。</p>
 </div>
 <h2 id="dispatcher--scheduler-選完人之後cpu-控制權怎麼真的交出去">⭐Dispatcher — scheduler 選完人之後，CPU 控制權怎麼真的交出去？<a class="headerlink" href="#dispatcher--scheduler-選完人之後cpu-控制權怎麼真的交出去" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 9</p>
 <h3 id="1-scheduler排班器和-dispatcher分派程式不是同一件事">1. Scheduler(排班器)和 Dispatcher(分派程式)不是同一件事<a class="headerlink" href="#1-scheduler排班器和-dispatcher分派程式不是同一件事" title="Permanent link"></a></h3>
-<p>上一個知識點我們一直在講 scheduler 判斷「誰該跑」。<br />
+<p>上一個知識點我們一直在講 scheduler 判斷「誰該跑」。<br/>
 但 OS 不能只停在「決定誰該跑」，還要真的把 CPU 控制權交給那個 process。</p>
 <p>所以可以這樣分：</p>
 <table>
@@ -11716,16 +11716,16 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <p>講義 page 9 列出 dispatcher 的三個工作：</p>
 <ol>
 <li>
-<p><code>Switching context(轉換內容 / 內容切換)</code><br />
-   把舊 process 的狀態存起來，把新 process 的狀態載入。<br />
+<p><code>Switching context(轉換內容 / 內容切換)</code><br/>
+   把舊 process 的狀態存起來，把新 process 的狀態載入。<br/>
    例如暫存器、program counter、stack pointer 等等。</p>
 </li>
 <li>
-<p><code>Switching to user mode(切換成使用者模式)</code><br />
+<p><code>Switching to user mode(切換成使用者模式)</code><br/>
    OS 做排班時在 kernel mode；但一般程式要回 user mode 跑。</p>
 </li>
 <li>
-<p><code>Jumping to the proper location(跳到使用者程式的適當位置)</code><br />
+<p><code>Jumping to the proper location(跳到使用者程式的適當位置)</code><br/>
    新 process 不是從 main 重新開始，而是從它上次停下來的位置繼續跑。</p>
 </li>
 </ol>
@@ -11749,11 +11749,11 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 </ul>
 <p>社群筆記常把 dispatch latency 直覺理解成 context-switch overhead，這個方向可以幫助記憶，但考試上要寫得更精準：它是 dispatcher 停止舊 process、啟動新 process 的時間，不只是單純「切換」兩個字。([Mr. Opengate][3])</p>
 <h3 id="4-常見錯法">4. 常見錯法<a class="headerlink" href="#4-常見錯法" title="Permanent link"></a></h3>
-<p>錯法一：把 scheduler 和 dispatcher 混在一起。<br />
+<p>錯法一：把 scheduler 和 dispatcher 混在一起。<br/>
 修正：scheduler 負責「選誰」；dispatcher 負責「交出 CPU 控制權」。</p>
-<p>錯法二：以為 context switch 後 process 會從頭開始。<br />
+<p>錯法二：以為 context switch 後 process 會從頭開始。<br/>
 修正：dispatcher 會跳回 proper location，也就是該 process 被暫停時保存的位置。</p>
-<p>錯法三：以為切換 process 沒成本。<br />
+<p>錯法三：以為切換 process 沒成本。<br/>
 修正：dispatch latency 是 overhead，後面會直接影響 RR 的 time quantum 設計。</p>
 <h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
 <table>
@@ -11787,7 +11787,7 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <h3 id="1-這個概念在解決什麼問題_1">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_1" title="Permanent link"></a></h3>
 <p>前面我們學到 scheduler 會選下一個 process，但問題是：</p>
 <p><strong>到底怎樣才算選得好？</strong></p>
-<p>這就像排隊系統。<br />
+<p>這就像排隊系統。<br/>
 如果你開餐廳櫃台，你可以有不同目標：</p>
 <ul>
 <li>想讓櫃台永遠忙碌，不要閒著。</li>
@@ -11801,13 +11801,13 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <p><code>CPU Utilization(CPU 使用率)</code> 是希望 CPU 盡可能忙碌。講義說理想上可從 0% 到 100%，實際系統中輕負荷約 40%，重負荷約 90%。</p>
 <p>直覺：</p>
 <p><strong>CPU 很貴，不希望它一直閒著。</strong></p>
-<p>但注意：CPU utilization 高不一定代表使用者體驗好。<br />
+<p>但注意：CPU utilization 高不一定代表使用者體驗好。<br/>
 例如系統一直跑背景工作，CPU 很忙，但你打字很卡，這就不是好互動體驗。</p>
 <h3 id="3-throughput產量單位時間完成多少-process">3. Throughput(產量)：單位時間完成多少 process？<a class="headerlink" href="#3-throughput產量單位時間完成多少-process" title="Permanent link"></a></h3>
 <p><code>Throughput(產量)</code> 是每單位時間完成的 process 數量。講義說，長 process 可能一小時只完成一個；短 process 可能每秒完成很多個。</p>
 <p>直覺：</p>
 <p><strong>餐廳一小時服務幾位客人。</strong></p>
-<p>Throughput 越高，代表系統整體完成工作速度越高。<br />
+<p>Throughput 越高，代表系統整體完成工作速度越高。<br/>
 但如果只偏好短工作，長工作可能一直卡住，後面會牽涉 starvation。</p>
 <h3 id="4-turnaround-time回復時間從提交到完成總共花多久">4. Turnaround Time(回復時間)：從提交到完成總共花多久？<a class="headerlink" href="#4-turnaround-time回復時間從提交到完成總共花多久" title="Permanent link"></a></h3>
 <p><mark>也就是一個程式從「進到 Ready queue 中」到「真正被執行完」花的時間</mark></p>
@@ -11836,9 +11836,9 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 </div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Q：<br />
+<p>Q：<br/>
 Arrival time 是啥</p>
-<p>ANS：<br />
+<p>ANS：<br/>
 Arrival Time(到達時間) 在 CPU scheduling 題目裡，通常指：</p>
 <p>process 進入 Ready Queue(就緒佇列)，開始有資格被 CPU scheduler 選來執行的 <mark>時間點</mark> 。</p>
 <p>也就是說，它不是「程式被寫好」或「使用者想到要執行」的時間，而是題目模型中這個 process 已經到達排班系統、可以開始排隊等 CPU 的時間。</p>
@@ -11851,7 +11851,7 @@ Arrival Time(到達時間) 在 CPU scheduling 題目裡，通常指：</p>
    ├─ a：在、向、處於某狀態
    └─ round：圓的、繞圈的
 </code></pre></div>
-<hr />
+<hr/>
 <p><code>turnaround</code> 在一般英文裡常用來表示一件工作「從接到到完成交付」要花多久；例如客戶問 freelancer「What is your turnaround?」通常是在問「你多久可以做完交件？」社群討論中也常把它理解成「某件任務通常需要多久完成」。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/5_CPU_Scheduling.html?utm_source=chatgpt.com" title="Operating Systems: CPU Scheduling">Reddit</a>)</p>
 <p>放到 OS scheduling 裡，process 的流程像這樣：</p>
 <div class="highlight"><pre><span></span><code>process 進入系統 / arrive
@@ -11865,7 +11865,7 @@ process 完成 / complete
 <p>講義 page 10 也把它定義成 process 從進入系統到完成所花的總時間，包含等待進入記憶體、ready queue 等待、CPU 執行、I/O 執行等時間。 其他 OS 教材也常寫成 <code>Turnaround Time = Completion Time - Arrival Time</code>。(<a href="https://www.csie.ntu.edu.tw/~ktw/uos/uos2005-Chp5.pdf?utm_source=chatgpt.com" title="Chapter 5 Process Scheduling">Baeldung on Kotlin</a>)</p>
 <h3 id="5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久">5. Waiting Time(等候時間)：在 ready queue 裡等 CPU 花多久？<a class="headerlink" href="#5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久" title="Permanent link"></a></h3>
 <p><code>Waiting Time(等候時間)</code> 是 process 在 ready queue 裡等待所花的 <mark>時間總和</mark> ，所以如果一個 Process 進入很多次 Ready queue ，同一個 Process 的 Waiting Time 就會一直增加。</p>
-<p>它不包含正在 CPU 上跑的時間，也不包含 I/O 自己執行的時間。<br />
+<p>它不包含正在 CPU 上跑的時間，也不包含 I/O 自己執行的時間。<br/>
 只看：</p>
 <p><strong>我已經 ready 了，但 CPU 還沒輪到我。</strong></p>
 <p>常用關係：</p>
@@ -11982,8 +11982,8 @@ process 完成 / complete
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>Response Time：第一次等多久。</strong><br />
-<strong>Waiting Time：總共等 CPU 多久。</strong><br />
+<p><strong>Response Time：第一次等多久。</strong><br/>
+<strong>Waiting Time：總共等 CPU 多久。</strong><br/>
 <strong>Turnaround Time：整個 process 從到達到完成花多久。</strong></p>
 <h3 id="8-page-11-的最佳化方向">8. Page 11 的最佳化方向<a class="headerlink" href="#8-page-11-的最佳化方向" title="Permanent link"></a></h3>
 <p>講義 page 11 把五個 criteria 整理成最佳化目標：</p>
@@ -12018,37 +12018,37 @@ process 完成 / complete
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>兩個越大越好：CPU utilization、throughput。<br />
+<p><strong>兩個越大越好：CPU utilization、throughput。<br/>
 三個越小越好：turnaround time、waiting time、response time。</strong></p>
 <h3 id="9-考試常見陷阱">9. 考試常見陷阱<a class="headerlink" href="#9-考試常見陷阱" title="Permanent link"></a></h3>
-<p>第一，<code>Waiting time</code> 和 <code>Turnaround time</code> 不要混。<br />
+<p>第一，<code>Waiting time</code> 和 <code>Turnaround time</code> 不要混。<br/>
 Waiting 只算 ready queue 等 CPU；turnaround 是整個從 arrival 到 completion。</p>
-<p>第二，<code>Response time</code> 不等於完成時間。<br />
+<p>第二，<code>Response time</code> 不等於完成時間。<br/>
 Response 只看第一個反應，不看全部完成。</p>
-<p>第三，criteria 會互相衝突。<br />
+<p>第三，criteria 會互相衝突。<br/>
 例如非常頻繁切換 process 可能讓 response time 變好，但 dispatch latency / context switch overhead 變多，CPU utilization 可能變差。期末考古 Q1 就直接問這種 trade-off。</p>
 <h3 id="錯題">錯題：<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>1.Explain how minimizing average turnaround time may conflict with minimizing maximum waiting time. Give one concrete scheduling example in words.<br />
+<p>1.Explain how minimizing average turnaround time may conflict with minimizing maximum waiting time. Give one concrete scheduling example in words.<br/>
 <code>[Adapted from: 期末考古_108／Q1(b) scheduling criteria conflicts]</code></p>
-<p>ANS：<br />
+<p>ANS：<br/>
 為了降低 average turnaround time，scheduler 可能偏好短工作，因為短工作很快完成，可以拉低平均值。可是長工作可能一直被延後，造成 maximum waiting time 很大。</p>
-<p><mark>注意:</mark><br />
-如果真的要 minimizing maximum waiting time ，就要：<br />
+<p><mark>注意:</mark><br/>
+如果真的要 minimizing maximum waiting time ，就要：<br/>
 不能一直選最短工作；必須讓「目前等最久的 process」優先權逐漸上升，等到它快變成最大等待者時，就要讓它跑。</p>
-<hr />
-<p>2.Explain how maximizing I/O device utilization may conflict with maximizing CPU utilization. Give one concrete example in words.<br />
+<hr/>
+<p>2.Explain how maximizing I/O device utilization may conflict with maximizing CPU utilization. Give one concrete example in words.<br/>
 <code>[Adapted from: 期末考古_108／Q1(c) scheduling criteria conflicts]</code></p>
-<p>ANS：<br />
+<p>ANS：<br/>
 I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 CPU-bound process，CPU 可以長時間保持忙碌，因此 CPU utilization 可能提高；但因為這些 process 很少發出 I/O request，I/O device 可能閒置。相反地，若 scheduler 偏好 I/O-bound process，這些 process 會快速發出 I/O request，使 I/O device 保持忙碌；但它們的 CPU burst 很短，可能造成頻繁 context switch，或在很多 process 都等待 I/O 時讓 CPU 閒置，因此 CPU utilization 可能下降。</p>
 </div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>conflict ： 衝突、矛盾</p>
-<p>conflict：衝突、爭執、相互矛盾<br />
-├─ con：一起、共同、相互<br />
-└─ flict：打擊、撞擊、衝撞<br />
+<p>conflict：衝突、爭執、相互矛盾<br/>
+├─ con：一起、共同、相互<br/>
+└─ flict：打擊、撞擊、衝撞<br/>
 └─ flig / fligere：打、擊、撞</p>
 </div>
 <h2 id="fcfs-scheduling--為什麼排班計算題要先從誰先到誰先跑開始">⭐FCFS Scheduling — 為什麼排班計算題要先從「誰先到誰先跑」開始？<a class="headerlink" href="#fcfs-scheduling--為什麼排班計算題要先從誰先到誰先跑開始" title="Permanent link"></a></h2>
@@ -12065,7 +12065,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <li>FCFS 本質上是 <code>nonpreemptive scheduling(不可搶先排班)</code> 的典型例子。</li>
 </ul>
 <p>講義也說 FCFS 可以用 <code>FIFO queue(先進先出佇列)</code> 管理；process 進入 ready queue 後，PCB 會被接到 queue 尾端。</p>
-<hr />
+<hr/>
 <h3 id="2-fcfs-的計算題流程">2. FCFS 的計算題流程<a class="headerlink" href="#2-fcfs-的計算題流程" title="Permanent link"></a></h3>
 <p>考試看到 FCFS，不要先想公式，先畫時間線。</p>
 <p>假設有三個 process：</p>
@@ -12107,7 +12107,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <li>P2 從 4 跑到 7，所以 P2 completion time = 7。</li>
 <li>P3 從 7 跑到 9，所以 P3 completion time = 9。</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="3-三個時間公式怎麼套">3. 三個時間公式怎麼套？<a class="headerlink" href="#3-三個時間公式怎麼套" title="Permanent link"></a></h3>
 <p>我們前面已經練過三個公式，現在把它們放進 Gantt chart 題：</p>
 <table>
@@ -12161,7 +12161,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <p><code>Waiting Time = Turnaround Time - CPU Burst Time</code></p>
 <p><code>Response Time = First CPU Start Time - Arrival Time</code></p>
 <p>在 FCFS 這種 nonpreemptive、單一 CPU burst 題目中，<code>Waiting Time</code> 和 <code>Response Time</code> 通常會一樣，因為每個 process 只等一次；一旦第一次拿到 CPU，就一路跑完。</p>
-<hr />
+<hr/>
 <h3 id="4-fcfs-的優點與陷阱">4. FCFS 的優點與陷阱<a class="headerlink" href="#4-fcfs-的優點與陷阱" title="Permanent link"></a></h3>
 <p>FCFS 的優點是簡單、公平、容易實作。</p>
 <p>但它有一個很大的陷阱：<code>convoy effect(車隊效應)</code>。</p>
@@ -12178,7 +12178,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <li>平均 waiting time / response time 可能變差。</li>
 </ul>
 <p>所以 FCFS 通常不是平均等待時間最好的演算法。外部 OS 課程筆記也用相同方向說明：FCFS 簡單，但 RR 是在 FCFS 基礎上加入 time quantum；SJF 在所有 process 同時到達時，通常可以得到比 FCFS 更短的 average waiting time。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/5_CPU_Scheduling.html?utm_source=chatgpt.com" title="Operating Systems: CPU Scheduling">伊利諾伊大學芝加哥分校計算機科學系</a>)</p>
-<hr />
+<hr/>
 <h3 id="5-考試最短記法">5. 考試最短記法<a class="headerlink" href="#5-考試最短記法" title="Permanent link"></a></h3>
 <p>FCFS：</p>
 <p><strong>照 arrival order 排，不看 burst 長短，不看 priority。</strong></p>
@@ -12261,7 +12261,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <h3 id="4-最容易錯的地方">4. 最容易錯的地方<a class="headerlink" href="#4-最容易錯的地方" title="Permanent link"></a></h3>
 <p>SJF 最常錯在兩點：</p>
 <p>第一，把「還沒到的短工作」也拿來排。這在有不同 arrival time 的題目會錯。</p>
-<p>第二，把 SJF 和 SRTF 混在一起。<br />
+<p>第二，把 SJF 和 SRTF 混在一起。<br/>
 <code>SRTF(Shortest-Remaining-Time-First，最短剩餘時間優先)</code> 是 preemptive SJF；如果新到的 process 剩餘時間更短，可能搶先目前 running process。講義後面也有 preemptive SJF 的例子。</p>
 <p>本輪先不碰 SRTF，只做 nonpreemptive SJF。</p>
 <h3 id="5-最短記法_1">5. 最短記法<a class="headerlink" href="#5-最短記法_1" title="Permanent link"></a></h3>
@@ -12279,7 +12279,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <p>所以問題變成：</p>
 <p><strong>如果新的 process 進入 ready queue，而且它剩下要跑的時間比目前正在跑的 process 還短，要不要把目前的 process 搶下來？</strong></p>
 <p>SRTF 的答案是：要。</p>
-<hr />
+<hr/>
 <h3 id="2-核心規則永遠選剩餘時間最短的-process">2. 核心規則：永遠選「剩餘時間」最短的 process<a class="headerlink" href="#2-核心規則永遠選剩餘時間最短的-process" title="Permanent link"></a></h3>
 <p><code>Shortest-remaining-time-first(SRTF，最短剩餘時間優先)</code> 可以看成：</p>
 <p><strong>Preemptive SJF(可搶先版 SJF)</strong></p>
@@ -12294,7 +12294,7 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 <p>判斷規則是：</p>
 <p><strong>在 ready queue 裡，包含目前正在 running 的 process，選 remaining time 最短者。</strong></p>
 <p>生活化例子：你在排隊處理作業。你手上正在改一份還要 7 分鐘的作業，突然有人拿來一份只要 4 分鐘的作業。SRTF 會說：先停下現在這份，改 4 分鐘那份，因為它剩下更短。</p>
-<hr />
+<hr/>
 <h3 id="3-講義例題資料">3. 講義例題資料<a class="headerlink" href="#3-講義例題資料" title="Permanent link"></a></h3>
 <p>p.14 的資料是：</p>
 <table>
@@ -12329,38 +12329,38 @@ I/O device utilization 和 CPU utilization 可能衝突。若 scheduler 偏好 C
 </tbody>
 </table>
 <p>這題的關鍵不是直接排序 burst time，而是要沿著時間走。</p>
-<hr />
+<hr/>
 <h3 id="4-trace每個時間點誰會搶誰">4. Trace：每個時間點誰會搶誰？<a class="headerlink" href="#4-trace每個時間點誰會搶誰" title="Permanent link"></a></h3>
 <p>先看時間線。</p>
-<p>t = 0：只有 P1 到達，所以 P1 跑。<br />
+<p>t = 0：只有 P1 到達，所以 P1 跑。<br/>
 P1 原本 burst = 8，跑了 1 單位後，剩下 7。</p>
-<p>t = 1：P2 到達，P2 burst = 4。<br />
-現在比較：P1 剩 7，P2 需要 4。<br />
+<p>t = 1：P2 到達，P2 burst = 4。<br/>
+現在比較：P1 剩 7，P2 需要 4。<br/>
 因為 P2 比 P1 短，所以 P2 搶先 P1。</p>
-<p>t = 2：P3 到達，P3 burst = 9。<br />
-此時 P2 已跑 1 單位，P2 剩 3。<br />
-比較：P2 剩 3，P1 剩 7，P3 需要 9。<br />
+<p>t = 2：P3 到達，P3 burst = 9。<br/>
+此時 P2 已跑 1 單位，P2 剩 3。<br/>
+比較：P2 剩 3，P1 剩 7，P3 需要 9。<br/>
 P2 最短，所以繼續跑。</p>
-<p>t = 3：P4 到達，P4 burst = 5。<br />
-此時 P2 已跑 2 單位，P2 剩 2。<br />
-比較：P2 剩 2，P4 需要 5，P1 剩 7，P3 需要 9。<br />
+<p>t = 3：P4 到達，P4 burst = 5。<br/>
+此時 P2 已跑 2 單位，P2 剩 2。<br/>
+比較：P2 剩 2，P4 需要 5，P1 剩 7，P3 需要 9。<br/>
 P2 還是最短，所以繼續跑。</p>
-<p>t = 5：P2 完成。<br />
-剩下：P1 剩 7，P3 剩 9，P4 剩 5。<br />
+<p>t = 5：P2 完成。<br/>
+剩下：P1 剩 7，P3 剩 9，P4 剩 5。<br/>
 P4 最短，所以 P4 跑 t = 5 到 t = 10。</p>
-<p>t = 10：P4 完成。<br />
-剩下：P1 剩 7，P3 剩 9。<br />
+<p>t = 10：P4 完成。<br/>
+剩下：P1 剩 7，P3 剩 9。<br/>
 P1 最短，所以 P1 跑 t = 10 到 t = 17。</p>
-<p>t = 17：P1 完成。<br />
+<p>t = 17：P1 完成。<br/>
 最後 P3 跑 t = 17 到 t = 26。</p>
-<hr />
+<hr/>
 <h3 id="5-gantt-chart">5. Gantt Chart<a class="headerlink" href="#5-gantt-chart" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>0     1     5      10     17      26
 | P1  | P2  | P4   | P1   | P3    |
 </code></pre></div>
-<p>這個圖最容易錯的地方是：<br />
+<p>這個圖最容易錯的地方是：<br/>
 <strong>P1 不是從 0 一直跑到 8，因為 t = 1 時 P2 到達，而且 P2 的 burst 4 小於 P1 剩下的 7，所以 P1 被搶先。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-waiting-time-怎麼算">6. Waiting Time 怎麼算？<a class="headerlink" href="#6-waiting-time-怎麼算" title="Permanent link"></a></h3>
 <p>SRTF 題目最穩的算法是：</p>
 <p><code>Waiting Time = Completion Time - Arrival Time - Burst Time</code></p>
@@ -12409,33 +12409,33 @@ P1 最短，所以 P1 跑 t = 10 到 t = 17。</p>
 <p>所以：</p>
 <p><code>Average Waiting Time = (9 + 0 + 15 + 2) / 4 = 26 / 4 = 6.5 msec</code></p>
 <p>這也對應講義 p.14 的 average waiting time = 6.5 msec。</p>
-<hr />
+<hr/>
 <h3 id="7-最短記法_1">7. 最短記法<a class="headerlink" href="#7-最短記法_1" title="Permanent link"></a></h3>
 <p>SRTF 解題時你只要記這句：</p>
 <p><strong>每次有新 process 到達或目前 process 結束，就比較所有 ready / running process 的 remaining time，選最短的。</strong></p>
-<p>考試作答時不要只寫「選 burst time 最短」。<br />
+<p>考試作答時不要只寫「選 burst time 最短」。<br/>
 要寫「選 remaining time 最短」，因為這才是 SRTF 的核心。</p>
-<hr />
+<hr/>
 <h3 id="8-常見錯法">8. 常見錯法<a class="headerlink" href="#8-常見錯法" title="Permanent link"></a></h3>
-<p>第一個錯法：把 SRTF 當成 nonpreemptive SJF。<br />
+<p>第一個錯法：把 SRTF 當成 nonpreemptive SJF。<br/>
 也就是 P1 一開始跑，就讓 P1 跑完。這是錯的，因為 SRTF 可以被更短的新 process 搶先。</p>
-<p>第二個錯法：新 process 到達時，用原本 burst time 比，不更新目前 process 的 remaining time。<br />
+<p>第二個錯法：新 process 到達時，用原本 burst time 比，不更新目前 process 的 remaining time。<br/>
 例如 t = 3 時，P2 已經跑了 2 單位，所以 P2 剩 2，不是 4。</p>
-<p>第三個錯法：waiting time 用分段硬加，結果漏掉某段等待。<br />
+<p>第三個錯法：waiting time 用分段硬加，結果漏掉某段等待。<br/>
 比較安全的公式是：<code>Waiting Time = Completion - Arrival - Burst</code>。</p>
 <h2 id="priority-scheduling--cpu-要怎麼根據重要性決定誰先跑">⭐Priority Scheduling — CPU 要怎麼根據「重要性」決定誰先跑？<a class="headerlink" href="#priority-scheduling--cpu-要怎麼根據重要性決定誰先跑" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 12</p>
 <h3 id="1-priority-scheduling優先權排班在解決什麼問題">1. Priority Scheduling(優先權排班)在解決什麼問題？<a class="headerlink" href="#1-priority-scheduling優先權排班在解決什麼問題" title="Permanent link"></a></h3>
-<p>FCFS 只看誰先來，SJF 只看誰短。<br />
+<p>FCFS 只看誰先來，SJF 只看誰短。<br/>
 但有些情況我們不只在乎「先到」或「短」，而是在乎：</p>
 <p><strong>哪個 process 比較重要？</strong></p>
 <p>生活化例子：醫院急診不會完全照排隊順序，也不一定先處理最快的病人，而是先處理「優先權最高」的病人。</p>
 <p>在 OS 裡，<code>Priority Scheduling(優先權排班)</code> 的核心規則是：</p>
 <p><strong>CPU 空下來時，選 priority 最高的 process 來執行。</strong></p>
 <p>講義寫的是：</p>
-<p><strong>The CPU is allocated to the process with the highest priority.</strong><br />
+<p><strong>The CPU is allocated to the process with the highest priority.</strong><br/>
 也就是 CPU 分配給最高優先權的 process。</p>
-<hr />
+<hr/>
 <h3 id="2-priority-數字越小越高還是越大越高">2. Priority 數字越小越高，還是越大越高？<a class="headerlink" href="#2-priority-數字越小越高還是越大越高" title="Permanent link"></a></h3>
 <p>這個不能靠直覺猜，<strong>要看題目定義</strong>。</p>
 <p>常見有兩種：</p>
@@ -12458,15 +12458,15 @@ P1 最短，所以 P1 跑 t = 10 到 t = 17。</p>
 </tbody>
 </table>
 <p>講義這一段採用：</p>
-<p><strong>smallest integer = highest priority</strong><br />
+<p><strong>smallest integer = highest priority</strong><br/>
 也就是數字越小，優先權越高。</p>
 <p>期末考古 Q2 也明確說：</p>
-<p><strong>a smaller priority number implies a higher priority</strong><br />
+<p><strong>a smaller priority number implies a higher priority</strong><br/>
 所以這一題也是數字越小越高。</p>
 <p>這點很重要，因為期末考古 Q3 反而是另一種方向：它說 <code>higher number indicating a higher relative priority</code>，也就是數字越大越高。</p>
 <p>所以考試看到 priority 題，第一步不是排 Gantt chart，而是先圈出：</p>
 <p><strong>priority 數字方向。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-如果-priority-一樣怎麼辦">3. 如果 priority 一樣怎麼辦？<a class="headerlink" href="#3-如果-priority-一樣怎麼辦" title="Permanent link"></a></h3>
 <p>講義說：</p>
 <p><strong>具有相同優先順序的 process，按照 FCFS 排班。</strong></p>
@@ -12496,26 +12496,26 @@ P1 最短，所以 P1 跑 t = 10 到 t = 17。</p>
 </table>
 <p>P1 和 P4 的 priority 都是 2。因為題目說所有 process 都在 time 0 到達，且 arrival order 是 P1, P2, P3, P4, P5，所以 P1 比 P4 早，平手時 P1 先於 P4。</p>
 <p>注意：我這裡只是示範 tie-break，不是在直接解完整題。</p>
-<hr />
+<hr/>
 <h3 id="4-nonpreemptive-priority-和-preemptive-priority-差在哪">4. Nonpreemptive Priority 和 Preemptive Priority 差在哪？<a class="headerlink" href="#4-nonpreemptive-priority-和-preemptive-priority-差在哪" title="Permanent link"></a></h3>
 <p>Priority Scheduling 可以分成兩種。</p>
 <p><code>Nonpreemptive Priority(不可搶先優先權排班)</code>：</p>
-<p>CPU 空下來時，選最高 priority 的 process。<br />
-一旦它開始跑，就讓它跑完整個 CPU burst。<br />
+<p>CPU 空下來時，選最高 priority 的 process。<br/>
+一旦它開始跑，就讓它跑完整個 CPU burst。<br/>
 中途就算有更高 priority process 進來，也不會把它趕下 CPU。</p>
 <p><code>Preemptive Priority(可搶先優先權排班)</code>：</p>
 <p>CPU 正在跑某個 process 時，如果有更高 priority 的 process 進入 ready queue，OS 可以搶先目前 running process，把 CPU 交給更高 priority 的 process。</p>
 <p>期末考古 Q2 指定的是：</p>
-<p><strong>nonpreemptive priority</strong><br />
+<p><strong>nonpreemptive priority</strong><br/>
 所以這題不會中途搶先。只要某個 process 開始跑，就一路跑完。</p>
-<hr />
+<hr/>
 <h3 id="5-priority-scheduling-的最大問題starvation飢餓">5. Priority Scheduling 的最大問題：Starvation(飢餓)<a class="headerlink" href="#5-priority-scheduling-的最大問題starvation飢餓" title="Permanent link"></a></h3>
 <p>Priority Scheduling 可能造成 <code>Starvation(飢餓)</code>。</p>
 <p>意思是：</p>
 <p><strong>低 priority process 可能一直等不到 CPU。</strong></p>
 <p>生活化例子：如果餐廳永遠先服務 VIP，而 VIP 一直進來，普通客人可能永遠吃不到。</p>
 <p>講義也明確說 priority scheduling 的問題是 starvation，低 priority process 可能永遠不執行。解法是 <code>Aging(老化)</code>：隨著等待時間增加，逐漸提高 process 的 priority。</p>
-<hr />
+<hr/>
 <h3 id="6-非題目型示範怎麼排-nonpreemptive-priority">6. 非題目型示範：怎麼排 Nonpreemptive Priority？<a class="headerlink" href="#6-非題目型示範怎麼排-nonpreemptive-priority" title="Permanent link"></a></h3>
 <p>假設所有 process 都在 time 0 到達，而且題目說：</p>
 <p><strong>smaller priority number = higher priority</strong></p>
@@ -12557,10 +12557,10 @@ P1 最短，所以 P1 跑 t = 10 到 t = 17。</p>
 | B  | C  | A  |
 </code></pre></div>
 <p>重點：</p>
-<p>Priority Scheduling 不是 SJF。<br />
+<p>Priority Scheduling 不是 SJF。<br/>
 B 先跑不是因為它 burst 最短，而是因為它 priority 最高。這個例子剛好 B 也是最短，但判斷依據是 priority，不是 burst。</p>
 <p>如果 priority 一樣，才用 FCFS。</p>
-<hr />
+<hr/>
 <h3 id="7-最短記法_2">7. 最短記法<a class="headerlink" href="#7-最短記法_2" title="Permanent link"></a></h3>
 <p>Priority Scheduling：</p>
 <p><strong>先看 priority，高者先跑；priority 一樣才 FCFS。</strong></p>
@@ -12571,13 +12571,13 @@ B 先跑不是因為它 burst 最短，而是因為它 priority 最高。這個�
 <h2 id="round-robin-scheduling--為什麼每個-process-只能輪流拿一小段-cpu">⭐Round Robin Scheduling — 為什麼每個 process 只能輪流拿一小段 CPU？<a class="headerlink" href="#round-robin-scheduling--為什麼每個-process-只能輪流拿一小段-cpu" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 12</p>
 <h3 id="1-rrround-robin依序循環排班在解決什麼問題">1. RR(Round Robin，依序循環排班)在解決什麼問題？<a class="headerlink" href="#1-rrround-robin依序循環排班在解決什麼問題" title="Permanent link"></a></h3>
-<p>FCFS 的問題是：一個長工作可能霸佔 CPU 太久。<br />
-SJF 的問題是：長工作可能一直被短工作延後。<br />
+<p>FCFS 的問題是：一個長工作可能霸佔 CPU 太久。<br/>
+SJF 的問題是：長工作可能一直被短工作延後。<br/>
 Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p><code>RR(Round Robin，依序循環排班)</code> 想解決的是：</p>
 <p><strong>讓每個 ready process 都輪流拿到 CPU，不讓某個 process 一次佔太久。</strong></p>
 <p>生活化例子：老師讓每個學生輪流問問題，每個人最多問 1 分鐘。時間到就換下一個，還沒問完的人排回隊伍尾端。</p>
-<hr />
+<hr/>
 <h3 id="2-rr-的核心規則">2. RR 的核心規則<a class="headerlink" href="#2-rr-的核心規則" title="Permanent link"></a></h3>
 <p>RR 有一個關鍵參數：</p>
 <p><code>Time Quantum(時間量)</code>，也叫 <code>Time Slice(時間片段)</code>。</p>
@@ -12591,7 +12591,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <li>換下一個 process 跑。</li>
 </ol>
 <p>講義也說，RR 類似 FCFS，但加入可搶先規則；時間量結束後，process 會被 preempted 並加到 ready queue 尾端。</p>
-<hr />
+<hr/>
 <h3 id="3-非題目型示範rr-quantum--1-怎麼跑">3. 非題目型示範：RR quantum = 1 怎麼跑？<a class="headerlink" href="#3-非題目型示範rr-quantum--1-怎麼跑" title="Permanent link"></a></h3>
 <p>假設所有 process 都在 time 0 到達，順序是 A, B, C：</p>
 <table>
@@ -12673,24 +12673,24 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 | A | B | C | A | C | A |
 </code></pre></div>
 <p>這就是 RR 的核心：<strong>不是誰短誰先、不是誰重要誰先，而是大家輪流拿 CPU。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-rr-最容易錯的地方">4. RR 最容易錯的地方<a class="headerlink" href="#4-rr-最容易錯的地方" title="Permanent link"></a></h3>
-<p>第一，忘記「沒跑完要排回尾端」。<br />
+<p>第一，忘記「沒跑完要排回尾端」。<br/>
 不是直接繼續跑，也不是插回原位。</p>
-<p>第二，忘記 process 完成後不用再排回去。<br />
+<p>第二，忘記 process 完成後不用再排回去。<br/>
 如果剩餘 burst 變 0，這個 process 就結束。</p>
-<p>第三，把 quantum 當成「一定跑滿」。<br />
+<p>第三，把 quantum 當成「一定跑滿」。<br/>
 如果 process 剩 0.5 個 quantum 就跑完，它可以提早結束，不需要硬跑滿。</p>
-<p>第四，算 waiting time 時容易亂。<br />
+<p>第四，算 waiting time 時容易亂。<br/>
 最穩的方法仍然是先找 completion time：</p>
 <p><code>Turnaround Time = Completion Time - Arrival Time</code></p>
 <p><code>Waiting Time = Turnaround Time - Total CPU Burst Time</code></p>
 <p>RR 題目通常不建議一段一段加 waiting，因為很容易漏掉中間回 ready queue 的等待。</p>
-<hr />
+<hr/>
 <h3 id="5-time-quantum-太大或太小會怎樣">5. Time quantum 太大或太小會怎樣？<a class="headerlink" href="#5-time-quantum-太大或太小會怎樣" title="Permanent link"></a></h3>
 <p><code>Time quantum</code> 很大時，RR 會越來越像 FCFS，因為 process 可能一次就跑完。</p>
 <p><code>Time quantum</code> 很小時，response time 可能變好，大家很快都有機會拿到 CPU；但 context switch 次數會變多，overhead 可能變大。講義也提醒，quantum 太小時，必須相對於 context switch 夠大，不然 overhead 會太高。</p>
-<hr />
+<hr/>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
 <p>RR：</p>
 <p><strong>每個 process 輪流跑一個 quantum；沒跑完就排回 ready queue 尾端。</strong></p>
@@ -12711,7 +12711,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p>也就是它不是單純 RR，也不是單純 priority，而是：</p>
 <p><strong>Priority first, Round Robin within the same priority level.</strong></p>
 <p>考古題 Q3 題幹明確說，這是 <code>preemptive, round-robin scheduling algorithm</code>，priority 數字越大代表 priority 越高，time quantum 是 10 units；如果 process 被更高 priority process preempted，被搶先的 process 會放到 queue 尾端。</p>
-<hr />
+<hr/>
 <h3 id="2-這題-priority-方向和-q2-不一樣">2. 這題 priority 方向和 Q2 不一樣<a class="headerlink" href="#2-這題-priority-方向和-q2-不一樣" title="Permanent link"></a></h3>
 <p>這很重要。</p>
 <p>Q2 的 nonpreemptive priority 是：</p>
@@ -12754,7 +12754,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 </tbody>
 </table>
 <p>考試第一步一定要圈出 priority 方向，不能沿用 Q2 的方向。</p>
-<hr />
+<hr/>
 <h3 id="3-preemptive-priority-的規則">3. Preemptive Priority 的規則<a class="headerlink" href="#3-preemptive-priority-的規則" title="Permanent link"></a></h3>
 <p><code>Preemptive Priority(可搶先優先權排班)</code> 的核心是：</p>
 <p><strong>如果新的 ready process priority 比目前 running process 更高，現在 running 的 process 會被搶先。</strong></p>
@@ -12765,14 +12765,14 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <li>因為 35 &gt; 30，所以 P4 可以搶先 P2。</li>
 </ul>
 <p>這和前面 Q2 的 <code>nonpreemptive priority</code> 不一樣。Q2 一旦 process 開始跑，就跑完整段 burst；Q3 則可能中途被更高 priority process 打斷。</p>
-<hr />
+<hr/>
 <h3 id="4-rr-在這題只作用於同-priority的-process">4. RR 在這題只作用於「同 priority」的 process<a class="headerlink" href="#4-rr-在這題只作用於同-priority的-process" title="Permanent link"></a></h3>
 <p>這題不是每個 process 都一起 RR。</p>
 <p>正確規則是：</p>
 <p><strong>先選目前 ready queue 中 priority 最高的那一組；如果同 priority 有多個 process，才用 RR quantum = 10 輪流。</strong></p>
 <p>例如 P2 和 P3 都是 priority 30，所以如果目前沒有 priority 35 或 40 的 process，P2 和 P3 之間會用 RR 輪流跑。</p>
 <p>但如果 priority 35 的 P4 出現，P4 會優先於 priority 30 的 P2/P3。</p>
-<hr />
+<hr/>
 <h3 id="5-idle-task-什麼時候跑">5. Idle task 什麼時候跑？<a class="headerlink" href="#5-idle-task-什麼時候跑" title="Permanent link"></a></h3>
 <p>題目有一個 <code>Pidle</code>：</p>
 <ul>
@@ -12780,9 +12780,9 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <li>不消耗 CPU resources</li>
 <li>只有在沒有任何其他 available process 時才跑</li>
 </ul>
-<p>所以如果 t=20 到 t=25 沒有任何真實 process ready，CPU 會跑 Pidle。<br />
+<p>所以如果 t=20 到 t=25 沒有任何真實 process ready，CPU 會跑 Pidle。<br/>
 但是算 CPU utilization 時，Pidle 不算有效 CPU 工作。</p>
-<hr />
+<hr/>
 <h3 id="6-非題目型示範混合規則怎麼判斷">6. 非題目型示範：混合規則怎麼判斷？<a class="headerlink" href="#6-非題目型示範混合規則怎麼判斷" title="Permanent link"></a></h3>
 <p>假設：</p>
 <table>
@@ -12850,15 +12850,15 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 </table>
 <p>這就是 Q3 的核心思路：</p>
 <p><strong>更高 priority 先決定能不能搶；同 priority 才用 RR。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-最短記法_3">7. 最短記法<a class="headerlink" href="#7-最短記法_3" title="Permanent link"></a></h3>
 <p>Q3 混合排班：</p>
 <p><strong>先比 priority；高 priority 可搶先低 priority。同 priority 才 RR。</strong></p>
 <p>Q3 特別記：</p>
 <p><strong>priority 數字越大越高，quantum = 10，idle 只在沒人可跑時出現。</strong></p>
 <h2 id="multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍">⭐Multilevel Queue Scheduling — 為什麼 ready queue 要拆成好幾條隊伍？<a class="headerlink" href="#multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍" title="Permanent link"></a></h2>
-<p>講義位置：PDF viewer page 21 ~ PDF viewer page 22<br />
-<img alt="alt text" src="images/ch%206.png" /></p>
+<p>講義位置：PDF viewer page 21 ~ PDF viewer page 22<br/>
+<img alt="alt text" decoding="async" src="images/ch%206.png"/></p>
 <h3 id="1-這個概念在解決什麼問題_3">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_3" title="Permanent link"></a></h3>
 <p>前面 FCFS、SJF、Priority、RR 都有一個共同假設：</p>
 <p><strong>所有 ready process 都在同一條 ready queue 裡面排隊。</strong></p>
@@ -12872,7 +12872,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p><code>Multilevel Queue Scheduling(多層佇列排班)</code> 的核心想法是：</p>
 <p><strong>先把 process 分類到不同 queue，再分別對每個 queue 設計適合的排班規則。</strong></p>
 <p>生活化例子：醫院不會讓急診、門診、領藥、批價全部排同一條隊。它會分不同櫃台，每個櫃台有自己的處理方式，櫃台之間還可能有優先順序。</p>
-<hr />
+<hr/>
 <h3 id="2-p21-的基本結構ready-queue-被切成多條-queue">2. p.21 的基本結構：Ready queue 被切成多條 queue<a class="headerlink" href="#2-p21-的基本結構ready-queue-被切成多條-queue" title="Permanent link"></a></h3>
 <p>講義 p.21 說 ready queue 可以分成不同 queue，例如：</p>
 <table>
@@ -12896,7 +12896,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p>這裡的重點不是只有兩類，而是：</p>
 <p><strong>不同類型的 process 不一定放在同一條 ready queue。</strong></p>
 <p>所以 Multilevel Queue 的第一步是分類。</p>
-<hr />
+<hr/>
 <h3 id="3-每個-queue-可以有自己的-scheduling-algorithm">3. 每個 queue 可以有自己的 scheduling algorithm<a class="headerlink" href="#3-每個-queue-可以有自己的-scheduling-algorithm" title="Permanent link"></a></h3>
 <p>講義 p.21 給的例子是：</p>
 <table>
@@ -12926,7 +12926,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p>因為 batch job 通常不是使用者正在盯著螢幕等結果，反應時間比較不敏感，用 FCFS 讓它照順序慢慢跑即可。</p>
 <p>所以這裡的核心不是背「foreground = RR、background = FCFS」，而是理解：</p>
 <p><strong>queue 裡面的演算法要配合該類 process 的需求。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-queue-之間也要排班">4. Queue 之間也要排班<a class="headerlink" href="#4-queue-之間也要排班" title="Permanent link"></a></h3>
 <p>有多條 queue 之後，OS 還要決定：</p>
 <p><strong>現在 CPU 要先服務哪一條 queue？</strong></p>
@@ -12955,7 +12955,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 </tbody>
 </table>
 <p>這種方法比較像「CPU 預算分配」。即使 foreground 很忙，background 至少還有 20% CPU 可以跑，比固定優先權更不容易餓死。</p>
-<hr />
+<hr/>
 <h3 id="5-p22-圖在表達什麼">5. p.22 圖在表達什麼？<a class="headerlink" href="#5-p22-圖在表達什麼" title="Permanent link"></a></h3>
 <p>p.22 的圖把 queue 從高優先權到低優先權排開，大概是這個意思：</p>
 <table>
@@ -12991,9 +12991,9 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p>這張圖要你看到的是：</p>
 <p><strong>Multilevel Queue 不只可以分 foreground/background，也可以分很多層，每一層代表不同類型與不同優先權。</strong></p>
 <p>但注意：這是 <code>Multilevel Queue</code>，不是下一頁的 <code>Multilevel Feedback Queue</code>。</p>
-<p>在 Multilevel Queue 裡，process 通常被永久分到某一個 queue；<br />
+<p>在 Multilevel Queue 裡，process 通常被永久分到某一個 queue；<br/>
 下一頁 Multilevel Feedback Queue 才會允許 process 在 queue 之間移動。</p>
-<hr />
+<hr/>
 <h3 id="6-最容易混淆multilevel-queue-vs-priority-scheduling">6. 最容易混淆：Multilevel Queue vs Priority Scheduling<a class="headerlink" href="#6-最容易混淆multilevel-queue-vs-priority-scheduling" title="Permanent link"></a></h3>
 <p>你可能會想：這不就 Priority Scheduling 嗎？</p>
 <p>不完全一樣。</p>
@@ -13030,7 +13030,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 </table>
 <p>最短差別：</p>
 <p><strong>Priority Scheduling 是 process 之間比 priority；Multilevel Queue 是先把 process 分群，每群可以用不同排班法。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-最容易混淆multilevel-queue-vs-multilevel-feedback-queue">7. 最容易混淆：Multilevel Queue vs Multilevel Feedback Queue<a class="headerlink" href="#7-最容易混淆multilevel-queue-vs-multilevel-feedback-queue" title="Permanent link"></a></h3>
 <p>這個先講最小必要差別，因為 p.23 才會正式教 <code>Multilevel Feedback Queue</code>。</p>
 <table>
@@ -13063,7 +13063,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p><strong>Multilevel Queue = 多條固定用途 queue，每條 queue 可有自己的演算法。</strong></p>
 <p>下一頁才是：</p>
 <p><strong>Multilevel Feedback Queue = process 可以在 queue 之間移動。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
 <p>Multilevel Queue Scheduling：</p>
 <p><strong>先分類成多條 ready queue；每條 queue 有自己的排班法；queue 之間再用固定優先權或 CPU 比例分配。</strong></p>
@@ -13074,7 +13074,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <li>Scheduling must also be done among the queues.</li>
 </ol>
 <h2 id="multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動">⭐Multilevel Feedback-Queue Scheduling — 為什麼 process 可以在不同 queue 之間移動？<a class="headerlink" href="#multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%206-1.png" /><br />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-1.png"/><br/>
 講義位置：PDF viewer page 23</p>
 <h3 id="1-這個概念在解決什麼問題_4">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_4" title="Permanent link"></a></h3>
 <p>上一頁 <code>Multilevel Queue Scheduling(多層佇列排班)</code> 的想法是：</p>
@@ -13084,7 +13084,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p>所以 <code>Multilevel Feedback-Queue Scheduling(多層回饋佇列排班)</code> 要解決的是：</p>
 <p><strong>不要讓 process 永遠卡在同一層 queue，而是根據它的行為動態調整它的位置。</strong></p>
 <p>生活化例子：餐廳排隊不是只有一條固定 VIP 隊和普通隊，而是看顧客狀況調整。例如有人點餐很久、佔櫃台太久，就先讓他去旁邊等；有人等太久了，就把他往前移。</p>
-<hr />
+<hr/>
 <h3 id="2-核心規則process-可以在-queue-之間移動">2. 核心規則：process 可以在 queue 之間移動<a class="headerlink" href="#2-核心規則process-可以在-queue-之間移動" title="Permanent link"></a></h3>
 <p>p.23 最重要的一句是：</p>
 <p><strong>Multilevel Feedback Queue allows a process to move between queues.</strong></p>
@@ -13110,13 +13110,13 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 </tr>
 </tbody>
 </table>
-<p>所以名字裡的 <code>Feedback(回饋)</code> 很重要：<br />
+<p>所以名字裡的 <code>Feedback(回饋)</code> 很重要：<br/>
 系統會觀察 process 的行為，再回饋到排程決策。</p>
-<hr />
+<hr/>
 <h3 id="3-cpu-用太久往低優先-queue-移動">3. CPU 用太久：往低優先 queue 移動<a class="headerlink" href="#3-cpu-用太久往低優先-queue-移動" title="Permanent link"></a></h3>
 <p>講義 p.23 說：</p>
 <p><strong>一個 process 需要太長的 CPU 時間，就會排到低優先的 queue。</strong> </p>
-<p>直覺是：如果一個 process 每次拿到 CPU 都跑很久，代表它比較像 CPU-bound process。<br />
+<p>直覺是：如果一個 process 每次拿到 CPU 都跑很久，代表它比較像 CPU-bound process。<br/>
 CPU-bound process 通常不需要快速互動回應，所以可以被放到較低優先 queue，讓 interactive process 先跑。</p>
 <p>例如：</p>
 <ol>
@@ -13126,15 +13126,15 @@ CPU-bound process 通常不需要快速互動回應，所以可以被放到較�
 <li>P1 被降到下一層較低優先 queue。</li>
 </ol>
 <p>這叫做 <code>Demotion(降級)</code>。</p>
-<hr />
+<hr/>
 <h3 id="4-等太久往高優先-queue-移動">4. 等太久：往高優先 queue 移動<a class="headerlink" href="#4-等太久往高優先-queue-移動" title="Permanent link"></a></h3>
 <p>講義 p.23 也說：</p>
 <p><strong>在低優先 queue 等候太久的 process，隨著時間增長，也會漸漸移往高優先 queue。</strong> </p>
 <p>這是在解決 <code>Starvation(飢餓)</code>。</p>
-<p>如果低優先 queue 永遠被高優先 queue 壓住，低優先 process 可能永遠執行不到。<br />
+<p>如果低優先 queue 永遠被高優先 queue 壓住，低優先 process 可能永遠執行不到。<br/>
 所以 MLFQ 會讓等太久的 process 慢慢往高優先 queue 移動。</p>
 <p>這叫做 <code>Promotion(升級)</code>，概念上很像前面 Priority Scheduling 的 <code>Aging(老化)</code>。</p>
-<hr />
+<hr/>
 <h3 id="5-為什麼高優先-queue-常放-io-bound-或-interactive-process">5. 為什麼高優先 queue 常放 I/O-bound 或 interactive process？<a class="headerlink" href="#5-為什麼高優先-queue-常放-io-bound-或-interactive-process" title="Permanent link"></a></h3>
 <p>講義 p.23 說高優先 queue 通常排的是 I/O 和交談式行程。</p>
 <p>原因是這些 process 通常 CPU burst 很短，但需要快回應。</p>
@@ -13145,7 +13145,7 @@ CPU-bound process 通常不需要快速互動回應，所以可以被放到較�
 <li>然後又去等下一個鍵盤輸入。</li>
 </ol>
 <p>這種 process 如果排在高優先 queue，就可以很快得到 CPU，使用者感覺系統很順。</p>
-<hr />
+<hr/>
 <h3 id="6-和前一頁-multilevel-queue-的最短差別">6. 和前一頁 Multilevel Queue 的最短差別<a class="headerlink" href="#6-和前一頁-multilevel-queue-的最短差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -13194,25 +13194,25 @@ CPU-bound process 通常不需要快速互動回應，所以可以被放到較�
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>Multilevel Queue = 分很多隊。</strong><br />
+<p><strong>Multilevel Queue = 分很多隊。</strong><br/>
 <strong>Multilevel Feedback Queue = 分很多隊，而且 process 會依行為升降隊。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-考試最常見寫法">7. 考試最常見寫法<a class="headerlink" href="#7-考試最常見寫法" title="Permanent link"></a></h3>
 <p>如果考試問：What is multilevel feedback-queue scheduling?</p>
 <p>可以寫：</p>
 <p>Multilevel feedback-queue scheduling partitions the ready queue into multiple queues and allows processes to move between queues. A process that uses too much CPU time may be moved to a lower-priority queue, while a process that waits too long in a lower-priority queue may be moved to a higher-priority queue to prevent starvation.</p>
-<hr />
+<hr/>
 <h3 id="8-常見錯法_1">8. 常見錯法<a class="headerlink" href="#8-常見錯法_1" title="Permanent link"></a></h3>
-<p>第一，把 MLFQ 當成 Multilevel Queue。<br />
+<p>第一，把 MLFQ 當成 Multilevel Queue。<br/>
 只寫「有很多 queue」不夠，因為 MLFQ 的重點是 process 可以移動。</p>
-<p>第二，把「降級」和「升級」寫反。<br />
-CPU 用太久 → 降到低優先 queue。<br />
+<p>第二，把「降級」和「升級」寫反。<br/>
+CPU 用太久 → 降到低優先 queue。<br/>
 等太久 → 升到高優先 queue。</p>
-<p>第三，把它當成單純 Priority Scheduling。<br />
+<p>第三，把它當成單純 Priority Scheduling。<br/>
 MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue 加上動態移動。</p>
 <h2 id="thread-scheduling--執行緒到底是在跟誰競爭-cpu">⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？<a class="headerlink" href="#thread-scheduling--執行緒到底是在跟誰競爭-cpu" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 24</p>
-<p><img alt="alt text" src="images/ch%206-2.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-2.png"/></p>
 <h3 id="1-這個概念在解決什麼問題_5">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_5" title="Permanent link"></a></h3>
 <p>前面我們都在講 <code>Process Scheduling(行程排班)</code>，也就是 OS 從 ready queue 裡選 process 來用 CPU。</p>
 <p>但 p.24 開始講 <code>Thread Scheduling(執行緒排班)</code>。</p>
@@ -13224,7 +13224,7 @@ MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue �
 <li>有些 thread 會跟整個系統中的所有 thread 競爭。</li>
 </ol>
 <p>這就是 p.24 的 <code>PCS</code> 和 <code>SCS</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-pcsprocess-contention-scope行程競爭範圍">2. PCS(Process-contention scope，行程競爭範圍)<a class="headerlink" href="#2-pcsprocess-contention-scope行程競爭範圍" title="Permanent link"></a></h3>
 <p><code>PCS(Process-contention scope，行程競爭範圍)</code> 的意思是：</p>
 <p><strong>thread 只在同一個 process 內部競爭 CPU time。</strong></p>
@@ -13261,11 +13261,11 @@ MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue �
 </div>
 <p>講義 p.24 說，在多對一或多對多模型中，user-level thread 會透過 thread library 被排班到可用的 LWP 上；因為 CPU 競爭發生在同一個 process 的 threads 之間，所以稱為 PCS。</p>
 <p>生活化例子：</p>
-<p>一間公司有很多部門，每個部門內部自己排誰先用會議室。<br />
+<p>一間公司有很多部門，每個部門內部自己排誰先用會議室。<br/>
 PCS 就像「只在自己部門裡排隊」，不是全公司一起搶。</p>
 <p>所以 PCS 的競爭範圍是：</p>
 <p><strong>同一個 process 裡的 threads。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-scssystem-contention-scope系統競爭範圍">3. SCS(System-contention scope，系統競爭範圍)<a class="headerlink" href="#3-scssystem-contention-scope系統競爭範圍" title="Permanent link"></a></h3>
 <p><code>SCS(System-contention scope，系統競爭範圍)</code> 的意思是：</p>
 <p><strong>thread 會和整個系統中的其他 kernel threads 競爭 CPU time。</strong></p>
@@ -13274,7 +13274,7 @@ PCS 就像「只在自己部門裡排隊」，不是全公司一起搶。</p>
 <p>SCS 就像不是只在自己部門排隊，而是整間公司所有人一起搶同一批會議室。</p>
 <p>所以 SCS 的競爭範圍是：</p>
 <p><strong>整個 system 裡的 threads。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-pcs-vs-scs-的核心差別">4. PCS vs SCS 的核心差別<a class="headerlink" href="#4-pcs-vs-scs-的核心差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -13319,22 +13319,22 @@ PCS 就像「只在自己部門裡排隊」，不是全公司一起搶。</p>
 </table>
 <p>最短差別：</p>
 <p><strong>PCS 是 process 內部競爭；SCS 是整個系統競爭。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-為什麼這個重要">5. 為什麼這個重要？<a class="headerlink" href="#5-為什麼這個重要" title="Permanent link"></a></h3>
 <p>因為 thread scheduling 不是只問「哪個 thread 先跑」，還要問：</p>
 <p><strong>這個 thread 有沒有資格直接被 OS 排到 CPU 上？</strong></p>
 <p>在 PCS 裡，user-level thread 通常先由 thread library 排到 LWP 上，OS 不一定直接看見每個 user thread。</p>
 <p>在 SCS 裡，kernel thread 是 OS 看得見、可直接排到實體 CPU 上的單位。</p>
 <p>所以 SCS 通常比較能讓 OS 做全系統資源分配，例如把 thread 移到不同 CPU 上平衡負載；但 PCS 可能比較簡化、成本較低。</p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法_1">6. 常見錯法<a class="headerlink" href="#6-常見錯法_1" title="Permanent link"></a></h3>
-<p>第一，把 PCS 說成「process 和 process 競爭」。<br />
+<p>第一，把 PCS 說成「process 和 process 競爭」。<br/>
 不是。PCS 是 <strong>同一個 process 裡的 threads 彼此競爭</strong>。</p>
-<p>第二，把 SCS 說成「同一個 process 裡的 threads 競爭」。<br />
+<p>第二，把 SCS 說成「同一個 process 裡的 threads 競爭」。<br/>
 那是 PCS。SCS 是 <strong>整個系統的 threads 競爭</strong>。</p>
-<p>第三，把 user-level thread 和 kernel-level thread 混在一起。<br />
+<p>第三，把 user-level thread 和 kernel-level thread 混在一起。<br/>
 p.24 的核心是：user-level thread 的排班可能由 thread library 管理；kernel thread 則由 OS kernel 排到實體 CPU 上。</p>
-<hr />
+<hr/>
 <h3 id="7-最短記法_4">7. 最短記法<a class="headerlink" href="#7-最短記法_4" title="Permanent link"></a></h3>
 <p>PCS：</p>
 <p><strong>同 process 內部 threads 競爭。</strong></p>
@@ -13353,7 +13353,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>答案是：</p>
 <p><strong>在建立 thread 之前，先設定 thread attribute。</strong></p>
 <p>也就是你不是等 thread 建好後才決定，而是先準備一份 <code>pthread_attr_t</code>，設定好 scope，再拿這份 attribute 去 <code>pthread_create()</code>。</p>
-<hr />
+<hr/>
 <h3 id="2-p25-的兩個常數">2. p.25 的兩個常數<a class="headerlink" href="#2-p25-的兩個常數" title="Permanent link"></a></h3>
 <p>講義 p.25 給了兩個設定：</p>
 <table>
@@ -13378,7 +13378,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><code>PTHREAD_SCOPE_PROCESS</code> → PCS → same-process competition</p>
 <p><code>PTHREAD_SCOPE_SYSTEM</code> → SCS → system-wide competition</p>
 <p>這裡最容易錯的是看到 <code>PROCESS</code> 就以為是 process 在競爭。不是。它還是 threads 在競爭，只是競爭範圍是 process 內部。</p>
-<hr />
+<hr/>
 <h3 id="3-p26--27-程式碼的核心流程">3. p.26 ~ 27 程式碼的核心流程<a class="headerlink" href="#3-p26--27-程式碼的核心流程" title="Permanent link"></a></h3>
 <p>講義的 API 範例大概是在做這件事：</p>
 <ol>
@@ -13392,7 +13392,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </ol>
 <p>這裡最重要的是第 3、4、6 步：</p>
 <p><strong>先初始化 attr → 設定 scope → create thread 時把 attr 傳進去。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-最小必要-code-片段">4. 最小必要 code 片段<a class="headerlink" href="#4-最小必要-code-片段" title="Permanent link"></a></h3>
 <p>這段是核心，不需要背整份程式：</p>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span>
@@ -13413,7 +13413,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <div class="highlight"><pre><span></span><code><span class="n">pthread_attr_setscope</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTHREAD_SCOPE_PROCESS</span><span class="p">);</span>
 </code></pre></div>
 <p>那就是指定 PCS。</p>
-<hr />
+<hr/>
 <h3 id="5-scope-和-policy-不要混在一起">5. <code>scope</code> 和 <code>policy</code> 不要混在一起<a class="headerlink" href="#5-scope-和-policy-不要混在一起" title="Permanent link"></a></h3>
 <p>p.26 程式碼還有這行：</p>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_attr_setschedpolicy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">SCHED_OTHER</span><span class="p">);</span>
@@ -13446,7 +13446,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <li><code>pthread_attr_setschedpolicy()</code> 是設定排班政策。</li>
 </ul>
 <p>考試若問 PCS/SCS，不要回答成 <code>SCHED_OTHER</code>；那是另一個概念。</p>
-<hr />
+<hr/>
 <h3 id="6-為什麼設定在-pthread_create-前">6. 為什麼設定在 <code>pthread_create()</code> 前？<a class="headerlink" href="#6-為什麼設定在-pthread_create-前" title="Permanent link"></a></h3>
 <p>因為 <code>attr</code> 是建立 thread 時讀取的設定。</p>
 <p>生活化例子：你要辦學生證，照片、姓名、系所要在送件前填好。送件之後才說「我想改成另一個系」就不是這個流程的重點。</p>
@@ -13454,17 +13454,17 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>先設定 attr，再用 attr 建立 thread。</strong></p>
 <p>所以流程順序是：</p>
 <p><code>init attr → set scope / policy → create thread → join thread</code></p>
-<hr />
+<hr/>
 <h3 id="7-常見錯法">7. 常見錯法<a class="headerlink" href="#7-常見錯法" title="Permanent link"></a></h3>
-<p>第一，把 <code>PTHREAD_SCOPE_PROCESS</code> 解釋成「process 跟 process 競爭」。<br />
+<p>第一，把 <code>PTHREAD_SCOPE_PROCESS</code> 解釋成「process 跟 process 競爭」。<br/>
 錯。它是 threads 在同一個 process 內競爭。</p>
-<p>第二，把 <code>PTHREAD_SCOPE_SYSTEM</code> 解釋成「每個 process 競爭」。<br />
+<p>第二，把 <code>PTHREAD_SCOPE_SYSTEM</code> 解釋成「每個 process 競爭」。<br/>
 不精準。它是 thread 和 system 中其他 threads 競爭。</p>
-<p>第三，忘記 <code>pthread_attr_init()</code>。<br />
+<p>第三，忘記 <code>pthread_attr_init()</code>。<br/>
 通常要先初始化 attribute，再設定 scope。</p>
-<p>第四，把 <code>scope</code> 和 <code>policy</code> 混在一起。<br />
+<p>第四，把 <code>scope</code> 和 <code>policy</code> 混在一起。<br/>
 <code>scope</code> 問競爭範圍；<code>policy</code> 問排班策略。</p>
-<hr />
+<hr/>
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
 <p>Pthread scope：</p>
 <p><strong><code>PTHREAD_SCOPE_PROCESS</code> = PCS = same process 內 threads 競爭。</strong></p>
@@ -13487,22 +13487,22 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <li>如果某些 processor 太忙、某些太閒，要不要搬工作？</li>
 <li>多核心裡 memory stall 時，可不可以讓別的 thread 補上？</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="2-amp-vs-smp誰負責排班">2. AMP vs SMP：誰負責排班？<a class="headerlink" href="#2-amp-vs-smp誰負責排班" title="Permanent link"></a></h3>
 <p>講義 p.28 先講兩種多處理器排班方法：<code>Asymmetric Multiprocessing(非對稱多元處理)</code> 和 <code>Symmetric Multiprocessing(對稱多元處理，SMP)</code>。</p>
 <p><code>Asymmetric Multiprocessing(AMP)</code> 的想法是：</p>
 <p><strong>只有一顆 processor 負責所有 scheduling decision(排班決策) 和 I/O 處理，其他 processors 只負責跑 user code。</strong></p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 一間餐廳只有一位店長安排所有座位與出餐順序，其他員工只照店長分配做事。</p>
 <p>優點是簡單，因為只有一顆 processor 會碰系統資料，所以比較少 shared data(共享資料) 競爭問題。</p>
 <p>缺點是那顆 master processor 可能變成瓶頸。</p>
-<hr />
+<hr/>
 <p><code>Symmetric Multiprocessing(SMP)</code> 的想法是：</p>
 <p><strong>每顆 processor 都可以自己排班。</strong></p>
 <p>講義說，在 SMP 中，每個 processor 自行排班；所有 process 可以放在共同的 <code>ready queue(就緒佇列)</code>，也可以每顆 processor 有自己的 <code>private queue(私人佇列)</code>。排班時，每顆 processor 的 scheduler 會檢查 ready queue，然後選一個 process 執行。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 不是只有店長安排座位，而是每個櫃台都可以自己從排隊人潮裡叫下一位客人。</p>
-<hr />
+<hr/>
 <h3 id="3-smp-的兩種-queue-設計">3. SMP 的兩種 queue 設計<a class="headerlink" href="#3-smp-的兩種-queue-設計" title="Permanent link"></a></h3>
 <p>SMP 常見有兩種 ready queue 設計：</p>
 <table>
@@ -13530,18 +13530,18 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </tbody>
 </table>
 <p>這裡會連到 p.30 的 <code>Load Balancing(負載平衡)</code>。</p>
-<hr />
+<hr/>
 <h3 id="4-processor-affinity為什麼-os-不喜歡-process-一直換-cpu">4. Processor Affinity：為什麼 OS 不喜歡 process 一直換 CPU？<a class="headerlink" href="#4-processor-affinity為什麼-os-不喜歡-process-一直換-cpu" title="Permanent link"></a></h3>
 <p>講義 p.29 說，多數 SMP 系統會試著避免 process 從一顆 processor 移到另一顆 processor，盡量讓 process 保持在同一顆 processor 上。這叫做 <code>Processor Affinity(處理器親和性)</code>。</p>
 <p>核心原因是：</p>
 <p><strong>cache(快取) 裡可能已經有這個 process 需要的資料。</strong></p>
-<p>如果 process 原本在 CPU 1 跑，CPU 1 的 cache 可能已經存了它常用的資料。<br />
+<p>如果 process 原本在 CPU 1 跑，CPU 1 的 cache 可能已經存了它常用的資料。<br/>
 如果突然把它移到 CPU 2，CPU 2 的 cache 沒有那些資料，就容易發生 <code>cache miss(快取未命中)</code>，要重新從 memory 抓資料，效能會變差。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 你原本在 A 書桌寫報告，筆、資料夾、電腦都在 A 桌。突然叫你換到 B 桌，你不是不能工作，但你要重新拿工具、找資料，會浪費時間。</p>
 <p>所以 processor affinity 的精神是：</p>
 <p><strong>盡量讓同一個 process 留在同一顆 processor 上，利用 cache locality(快取區域性)。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-soft-affinity-vs-hard-affinity">5. Soft Affinity vs Hard Affinity<a class="headerlink" href="#5-soft-affinity-vs-hard-affinity" title="Permanent link"></a></h3>
 <p>講義 p.29 又分成兩種 affinity：<code>Soft Affinity(軟性親和性)</code> 和 <code>Hard Affinity(硬性親和性)</code>。</p>
 <table>
@@ -13567,7 +13567,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><code>Hard Affinity</code> 像是：</p>
 <p>「你只能坐這個座位，不能換。」</p>
 <p>講義也提到，有些系統如 Linux 支援 hard affinity 的 system call，允許指定 process 不能轉移到其他 processor。</p>
-<hr />
+<hr/>
 <h3 id="6-load-balancing為什麼有時候又必須搬工作">6. Load Balancing：為什麼有時候又必須搬工作？<a class="headerlink" href="#6-load-balancing為什麼有時候又必須搬工作" title="Permanent link"></a></h3>
 <p>這裡會出現一個衝突：</p>
 <p>Processor Affinity 想要：</p>
@@ -13575,9 +13575,9 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>Load Balancing 想要：</p>
 <p><strong>每顆 CPU 的工作量要平均。</strong></p>
 <p>講義 p.30 說，在 SMP 系統中，<code>Load Balancing(負載平衡)</code> 企圖讓所有 processor 的工作量均衡，而且通常在每個 processor 有 private queue 的系統中特別需要做。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 每個櫃台都有自己的隊伍。如果 1 號櫃台排 30 人，2 號櫃台沒人，那系統就很浪費。這時候就需要把人從忙的隊伍移到空的隊伍。</p>
-<hr />
+<hr/>
 <h3 id="7-push-migration-vs-pull-migration">7. Push Migration vs Pull Migration<a class="headerlink" href="#7-push-migration-vs-pull-migration" title="Permanent link"></a></h3>
 <p>講義 p.30 給兩種 migration(遷移)：</p>
 <table>
@@ -13602,16 +13602,16 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>Push = 忙的那邊被推走工作。</strong><br />
+<p><strong>Push = 忙的那邊被推走工作。</strong><br/>
 <strong>Pull = 閒的那邊主動拉工作。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-multicore-processor為什麼多核心會讓排班更複雜">8. Multicore Processor：為什麼多核心會讓排班更複雜？<a class="headerlink" href="#8-multicore-processor為什麼多核心會讓排班更複雜" title="Permanent link"></a></h3>
 <p>講義 p.31 說，多核心處理器可能讓排班問題更複雜。原因是當一個 processor 存取 memory 時，等待資料可用的時間可能很顯著，因此可以利用等待時間讓其他 thread 執行。</p>
 <p>重點是：</p>
 <p><strong>CPU 不一定一直在算，有時候它在等 memory。</strong></p>
-<p>如果一個 thread 正在等 memory 資料，CPU core 其實有一段時間沒有真正做 compute。<br />
+<p>如果一個 thread 正在等 memory 資料，CPU core 其實有一段時間沒有真正做 compute。<br/>
 如果系統能在這段 memory stall cycle 裡用其他 core 去執行其他 thread，就能提高資源利用率。</p>
-<p><img alt="alt text" src="images/ch%206-3.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-3.png"/></p>
 <p>講義 p.31 的圖也在表達 <code>compute cycle</code> 和 <code>memory stall cycle</code> 交錯出現：當一個 thread 卡在 memory stall 時，可以讓其他 thread 接著使用執行資源。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -13630,7 +13630,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </li>
 </ul>
 </div>
-<hr />
+<hr/>
 <h3 id="9-四個概念的關係圖">9. 四個概念的關係圖<a class="headerlink" href="#9-四個概念的關係圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A[Multiple-Processor Scheduling&lt;br&gt;多處理器排班] --&gt; B[AMP&lt;br&gt;一顆 processor 負責排班]
@@ -13644,29 +13644,29 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
     G --&gt; J[Pull Migration&lt;br&gt;閒的 processor 拉工作]
     A --&gt; K[Multicore Processor&lt;br&gt;多核心處理器]
     K --&gt; L[利用 memory stall 時間&lt;br&gt;執行其他 thread]</code></pre>
-<hr />
+<hr/>
 <h3 id="10-最短記法">10. 最短記法<a class="headerlink" href="#10-最短記法" title="Permanent link"></a></h3>
-<p><code>AMP(非對稱多元處理)</code>：<br />
+<p><code>AMP(非對稱多元處理)</code>：<br/>
 <strong>一顆 processor 管排班，其他 processor 只跑 user code。</strong></p>
-<p><code>SMP(對稱多元處理)</code>：<br />
+<p><code>SMP(對稱多元處理)</code>：<br/>
 <strong>每顆 processor 都能自己排班。</strong></p>
-<p><code>Processor Affinity(處理器親和性)</code>：<br />
+<p><code>Processor Affinity(處理器親和性)</code>：<br/>
 <strong>盡量讓 process 留在同一顆 processor 上，減少 cache miss。</strong></p>
-<p><code>Soft Affinity(軟性親和性)</code>：<br />
+<p><code>Soft Affinity(軟性親和性)</code>：<br/>
 <strong>盡量不搬，但必要時可以搬。</strong></p>
-<p><code>Hard Affinity(硬性親和性)</code>：<br />
+<p><code>Hard Affinity(硬性親和性)</code>：<br/>
 <strong>指定不能搬到其他 processor。</strong></p>
-<p><code>Load Balancing(負載平衡)</code>：<br />
+<p><code>Load Balancing(負載平衡)</code>：<br/>
 <strong>讓每顆 processor 工作量平均。</strong></p>
-<p><code>Push Migration</code>：<br />
+<p><code>Push Migration</code>：<br/>
 <strong>系統把工作從忙的 processor 推出去。</strong></p>
-<p><code>Pull Migration</code>：<br />
+<p><code>Pull Migration</code>：<br/>
 <strong>閒的 processor 從忙的 processor 拉工作。</strong></p>
-<p><code>Multicore Processor(多核心處理器)</code>：<br />
+<p><code>Multicore Processor(多核心處理器)</code>：<br/>
 <strong>排班要考慮 memory stall，讓其他 thread 利用等待時間執行。</strong></p>
 <h2 id="real-time-cpu-scheduling--即時系統最怕什麼">⭐Real-Time CPU Scheduling — 即時系統最怕什麼？<a class="headerlink" href="#real-time-cpu-scheduling--即時系統最怕什麼" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 32</p>
-<p><img alt="alt text" src="images/ch%206-4.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-4.png"/></p>
 <h3 id="1-這個概念在解決什麼問題_7">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_7" title="Permanent link"></a></h3>
 <p>前面的一般排班演算法，例如 <code>FCFS</code>、<code>SJF</code>、<code>RR</code>，常常在意：</p>
 <ul>
@@ -13678,11 +13678,11 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>它最在意的是：</p>
 <p><strong>某個重要工作能不能在 deadline(期限) 前被執行？</strong></p>
 <p>生活化例子：</p>
-<p>如果你在看影片，晚個 0.5 秒可能只是卡一下，還能接受。<br />
+<p>如果你在看影片，晚個 0.5 秒可能只是卡一下，還能接受。<br/>
 但如果是汽車煞車控制、飛機控制、醫療儀器，晚 0.5 秒可能就不能接受。</p>
 <p>所以 real-time scheduling 的重點不是「平均表現好不好」，而是：</p>
 <p><strong>能不能準時反應。</strong></p>
-<hr />
+<hr/>
 <h3 id="2-soft-real-time-system軟即時系統">2. Soft Real-Time System(軟即時系統)<a class="headerlink" href="#2-soft-real-time-system軟即時系統" title="Permanent link"></a></h3>
 <p>講義 p.32 說：</p>
 <p><code>Soft real-time systems(軟即時系統)</code> 不保證關鍵的 real-time process 一定會被排程，只保證它比不關鍵的 process 優先處理。</p>
@@ -13697,7 +13697,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>如果偶爾慢一點，體驗會變差，但通常不是災難。</p>
 <p>所以 soft real-time 的關鍵字是：</p>
 <p><strong>priority over non-critical processes, but no strict guarantee.</strong></p>
-<hr />
+<hr/>
 <h3 id="3-hard-real-time-system硬即時系統">3. Hard Real-Time System(硬即時系統)<a class="headerlink" href="#3-hard-real-time-system硬即時系統" title="Permanent link"></a></h3>
 <p>講義 p.32 說：</p>
 <p><code>Hard real-time systems(硬即時系統)</code> 中，任務一定會在期限前被排程執行。</p>
@@ -13714,7 +13714,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>不能錯過 deadline。</strong></p>
 <p>所以 hard real-time 的關鍵字是：</p>
 <p><strong>deadline guarantee.</strong></p>
-<hr />
+<hr/>
 <h3 id="4-soft-vs-hard-的最短差別">4. Soft vs Hard 的最短差別<a class="headerlink" href="#4-soft-vs-hard-的最短差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -13738,9 +13738,9 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>Soft = 優先但不保證。</strong><br />
+<p><strong>Soft = 優先但不保證。</strong><br/>
 <strong>Hard = 必須保證。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-interrupt-latency中斷延遲">5. Interrupt Latency(中斷延遲)<a class="headerlink" href="#5-interrupt-latency中斷延遲" title="Permanent link"></a></h3>
 <p>講義 p.32 說：</p>
 <p><code>Interrupt latency(中斷延遲)</code> 是：</p>
@@ -13795,7 +13795,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </table>
 <p>這些事情加起來，就是 interrupt latency。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="6-dispatch-latency分派延遲">6. Dispatch Latency(分派延遲)<a class="headerlink" href="#6-dispatch-latency分派延遲" title="Permanent link"></a></h3>
 <p>講義 p.32 說：</p>
 <p><code>Dispatch latency(分派延遲)</code> 是：</p>
@@ -13811,7 +13811,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </ul>
 <p>生活化例子：</p>
 <p>店員已經知道下一位客人是急件，但他還要先把現在手上的文件收掉、櫃台清空、切換資料，下一位才真的開始被服務。這段就是 dispatch latency。</p>
-<hr />
+<hr/>
 <h3 id="7-conflict-phase-of-dispatch-latency">7. Conflict Phase of Dispatch Latency<a class="headerlink" href="#7-conflict-phase-of-dispatch-latency" title="Permanent link"></a></h3>
 <p>講義 p.32 還特別列出 <code>conflict phase of dispatch latency</code>，包含兩件事：</p>
 <ol>
@@ -13855,11 +13855,11 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>system call 是進入 kernel mode 的其中一種原因，但 kernel mode 不只來自 system call。</strong></p>
 </div>
 <p>例如：</p>
-<p>低優先權 process 拿著某個 lock 或 resource。<br />
-高優先權 real-time process 需要那個 resource 才能跑。<br />
+<p>低優先權 process 拿著某個 lock 或 resource。<br/>
+高優先權 real-time process 需要那個 resource 才能跑。<br/>
 那高優先權 process 就算 priority 高，也可能被卡住。</p>
 <p>這就是 real-time scheduling 很在意 latency 的原因。</p>
-<hr />
+<hr/>
 <h3 id="8-main-objective主要目標最小化延遲">8. Main Objective(主要目標)：最小化延遲<a class="headerlink" href="#8-main-objective主要目標最小化延遲" title="Permanent link"></a></h3>
 <p>講義 p.32 最後寫：</p>
 <p><strong>Main objective: minimize latency(最小化延遲)。</strong> </p>
@@ -13869,7 +13869,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <li><code>Dispatch latency</code></li>
 </ul>
 <p>如果這兩個 latency 太大，real-time process 就算 priority 很高，也可能太晚開始執行。</p>
-<hr />
+<hr/>
 <h3 id="9-用一條時間線理解">9. 用一條時間線理解<a class="headerlink" href="#9-用一條時間線理解" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -13891,7 +13891,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p>也就是說：</p>
 <p>這兩個 latency 會讓 <mark>事件處理開始變晚</mark> ，以及讓 real-time process 真正拿到 CPU 變晚。所以 real-time 系統要 minimize latency</p>
 </div>
-<hr />
+<hr/>
 <h3 id="10-最短記法_1">10. 最短記法<a class="headerlink" href="#10-最短記法_1" title="Permanent link"></a></h3>
 <p><code>Soft real-time system</code>：</p>
 <p><strong>重要工作優先，但不保證 deadline。</strong></p>
@@ -13918,7 +13918,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <li>如果高優先權 real-time process 變成 ready，它可以搶先目前低優先權 process。</li>
 <li>這樣可以縮短 real-time process 等 CPU 的時間。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="2-為什麼一定要可搶先">2. 為什麼一定要「可搶先」？<a class="headerlink" href="#2-為什麼一定要可搶先" title="Permanent link"></a></h3>
 <p>假設低優先權 process 正在 CPU 上執行，突然一個高優先權 real-time process 變成 ready。</p>
 <p>如果系統是 <code>nonpreemptive(不可搶先)</code>：</p>
@@ -13928,7 +13928,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>高優先權 real-time process 可以把低優先權 process 趕下 CPU，自己先執行。</strong></p>
 <p>所以 real-time scheduling 需要 preemptive，是因為：</p>
 <p><strong>deadline 不會等你慢慢排隊。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-soft-real-time-os-怎麼做">3. Soft Real-Time OS 怎麼做？<a class="headerlink" href="#3-soft-real-time-os-怎麼做" title="Permanent link"></a></h3>
 <p>講義 p.33 說，<code>Linux</code>、<code>Windows</code>、<code>Solaris</code> 提供 <code>Soft real-time(軟即時)</code>，這些 OS 會給 real-time process 最高的 scheduling priority。Windows 例如有 32 種 priority levels，其中 16~31 保留給高優先權 process。</p>
 <p>這裡要注意：</p>
@@ -13957,7 +13957,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </table>
 <p>所以 p.33 的重點是：</p>
 <p><strong>一般 OS 可以提高 real-time process 的 priority，讓它比較快被排程，但這通常仍屬於 soft real-time，不是 hard guarantee。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-hard-real-time-為什麼更嚴格">4. Hard Real-Time 為什麼更嚴格？<a class="headerlink" href="#4-hard-real-time-為什麼更嚴格" title="Permanent link"></a></h3>
 <p>講義 p.34 說：</p>
 <p><strong><code>Hard real-time system(硬即時系統)</code> 必須保證期限前完成工作。</strong> </p>
@@ -13974,16 +13974,16 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <li>優先權怎麼設定才不會錯過 deadline？</li>
 </ul>
 <p>這些會接到 p.35 的 <code>Rate-Monotonic Scheduling</code> 和 p.37 的 <code>EDF</code>。</p>
-<hr />
+<hr/>
 <h3 id="5-periodic-task週期性任務">5. Periodic Task(週期性任務)<a class="headerlink" href="#5-periodic-task週期性任務" title="Permanent link"></a></h3>
 <p>p.34 開始定義 real-time scheduling 很常見的任務形式：</p>
 <p><strong><code>Periodic task(週期性任務)</code>：固定週期性地需要 CPU。</strong></p>
 <p>生活例子：</p>
-<p>汽車控制系統可能每 10 ms 讀一次感測器、計算一次煞車控制。<br />
+<p>汽車控制系統可能每 10 ms 讀一次感測器、計算一次煞車控制。<br/>
 這種任務不是只來一次，而是：</p>
 <p><strong>每隔固定時間就要來一次。</strong></p>
 <p>講義 p.34 定義 periodic task 有三個參數：<code>processing time t</code>、<code>deadline d</code>、<code>period p</code>，且 <code>0 ≤ t ≤ d ≤ p</code>。</p>
-<hr />
+<hr/>
 <h3 id="6-tdp-是什麼">6. t、d、p 是什麼？<a class="headerlink" href="#6-tdp-是什麼" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -14024,20 +14024,20 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 </ul>
 <p>那就代表：</p>
 <p><strong>這個 task 每 50 ms 出現一次，每次要花 20 ms 處理，而且 deadline 是 50 ms 內。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-為什麼-0--t--d--p">7. 為什麼 <code>0 ≤ t ≤ d ≤ p</code>？<a class="headerlink" href="#7-為什麼-0--t--d--p" title="Permanent link"></a></h3>
 <p>這個不等式很重要。</p>
-<p><code>0 ≤ t</code>：<br />
+<p><code>0 ≤ t</code>：<br/>
 處理時間不能是負的。</p>
-<p><code>t ≤ d</code>：<br />
-任務需要的 CPU time 不能比 deadline 還長。<br />
+<p><code>t ≤ d</code>：<br/>
+任務需要的 CPU time 不能比 deadline 還長。<br/>
 如果 <code>t &gt; d</code>，代表它需要 20 ms 才能做完，但 deadline 只有 10 ms，單獨一個 task 就不可能準時完成。</p>
-<p><code>d ≤ p</code>：<br />
-deadline 通常不能比下一次週期還晚。<br />
+<p><code>d ≤ p</code>：<br/>
+deadline 通常不能比下一次週期還晚。<br/>
 因為週期性任務會一直來，如果這次還沒完成，下一次又來了，系統會越堆越亂。</p>
 <p>所以：</p>
 <p><strong>t 是工作量，d 是期限，p 是多久來一次。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-rate-of-periodic-task-是什麼">8. Rate of Periodic Task 是什麼？<a class="headerlink" href="#8-rate-of-periodic-task-是什麼" title="Permanent link"></a></h3>
 <p>講義 p.34 說：</p>
 <p><strong><code>Rate of periodic task = 1/p</code>。</strong> </p>
@@ -14068,10 +14068,10 @@ deadline 通常不能比下一次週期還晚。<br />
 </table>
 <p>所以：</p>
 <p><strong>period 越短，rate 越高。</strong></p>
-<p>這會接到下一頁 <code>Rate-Monotonic Scheduling</code>：<br />
+<p>這會接到下一頁 <code>Rate-Monotonic Scheduling</code>：<br/>
 週期越短的 task，通常會被給更高 priority。</p>
 <p>但這是 p.35 的內容，本則先不正式展開。</p>
-<hr />
+<hr/>
 <h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
 <p><code>Priority-based Preemptive Scheduling</code>：</p>
 <p><strong>real-time process 給高 priority，而且高 priority 可以搶先低 priority。</strong></p>
@@ -14090,10 +14090,10 @@ deadline 通常不能比下一次週期還晚。<br />
 <p><code>rate = 1/p</code>：</p>
 <p><strong>period 越短，task 出現越頻繁，rate 越高。</strong></p>
 <h3 id="錯題hard-real-time">錯題(hard real-time)：<a class="headerlink" href="#錯題hard-real-time" title="Permanent link"></a></h3>
-<p>Q:<br />
-Explain why giving a real-time process the highest scheduling priority does not necessarily mean that the system is hard real-time.<br />
+<p>Q:<br/>
+Explain why giving a real-time process the highest scheduling priority does not necessarily mean that the system is hard real-time.<br/>
 [Generated: 依據 PDF viewer page 33 ~ 34]</p>
-<p>ANS:<br />
+<p>ANS:<br/>
 給 real-time process 最高 priority 不代表系統就是 hard real-time。因為最高 priority 只表示該 process 會比其他 process 優先被排程，甚至可以搶先低優先權 process，但不保證一定能在 deadline 前完成。Soft real-time OS 可能給 real-time process 最高 priority，但 hard real-time system 必須保證 deadline 前完成。</p>
 <h2 id="rate-monotonic-scheduling--週期越短為什麼優先權越高">⭐Rate-Monotonic Scheduling — 週期越短，為什麼優先權越高？<a class="headerlink" href="#rate-monotonic-scheduling--週期越短為什麼優先權越高" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 35 ~ 36</p>
@@ -14126,7 +14126,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p><code>Rate-Monotonic Scheduling(RM，速率單調排程)</code> 的答案是：</p>
 <p><strong>period 越短，priority 越高。</strong></p>
 <p>因為 period 越短，代表這個 task 越常出現，也通常越需要快速反應。</p>
-<hr />
+<hr/>
 <h3 id="2-rate-monotonic-的核心規則">2. Rate-Monotonic 的核心規則<a class="headerlink" href="#2-rate-monotonic-的核心規則" title="Permanent link"></a></h3>
 <p>講義 p.35 說，RM 的 priority 是根據 period 的倒數決定，也就是根據 <code>rate = 1/p</code> 決定。<code>Shorter periods = higher priority</code>，<code>Longer periods = lower priority</code>。</p>
 <p>所以：</p>
@@ -14153,7 +14153,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 </table>
 <p>最短記法：</p>
 <p><strong>p 越小 → rate 越大 → priority 越高。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-為什麼叫-rate-monotonic">3. 為什麼叫 Rate-Monotonic？<a class="headerlink" href="#3-為什麼叫-rate-monotonic" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -14166,7 +14166,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p>所以 <code>Rate-Monotonic Scheduling</code> 不是「看 deadline 誰早」，而是：</p>
 <p><strong>看 period 誰短，也就是看 rate 誰高。</strong></p>
 <p>這點很重要，因為下一頁的 <code>EDF(Earliest Deadline First)</code> 才是看 deadline。</p>
-<hr />
+<hr/>
 <h3 id="4-p35-成功範例">4. p.35 成功範例<a class="headerlink" href="#4-p35-成功範例" title="Permanent link"></a></h3>
 <p>講義 p.35 的例子是：</p>
 <table>
@@ -14210,13 +14210,13 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p class="admonition-title">Danger</p>
 <p>CPU utilization 計算方式：</p>
 <p>共同時間軸：</p>
-<p>time:  0                    50                   100<br />
+<p>time:  0                    50                   100<br/>
     |--------------------|--------------------|</p>
-<p>P1 release:<br />
-    R                    R                    R<br />
+<p>P1 release:<br/>
+    R                    R                    R<br/>
     每 50 單位時間來一次，每次需要 t=20 CPU time</p>
-<p>P2 release:<br />
-    R                                         R<br />
+<p>P2 release:<br/>
+    R                                         R<br/>
     每 100 單位時間來一次，每次需要 t=35 CPU time</p>
 <p>因為 100 是 50 和 100 的共同週期，也就是 <code>LCM(50,100)=100</code>。</p>
 <p>在 <code>0 ~ 100</code> 內，pattern 會完整重複一次：</p>
@@ -14251,10 +14251,10 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p><code>CPU utilization = (40 + 35) / 100 = 75/100 = 0.75</code></p>
 <p>這等價於：</p>
 <p><code>20/50 + 35/100 = 0.4 + 0.35 = 0.75</code></p>
-<p><mark>也就是說 t / p 是在算單位時間內會有多少時間執行，並且是算重複的。</mark><br />
+<p><mark>也就是說 t / p 是在算單位時間內會有多少時間執行，並且是算重複的。</mark><br/>
 假設 0.5 秒的週期會執行 0.2 秒，也就是說 1 秒會執行 0.4 秒，這樣就重複兩次了。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="5-用時間線看-p35">5. 用時間線看 p.35<a class="headerlink" href="#5-用時間線看-p35" title="Permanent link"></a></h3>
 <p>假設 P1、P2 都從 t=0 開始 release，RM 會讓 P1 優先。</p>
 <pre class="diagram"><code>gantt
@@ -14275,7 +14275,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <li>P2 之後補完剩下的時間。</li>
 <li>兩者都可以在自己的 deadline 前完成。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="6-p36為什麼-utilization--1-還可能-miss-deadline">6. p.36：為什麼 utilization &lt; 1 還可能 miss deadline？<a class="headerlink" href="#6-p36為什麼-utilization--1-還可能-miss-deadline" title="Permanent link"></a></h3>
 <p>這是這頁最重要的陷阱。</p>
 <p>講義 p.36 的例子是：</p>
@@ -14304,16 +14304,16 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p><code>25/50 + 35/80 = 0.94</code></p>
 <p>雖然 0.94 &lt; 1，但講義說：</p>
 <p><strong>P2 cannot meet its deadline.</strong> </p>
-<p><img alt="alt text" src="images/ch%206-5.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-5.png"/></p>
 <p>這代表：</p>
 <p><strong>CPU 總工作量小於 1，不代表 RM 一定能排得出來。</strong></p>
-<p>原因是 RM 固定讓 period 短的 P1 priority 較高。<br />
+<p>原因是 RM 固定讓 period 短的 P1 priority 較高。<br/>
 所以 P2 可能一直被 P1 插隊，導致 P2 雖然總工作量看起來不超過 CPU，但仍然太晚完成。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>這就是 priority-based preemptive scheduling(基於優先權的可搶先排程) 本身不保證 hard real-time(硬即時) 的實例，如<a href="#錯題hard-real-time">錯題hard-real-time</a>。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="7-用-p36-時間線看-p2-怎麼-miss-deadline">7. 用 p.36 時間線看 P2 怎麼 miss deadline<a class="headerlink" href="#7-用-p36-時間線看-p2-怎麼-miss-deadline" title="Permanent link"></a></h3>
 <p>因為：</p>
 <ul>
@@ -14330,7 +14330,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
     P2 :25, 50
     P1 :50, 75
     P2 :75, 85</code></pre>
-<p>P2 第一次 release 在 t=0，deadline 在 t=80。<br />
+<p>P2 第一次 release 在 t=0，deadline 在 t=80。<br/>
 P2 需要 35 單位 CPU time。</p>
 <p>但它只在：</p>
 <ul>
@@ -14341,7 +14341,7 @@ P2 需要 35 單位 CPU time。</p>
 <p>可是 P2 的 deadline 是 t=80。</p>
 <p>因此：</p>
 <p><strong>P2 miss deadline。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-這個例子要學到什麼">8. 這個例子要學到什麼？<a class="headerlink" href="#8-這個例子要學到什麼" title="Permanent link"></a></h3>
 <p>不要只看：</p>
 <p><strong>CPU utilization &lt; 1</strong></p>
@@ -14354,9 +14354,9 @@ P2 需要 35 單位 CPU time。</p>
 <p>所以 p.36 的核心教訓是：</p>
 <p><strong>總 CPU 時間夠，不代表在 deadline 前的時間排列也夠。</strong></p>
 <p>生活化例子：</p>
-<p>你一天有 10 小時可以讀書，三科總共只需要 9.4 小時，看起來夠。<br />
+<p>你一天有 10 小時可以讀書，三科總共只需要 9.4 小時，看起來夠。<br/>
 但如果某科小考一直插進來，導致另一科報告在截止前排不到足夠時間，那還是會遲交。</p>
-<hr />
+<hr/>
 <h3 id="9-rm-vs-前面-priority-based-的關係">9. RM vs 前面 Priority-based 的關係<a class="headerlink" href="#9-rm-vs-前面-priority-based-的關係" title="Permanent link"></a></h3>
 <p><code>Priority-based preemptive scheduling</code> 是大原則：</p>
 <p><strong>priority 高的可以搶先 priority 低的。</strong></p>
@@ -14369,7 +14369,7 @@ P2 需要 35 單位 CPU time。</p>
     C --&gt; D[Higher priority]
     B --&gt; E[Longer period&lt;br&gt;lower rate]
     E --&gt; F[Lower priority]</code></pre>
-<hr />
+<hr/>
 <h3 id="10-最短記法_2">10. 最短記法<a class="headerlink" href="#10-最短記法_2" title="Permanent link"></a></h3>
 <p><code>Rate-Monotonic Scheduling(RM)</code>：</p>
 <p><strong>period 越短，rate 越高，priority 越高。</strong></p>
@@ -14387,14 +14387,14 @@ P2 需要 35 單位 CPU time。</p>
 <h3 id="1-這個概念在解決什麼問題_10">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_10" title="Permanent link"></a></h3>
 <p>前面 <code>Rate-Monotonic Scheduling(RM)</code> 是用 <strong>period 長短</strong> 來決定 priority：</p>
 <p><strong>period 越短 → rate 越高 → priority 越高</strong></p>
-<p>但 RM 的問題是：<br />
+<p>但 RM 的問題是：<br/>
 它固定讓 period 短的 task 優先，所以即使 CPU utilization &lt; 1，低 priority task 還是可能 miss deadline。</p>
 <p>所以 p.37 接著介紹另一種方法：</p>
 <p><strong>不要固定看 period，而是動態看誰的 deadline 最早。</strong></p>
 <p>這就是：</p>
 <p><code>Earliest Deadline First Scheduling(EDF，最早期限優先排程)</code></p>
 <p>講義 p.37 說，EDF 是根據 deadline 先後訂定 priority；期限越早，priority 越高；期限越晚，priority 越低。</p>
-<hr />
+<hr/>
 <h3 id="2-edf-的核心規則">2. EDF 的核心規則<a class="headerlink" href="#2-edf-的核心規則" title="Permanent link"></a></h3>
 <p>EDF 的規則非常直覺：</p>
 <p><strong>誰最急，誰先跑。</strong></p>
@@ -14419,7 +14419,7 @@ P2 需要 35 單位 CPU time。</p>
 </table>
 <p>所以 EDF 的 priority 不是固定的。</p>
 <p>同一個 task 在不同時間 release 出不同 job 時，priority 可能會變。</p>
-<hr />
+<hr/>
 <h3 id="3-rm-和-edf-最大差別">3. RM 和 EDF 最大差別<a class="headerlink" href="#3-rm-和-edf-最大差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -14447,9 +14447,9 @@ P2 需要 35 單位 CPU time。</p>
 <p><code>EDF</code> 看的是：</p>
 <p><strong>現在 ready 的 jobs 裡，誰最接近 deadline。</strong></p>
 <p>所以 EDF 更像現實生活中的「趕死線」：</p>
-<p>你不一定永遠先做每週作業。<br />
+<p>你不一定永遠先做每週作業。<br/>
 如果明天有報告要交，就算它不是最常出現的任務，你也會先做報告。</p>
-<hr />
+<hr/>
 <h3 id="4-套講義-p37-的例子">4. 套講義 p.37 的例子<a class="headerlink" href="#4-套講義-p37-的例子" title="Permanent link"></a></h3>
 <p>講義 p.37 用的資料是：</p>
 <table>
@@ -14484,8 +14484,8 @@ P2 需要 35 單位 CPU time。</p>
 <li><code>@80</code>，P1 繼續執行，因為 P1 的 deadline 是 100，P2 的 deadline 是 160。</li>
 <li><code>@100</code>，P1 取代 P2，因為 P1 的 deadline 是 150，P2 的 deadline 是 160。</li>
 </ul>
-<p><img alt="alt text" src="images/ch%206-6.png" /></p>
-<hr />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-6.png"/></p>
+<hr/>
 <h3 id="5-用時間線看-edf-怎麼排">5. 用時間線看 EDF 怎麼排<a class="headerlink" href="#5-用時間線看-edf-怎麼排" title="Permanent link"></a></h3>
 <p>先假設每個 task 的 deadline = period。</p>
 <p>在 t = 0：</p>
@@ -14565,9 +14565,9 @@ P2 需要 35 單位 CPU time。</p>
 </tbody>
 </table>
 <p>重點是：</p>
-<p><strong>EDF 不是看 P1 period 比較短就永遠讓 P1 插隊。</strong><br />
+<p><strong>EDF 不是看 P1 period 比較短就永遠讓 P1 插隊。</strong><br/>
 它每次都重新比較 deadline。</p>
-<hr />
+<hr/>
 <h3 id="6-為什麼-p36-rm-會-miss但-p37-edf-可以改善">6. 為什麼 p.36 RM 會 miss，但 p.37 EDF 可以改善？<a class="headerlink" href="#6-為什麼-p36-rm-會-miss但-p37-edf-可以改善" title="Permanent link"></a></h3>
 <p>p.36 的 RM 是這樣：</p>
 <div class="highlight"><pre><span></span><code>0        25       50       75        85
@@ -14586,7 +14586,7 @@ P2 需要 35 單位 CPU time。</p>
 <p><strong>P2 比較急，P2 繼續跑。</strong></p>
 <p>這就是 EDF 的核心精神：</p>
 <p><strong>不是誰本來 priority 高誰先跑，而是誰 deadline 最近誰先跑。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-最短記法_5">7. 最短記法<a class="headerlink" href="#7-最短記法_5" title="Permanent link"></a></h3>
 <p><code>EDF(Earliest Deadline First)</code>：</p>
 <p><strong>deadline 越早，priority 越高。</strong></p>
@@ -14633,7 +14633,7 @@ P2 需要 35 單位 CPU time。</p>
 <p>所以 <code>5.7 Algorithm Evaluation(演算法的評估)</code> 是在處理：</p>
 <p><strong>如何用比較正式的方法評估 scheduling algorithm 的效能。</strong></p>
 <p>講義 p.38 先介紹 <code>5.7.1 Deterministic Modeling(定量模式)</code>，p.40 接著介紹 <code>5.7.2 Queueing Model(佇列模式)</code> 和 <code>Little’s Formula</code>。 </p>
-<hr />
+<hr/>
 <h3 id="2-deterministic-modeling定量模式拿一組固定工作量來比較">2. Deterministic Modeling(定量模式)：拿一組固定工作量來比較<a class="headerlink" href="#2-deterministic-modeling定量模式拿一組固定工作量來比較" title="Permanent link"></a></h3>
 <p>講義說，<code>deterministic modeling</code> 是取一個「特殊預定的工作量」，然後針對那一組 workload(工作量) 比較每種演算法的效能。</p>
 <p>白話說：</p>
@@ -14654,7 +14654,7 @@ P5        5            3
 <li>比較哪個 average waiting time 最小</li>
 </ul>
 <p>這種就是很典型的 <code>deterministic modeling</code>。</p>
-<hr />
+<hr/>
 <h3 id="3-deterministic-modeling-的優點與限制">3. Deterministic Modeling 的優點與限制<a class="headerlink" href="#3-deterministic-modeling-的優點與限制" title="Permanent link"></a></h3>
 <p><code>Deterministic Modeling(定量模式)</code> 的優點是：</p>
 <p><strong>很具體，很適合考試。</strong></p>
@@ -14674,7 +14674,7 @@ P5        5            3
 <p>所以 deterministic modeling 很適合：</p>
 <p><strong>小範例、考試題、演算法規則比較。</strong></p>
 <p>但不一定能完整代表真實系統。</p>
-<hr />
+<hr/>
 <h3 id="4-queueing-model佇列模式不固定某一組-process而是看平均行為">4. Queueing Model(佇列模式)：不固定某一組 process，而是看平均行為<a class="headerlink" href="#4-queueing-model佇列模式不固定某一組-process而是看平均行為" title="Permanent link"></a></h3>
 <p>講義 p.40 說，很多系統每天執行的行程都不一樣，因此沒有固定的一組 process 和時間可以用 deterministic modeling；但可以定出 CPU burst 和 I/O burst 的分佈情形。這就進入 <code>Queueing Model(佇列模式)</code>。</p>
 <p>也就是說：</p>
@@ -14682,7 +14682,7 @@ P5        5            3
 <p><strong>這一組 process 怎麼排比較好？</strong></p>
 <p><code>Queueing Model</code> 問的是：</p>
 <p><strong>長期平均來看，queue 裡大概會有幾個 process？平均等多久？到達率是多少？</strong></p>
-<hr />
+<hr/>
 <h3 id="5-littles-formula-是什麼">5. Little’s Formula 是什麼？<a class="headerlink" href="#5-littles-formula-是什麼" title="Permanent link"></a></h3>
 <p>講義 p.40 給三個符號：</p>
 <table>
@@ -14721,7 +14721,7 @@ P5        5            3
 <p><strong>平均排隊人數 = 每秒進來幾個 × 每個平均等多久</strong></p>
 </div>
 <p>講義也說，在 steady state(穩定狀態) 下，離開 queue 的 process 數量會等於進入 queue 的 process 數量，因此有 <code>n = λ × W</code>，而且它對任何 scheduling algorithm 和 arrival distribution 都有效。</p>
-<hr />
+<hr/>
 <h3 id="6-為什麼-n--λ--w-很合理">6. 為什麼 <code>n = λ × W</code> 很合理？<a class="headerlink" href="#6-為什麼-n--λ--w-很合理" title="Permanent link"></a></h3>
 <p>用生活例子想：</p>
 <p>假設一家飲料店：</p>
@@ -14737,7 +14737,7 @@ P5        5            3
 <p>反過來：</p>
 <p>如果你看到隊伍平均有 12 人，而且每分鐘來 3 人，那平均等待時間就是：</p>
 <p><code>W = n / λ = 12 / 3 = 4 min</code></p>
-<hr />
+<hr/>
 <h3 id="7-套講義-p40-的例子">7. 套講義 p.40 的例子<a class="headerlink" href="#7-套講義-p40-的例子" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -14747,7 +14747,7 @@ P5        5            3
 <li>queue 裡平均有 14 個 process</li>
 </ul>
 <p>所以：</p>
-<p><code>λ = 7 processes/second</code><br />
+<p><code>λ = 7 processes/second</code><br/>
 <code>n = 14 processes</code></p>
 <p>由 <code>n = λ × W</code>：</p>
 <p><code>W = n / λ = 14 / 7 = 2 seconds</code></p>
@@ -14755,7 +14755,7 @@ P5        5            3
 <p><strong>每個 process 平均在 queue 裡等 2 秒。</strong></p>
 </div>
 <p>這正是講義 p.40 的例子。</p>
-<hr />
+<hr/>
 <h3 id="8-deterministic-modeling-vs-queueing-model">8. Deterministic Modeling vs Queueing Model<a class="headerlink" href="#8-deterministic-modeling-vs-queueing-model" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -14789,13 +14789,13 @@ P5        5            3
 </tbody>
 </table>
 <p>最重要的差別是：</p>
-<p><strong>Deterministic Modeling 是「給定一組 process，直接排一次」。</strong><br />
+<p><strong>Deterministic Modeling 是「給定一組 process，直接排一次」。</strong><br/>
 <strong>Queueing Model 是「不固定某一組 process，而是看長期平均」。</strong></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>Deterministic Modeling(定量模式) 是用同一組固定 workload，套用不同 scheduling algorithms 來比較效能。Queueing Model(佇列模式) 則不是固定一組 process 來排一次，而是用平均到達率、平均等待時間、平均 queue 長度等統計量，分析系統的長期平均行為。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="9-關係圖">9. 關係圖<a class="headerlink" href="#9-關係圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["Algorithm Evaluation&lt;br&gt;演算法的評估"] --&gt; B["Deterministic Modeling&lt;br&gt;定量模式"]
@@ -14810,7 +14810,7 @@ P5        5            3
     C2 --&gt; D["n: average queue length"]
     C2 --&gt; E["λ: average arrival rate"]
     C2 --&gt; F["W: average waiting time"]</code></pre>
-<hr />
+<hr/>
 <h3 id="10-最短記法_3">10. 最短記法<a class="headerlink" href="#10-最短記法_3" title="Permanent link"></a></h3>
 <p><code>Deterministic Modeling(定量模式)</code>：</p>
 <p><strong>給一組固定 process，實際排一次，算效能。</strong></p>
@@ -14830,9 +14830,9 @@ P5        5            3
 <h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Q:<br />
+<p>Q:<br/>
 Explain how average turnaround time and maximum waiting time can conflict in CPU scheduling.</p>
-<p>ANS:<br />
+<p>ANS:<br/>
 如果一個排程演算法想讓 average turnaround time(平均回復時間) 變小，它可能會優先處理短工作，讓很多短 process 很快完成。可是這樣可能讓某些長 process 一直等待，導致 maximum waiting time(最大等待時間) 變大。因此，降低平均 turnaround time 可能和降低最大 waiting time 發生衝突。</p>
 </div>
 
@@ -14966,17 +14966,15 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

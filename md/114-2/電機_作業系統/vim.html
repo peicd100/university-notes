@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6402,13 +6402,13 @@ is now available!
 
   <h1>Vim</h1>
 
-<p>安裝<br />
+<p>安裝<br/>
 ⭐ 步驟 1：更新套件清單</p>
 <p>sudo apt update</p>
 <p>⭐ 步驟 2：安裝 Vim</p>
 <p>sudo apt install vim</p>
 <p>⭐ 步驟 3：確認有沒有安裝成功</p>
-<p>vim &ndash;version</p>
+<p>vim –version</p>
 <p>如果有成功，你會看到一大串版本資訊。Ubuntu 社群文件也提到，安裝完成後可以直接在終端機輸入 vim 啟動；也可以用 vimtutor 練習基本操作。</p>
 <p>安裝完怎麼開檔案</p>
 <p>例如你要編輯作業檔：</p>
@@ -6416,38 +6416,38 @@ is now available!
 <p>使用</p>
 <ol>
 <li>開檔 vim endian.c</li>
-<li>按下 “i“ ，進入編輯模式 (左下角會寫 &ndash; Insert &ndash; )</li>
+<li>按下 “i“ ，進入編輯模式 (左下角會寫 – Insert – )</li>
 <li>編輯完成之後按下 esc 回到一般模式</li>
 <li>輸入 “:w” 按下 enter ，代表 write（寫入檔案）</li>
 <li>輸入 “:q” 按下 enter 代表輸入退出</li>
 </ol>
-<p>也可已輸入 “:wq” 儲存又退出<br />
-執行 cpp<br />
-編譯<br />
+<p>也可已輸入 “:wq” 儲存又退出<br/>
+執行 cpp<br/>
+編譯<br/>
 gcc endian.c -o endian</p>
 <ol>
-<li>gcc<br />
-這是 GNU C Compiler（GNU C 編譯器） 的指令名稱。<br />
+<li>gcc<br/>
+這是 GNU C Compiler（GNU C 編譯器） 的指令名稱。<br/>
 它負責把你的 .c 原始碼處理成最後可以執行的程式。GCC 官方文件說明，gcc 會接受選項與檔名作為操作對象。</li>
-<li>endian.c<br />
-這是你的 source file（原始碼檔案）。<br />
+<li>endian.c<br/>
+這是你的 source file（原始碼檔案）。<br/>
 副檔名 .c 告訴 GCC：這是一個 C 程式來源檔，所以要用 C 的規則去編譯。GCC 官方文件明確說它接受檔名作為 operand（操作數）。</li>
-<li>-o endian<br />
-這裡的 -o 是 output file（輸出檔名） 選項。<br />
+<li>-o endian<br/>
+這裡的 -o 是 output file（輸出檔名） 選項。<br/>
 意思是：把編譯後的結果命名成 endian。如果你不寫 -o，GCC 通常會用預設名稱 a.out。這是 GCC 的標準行為。</li>
 </ol>
-<p>執行<br />
+<p>執行<br/>
 ./endian</p>
 <ol>
-<li>. 是什麼<br />
-. 代表 current directory（目前目錄）。<br />
+<li>. 是什麼<br/>
+. 代表 current directory（目前目錄）。<br/>
 在 Unix/POSIX 語意裡，. 就是你現在所在的資料夾。很多系統工具與手冊都用 . 表示目前路徑。</li>
-<li>/<br />
-這只是路徑分隔符號。<br />
-所以 ./endian 合起來就是：<br />
+<li>/<br/>
+這只是路徑分隔符號。<br/>
+所以 ./endian 合起來就是：<br/>
 目前資料夾裡的 endian</li>
-<li>endian<br />
-這就是你剛剛用 gcc &hellip; -o endian 產生出來的可執行檔名稱。</li>
+<li>endian<br/>
+這就是你剛剛用 gcc … -o endian 產生出來的可執行檔名稱。</li>
 </ol>
 <p>為什麼不能直接打 endian，要打 ./endian</p>
 <p>這是很多新手最容易卡住的點。</p>
@@ -6587,17 +6587,15 @@ gcc endian.c -o endian</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

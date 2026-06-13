@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6581,8 +6581,8 @@ is now available!
 <h1 id="half_adder-和-full_adder-組成">half_adder 和 full_adder 組成<a class="headerlink" href="#half_adder-和-full_adder-組成" title="Permanent link"></a></h1>
 <p>half_adder 和 full_adder 主要差異就是有沒有 cin</p>
 <h2 id="half_adder">half_adder<a class="headerlink" href="#half_adder" title="Permanent link"></a></h2>
-<p><a href="https://www.build-electronic-circuits.com/half-adder/">圖片來源</a><br />
-<img alt="alt text" src="images/half_adder%20%26%20full_adder-1.png" /></p>
+<p><a href="https://www.build-electronic-circuits.com/half-adder/">圖片來源</a><br/>
+<img alt="alt text" decoding="async" src="images/half_adder%20%26%20full_adder-1.png"/></p>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">half_adder</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span><span class="n">sum</span>
@@ -6591,11 +6591,11 @@ is now available!
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>half_adder 的 sum 是看 x、y 中有奇數的 1，所以用 xor。<br />
+<p>half_adder 的 sum 是看 x、y 中有奇數的 1，所以用 xor。<br/>
 cout 則是如果有進位就是 1，何時有進位呢？就是 x==1 &amp;&amp; y==1 時。</p>
 <h2 id="full_adder">full_adder<a class="headerlink" href="#full_adder" title="Permanent link"></a></h2>
-<p><a href="https://www.youtube.com/watch?v=VokzmpUJAQw">圖片來源</a><br />
-<img alt="alt text" src="images/half_adder%20%26%20full_adder-4.png" /></p>
+<p><a href="https://www.youtube.com/watch?v=VokzmpUJAQw">圖片來源</a><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/half_adder%20%26%20full_adder-4.png"/></p>
 <p>如果說 half_adder 本質上就是相加兩個數，得到 1-bit 總和和 1-bit 進位。</p>
 <p>那 full_adder 就是再加上一個 cin。</p>
 <p>也就是三個數字連加 x+y+cin ，得到進位和總合。</p>
@@ -6624,8 +6624,8 @@ cout 則是如果有進位就是 1，何時有進位呢？就是 x==1 &amp;&amp;
 <span class="w">    </span><span class="k">or</span><span class="w"> </span><span class="n">g3</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span><span class="n">cout_1</span><span class="p">,</span><span class="n">cout_2</span><span class="p">);</span>
 <span class="w">    </span>
 <span class="k">endmodule</span>
-</code></pre></div><br />
-這種是直接像圖中那樣用 half_adder 先 x+y 再加上 cin。<br />
+</code></pre></div><br/>
+這種是直接像圖中那樣用 half_adder 先 x+y 再加上 cin。<br/>
 最後如果 cout_1 或 cout_2 任何一個是 1 就代表有進位。基本上 cout 只會有一個是 1 ，因為 cout_i 是 1，代表 sum_i 是 0，另一個就不可能是 1。</p>
 <h3 id="第二種">第二種<a class="headerlink" href="#第二種" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">full_adder</span><span class="w"> </span><span class="p">(</span>
@@ -6645,9 +6645,9 @@ cout 則是如果有進位就是 1，何時有進位呢？就是 x==1 &amp;&amp;
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">y</span><span class="o">|</span><span class="n">cin</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">cin</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
 <span class="k">endmodule</span>
-</code></pre></div><br />
+</code></pre></div><br/>
 這個是用規律來思考的，最推薦寫。</p>
-<p>sum 看 x、y、cin 中奇數個 1 ，所以用 xor。<br />
+<p>sum 看 x、y、cin 中奇數個 1 ，所以用 xor。<br/>
 cout 是只要 x、y、cin 任意兩個是 1 就是 1 。</p>
 
 
@@ -6780,17 +6780,15 @@ cout 是只要 x、y、cin 任意兩個是 1 就是 1 。</p>
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

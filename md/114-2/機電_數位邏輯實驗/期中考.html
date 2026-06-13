@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6969,12 +6969,12 @@ is now available!
 <p><a href="https://drive.google.com/file/d/1jW3ZWd3jyXJPkjxMPVnw2AYy-jaIqaO9/view?usp=sharing">https://drive.google.com/file/d/1jW3ZWd3jyXJPkjxMPVnw2AYy-jaIqaO9/view?usp=sharing</a></p>
 <h2 id="容易忘記的">容易忘記的<a class="headerlink" href="#容易忘記的" title="Permanent link"></a></h2>
 <h3 id="路徑小結論">路徑小結論<a class="headerlink" href="#路徑小結論" title="Permanent link"></a></h3>
-<p>1.找 quartus 的 drivers<br />
+<p>1.找 quartus 的 drivers<br/>
 <div class="highlight"><pre><span></span><code>C:\altera\13.0sp1\quartus\drivers
-</code></pre></div><br />
-2.找 modelsim_ase ， 注意是 ase !!! ，然後再找有寫 32 的<br />
+</code></pre></div><br/>
+2.找 modelsim_ase ， 注意是 ase !!! ，然後再找有寫 32 的<br/>
 <div class="highlight"><pre><span></span><code>C:\altera\13.0sp1\modelsim_ase\win32aloem\
-</code></pre></div><br />
+</code></pre></div><br/>
 <pre class="diagram"><code>flowchart LR
     A["C:"] --&gt; B["altera"]
     B --&gt; C["13.0sp1"]
@@ -6987,40 +6987,40 @@ is now available!
 <h3 id="安裝-usb">安裝 USB<a class="headerlink" href="#安裝-usb" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>C:\altera\13.0sp1\quartus\drivers
 </code></pre></div>
-<p>訣竅： 找 altera -&gt; quartus -&gt; <br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83.png" /><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-1.png" /></p>
+<p>訣竅： 找 altera -&gt; quartus -&gt; <br/>
+<img alt="alt text" decoding="async" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-1.png"/></p>
 <h3 id="testbench-路徑設定">testbench 路徑設定<a class="headerlink" href="#testbench-路徑設定" title="Permanent link"></a></h3>
-<p>在 ModeSim-Altera 填上：<br />
+<p>在 ModeSim-Altera 填上：<br/>
 <div class="highlight"><pre><span></span><code>C:\altera\13.0sp1\modelsim_ase\win32aloem\
 </code></pre></div></p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-2.png" /><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-3.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-2.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-3.png"/></p>
 <h3 id="畫波形圖如果遇到-error-occur">畫波形圖如果遇到 Error occur<a class="headerlink" href="#畫波形圖如果遇到-error-occur" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-4.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-4.png"/></p>
 <blockquote>
 <p>要選 Quartus II !!</p>
 </blockquote>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-5.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-5.png"/></p>
 <h3 id="一般-v-跑合成">一般 .v 跑合成<a class="headerlink" href="#一般-v-跑合成" title="Permanent link"></a></h3>
 <p>用 "Start Analysis &amp; Synthesis" (開始分析與合成)</p>
 <blockquote>
 <p>error 、 warning 都要看！！</p>
 </blockquote>
 <p>像下面就找出了 s1 有問題。</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-6.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-6.png"/></p>
 <p>要長這樣才是對的，只剩下一個 warning ，並且寫 Parallel compilation is not licensed and has been disabled (平行編譯功能沒有授權，所以被關閉了)</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-7.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-7.png"/></p>
 <h3 id="tbv-跑合成">tb.v 跑合成<a class="headerlink" href="#tbv-跑合成" title="Permanent link"></a></h3>
 <p>像下面那樣就是代表沒有語法錯誤，因為 tb 不能 synthesize(合成)</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-8.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-8.png"/></p>
 <h3 id="上傳電路板">上傳電路板<a class="headerlink" href="#上傳電路板" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-9.png" /><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-10.png" /><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-11.png" /><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-12.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-9.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-10.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-11.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-12.png"/></p>
 <p>選 sof 檔案</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-13.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83-13.png"/></p>
 <h2 id="代碼整理">代碼整理<a class="headerlink" href="#代碼整理" title="Permanent link"></a></h2>
 <h3 id="第一題">第一題<a class="headerlink" href="#第一題" title="Permanent link"></a></h3>
 <h4 id="half_adderv">half_adder.v<a class="headerlink" href="#half_adderv" title="Permanent link"></a></h4>
@@ -7118,9 +7118,9 @@ is now available!
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a0b</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
 
 <span class="w">    </span><span class="n">ripple_carry_adder</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="p">(</span>
-<span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="n">a0b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]}),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">({</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="n">a0b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]}),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">B</span><span class="w">  </span><span class="p">(</span><span class="n">a1b</span><span class="p">),</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">S</span><span class="w">  </span><span class="p">({</span><span class="n">w</span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="n">S</span><span class="p">[</span><span class="mh">1</span><span class="p">]}),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">Cout</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mh">3</span><span class="p">])</span>
 <span class="w">    </span><span class="p">);</span>
@@ -7128,7 +7128,7 @@ is now available!
 <span class="w">    </span><span class="n">ripple_carry_adder</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="p">(</span>
 <span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">B</span><span class="w">  </span><span class="p">(</span><span class="n">a2b</span><span class="p">),</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">S</span><span class="w">  </span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">2</span><span class="p">]),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">Cout</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="mh">6</span><span class="p">])</span>
 <span class="w">    </span><span class="p">);</span>
@@ -7160,7 +7160,7 @@ is now available!
 <span class="w">    </span><span class="k">end</span>
 
 <span class="w">    </span><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="s">&quot; A: %d | B: %d | S: %d &quot;</span><span class="p">),</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">);</span>
+<span class="w">        </span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="s">" A: %d | B: %d | S: %d "</span><span class="p">),</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">);</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
@@ -7173,17 +7173,17 @@ is now available!
 <span class="p">);</span>
 
 <span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="k">begin</span>
-<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00000000</span><span class="p">;</span><span class="w">  </span><span class="c1">//預設輸出為 0，不要放在 Enable 裡面</span>
+<span class="w">        </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00000000</span><span class="p">;</span><span class="w">  </span><span class="c1">//預設輸出為 0，不要放在 Enable 裡面</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">En</span><span class="p">)</span><span class="k">begin</span>
 <span class="w">            </span><span class="k">case</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d0</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00000001</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d1</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00000010</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d2</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00000100</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d3</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00001000</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d4</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00010000</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d5</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b00100000</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d6</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b01000000</span><span class="p">;</span>
-<span class="w">                </span><span class="mh">3</span><span class="mi">&#39;d7</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b10000000</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d0</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00000001</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d1</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00000010</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d2</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00000100</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d3</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00001000</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d4</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00010000</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d5</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b00100000</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d6</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b01000000</span><span class="p">;</span>
+<span class="w">                </span><span class="mh">3</span><span class="mi">'d7</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b10000000</span><span class="p">;</span>
 <span class="w">            </span><span class="k">endcase</span>
 <span class="w">        </span><span class="k">end</span>
 <span class="w">    </span><span class="k">end</span>
@@ -7260,7 +7260,7 @@ is now available!
 <span class="w">    </span><span class="k">end</span>
 
 <span class="w">    </span><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="s">&quot; B: %b | G: %b&quot;</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
+<span class="w">        </span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="s">" B: %b | G: %b"</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
 <span class="w">    </span><span class="k">end</span>
 
 
@@ -7397,17 +7397,15 @@ is now available!
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

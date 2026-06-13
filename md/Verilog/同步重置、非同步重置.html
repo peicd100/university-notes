@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6580,25 +6580,25 @@ is now available!
 
 <h1 id="同步重置非同步重置">同步重置、非同步重置<a class="headerlink" href="#同步重置非同步重置" title="Permanent link"></a></h1>
 <p>題目1：<a href="https://hdlbits.01xz.net/wiki/Dff8p">https://hdlbits.01xz.net/wiki/Dff8p</a></p>
-<p><img alt="alt text" src="images/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE.png"/></p>
 <p>題目2：<a href="https://hdlbits.01xz.net/wiki/Dff8ar">https://hdlbits.01xz.net/wiki/Dff8ar</a></p>
-<p><img alt="alt text" src="images/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE-1.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE-1.png"/></p>
 <p>這兩個題目是要做同步/非同步重置的電路</p>
 <ul>
 <li>active-high asynchronous reset(高有效非同步重置)</li>
 <li>active-high synchronous reset(高有效同步重置)</li>
 </ul>
-<hr />
+<hr/>
 <ul>
 <li>高有效： reset = 1 時 q = 0 (重置)</li>
 <li>低有效： reset = 0 時 q = 0 (重置)</li>
 </ul>
-<hr />
+<hr/>
 <ul>
 <li>同步： clk 來的時候才改變(跟 clk 同步)</li>
 <li>非同步： reset 改變時就改變(不跟 clk 同步)</li>
 </ul>
-<hr />
+<hr/>
 <p>以下為兩題的答案</p>
 <h2 id="高有效同步重置">高有效同步重置<a class="headerlink" href="#高有效同步重置" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
@@ -6610,7 +6610,7 @@ is now available!
 <span class="w">    </span>
 <span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">negedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="k">begin</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">reset</span><span class="o">==</span><span class="mh">1</span><span class="p">)</span>
-<span class="w">            </span><span class="n">q</span><span class="o">&lt;=</span><span class="mh">8</span><span class="mb">&#39;b0011</span><span class="n">_0100</span><span class="p">;</span>
+<span class="w">            </span><span class="n">q</span><span class="o">&lt;=</span><span class="mh">8</span><span class="mb">'b0011</span><span class="n">_0100</span><span class="p">;</span>
 <span class="w">        </span><span class="k">else</span><span class="w"> </span>
 <span class="w">            </span><span class="n">q</span><span class="o">&lt;=</span><span class="n">d</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
@@ -6627,7 +6627,7 @@ is now available!
 
 <span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">areset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">areset</span><span class="p">)</span>
-<span class="w">            </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b0</span><span class="p">;</span>
 <span class="w">        </span><span class="k">else</span>
 <span class="w">            </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
@@ -6636,13 +6636,13 @@ is now available!
 </code></pre></div>
 <h2 id="進階">進階<a class="headerlink" href="#進階" title="Permanent link"></a></h2>
 <h3 id="為何要寫-or-有其他寫法嗎像是或是and">為何要寫 or ，有其他寫法嗎，像是","或是"and"<a class="headerlink" href="#為何要寫-or-有其他寫法嗎像是或是and" title="Permanent link"></a></h3>
-<p>or 是代表兩個任一達到要求就進入 always block。<br />
-可以用 ',' 他和 or 是相同意思。<br />
+<p>or 是代表兩個任一達到要求就進入 always block。<br/>
+可以用 ',' 他和 or 是相同意思。<br/>
 不能用 and ，因為 always block 沒有在表達 and 的。</p>
-<p>所以其實可以寫<br />
+<p>所以其實可以寫<br/>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">areset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">areset</span><span class="p">)</span>
-<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mb">'b0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span>
 <span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
 <span class="k">end</span>
@@ -6780,17 +6780,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

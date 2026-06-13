@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6719,9 +6719,9 @@ is now available!
 <span class="w">    </span><span class="k">assign</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a0b</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
 
 <span class="w">    </span><span class="n">ripple_carry_adder</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="p">(</span>
-<span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">({</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="n">a0b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]}),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">({</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="n">a0b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]}),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">B</span><span class="w">  </span><span class="p">(</span><span class="n">a1b</span><span class="p">),</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">S</span><span class="w">  </span><span class="p">({</span><span class="n">w</span><span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="n">S</span><span class="p">[</span><span class="mh">1</span><span class="p">]}),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">Cout</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mh">3</span><span class="p">])</span>
 <span class="w">    </span><span class="p">);</span>
@@ -6729,7 +6729,7 @@ is now available!
 <span class="w">    </span><span class="n">ripple_carry_adder</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="p">(</span>
 <span class="w">        </span><span class="p">.</span><span class="n">A</span><span class="w">  </span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">B</span><span class="w">  </span><span class="p">(</span><span class="n">a2b</span><span class="p">),</span>
-<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Cin</span><span class="p">(</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">S</span><span class="w">  </span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">2</span><span class="p">]),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">Cout</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="mh">6</span><span class="p">])</span>
 <span class="w">    </span><span class="p">);</span>
@@ -6757,7 +6757,7 @@ is now available!
 <span class="w">				</span><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
 <span class="w">				</span>
 <span class="w">				</span><span class="k">if</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="o">!==</span><span class="n">S</span><span class="p">)</span><span class="k">begin</span>
-<span class="w">					</span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;False!!!!&quot;</span><span class="p">);</span>
+<span class="w">					</span><span class="nb">$display</span><span class="p">(</span><span class="s">"False!!!!"</span><span class="p">);</span>
 <span class="w">					</span><span class="nb">$finish</span><span class="p">;</span>
 <span class="w">				</span><span class="k">end</span>
 <span class="w">			</span>
@@ -6766,23 +6766,23 @@ is now available!
 <span class="w">			</span>
 <span class="w">		</span><span class="k">end</span>
 <span class="w">		</span>
-<span class="w">		</span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;True!!!!&quot;</span><span class="p">);</span>
+<span class="w">		</span><span class="nb">$display</span><span class="p">(</span><span class="s">"True!!!!"</span><span class="p">);</span>
 <span class="w">		</span><span class="nb">$finish</span><span class="p">;</span>
 <span class="w">	</span>
 <span class="w">	</span><span class="k">end</span>
 <span class="w">	</span>
 <span class="w">	</span><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">		</span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="s">&quot; | A: %d | B: %d | S: %d &quot;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">S</span><span class="p">);</span>
+<span class="w">		</span><span class="nb">$monitor</span><span class="p">(</span><span class="nb">$time</span><span class="p">,</span><span class="s">" | A: %d | B: %d | S: %d "</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">S</span><span class="p">);</span>
 <span class="w">	</span><span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
 <h2 id="講解">講解<a class="headerlink" href="#講解" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="o">!==</span><span class="n">S</span><span class="p">)</span><span class="k">begin</span>
-<span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;False!!!!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">"False!!!!"</span><span class="p">);</span>
 <span class="w">    </span><span class="nb">$finish</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>要放在 <code>#10</code> 後面，不然電路都還沒有穩定就開始比較 <code>A * B !== S</code> 了。<br />
+<p>要放在 <code>#10</code> 後面，不然電路都還沒有穩定就開始比較 <code>A * B !== S</code> 了。<br/>
 利用 <code>$finish</code> 直接中斷程式，像是 <code>return 0;</code> 一樣。</p>
 
 
@@ -6915,17 +6915,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

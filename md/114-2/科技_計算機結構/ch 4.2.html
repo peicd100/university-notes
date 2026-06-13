@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7571,7 +7571,7 @@ is now available!
 </tbody>
 </table>
 <p>講義的非管道化例子把一道菜拆成 4 步：洗菜、切菜、炒菜、裝盤。若每步 1 分鐘，單一道菜要 4 分鐘；若四道菜完全一個接一個做，就是 16 分鐘。</p>
-<hr />
+<hr/>
 <h3 id="2-non-pipelined非管道化像只有一個人從頭做到尾">2. Non-pipelined(非管道化)：像只有一個人從頭做到尾<a class="headerlink" href="#2-non-pipelined非管道化像只有一個人從頭做到尾" title="Permanent link"></a></h3>
 <p>非管道化的核心限制是：<strong>同一時間只服務一個任務</strong>。</p>
 <p>做菜例子中，假設第 1 道菜正在洗菜，其他菜不能開始；第 1 道菜切菜時，洗菜區也閒著；第 1 道菜炒菜時，切菜區也閒著。也就是很多資源會空等。</p>
@@ -7579,7 +7579,7 @@ is now available!
 <pre class="diagram"><code>flowchart LR
     A["第 1 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; B["第 2 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; C["第 3 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"] --&gt; D["第 4 道菜&lt;br&gt;洗菜→切菜→炒菜→裝盤"]</code></pre>
 <p>這個模式的重點不是慢在某一步，而是慢在「不能重疊」。</p>
-<hr />
+<hr/>
 <h3 id="3-pipelined管道化像廚房有四個工作站">3. Pipelined(管道化)：像廚房有四個工作站<a class="headerlink" href="#3-pipelined管道化像廚房有四個工作站" title="Permanent link"></a></h3>
 <p>管道化把一個工作拆成多個 stage(階段)，每個 stage 可以同時處理不同任務。</p>
 <p>做菜例子：</p>
@@ -7615,7 +7615,7 @@ is now available!
 
     T["同一時間點可能發生：&lt;br&gt;第 4 道菜洗菜&lt;br&gt;第 3 道菜切菜&lt;br&gt;第 2 道菜炒菜&lt;br&gt;第 1 道菜裝盤"]</code></pre>
 <p>講義 PDF viewer page 5～13 就是在逐分鐘展示這件事：第 1 道菜先進入洗菜，之後每過一分鐘，新的一道菜進入前面的空階段，直到第 4 道菜完成。</p>
-<hr />
+<hr/>
 <h3 id="4-最重要的不變量單一道菜沒有變快">4. 最重要的不變量：單一道菜沒有變快<a class="headerlink" href="#4-最重要的不變量單一道菜沒有變快" title="Permanent link"></a></h3>
 <p>這是很多人第一次學管道化最容易錯的地方。</p>
 <p>管道化後：</p>
@@ -7642,9 +7642,9 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 14 也明確寫到：管道化填滿後，可以每 1 分鐘上一道菜；但單獨一道菜仍然需要 4 分鐘。</p>
-<hr />
+<hr/>
 <h3 id="5-套到-cpu一道菜就像一條指令">5. 套到 CPU：一道菜就像一條指令<a class="headerlink" href="#5-套到-cpu一道菜就像一條指令" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/ch%204.2.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/ch%204.2.png"/></p>
 <p>在 CPU 中，一條 MIPS 指令也可以拆成多個 stage(階段)。講義列出五個主要步驟：</p>
 <table>
 <thead>
@@ -7683,7 +7683,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 16 明確列出 MIPS 的五個主要步驟，PDF viewer page 17 則把它們對應到 datapath(資料通路) 上。</p>
-<hr />
+<hr/>
 <h3 id="6-pipeline-register管道化暫存器為什麼要加暫存器">6. Pipeline register(管道化暫存器)：為什麼要加暫存器？<a class="headerlink" href="#6-pipeline-register管道化暫存器為什麼要加暫存器" title="Permanent link"></a></h3>
 <p>如果我們想讓多條指令同時在不同 stage 裡跑，就需要在 stage 之間加上 pipeline register(管道化暫存器)。</p>
 <p>它的功能像「交接櫃台」：</p>
@@ -7710,7 +7710,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 18 的圖，就是在原本 datapath(資料通路) 中間加入多條垂直的 pipeline register(管道化暫存器)。</p>
-<hr />
+<hr/>
 <h3 id="7-管道化真正提升的是-throughput吞吐率">7. 管道化真正提升的是 Throughput(吞吐率)<a class="headerlink" href="#7-管道化真正提升的是-throughput吞吐率" title="Permanent link"></a></h3>
 <p>我們把 CPU 版本跟做菜版本對齊：</p>
 <table>
@@ -7744,7 +7744,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 23 的結論是：管道化中的處理元件可以並行工作，使整體程序執行時間縮短；但管道化不會縮短單條指令的執行時間，甚至可能增加，真正提高的是 instruction throughput(指令吞吐率)。</p>
-<hr />
+<hr/>
 <h3 id="8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢">8. Pipeline register delay(管道化暫存器延遲)：為什麼可能讓單條指令更慢？<a class="headerlink" href="#8-pipeline-register-delay管道化暫存器延遲為什麼可能讓單條指令更慢" title="Permanent link"></a></h3>
 <p>理想情況下，如果五個 stage 各 200ps，單條指令經過五個 stage 是 1000ps。</p>
 <p>但實際加入 pipeline register(管道化暫存器) 會有額外延遲。講義的例子是假設 pipeline register delay 為 50ps，因此每個 stage 的 clock cycle time(時脈週期) 從 200ps 變成 250ps。結果單條指令走完五個 stage 變成：</p>
@@ -7773,7 +7773,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 21～22 用 200ps 與 250ps 的例子比較「未考慮」與「考慮」管道化暫存器延遲的差異。</p>
-<hr />
+<hr/>
 <h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
 <p>Pipelining(管道化) 的一句話：</p>
 <p><strong>把一條工作切成多個 stage(階段)，讓不同工作同時待在不同 stage；它主要提升 throughput(吞吐率)，不保證降低單一工作 latency(延遲)。</strong></p>
@@ -7783,7 +7783,7 @@ is now available!
 <li>每個 stage 的 clock cycle time(時脈週期) 是多少？</li>
 <li>題目問的是 latency(單一任務時間) 還是 throughput(單位時間完成量)？</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="10-常見錯法">10. 常見錯法<a class="headerlink" href="#10-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -7845,7 +7845,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 25 先用平衡管道化複習：每階段 1 分鐘時，管道化連續工作可接近每 1 分鐘上一道菜；PDF viewer page 26 接著改成切菜需要 2 分鐘，整條 pipeline 的時脈週期就被拖成 2 分鐘。</p>
-<hr />
+<hr/>
 <h3 id="2-stage-imbalance階段不平衡最慢的一站會卡住全部">2. Stage imbalance(階段不平衡)：最慢的一站會卡住全部<a class="headerlink" href="#2-stage-imbalance階段不平衡最慢的一站會卡住全部" title="Permanent link"></a></h3>
 <p>想像廚房有四站：</p>
 <table>
@@ -7882,7 +7882,7 @@ is now available!
     B --&gt; C["炒菜&lt;br&gt;1 分鐘"]
     C --&gt; D["裝盤&lt;br&gt;1 分鐘"]</code></pre>
 <p>所以，pipeline optimization(管道化優化) 的第一個方向就是：<strong>讓每個 stage 盡量平衡。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-pipeline-balancing管道化平衡把太慢的一站切開">3. Pipeline balancing(管道化平衡)：把太慢的一站切開<a class="headerlink" href="#3-pipeline-balancing管道化平衡把太慢的一站切開" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 27 的做法是把「切菜」拆成：</p>
 <table>
@@ -7954,7 +7954,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-super-pipelining超級管道化把-stage-切得更細">4. Super Pipelining(超級管道化)：把 stage 切得更細<a class="headerlink" href="#4-super-pipelining超級管道化把-stage-切得更細" title="Permanent link"></a></h3>
 <p>Super Pipelining(超級管道化) 的想法是：</p>
 <p><strong>把原本的 pipeline stage 切成更多、更短的 stage，藉此提高 clock frequency(時脈頻率)，進一步提高 throughput(吞吐率)。</strong></p>
@@ -7984,7 +7984,7 @@ is now available!
 </tbody>
 </table>
 <p>所以 10-stage 的 clock cycle time 比 5-stage 短：150ps &lt; 250ps。這代表理想情況下 throughput 可能提高。</p>
-<hr />
+<hr/>
 <h3 id="5-為什麼不是越深越好">5. 為什麼不是越深越好？<a class="headerlink" href="#5-為什麼不是越深越好" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 29 直接問：「管道化的級數是越多越好嗎？」答案是否定的。原因是 pipeline register delay(管道化暫存器延遲) 的比例變大。</p>
 <p>比較：</p>
@@ -8016,7 +8016,7 @@ is now available!
 <p><strong>切 stage 可以讓每個 stage 的邏輯工作變短，但 pipeline register delay 不會跟著等比例變小。</strong></p>
 <p>所以切太細時，很多時間都耗在「stage 之間的交接成本」，不是實際運算。</p>
 <p>生活化例子：如果餐廳把「切菜」拆成太多小步，每一步本身很短，但每次交接都要登記、搬盤、確認，最後交接成本可能吃掉好處。</p>
-<hr />
+<hr/>
 <h3 id="6-本輪最重要的-mental-model心智模型">6. 本輪最重要的 mental model(心智模型)<a class="headerlink" href="#6-本輪最重要的-mental-model心智模型" title="Permanent link"></a></h3>
 <p>可以把 pipeline 想成一條捷運線：</p>
 <table>
@@ -8056,7 +8056,7 @@ is now available!
 <li>如果站切太多，每站之間的停靠與交接成本反而變高。</li>
 <li>所以 pipeline depth(管道化深度) 要平衡，不是越多越好。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="7-常見錯法">7. 常見錯法<a class="headerlink" href="#7-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8091,7 +8091,7 @@ is now available!
 <p>它真正否定的是：</p>
 <p><strong>「只要把 pipeline depth(管道化深度) 一直加深，CPU 整體設計就一定越好。」</strong></p>
 <p>也就是說，講義的「否！」是在否定 <strong>越多越好</strong> 這個單調結論，不是在否定 super pipelining(超級管道化) 可以提高 clock frequency(時脈頻率) 與 instruction throughput(指令吞吐率)。講義前一頁確實說，將五級管道化細分成更多階段，可以提升時脈頻率、提高指令吞吐率；但下一頁馬上用 5-stage 與 10-stage 的數字說明代價。</p>
-<hr />
+<hr/>
 <h4 id="2-為什麼否定因為它不是免費提高-throughput">2. 為什麼否定？因為它不是免費提高 throughput<a class="headerlink" href="#2-為什麼否定因為它不是免費提高-throughput" title="Permanent link"></a></h4>
 <p>講義給的關鍵數字是：</p>
 <table>
@@ -8121,7 +8121,7 @@ is now available!
 <p>所以 10-stage 的確有較短 clock cycle time，理想 throughput 會比較高；但它同時讓單條指令 latency 從 <strong>1250ps 變成 1500ps</strong>，而且每個 cycle 裡面有更大比例是在付 pipeline register delay(管道化暫存器延遲)。</p>
 <p>這就是講義否定的核心：</p>
 <p><strong>級數變多會提高理想吞吐率，但會讓交接成本比例變大，單條指令延遲變長，所以不能說越多越好。</strong></p>
-<hr />
+<hr/>
 <h4 id="3-最精準的一句話">3. 最精準的一句話<a class="headerlink" href="#3-最精準的一句話" title="Permanent link"></a></h4>
 <p>講義想表達的是：</p>
 <p><strong>Pipeline depth 有最佳化取捨點，不是越深越好。</strong></p>
@@ -8133,7 +8133,7 @@ is now available!
 <li>所以 deeper pipeline(更深管線) 的 throughput improvement(吞吐率改善) 會越來越小。</li>
 <li>同時 single-instruction latency(單條指令延遲)、控制複雜度、hazard penalty(危障懲罰) 會變大。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="4-你可以這樣理解講義的否">4. 你可以這樣理解講義的「否！」<a class="headerlink" href="#4-你可以這樣理解講義的否" title="Permanent link"></a></h4>
 <p>它不是在說：</p>
 <p><strong>10-stage 比 5-stage 的 throughput 一定比較差。</strong></p>
@@ -8174,7 +8174,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="5-考試版答案">5. 考試版答案<a class="headerlink" href="#5-考試版答案" title="Permanent link"></a></h4>
 <p>中文考試版：</p>
 <p><strong>管道化級數不是越多越好。增加級數可以把每個 stage 的邏輯延遲變短，降低 clock cycle time，進而提高理想 instruction throughput；但每個 stage 之間都需要 pipeline register，而 pipeline register delay 不會消失。當級數增加時，register overhead 的比例上升，單條指令 latency 可能增加，且控制複雜度與 hazard penalty 也會提高。因此 pipeline depth 存在取捨，不是越深越好。</strong></p>
@@ -8183,29 +8183,29 @@ is now available!
 <h2 id="superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令">⭐Superscalar Pipeline(超標量管道化) — 除了把 pipeline 切更細，還能不能一次跑更多條指令？<a class="headerlink" href="#superscalar-pipeline超標量管道化--除了把-pipeline-切更細還能不能一次跑更多條指令" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 31 ~ PDF viewer page 44</p>
 <h3 id="1-這個知識點在解決什麼問題_2">1. 這個知識點在解決什麼問題？<a class="headerlink" href="#1-這個知識點在解決什麼問題_2" title="Permanent link"></a></h3>
-<p>前面我們學的是 scalar pipeline(標量管道化)：<br />
+<p>前面我們學的是 scalar pipeline(標量管道化)：<br/>
 一條 pipeline 被切成很多 stage，讓不同 instruction(指令) 可以在不同 stage 重疊執行。</p>
 <p>但 scalar pipeline 的理想狀態通常是：</p>
 <p><strong>每個 clock cycle 最多完成 1 條 instruction。</strong></p>
 <p>Superscalar Pipeline(超標量管道化) 想解決的問題是：</p>
 <p><strong>如果我不只切時間，還直接增加硬體資源，那能不能每個 clock cycle 發射／完成多條 instruction？</strong></p>
 <p>講義 PDF viewer page 32 對 superscalar(超標量) 的定義是：具有兩條或兩條以上並行工作的管道化結構，稱為超標量結構；使用這種結構的處理器稱為 superscalar processor(超標量處理器)。</p>
-<hr />
+<hr/>
 <h3 id="2-scalar-pipeline標量管道化時間上的重疊">2. Scalar pipeline(標量管道化)：時間上的重疊<a class="headerlink" href="#2-scalar-pipeline標量管道化時間上的重疊" title="Permanent link"></a></h3>
 <p>Scalar pipeline(標量管道化) 的核心是 <mark><strong>time parallelism(時間並行性)</strong></mark>。</p>
-<p>意思是：<br />
+<p>意思是：<br/>
 同一份硬體流程被切成 stage，不同 instruction 分別卡在不同 stage 裡。</p>
 <p>像這樣：</p>
 <pre class="diagram"><code>flowchart LR
     A["Instruction 1&lt;br&gt;IF"] --&gt; B["Instruction 1&lt;br&gt;ID"] --&gt; C["Instruction 1&lt;br&gt;EX"] --&gt; D["Instruction 1&lt;br&gt;MEM"] --&gt; E["Instruction 1&lt;br&gt;WB"]
 
     X["同一時間：&lt;br&gt;不同 instruction 在不同 stage"] </code></pre>
-<p>它像一條生產線：<br />
+<p>它像一條生產線：<br/>
 每個時間點，這條線上可以有很多產品，但每個入口通常一次只放一個產品。</p>
-<hr />
+<hr/>
 <h3 id="3-superscalar-pipeline超標量管道化空間上的複製">3. Superscalar pipeline(超標量管道化)：空間上的複製<a class="headerlink" href="#3-superscalar-pipeline超標量管道化空間上的複製" title="Permanent link"></a></h3>
 <p>Superscalar pipeline(超標量管道化) 的核心是 <mark><strong>space parallelism(空間並行性)</strong></mark>。</p>
-<p>意思是：<br />
+<p>意思是：<br/>
 不只是把同一條 pipeline 切 stage，而是增加多條可以並行工作的 pipeline 或 functional units(功能單元)。</p>
 <p>講義 PDF viewer page 43 的說法很精準：</p>
 <table>
@@ -8227,7 +8227,7 @@ is now available!
 </tbody>
 </table>
 <p>也就是說，super pipelining(超級管道化) 是「切更細」，superscalar(超標量) 是「開更多條線」。</p>
-<hr />
+<hr/>
 <h3 id="4-用做菜比喻比較">4. 用做菜比喻比較<a class="headerlink" href="#4-用做菜比喻比較" title="Permanent link"></a></h3>
 <p>前面 scalar pipeline 像是：</p>
 <table>
@@ -8289,7 +8289,7 @@ is now available!
 </tbody>
 </table>
 <p>如果每一站都有足夠人手，而且菜彼此不互相卡住，那每分鐘可以處理兩道菜。講義 PDF viewer page 33 ~ 35 就是在用做菜流程展示超標量：同一時間可以讓兩道菜一起往前推。</p>
-<hr />
+<hr/>
 <h3 id="5-super-pipelining-vs-superscalar這兩個很容易混">5. Super pipelining vs Superscalar：這兩個很容易混<a class="headerlink" href="#5-super-pipelining-vs-superscalar這兩個很容易混" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8323,12 +8323,12 @@ is now available!
 </table>
 <p>最短比較：</p>
 <p><strong>Super pipelining 是「更細」；superscalar 是「更多條」。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-pentium-例子雙發射兩條-pipeline">6. Pentium 例子：雙發射、兩條 pipeline<a class="headerlink" href="#6-pentium-例子雙發射兩條-pipeline" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 39 用 Pentium 當例子：Pentium 是第一款 superscalar x86 CPU，具有 U pipeline(U 管道) 與 V pipeline(V 管道)，屬於 dual-issue(雙發射)、5-stage pipeline。講義也寫到：每條 pipeline 都有自己的位址產生邏輯、ALU 與 data cache interface，因此在一個 clock cycle 內可以同時發送兩條指令。</p>
 <p>所以 superscalar 的代價很明顯：</p>
 <p><strong>不是免費多跑一條指令，而是要多準備硬體資源。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-superscalar-不等於永遠兩倍快">7. Superscalar 不等於永遠兩倍快<a class="headerlink" href="#7-superscalar-不等於永遠兩倍快" title="Permanent link"></a></h3>
 <p>理想 dual-issue superscalar(雙發射超標量) 好像可以每 cycle 完成 2 條 instruction，但現實會被限制：</p>
 <table>
@@ -8363,7 +8363,7 @@ is now available!
 </table>
 <p>所以考試看到 superscalar，要寫：</p>
 <p><strong>它提高的是 peak throughput(峰值吞吐率)，但實際能不能達到，要看指令相依性、硬體資源與 hazard。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-和-multi-core多核心-的關係">8. 和 multi-core(多核心) 的關係<a class="headerlink" href="#8-和-multi-core多核心-的關係" title="Permanent link"></a></h3>
 <p>講義 PDF viewer page 44 說：現代 multi-core CPU(多核心 CPU) 通常是在一個 CPU chip 中整合多個 superscalar processor cores(超標量處理器核心)。</p>
 <p>這句話的意思是：</p>
@@ -8395,7 +8395,7 @@ is now available!
 <li>multi-core：有好幾間廚房。</li>
 <li>modern CPU：通常是好幾間廚房，而且每間廚房裡也有多組人馬。</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="9-常見錯法">9. 常見錯法<a class="headerlink" href="#9-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8428,7 +8428,7 @@ is now available!
 <p><code>space parallelism(空間並行性)</code> 叫「空間」，是因為它主要靠<strong>增加 <mark>硬體空間／硬體資源</mark> ，例如多條 pipeline、多個 functional units(功能單元)，讓同一時間可以處理更多工作</strong>。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>所以 <code>time parallelism(時間並行性)</code> 的"時間"是指"時間錯開"。<br />
+<p>所以 <code>time parallelism(時間並行性)</code> 的"時間"是指"時間錯開"。<br/>
 所以 <code>space parallelism(空間並行性)</code> 的"空間"是指"硬體空間(硬體位置、硬體資源)"。</p>
 </div>
 <h3 id="superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因">superscalar(超標量) 實際上也有 time parallelism(時間並行性) 對不對，只是不是他出現的主要原因<a class="headerlink" href="#superscalar超標量-實際上也有-time-parallelism時間並行性-對不對只是不是他出現的主要原因" title="Permanent link"></a></h3>
@@ -8444,7 +8444,7 @@ is now available!
 <p>這種「阻止下一條指令在下一個時脈週期開始執行」的情況，講義稱為 <code>Hazard(危障)</code>。講義把 hazard 分成三類：<code>Structural Hazard(結構危障)</code>、<code>Data Hazard(數據危障)</code>、<code>Control Hazard(控制危障)</code>。</p>
 <p>可以先用一句話記：</p>
 <p><strong>Hazard = pipeline 想往前推，但資源、資料或方向還沒準備好。</strong></p>
-<hr />
+<hr/>
 <h3 id="2-三種-hazard危障-的核心差別">2. 三種 Hazard(危障) 的核心差別<a class="headerlink" href="#2-三種-hazard危障-的核心差別" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A["Hazard(危障)&lt;br&gt;下一條指令不能正常前進"] --&gt; B["Structural Hazard(結構危障)&lt;br&gt;硬體資源被搶用"]
@@ -8481,7 +8481,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="3-structural-hazard結構危障硬體資源衝突">3. Structural Hazard(結構危障)：硬體資源衝突<a class="headerlink" href="#3-structural-hazard結構危障硬體資源衝突" title="Permanent link"></a></h3>
 <p><code>Structural Hazard(結構危障)</code> 發生在：</p>
 <p><strong>某個硬體元件正在被前面的指令使用，但後面的指令同一時間也需要它。</strong></p>
@@ -8507,19 +8507,19 @@ is now available!
 </table>
 <p>講義 PDF viewer page 48 給的解法是 <code>stall(停頓)</code>，產生 <code>bubble(空泡)</code>；PDF viewer page 49 給的解法是把指令和資料放在不同 memory，也就是分離 instruction memory 與 data memory。 </p>
 <p>另外，PDF viewer page 50～51 也問到：如果讀 register(暫存器) 和寫 register 同時發生怎麼辦？講義解法是前半個時脈週期寫、後半個時脈週期讀，並且設置獨立讀寫 port(埠)。 </p>
-<hr />
+<hr/>
 <h3 id="4-data-hazard數據危障資料相依造成等待">4. Data Hazard(數據危障)：資料相依造成等待<a class="headerlink" href="#4-data-hazard數據危障資料相依造成等待" title="Permanent link"></a></h3>
 <p><code>Data Hazard(數據危障)</code> 發生在：</p>
 <p><strong>後面的指令需要前面指令的結果，但前面指令還沒把結果寫回。</strong></p>
 <p>講義 PDF viewer page 52 的例子是：</p>
-<p><code>sub $t0,$s1,$s2</code><br />
+<p><code>sub $t0,$s1,$s2</code><br/>
 <code>add $s3,$t0,$s4</code></p>
 <p>第二條 <code>add</code> 需要用 <code>$t0</code>，但 <code>$t0</code> 是第一條 <code>sub</code> 算出來的。問題是：當 <code>add</code> 想讀 <code>$t0</code> 時，<code>sub</code> 的結果可能還沒寫回 register file(暫存器堆)。講義描述為「一條指令需要使用之前指令的運算結果，但是結果還沒有寫回」。</p>
 <p>最直覺解法也是：</p>
 <p><strong>stall(停頓)，插入 bubble(空泡)，等資料真的準備好。</strong></p>
 <p>講義 PDF viewer page 53 就是把 <code>data hazard</code> 的解法畫成 stall 和 bubble。</p>
 <p>注意：後面如果講到 forwarding(轉送／旁路)，那會是更進階的解法；但本輪只依目前講義頁面，先掌握「資料還沒寫回，所以後面指令不能安全讀」。</p>
-<hr />
+<hr/>
 <h3 id="5-control-hazard控制危障分支方向還沒確定">5. Control Hazard(控制危障)：分支方向還沒確定<a class="headerlink" href="#5-control-hazard控制危障分支方向還沒確定" title="Permanent link"></a></h3>
 <p><code>Control Hazard(控制危障)</code> 發生在：</p>
 <p><strong>CPU 還不知道下一條指令到底應該取哪裡。</strong></p>
@@ -8544,17 +8544,17 @@ is now available!
 </tbody>
 </table>
 <p>講義 PDF viewer page 55 的解法同樣先用 <code>stall(停頓)</code>，產生 <code>bubble(空泡)</code>，等分支結果確定後再繼續。</p>
-<hr />
+<hr/>
 <h3 id="6-stall停頓-與-bubble空泡pipeline-被迫空轉">6. Stall(停頓) 與 Bubble(空泡)：pipeline 被迫空轉<a class="headerlink" href="#6-stall停頓-與-bubble空泡pipeline-被迫空轉" title="Permanent link"></a></h3>
-<p><code>stall(停頓)</code> 是動作：<br />
+<p><code>stall(停頓)</code> 是動作：<br/>
 <strong>讓某些指令暫時不要往前推。</strong></p>
-<p><code>bubble(空泡)</code> 是結果：<br />
+<p><code>bubble(空泡)</code> 是結果：<br/>
 <strong>pipeline 裡出現一格沒有真正有效工作的空位。</strong></p>
 <p>生活化例子：</p>
 <p>你在手搖飲店排隊，理想狀態每分鐘出一杯。但如果封膜機壞了，前面飲料卡住，後面雖然已經做好，也不能交出去。那一分鐘就像 pipeline 裡的 bubble：機器還在跑，但沒有完成有效工作。</p>
 <p>所以 hazard 的代價是：</p>
 <p><strong>降低實際 throughput(吞吐率)，讓 pipeline 達不到理想每 cycle 完成一條指令。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-最短記法">7. 最短記法<a class="headerlink" href="#7-最短記法" title="Permanent link"></a></h3>
 <p>三種 hazard 可以這樣背：</p>
 <table>
@@ -8581,7 +8581,7 @@ is now available!
 </table>
 <p>一句話版：</p>
 <p><strong>Structural 看硬體，Data 看資料，Control 看分支方向。</strong></p>
-<hr />
+<hr/>
 <h3 id="8-常見錯法">8. 常見錯法<a class="headerlink" href="#8-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -8744,17 +8744,15 @@ is now available!
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

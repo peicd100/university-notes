@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -9928,7 +9928,7 @@ is now available!
 </tbody>
 </table>
 <p>生活化一點想：memory 像宿舍，每個 process 都住一間房。CPU 像管理員。沒有保護機制時，一個 process 可能拿鑰匙亂開別人的房間，甚至闖進 OS 的管理室。Memory management(記憶體管理) 就是在規定：誰住哪裡、鑰匙怎麼檢查、越界怎麼處理。</p>
-<hr />
+<hr/>
 <h3 id="2-base-and-limit-registers基底與界限暫存器在保護什麼">2. Base and Limit Registers(基底與界限暫存器)在保護什麼？<a class="headerlink" href="#2-base-and-limit-registers基底與界限暫存器在保護什麼" title="Permanent link"></a></h3>
 <p>p.4 的重點是：<strong>用一組 base register(基底暫存器) 和 limit register(界限暫存器) 定義某個 user process 可以合法碰的 logical address space(邏輯位址空間)。</strong></p>
 <p>最核心規則：</p>
@@ -9955,7 +9955,7 @@ is now available!
 </tbody>
 </table>
 <p>p.4 的圖示大意是：CPU 產生一個 address(位址) 後，硬體會先檢查它是否在 base 與 base+limit 的範圍內；合法才讓它進 memory，不合法就 trap(陷入) 到 OS，通常是 addressing error(位址錯誤)。</p>
-<hr />
+<hr/>
 <h3 id="3-用一個最小例子看懂">3. 用一個最小例子看懂<a class="headerlink" href="#3-用一個最小例子看懂" title="Permanent link"></a></h3>
 <p>假設某 process 的合法區間如下：</p>
 <table>
@@ -10024,7 +10024,7 @@ is now available!
 </tbody>
 </table>
 <p>最短記法：<strong>base 決定起點，limit 決定長度；每次 memory access 都要檢查是否越界。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-這裡最容易錯的點">4. 這裡最容易錯的點<a class="headerlink" href="#4-這裡最容易錯的點" title="Permanent link"></a></h3>
 <p>第一個常見錯法是把 base 和 limit 都當成「絕對位址」。比較正確的理解是：base 是起始 physical address，而 limit 是可用範圍大小，不是結束位址本身。</p>
 <p>第二個常見錯法是以為這只是軟體規則。其實講義 p.4 的重點是 CPU 每次在 user mode 產生 memory access 時都必須檢查，這需要硬體支援，否則只靠程式自律沒有保護力。</p>
@@ -10035,7 +10035,7 @@ is now available!
     B -- "是" --&gt; C{"address 是否 &lt; base + limit？"}
     C -- "否" --&gt; E
     C -- "是" --&gt; D["允許存取 memory(記憶體)"]</code></pre>
-<hr />
+<hr/>
 <h3 id="5-考試輸出方式">5. 考試輸出方式<a class="headerlink" href="#5-考試輸出方式" title="Permanent link"></a></h3>
 <p>這一頁通常不會只問你背定義，而是問你：</p>
 <table>
@@ -10071,7 +10071,7 @@ is now available!
 <p>Address Binding(位址連結)在問一個很實際的問題：</p>
 <p><strong>程式寫好的時候，裡面會有很多 address(位址)。但它最後被放到 memory(記憶體) 的哪個位置，不一定一開始就知道。那這些位址要什麼時候變成真正可用的記憶體位置？</strong></p>
 <p>生活化例子：你寫程式時像是在寫「我要住 A 房間」。但真正入住時，宿舍管理員可能說：「A 房滿了，你改住 3 樓 307。」Address Binding 就是在決定：這個「改住哪裡」是在編譯時就決定、載入時決定，還是執行中動態決定。</p>
-<hr />
+<hr/>
 <h3 id="2-compile-time-binding編譯時間連結">2. Compile-time Binding(編譯時間連結)<a class="headerlink" href="#2-compile-time-binding編譯時間連結" title="Permanent link"></a></h3>
 <p>Compile-time binding 是由 compiler(編譯器) 在 compile time(編譯時間) 就決定程式將來的起始位址。講義 p.5 說，這種方式的問題是：如果決定好的位址已經有其他程式在執行，或之後想改程式起始位址，就必須 recompile(重新編譯)。</p>
 <p>它的直覺是：還沒搬家前，地址就被寫死了。</p>
@@ -10101,7 +10101,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="3-load-time-binding載入時間連結">3. Load-time Binding(載入時間連結)<a class="headerlink" href="#3-load-time-binding載入時間連結" title="Permanent link"></a></h3>
 <p>Load-time binding 是由 linking loader 或 linkage editor 在 load time(載入時間) 決定。程式不一定從固定位置開始，因此支援 relocation(重定位)。但講義也提到缺點：即使 execution time(執行時間) 沒有呼叫到的模組，也可能需要先 linking、allocation、loading，會浪費時間與記憶體；而且程式執行期間仍不能改變起始位址。</p>
 <p>它的直覺是：搬家那一刻才決定你住哪間，但搬進去之後就不能再換房。</p>
@@ -10131,7 +10131,7 @@ is now available!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-execution-time-binding執行時間連結dynamic-binding動態連結">4. Execution-time Binding(執行時間連結)／Dynamic Binding(動態連結)<a class="headerlink" href="#4-execution-time-binding執行時間連結dynamic-binding動態連結" title="Permanent link"></a></h3>
 <p>Execution-time binding 是由 OS 在 execution time(執行時間) 動態決定，又稱 dynamic binding。講義 p.6 說它需要 Memory-Management Unit, MMU(記憶體管理單元) 這類額外硬體支援。p.6 也說 Base Register(基底暫存器) 記錄目前程式的起始位址，Local Address(區域位址) 要和 base register 相加，才得到 physical address(實體位址)。</p>
 <p>最小流程：</p>
@@ -10179,7 +10179,7 @@ is now available!
 </tbody>
 </table>
 <p>所以 p.6 圖上的重點不是只背「dynamic binding 很彈性」，而是要知道：<strong>程式執行時看到的位址可以先是 local/logical 形式，真正送到 memory 前再由硬體轉成 physical address。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-三種-binding-的核心差異">5. 三種 Binding 的核心差異<a class="headerlink" href="#5-三種-binding-的核心差異" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10213,7 +10213,7 @@ is now available!
 </table>
 <p>最短記法：</p>
 <p><strong>越晚 binding，彈性越高；越晚 binding，硬體與執行成本也越高。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-常見錯法">6. 常見錯法<a class="headerlink" href="#6-常見錯法" title="Permanent link"></a></h3>
 <p>第一個錯法是把 Address Binding(位址連結)跟 Dynamic Linking(動態鏈結)混在一起。Address Binding 是在問「位址何時決定」；Dynamic Linking 是後面會講的「library(函式庫)何時連結／載入」。兩者名字都有 dynamic，但核心問題不同。</p>
 <p>第二個錯法是把 base register 當成保護用的唯一概念。這裡 p.6 的 base register 更偏向 relocation(重定位)：local address 加 base 得到 physical address。p.4 的 base/limit 則偏向保護合法範圍。這兩個會在後面連續記憶體配置再次合流。</p>
@@ -10253,7 +10253,7 @@ is now available!
 </tbody>
 </table>
 <p>講義 p.7 明確說，CPU 所產生的位址通常稱為 logical address，而記憶體單元所看到的位址通常稱為 physical address。</p>
-<hr />
+<hr/>
 <h3 id="2-為什麼需要分成兩種位址">2. 為什麼需要分成兩種位址？<a class="headerlink" href="#2-為什麼需要分成兩種位址" title="Permanent link"></a></h3>
 <p>原因是 OS 不想讓程式直接知道或控制自己在 physical memory(實體記憶體)中的真正位置。</p>
 <p>生活化例子：你寄包裹時只寫「收件人：王小明，宿舍 A 棟」。你不一定知道物流中心最後怎麼把包裹路由到哪個貨架、哪台車、哪個分撥點。對你來說是「邏輯地址」，對物流系統來說才有「實體位置」。</p>
@@ -10277,7 +10277,7 @@ is now available!
 </tbody>
 </table>
 <p>這樣 OS 可以把 process(行程)搬來搬去、做 relocation(重定位)、做 protection(保護)、甚至後面做 paging(分頁)與 virtual memory(虛擬記憶體)。</p>
-<hr />
+<hr/>
 <h3 id="3-用-p7-圖示重新看一次轉換">3. 用 p.7 圖示重新看一次轉換<a class="headerlink" href="#3-用-p7-圖示重新看一次轉換" title="Permanent link"></a></h3>
 <p>p.7 圖示中有：</p>
 <table>
@@ -10322,7 +10322,7 @@ is now available!
 </tbody>
 </table>
 <p>注意：這裡的重點不是加法很難，而是<strong>同一個程式看到的 346，不代表實體記憶體真的用 346。真正送進 memory 的可能是 14346。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-最容易混淆的地方">4. 最容易混淆的地方<a class="headerlink" href="#4-最容易混淆的地方" title="Permanent link"></a></h3>
 <p>第一個錯法：把 logical address 誤以為是假的、不重要的位址。其實對程式來說，它就是程式正常使用的位址；只是 memory hardware 最後不一定直接用它。</p>
 <p>第二個錯法：以為 physical address 是 CPU 一開始就產生的。依照 p.7 的定義，CPU 產生的是 logical address；memory unit 看到的是 physical address。中間可能經過 MMU 或 relocation register 轉換。</p>
@@ -10334,7 +10334,7 @@ is now available!
 <h3 id="mmumemory-management-unit記憶體管理單元-是啥">MMU(Memory-Management Unit，記憶體管理單元) 是啥？<a class="headerlink" href="#mmumemory-management-unit記憶體管理單元-是啥" title="Permanent link"></a></h3>
 <p>MMU 主要做 address translation(位址轉換) 和 protection check(保護檢查)</p>
 <p>假設：</p>
-<p>base register = 14000<br />
+<p>base register = 14000<br/>
 CPU 產生 logical address = 346</p>
 <p>MMU 做的事就是：</p>
 <p>physical address = base + logical address = 14000 + 346 = 14346</p>
@@ -10343,14 +10343,14 @@ CPU 產生 logical address = 346</p>
 <p>講義位置：PDF viewer page 8 ~ PDF viewer page 9</p>
 <h3 id="1-這個概念在解決什麼問題_2">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_2" title="Permanent link"></a></h3>
 <p>Dynamic Loading(動態載入)要解決的是：<strong>有些 library(函式庫)或 subroutine(副程式)不一定會用到，如果一開始全部載入 main memory(主記憶體)，會浪費記憶體空間。</strong></p>
-<p>想像一個程式有錯誤處理模組：<br />
+<p>想像一個程式有錯誤處理模組：<br/>
 正常情況下根本不會發生錯誤，所以錯誤處理模組可能完全不會被呼叫。若程式一開始就把它載入記憶體，就會浪費空間。</p>
 <p>Dynamic Loading 的想法是：</p>
 <blockquote>
 <p>主程式先執行；等到真的需要某個副程式或 library 時，才把那個部分從 disk(磁碟)載入 main memory。</p>
 </blockquote>
 <p>講義 p.8 說明，Dynamic Loading 是由 programmer(程式設計師)在程式執行過程中動態決定要載入哪些 libraries，而且不需要 OS 特別支援；OS 只提供一些函式庫讓 programmer 實作動態載入。</p>
-<hr />
+<hr/>
 <h3 id="2-dynamic-loading-的基本流程">2. Dynamic Loading 的基本流程<a class="headerlink" href="#2-dynamic-loading-的基本流程" title="Permanent link"></a></h3>
 <p>流程可以想成 5 步：</p>
 <table>
@@ -10384,7 +10384,7 @@ CPU 產生 logical address = 346</p>
 </tbody>
 </table>
 <p>講義也提到，這些副程式會以 relocatable load format(可重定位載入格式)存放在 disk 中；需要時才載入。</p>
-<hr />
+<hr/>
 <h3 id="3-最小例子錯誤處理副程式">3. 最小例子：錯誤處理副程式<a class="headerlink" href="#3-最小例子錯誤處理副程式" title="Permanent link"></a></h3>
 <p><mark>假設</mark> 一個程式有兩個部分：</p>
 <p><mark>這邊只是要說假設一個程式有兩個部分，負責處理錯誤的程式不會一開始就載入，出錯時，需要用到用來解決錯誤的時候才會載入</mark></p>
@@ -10409,10 +10409,10 @@ CPU 產生 logical address = 346</p>
 </tr>
 </tbody>
 </table>
-<p>如果程式正常執行，<code>error_handler</code> 完全不載入 memory。<br />
+<p>如果程式正常執行，<code>error_handler</code> 完全不載入 memory。<br/>
 如果程式發生錯誤，主程式才呼叫 loader，把 <code>error_handler</code> 載入 memory。</p>
 <p>這樣的好處是：<strong>不常用的 code 不會一開始就佔用 main memory。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-優點與缺點">4. 優點與缺點<a class="headerlink" href="#4-優點與缺點" title="Permanent link"></a></h3>
 <p>Dynamic Loading 的優點是節省 main memory 空間。講義 p.9 也提到，programmer 可以呼叫 loader，因此彈性較高。</p>
 <p>但缺點也很明顯：</p>
@@ -10442,7 +10442,7 @@ CPU 產生 logical address = 346</p>
 <blockquote>
 <p>省 memory，但增加 programmer 負擔，也可能讓執行變慢。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="5-最短記法">5. 最短記法<a class="headerlink" href="#5-最短記法" title="Permanent link"></a></h3>
 <p>Dynamic Loading(動態載入)：<strong>程式執行中，真的呼叫到某個 library/subroutine 時，才把它載入 memory。</strong></p>
 <p>考試寫法可以抓三句：</p>
@@ -10479,17 +10479,17 @@ CPU 產生 logical address = 346</p>
 <p>所以 Linking(鏈結)就是：</p>
 <p><strong>把一個或多個 library 包含到程式中，讓程式可以呼叫那些 library 的功能。</strong></p>
 <p>講義 p.10 說 Linking 有兩種主要形式：Static Linking(靜態鏈結)與 Dynamic Linking(動態鏈結)。</p>
-<hr />
+<hr/>
 <h3 id="2-static-linking靜態鏈結先塞進-executable">2. Static Linking(靜態鏈結)：先塞進 executable<a class="headerlink" href="#2-static-linking靜態鏈結先塞進-executable" title="Permanent link"></a></h3>
 <p>Static Linking 的做法是：</p>
 <p><strong>在 link time(鏈結時間)，linker(鏈結器)就把 static library 的內容加入 executable program(可執行程式)中。</strong></p>
 <p>也就是說，程式還沒真正執行前，library code 就已經被包進 executable 裡。</p>
 <p>直覺例子：</p>
 <p>你要交作業時，把所有可能用到的附件全部印出來，直接裝訂進同一本報告。之後帶著這本報告就可以獨立使用，不必再去找附件。</p>
-<p>優點是簡單、執行時不太需要再找外部 library。<br />
+<p>優點是簡單、執行時不太需要再找外部 library。<br/>
 但講義 p.10 強調它的主要缺點是：</p>
 <p><strong>產生的 executable file 會太大，裝入 memory 時需要更多系統資源，也會消耗更多時間。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-dynamic-linking動態鏈結真的呼叫到才由-os-載入">3. Dynamic Linking(動態鏈結)：真的呼叫到才由 OS 載入<a class="headerlink" href="#3-dynamic-linking動態鏈結真的呼叫到才由-os-載入" title="Permanent link"></a></h3>
 <p>Dynamic Linking 又稱 Shared Library(共用函式庫)。它的做法是：</p>
 <p><strong>程式執行期間，當某個 module(模組)真的被呼叫時，才由 OS 的 loader 把它載入 main memory。</strong></p>
@@ -10514,7 +10514,7 @@ CPU 產生 logical address = 346</p>
 </tbody>
 </table>
 <p>Dynamic Linking 的重要優點是：多個 application(應用程式)可以共用同一份 library copy，所以 OS 不需要為每個程式都載入一份重複的 library。</p>
-<hr />
+<hr/>
 <h3 id="4-static-linking-vs-dynamic-linking">4. Static Linking vs Dynamic Linking<a class="headerlink" href="#4-static-linking-vs-dynamic-linking" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10549,7 +10549,7 @@ CPU 產生 logical address = 346</p>
 </table>
 <p>最短比較：</p>
 <p><strong>Static Linking 是「先包進 executable」；Dynamic Linking 是「執行時呼叫到才載入，而且可以共享」。</strong></p>
-<hr />
+<hr/>
 <h3 id="5-dynamic-loading-vs-dynamic-linking-最容易混">5. Dynamic Loading vs Dynamic Linking 最容易混<a class="headerlink" href="#5-dynamic-loading-vs-dynamic-linking-最容易混" title="Permanent link"></a></h3>
 <p>這兩個名字很像，而且都會出現「執行時才載入」，但講義分成兩個點講，考試也很容易混。</p>
 <table>
@@ -10595,10 +10595,10 @@ CPU 產生 logical address = 346</p>
 <h3 id="bindinglinkingloading-要怎麼區分">Binding、Linking、Loading 要怎麼區分<a class="headerlink" href="#bindinglinkingloading-要怎麼區分" title="Permanent link"></a></h3>
 <h4 id="1-直接區分法">1. 直接區分法<a class="headerlink" href="#1-直接區分法" title="Permanent link"></a></h4>
 <p>最短記法：</p>
-<p><strong>Binding 問「位址在哪裡？」</strong><br />
-<strong>Linking 問「函式庫怎麼接進程式？」</strong><br />
+<p><strong>Binding 問「位址在哪裡？」</strong><br/>
+<strong>Linking 問「函式庫怎麼接進程式？」</strong><br/>
 <strong>Loading 問「程式／模組什麼時候被搬進 main memory？」</strong></p>
-<hr />
+<hr/>
 <h4 id="2-三者比較表">2. 三者比較表<a class="headerlink" href="#2-三者比較表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -10649,7 +10649,7 @@ CPU 產生 logical address = 346</p>
 <li>這件事由 mid-term scheduler(中程排班器)負責。</li>
 </ul>
 <p>直覺例子：</p>
-<p>你的書桌很小，只能放幾本正在看的書。暫時不用的書可以先放回書櫃；等需要時再拿回桌上。<br />
+<p>你的書桌很小，只能放幾本正在看的書。暫時不用的書可以先放回書櫃；等需要時再拿回桌上。<br/>
 在 OS 裡：</p>
 <table>
 <thead>
@@ -10677,7 +10677,7 @@ CPU 產生 logical address = 346</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="2-swap-out-與-swap-in">2. Swap out 與 swap in<a class="headerlink" href="#2-swap-out-與-swap-in" title="Permanent link"></a></h3>
 <p>Swapping 有兩個方向：</p>
 <table>
@@ -10698,12 +10698,12 @@ CPU 產生 logical address = 346</p>
 </tr>
 </tbody>
 </table>
-<p>注意：<br />
-Swapping 不是把 process 刪掉，也不是 process 結束。<br />
+<p>注意：<br/>
+Swapping 不是把 process 刪掉，也不是 process 結束。<br/>
 它只是讓 process 暫時離開 main memory，之後還可以回來繼續執行。</p>
 <p>所以考試常見寫法是：</p>
 <p><strong>Swapping temporarily moves a process out of main memory to a backing store and later brings it back into memory for continued execution.</strong></p>
-<hr />
+<hr/>
 <h3 id="3-為什麼-swapping-很花時間">3. 為什麼 Swapping 很花時間？<a class="headerlink" href="#3-為什麼-swapping-很花時間" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -10763,23 +10763,23 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </tr>
 </tbody>
 </table>
-<p>因為完整交換通常是雙向的：一個 process 換出，另一個 process 換入。<br />
+<p>因為完整交換通常是雙向的：一個 process 換出，另一個 process 換入。<br/>
 所以總 swapping time：</p>
 <p><code>258 ms × 2 = 516 ms</code></p>
 <p>講義 p.13 的結論也是總共需要 516 ms。</p>
 </div>
-<hr />
+<hr/>
 <h3 id="4-最小非題目型示範">4. 最小非題目型示範<a class="headerlink" href="#4-最小非題目型示範" title="Permanent link"></a></h3>
 <p>假設有一個 process 大小是 20 MB，backing store transfer rate 是 100 MB/s，latency 是 5 ms。</p>
 <p>先算一次 transfer time：</p>
 <p><code>20 MB / 100 MB/s = 0.2 s = 200 ms</code></p>
 <p>加上 latency：</p>
 <p><code>200 ms + 5 ms = 205 ms</code></p>
-<p>若只問一次 swap out：答案是 <code>205 ms</code>。<br />
+<p>若只問一次 swap out：答案是 <code>205 ms</code>。<br/>
 若問完整 swap out + swap in：答案是：</p>
 <p><code>205 ms × 2 = 410 ms</code></p>
 <p>重點是不要漏掉題目問的是「單向」還是「雙向」。</p>
-<hr />
+<hr/>
 <h3 id="5-常見錯法">5. 常見錯法<a class="headerlink" href="#5-常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -10817,10 +10817,10 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 <p>Contiguous Memory Allocation(連續記憶體配置)要解決的問題是：</p>
 <p><strong>當一個 process 要放進 main memory 時，OS 要找一整塊「連續」且夠大的 free memory block 給它使用。</strong></p>
 <p>這裡的關鍵字是 <strong>contiguous(連續)</strong>。</p>
-<p>也就是說，如果一個 process 需要 200 KB，OS 不能隨便找 100 KB + 100 KB 兩塊分散的洞湊起來。<br />
+<p>也就是說，如果一個 process 需要 200 KB，OS 不能隨便找 100 KB + 100 KB 兩塊分散的洞湊起來。<br/>
 在 contiguous allocation 裡，OS 要找的是一整段連續的 200 KB 空間。</p>
 <p>講義 p.14 說，OS 會依據 process 的大小，找一塊夠大的連續可用記憶體配置給它；而 free blocks 會用 Linked List(鏈結串列)管理，稱為 Available list。</p>
-<hr />
+<hr/>
 <h3 id="2-available-list可用串列os-怎麼記住哪裡還有空間">2. Available list(可用串列)：OS 怎麼記住哪裡還有空間？<a class="headerlink" href="#2-available-list可用串列os-怎麼記住哪裡還有空間" title="Permanent link"></a></h3>
 <p>OS 需要知道 main memory 裡有哪些 free blocks(可用區塊)。</p>
 <p>所以它會維護一份 Available list：</p>
@@ -10847,9 +10847,9 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </tbody>
 </table>
 <p>直覺例子：</p>
-<p>你要在停車場找一個位置停大巴士。<br />
+<p>你要在停車場找一個位置停大巴士。<br/>
 大巴士不能分成兩半停，所以你要找的是一整排夠長的連續空位，不是零散空位總和夠就好。</p>
-<hr />
+<hr/>
 <h3 id="3-為什麼還需要-relocation-register-和-limit-register">3. 為什麼還需要 relocation register 和 limit register？<a class="headerlink" href="#3-為什麼還需要-relocation-register-和-limit-register" title="Permanent link"></a></h3>
 <p>Contiguous allocation 還有一個大問題：</p>
 <p><strong>如果每個 process 都被放在實體記憶體的某一段，那要怎麼防止它亂存取別人的記憶體或 OS 的記憶體？</strong></p>
@@ -10883,7 +10883,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 <li>如果合法，就用 relocation register 加上 logical address，得到 physical address。</li>
 <li>如果不合法，就代表 process 想碰超出自己範圍的記憶體，應該阻止。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="4-最小非題目型示範_1">4. 最小非題目型示範<a class="headerlink" href="#4-最小非題目型示範_1" title="Permanent link"></a></h3>
 <p>假設某 process 被放在 physical memory 的起點 <code>10000</code>，大小範圍是 <code>3000</code>。</p>
 <p>所以：</p>
@@ -10913,7 +10913,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 <p>但如果 CPU 產生 logical address <code>3200</code>：</p>
 <p><code>3200 &gt;= 3000</code></p>
 <p>這超過 limit，所以不合法，不能轉成 physical address。</p>
-<hr />
+<hr/>
 <h3 id="5-最短記法_1">5. 最短記法<a class="headerlink" href="#5-最短記法_1" title="Permanent link"></a></h3>
 <p>Contiguous Memory Allocation：</p>
 <p><strong>OS 找一塊夠大的連續 free block 給 process；Available list 記錄 free blocks；relocation register 決定起點，limit register 決定可用範圍。</strong></p>
@@ -10954,7 +10954,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </tbody>
 </table>
 <p>這裡的 <code>n</code> 是 process 需要的 memory size。</p>
-<hr />
+<hr/>
 <h3 id="2-first-fit最先配合">2. First fit(最先配合)<a class="headerlink" href="#2-first-fit最先配合" title="Permanent link"></a></h3>
 <p>First fit 的直覺是：</p>
 <p><strong>從 Available list 前面開始找，第一個夠大的洞就用。</strong></p>
@@ -11012,7 +11012,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </table>
 <p>所以 First fit 選 <code>500 KB</code>。</p>
 <p>重點：First fit 不一定選最小夠用的，它只選「第一個夠用的」。</p>
-<hr />
+<hr/>
 <h3 id="3-best-fit最佳配合">3. Best fit(最佳配合)<a class="headerlink" href="#3-best-fit最佳配合" title="Permanent link"></a></h3>
 <p>Best fit 的直覺是：</p>
 <p><strong>全部看完，選剛好最接近需求的那一塊。</strong></p>
@@ -11043,7 +11043,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </table>
 <p>Best fit 會選剩最少、最接近 212 KB 的 <code>300 KB</code>。</p>
 <p>講義也提醒：Best fit 長期而言會剩下很大的洞和很小的洞。</p>
-<hr />
+<hr/>
 <h3 id="4-worst-fit最差配合">4. Worst fit(最差配合)<a class="headerlink" href="#4-worst-fit最差配合" title="Permanent link"></a></h3>
 <p>Worst fit 的直覺是：</p>
 <p><strong>全部看完，選最大的洞，讓剩下的洞也盡量還有一定大小。</strong></p>
@@ -11072,7 +11072,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </table>
 <p>Worst fit 選 <code>600 KB</code>，因為 <code>600 - 212 = 388 KB</code> 最大。</p>
 <p>講義說 Worst fit 長期結果是每個洞大小差不多。</p>
-<hr />
+<hr/>
 <h3 id="5-p16-的立即缺點還是會有-external-fragmentation">5. p.16 的立即缺點：還是會有 external fragmentation<a class="headerlink" href="#5-p16-的立即缺點還是會有-external-fragmentation" title="Permanent link"></a></h3>
 <p>不管用 First fit、Best fit 還是 Worst fit，本質仍然是 contiguous allocation，所以仍會遇到 External Fragmentation(外部碎裂)。</p>
 <p>External Fragmentation 的直覺是：</p>
@@ -11098,7 +11098,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </table>
 <p>總 free memory 是 <code>300 KB</code>，但如果 process 需要一整塊 <code>250 KB</code>，它仍然不能被配置，因為沒有任何一塊連續 free block 達到 <code>250 KB</code>。</p>
 <p>p.16 也提醒：配置後剩下的極小 Free Blocks 仍會留在 Available list 裡，這會增加 Search Time(搜尋時間)與記錄成本。</p>
-<hr />
+<hr/>
 <h3 id="6-p17-example-816講義範例怎麼看">6. p.17 Example 8.16：講義範例怎麼看？<a class="headerlink" href="#6-p17-example-816講義範例怎麼看" title="Permanent link"></a></h3>
 <p>講義 p.17 給的 free blocks 是：</p>
 <p><code>100 KB, 500 KB, 200 KB, 300 KB, 600 KB</code></p>
@@ -11159,7 +11159,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="2-external-fragmentation外部斷裂">2. External Fragmentation(外部斷裂)<a class="headerlink" href="#2-external-fragmentation外部斷裂" title="Permanent link"></a></h3>
 <p>External Fragmentation(外部斷裂)的定義是：</p>
 <p><strong>所有可用記憶體空間總和大於某個 process 所需空間，但因為這些 free blocks 不連續，所以無法配置給該 process，造成 memory 閒置。</strong></p>
@@ -11189,7 +11189,7 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 <p>這就是 external fragmentation。</p>
 <p>最短記法：</p>
 <p><strong>總量夠，但不連續，所以放不下。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-50-percent-rule百分之五十規則">3. 50-percent rule(百分之五十規則)<a class="headerlink" href="#3-50-percent-rule百分之五十規則" title="Permanent link"></a></h3>
 <p>講義 p.18 提到 50-percent rule(百分之五十規則)。</p>
 <p>它的意思是：</p>
@@ -11200,9 +11200,9 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 <p><strong>The 50-percent rule states that for N allocated blocks, about 0.5N additional blocks may be lost due to fragmentation, so roughly one-third of memory may be unusable.</strong></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>N 是有分配，可能有 0.5N 沒分配，總共是 1.5N ，0.5N 在 1.5N裡面佔了 &#8531;，所以總空間會有 &#8531; 沒有被利用</p>
+<p>N 是有分配，可能有 0.5N 沒分配，總共是 1.5N ，0.5N 在 1.5N裡面佔了 ⅓，所以總空間會有 ⅓ 沒有被利用</p>
 </div>
-<hr />
+<hr/>
 <h3 id="4-compaction壓縮緊縮">4. Compaction(壓縮／緊縮)<a class="headerlink" href="#4-compaction壓縮緊縮" title="Permanent link"></a></h3>
 <p>p.19 給第一種解法：Compaction(壓縮)。</p>
 <p>Compaction 的概念類似磁碟重組：</p>
@@ -11277,23 +11277,23 @@ Swapping 不是把 process 刪掉，也不是 process 結束。<br />
 </tr>
 </tbody>
 </table>
-<p>這裡要連回前面 p.5 ~ p.6 的 Address Binding：<br />
+<p>這裡要連回前面 p.5 ~ p.6 的 Address Binding：<br/>
 如果 process 的 physical location 在執行中可能改變，就需要 execution-time binding / dynamic binding 支援。</p>
-<hr />
+<hr/>
 <h3 id="5-page-memory-management分頁式記憶體管理作為方向">5. Page memory management(分頁式記憶體管理)作為方向<a class="headerlink" href="#5-page-memory-management分頁式記憶體管理作為方向" title="Permanent link"></a></h3>
 <p>p.19 也列出 Page memory management 作為解決方向。</p>
 <p>這裡先只抓一個直覺，不展開 paging 細節：</p>
 <p><strong>如果不要求 process 一定要放在一整塊連續 physical memory，就可以避開 external fragmentation。</strong></p>
-<p>也就是說，contiguous allocation 的根本限制是「一定要連續」。<br />
+<p>也就是說，contiguous allocation 的根本限制是「一定要連續」。<br/>
 Page memory management 的方向是把 process 切成固定大小的 pieces，分散放到不同 frames，之後再靠位址轉換讓 process 看起來仍可正常執行。</p>
 <p>但 paging 的完整機制還沒到本輪主線，後面會依講義順序處理；本輪只先把它記為「解 external fragmentation 的方向」。</p>
-<hr />
+<hr/>
 <h3 id="6-internal-fragmentation內部斷裂">6. Internal Fragmentation(內部斷裂)<a class="headerlink" href="#6-internal-fragmentation內部斷裂" title="Permanent link"></a></h3>
 <p>p.20 換成另一種浪費：Internal Fragmentation(內部斷裂)。</p>
 <p>Internal Fragmentation 的定義是：</p>
 <p><strong>OS 配置給 process 的 memory 空間大於 process 真正需要的空間，多出來的空間 process 用不到，也不能給其他 process 使用，所以形成浪費。</strong></p>
 <p>直覺例子：</p>
-<p>假設 OS 每次都以 <code>4 KB</code> 為單位配置 memory。<br />
+<p>假設 OS 每次都以 <code>4 KB</code> 為單位配置 memory。<br/>
 某 process 實際只需要 <code>10 KB</code>。</p>
 <p>OS 不能剛好給 <code>10 KB</code>，可能要給：</p>
 <p><code>12 KB</code></p>
@@ -11302,7 +11302,7 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 <p>就在 process 配置區內部浪費掉。這就是 internal fragmentation。</p>
 <p>最短記法：</p>
 <p><strong>給太多，多出來的在 process 裡面浪費。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-external-vs-internal最重要比較">7. External vs Internal：最重要比較<a class="headerlink" href="#7-external-vs-internal最重要比較" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -11345,7 +11345,7 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 <li>減少 page size 可以降低 internal fragmentation。</li>
 <li>加大 page size 可以減少 page table 的大小。</li>
 </ul>
-<p>所以 page size 不是越小越好，也不是越大越好。<br />
+<p>所以 page size 不是越小越好，也不是越大越好。<br/>
 它是在「內部浪費」與「page table 大小」之間取平衡。</p>
 <h2 id="segmentation--os-怎麼用程式本來的區段來管理記憶體">⭐Segmentation — OS 怎麼用「程式本來的區段」來管理記憶體？<a class="headerlink" href="#segmentation--os-怎麼用程式本來的區段來管理記憶體" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 21 ~ PDF viewer page 25</p>
@@ -11390,7 +11390,7 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 <p>所以 Segmentation 的核心直覺是：</p>
 <p><strong>讓記憶體配置方式比較接近使用者／程式設計師看程式的方式。</strong></p>
 <p>也就是說，程式不再只是一條從 <code>0</code> 開始一路往後的單一 logical address space，而是由多個 segment 組成。</p>
-<hr />
+<hr/>
 <h3 id="2-segment-table分段表每一段都要記錄-base-和-limit">2. Segment table(分段表)：每一段都要記錄 base 和 limit<a class="headerlink" href="#2-segment-table分段表每一段都要記錄-base-和-limit" title="Permanent link"></a></h3>
 <p>在 Segmentation 中，每個 process 會有一張 segment table(分段表)。</p>
 <p>每一個 segment table entry(分段表項目)至少要有兩個欄位：</p>
@@ -11430,7 +11430,7 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 <li><code>segment number</code>：我要找第幾段？</li>
 <li><code>offset</code>：我要找該段內第幾個位置？</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="3-stbr-和-stlros-怎麼找到-segment-table">3. STBR 和 STLR：OS 怎麼找到 segment table？<a class="headerlink" href="#3-stbr-和-stlros-怎麼找到-segment-table" title="Permanent link"></a></h3>
 <p>講義 p.21 提到兩個 register(暫存器)：</p>
 <table>
@@ -11464,7 +11464,7 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 <li><code>s</code> 必須是合法 segment number，不能超過 segment table 長度。</li>
 <li><code>d</code> 必須小於該 segment 的 limit / length。</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="4-segment-address-translation分段位址轉換">4. Segment address translation(分段位址轉換)<a class="headerlink" href="#4-segment-address-translation分段位址轉換" title="Permanent link"></a></h3>
 <p>Segmentation 的 address translation(位址轉換)規則是：</p>
 <p>給 logical address：</p>
@@ -11498,9 +11498,9 @@ Page memory management 的方向是把 process 切成固定大小的 pieces，�
 </ol>
 <p>注意：通常合法 offset 範圍是：</p>
 <p><code>0 ~ length - 1</code></p>
-<p>所以若 length = <code>600</code>，合法 offset 是 <code>0 ~ 599</code>。<br />
+<p>所以若 length = <code>600</code>，合法 offset 是 <code>0 ~ 599</code>。<br/>
 offset = <code>600</code> 本身不合法。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="5-非題目型示範先看一個簡化版">5. 非題目型示範：先看一個簡化版<a class="headerlink" href="#5-非題目型示範先看一個簡化版" title="Permanent link"></a></h3>
@@ -11545,7 +11545,7 @@ offset = <code>600</code> 本身不合法。</p>
 <p>這個示範的關鍵是：</p>
 <p><strong>不是拿所有 segment 的總長度判斷，而是用指定 segment 自己的 length 判斷 offset。</strong></p>
 </div>
-<hr />
+<hr/>
 <h3 id="6-segmentation-的優點">6. Segmentation 的優點<a class="headerlink" href="#6-segmentation-的優點" title="Permanent link"></a></h3>
 <p>講義 p.23 列出 Segmentation 的優點：</p>
 <table>
@@ -11576,7 +11576,7 @@ offset = <code>600</code> 本身不合法。</p>
 </table>
 <p>比較直覺的說法：</p>
 <p><strong>Segmentation 的好處是「語意清楚」：一段 code、一段 heap、一段 stack，OS 比較容易針對不同用途做 sharing / protection。</strong></p>
-<hr />
+<hr/>
 <h3 id="7-segmentation-的缺點">7. Segmentation 的缺點<a class="headerlink" href="#7-segmentation-的缺點" title="Permanent link"></a></h3>
 <p>講義 p.23 也列出缺點：</p>
 <table>
@@ -11604,7 +11604,7 @@ offset = <code>600</code> 本身不合法。</p>
 <p>這裡最重要的是：</p>
 <p><strong>Segmentation 解決了 internal fragmentation，但仍可能有 external fragmentation。</strong></p>
 <p>原因是 segment 大小不是固定的，而且單一 segment 本身仍要放在一段連續 physical memory 裡。</p>
-<hr />
+<hr/>
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
 <p>Segmentation = 把 process 按照程式邏輯切成多個 segment，每個 segment 有自己的 base 和 limit。</p>
 <p>Address translation：</p>
@@ -11650,7 +11650,7 @@ offset = <code>600</code> 本身不合法。</p>
 <p>重點是：</p>
 <p><strong>page size = frame size</strong></p>
 <p>所以一個 process 的 page 0、page 1、page 2 不需要放在 physical memory 的連續位置。它們可以被放到任意可用 frames 中。</p>
-<hr />
+<hr/>
 <h3 id="2-page-table分頁表記錄-page-對應到哪個-frame">2. Page table(分頁表)：記錄 page 對應到哪個 frame<a class="headerlink" href="#2-page-table分頁表記錄-page-對應到哪個-frame" title="Permanent link"></a></h3>
 <p>每個 process 都有自己的 page table(分頁表)。</p>
 <p>Page table 的功能是：</p>
@@ -11690,9 +11690,9 @@ offset = <code>600</code> 本身不合法。</p>
 <li>process 的 page 3 放在 frame 2</li>
 </ul>
 <p>所以 logical memory 看起來是連續的 pages，但 physical memory 裡面可以是分散的 frames。</p>
-<p>這就是 Paging 能解決 external fragmentation(外部斷裂)的原因：<br />
+<p>這就是 Paging 能解決 external fragmentation(外部斷裂)的原因：<br/>
 <strong>只要有足夠數量的 free frames，不需要它們連續。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-logical-address-怎麼拆">3. Logical address 怎麼拆？<a class="headerlink" href="#3-logical-address-怎麼拆" title="Permanent link"></a></h3>
 <p>Paging 中，CPU 產生的 logical address(邏輯位址)會被拆成兩個部分：</p>
 <table>
@@ -11724,9 +11724,9 @@ offset = <code>600</code> 本身不合法。</p>
 <li>用 <code>p</code> 查 page table，找到 frame number <code>f</code>。</li>
 <li>physical address 變成 <code>&lt;f, d&gt;</code>。</li>
 </ol>
-<p>注意：offset <code>d</code> 保持不變。<br />
+<p>注意：offset <code>d</code> 保持不變。<br/>
 Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</p>
-<hr />
+<hr/>
 <h3 id="4-page-size-與-address-bits-的關係">4. Page size 與 address bits 的關係<a class="headerlink" href="#4-page-size-與-address-bits-的關係" title="Permanent link"></a></h3>
 <p>講義 p.32 給的核心規則是：</p>
 <p>如果 logical address space 大小是 <code>2^m</code>，page size 是 <code>2^n bytes</code>：</p>
@@ -11758,9 +11758,9 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 </tr>
 </tbody>
 </table>
-<p>例如 page size = <code>4 KB = 4096 bytes = 2^12 bytes</code>。<br />
+<p>例如 page size = <code>4 KB = 4096 bytes = 2^12 bytes</code>。<br/>
 所以 offset 需要 <code>12 bits</code>。</p>
-<hr />
+<hr/>
 <h3 id="5-非題目型示範位元數怎麼算">5. 非題目型示範：位元數怎麼算？<a class="headerlink" href="#5-非題目型示範位元數怎麼算" title="Permanent link"></a></h3>
 <p>假設：</p>
 <ul>
@@ -11782,7 +11782,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 </ul>
 <p>這個題型的關鍵是：</p>
 <p><strong>logical address 用 page number + offset；physical address 用 frame number + offset。</strong></p>
-<hr />
+<hr/>
 <h3 id="6-非題目型示範decimal-address-怎麼拆成-page-number-和-offset">6. 非題目型示範：decimal address 怎麼拆成 page number 和 offset？<a class="headerlink" href="#6-非題目型示範decimal-address-怎麼拆成-page-number-和-offset" title="Permanent link"></a></h3>
 <p>假設：</p>
 <ul>
@@ -11804,7 +11804,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <li>page 3：位址 <code>3072 ~ 4095</code></li>
 </ul>
 <p><code>3085</code> 落在 page 3，而且距離 page 3 開頭 <code>3072</code> 差 <code>13</code>。</p>
-<hr />
+<hr/>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="7-paging-的優點與缺點">7. Paging 的優點與缺點<a class="headerlink" href="#7-paging-的優點與缺點" title="Permanent link"></a></h3>
@@ -11888,7 +11888,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
 <p>Paging = logical memory 切成 pages，physical memory 切成 frames，且 <code>page size = frame size</code>。</p>
 <p>Address translation：</p>
@@ -11914,7 +11914,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p><strong>process 剛要進入 memory 時，OS 要去哪裡找空的 frames？</strong></p>
 <p>答案是：OS 會維護一份 <code>free-frame list(空閒頁框清單)</code>。</p>
 <p>它記錄目前 physical memory 中哪些 frames 是空的，可以拿來放 process 的 pages。</p>
-<hr />
+<hr/>
 <h3 id="2-p36-圖的流程">2. p.36 圖的流程<a class="headerlink" href="#2-p36-圖的流程" title="Permanent link"></a></h3>
 <p>講義 p.36 的圖分成 Before allocation 和 After allocation。</p>
 <p>Before allocation：</p>
@@ -11939,7 +11939,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <li>已被使用的 frames 會從 free-frame list 移除，所以剩下的 free-frame list 只保留尚未使用的 frame，例如 15。</li>
 </ul>
 <p>重點是：<strong>page 0、1、2、3 不需要放在連續 frames，只要每個 page 都能拿到一個 free frame 即可。</strong></p>
-<hr />
+<hr/>
 <h3 id="3-為什麼這延續-paging-解決-external-fragmentation-的精神">3. 為什麼這延續 Paging 解決 external fragmentation 的精神？<a class="headerlink" href="#3-為什麼這延續-paging-解決-external-fragmentation-的精神" title="Permanent link"></a></h3>
 <p>在 contiguous allocation 中，process 需要一整塊連續 free memory。</p>
 <p>但在 paging 中，process 只需要「足夠數量的 free frames」。</p>
@@ -11951,7 +11951,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <li>page table 會負責記錄「哪個 page 放在哪個 frame」。</li>
 </ul>
 <p>這就是 paging 的核心優勢：<strong>用 page table 把分散的 frames 串成 process 看起來連續的 logical memory。</strong></p>
-<hr />
+<hr/>
 <h3 id="4-非題目型示範">4. 非題目型示範<a class="headerlink" href="#4-非題目型示範" title="Permanent link"></a></h3>
 <p>假設一個 process 有 3 pages：</p>
 <ul>
@@ -12015,7 +12015,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <li>free-frame list 剩下 frame 6</li>
 <li>process 的 pages 在 physical memory 中仍然不連續，但可以正常執行</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="5-最短記法_2">5. 最短記法<a class="headerlink" href="#5-最短記法_2" title="Permanent link"></a></h3>
 <p><code>free-frame list</code> = OS 用來記錄目前哪些 physical frames 是空的。</p>
 <p>配置 paging 時，OS 從 free-frame list 拿 free frames 給 process 的 pages，並更新 page table。</p>
@@ -12033,14 +12033,14 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <li>把 <code>&lt;f, d&gt;</code> 組成 physical address。</li>
 <li>再去 physical memory 存取資料。</li>
 </ol>
-<p>問題是：<strong>page table 本身也在 memory 裡</strong>。<br />
+<p>問題是：<strong>page table 本身也在 memory 裡</strong>。<br/>
 所以一次資料存取可能變成：</p>
 <ul>
 <li>先 access memory 查 page table。</li>
 <li>再 access memory 取真正的資料。</li>
 </ul>
 <p>這會讓有效 memory access time 變長。</p>
-<hr />
+<hr/>
 <h3 id="2-tlb-是什麼">2. TLB 是什麼？<a class="headerlink" href="#2-tlb-是什麼" title="Permanent link"></a></h3>
 <p><code>TLB(Translation Look-aside Buffer)</code> 是一個很小、很快的硬體快取，用來暫存最近用過的 page table entries。</p>
 <p>講義寫它是 <code>CAM(Content-Addressable Memory)</code> 或 <code>fully associated cache</code>。意思是它可以用 page number 很快地找出對應的 frame number。</p>
@@ -12049,16 +12049,16 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p>page table 的高速小抄。</p>
 </blockquote>
 <p>不是每次都去翻完整 page table，而是先看小抄裡有沒有這個 page number。</p>
-<hr />
+<hr/>
 <h3 id="3-tlb-hit-和-tlb-miss">3. TLB hit 和 TLB miss<a class="headerlink" href="#3-tlb-hit-和-tlb-miss" title="Permanent link"></a></h3>
 <p>CPU 產生 logical address <code>&lt;p, d&gt;</code> 後，硬體會先拿 page number <code>p</code> 查 TLB。</p>
 <p>如果 TLB 裡有 <code>p → f</code>：</p>
-<p>這叫 <code>TLB hit</code>。<br />
+<p>這叫 <code>TLB hit</code>。<br/>
 直接得到 frame number <code>f</code>，形成 physical address <code>&lt;f, d&gt;</code>，然後 access physical memory。</p>
 <p>如果 TLB 裡沒有 <code>p</code>：</p>
-<p>這叫 <code>TLB miss</code>。<br />
+<p>這叫 <code>TLB miss</code>。<br/>
 必須去查 page table，找到 <code>p → f</code>，再形成 physical address <code>&lt;f, d&gt;</code>。之後通常會把這個 mapping 放進 TLB，讓下次同一個 page 被用到時比較快。</p>
-<hr />
+<hr/>
 <h3 id="4-非題目型示範_1">4. 非題目型示範<a class="headerlink" href="#4-非題目型示範_1" title="Permanent link"></a></h3>
 <p>假設 CPU 產生 logical address：</p>
 <p><code>&lt;page number = 2, offset = 100&gt;</code></p>
@@ -12091,7 +12091,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p>若 page size 是 1024 bytes，則 physical address 數值是：</p>
 <p><code>9 × 1024 + 100 = 9316</code></p>
 <p>這次不需要先去 memory 查 page table，所以比較快。</p>
-<hr />
+<hr/>
 <h3 id="5-tlb-miss-示範">5. TLB miss 示範<a class="headerlink" href="#5-tlb-miss-示範" title="Permanent link"></a></h3>
 <p>假設 CPU 產生：</p>
 <p><code>&lt;page number = 3, offset = 80&gt;</code></p>
@@ -12150,10 +12150,10 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p><code>&lt;frame number = 7, offset = 80&gt;</code></p>
 <p>若 page size 是 1024 bytes，physical address 數值是：</p>
 <p><code>7 × 1024 + 80 = 7248</code></p>
-<hr />
+<hr/>
 <h3 id="6-最短記法">6. 最短記法<a class="headerlink" href="#6-最短記法" title="Permanent link"></a></h3>
 <p><code>TLB</code> = page table 的高速快取。</p>
-<p><code>TLB hit</code>：TLB 找到 <code>p → f</code>，直接形成 <code>&lt;f, d&gt;</code>。<br />
+<p><code>TLB hit</code>：TLB 找到 <code>p → f</code>，直接形成 <code>&lt;f, d&gt;</code>。<br/>
 <code>TLB miss</code>：TLB 找不到，必須查 page table，再形成 <code>&lt;f, d&gt;</code>。</p>
 <p>TLB 的目的：減少每次 address translation 都要查 memory 中 page table 的成本。</p>
 <div class="admonition danger">
@@ -12375,7 +12375,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <h3 id="1-問題單層-page-table-可能太大而且很多格根本用不到">1. 問題：單層 page table 可能太大，而且很多格根本用不到<a class="headerlink" href="#1-問題單層-page-table-可能太大而且很多格根本用不到" title="Permanent link"></a></h3>
 <p>前面我們學過：每個 process 有自己的 <code>page table(分頁表)</code>，用來把：</p>
 <p><code>page number → frame number</code></p>
-<p>但問題是，logical address space(邏輯位址空間) 可以很大。<br />
+<p>但問題是，logical address space(邏輯位址空間) 可以很大。<br/>
 如果使用 single-level page table(單層分頁表)，OS 可能要為整個 logical address space 準備一大張 page table。</p>
 <p>可是很多 process 實際上只用到一小部分位址空間，例如：</p>
 <ul>
@@ -12397,7 +12397,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p>也就是講義寫的：</p>
 <p><code>Paging the page table</code></p>
 <p>直覺類比：</p>
-<p>單層 page table 像是一本超厚通訊錄，裡面很多頁都是空的。<br />
+<p>單層 page table 像是一本超厚通訊錄，裡面很多頁都是空的。<br/>
 多層 page table 則像是先查目錄，再只翻你真的需要的那一小本分冊。</p>
 <p>所以 OS 不需要把所有 second-level page tables 都放進 memory，只要把目前會用到的部分放進 memory 即可。</p>
 <h3 id="3-two-level-paging-的位址切法">3. Two-level paging 的位址切法<a class="headerlink" href="#3-two-level-paging-的位址切法" title="Permanent link"></a></h3>
@@ -12440,7 +12440,7 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 <p>所以 offset <code>d</code> 需要 12 bits。</p>
 <p>32-bit logical address 剩下：</p>
 <p><code>32 - 12 = 20 bits</code></p>
-<p>這 20 bits 原本都會是 page number。<br />
+<p>這 20 bits 原本都會是 page number。<br/>
 在 two-level paging 裡，講義把它拆成：</p>
 <p><code>10 bits + 10 bits</code></p>
 <p>也就是：</p>
@@ -12499,22 +12499,22 @@ Paging 只把 <code>page number p</code> 換成 <code>frame number f</code>。</
 </tbody>
 </table>
 <p>轉換流程：</p>
-<p>先用 <code>p1 = 2</code> 找到 <code>Table A</code>。<br />
-再用 <code>p2 = 5</code> 到 <code>Table A</code> 找到 <code>frame 17</code>。<br />
+<p>先用 <code>p1 = 2</code> 找到 <code>Table A</code>。<br/>
+再用 <code>p2 = 5</code> 到 <code>Table A</code> 找到 <code>frame 17</code>。<br/>
 offset <code>d = 300</code> 不變。</p>
 <p>所以 physical address 是：</p>
 <p><code>17 × 4096 + 300 = 69932</code></p>
 <h3 id="7-常見錯法">7. 常見錯法<a class="headerlink" href="#7-常見錯法" title="Permanent link"></a></h3>
-<p>第一個錯法：把 <code>p1</code> 當成 frame number。<br />
+<p>第一個錯法：把 <code>p1</code> 當成 frame number。<br/>
 <code>p1</code> 不是 frame number，它只是拿來查 outer page table。</p>
-<p>第二個錯法：查到 outer page table 就停。<br />
+<p>第二個錯法：查到 outer page table 就停。<br/>
 outer page table 只會告訴你去哪一個 second-level page table，還沒有真正找到 frame。</p>
-<p>第三個錯法：以為 multilevel paging 會讓 address translation 一定更快。<br />
+<p>第三個錯法：以為 multilevel paging 會讓 address translation 一定更快。<br/>
 它主要解決的是 page table 太大、太稀疏的 memory 空間問題；但多查一層 page table，理論上可能增加存取成本，所以實作上通常還是需要 TLB 來加速。</p>
 <h3 id="8-最短記法_2">8. 最短記法<a class="headerlink" href="#8-最短記法_2" title="Permanent link"></a></h3>
 <p><code>Hierarchical paging</code> = 把 page table 自己也分頁。</p>
-<p><code>p1</code>：查外層表。<br />
-<code>p2</code>：查第二層表。<br />
+<p><code>p1</code>：查外層表。<br/>
+<code>p2</code>：查第二層表。<br/>
 <code>d</code>：offset，不變。</p>
 <p>目的：減少巨大且稀疏 page table 必須整張常駐 memory 的浪費。</p>
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
@@ -12522,11 +12522,11 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <p class="admonition-title">Danger</p>
 <h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
 <p>In a two-level paging system with 4-KB pages and 4-byte page table entries, explain why one page table page can contain 2^10 entries. Your answer should show the calculation.</p>
-<p><mark>ANS</mark><br />
+<p><mark>ANS</mark><br/>
 現在是 page1 -&gt; page2 -&gt; frame，他說 page size = 4KB，代表中間的 page2 的總量也是 4KB，然後他說有 4-byte 個 entry，所以意思是他的寬度是 4，那他想要問高度是多少？(有多少個 entry)</p>
 <p>所以答案是 4096(總量)/4(寬度) = 1024(高度) -&gt; 2^10。</p>
 <p>最主要的原因是因為  page1(10bit) -&gt; page2(10bit) -&gt; frame(10bit)， page2 會被切成很多的 entry 用來對應 frame。</p>
-<p><mark>延伸</mark><br />
+<p><mark>延伸</mark><br/>
 所以實際上這 4byte會存什麼？</p>
 <p><code>4-byte page table entry(PTE)</code> 最重要、最核心會存的是：</p>
 <p><strong>frame number(頁框號碼)</strong></p>
@@ -12568,7 +12568,7 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <p>不用 page number 直接當巨大 table index，而是把 page number 丟進 hash function，找到某個 bucket，再在 bucket 裡找真正的 page number。</p>
 </blockquote>
 <h3 id="2-hash-page-table-的基本資料結構">2. Hash Page Table 的基本資料結構<a class="headerlink" href="#2-hash-page-table-的基本資料結構" title="Permanent link"></a></h3>
-<p>講義 p.42 說，每一個 hash table entry 會連到一串 linked list(鏈結串列)。<br />
+<p>講義 p.42 說，每一個 hash table entry 會連到一串 linked list(鏈結串列)。<br/>
 每個 linked list node(節點) 有三個欄位：</p>
 <table>
 <thead>
@@ -12648,17 +12648,17 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 </tbody>
 </table>
 <p>查找流程：</p>
-<p>先看 node A：virtual page number 是 9，不是 25，所以繼續往下一個 node。<br />
-再看 node B：virtual page number 是 25，符合。<br />
+<p>先看 node A：virtual page number 是 9，不是 25，所以繼續往下一個 node。<br/>
+再看 node B：virtual page number 是 25，符合。<br/>
 所以取得 frame number <code>f = 7</code>。</p>
 <p>最後：</p>
 <p><code>physical address = 7 × 100 + 30 = 730</code></p>
 <h3 id="5-常見錯法_1">5. 常見錯法<a class="headerlink" href="#5-常見錯法_1" title="Permanent link"></a></h3>
-<p>第一個錯法：以為 hash function 算出來的 bucket address 就是 frame number。<br />
+<p>第一個錯法：以為 hash function 算出來的 bucket address 就是 frame number。<br/>
 這是錯的。bucket 只是「去哪一串 linked list 找資料」的位置，不是 physical frame。</p>
-<p>第二個錯法：進入 bucket 後，不比較 virtual page number。<br />
+<p>第二個錯法：進入 bucket 後，不比較 virtual page number。<br/>
 這也是錯的。因為 hash collision 可能讓多個不同 page number 進入同一個 bucket，所以一定要逐一比較 node 裡的 virtual page number。</p>
-<p>第三個錯法：把 linked list 中第一個 node 直接當答案。<br />
+<p>第三個錯法：把 linked list 中第一個 node 直接當答案。<br/>
 這也不安全。第一個 node 可能不是你要的 page number，要找到 page number 相等的 node 才能取 frame number。</p>
 <h3 id="6-和-hierarchical-paging-的差別">6. 和 Hierarchical Paging 的差別<a class="headerlink" href="#6-和-hierarchical-paging-的差別" title="Permanent link"></a></h3>
 <table>
@@ -12686,7 +12686,7 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <h2 id="inverted-page-table--page-table-能不能不要每個-process-一張">⭐Inverted Page Table — page table 能不能不要每個 process 一張？<a class="headerlink" href="#inverted-page-table--page-table-能不能不要每個-process-一張" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 44 ~ PDF viewer page 46</p>
 <h3 id="1-這個概念在解決什麼問題_7">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_7" title="Permanent link"></a></h3>
-<p>前面的 paging 設計大多是「每個 process 一張 page table」。<br />
+<p>前面的 paging 設計大多是「每個 process 一張 page table」。<br/>
 問題是：如果每個 process 的 logical address space 都很大，就算實際用到的 pages 不多，page table 仍可能非常大。</p>
 <p><code>Inverted Page Table(反轉分頁表)</code> 的想法是反過來：</p>
 <blockquote>
@@ -12722,7 +12722,7 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 </tr>
 </tbody>
 </table>
-<p>這是 inverted page table 最重要的地方：<br />
+<p>這是 inverted page table 最重要的地方：<br/>
 它的 entry 數量不是跟著每個 process 的 virtual address space 長大，而是跟著 physical memory 有多少 frames 決定。</p>
 <p>所以如果 physical memory 比 virtual address space 小很多，inverted page table 可以大幅降低 page table size。</p>
 <h3 id="3-每個-entry-記錄什麼">3. 每個 entry 記錄什麼？<a class="headerlink" href="#3-每個-entry-記錄什麼" title="Permanent link"></a></h3>
@@ -12751,7 +12751,7 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 </tr>
 </tbody>
 </table>
-<p>注意：在 inverted page table 中，entry 的位置通常就代表 frame number。<br />
+<p>注意：在 inverted page table 中，entry 的位置通常就代表 frame number。<br/>
 例如 entry 10 表示 frame 10，裡面若記錄 <code>&lt;P3, page 7&gt;</code>，意思是：</p>
 <blockquote>
 <p>physical frame 10 目前存放 process P3 的 virtual page 7。</p>
@@ -12796,9 +12796,9 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <p>這就是為什麼 inverted page table 可以比較小：它只跟 physical frames 數量有關。</p>
 <h3 id="6-缺點搜尋慢而且不支援-memory-sharing">6. 缺點：搜尋慢，而且不支援 memory sharing<a class="headerlink" href="#6-缺點搜尋慢而且不支援-memory-sharing" title="Permanent link"></a></h3>
 <p>講義 p.44 列出兩個主要缺點。</p>
-<p>第一個缺點是 searching inverted page table 會耗時。<br />
+<p>第一個缺點是 searching inverted page table 會耗時。<br/>
 因為它不是每個 process 的 page number 直接對應一格，而是要找哪一個 frame entry 記錄了 <code>&lt;Process id, Page No&gt;</code>。如果單純線性搜尋，會很慢，所以講義也說可以用 hash 增加搜尋速度。</p>
-<p>第二個缺點是無法支援 memory sharing。<br />
+<p>第二個缺點是無法支援 memory sharing。<br/>
 原因是 inverted page table 的一個 frame entry 通常只記錄一組 <code>&lt;Process id, Page No&gt;</code>。但 memory sharing 可能需要多個 processes 的不同 virtual pages 指到同一個 physical frame。這種「多個 virtual mappings 對同一個 frame」在 inverted page table 中比較不自然，因此講義直接列為缺點。</p>
 <h3 id="7-非題目型示範">7. 非題目型示範<a class="headerlink" href="#7-非題目型示範" title="Permanent link"></a></h3>
 <p>假設 page size = <code>100 bytes</code>，inverted page table 如下：</p>
@@ -12831,16 +12831,16 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <p>現在 CPU 產生 logical address：</p>
 <p><code>&lt;process id = P3, page number = 7, offset = 40&gt;</code></p>
 <p>查找流程：</p>
-<p>先在 inverted page table 中找 <code>&lt;P3, page 7&gt;</code>。<br />
-找到它在 frame 2。<br />
+<p>先在 inverted page table 中找 <code>&lt;P3, page 7&gt;</code>。<br/>
+找到它在 frame 2。<br/>
 所以 physical address 是：</p>
 <p><code>2 × 100 + 40 = 240</code></p>
 <h3 id="8-最短記法_3">8. 最短記法<a class="headerlink" href="#8-最短記法_3" title="Permanent link"></a></h3>
-<p><code>Conventional page table</code>：以 virtual page 為主。<br />
+<p><code>Conventional page table</code>：以 virtual page 為主。<br/>
 <code>Inverted page table</code>：以 physical frame 為主。</p>
-<p>傳統表大小看 virtual pages。<br />
+<p>傳統表大小看 virtual pages。<br/>
 反轉表大小看 physical frames。</p>
-<p>優點：page table size 變小。<br />
+<p>優點：page table size 變小。<br/>
 缺點：搜尋較慢，可用 hash 加速；memory sharing 不容易支援。</p>
 <h2 id="page-number-and-offset-programming-problem--怎麼把一個位址拆成-page-number-和-offset">⭐Page Number and Offset Programming Problem — 怎麼把一個位址拆成 page number 和 offset？<a class="headerlink" href="#page-number-and-offset-programming-problem--怎麼把一個位址拆成-page-number-和-offset" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 47</p>
@@ -12848,7 +12848,7 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 <p>前面我們已經學過 paging 的位址拆法：</p>
 <p>一個 logical address(邏輯位址) 可以拆成：</p>
 <p><code>&lt;page number, offset&gt;</code></p>
-<p>p.47 把這件事變成 programming problem(程式題)：<br />
+<p>p.47 把這件事變成 programming problem(程式題)：<br/>
 給你一個 32-bit virtual memory address，page size 固定是 4 KB，要你輸出：</p>
 <ol>
 <li><code>page number</code></li>
@@ -12878,8 +12878,8 @@ outer page table 只會告訴你去哪一個 second-level page table，還沒有
 </tr>
 </tbody>
 </table>
-<p>直覺是：<br />
-<code>page number</code> 問「這個 address 落在第幾個 page」。<br />
+<p>直覺是：<br/>
+<code>page number</code> 問「這個 address 落在第幾個 page」。<br/>
 <code>offset</code> 問「它在該 page 內偏移多少 bytes」。</p>
 <h3 id="3-講義範例示範">3. 講義範例示範<a class="headerlink" href="#3-講義範例示範" title="Permanent link"></a></h3>
 <p>講義 p.47 的範例輸入是：</p>
@@ -12908,11 +12908,11 @@ print offset
 </code></pre></div>
 <p>這裡 <code>/</code> 在整數型別下就是 integer division。</p>
 <h3 id="5-常見錯法_2">5. 常見錯法<a class="headerlink" href="#5-常見錯法_2" title="Permanent link"></a></h3>
-<p>第一個錯法：把 4 KB 寫成 4000。<br />
+<p>第一個錯法：把 4 KB 寫成 4000。<br/>
 在記憶體裡，4 KB 通常是 <code>4 × 1024 = 4096 bytes</code>，不是 4000 bytes。</p>
-<p>第二個錯法：page number 和 offset 反過來。<br />
+<p>第二個錯法：page number 和 offset 反過來。<br/>
 商是 page number，餘數是 offset。</p>
-<p>第三個錯法：忘記 offset 一定小於 page size。<br />
+<p>第三個錯法：忘記 offset 一定小於 page size。<br/>
 如果 page size 是 4096，offset 必須在 <code>0 ~ 4095</code> 之間。</p>
 <h2 id="multi-level-page-table-structure-in-64-bit-systems--64-bit-位址太大時頁表層級為什麼要增加">⭐Multi-Level Page Table Structure in 64-bit Systems — 64-bit 位址太大時，頁表層級為什麼要增加？<a class="headerlink" href="#multi-level-page-table-structure-in-64-bit-systems--64-bit-位址太大時頁表層級為什麼要增加" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 48 ~ PDF viewer page 49</p>
@@ -12978,15 +12978,15 @@ print offset
 <h3 id="5-cr3-register-在圖中做什麼">5. CR3 register 在圖中做什麼？<a class="headerlink" href="#5-cr3-register-在圖中做什麼" title="Permanent link"></a></h3>
 <p>講義 p.49 圖中有 <code>CR3 register</code>。它的功能是指向最上層的 page table，也就是 P4 table。</p>
 <p>整個查詢流程可以理解成：</p>
-<p>CPU 給 48-bit virtual address。<br />
-先用 CR3 找到 P4 table。<br />
-用 P4 bits 選 P4 entry。<br />
-P4 entry 指到 P3 table。<br />
-用 P3 bits 選 P3 entry。<br />
-P3 entry 指到 P2 table。<br />
-用 P2 bits 選 P2 entry。<br />
-P2 entry 指到 P1 table。<br />
-用 P1 bits 選 P1 entry。<br />
+<p>CPU 給 48-bit virtual address。<br/>
+先用 CR3 找到 P4 table。<br/>
+用 P4 bits 選 P4 entry。<br/>
+P4 entry 指到 P3 table。<br/>
+用 P3 bits 選 P3 entry。<br/>
+P3 entry 指到 P2 table。<br/>
+用 P2 bits 選 P2 entry。<br/>
+P2 entry 指到 P1 table。<br/>
+用 P1 bits 選 P1 entry。<br/>
 最後 P1 entry 找到實際的 physical page/frame，再加上 offset。</p>
 <p>offset 不參與查表，它永遠只是「page 裡面第幾個 byte」。</p>
 <h3 id="6-最容易錯的地方">6. 最容易錯的地方<a class="headerlink" href="#6-最容易錯的地方" title="Permanent link"></a></h3>
@@ -12998,8 +12998,8 @@ P2 entry 指到 P1 table。<br />
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>Compare the main memory organization schemes of contiguous memory allocation, pure segmentation, and pure paging with respect to the following issues:</p>
-<p>external fragmentation<br />
-internal fragmentation<br />
+<p>external fragmentation<br/>
+internal fragmentation<br/>
 ability to share code across processes</p>
 <p>Answer in a comparison table, and briefly explain each row.</p>
 <p><mark>ANS:</mark></p>
@@ -13165,17 +13165,15 @@ ability to share code across processes</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

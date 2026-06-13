@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -9965,69 +9965,69 @@ is now available!
 <h1 id="vhdl">VHDL<a class="headerlink" href="#vhdl" title="Permanent link"></a></h1>
 <h2 id="目錄">目錄<a class="headerlink" href="#目錄" title="Permanent link"></a></h2>
 <ul>
-<li>1&#46; 先建立整體心智模型</li>
-<li>2&#46; 最基本的外觀：VHDL 長什麼樣</li>
+<li>1. 先建立整體心智模型</li>
+<li>2. 最基本的外觀：VHDL 長什麼樣</li>
 <li>2.1 entity + architecture</li>
 <li>2.2 註解、大小寫、命名</li>
-<li>3&#46; 物件宣告：VHDL 不是 <code>type name</code>，而是 <code>name : type</code></li>
+<li>3. 物件宣告：VHDL 不是 <code>type name</code>，而是 <code>name : type</code></li>
 <li>3.1 常見宣告格式</li>
 <li>3.2 先用 Verilog 直覺理解 constant / variable / signal</li>
-<li>4&#46; 型別系統：VHDL 比 Verilog 更「強型別」</li>
+<li>4. 型別系統：VHDL 比 Verilog 更「強型別」</li>
 <li>4.1 枚舉型別 enumeration</li>
 <li>4.2 <code>BIT</code>、<code>BOOLEAN</code>、<code>STD_LOGIC</code></li>
 <li>4.3 integer 與 range</li>
 <li>4.4 physical type / TIME</li>
-<li>5&#46; 陣列與向量：這是你看懂 VHDL 電路描述的核心</li>
+<li>5. 陣列與向量：這是你看懂 VHDL 電路描述的核心</li>
 <li>5.1 array type</li>
 <li>5.2 <code>BIT_VECTOR</code>、<code>STD_LOGIC_VECTOR</code></li>
 <li>5.3 <code>to</code> 與 <code>downto</code></li>
 <li>5.4 unconstrained array</li>
 <li>5.5 record type</li>
-<li>6&#46; 不常拿來綜合，但你要看得懂的型別</li>
+<li>6. 不常拿來綜合，但你要看得懂的型別</li>
 <li>6.1 subtype</li>
 <li>6.2 access type</li>
 <li>6.3 file type</li>
-<li>7&#46; 運算子：大致上跟 Verilog 很像，但名字有差</li>
+<li>7. 運算子：大致上跟 Verilog 很像，但名字有差</li>
 <li>7.1 邏輯運算</li>
 <li>7.2 比較運算</li>
 <li>7.3 位移與旋轉</li>
 <li>7.4 串接 <code>&amp;</code></li>
 <li>7.5 其他</li>
-<li>8&#46; Attributes：VHDL 很有特色的一塊</li>
+<li>8. Attributes：VHDL 很有特色的一塊</li>
 <li>8.1 範圍相關</li>
 <li>8.2 <code>'EVENT</code>、<code>'ACTIVE</code>、<code>'LAST_EVENT</code></li>
 <li>8.3 <code>'RANGE</code>、<code>'REVERSE_RANGE</code></li>
-<li>9&#46; Dataflow model：平行描述硬體</li>
+<li>9. Dataflow model：平行描述硬體</li>
 <li>9.1 基本 concurrent signal assignment</li>
 <li>9.2 conditional signal assignment</li>
 <li>9.3 selected signal assignment</li>
-<li>10&#46; Behavioral syntax：<code>process</code> 是 Ch3 的主角</li>
+<li>10. Behavioral syntax：<code>process</code> 是 Ch3 的主角</li>
 <li>10.1 process = Verilog always block</li>
-<li>11&#46; <code>variable :=</code> 與 <code>signal &lt;=</code>：這是最大魔王</li>
+<li>11. <code>variable :=</code> 與 <code>signal &lt;=</code>：這是最大魔王</li>
 <li>11.1 為什麼 variable 很像 Verilog 的 blocking <code>=</code></li>
 <li>11.2 為什麼 signal 不適合拿來存 process 內中間值</li>
 <li>11.3 sequential signal assignment 與 concurrent signal assignment 的差別</li>
-<li>12&#46; <code>if</code>：組合邏輯與時序邏輯都靠它</li>
+<li>12. <code>if</code>：組合邏輯與時序邏輯都靠它</li>
 <li>12.1 基本語法</li>
 <li>12.2 沒有 <code>else</code> 會保留前值 → 可能推導出 latch / FF</li>
 <li>12.3 D flip-flop：用 <code>'EVENT</code></li>
 <li>12.4 非同步 reset</li>
 <li>12.5 <code>if ... else</code> 做組合邏輯</li>
-<li>13&#46; <code>for loop</code>：硬體描述裡常拿來展開重複邏輯</li>
+<li>13. <code>for loop</code>：硬體描述裡常拿來展開重複邏輯</li>
 <li>13.1 基本語法</li>
 <li>13.2 更漂亮的寫法：<code>d'RANGE</code></li>
-<li>14&#46; <code>case</code>：多工器/解碼器很常見</li>
+<li>14. <code>case</code>：多工器/解碼器很常見</li>
 <li>14.1 基本語法</li>
 <li>14.2 範例：4-to-1 mux</li>
-<li>15&#46; <code>wait</code>：另一種控制 process 的方式</li>
+<li>15. <code>wait</code>：另一種控制 process 的方式</li>
 <li>15.1 <code>wait until</code> 類比 <code>@(posedge clk)</code></li>
 <li>15.2 不可以同時有 sensitivity list 和 wait</li>
 <li>15.3 沒有 sensitivity list 的 process，至少要有一個 wait</li>
-<li>16&#46; 你在 p.63 前一定要會辨識的三種模板</li>
+<li>16. 你在 p.63 前一定要會辨識的三種模板</li>
 <li>16.1 Dataflow 組合邏輯</li>
 <li>16.2 process 組合邏輯</li>
 <li>16.3 process 時序邏輯</li>
-<li>17&#46; 這份教材脈絡下，你最容易踩的 8 個坑</li>
+<li>17. 這份教材脈絡下，你最容易踩的 8 個坑</li>
 <li>17.1 <code>signal</code> 不是單純等於 Verilog <code>wire</code></li>
 <li>17.2 <code>variable :=</code> 才是 process 內中間值的好朋友</li>
 <li>17.3 同一個 process 裡多次對同一個 signal <code>&lt;=</code></li>
@@ -10036,17 +10036,17 @@ is now available!
 <li>17.6 <code>when others</code> 很重要</li>
 <li>17.7 <code>out</code> 在這份教材的規則下是只寫不讀</li>
 <li>17.8 <code>library ieee; use ieee.std_logic_1164.all;</code></li>
-<li>18&#46; 給你一份超濃縮 Verilog → VHDL 速記</li>
-<li>19&#46; 你現在該怎麼讀 p.63 前的程式</li>
+<li>18. 給你一份超濃縮 Verilog → VHDL 速記</li>
+<li>19. 你現在該怎麼讀 p.63 前的程式</li>
 <li>19.1 先看它在 architecture 外層，還是 process 裡</li>
 <li>19.2 看 <code>&lt;=</code> 還是 <code>:=</code></li>
 <li>19.3 看 sensitivity list 或 wait</li>
 <li>19.4 看 if/case 是否補齊</li>
 <li>19.5 看 vector 方向</li>
-<li>20&#46; 最後幫你下結論</li>
+<li>20. 最後幫你下結論</li>
 </ul>
 <p>我先幫你定義範圍：這裡只教你 <strong>Ch2 全部</strong>，以及 <strong>Ch3 到 p.62 為止</strong> 的語法；也就是 <strong>Behavior Model and Simulation（p.63）之前</strong> 的內容，不含 p.63 之後。教材重點確實就是：<strong>基本型別/物件 → dataflow → process/sequential → if/loop/case/wait</strong>。 </p>
-<hr />
+<hr/>
 <h2 id="1-先建立整體心智模型">1. 先建立整體心智模型<a class="headerlink" href="#1-先建立整體心智模型" title="Permanent link"></a></h2>
 <p>先用你熟的 Verilog 去對照：</p>
 <pre class="diagram"><code>flowchart TB
@@ -10068,7 +10068,7 @@ is now available!
 <li><strong>variable <code>:=</code> 像 Verilog blocking 的暫存變數</strong></li>
 </ol>
 <p>這五句吃透，你後面大半都會順。</p>
-<hr />
+<hr/>
 <h2 id="2-最基本的外觀vhdl-長什麼樣">2. 最基本的外觀：VHDL 長什麼樣<a class="headerlink" href="#2-最基本的外觀vhdl-長什麼樣" title="Permanent link"></a></h2>
 <h3 id="21-entity--architecture">2.1 entity + architecture<a class="headerlink" href="#21-entity--architecture" title="Permanent link"></a></h3>
 <p>VHDL 最基本結構：</p>
@@ -10100,7 +10100,7 @@ is now available!
 <li><code>&lt;=</code> 在 architecture 外層這種寫法：像 <code>assign</code></li>
 </ul>
 <p>教材明確說明，一個基本 VHDL 程式由 <strong>entity declaration</strong> 與 <strong>architecture body</strong> 組成；entity 描述外部介面，architecture 描述內部實作。</p>
-<hr />
+<hr/>
 <h3 id="22-註解大小寫命名">2.2 註解、大小寫、命名<a class="headerlink" href="#22-註解大小寫命名" title="Permanent link"></a></h3>
 <p>VHDL 註解是：</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- 這是註解</span>
@@ -10111,7 +10111,7 @@ is now available!
 <li>識別字第一個字元要是英文字母，最後不能是底線 <code>_</code></li>
 </ul>
 <p>所以 <code>Clock</code>、<code>CLOCK</code>、<code>clock</code> 在 VHDL 裡視為同一個名字。這和 Verilog 很不一樣，Verilog 是大小寫敏感。教材在 Ch2 一開始就特別講了這點。</p>
-<hr />
+<hr/>
 <h2 id="3-物件宣告vhdl-不是-type-name而是-name--type">3. 物件宣告：VHDL 不是 <code>type name</code>，而是 <code>name : type</code><a class="headerlink" href="#3-物件宣告vhdl-不是-type-name而是-name--type" title="Permanent link"></a></h2>
 <p>這是你第一個需要適應的地方。</p>
 <h3 id="31-常見宣告格式">3.1 常見宣告格式<a class="headerlink" href="#31-常見宣告格式" title="Permanent link"></a></h3>
@@ -10128,12 +10128,12 @@ is now available!
 <span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">INIT_P</span><span class="p">;</span>
 </code></pre></div>
 <blockquote>
-<p>那<br />
+<p>那<br/>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">DATA_BUS</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">BIT_VECTOR</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">7</span><span class="p">);</span>
 <span class="k">signal</span><span class="w"> </span><span class="n">INIT_P</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">STD_LOGIC_VECTOR</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-</code></pre></div><br />
-有差嗎？<br />
-有差：<br />
+</code></pre></div><br/>
+有差嗎？<br/>
+有差：<br/>
 <div class="highlight"><pre><span></span><code>BIT_VECTOR       = 只有 0/1 的向量
 STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 </code></pre></div></p>
@@ -10146,7 +10146,7 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li><code>file</code></li>
 </ol>
 <p>其中最重要的是前 3 個。教材也說 port 是 signal 物件，generic 是 constant 物件。</p>
-<hr />
+<hr/>
 <h3 id="32-先用-verilog-直覺理解-constant--variable--signal">3.2 先用 Verilog 直覺理解 constant / variable / signal<a class="headerlink" href="#32-先用-verilog-直覺理解-constant--variable--signal" title="Permanent link"></a></h3>
 <h4 id="constant">constant<a class="headerlink" href="#constant" title="Permanent link"></a></h4>
 <p>像 Verilog <code>parameter</code>。</p>
@@ -10163,13 +10163,13 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 </code></pre></div>
 <p>這個差異在 Ch3 是超級重點，因為教材專門拿它做例子。</p>
-<hr />
+<hr/>
 <h2 id="4-型別系統vhdl-比-verilog-更強型別">4. 型別系統：VHDL 比 Verilog 更「強型別」<a class="headerlink" href="#4-型別系統vhdl-比-verilog-更強型別" title="Permanent link"></a></h2>
 <p>VHDL 很重型別，你不能像 Verilog 那樣很隨便混著用。這也是初學最常卡住的地方。</p>
-<hr />
+<hr/>
 <h3 id="41-枚舉型別-enumeration">4.1 枚舉型別 enumeration<a class="headerlink" href="#41-枚舉型別-enumeration" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">car_state</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="p">(</span><span class="n">STOP</span><span class="p">,</span><span class="w"> </span><span class="n">SLOW</span><span class="p">,</span><span class="w"> </span><span class="n">MEDIUM</span><span class="p">,</span><span class="w"> </span><span class="n">FAST</span><span class="p">);</span>
-<span class="k">type</span><span class="w"> </span><span class="n">logic_state</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="p">(</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;Z&#39;</span><span class="p">);</span>
+<span class="k">type</span><span class="w"> </span><span class="n">logic_state</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="p">(</span><span class="sc">'0'</span><span class="p">,</span><span class="w"> </span><span class="sc">'1'</span><span class="p">,</span><span class="w"> </span><span class="sc">'Z'</span><span class="p">);</span>
 </code></pre></div>
 <p>這很像你自己定義一組合法狀態。Verilog 類比比較接近：</p>
 <ul>
@@ -10177,7 +10177,7 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li>SystemVerilog：<code>enum</code></li>
 </ul>
 <p>教材也強調，枚舉值的<strong>順序有大小關係</strong>，所以可以比較 <code>SLOW &lt; FAST</code>。</p>
-<hr />
+<hr/>
 <h3 id="42-bitbooleanstd_logic">4.2 <code>BIT</code>、<code>BOOLEAN</code>、<code>STD_LOGIC</code><a class="headerlink" href="#42-bitbooleanstd_logic" title="Permanent link"></a></h3>
 <h4 id="bit"><code>BIT</code><a class="headerlink" href="#bit" title="Permanent link"></a></h4>
 <p>只有 <code>'0'</code>、<code>'1'</code></p>
@@ -10195,9 +10195,9 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <span class="k">signal</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
 <span class="k">signal</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
-<p>教材列了 <code>STD_LOGIC</code> 的 9 種值：<code>U X 0 1 Z W L H -</code>。<br />
+<p>教材列了 <code>STD_LOGIC</code> 的 9 種值：<code>U X 0 1 Z W L H -</code>。<br/>
 你可以先把它想成：<strong>比 Verilog 的 4-state 更細的邏輯系統</strong>。至少你看到 <code>Z</code>、<code>X</code>、<code>U</code> 不要嚇到。</p>
-<hr />
+<hr/>
 <h3 id="43-integer-與-range">4.3 integer 與 range<a class="headerlink" href="#43-integer-與-range" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">INDEX</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
 <span class="k">type</span><span class="w"> </span><span class="n">WORD_LENGTH</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -10212,7 +10212,7 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <p>教材後面 comparator 就用：</p>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="44-physical-type--time">4.4 physical type / TIME<a class="headerlink" href="#44-physical-type--time" title="Permanent link"></a></h3>
 <p>這一段你先以「看得懂」為目標，不用太執著實作。</p>
 <p>教材介紹 physical type，最重要是 <strong><code>TIME</code></strong>：</p>
@@ -10221,7 +10221,7 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <span class="mi">1</span><span class="w"> </span><span class="n">ms</span>
 </code></pre></div>
 <p>這主要拿來模擬、延遲、testbench。</p>
-<hr />
+<hr/>
 <h2 id="5-陣列與向量這是你看懂-vhdl-電路描述的核心">5. 陣列與向量：這是你看懂 VHDL 電路描述的核心<a class="headerlink" href="#5-陣列與向量這是你看懂-vhdl-電路描述的核心" title="Permanent link"></a></h2>
 <h3 id="51-array-type">5.1 array type<a class="headerlink" href="#51-array-type" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">ADDRESS_WORD</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">63</span><span class="p">)</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="kt">BIT</span><span class="p">;</span>
@@ -10240,7 +10240,7 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">  </span><span class="n">rom</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">125</span><span class="p">];</span>
 </code></pre></div>
 <p>教材也有示範可以對整個 array、單一元素、甚至 slice 指派。</p>
-<hr />
+<hr/>
 <h3 id="52-bit_vectorstd_logic_vector">5.2 <code>BIT_VECTOR</code>、<code>STD_LOGIC_VECTOR</code><a class="headerlink" href="#52-bit_vectorstd_logic_vector" title="Permanent link"></a></h3>
 <p>這兩個你一定會一直看到：</p>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">RX_BUS</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">BIT_VECTOR</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
@@ -10256,33 +10256,33 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li><code>STD_LOGIC_VECTOR</code> = array of <code>STD_LOGIC</code></li>
 </ul>
 <p>教材把這兩個都列成常用 unconstrained array。</p>
-<hr />
+<hr/>
 <h3 id="53-to-與-downto">5.3 <code>to</code> 與 <code>downto</code><a class="headerlink" href="#53-to-與-downto" title="Permanent link"></a></h3>
 <p>這個是很多 Verilog 使用者第一次看 VHDL 會卡住的點。</p>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">areg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">6</span><span class="p">);</span>
 <span class="k">signal</span><span class="w"> </span><span class="n">breg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">6</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
 <p>如果都指定：</p>
-<div class="highlight"><pre><span></span><code><span class="n">areg</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;0000001&quot;</span><span class="p">;</span>
-<span class="n">breg</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;0000001&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">areg</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"0000001"</span><span class="p">;</span>
+<span class="n">breg</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"0000001"</span><span class="p">;</span>
 </code></pre></div>
 <p>那：</p>
 <ul>
 <li><code>areg(6) = '1'</code></li>
 <li><code>breg(0) = '1'</code></li>
 </ul>
-<p>也就是說，<strong>字串左邊對應 range 的左邊，右邊對應 range 的右邊</strong>。<br />
+<p>也就是說，<strong>字串左邊對應 range 的左邊，右邊對應 range 的右邊</strong>。<br/>
 所以你不能只看字面 <code>"0000001"</code>，一定要同時看索引方向。</p>
 <p>這跟 Verilog 固定常看 <code>[MSB:LSB]</code> 的直覺不太一樣。教材在 p.35~36 特別示範了這件事。</p>
-<hr />
+<hr/>
 <h3 id="54-unconstrained-array">5.4 unconstrained array<a class="headerlink" href="#54-unconstrained-array" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">STACK_TYPE</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="p">(</span><span class="kt">INTEGER</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ADDRESS_WORD</span><span class="p">;</span>
 <span class="k">signal</span><span class="w"> </span><span class="n">MY_STACK</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">STACK_TYPE</span><span class="p">(</span><span class="o">-</span><span class="mi">127</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">127</span><span class="p">);</span>
 </code></pre></div>
 <p>這個概念像是：<strong>先定義元素型別與維度形式，真正長度等建立物件時再決定</strong>。</p>
-<p>很像你先定義一個「模板型 array 型別」。<br />
+<p>很像你先定義一個「模板型 array 型別」。<br/>
 傳統 Verilog 沒有完全等價、直接同級的語法直覺。</p>
-<hr />
+<hr/>
 <h3 id="55-record-type">5.5 record type<a class="headerlink" href="#55-record-type" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">MODULE</span><span class="w"> </span><span class="k">is</span>
 <span class="k">record</span>
@@ -10301,28 +10301,28 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <div class="highlight"><pre><span></span><code><span class="n">NAND_COMP</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="n">ns</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 <p>這就像一次把整個結構塞值進去。</p>
-<hr />
+<hr/>
 <h2 id="6-不常拿來綜合但你要看得懂的型別">6. 不常拿來綜合，但你要看得懂的型別<a class="headerlink" href="#6-不常拿來綜合但你要看得懂的型別" title="Permanent link"></a></h2>
 <h3 id="61-subtype">6.1 subtype<a class="headerlink" href="#61-subtype" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">subtype</span><span class="w"> </span><span class="n">my_integer</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
-<span class="k">subtype</span><span class="w"> </span><span class="n">MIDDLE</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DIGIT</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="p">&#39;</span><span class="mi">3</span><span class="p">&#39;</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="p">&#39;</span><span class="mi">7</span><span class="p">&#39;;</span>
+<span class="k">subtype</span><span class="w"> </span><span class="n">MIDDLE</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">DIGIT</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="p">'</span><span class="mi">3</span><span class="p">'</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="p">'</span><span class="mi">7</span><span class="p">';</span>
 </code></pre></div>
-<p>概念就是：<strong>從既有型別切一塊比較小的合法範圍</strong>。<br />
+<p>概念就是：<strong>從既有型別切一塊比較小的合法範圍</strong>。<br/>
 像你在 Verilog 裡沒有直接對等，但可類比成「加上更嚴格限制的型別別名」。</p>
-<hr />
+<hr/>
 <h3 id="62-access-type">6.2 access type<a class="headerlink" href="#62-access-type" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">PTR</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">access</span><span class="w"> </span><span class="n">MODULE</span><span class="p">;</span>
 <span class="k">variable</span><span class="w"> </span><span class="n">MOD_PTR</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">PTR</span><span class="p">;</span>
 <span class="n">MOD_PTR</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MODULE</span><span class="p">;</span>
 </code></pre></div>
 <p>這像 C pointer。教材也直接說，多數 synthesizer 不支援，偏模擬/高階語法。你在 p.63 前如果看到，知道它是「指標型」就夠了。</p>
-<hr />
+<hr/>
 <h3 id="63-file-type">6.3 file type<a class="headerlink" href="#63-file-type" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">file</span><span class="w"> </span><span class="n">source_data</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s">&quot;source_data.txt&quot;</span><span class="p">;</span>
-<span class="k">file</span><span class="w"> </span><span class="n">output_data</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="s">&quot;output_data.txt&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">file</span><span class="w"> </span><span class="n">source_data</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s">"source_data.txt"</span><span class="p">;</span>
+<span class="k">file</span><span class="w"> </span><span class="n">output_data</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="s">"output_data.txt"</span><span class="p">;</span>
 </code></pre></div>
 <p>這主要是 testbench / simulation 在用，不是拿來做硬體本體邏輯。教材也明說檔案主要用於 testbench。</p>
-<hr />
+<hr/>
 <h2 id="7-運算子大致上跟-verilog-很像但名字有差">7. 運算子：大致上跟 Verilog 很像，但名字有差<a class="headerlink" href="#7-運算子大致上跟-verilog-很像但名字有差" title="Permanent link"></a></h2>
 <p>教材把運算子分成邏輯、比較、位移、加法、乘法、其他。</p>
 <h3 id="71-邏輯運算">7.1 邏輯運算<a class="headerlink" href="#71-邏輯運算" title="Permanent link"></a></h3>
@@ -10334,12 +10334,12 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <p>Verilog 對照：</p>
 <div class="highlight"><pre><span></span><code><span class="o">&amp;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">~&amp;</span><span class="w"> </span><span class="o">~|</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">^~</span><span class="w"> </span><span class="o">~</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="72-比較運算">7.2 比較運算<a class="headerlink" href="#72-比較運算" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="o">=</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;=</span>
 </code></pre></div>
 <p>注意 VHDL 的不等於是 <code>/=</code>，不是 Verilog 的 <code>!=</code>。</p>
-<hr />
+<hr/>
 <h3 id="73-位移與旋轉">7.3 位移與旋轉<a class="headerlink" href="#73-位移與旋轉" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">sll</span><span class="w"> </span><span class="k">srl</span><span class="w"> </span><span class="k">sla</span><span class="w"> </span><span class="k">sra</span><span class="w"> </span><span class="k">rol</span><span class="w"> </span><span class="k">ror</span>
 </code></pre></div>
@@ -10349,18 +10349,18 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li><code>srl</code> ≈ <code>&gt;&gt;</code></li>
 <li><code>rol</code> / <code>ror</code>：旋轉，Verilog 沒有直接內建同名運算子</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="74-串接-">7.4 串接 <code>&amp;</code><a class="headerlink" href="#74-串接-" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w">   </span><span class="c1">-- 結果 &quot;01&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="sc">'0'</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="sc">'1'</span><span class="w">   </span><span class="c1">-- 結果 "01"</span>
 </code></pre></div>
 <p>Verilog 對照：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">,</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="mh">1</span><span class="mb">'b0</span><span class="p">,</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">}</span>
 </code></pre></div>
 <p>這個你一定常用。</p>
 <blockquote>
 <p>要寫串接用 <code>'1' &amp; '0'</code>，要 and 運算用 <code>'1' and '0'</code></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="75-其他">7.5 其他<a class="headerlink" href="#75-其他" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="k">abs</span><span class="w"> </span><span class="o">**</span>
 </code></pre></div>
@@ -10369,14 +10369,14 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li><code>abs</code>：絕對值</li>
 <li><code>**</code>：次方</li>
 </ul>
-<hr />
+<hr/>
 <h2 id="8-attributesvhdl-很有特色的一塊">8. Attributes：VHDL 很有特色的一塊<a class="headerlink" href="#8-attributesvhdl-很有特色的一塊" title="Permanent link"></a></h2>
 <p>這部分是讀教材時會頻繁看到的語法糖。</p>
 <h3 id="81-範圍相關">8.1 範圍相關<a class="headerlink" href="#81-範圍相關" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">T</span><span class="na">&#39;LEFT</span>
-<span class="n">T</span><span class="na">&#39;RIGHT</span>
-<span class="n">T</span><span class="na">&#39;HIGH</span>
-<span class="n">T</span><span class="na">&#39;LOW</span>
+<div class="highlight"><pre><span></span><code><span class="n">T</span><span class="na">'LEFT</span>
+<span class="n">T</span><span class="na">'RIGHT</span>
+<span class="n">T</span><span class="na">'HIGH</span>
+<span class="n">T</span><span class="na">'LOW</span>
 </code></pre></div>
 <p>例如：</p>
 <div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">allowed_value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -10389,12 +10389,12 @@ STD_LOGIC_VECTOR = 可表達 0/1/X/Z/... 的向量
 <li><code>allowed_value'LOW = 0</code></li>
 </ul>
 <p>這組語法在 Verilog 沒有這麼原生、這麼一致的型別 attribute 體系。</p>
-<hr />
+<hr/>
 <h3 id="82-eventactivelast_event">8.2 <code>'EVENT</code>、<code>'ACTIVE</code>、<code>'LAST_EVENT</code><a class="headerlink" href="#82-eventactivelast_event" title="Permanent link"></a></h3>
 <p>教材特別強調：</p>
-<div class="highlight"><pre><span></span><code><span class="n">clock</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="n">clock</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span>
 </code></pre></div>
-<p>代表偵測上升沿。<br />
+<p>代表偵測上升沿。<br/>
 Verilog 類比就是：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clock</span><span class="p">)</span>
 </code></pre></div>
@@ -10405,10 +10405,10 @@ Verilog 類比就是：</p>
 <li>S'ACTIVE：目前這個 delta 內，signal S 有沒有被指定新值；即使新值和舊值一樣，也算 active</li>
 </ul>
 <p>這點很 VHDL，也很重要。</p>
-<hr />
+<hr/>
 <h3 id="83-rangereverse_range">8.3 <code>'RANGE</code>、<code>'REVERSE_RANGE</code><a class="headerlink" href="#83-rangereverse_range" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">WBUS</span><span class="na">&#39;RANGE</span>
-<span class="n">WBUS</span><span class="na">&#39;REVERSE_RANGE</span>
+<div class="highlight"><pre><span></span><code><span class="n">WBUS</span><span class="na">'RANGE</span>
+<span class="n">WBUS</span><span class="na">'REVERSE_RANGE</span>
 </code></pre></div>
 <p>如果：</p>
 <div class="highlight"><pre><span></span><code><span class="k">variable</span><span class="w"> </span><span class="n">WBUS</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">BIT_VECTOR</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
@@ -10419,7 +10419,7 @@ Verilog 類比就是：</p>
 <li><code>WBUS'REVERSE_RANGE = 0 to 7</code></li>
 </ul>
 <p>這在寫 loop 時很好用，因為你不用手刻 7 downto 0。教材後面 bit count 例子就直接用 <code>d'RANGE</code>。 </p>
-<hr />
+<hr/>
 <h2 id="9-dataflow-model平行描述硬體">9. Dataflow model：平行描述硬體<a class="headerlink" href="#9-dataflow-model平行描述硬體" title="Permanent link"></a></h2>
 <p>教材把 dataflow model 定義成：用 <strong>concurrent signal assignment</strong> 來描述功能。主要有三種：</p>
 <ol>
@@ -10427,56 +10427,56 @@ Verilog 類比就是：</p>
 <li>conditional signal assignment</li>
 <li>selected signal assignment</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="91-基本-concurrent-signal-assignment">9.1 基本 concurrent signal assignment<a class="headerlink" href="#91-基本-concurrent-signal-assignment" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">C</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 </code></pre></div>
 <p>Verilog：</p>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 </code></pre></div>
-<p>這是最直觀的一種。<br />
+<p>這是最直觀的一種。<br/>
 放在 architecture 的 <code>begin ... end</code> 之間，但<strong>不在 process 裡</strong>，就是平行執行。教材也明說 concurrent statements 的位置不重要，信號變化時就會觸發。</p>
-<hr />
+<hr/>
 <h3 id="92-conditional-signal-assignment">9.2 conditional signal assignment<a class="headerlink" href="#92-conditional-signal-assignment" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X1</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X1</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span>
 <span class="w">     </span><span class="k">else</span><span class="w"> </span><span class="n">X2</span><span class="p">;</span>
 </code></pre></div>
 <p>Verilog 類比：</p>
-<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">X1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X2</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">X1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">X2</span><span class="p">;</span>
 </code></pre></div>
 <p>更長一點可以寫優先鏈：</p>
-<div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">else</span>
-<span class="w">     </span><span class="s">&quot;01&quot;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">else</span>
-<span class="w">     </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">else</span>
-<span class="w">     </span><span class="s">&quot;11&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"00"</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">else</span>
+<span class="w">     </span><span class="s">"01"</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">else</span>
+<span class="w">     </span><span class="s">"10"</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">else</span>
+<span class="w">     </span><span class="s">"11"</span><span class="p">;</span>
 </code></pre></div>
 <p>這很像一串巢狀 ternary。教材用這個做 priority encoder。</p>
-<hr />
+<hr/>
 <h3 id="93-selected-signal-assignment">9.3 selected signal assignment<a class="headerlink" href="#93-selected-signal-assignment" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="k">select</span>
-<span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="p">,</span>
-<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;01&quot;</span><span class="p">,</span>
-<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="p">,</span>
-<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;11&quot;</span><span class="p">;</span>
+<span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">"00"</span><span class="p">,</span>
+<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">"01"</span><span class="p">,</span>
+<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">"10"</span><span class="p">,</span>
+<span class="w">     </span><span class="n">X</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="s">"11"</span><span class="p">;</span>
 </code></pre></div>
 <p>Verilog 類比比較像：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">1</span><span class="p">];</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b11</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">3</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b00</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b01</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b10</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b11</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">3</span><span class="p">];</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>或某種 case-based continuous selection。<br />
+<p>或某種 case-based continuous selection。<br/>
 重點差異：</p>
 <ul>
 <li><code>conditional signal assignment</code>：偏 <strong>priority</strong></li>
 <li><code>selected signal assignment</code>：偏 <strong>case/mux</strong></li>
 </ul>
 <p>教材在 Ch2 後段把這兩個並列成 dataflow 的核心語法。 </p>
-<hr />
+<hr/>
 <h2 id="10-behavioral-syntaxprocess-是-ch3-的主角">10. Behavioral syntax：<code>process</code> 是 Ch3 的主角<a class="headerlink" href="#10-behavioral-syntaxprocess-是-ch3-的主角" title="Permanent link"></a></h2>
 <p>教材明確說：behavior modeling style 的主要機制是 <code>process statement</code>。</p>
 <h3 id="101-process--verilog-always-block">10.1 process = Verilog always block<a class="headerlink" href="#101-process--verilog-always-block" title="Permanent link"></a></h3>
@@ -10504,7 +10504,7 @@ Verilog 類比就是：</p>
 <li>跑到最後會 suspend，等下一次 event</li>
 </ul>
 <p>這和 Verilog always block 非常接近。</p>
-<hr />
+<hr/>
 <h2 id="11-variable--與-signal-這是最大魔王">11. <code>variable :=</code> 與 <code>signal &lt;=</code>：這是最大魔王<a class="headerlink" href="#11-variable--與-signal-這是最大魔王" title="Permanent link"></a></h2>
 <p>這裡我用一句話講透：</p>
 <ul>
@@ -10512,7 +10512,7 @@ Verilog 類比就是：</p>
 <li><code>signal &lt;=</code>：<strong>先排程，之後才更新</strong></li>
 </ul>
 <p>教材直接說 variable assignment 是 executed and updated at the same time；signal assignment 是先執行，再經過一個 delay Δ 才更新。</p>
-<hr />
+<hr/>
 <h3 id="111-為什麼-variable-很像-verilog-的-blocking-">11.1 為什麼 variable 很像 Verilog 的 blocking <code>=</code><a class="headerlink" href="#111-為什麼-variable-很像-verilog-的-blocking-" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
 <span class="w">    </span><span class="k">variable</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="p">;</span>
@@ -10524,7 +10524,7 @@ Verilog 類比就是：</p>
 <span class="w">    </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
-<p>這裡 <code>Y</code> 用的是更新後的 <code>M = C</code>。<br />
+<p>這裡 <code>Y</code> 用的是更新後的 <code>M = C</code>。<br/>
 所以你可以直觀想成 Verilog：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
@@ -10534,7 +10534,7 @@ Verilog 類比就是：</p>
 <span class="w">    </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="112-為什麼-signal-不適合拿來存-process-內中間值">11.2 為什麼 signal 不適合拿來存 process 內中間值<a class="headerlink" href="#112-為什麼-signal-不適合拿來存-process-內中間值" title="Permanent link"></a></h3>
 <p>教材有一個反例：如果你把中間值也寫成 signal，像這樣：</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">TEMP1</span><span class="p">,</span><span class="w"> </span><span class="n">TEMP2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">;</span>
@@ -10546,16 +10546,16 @@ Verilog 類比就是：</p>
 <span class="w">    </span><span class="n">TEMP1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">TEMP1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">TEMP2</span><span class="p">;</span>
 <span class="w">    </span><span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">TEMP1</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
-</code></pre></div><br />
-<img alt="alt text" src="images/VHDL.png" /><br />
-<img alt="alt text" src="images/VHDL-1.png" /><br />
-結果不是你直覺想的那樣。<br />
+</code></pre></div><br/>
+<img alt="alt text" decoding="async" src="images/VHDL.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/VHDL-1.png"/><br/>
+結果不是你直覺想的那樣。<br/>
 因為同一次 process 裡對同一個 signal 多次指定，<strong>最後一次會生效</strong>；而且 signal 不會立即更新。教材甚至畫出等效電路，指出 <code>A</code>、<code>B</code> 被丟著沒用。</p>
 <p>這點完全可以用一句 Verilog 忠告記住：</p>
 <blockquote>
 <p><strong>在 VHDL process 裡，要做中間組合運算，優先用 variable，不要用 signal。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="113-sequential-signal-assignment-與-concurrent-signal-assignment-的差別">11.3 sequential signal assignment 與 concurrent signal assignment 的差別<a class="headerlink" href="#113-sequential-signal-assignment-與-concurrent-signal-assignment-的差別" title="Permanent link"></a></h3>
 <p>教材用兩段程式比較：</p>
 <h4 id="process-內-sequential-signal-assignment">process 內 sequential signal assignment<a class="headerlink" href="#process-內-sequential-signal-assignment" title="Permanent link"></a></h4>
@@ -10581,7 +10581,7 @@ Verilog 類比就是：</p>
 <li><code>Z</code> 在 <code>T + 2Δ</code> 變成新的 <code>A</code></li>
 </ul>
 <p>教材把這兩種情況拆開講得很清楚。這一段你最好反覆讀 2 次。</p>
-<hr />
+<hr/>
 <h2 id="12-if組合邏輯與時序邏輯都靠它">12. <code>if</code>：組合邏輯與時序邏輯都靠它<a class="headerlink" href="#12-if組合邏輯與時序邏輯都靠它" title="Permanent link"></a></h2>
 <h3 id="121-基本語法">12.1 基本語法<a class="headerlink" href="#121-基本語法" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="k">then</span>
@@ -10601,13 +10601,13 @@ Verilog 類比就是：</p>
 <span class="w">    </span><span class="p">...</span>
 <span class="k">end</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="122-沒有-else-會保留前值--可能推導出-latch--ff">12.2 沒有 <code>else</code> 會保留前值 → 可能推導出 latch / FF<a class="headerlink" href="#122-沒有-else-會保留前值--可能推導出-latch--ff" title="Permanent link"></a></h3>
 <p>教材明講：<code>if</code> 若缺少 <code>else</code>，某些 signal 在某些情況下沒被指定，就會保留前值，因此可能推導出儲存元件。</p>
 <h4 id="例latch">例：latch<a class="headerlink" href="#例latch" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">en</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
@@ -10618,11 +10618,11 @@ Verilog 類比就是：</p>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span><span class="w">   </span><span class="c1">// 沒有 else，可能是 latch</span>
 <span class="k">end</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="123-d-flip-flop用-event">12.3 D flip-flop：用 <code>'EVENT</code><a class="headerlink" href="#123-d-flip-flop用-event" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
@@ -10633,13 +10633,13 @@ Verilog 類比就是：</p>
 <span class="k">end</span>
 </code></pre></div>
 <p>教材就是這樣教 rising edge 偵測。</p>
-<hr />
+<hr/>
 <h3 id="124-非同步-reset">12.4 非同步 reset<a class="headerlink" href="#124-非同步-reset" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">clr</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">clr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">elsif</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">clr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">'0'</span><span class="p">;</span>
+<span class="w">    </span><span class="k">elsif</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
@@ -10647,13 +10647,13 @@ Verilog 類比就是：</p>
 <p>Verilog：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">clr</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clr</span><span class="p">)</span>
-<span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <p>教材明確說這是 asynchronous reset。</p>
-<hr />
+<hr/>
 <h3 id="125-if--else-做組合邏輯">12.5 <code>if ... else</code> 做組合邏輯<a class="headerlink" href="#125-if--else-做組合邏輯" title="Permanent link"></a></h3>
 <p>教材舉 comparator 為例，意思是：</p>
 <ul>
@@ -10661,7 +10661,7 @@ Verilog 類比就是：</p>
 <li><strong>有 else/elsif 全補齊</strong>：比較像 combinational logic</li>
 </ul>
 <p>這和 Verilog 的 <code>always @(*)</code> 規則完全一致。</p>
-<hr />
+<hr/>
 <h2 id="13-for-loop硬體描述裡常拿來展開重複邏輯">13. <code>for loop</code>：硬體描述裡常拿來展開重複邏輯<a class="headerlink" href="#13-for-loop硬體描述裡常拿來展開重複邏輯" title="Permanent link"></a></h2>
 <h3 id="131-基本語法">13.1 基本語法<a class="headerlink" href="#131-基本語法" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">loop</span>
@@ -10679,37 +10679,37 @@ Verilog 類比就是：</p>
 <span class="k">begin</span>
 <span class="w">    </span><span class="n">num_bits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">loop</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="n">num_bits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">num_bits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">loop</span><span class="p">;</span>
 <span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">num_bits</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="132-更漂亮的寫法drange">13.2 更漂亮的寫法：<code>d'RANGE</code><a class="headerlink" href="#132-更漂亮的寫法drange" title="Permanent link"></a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">d</span><span class="na">&#39;RANGE</span><span class="w"> </span><span class="k">loop</span><span class="w"> </span><span class="c1">-- 會被取代成 for i in 2 downto 0 loop ，因為 d&#39;RANGE = 2 downto 0。</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">d</span><span class="na">'RANGE</span><span class="w"> </span><span class="k">loop</span><span class="w"> </span><span class="c1">-- 會被取代成 for i in 2 downto 0 loop ，因為 d'RANGE = 2 downto 0。</span>
 <span class="w">    </span><span class="p">...</span>
 <span class="k">end</span><span class="w"> </span><span class="k">loop</span><span class="p">;</span>
 </code></pre></div>
-<p>這樣你不用自己硬寫 <code>2 downto 0</code>。<br />
+<p>這樣你不用自己硬寫 <code>2 downto 0</code>。<br/>
 如果向量寬度改了，loop 也能跟著走，這是很 VHDL 的寫法。教材特別把這當作進階版例子。 </p>
 <blockquote>
-<p>d'RANGE 看的是 d 的「索引範圍」，<br />
-不是看 d 裡面目前存的資料值。<br />
-所以如果：<br />
+<p>d'RANGE 看的是 d 的「索引範圍」，<br/>
+不是看 d 裡面目前存的資料值。<br/>
+所以如果：<br/>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-</code></pre></div><br />
-那不管現在 d 是：<br />
-"110"<br />
-"000"<br />
-"101"<br />
-d'RANGE 都還是：<br />
+</code></pre></div><br/>
+那不管現在 d 是：<br/>
+"110"<br/>
+"000"<br/>
+"101"<br/>
+d'RANGE 都還是：<br/>
 <div class="highlight"><pre><span></span><code><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span>
-</code></pre></div><br />
+</code></pre></div><br/>
 所以 i 會是 2,1,0</p>
 </blockquote>
-<hr />
+<hr/>
 <h2 id="14-case多工器解碼器很常見">14. <code>case</code>：多工器/解碼器很常見<a class="headerlink" href="#14-case多工器解碼器很常見" title="Permanent link"></a></h2>
 <h3 id="141-基本語法">14.1 基本語法<a class="headerlink" href="#141-基本語法" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="k">is</span>
@@ -10732,9 +10732,9 @@ d'RANGE 都還是：<br />
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">)</span>
 <span class="k">begin</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="k">is</span>
-<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;01&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">"00"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">"01"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="s">"10"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 <span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="k">others</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">X</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
@@ -10742,26 +10742,26 @@ d'RANGE 都還是：<br />
 <p>Verilog：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">1</span><span class="p">];</span>
-<span class="w">        </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b00</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b01</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">1</span><span class="p">];</span>
+<span class="w">        </span><span class="mh">2</span><span class="mb">'b10</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="mh">3</span><span class="p">];</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
 </code></pre></div>
 <p><code>when others</code> 就是 <code>default</code>。</p>
-<hr />
+<hr/>
 <h2 id="15-wait另一種控制-process-的方式">15. <code>wait</code>：另一種控制 process 的方式<a class="headerlink" href="#15-wait另一種控制-process-的方式" title="Permanent link"></a></h2>
 <p>教材列了三種基本形式：</p>
 <div class="highlight"><pre><span></span><code><span class="k">wait</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sensitivity_list</span><span class="p">;</span>
 <span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="n">boolean_expression</span><span class="p">;</span>
 <span class="k">wait</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">time_expression</span><span class="p">;</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="151-wait-until-類比-posedge-clk">15.1 <code>wait until</code> 類比 <code>@(posedge clk)</code><a class="headerlink" href="#151-wait-until-類比-posedge-clk" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span><span class="w"> </span><span class="o">//</span><span class="err">在這裡等待</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">);</span><span class="w"> </span><span class="o">//</span><span class="err">在這裡等待</span>
 <span class="w">    </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
@@ -10775,33 +10775,33 @@ d'RANGE 都還是：<br />
 <p>所以 DFF 有這幾種寫法：</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
-</code></pre></div><br />
+</code></pre></div><br/>
 <div class="highlight"><pre><span></span><code><span class="k">process</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">);</span>
 <span class="w">    </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div></p>
-<hr />
+<hr/>
 <h3 id="152-不可以同時有-sensitivity-list-和-wait">15.2 不可以同時有 sensitivity list 和 wait<a class="headerlink" href="#152-不可以同時有-sensitivity-list-和-wait" title="Permanent link"></a></h3>
-<p>教材明講：<br />
+<p>教材明講：<br/>
 <strong>process 內若用了 <code>wait</code>，就不能再有 sensitivity list。</strong></p>
 <p>也就是這種是錯的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">Qin</span><span class="p">,</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">until</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="p">);</span>
 <span class="w">    </span><span class="n">Qout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Qin</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
 <p>這點很重要。</p>
-<hr />
+<hr/>
 <h3 id="153-沒有-sensitivity-list-的-process至少要有一個-wait">15.3 沒有 sensitivity list 的 process，至少要有一個 wait<a class="headerlink" href="#153-沒有-sensitivity-list-的-process至少要有一個-wait" title="Permanent link"></a></h3>
 <p>否則 process 不會 suspend，初始化時會變成無限迴圈。教材也有直接提醒這件事。</p>
-<hr />
+<hr/>
 <h2 id="16-你在-p63-前一定要會辨識的三種模板">16. 你在 p.63 前一定要會辨識的三種模板<a class="headerlink" href="#16-你在-p63-前一定要會辨識的三種模板" title="Permanent link"></a></h2>
 <h3 id="161-dataflow-組合邏輯">16.1 Dataflow 組合邏輯<a class="headerlink" href="#161-dataflow-組合邏輯" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">architecture</span><span class="w"> </span><span class="nc">rtl</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">foo</span><span class="w"> </span><span class="k">is</span>
@@ -10810,11 +10810,11 @@ d'RANGE 都還是：<br />
 <span class="k">end</span><span class="w"> </span><span class="nc">rtl</span><span class="p">;</span>
 </code></pre></div>
 <p>看法：<code>assign y = a &amp; b;</code></p>
-<hr />
+<hr/>
 <h3 id="162-process-組合邏輯">16.2 process 組合邏輯<a class="headerlink" href="#162-process-組合邏輯" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">sel</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span>
 <span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
@@ -10822,19 +10822,19 @@ d'RANGE 都還是：<br />
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
 <p>看法：<code>always @(*)</code></p>
-<hr />
+<hr/>
 <h3 id="163-process-時序邏輯">16.3 process 時序邏輯<a class="headerlink" href="#163-process-時序邏輯" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">)</span>
 <span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="k">elsif</span><span class="w"> </span><span class="n">clk</span><span class="na">&#39;EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="sc">'0'</span><span class="p">;</span>
+<span class="w">    </span><span class="k">elsif</span><span class="w"> </span><span class="n">clk</span><span class="na">'EVENT</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
 </code></pre></div>
 <p>看法：<code>always @(posedge clk or posedge rst)</code></p>
-<hr />
+<hr/>
 <h2 id="17-這份教材脈絡下你最容易踩的-8-個坑">17. 這份教材脈絡下，你最容易踩的 8 個坑<a class="headerlink" href="#17-這份教材脈絡下你最容易踩的-8-個坑" title="Permanent link"></a></h2>
 <h3 id="171-signal-不是單純等於-verilog-wire">17.1 <code>signal</code> 不是單純等於 Verilog <code>wire</code><a class="headerlink" href="#171-signal-不是單純等於-verilog-wire" title="Permanent link"></a></h3>
 <p>VHDL 的 <code>signal</code> 可以是 port、內部連線、process 內被指定的目標。它比較接近「硬體訊號」，不要硬套 <code>wire/reg</code> 二分法。</p>
@@ -10852,14 +10852,14 @@ d'RANGE 都還是：<br />
 <p>教材在 entity port mode 說 <code>out</code> 只能更新不能讀。你如果之後查到別的資料說某些新版 VHDL 可以讀 <code>out</code>，那是語言版本差異；但<strong>就這份教材，先照教材規則理解最穩</strong>。</p>
 <h3 id="178-library-ieee-use-ieeestd_logic_1164all">17.8 <code>library ieee; use ieee.std_logic_1164.all;</code><a class="headerlink" href="#178-library-ieee-use-ieeestd_logic_1164all" title="Permanent link"></a></h3>
 <p>看到這兩行，就把它當成「我要用 <code>std_logic</code> / <code>std_logic_vector</code> 這套型別與邏輯定義」。教材在使用 <code>std_logic</code> 的例子前都會加這個。</p>
-<hr />
+<hr/>
 <h2 id="18-給你一份超濃縮-verilog--vhdl-速記">18. 給你一份超濃縮 Verilog → VHDL 速記<a class="headerlink" href="#18-給你一份超濃縮-verilog--vhdl-速記" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>module                    -&gt; entity + architecture
 parameter                 -&gt; generic / constant
 input/output              -&gt; port ... : in/out ...
 wire/reg（概念上）        -&gt; signal
 always @(*)               -&gt; process(sensitivity list)
-always @(posedge clk)     -&gt; process ... if clk&#39;EVENT and clk=&#39;1&#39;
+always @(posedge clk)     -&gt; process ... if clk'EVENT and clk='1'
 assign                    -&gt; concurrent signal assignment
 =（blocking, 概念上）     -&gt; variable :=
 &lt;=（nonblocking, 概念上） -&gt; signal &lt;=
@@ -10869,7 +10869,7 @@ case/default              -&gt; case ... when others ...
 !=                        -&gt; /=
 default                   -&gt; others
 </code></pre></div>
-<hr />
+<hr/>
 <h2 id="19-你現在該怎麼讀-p63-前的程式">19. 你現在該怎麼讀 p.63 前的程式<a class="headerlink" href="#19-你現在該怎麼讀-p63-前的程式" title="Permanent link"></a></h2>
 <p>你看到任何一段 VHDL，請依序做這 5 件事：</p>
 <h3 id="191-先看它在-architecture-外層還是-process-裡">19.1 先看它在 architecture 外層，還是 process 裡<a class="headerlink" href="#191-先看它在-architecture-外層還是-process-裡" title="Permanent link"></a></h3>
@@ -10898,7 +10898,7 @@ default                   -&gt; others
 <li><code>to</code></li>
 </ul>
 <p>只要這五步做對，你就已經能讀懂 p.63 前大部分程式。</p>
-<hr />
+<hr/>
 <h2 id="20-最後幫你下結論">20. 最後幫你下結論<a class="headerlink" href="#20-最後幫你下結論" title="Permanent link"></a></h2>
 <p>如果你的目標是：</p>
 <blockquote>
@@ -10913,14 +10913,14 @@ default                   -&gt; others
 <li><code>process + if/case/loop</code></li>
 <li><code>signal &lt;=</code> 與 <code>variable :=</code> 的更新時機差異</li>
 </ol>
-<p>其中第 6 點最重要。<br />
+<p>其中第 6 點最重要。<br/>
 <strong>Verilog 轉 VHDL，最容易死的不是 if、case、loop，而是把 <code>signal</code> 當成 process 內立即生效的暫存變數。</strong></p>
-<hr />
+<hr/>
 <p>你如果要，我下一則可以直接接著幫你做一份：</p>
 <p><strong>「Verilog 工程師專用的 VHDL 速查表＋10 個最常見範例（mux / decoder / comparator / DFF / counter / onehot count）」</strong></p>
 <p>讓你用最少時間把這些語法真的讀熟。</p>
 <h2 id="21-作業範例">21. 作業範例<a class="headerlink" href="#21-作業範例" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/VHDL-2.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/VHDL-2.png"/></p>
 <div class="highlight"><pre><span></span><code><span class="k">library</span><span class="w"> </span><span class="nn">ieee</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
@@ -10940,16 +10940,16 @@ default                   -&gt; others
 <span class="w">    </span><span class="k">process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">)</span>
 <span class="w">    </span><span class="k">begin</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">to_unsigned</span><span class="p">(</span><span class="mi">47038</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;0000&quot;</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"0000"</span><span class="p">;</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"00"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="w">            </span><span class="k">else</span>
 <span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
 <span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;01&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"01"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"10"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">));</span>
 <span class="w">        </span><span class="k">else</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
@@ -10958,7 +10958,7 @@ default                   -&gt; others
 <span class="k">end</span><span class="w"> </span><span class="nc">simple</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="22-函數呼叫">22. 函數呼叫<a class="headerlink" href="#22-函數呼叫" title="Permanent link"></a></h2>
-<p>完整範例<br />
+<p>完整範例<br/>
 <div class="highlight"><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="k">is</span>
 <span class="w">    </span><span class="k">port</span><span class="p">(</span>
 <span class="w">        </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">bit</span><span class="p">;</span>
@@ -10970,10 +10970,10 @@ default                   -&gt; others
 
 <span class="w">    </span><span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="w"> </span><span class="k">is</span>
 <span class="w">    </span><span class="k">begin</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">'1'</span><span class="p">;</span>
 <span class="w">        </span><span class="k">else</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">'0'</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
 
@@ -10983,7 +10983,7 @@ default                   -&gt; others
 
 <span class="k">end</span><span class="w"> </span><span class="nc">behavior</span><span class="p">;</span>
 </code></pre></div></p>
-<p>可多載<br />
+<p>可多載<br/>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
 <span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
 <span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
@@ -11047,7 +11047,7 @@ default                   -&gt; others
 <tbody>
 <tr>
 <td>process 內 <code>:=</code></td>
-<td><code>A_var := B;</code><br><code>Z &lt;= A_var;</code></td>
+<td><code>A_var := B;</code><br/><code>Z &lt;= A_var;</code></td>
 <td><code>A_var</code> 是 <strong>variable</strong>，<code>Z</code> 是 <strong>signal</strong></td>
 <td><strong>sequential</strong></td>
 <td><strong>新的 <code>A_var</code></strong>，也就是 <code>B</code></td>
@@ -11055,7 +11055,7 @@ default                   -&gt; others
 </tr>
 <tr>
 <td>process 內 <code>&lt;=</code></td>
-<td><code>A &lt;= B;</code><br><code>Z &lt;= A;</code></td>
+<td><code>A &lt;= B;</code><br/><code>Z &lt;= A;</code></td>
 <td><code>A</code>、<code>Z</code> 都是 <strong>signal</strong></td>
 <td><strong>sequential</strong>（但 signal 更新延後）</td>
 <td><strong>舊的 <code>A</code></strong></td>
@@ -11063,7 +11063,7 @@ default                   -&gt; others
 </tr>
 <tr>
 <td>process 外 <code>&lt;=</code></td>
-<td><code>A &lt;= B;</code><br><code>Z &lt;= A;</code></td>
+<td><code>A &lt;= B;</code><br/><code>Z &lt;= A;</code></td>
 <td><code>A</code>、<code>Z</code> 都是 <strong>signal</strong></td>
 <td><strong>concurrent</strong></td>
 <td><code>Z</code> 最後會拿到 <strong>新的 <code>A</code></strong>，但要再多一拍 delta</td>
@@ -11077,7 +11077,7 @@ default                   -&gt; others
 <li>signal assignment 是先執行，之後在 <code>Δ</code> 才更新 </li>
 <li><code>A &lt;= B; Z &lt;= A;</code> 放在 process 內外，時間行為不同 </li>
 </ul>
-<hr />
+<hr/>
 <h4 id="2-先提醒一個小地方">2. 先提醒一個小地方<a class="headerlink" href="#2-先提醒一個小地方" title="Permanent link"></a></h4>
 <p>你說想用 <code>A&lt;=B, Z&lt;=A</code> 來看三種情況，這在 <strong>process 內 <code>:=</code></strong> 那一種要稍微改一下，因為：</p>
 <ul>
@@ -11093,7 +11093,7 @@ default                   -&gt; others
 <span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A_var</span><span class="p">;</span>
 </code></pre></div>
 <p>這樣才合法。</p>
-<hr />
+<hr/>
 <h4 id="3-process-內-variable-assignment">3. process 內 <code>:=</code>：variable assignment<a class="headerlink" href="#3-process-內-variable-assignment" title="Permanent link"></a></h4>
 <h5 id="31-vhdl-寫法">3.1 VHDL 寫法<a class="headerlink" href="#31-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -11107,10 +11107,10 @@ default                   -&gt; others
 <p>當 <code>B</code> 在時間 <code>T</code> 改變時：</p>
 <ol>
 <li>process 被叫醒</li>
-<li><code>A_var := B;</code><br />
-<code>A_var</code> <strong>立刻</strong>變成 <code>B</code></li>
-<li><code>Z &lt;= A_var;</code><br />
-   這時讀到的是<strong>新的 <code>A_var</code></strong></li>
+<li><code>A_var := B;</code><br>
+<code>A_var</code> <strong>立刻</strong>變成 <code>B</code></br></li>
+<li><code>Z &lt;= A_var;</code><br>
+   這時讀到的是<strong>新的 <code>A_var</code></strong></br></li>
 <li>所以 <code>Z</code> 會在 <code>T + Δ</code> 更新成 <code>B</code></li>
 </ol>
 <h5 id="33-重點">3.3 重點<a class="headerlink" href="#33-重點" title="Permanent link"></a></h5>
@@ -11130,7 +11130,7 @@ default                   -&gt; others
 </ul>
 <h5 id="35-一句話記">3.5 一句話記<a class="headerlink" href="#35-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 內 <code>:=</code> 像 Verilog 的 <code>=</code>，後面馬上看得到新值。</strong></p>
-<hr />
+<hr/>
 <h4 id="4-process-內-sequential-signal-assignment">4. process 內 <code>&lt;=</code>：sequential signal assignment<a class="headerlink" href="#4-process-內-sequential-signal-assignment" title="Permanent link"></a></h4>
 <h5 id="41-vhdl-寫法">4.1 VHDL 寫法<a class="headerlink" href="#41-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -11143,9 +11143,9 @@ default                   -&gt; others
 <p>當 <code>B</code> 在時間 <code>T</code> 改變時：</p>
 <ol>
 <li>process 被叫醒</li>
-<li><code>A &lt;= B;</code> 被執行<br />
-   但 <code>A</code> <strong>不會立刻更新</strong></li>
-<li><code>Z &lt;= A;</code> 被執行<br />
+<li><code>A &lt;= B;</code> 被執行<br>
+   但 <code>A</code> <strong>不會立刻更新</strong></br></li>
+<li><code>Z &lt;= A;</code> 被執行<br/>
    這時讀到的還是<strong>舊的 <code>A</code></strong></li>
 <li>
 <p>到 <code>T + Δ</code>：</p>
@@ -11161,7 +11161,7 @@ default                   -&gt; others
 <li>這兩行是 <strong>sequential</strong></li>
 <li>但 <code>signal</code> 更新不是立刻發生</li>
 </ul>
-<p>所以雖然第二行寫在後面，<br />
+<p>所以雖然第二行寫在後面，<br/>
 它還是只看到<strong>舊的 <code>A</code></strong>。</p>
 <h5 id="44-verilog-類比">4.4 Verilog 類比<a class="headerlink" href="#44-verilog-類比" title="Permanent link"></a></h5>
 <p>最像 Verilog 在 <code>always</code> 裡用 <strong>nonblocking assignment</strong>：</p>
@@ -11178,7 +11178,7 @@ default                   -&gt; others
 </ul>
 <h5 id="45-一句話記">4.5 一句話記<a class="headerlink" href="#45-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 內 <code>&lt;=</code> 雖然是 sequential，但後面那行看到的通常還是舊 signal 值。</strong></p>
-<hr />
+<hr/>
 <h4 id="5-process-外-concurrent-signal-assignment">5. process 外 <code>&lt;=</code>：concurrent signal assignment<a class="headerlink" href="#5-process-外-concurrent-signal-assignment" title="Permanent link"></a></h4>
 <h5 id="51-vhdl-寫法">5.1 VHDL 寫法<a class="headerlink" href="#51-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
@@ -11208,7 +11208,7 @@ default                   -&gt; others
 </code></pre></div>
 <h5 id="55-一句話記">5.5 一句話記<a class="headerlink" href="#55-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 外 <code>&lt;=</code> 像兩條 <code>assign</code>，前一條輸出變了，下一條才跟著反應。</strong></p>
-<hr />
+<hr/>
 <h4 id="6-三種放在一起看">6. 三種放在一起看<a class="headerlink" href="#6-三種放在一起看" title="Permanent link"></a></h4>
 <h5 id="61-process-內-">6.1 process 內 <code>:=</code><a class="headerlink" href="#61-process-內-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -11223,9 +11223,9 @@ default                   -&gt; others
 <span class="w">    </span><span class="n">Z</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">A_var</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>Z</code> 拿到 <strong>B</strong></p>
-<hr />
+<hr/>
 <h5 id="62-process-內-">6.2 process 內 <code>&lt;=</code><a class="headerlink" href="#62-process-內-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
 <span class="k">begin</span>
@@ -11238,9 +11238,9 @@ default                   -&gt; others
 <span class="w">    </span><span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>Z</code> 拿到 <strong>舊的 A</strong></p>
-<hr />
+<hr/>
 <h5 id="63-process-外-">6.3 process 外 <code>&lt;=</code><a class="headerlink" href="#63-process-外-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
@@ -11248,9 +11248,9 @@ default                   -&gt; others
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="k">assign</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>A</code> 先變，之後 <code>Z</code> 才跟著變成<strong>新的 A</strong></p>
-<hr />
+<hr/>
 <h4 id="7-最後幫你濃縮成背誦版">7. 最後幫你濃縮成背誦版<a class="headerlink" href="#7-最後幫你濃縮成背誦版" title="Permanent link"></a></h4>
 <h5 id="71-">7.1 <code>:=</code><a class="headerlink" href="#71-" title="Permanent link"></a></h5>
 <ul>
@@ -11278,7 +11278,7 @@ default                   -&gt; others
 <li>前一條輸出 event 會再觸發下一條</li>
 <li>最像 Verilog <code>assign</code></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="8-一張圖收尾">8. 一張圖收尾<a class="headerlink" href="#8-一張圖收尾" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A1[process內 :=] --&gt; A2[sequential]
@@ -11299,9 +11299,9 @@ default                   -&gt; others
 <p>⭐ 你如果要，我下一則可以直接幫你把這份整理壓成「考前 10 秒速記版」。</p>
 <h3 id="提問">提問<a class="headerlink" href="#提問" title="Permanent link"></a></h3>
 <blockquote>
-<p>"always @(*) begin<br />
-    A &lt;= B;<br />
-    Z &lt;= A;<br />
+<p>"always @(*) begin<br/>
+    A &lt;= B;<br/>
+    Z &lt;= A;<br/>
 end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但是最後再一起更新，這個"先執行A&lt;=B，再執行Z&lt;=A"就是sequential對不對</p>
 </blockquote>
 <h4 id="對你這句理解是對的但要補兩個限定">對，你這句理解是對的，但要補兩個限定<a class="headerlink" href="#對你這句理解是對的但要補兩個限定" title="Permanent link"></a></h4>
@@ -11324,7 +11324,7 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>再執行 <code>Z &lt;= A;</code></li>
 </ol>
 <p>這個「先後執行順序」就是你說的 <strong>sequential</strong>。</p>
-<hr />
+<hr/>
 <h4 id="但要非常小心這裡的-sequential-不是sequential-circuit時序電路那個-sequential">但要非常小心：這裡的 sequential 不是「sequential circuit（時序電路）」那個 sequential<a class="headerlink" href="#但要非常小心這裡的-sequential-不是sequential-circuit時序電路那個-sequential" title="Permanent link"></a></h4>
 <p>這是最容易混的地方。</p>
 <p>你現在這裡的 <strong>sequential</strong> 指的是：</p>
@@ -11340,16 +11340,16 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <span class="w">    </span><span class="p">...</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>裡面的敘述可以是 <strong>sequential 執行</strong><br />
+<p>裡面的敘述可以是 <strong>sequential 執行</strong><br/>
 但整段邏輯仍然可能是 <strong>combinational logic（組合邏輯）</strong></p>
-<hr />
+<hr/>
 <h4 id="為什麼它又是-sequential又可能是-combinational">為什麼它又是 sequential，又可能是 combinational<a class="headerlink" href="#為什麼它又是-sequential又可能是-combinational" title="Permanent link"></a></h4>
 <p>因為這是兩個不同層面的詞。</p>
 <h5 id="1-sequential">1. sequential<a class="headerlink" href="#1-sequential" title="Permanent link"></a></h5>
-<p>講的是：<br />
+<p>講的是：<br/>
 <strong>區塊裡面的語句，是不是照順序跑</strong></p>
 <h5 id="2-combinational--sequential-logic">2. combinational / sequential logic<a class="headerlink" href="#2-combinational--sequential-logic" title="Permanent link"></a></h5>
-<p>講的是：<br />
+<p>講的是：<br/>
 <strong>這個硬體是不是有記憶、有 clock、有 FF</strong></p>
 <p>所以：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
@@ -11362,7 +11362,7 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>語句執行方式是 <strong>sequential</strong></li>
 <li>但硬體類型通常是 <strong>combinational</strong></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="回到你這個-nonblocking-例子">回到你這個 nonblocking 例子<a class="headerlink" href="#回到你這個-nonblocking-例子" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
@@ -11380,21 +11380,21 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <blockquote>
 <p><strong>這個 block 之所以是 sequential，是因為 block 內的 statements 依照程式順序執行；至於最後一起更新，則是因為 <code>&lt;=</code> 是 nonblocking assignment 的語意。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="把兩件事拆開你就不會混了">把兩件事拆開你就不會混了<a class="headerlink" href="#把兩件事拆開你就不會混了" title="Permanent link"></a></h4>
 <h5 id="先執行再執行">「先執行再執行」<a class="headerlink" href="#先執行再執行" title="Permanent link"></a></h5>
 <p>這是 <strong>sequential</strong></p>
 <h5 id="最後一起更新">「最後一起更新」<a class="headerlink" href="#最後一起更新" title="Permanent link"></a></h5>
 <p>這是 <strong>nonblocking assignment (<code>&lt;=</code>) 的特性</strong></p>
 <p>這兩件事是<strong>同時成立</strong>的，但不是同一件事。</p>
-<hr />
+<hr/>
 <h4 id="最好這樣記">最好這樣記<a class="headerlink" href="#最好這樣記" title="Permanent link"></a></h4>
 <p>你可以把它拆成這個公式：</p>
 <div class="highlight"><pre><span></span><code>always block 裡：
 先後執行順序  -&gt; sequential
 更新時機      -&gt; 看你用 = 還是 &lt;=
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="用--和--對照一次">用 <code>=</code> 和 <code>&lt;=</code> 對照一次<a class="headerlink" href="#用--和--對照一次" title="Permanent link"></a></h4>
 <h5 id="1-blocking-">1. blocking <code>=</code><a class="headerlink" href="#1-blocking-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
@@ -11421,13 +11421,13 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li><code>Z</code> 看到的是舊的 <code>A</code></li>
 <li>最後一起更新</li>
 </ul>
-<p>這兩段 <strong>都是 sequential 執行</strong><br />
+<p>這兩段 <strong>都是 sequential 執行</strong><br/>
 差別只在：</p>
 <ul>
 <li><code>=</code> 立刻更新</li>
 <li><code>&lt;=</code> 延後更新</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="對應回-vhdl-也是同一套邏輯">對應回 VHDL 也是同一套邏輯<a class="headerlink" href="#對應回-vhdl-也是同一套邏輯" title="Permanent link"></a></h4>
 <p>你之前學的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -11443,25 +11443,25 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>所以 <code>Z</code> 看到舊的 <code>A</code></li>
 </ul>
 <p>所以你現在這句理解，跟你前面 VHDL 筆記其實是同一件事。</p>
-<hr />
+<hr/>
 <h4 id="最後幫你濃縮成一句最準的版本">最後幫你濃縮成一句最準的版本<a class="headerlink" href="#最後幫你濃縮成一句最準的版本" title="Permanent link"></a></h4>
 <p><strong>對，<code>先執行 A&lt;=B，再執行 Z&lt;=A</code> 這個「按順序執行 statements」就是 sequential；而「最後再一起更新」則是 nonblocking assignment <code>&lt;=</code> 的語意。</strong></p>
-<hr />
+<hr/>
 <h4 id="你可以直接背這兩句">你可以直接背這兩句<a class="headerlink" href="#你可以直接背這兩句" title="Permanent link"></a></h4>
 <ul>
 <li><strong>sequential 看執行順序</strong></li>
 <li><strong>nonblocking 看更新時機</strong></li>
 </ul>
-<p>⭐ 你如果要，我下一則可以直接幫你畫一張<br />
+<p>⭐ 你如果要，我下一則可以直接幫你畫一張<br/>
 <strong><code>=</code> vs <code>&lt;=</code> 在 <code>always</code> 裡的時間線圖</strong>，你會一眼看懂。</p>
 <h2 id="vector">vector<a class="headerlink" href="#vector" title="Permanent link"></a></h2>
-<p>左邊的數字一定是 MSB ，右邊的數字一定是 LSB。<br />
+<p>左邊的數字一定是 MSB ，右邊的數字一定是 LSB。<br/>
 to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左邊大用 downto。</p>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w">      </span>
 <span class="k">signal</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
-<span class="n">B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
+<span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"1000"</span><span class="p">;</span>
+<span class="n">B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"1000"</span><span class="p">;</span>
 
 <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span>
@@ -11599,17 +11599,15 @@ to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左�
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

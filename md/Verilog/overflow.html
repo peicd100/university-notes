@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6413,7 +6413,7 @@ is now available!
 
 <h1 id="判斷有號數的-overflow">判斷有號數的 Overflow<a class="headerlink" href="#判斷有號數的-overflow" title="Permanent link"></a></h1>
 <p>題目：<a href="https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q1c">https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q1c</a></p>
-<p><img alt="alt text" src="images/overflow.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/overflow.png"/></p>
 <p>如何判斷有號數的 Overflow </p>
 <div class="highlight"><span class="filename">無號數</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
@@ -6436,16 +6436,16 @@ is now available!
 <span class="k">endmodule</span>
 </code></pre></div>
 <p>這題是要寫第二種的有號數，為何是這樣呢？</p>
-<p>因為我們要想想何時可能會 overflow ：<br />
-正 + 正 (太大) = 負<br />
-正 - 負 (太大) = 負<br />
-負 + 負 (太小) = 正<br />
+<p>因為我們要想想何時可能會 overflow ：<br/>
+正 + 正 (太大) = 負<br/>
+正 - 負 (太大) = 負<br/>
+負 + 負 (太小) = 正<br/>
 負 - 正 (太小) = 正</p>
-<p>因為有號數的 MSB 是正負號的意思，當 MSB = 1，代表負數。<br />
-所以可以得到：<br />
+<p>因為有號數的 MSB 是正負號的意思，當 MSB = 1，代表負數。<br/>
+所以可以得到：<br/>
 <code>overflow = (~a[7] &amp; ~b[7] &amp; s[7]) | ( a[7] &amp;  b[7] &amp; ~s[7]);</code></p>
-<p>其實我們也可以寫：<br />
-<code>overflow = (a[7] == b[7])&amp;&amp; (a[7] != s[7]);</code><br />
+<p>其實我們也可以寫：<br/>
+<code>overflow = (a[7] == b[7])&amp;&amp; (a[7] != s[7]);</code><br/>
 這是代表 a、b 正負號相同，a、s 正負號不同。</p>
 
 
@@ -6578,17 +6578,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

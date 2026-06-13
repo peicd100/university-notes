@@ -1954,7 +1954,7 @@
     
       <link rel="stylesheet" href="../../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6572,7 +6572,6 @@ is now available!
 
 <h1 id="mkdocs-語法">mkdocs 語法<a class="headerlink" href="#mkdocs-語法" title="Permanent link"></a></h1>
 <!-- more -->
-
 <h2 id="螢光筆">螢光筆<a class="headerlink" href="#螢光筆" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>哈哈哈 ==重點== 哈哈哈
 </code></pre></div>
@@ -6602,7 +6601,7 @@ is now available!
 <p>hl_lines 中與順序無關，像是 27 可以放最前面</p>
 </blockquote>
 <div class="highlight"><span class="filename">程式塊</span><pre><span></span><code>/// collapse-code  
-``` cpp linenums=&quot;1&quot; hl<span class="nb">_</span>lines=&quot;27 6-8 13-13 16&quot;  title=&quot;code&quot;
+``` cpp linenums="1" hl<span class="nb">_</span>lines="27 6-8 13-13 16"  title="code"
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 
@@ -6635,7 +6634,7 @@ signed main() <span class="nb">{</span>
 ///
 </code></pre></div>
 <div class="result">
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">code</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><span class="filename">code</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 <span class="linenos" data-linenos=" 3 "></span>
 <span class="linenos" data-linenos=" 4 "></span><span class="cp">#define int long long</span>
@@ -6693,10 +6692,10 @@ signed main() <span class="nb">{</span>
 </details>
 </div>
 <h2 id="變更圖片大小">變更圖片大小<a class="headerlink" href="#變更圖片大小" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>![alt text](&lt;images/mkdocs 語法.png&gt;){width=&quot;60%&quot;}
+<div class="highlight"><pre><span></span><code>![alt text](&lt;images/mkdocs 語法.png&gt;){width="60%"}
 </code></pre></div>
 <div class="result">
-<p><img alt="alt text" src="../../../images/mkdocs%20%E8%AA%9E%E6%B3%95.png" width="60%" /></p>
+<p><img alt="alt text" decoding="async" src="../../../images/mkdocs%20%E8%AA%9E%E6%B3%95.png" width="60%"/></p>
 </div>
 <h2 id="嵌入-html">嵌入 HTML<a class="headerlink" href="#嵌入-html" title="Permanent link"></a></h2>
 <p>在一個 .md 中放 GPT 給的乾淨的 HTML，直接把該檔案依照以下格式：</p>
@@ -6822,17 +6821,15 @@ signed main() <span class="nb">{</span>
   
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6690,7 +6690,7 @@ is now available!
 
 <h1 id="常見資料型別">常見資料型別<a class="headerlink" href="#常見資料型別" title="Permanent link"></a></h1>
 <h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
-<p>入門 Verilog 最常用到的型別先記三個就夠了：<br />
+<p>入門 Verilog 最常用到的型別先記三個就夠了：<br/>
 <code>wire</code>、<code>reg</code>、<code>integer</code>。</p>
 <h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
 <ul>
@@ -6732,9 +6732,9 @@ is now available!
 <li>常用在 loop index。</li>
 <li>不建議拿來當一般固定寬度資料路徑訊號。</li>
 </ul>
-<p>對 module 裡宣告的 <code>integer i;</code> 來說，不是「module 執行完就把 i 丟掉」。<br />
-更精確地說：<br />
-* <code>module</code> 不是像 C++ 函式那樣「呼叫一次、跑完、結束、釋放區域變數」的東西。<br />
+<p>對 module 裡宣告的 <code>integer i;</code> 來說，不是「module 執行完就把 i 丟掉」。<br/>
+更精確地說：<br/>
+* <code>module</code> 不是像 C++ 函式那樣「呼叫一次、跑完、結束、釋放區域變數」的東西。<br/>
 * 在 Verilog/SystemVerilog 裡，module 內宣告的變數通常是 <strong>static lifetime(靜態生命週期)</strong>，也就是它會在整個模擬期間都存在，不是每次 <code>always</code> 跑完就消失。</p>
 <h3 id="port-宣告">Port 宣告<a class="headerlink" href="#port-宣告" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span>
@@ -6907,17 +6907,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

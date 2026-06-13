@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7007,7 +7007,7 @@ is now available!
   <h1>Generate</h1>
 
 <h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
-<p><code>parameter</code> 讓模組可調大小；<code>generate</code> 讓 Verilog 在模組層級自動展開重複或條件式硬體。<br />
+<p><code>parameter</code> 讓模組可調大小；<code>generate</code> 讓 Verilog 在模組層級自動展開重複或條件式硬體。<br/>
 最容易搞混的是：<code>generate for</code> 不是程序式 <code>for</code>，它比較像「建立很多份硬體結構」。</p>
 <h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
 <ul>
@@ -7039,7 +7039,7 @@ is now available!
 <li>真正存在的硬體暫存器</li>
 </ul>
 <p>它只是工具在展開硬體時，用來數 <code>0,1,2,...</code> 的索引。</p>
-<hr />
+<hr/>
 <h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
 <h3 id="1-parameter定義可調模組">1. <code>parameter</code>，定義可調模組<a class="headerlink" href="#1-parameter定義可調模組" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">adder</span><span class="w"> </span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">)</span><span class="w"> </span><span class="p">(</span>
@@ -7114,7 +7114,7 @@ is now available!
 <span class="w">    </span><span class="k">end</span>
 <span class="k">endgenerate</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h2 id="generate-for-跟程序式-for-的差別"><code>generate for</code> 跟程序式 <code>for</code> 的差別<a class="headerlink" href="#generate-for-跟程序式-for-的差別" title="Permanent link"></a></h2>
 <h3 id="程序式-for">程序式 <code>for</code><a class="headerlink" href="#程序式-for" title="Permanent link"></a></h3>
 <p>通常寫在 <code>always</code> / <code>initial</code> 裡，拿來描述邏輯怎麼算。</p>
@@ -7138,7 +7138,7 @@ is now available!
 <li>要<strong>複製硬體</strong>：想 <code>generate</code></li>
 <li>要<strong>描述邏輯</strong>：想程序式 <code>for</code></li>
 </ul>
-<hr />
+<hr/>
 <h2 id="快速判斷">快速判斷<a class="headerlink" href="#快速判斷" title="Permanent link"></a></h2>
 <ul>
 <li>要做很多份相似硬體：用 <code>generate</code></li>
@@ -7146,7 +7146,7 @@ is now available!
 <li>要讓模組能切換位寬或規模：用 <code>parameter</code></li>
 <li>要在例化時改模組大小：用 <code>#(.WIDTH(...))</code></li>
 </ul>
-<hr />
+<hr/>
 <h2 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h2>
 <ul>
 <li>把 <code>generate for</code> 當成程序式 <code>for</code></li>
@@ -7155,7 +7155,7 @@ is now available!
 <li>忘了 named block，例如 <code>begin : blk</code></li>
 <li>把 <code>parameter</code> 完全等同於 C/C++ 的 <code>#define</code></li>
 </ul>
-<hr />
+<hr/>
 <h2 id="和-c-怎麼對照">和 C++ 怎麼對照<a class="headerlink" href="#和-c-怎麼對照" title="Permanent link"></a></h2>
 <h3 id="parameter"><code>parameter</code><a class="headerlink" href="#parameter" title="Permanent link"></a></h3>
 <p>可以先粗略想成比 <code>#define</code> 更聰明的常數。</p>
@@ -7172,19 +7172,19 @@ is now available!
 <span class="p">}</span>
 </code></pre></div>
 <p>但它不是執行期 loop，而是最後展開成很多份硬體。</p>
-<hr />
+<hr/>
 <h2 id="建議在原頁補一行導覽">建議在原頁補一行導覽<a class="headerlink" href="#建議在原頁補一行導覽" title="Permanent link"></a></h2>
 <p>你可以在「迴圈與程序控制」頁的 <code>for</code> 段落補一句：</p>
 <div class="highlight"><pre><span></span><code>注意：`generate for` 不屬於程序式迴圈，另見〈參數化模組與 generate〉。
 </code></pre></div>
-<hr />
+<hr/>
 <h2 id="相關主題">相關主題<a class="headerlink" href="#相關主題" title="Permanent link"></a></h2>
 <ul>
 <li><a href="%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html">模組與建模方式</a></li>
 <li><a href="%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html">常見資料型別</a></li>
 <li><a href="%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html">迴圈與程序控制</a></li>
 </ul>
-<hr />
+<hr/>
 
 
 
@@ -7316,17 +7316,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

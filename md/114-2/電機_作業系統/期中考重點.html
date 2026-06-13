@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -14673,11 +14673,11 @@ is now available!
 <p>OS 定義成兩個重要角色：</p>
 <ol>
 <li>
-<p><strong>Resource Allocator(資源分配者)</strong><br />
+<p><strong>Resource Allocator(資源分配者)</strong><br/>
     管理 CPU time、Memory space、File-storage space、I/O devices，並在多個程式搶資源時做分配。</p>
 </li>
 <li>
-<p><strong>Control Program(控制程式)</strong><br />
+<p><strong>Control Program(控制程式)</strong><br/>
     控制程式執行，避免錯誤或不當使用電腦。</p>
 </li>
 </ol>
@@ -14712,19 +14712,19 @@ is now available!
 <p>Computer System(電腦系統) 通常分成四個部分：</p>
 <ol>
 <li>
-<p>Hardware(硬體)<br />
+<p>Hardware(硬體)<br/>
 提供基本計算資源，例如 CPU、Memory(記憶體)、I/O devices(輸出入設備)。</p>
 </li>
 <li>
-<p>Operating System(作業系統)<br />
+<p>Operating System(作業系統)<br/>
 控制與協調硬體資源的使用。</p>
 </li>
 <li>
-<p>Application Program(應用程式)<br />
+<p>Application Program(應用程式)<br/>
 定義如何使用系統資源來解決使用者問題，例如 word processor、compiler、web browser、database system、video game。</p>
 </li>
 <li>
-<p>User(使用者)<br />
+<p>User(使用者)<br/>
 可以是人、機器或其他電腦。</p>
 </li>
 </ol>
@@ -14732,49 +14732,49 @@ is now available!
 <p>Computer System Operation(電腦系統操作) 的基本概念：</p>
 <ol>
 <li>
-<p><strong>CPU and I/O devices can execute concurrently</strong><br />
+<p><strong>CPU and I/O devices can execute concurrently</strong><br/>
     CPU 和 I/O devices 可以同時工作。</p>
 </li>
 <li>
-<p><strong>Device controller(設備控制器)</strong><br />
+<p><strong>Device controller(設備控制器)</strong><br/>
     每種設備通常由 device controller 負責控制。</p>
 </li>
 <li>
-<p><strong>Local buffer(本地緩衝區)</strong><br />
+<p><strong>Local buffer(本地緩衝區)</strong><br/>
     Device controller 有自己的 local buffer，資料會在 main memory(主記憶體) 和 local buffer 之間移動。</p>
 </li>
 <li>
-<p><strong>Interrupt(中斷)</strong><br />
+<p><strong>Interrupt(中斷)</strong><br/>
     當 device controller 完成操作後，會透過 interrupt 通知 CPU。</p>
 </li>
 </ol>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>5.<strong>Interrupt vector(中斷向量)</strong><br />
+<p>5.<strong>Interrupt vector(中斷向量)</strong><br/>
     Interrupt vector 是一張表，裡面放不同 <mark>interrupt service routine(中斷服務程序)</mark>  的位址。</p>
-<p>Interrupt 是中斷事件或通知本身，例如 I/O 完成後通知 CPU。<br />
-Interrupt vector 是一張查表，用來找到該中斷對應的 ISR 位址。<br />
+<p>Interrupt 是中斷事件或通知本身，例如 I/O 完成後通知 CPU。<br/>
+Interrupt vector 是一張查表，用來找到該中斷對應的 ISR 位址。<br/>
 Interrupt service routine, ISR 是真正負責處理該中斷的程式碼。</p>
-<hr />
+<hr/>
 <p>ISR到底是啥？</p>
-<p>Routine = 程式段／例行程序<br />
-Routine 在程式裡常指一段固定用途的程式碼，類似 function(函式) 或 procedure(程序)。<br />
-所以 Interrupt Service Routine 直譯就是：<br />
+<p>Routine = 程式段／例行程序<br/>
+Routine 在程式裡常指一段固定用途的程式碼，類似 function(函式) 或 procedure(程序)。<br/>
+所以 Interrupt Service Routine 直譯就是：<br/>
 用來服務／處理中斷的一段例行程序。</p>
-<hr />
+<hr/>
 <p>ISR 具體在做什麼？</p>
 <p>ISR 會依照中斷類型做不同事情。</p>
 <p>例如硬碟讀取完成時，ISR 可能會：</p>
-<p>確認是哪個裝置完成 I/O。<br />
-檢查 I/O 是否成功。<br />
-更新 OS 裡的裝置狀態。<br />
-把等待這個 I/O 的 process 喚醒。<br />
+<p>確認是哪個裝置完成 I/O。<br/>
+檢查 I/O 是否成功。<br/>
+更新 OS 裡的裝置狀態。<br/>
+把等待這個 I/O 的 process 喚醒。<br/>
 告訴 CPU 可以恢復原本程式，或讓 scheduler 決定接下來跑誰。</p>
 <p>你可以把 ISR 想成：</p>
 <p>裝置說「我好了！」之後，OS 內部負責收尾與更新狀態的處理函式。</p>
 <p>ISR 這種中斷處理程式通常是 OS/kernel 裡的程式碼，不是硬體自己跑的應用程式。</p>
 </div>
-<p>6.<strong>Trap(陷阱)</strong><br />
+<p>6.<strong>Trap(陷阱)</strong><br/>
     Trap 是 software-generated interrupt(軟體產生的中斷)，通常由錯誤或 system call(系統呼叫) 造成，例如除以 0、記憶體錯誤、程式請求 OS 服務。</p>
 <h2 id="locality區域性">Locality(區域性)<a class="headerlink" href="#locality區域性" title="Permanent link"></a></h2>
 <p>Caching 之所以有效，是因為程式通常有 Locality(區域性)。</p>
@@ -14812,7 +14812,7 @@ Routine 在程式裡常指一段固定用途的程式碼，類似 function(函�
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">2</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">3</span><span class="err">\</span><span class="p">];</span>
 </code></pre></div>
-<p>記憶體排列大概是：<br />
+<p>記憶體排列大概是：<br/>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">0</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">0</span><span class="err">\</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">0</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">1</span><span class="err">\</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">0</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">2</span><span class="err">\</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">1</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">0</span><span class="err">\</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">1</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">1</span><span class="err">\</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="err">\</span><span class="p">[</span><span class="mi">1</span><span class="err">\</span><span class="p">]</span><span class="err">\</span><span class="p">[</span><span class="mi">2</span><span class="err">\</span><span class="p">]</span>
 </code></pre></div></p>
 <blockquote>
@@ -14861,7 +14861,7 @@ Routine 在程式裡常指一段固定用途的程式碼，類似 function(函�
 </tr>
 </tbody>
 </table>
-<p><strong>DMA(Direct Memory Access)</strong> 用於高速 I/O device。<br />
+<p><strong>DMA(Direct Memory Access)</strong> 用於高速 I/O device。<br/>
 Device controller 可以直接把資料區塊從 buffer storage 傳到 main memory，不需要 CPU 逐 byte 介入。</p>
 <p>重點：</p>
 <ol>
@@ -14879,7 +14879,7 @@ Device controller 可以直接把資料區塊從 buffer storage 傳到 main memo
 </li>
 </ol>
 <blockquote>
-<p>Device controller 透過 DMA，把資料區塊直接搬到 main memory。<br />
+<p>Device controller 透過 DMA，把資料區塊直接搬到 main memory。<br/>
 CPU / OS 設定 DMA 傳輸，device controller 負責大量資料搬移，完成後再用 interrupt 通知 CPU。</p>
 </blockquote>
 <h2 id="電腦系統">電腦系統<a class="headerlink" href="#電腦系統" title="Permanent link"></a></h2>
@@ -14945,12 +14945,12 @@ CPU / OS 設定 DMA 傳輸，device controller 負責大量資料搬移，完成
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E.png"/></p>
 <p>Clustered system</p>
 <p>多台獨立電腦透過網路連接，常共享 storage(儲存裝置)，目標通常是提高 availability(可用性) 或 reliability(可靠性)。</p>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 不是一間廚房裡多位廚師，而是好幾間分店彼此連線；其中一間出問題，其他分店還能支援服務。</p>
-<hr />
+<hr/>
 <p>Asymmetric vs Symmetric clustering</p>
 <table>
 <thead>
@@ -14980,16 +14980,16 @@ CPU / OS 設定 DMA 傳輸，device controller 負責大量資料搬移，完成
 <blockquote>
 <p>單一 CPU 透過快速切換，讓 CPU 使用率提高。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="timesharing--multitasking分時多工">Timesharing / Multitasking(分時／多工)<a class="headerlink" href="#timesharing--multitasking分時多工" title="Permanent link"></a></h3>
 <p>Timesharing 是 multiprogramming 的延伸。</p>
-<p>Multiprogramming 重點是提高 CPU utilization。<br />
+<p>Multiprogramming 重點是提高 CPU utilization。<br/>
 Timesharing 重點是讓使用者覺得系統有互動性。</p>
-<p>例如你同時開瀏覽器、VS Code、終端機。<br />
+<p>例如你同時開瀏覽器、VS Code、終端機。<br/>
 CPU 其實在不同 process 間快速切換，但你感覺它們「好像同時在跑」。</p>
 <p>講義提到 response time(反應時間) 通常應該小於 1 秒，這是互動式系統很在意的指標。</p>
 <p>講義_chapter 1_20240218</p>
-<hr />
+<hr/>
 <h3 id="dual-mode-operation雙模式運作">Dual-mode operation(雙模式運作)<a class="headerlink" href="#dual-mode-operation雙模式運作" title="Permanent link"></a></h3>
 <p>為了避免 user program(使用者程式) 亂碰硬體或 OS 核心資料，電腦通常有兩種模式：</p>
 <table>
@@ -15014,10 +15014,10 @@ CPU 其實在不同 process 間快速切換，但你感覺它們「好像同時�
 </tbody>
 </table>
 <p>生活化例子：</p>
-<p>User mode 像一般顧客，只能在餐廳用餐區活動。<br />
+<p>User mode 像一般顧客，只能在餐廳用餐區活動。<br/>
 Kernel mode 像店長或廚房主管，可以進廚房、開保險箱、調度資源。</p>
 <p>當 user program 需要 OS 服務，例如讀檔、I/O、配置記憶體，通常會透過 <strong>System call(系統呼叫)</strong> 進入 kernel mode。</p>
-<hr />
+<hr/>
 <h3 id="timer計時器">Timer(計時器)<a class="headerlink" href="#timer計時器" title="Permanent link"></a></h3>
 <p>Timer 的目的：</p>
 <blockquote>
@@ -15026,18 +15026,18 @@ Kernel mode 像店長或廚房主管，可以進廚房、開保險箱、調度�
 <p>也就是防止某個程式無限迴圈霸佔 CPU。</p>
 <p>OS 可以設定 timer，時間到就產生 interrupt，讓 OS 重新取得控制權，進行排班或終止超時程式。</p>
 <h2 id="os-resource-management-overview">OS Resource Management Overview<a class="headerlink" href="#os-resource-management-overview" title="Permanent link"></a></h2>
-<p><strong>Process Management(行程管理)</strong><br />
+<p><strong>Process Management(行程管理)</strong><br/>
 Process(行程) 是正在執行中的程式。OS 要負責 process / thread scheduling、process creation/deletion、suspend/resume、synchronization、communication、deadlock handling。</p>
 <p>講義_chapter 1_20240218</p>
-<p><strong>Main Memory Management(主記憶體管理)</strong><br />
+<p><strong>Main Memory Management(主記憶體管理)</strong><br/>
 OS 要記錄哪些 memory 正在被使用、誰在使用、何時分配與回收 memory。</p>
 <p>講義_chapter 1_20240218</p>
-<p><strong>Storage Management(儲存體管理)</strong><br />
+<p><strong>Storage Management(儲存體管理)</strong><br/>
 OS 將實體儲存裝置抽象成 logical storage unit，也就是 File(檔案)，並負責檔案與目錄建立、刪除、備份、磁碟排班等。</p>
 <p>講義_chapter 1_20240218</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><strong>I/O System(I/O 系統)</strong>  </p>
+<p><strong>I/O System(I/O 系統)</strong> </p>
 <p>I/O subsystem(I/O 子系統) 是 OS(作業系統) 裡面專門負責管理 input/output devices(輸入／輸出裝置) 的一整組機制。</p>
 <p>包含 buffering(緩衝)、caching(快取)、spooling、device-driver interface、specific device drivers。</p>
 <p><mark>device driver是啥？</mark></p>
@@ -15047,7 +15047,7 @@ OS 將實體儲存裝置抽象成 logical storage unit，也就是 File(檔案)�
 <p class="admonition-title">Danger</p>
 <p>Device controller 是硬體，device driver 才是軟體！！</p>
 </div>
-<p><strong>Protection and Security(保護與安全)</strong><br />
+<p><strong>Protection and Security(保護與安全)</strong><br/>
 確保檔案、memory segment、CPU、其他資源只能由被授權的 process 適當操作。</p>
 <h3 id="spooling-是啥">spooling 是啥<a class="headerlink" href="#spooling-是啥" title="Permanent link"></a></h3>
 <p>Spooling(排存／假離線) 是什麼？</p>
@@ -15055,10 +15055,10 @@ OS 將實體儲存裝置抽象成 logical storage unit，也就是 File(檔案)�
 <p>先把要給慢速裝置處理的資料，暫時存到一個 queue(佇列) 或 buffer(緩衝區) 裡，等裝置有空再慢慢處理。</p>
 <p>最經典例子是 printer(印表機)。</p>
 <p>假設你同時開了三個程式，都要列印：</p>
-<p>Word 要印 10 頁<br />
-PDF 要印 3 頁<br />
+<p>Word 要印 10 頁<br/>
+PDF 要印 3 頁<br/>
 瀏覽器要印 1 頁</p>
-<p>印表機很慢，而且一次只能印一份。<br />
+<p>印表機很慢，而且一次只能印一份。<br/>
 如果沒有 spooling(排存)，程式可能要一直等印表機印完，才能繼續做事。</p>
 <table>
 <thead>
@@ -15224,7 +15224,7 @@ PDF 要印 3 頁<br />
 <p>講義在 DMA 段落也說，device controller 可以把資料區塊直接從 buffer storage 傳到 main memory，無需 CPU 干預。</p>
 <p>講義_chapter 1_20240218</p>
 <p>最短理解：</p>
-<p><strong>CPU cache 搬資料：硬體自動。</strong><br />
+<p><strong>CPU cache 搬資料：硬體自動。</strong><br/>
 <strong>I/O 裝置搬到 RAM：OS 下命令，controller / DMA 實際搬。</strong></p>
 <h2 id="cloud-computing">Cloud computing<a class="headerlink" href="#cloud-computing" title="Permanent link"></a></h2>
 <p>Cloud computing(雲端計算) 是透過 Network(網路) 提供：</p>
@@ -15267,7 +15267,7 @@ PDF 要印 3 頁<br />
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="cloud-service-models雲端服務模型">Cloud service models(雲端服務模型)<a class="headerlink" href="#cloud-service-models雲端服務模型" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -15342,7 +15342,7 @@ PDF 要印 3 頁<br />
 <p>「請幫我開這個檔案。」</p>
 </blockquote>
 <p>這個「向 OS 請求服務」的動作就是 <strong>System call(系統呼叫)</strong>。</p>
-<hr />
+<hr/>
 <h3 id="正式定義">正式定義<a class="headerlink" href="#正式定義" title="Permanent link"></a></h3>
 <p><strong>System call(系統呼叫)</strong> 是程式使用 OS services(作業系統服務) 的介面。</p>
 <p>常見例子：</p>
@@ -15380,9 +15380,9 @@ PDF 要印 3 頁<br />
 <blockquote>
 <p>User program 通常透過 API，例如 POSIX API、Win32 API、Java API，間接呼叫 system call。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="為什麼-system-call-會牽涉-user-mode--kernel-mode">為什麼 system call 會牽涉 user mode / kernel mode？<a class="headerlink" href="#為什麼-system-call-會牽涉-user-mode--kernel-mode" title="Permanent link"></a></h3>
-<p>一般程式在 <strong>User mode(使用者模式)</strong>。<br />
+<p>一般程式在 <strong>User mode(使用者模式)</strong>。<br/>
 但真正執行 OS 服務時，常需要進入 <strong>Kernel mode(核心模式)</strong>。</p>
 <p>流程可以想成：</p>
 <pre class="diagram"><code>flowchart TB
@@ -15390,7 +15390,7 @@ PDF 要印 3 頁<br />
     B --&gt; C["System call interface&lt;br&gt;系統呼叫介面"]
     C --&gt; D["Kernel mode&lt;br&gt;OS 執行服務"]
     D --&gt; E["Return result&lt;br&gt;回傳結果"]</code></pre>
-<hr />
+<hr/>
 <h3 id="三種-system-call-參數傳遞方式">三種 System Call 參數傳遞方式<a class="headerlink" href="#三種-system-call-參數傳遞方式" title="Permanent link"></a></h3>
 <p>考古可能直接問：</p>
 <blockquote>
@@ -15455,7 +15455,7 @@ PDF 要印 3 頁<br />
 <blockquote>
 <p>需要處理 synchronization(同步) 與 conflict/race condition(衝突／競爭情況)，否則可能資料不一致。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="message-passing-model訊息傳遞模型">Message-passing model(訊息傳遞模型)<a class="headerlink" href="#message-passing-model訊息傳遞模型" title="Permanent link"></a></h3>
 <p>Process 不共享同一塊記憶體，而是用 send(message) / receive(message) 傳送訊息。</p>
 <p>優點：</p>
@@ -15466,14 +15466,14 @@ PDF 要印 3 頁<br />
 <blockquote>
 <p>大量資料時可能較慢，因為訊息可能需要複製或經過 kernel 管理。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="message-queue訊息佇列">Message queue(訊息佇列)<a class="headerlink" href="#message-queue訊息佇列" title="Permanent link"></a></h3>
 <p>Message queue(訊息佇列) 是 Message passing(訊息傳遞) 常用的一種實作機制。</p>
 <p>重點不是 process 直接共享同一塊 memory，而是把 message 放進一個 queue(佇列) 裡，由另一個 process 取出。</p>
 <p>生活化例子：</p>
 <blockquote>
-<p>Message queue 像櫃台信箱。<br />
-Process A 把信放進信箱，Process B 再從信箱取出來。<br />
+<p>Message queue 像櫃台信箱。<br/>
+Process A 把信放進信箱，Process B 再從信箱取出來。<br/>
 A 和 B 不需要直接碰彼此的記憶體。</p>
 </blockquote>
 <p>基本流程：</p>
@@ -15521,7 +15521,7 @@ A 和 B 不需要直接碰彼此的記憶體。</p>
 <blockquote>
 <p>Message queue 是 Message passing 的「排隊收發信箱」；Shared memory 是多個 process 共用同一張白板。</p>
 </blockquote>
-<hr />
+<hr/>
 <h2 id="message-passing-進階">Message passing 進階<a class="headerlink" href="#message-passing-進階" title="Permanent link"></a></h2>
 <h3 id="direct-communication直接通訊">Direct communication(直接通訊)<a class="headerlink" href="#direct-communication直接通訊" title="Permanent link"></a></h3>
 <p>Direct communication 是 sender(傳送者) 和 receiver(接收者) 直接指定對方。</p>
@@ -15534,7 +15534,7 @@ receive(Q, message)
 <li>send(P, message)：把 message 傳給 process P</li>
 <li>receive(Q, message)：從 process Q 接收 message</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="indirect-communication間接通訊">Indirect communication(間接通訊)<a class="headerlink" href="#indirect-communication間接通訊" title="Permanent link"></a></h3>
 <p>Indirect communication 是透過 mailbox(信箱) 或 port(埠) 傳訊息。</p>
 <p>例如：</p>
@@ -15570,11 +15570,11 @@ receive(A, message)
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h2 id="ch-3-開始">ch 3 開始<a class="headerlink" href="#ch-3-開始" title="Permanent link"></a></h2>
 <h2 id="process-concept-and-process-memory-layout">Process Concept and Process Memory Layout<a class="headerlink" href="#process-concept-and-process-memory-layout" title="Permanent link"></a></h2>
 <blockquote>
-<p><strong>Program(程式)</strong> 是放在磁碟上的靜態檔案。<br />
+<p><strong>Program(程式)</strong> 是放在磁碟上的靜態檔案。<br/>
 <strong>Process(行程)</strong> 是正在執行中的程式。</p>
 </blockquote>
 <p>生活化例子：</p>
@@ -15596,13 +15596,13 @@ receive(A, message)
 </tr>
 </tbody>
 </table>
-<p>同一個 program 可以產生多個 process。<br />
+<p>同一個 program 可以產生多個 process。<br/>
 例如你開兩個 Chrome 視窗，它們可能對應不同 process。</p>
-<hr />
+<hr/>
 <h3 id="正式定義_1">正式定義<a class="headerlink" href="#正式定義_1" title="Permanent link"></a></h3>
 <p><strong>Process(行程)</strong> 是正在執行中的程式。它不只是程式碼，還包含目前執行狀態，例如 Program Counter(程式計數器)、CPU registers(暫存器)、Stack(堆疊)、Data section(資料區段)、Heap(堆積) 等。講義 Chapter 3 明確說 process 是正在執行的程式，並包含 PC、registers、stack、data section、heap 等內容。</p>
 <p>講義_chapter 3_20240318</p>
-<hr />
+<hr/>
 <h3 id="process-memory-layout">Process memory layout<a class="headerlink" href="#process-memory-layout" title="Permanent link"></a></h3>
 <p>一個 process 通常包含：</p>
 <table>
@@ -15640,7 +15640,7 @@ receive(A, message)
 <blockquote>
 <p>差異是"會不會在程式執行執行期間死掉"。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="stack-vs-heap">Stack vs Heap<a class="headerlink" href="#stack-vs-heap" title="Permanent link"></a></h3>
 <p>這是考古高機率題，110 考古 Q8 直接問：</p>
 <blockquote>
@@ -15685,14 +15685,14 @@ receive(A, message)
 </tbody>
 </table>
 <p>生活化例子：</p>
-<p>Stack 像一疊盤子，最後放上去的最先拿走，符合 LIFO。<br />
+<p>Stack 像一疊盤子，最後放上去的最先拿走，符合 LIFO。<br/>
 Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就會 memory leak。</p>
 <h4 id="memory-leak-是什麼">Memory leak 是什麼？<a class="headerlink" href="#memory-leak-是什麼" title="Permanent link"></a></h4>
 <p>Memory leak(記憶體洩漏) 是指：</p>
 <p>程式向 Heap(堆積) 申請了一塊記憶體，但用完後沒有釋放，導致那塊記憶體一直被佔著，不能再被正常使用。</p>
 <p>生活化例子：</p>
 <p>想像你去圖書館借了一個置物櫃。</p>
-<p>你把東西拿走了，但忘記把鑰匙還給櫃台。<br />
+<p>你把東西拿走了，但忘記把鑰匙還給櫃台。<br/>
 櫃子其實空了，可是系統以為它還被你佔用，別人也不能用。</p>
 <p>這就是 memory leak 的感覺：</p>
 <blockquote>
@@ -15700,7 +15700,7 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </blockquote>
 <h2 id="process-state行程狀態-與-process-control-block-pcb行程控制表">Process State(行程狀態) 與 Process Control Block, PCB(行程控制表)<a class="headerlink" href="#process-state行程狀態-與-process-control-block-pcb行程控制表" title="Permanent link"></a></h2>
 <h3 id="process-state行程狀態-是什麼">Process State(行程狀態) 是什麼？<a class="headerlink" href="#process-state行程狀態-是什麼" title="Permanent link"></a></h3>
-<p>Process 執行時不會永遠都在 running。<br />
+<p>Process 執行時不會永遠都在 running。<br/>
 它可能剛被建立、正在等 CPU、正在執行、等待 I/O、或已經結束。</p>
 <p>常見五種狀態：</p>
 <table>
@@ -15739,7 +15739,7 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="狀態轉換直覺圖">狀態轉換直覺圖<a class="headerlink" href="#狀態轉換直覺圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     New["New&lt;br&gt;新建"] --&gt; Ready["Ready&lt;br&gt;就緒"]
@@ -15783,7 +15783,7 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="pcb-是什麼">PCB 是什麼？<a class="headerlink" href="#pcb-是什麼" title="Permanent link"></a></h3>
 <p><strong>Process Control Block, PCB(行程控制表)</strong> 是 OS 用來記錄 process 狀態的資料結構。</p>
 <p>可以想成 process 的「個人檔案」。</p>
@@ -15857,7 +15857,7 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </tbody>
 </table>
 <p>CPU scheduler 像工作人員從 ready queue 挑下一個人去玩設施，也就是讓 process 上 CPU 執行。</p>
-<hr />
+<hr/>
 <h3 id="scheduling-queues排班佇列">Scheduling Queues(排班佇列)<a class="headerlink" href="#scheduling-queues排班佇列" title="Permanent link"></a></h3>
 <p>常見三種：</p>
 <table>
@@ -15886,7 +15886,7 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="schedulers排班程式">Schedulers(排班程式)<a class="headerlink" href="#schedulers排班程式" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -15918,17 +15918,17 @@ Heap 像倉庫，你可以到處租空間，但要記得自己歸還，不然就
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="最常考差異">最常考差異<a class="headerlink" href="#最常考差異" title="Permanent link"></a></h3>
-<p><strong>Short-term scheduler(短期排班程式)</strong><br />
+<p><strong>Short-term scheduler(短期排班程式)</strong><br/>
 重點是快，因為它很常執行。它從 ready queue 選 process 分配 CPU。</p>
-<p><strong>Long-term scheduler(長期排班程式)</strong><br />
+<p><strong>Long-term scheduler(長期排班程式)</strong><br/>
 重點是控制 <strong>degree of multiprogramming(多元程式規劃程度)</strong>，也就是系統中同時有多少 process 進入 memory / ready queue。</p>
-<p><strong>Medium-term scheduler(中期排班程式)</strong><br />
+<p><strong>Medium-term scheduler(中期排班程式)</strong><br/>
 重點是 <strong>swapping(交換)</strong>，可以把 process 從 memory 移到 disk，之後再移回來繼續執行。</p>
 <h3 id="對應關係">對應關係<a class="headerlink" href="#對應關係" title="Permanent link"></a></h3>
 <blockquote>
-<p>Ready queue 對應 Ready state。<br />
+<p>Ready queue 對應 Ready state。<br/>
 Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一類。</p>
 </blockquote>
 <h2 id="io-bound--cpu-bound-行程與-context-switch內容切換">I/O-bound / CPU-bound 行程與 Context Switch(內容切換)<a class="headerlink" href="#io-bound--cpu-bound-行程與-context-switch內容切換" title="Permanent link"></a></h2>
@@ -15948,7 +15948,7 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 <li>等使用者輸入</li>
 <li>資料庫讀磁碟</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="cpu-bound-process">CPU-bound process<a class="headerlink" href="#cpu-bound-process" title="Permanent link"></a></h3>
 <p><strong>CPU-bound process(CPU 密集型行程)</strong>：</p>
 <blockquote>
@@ -15967,7 +15967,7 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 <li>矩陣運算</li>
 <li>AI 模型推論或訓練中的計算部分</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="context-switch">Context Switch<a class="headerlink" href="#context-switch" title="Permanent link"></a></h3>
 <p><strong>Context switch(內容切換)</strong> 是：</p>
 <blockquote>
@@ -15983,7 +15983,7 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 </ul>
 <p>重要觀念：</p>
 <blockquote>
-<p>Context switch 是 overhead(額外負擔)，因為切換期間 CPU 沒有在執行真正有用的 user program 工作。<br />
+<p>Context switch 是 overhead(額外負擔)，因為切換期間 CPU 沒有在執行真正有用的 user program 工作。<br/>
 簡單來說就是要寫作業時，花了30分鐘拿作業，這30分鐘就是 overhead 。</p>
 </blockquote>
 <p>講義 Chapter 3 說 context switch 需要保存目前 process 的 context，再載入新 process 的保存狀態；這是 overhead。</p>
@@ -16003,9 +16003,9 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 <p><code>fork()</code> 之後，parent 和 child 都會從 <code>fork()</code> 之後的地方繼續執行。</p>
 </blockquote>
 <p>生活化例子：</p>
-<p>你影印一份作業。<br />
+<p>你影印一份作業。<br/>
 影印前只有一份，影印後有兩份，而且兩份都會繼續往下寫。</p>
-<hr />
+<hr/>
 <h3 id="fork-的回傳值">fork() 的回傳值<a class="headerlink" href="#fork-的回傳值" title="Permanent link"></a></h3>
 <p><code>fork()</code> 最重要的是回傳值不同：</p>
 <table>
@@ -16035,12 +16035,12 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 </tbody>
 </table>
 <p>講義 Chapter 3 也明確列出：<code>fork()</code> 在 child 回傳 0，在 parent 回傳大於 0，在錯誤時回傳 -1。</p>
-<hr />
+<hr/>
 <h3 id="exec-是什麼">exec() 是什麼？<a class="headerlink" href="#exec-是什麼" title="Permanent link"></a></h3>
 <p><code>exec()</code> 會把目前 process 的 memory space 替換成新的 program。</p>
 <p>重點：</p>
 <blockquote>
-<p><code>fork()</code> 是產生 child process。<br />
+<p><code>fork()</code> 是產生 child process。<br/>
 <code>exec()</code> 是讓某個 process 載入並執行新程式。</p>
 </blockquote>
 <p>常見組合：</p>
@@ -16053,32 +16053,32 @@ Device queue 通常對應 Waiting state 中「正在等 I/O device」的那一�
 <span class="p">}</span>
 </code></pre></div>
 <p>exec() 成功後，這些會被新的 program 內容取代。</p>
-<p>例如 child 原本是 shell 的副本：<br />
+<p>例如 child 原本是 shell 的副本：<br/>
 <div class="highlight"><pre><span></span><code>Process 2001
 Text: shell 的機器碼
 Data: shell 的資料
 Heap: shell 的 heap
 Stack: shell 的 stack
 PC: shell 下一行要執行的位置
-</code></pre></div><br />
-執行：<br />
-<div class="highlight"><pre><span></span><code>execlp(&quot;/bin/ls&quot;, &quot;ls&quot;, NULL);
-</code></pre></div><br />
-之後：<br />
+</code></pre></div><br/>
+執行：<br/>
+<div class="highlight"><pre><span></span><code>execlp("/bin/ls", "ls", NULL);
+</code></pre></div><br/>
+之後：<br/>
 <div class="highlight"><pre><span></span><code>Process 2001
 Text: ls 的機器碼
 Data: ls 的資料
 Heap: ls 的 heap
 Stack: ls 啟動用的新 stack
 PC: ls 的程式入口點
-</code></pre></div><br />
+</code></pre></div><br/>
 這就是「替換」。</p>
-<hr />
+<hr/>
 <h3 id="wait-是什麼">wait() 是什麼？<a class="headerlink" href="#wait-是什麼" title="Permanent link"></a></h3>
 <p><code>wait()</code> 讓 parent process 等 child process 結束。</p>
 <p>如果 parent 沒有 <code>wait()</code> child，child 結束後可能變成 <strong>Zombie process(僵屍行程)</strong>。</p>
 <p>如果 parent 先結束，而 child 還在跑，child 會變成 <strong>Orphan process(孤兒行程)</strong>，通常會被 <code>init</code> 或系統中的類似 process 接管。講義 Chapter 3 也說 terminated process 沒有 parent waiting 時會是 zombie；parent terminated 時 child process 會成為 orphan。</p>
-<hr />
+<hr/>
 <h3 id="fork-題最重要規則">fork 題最重要規則<a class="headerlink" href="#fork-題最重要規則" title="Permanent link"></a></h3>
 <p>每次 <code>fork()</code> 都會讓「目前存在的每個 process」各自再產生一個 child。</p>
 <p>所以：</p>
@@ -16088,12 +16088,12 @@ PC: ls 的程式入口點
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger | PEICD100</p>
-<p>如果中間沒有條件限制，最後 process 數量是：<br />
+<p>如果中間沒有條件限制，最後 process 數量是：<br/>
 <div class="highlight"><pre><span></span><code>2^3 = 8 processes
 </code></pre></div></p>
 <p>因為一個 fork() 會分割兩次，並留下原本的，所以是 2^n 個。</p>
 </div>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-1.png" width="60%" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-1.png" width="60%"/></p>
 <p>若每個 process 都印一次，就會印 8 次。</p>
 <h3 id="fork-題的最核心規則">fork 題的最核心規則<a class="headerlink" href="#fork-題的最核心規則" title="Permanent link"></a></h3>
 <p>每次遇到 <code>fork()</code>：</p>
@@ -16127,14 +16127,14 @@ PC: ls 的程式入口點
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="但印出次數不一定只看最後-process-數">但印出次數不一定只看最後 process 數<a class="headerlink" href="#但印出次數不一定只看最後-process-數" title="Permanent link"></a></h3>
 <p>如果程式是這樣：</p>
 <div class="highlight"><pre><span></span><code><span class="n">fork</span><span class="p">();</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;A</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"A</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 
 <span class="n">fork</span><span class="p">();</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;B</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"B</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 </code></pre></div>
 <p>要分段算：</p>
 <ol>
@@ -16145,10 +16145,10 @@ PC: ls 的程式入口點
 <div class="highlight"><pre><span></span><code>A 印 2 次
 B 印 4 次
 </code></pre></div>
-<p>如圖：<br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-2.png" width="50%" /></p>
+<p>如圖：<br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-2.png" width="50%"/></p>
 <p>考古 110 的 fork 題就是這種「每個 fork 後面都有 printf」的變形。</p>
-<hr />
+<hr/>
 <h3 id="fork-回傳值再提醒">fork 回傳值再提醒<a class="headerlink" href="#fork-回傳值再提醒" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -16177,7 +16177,7 @@ B 印 4 次
 </div>
 <p>這會影響條件判斷題，例如：</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>這種情況只有 child 會印。</p>
@@ -16188,9 +16188,9 @@ B 印 4 次
 <blockquote>
 <p>child 已經死掉了，但 process table 裡還留著它的紀錄。</p>
 </blockquote>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 像學生已經畢業離校，但學校行政系統還沒辦退學／畢業手續，所以名單上還卡著一筆紀錄。</p>
-<hr />
+<hr/>
 <h3 id="orphan-process-是什麼">Orphan process 是什麼？<a class="headerlink" href="#orphan-process-是什麼" title="Permanent link"></a></h3>
 <p>當 <strong>parent process 先結束</strong>，但 <strong>child process 還在執行</strong>，這個 child 就變成 <strong>Orphan process</strong>。</p>
 <p>之後它通常會被 <code>init</code> 或系統中的對應行程接管。</p>
@@ -16198,9 +16198,9 @@ B 印 4 次
 <blockquote>
 <p>parent 先死，child 還活著。</p>
 </blockquote>
-<p>生活化例子：<br />
+<p>生活化例子：<br/>
 像小朋友還在活動，但原本帶隊老師先離開了，所以改由另一位老師接手。</p>
-<hr />
+<hr/>
 <h3 id="最容易混淆的差別">最容易混淆的差別<a class="headerlink" href="#最容易混淆的差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -16229,13 +16229,13 @@ B 印 4 次
 <p>一句話記法：</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Zombie = child terminated, parent still alive, but parent has not yet called wait().<br />
+<p>Zombie = child terminated, parent still alive, but parent has not yet called wait().<br/>
 Orphan = parent terminated, child still alive.</p>
 </div>
 <p>講義 Chapter 3 對 Zombie / Orphan 也有這個核心定義。</p>
 <h2 id="環狀佇列問題生產者消費者共享資料">環狀佇列問題／生產者消費者共享資料<a class="headerlink" href="#環狀佇列問題生產者消費者共享資料" title="Permanent link"></a></h2>
 <h3 id="直覺版_1">直覺版<a class="headerlink" href="#直覺版_1" title="Permanent link"></a></h3>
-<p>Producer(生產者) 一直往 buffer 放資料。<br />
+<p>Producer(生產者) 一直往 buffer 放資料。<br/>
 Consumer(消費者) 一直從 buffer 拿資料。</p>
 <p>如果 buffer 是 circular queue(環狀佇列)，通常用兩個指標：</p>
 <ul>
@@ -16249,7 +16249,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <p>因為兩種情況都可能出現：</p>
 <div class="highlight"><pre><span></span><code>in == out
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="原始寫法的問題">原始寫法的問題<a class="headerlink" href="#原始寫法的問題" title="Permanent link"></a></h3>
 <p>考古題那種原始寫法通常是：</p>
 <ul>
@@ -16261,9 +16261,9 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <p><strong>永遠浪費一格。</strong></p>
 </blockquote>
 <p>因為它故意保留一個空格，避免 full 和 empty 都變成 <code>in == out</code> 時無法區分。</p>
-<p>所以如果 <code>BUFFER_SIZE = 10</code>，實際只能放 <strong>9</strong> 個元素。<br />
+<p>所以如果 <code>BUFFER_SIZE = 10</code>，實際只能放 <strong>9</strong> 個元素。<br/>
 如果 <code>N = 8</code>，實際只能放 <strong>7</strong> 個元素。</p>
-<hr />
+<hr/>
 <h3 id="怎麼解">怎麼解？<a class="headerlink" href="#怎麼解" title="Permanent link"></a></h3>
 <p>常見兩種解法：</p>
 <h4 id="用-count">用 count<a class="headerlink" href="#用-count" title="Permanent link"></a></h4>
@@ -16279,7 +16279,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <li><code>in == out &amp;&amp; tag == 1</code> → full</li>
 </ul>
 <p>你自己的筆記就是用 <strong>tag</strong> 來避免浪費一格，讓 <code>N = 8</code> 時真的能放滿 8 個元素。</p>
-<hr />
+<hr/>
 <h3 id="考試最短答案骨架">考試最短答案骨架<a class="headerlink" href="#考試最短答案骨架" title="Permanent link"></a></h3>
 <p>如果題目問：</p>
 <blockquote>
@@ -16297,7 +16297,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <blockquote>
 <p><strong>Use an additional variable such as a count or a tag/flag to distinguish full from empty, so the queue can use all BUFFER_SIZE slots.</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="看代碼">看代碼<a class="headerlink" href="#看代碼" title="Permanent link"></a></h3>
 <h4 id="1-代碼講解">1. 代碼講解<a class="headerlink" href="#1-代碼講解" title="Permanent link"></a></h4>
 <p>原始 circular queue 只有兩個指標：</p>
@@ -16315,15 +16315,15 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <p><strong>會浪費一格。</strong></p>
 </blockquote>
 <p>因為它必須故意保留一個空格，才能避免 full 和 empty 都變成 <code>in == out</code>。講義也明確寫了：這個解法正確，但只能用 <code>BUFFER_SIZE - 1</code> 個元素。</p>
-<hr />
+<hr/>
 <h4 id="2-原始-producer--consumer-核心代碼">2. 原始 Producer / Consumer 核心代碼<a class="headerlink" href="#2-原始-producer--consumer-核心代碼" title="Permanent link"></a></h4>
 <p>這是考古題那種原始版核心：</p>
 <p><div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-</code></pre></div><br />
-<img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-4.png" /></p>
+</code></pre></div><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-4.png"/></p>
 <h5 id="21-producer">2.1 Producer<a class="headerlink" href="#21-producer" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
 
@@ -16350,7 +16350,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">N</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="3-這段到底哪裡有問題">3. 這段到底哪裡有問題？<a class="headerlink" href="#3-這段到底哪裡有問題" title="Permanent link"></a></h4>
 <p>關鍵不是它「錯」，而是它：</p>
 <blockquote>
@@ -16370,11 +16370,11 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <li>還是 full</li>
 </ul>
 <p>這就是 110 考古第 7 題的核心。</p>
-<hr />
+<hr/>
 <h4 id="4-解法一count-解法">4. 解法一：count 解法<a class="headerlink" href="#4-解法一count-解法" title="Permanent link"></a></h4>
-<p>這是最直觀的作法：<br />
+<p>這是最直觀的作法：<br/>
 額外加一個變數 <code>count</code>，表示目前 buffer 裡有幾個元素。</p>
-<hr />
+<hr/>
 <h5 id="41-共享資料">4.1 共享資料<a class="headerlink" href="#41-共享資料" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
@@ -16382,8 +16382,8 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
-<hr />
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-5.png" /></p>
+<hr/>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-5.png"/></p>
 <h5 id="42-producer-重點代碼">4.2 Producer 重點代碼<a class="headerlink" href="#42-producer-重點代碼" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
 
@@ -16399,7 +16399,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="w">    </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="43-consumer-重點代碼">4.3 Consumer 重點代碼<a class="headerlink" href="#43-consumer-重點代碼" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextConsumed</span><span class="p">;</span>
 
@@ -16413,7 +16413,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="w">    </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="44-為什麼-count-解法可行">4.4 為什麼 count 解法可行？<a class="headerlink" href="#44-為什麼-count-解法可行" title="Permanent link"></a></h5>
 <p>因為現在 full / empty 不再只靠 <code>in</code> 和 <code>out</code> 判斷，而是靠 <code>count</code>：</p>
 <ul>
@@ -16421,7 +16421,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <li><code>count == N</code> → full</li>
 </ul>
 <p>所以 <code>N = 8</code> 就真的可以放滿 8 格。</p>
-<hr />
+<hr/>
 <h5 id="45-count-解法的優缺點">4.5 count 解法的優缺點<a class="headerlink" href="#45-count-解法的優缺點" title="Permanent link"></a></h5>
 <p>優點：</p>
 <ul>
@@ -16434,13 +16434,13 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <li>多一個共享變數 <code>count</code></li>
 <li>在真正並行環境下，<code>count++</code> / <code>count--</code> 也會有 <strong>race condition(競爭情況)</strong>，所以如果真的同時跑 producer / consumer，仍要搭配 synchronization，例如 mutex / semaphore。講義 Chapter 5 也正是用 producer-consumer 的 <code>count</code> 例子說明 race condition。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="5-解法二tag--flag-解法">5. 解法二：tag / flag 解法<a class="headerlink" href="#5-解法二tag--flag-解法" title="Permanent link"></a></h4>
 <p>這就是你作業筆記裡用的版本。核心想法是：</p>
 <blockquote>
 <p>當 <code>in == out</code> 時，再多看一個 <code>tag</code> 來判斷到底是 empty 還是 full。</p>
 </blockquote>
-<hr />
+<hr/>
 <h5 id="51-共享資料">5.1 共享資料<a class="headerlink" href="#51-共享資料" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="cp">#define N 8</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
@@ -16448,8 +16448,8 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="kt">int</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 0: empty, 1: full (when in == out)</span>
 </code></pre></div>
-<hr />
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-3.png" /></p>
+<hr/>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-3.png"/></p>
 <p>詳細請看：<a href="#tag-太抽象了我們直接看詳細一點">Tag 太抽象了，我們直接看詳細一點</a></p>
 <h5 id="52-producer-重點代碼">5.2 Producer 重點代碼<a class="headerlink" href="#52-producer-重點代碼" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextProduced</span><span class="p">;</span>
@@ -16469,7 +16469,7 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="53-consumer-重點代碼">5.3 Consumer 重點代碼<a class="headerlink" href="#53-consumer-重點代碼" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">nextConsumed</span><span class="p">;</span>
 
@@ -16486,16 +16486,16 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="54-為什麼-tag-解法可行">5.4 為什麼 tag 解法可行？<a class="headerlink" href="#54-為什麼-tag-解法可行" title="Permanent link"></a></h5>
 <p>因為現在：</p>
 <ul>
 <li><code>in == out &amp;&amp; tag == 0</code> → empty</li>
 <li><code>in == out &amp;&amp; tag == 1</code> → full</li>
 </ul>
-<p>這樣就不用再故意浪費一格，所以 <code>N = 8</code> 時可以真的放 8 個。<br />
+<p>這樣就不用再故意浪費一格，所以 <code>N = 8</code> 時可以真的放 8 個。<br/>
 這也是你筆記中「原本只放到 [0]~[6]，修改後可放到 [0]~[7]」的重點。</p>
-<hr />
+<hr/>
 <h4 id="6-count-解法-vs-tag-解法怎麼選">6. count 解法 vs tag 解法，怎麼選？<a class="headerlink" href="#6-count-解法-vs-tag-解法怎麼選" title="Permanent link"></a></h4>
 <h5 id="61-如果是考試簡答">6.1 如果是考試簡答<a class="headerlink" href="#61-如果是考試簡答" title="Permanent link"></a></h5>
 <p>我會建議你優先寫：</p>
@@ -16507,14 +16507,14 @@ Consumer(消費者) 一直從 buffer 拿資料。</p>
 <blockquote>
 <p>full 和 empty 會混淆，所以要多一個額外資訊。</p>
 </blockquote>
-<hr />
+<hr/>
 <h5 id="62-如果是實作作業">6.2 如果是實作作業<a class="headerlink" href="#62-如果是實作作業" title="Permanent link"></a></h5>
 <p>兩個都能用：</p>
 <ul>
 <li><strong>count</strong>：直觀、好懂</li>
 <li><strong>tag</strong>：很貼近你作業寫法，也很適合拿來回答「如何不浪費一格」</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="7-考試可直接背的英文骨架">7. 考試可直接背的英文骨架<a class="headerlink" href="#7-考試可直接背的英文骨架" title="Permanent link"></a></h4>
 <p>如果考古問：</p>
 <blockquote>
@@ -16530,7 +16530,7 @@ Then count == 0 means empty and count == N means full.
 Another solution is to add a tag (or flag).
 When in == out, tag = 0 can mean empty and tag = 1 can mean full.
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="8-你要特別小心的一點">8. 你要特別小心的一點<a class="headerlink" href="#8-你要特別小心的一點" title="Permanent link"></a></h4>
 <p>上面這些 code 主要是在解：</p>
 <blockquote>
@@ -16547,19 +16547,19 @@ When in == out, tag = 0 can mean empty and tag = 1 can mean full.
 <li>semaphore</li>
 </ul>
 <p>那就會接到 Chapter 5 的 bounded-buffer problem。</p>
-<hr />
+<hr/>
 <h4 id="9-你現在先記這一句就夠了">9. 你現在先記這一句就夠了<a class="headerlink" href="#9-你現在先記這一句就夠了" title="Permanent link"></a></h4>
 <blockquote>
-<p><strong>原始 circular queue 不是錯，而是會浪費一格。</strong><br />
+<p><strong>原始 circular queue 不是錯，而是會浪費一格。</strong><br/>
 <strong>解法就是多加一個資訊來區分 full 和 empty，例如 count 或 tag。</strong></p>
 </blockquote>
-<p>如果你要，我下一則可以直接幫你整理成「考古第 7 題可手寫版答案」，包含：<br />
+<p>如果你要，我下一則可以直接幫你整理成「考古第 7 題可手寫版答案」，包含：<br/>
 <strong>中文簡答 + 英文簡答 + Producer/Consumer 重點代碼</strong>。</p>
 <h3 id="tag-太抽象了我們直接看詳細一點">Tag 太抽象了，我們直接看詳細一點<a class="headerlink" href="#tag-太抽象了我們直接看詳細一點" title="Permanent link"></a></h3>
 <p>我把它拆成「<strong>你真的會在腦中看到它怎麼跑</strong>」的版本。</p>
-<p>先糾正一個小地方：這裡比較精確是 <strong>環狀佇列(circular queue)</strong>，不是圓盤。<br />
+<p>先糾正一個小地方：這裡比較精確是 <strong>環狀佇列(circular queue)</strong>，不是圓盤。<br/>
 但你說的「圓盤上怎麼轉」那個畫面其實很好用，我們就把 buffer 想成一圈格子。講義的原始 circular queue 與你作業的 tag 解法都在這個架構上。 </p>
-<hr />
+<hr/>
 <h4 id="1-先抓住核心tag-不是一直都重要">1. 先抓住核心：tag 不是一直都重要<a class="headerlink" href="#1-先抓住核心tag-不是一直都重要" title="Permanent link"></a></h4>
 <p><strong>最重要的一句話：</strong></p>
 <blockquote>
@@ -16580,7 +16580,7 @@ When in == out, tag = 0 can mean empty and tag = 1 can mean full.
 <blockquote>
 <p><strong>專門在 <code>in == out</code> 這個尷尬時刻，告訴你它到底是空還是滿。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="2-不用-tag-時為什麼會浪費一格">2. 不用 tag 時，為什麼會浪費一格？<a class="headerlink" href="#2-不用-tag-時為什麼會浪費一格" title="Permanent link"></a></h4>
 <p>原始設計：</p>
 <ul>
@@ -16588,9 +16588,9 @@ When in == out, tag = 0 can mean empty and tag = 1 can mean full.
 <li>full：<code>(in + 1) % N == out</code></li>
 </ul>
 <p>它故意不讓 <code>in</code> 真的追上 <code>out</code>，因為一旦追上去就分不出是空還是滿。</p>
-<p>所以它只好保留一格不使用。<br />
+<p>所以它只好保留一格不使用。<br/>
 這就是「浪費一格」。</p>
-<hr />
+<hr/>
 <h4 id="3-有-tag-時規則改成什麼">3. 有 tag 時，規則改成什麼？<a class="headerlink" href="#3-有-tag-時規則改成什麼" title="Permanent link"></a></h4>
 <p>我們多一個變數：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -16605,7 +16605,7 @@ When in == out, tag = 0 can mean empty and tag = 1 can mean full.
 <li>指標重合時，tag 幫你判斷</li>
 <li>指標不重合時，tag 不重要</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="4-用一個最小例子跑一次n--4">4. 用一個最小例子跑一次：N = 4<a class="headerlink" href="#4-用一個最小例子跑一次n--4" title="Permanent link"></a></h4>
 <p>假設環狀 buffer 有 4 格：</p>
 <div class="highlight"><pre><span></span><code>index:   0   1   2   3
@@ -16624,9 +16624,9 @@ out = 0
 tag = 0
 </code></pre></div>
 <p>因為 <code>in == out &amp;&amp; tag == 0</code>，所以這時候是 <strong>空</strong>。</p>
-<hr />
+<hr/>
 <h4 id="5-一步一步看-producer-怎麼動">5. 一步一步看 Producer 怎麼動<a class="headerlink" href="#5-一步一步看-producer-怎麼動" title="Permanent link"></a></h4>
-<hr />
+<hr/>
 <h5 id="51-放入第-1-個元素-a">5.1 放入第 1 個元素 A<a class="headerlink" href="#51-放入第-1-個元素-a" title="Permanent link"></a></h5>
 <p>Producer 做：</p>
 <ol>
@@ -16639,9 +16639,9 @@ in = 1
 out = 0
 tag = 0
 </code></pre></div>
-<p>這時候 <code>in != out</code>，所以根本不用看 tag。<br />
+<p>這時候 <code>in != out</code>，所以根本不用看 tag。<br/>
 queue 顯然不是空，也不是滿。</p>
-<hr />
+<hr/>
 <h5 id="52-放入第-2-個元素-b">5.2 放入第 2 個元素 B<a class="headerlink" href="#52-放入第-2-個元素-b" title="Permanent link"></a></h5>
 <p>放到 <code>buffer[1]</code>，然後 <code>in = 2</code></p>
 <div class="highlight"><pre><span></span><code>buffer: [A, B, _, _]
@@ -16649,7 +16649,7 @@ in = 2
 out = 0
 tag = 0
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="53-放入第-3-個元素-c">5.3 放入第 3 個元素 C<a class="headerlink" href="#53-放入第-3-個元素-c" title="Permanent link"></a></h5>
 <p>放到 <code>buffer[2]</code>，然後 <code>in = 3</code></p>
 <div class="highlight"><pre><span></span><code>buffer: [A, B, C, _]
@@ -16657,7 +16657,7 @@ in = 3
 out = 0
 tag = 0
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="54-放入第-4-個元素-d">5.4 放入第 4 個元素 D<a class="headerlink" href="#54-放入第-4-個元素-d" title="Permanent link"></a></h5>
 <p>放到 <code>buffer[3]</code>，然後：</p>
 <div class="highlight"><pre><span></span><code>in = (3 + 1) % 4 = 0
@@ -16665,7 +16665,7 @@ tag = 0
 <p>現在發現：</p>
 <div class="highlight"><pre><span></span><code>in == out
 </code></pre></div>
-<p>這就進入歧義區了。<br />
+<p>這就進入歧義區了。<br/>
 到底是空還是滿？</p>
 <p>這時候 Producer 知道一件事：</p>
 <blockquote>
@@ -16681,7 +16681,7 @@ out = 0
 tag = 1
 </code></pre></div>
 <p>現在因為 <code>in == out &amp;&amp; tag == 1</code>，所以這是 <strong>滿</strong>。</p>
-<hr />
+<hr/>
 <h4 id="6-再看-consumer-怎麼動">6. 再看 Consumer 怎麼動<a class="headerlink" href="#6-再看-consumer-怎麼動" title="Permanent link"></a></h4>
 <p>現在 queue 是滿的：</p>
 <div class="highlight"><pre><span></span><code>buffer: [A, B, C, D]
@@ -16689,7 +16689,7 @@ in = 0
 out = 0
 tag = 1
 </code></pre></div>
-<hr />
+<hr/>
 <h5 id="61-消費第-1-個元素-a">6.1 消費第 1 個元素 A<a class="headerlink" href="#61-消費第-1-個元素-a" title="Permanent link"></a></h5>
 <p>Consumer 讀取：</p>
 <div class="highlight"><pre><span></span><code>buffer[out] = buffer[0] = A
@@ -16714,7 +16714,7 @@ tag = 1
 <p><strong>tag 可以暫時保持舊值，只要 <code>in != out</code> 就不會誤判。</strong></p>
 </blockquote>
 <p>這點很重要，很多人就是在這裡覺得抽象。</p>
-<hr />
+<hr/>
 <h5 id="62-再消費-bc">6.2 再消費 B、C<a class="headerlink" href="#62-再消費-bc" title="Permanent link"></a></h5>
 <p>持續拿：</p>
 <ul>
@@ -16722,7 +16722,7 @@ tag = 1
 <li>拿 C：<code>out = 3</code></li>
 </ul>
 <p>都還是 <code>in != out</code>，所以不需要理 tag。</p>
-<hr />
+<hr/>
 <h5 id="63-最後消費-d">6.3 最後消費 D<a class="headerlink" href="#63-最後消費-d" title="Permanent link"></a></h5>
 <p>拿掉最後一個元素 D 之後：</p>
 <div class="highlight"><pre><span></span><code>out = (3 + 1) % 4 = 0
@@ -16747,18 +16747,18 @@ tag = 0
 <ul>
 <li><code>in == out &amp;&amp; tag == 0</code> → <strong>empty</strong></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="7-你可以把-tag-理解成最後一次讓兩指標重合的是誰">7. 你可以把 tag 理解成「最後一次讓兩指標重合的是誰」<a class="headerlink" href="#7-你可以把-tag-理解成最後一次讓兩指標重合的是誰" title="Permanent link"></a></h4>
 <p>這是最直覺的心法。</p>
 <p>當 <code>in == out</code> 時：</p>
 <ul>
-<li>如果是 <strong>Producer</strong> 最後讓它們重合，代表剛塞滿<br />
+<li>如果是 <strong>Producer</strong> 最後讓它們重合，代表剛塞滿<br/>
   → <code>tag = 1</code></li>
-<li>如果是 <strong>Consumer</strong> 最後讓它們重合，代表剛拿空<br />
+<li>如果是 <strong>Consumer</strong> 最後讓它們重合，代表剛拿空<br/>
   → <code>tag = 0</code></li>
 </ul>
 <p>所以 tag 很像一個「最後裁判紀錄」。</p>
-<hr />
+<hr/>
 <h4 id="8-整個流程表看一次就通">8. 整個流程表，看一次就通<a class="headerlink" href="#8-整個流程表看一次就通" title="Permanent link"></a></h4>
 <p>以 <code>N = 4</code> 為例：</p>
 <table>
@@ -16843,7 +16843,7 @@ tag = 0
 <li><code>tag = 0</code> 也不代表永遠是空</li>
 </ul>
 <p><strong>只有 <code>in == out</code> 時，tag 才真正決定狀態。</strong></p>
-<hr />
+<hr/>
 <h4 id="9-對應到代碼哪兩行最關鍵">9. 對應到代碼，哪兩行最關鍵？<a class="headerlink" href="#9-對應到代碼哪兩行最關鍵" title="Permanent link"></a></h4>
 <h5 id="91-producer">9.1 Producer<a class="headerlink" href="#91-producer" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -16862,7 +16862,7 @@ tag = 0
 <li>如果兩指標重合而且 tag=1，表示滿，不能再放</li>
 <li>放完後如果又重合，代表現在是滿，所以把 tag 設成 1</li>
 </ul>
-<hr />
+<hr/>
 <h5 id="92-consumer">9.2 Consumer<a class="headerlink" href="#92-consumer" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">;</span><span class="w">   </span><span class="c1">// empty</span>
@@ -16880,7 +16880,7 @@ tag = 0
 <li>如果兩指標重合而且 tag=0，表示空，不能再拿</li>
 <li>拿完後如果又重合，代表現在是空，所以把 tag 設成 0</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="10-為什麼這樣就不浪費一格">10. 為什麼這樣就不浪費一格？<a class="headerlink" href="#10-為什麼這樣就不浪費一格" title="Permanent link"></a></h4>
 <p>因為現在「滿」和「空」都允許出現：</p>
 <div class="highlight"><pre><span></span><code>in == out
@@ -16892,7 +16892,7 @@ tag = 0
 </ul>
 <p>所以你不需要像原始版本那樣硬留一格空位來避開歧義。</p>
 <p>這就是你作業裡「N=8 可以真的放滿 8 個」的原因。</p>
-<hr />
+<hr/>
 <h4 id="11-最容易卡住的誤解">11. 最容易卡住的誤解<a class="headerlink" href="#11-最容易卡住的誤解" title="Permanent link"></a></h4>
 <h5 id="111-誤解一tag-一直都在描述狀態">11.1 誤解一：tag 一直都在描述狀態<a class="headerlink" href="#111-誤解一tag-一直都在描述狀態" title="Permanent link"></a></h5>
 <p>不是。</p>
@@ -16900,23 +16900,23 @@ tag = 0
 <blockquote>
 <p>tag 只在 <code>in == out</code> 的時候才負責裁決。</p>
 </blockquote>
-<hr />
+<hr/>
 <h5 id="112-誤解二消費一個元素後-tag-沒改會不會錯">11.2 誤解二：消費一個元素後 tag 沒改，會不會錯？<a class="headerlink" href="#112-誤解二消費一個元素後-tag-沒改會不會錯" title="Permanent link"></a></h5>
 <p>不會。</p>
 <p>因為只要 <code>in != out</code>，狀態就已經不模糊，tag 就算還保持舊值也沒關係。</p>
-<hr />
+<hr/>
 <h5 id="113-誤解三tag-是不是在記錄元素數量">11.3 誤解三：tag 是不是在記錄元素數量？<a class="headerlink" href="#113-誤解三tag-是不是在記錄元素數量" title="Permanent link"></a></h5>
 <p>不是。</p>
 <p>它不告訴你「有幾個元素」，它只告訴你：</p>
 <blockquote>
 <p>當兩指標重疊時，現在是空還是滿。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="12-你現在只要記這句話">12. 你現在只要記這句話<a class="headerlink" href="#12-你現在只要記這句話" title="Permanent link"></a></h4>
 <blockquote>
 <p><strong>tag 是專門用來解決 <code>in == out</code> 時「到底是空還是滿」的裁判。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="13-一個超短版本總結">13. 一個超短版本總結<a class="headerlink" href="#13-一個超短版本總結" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A["in != out&lt;br&gt;直接看指標，不用管 tag"]
@@ -16927,11 +16927,11 @@ tag = 0
     A --&gt; B
     B --&gt; C
     B --&gt; D</code></pre>
-<hr />
+<hr/>
 <h2 id="ch4">ch4<a class="headerlink" href="#ch4" title="Permanent link"></a></h2>
 <h2 id="thread執行緒-概念與多執行緒優點">Thread(執行緒) 概念與多執行緒優點<a class="headerlink" href="#thread執行緒-概念與多執行緒優點" title="Permanent link"></a></h2>
 <h3 id="直覺版process-vs-thread">直覺版：Process vs Thread<a class="headerlink" href="#直覺版process-vs-thread" title="Permanent link"></a></h3>
-<p>Process(行程) 像一間公司。<br />
+<p>Process(行程) 像一間公司。<br/>
 Thread(執行緒) 像公司裡的員工。</p>
 <p>同一間公司裡的員工：</p>
 <ul>
@@ -16961,7 +16961,7 @@ Thread(執行緒) 像公司裡的員工。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="thread-是什麼">Thread 是什麼？<a class="headerlink" href="#thread-是什麼" title="Permanent link"></a></h3>
 <p>Thread(執行緒) 是 CPU 使用的基本單位。</p>
 <div class="admonition danger">
@@ -16982,7 +16982,7 @@ Thread(執行緒) 像公司裡的員工。</p>
 <li>Open files</li>
 <li>其他 process resources</li>
 </ol>
-<hr />
+<hr/>
 <h3 id="thread-vs-process-最重要差異">Thread vs Process 最重要差異<a class="headerlink" href="#thread-vs-process-最重要差異" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17020,7 +17020,7 @@ Thread(執行緒) 像公司裡的員工。</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="多執行緒的四大優點">多執行緒的四大優點<a class="headerlink" href="#多執行緒的四大優點" title="Permanent link"></a></h3>
 <p>考古整理有問：</p>
 <blockquote>
@@ -17060,7 +17060,7 @@ Thread(執行緒) 像公司裡的員工。</p>
 </table>
 <p>考古整理也列出這四類：responsiveness、resource sharing、economy、utilization of multiprocessor architecture。</p>
 <p>可擴展性(講多一點)：當硬體有更多 CPU cores(核心) 或 processors(處理器) 時，程式可以利用這些核心，把多個 thread 分散到不同核心上執行，讓效能提升。</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-6.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-6.png"/></p>
 <h3 id="所以多核心不只可以跑多個process也可以跑多個thread嗎同一個-process-的-thread-可以在不同的核心跑嗎">所以多核心不只可以跑多個process也可以跑多個thread嗎？同一個 process 的 thread 可以在不同的核心跑嗎<a class="headerlink" href="#所以多核心不只可以跑多個process也可以跑多個thread嗎同一個-process-的-thread-可以在不同的核心跑嗎" title="Permanent link"></a></h3>
 <p>對，多核心不只可以同時跑多個 process(行程)，也可以同時跑多個 thread(執行緒)。</p>
 <p>而且：</p>
@@ -17068,15 +17068,15 @@ Thread(執行緒) 像公司裡的員工。</p>
 <p>同一個 process 裡的不同 threads，可以在不同 CPU cores 上同時執行。</p>
 </blockquote>
 <h2 id="多核心程式挑戰資料平行任務平行">多核心程式挑戰＋資料平行／任務平行<a class="headerlink" href="#多核心程式挑戰資料平行任務平行" title="Permanent link"></a></h2>
-<p><strong>Multicore Programming Challenges + Data Parallelism / Task Parallelism</strong><br />
+<p><strong>Multicore Programming Challenges + Data Parallelism / Task Parallelism</strong><br/>
 <strong>多核心程式挑戰＋資料平行／任務平行</strong></p>
 <p>這一段在 Chapter 4 講義中直接列出五個多核心程式挑戰：Dividing activities、Balance、Data splitting、Data dependency、Testing and debugging；同一段也講 Data parallelism 和 Task parallelism。</p>
 <p>考古整理也有直接題：</p>
 <blockquote>
-<p>Multicore systems present certain challenges for multithreaded programming. Briefly describe these challenges.<br />
+<p>Multicore systems present certain challenges for multithreaded programming. Briefly describe these challenges.<br/>
 Distinguish between data and task parallelism. </p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="直覺版_2">直覺版<a class="headerlink" href="#直覺版_2" title="Permanent link"></a></h3>
 <p>多核心不是「有很多核心就自動變快」。</p>
 <p>就像做小組報告：</p>
@@ -17088,9 +17088,9 @@ Distinguish between data and task parallelism. </p>
 <li>最後還要測試、除錯</li>
 </ul>
 <p>多核心程式也是一樣。</p>
-<hr />
+<hr/>
 <h3 id="五個-multicore-programming-challenges">五個 Multicore Programming Challenges<a class="headerlink" href="#五個-multicore-programming-challenges" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-9.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-9.png"/></p>
 <table>
 <thead>
 <tr>
@@ -17127,7 +17127,7 @@ Distinguish between data and task parallelism. </p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="data-parallelism-vs-task-parallelism">Data Parallelism vs Task Parallelism<a class="headerlink" href="#data-parallelism-vs-task-parallelism" title="Permanent link"></a></h3>
 <h4 id="data-parallelism資料平行">Data parallelism(資料平行)<a class="headerlink" href="#data-parallelism資料平行" title="Permanent link"></a></h4>
 <p>同一個操作，套用到不同資料。</p>
@@ -17141,9 +17141,9 @@ Distinguish between data and task parallelism. </p>
 <li>Thread 3 算第 500～749 筆</li>
 <li>Thread 4 算第 750～999 筆</li>
 </ul>
-<p>每個 thread 都做同一件事：加法。<br />
+<p>每個 thread 都做同一件事：加法。<br/>
 只是處理的資料不同。</p>
-<hr />
+<hr/>
 <h4 id="task-parallelism任務平行">Task parallelism(任務平行)<a class="headerlink" href="#task-parallelism任務平行" title="Permanent link"></a></h4>
 <p>不同 thread 做不同任務。</p>
 <p>例子：瀏覽器</p>
@@ -17154,7 +17154,7 @@ Distinguish between data and task parallelism. </p>
 <li>Thread 4 處理使用者輸入</li>
 </ul>
 <p>每個 thread 做的事情不同。</p>
-<hr />
+<hr/>
 <h3 id="最容易混淆的地方">最容易混淆的地方<a class="headerlink" href="#最容易混淆的地方" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -17179,7 +17179,7 @@ Distinguish between data and task parallelism. </p>
 </div>
 <p>一句話記法：</p>
 <blockquote>
-<p><strong>Data parallelism = same operation on different data.</strong><br />
+<p><strong>Data parallelism = same operation on different data.</strong><br/>
 <strong>Task parallelism = different operations on possibly different tasks.</strong></p>
 </blockquote>
 <h3 id="同步是啥意思">同步是啥意思<a class="headerlink" href="#同步是啥意思" title="Permanent link"></a></h3>
@@ -17188,14 +17188,14 @@ Distinguish between data and task parallelism. </p>
 <p>協調多個 process/thread 的執行順序，避免它們同時亂改同一份 shared data(共享資料)，造成錯誤結果。</p>
 </blockquote>
 <h2 id="thread-的四個優點和五個挑戰">Thread 的四個優點和五個挑戰<a class="headerlink" href="#thread-的四個優點和五個挑戰" title="Permanent link"></a></h2>
-<p>Four benefits of multithreaded programming<br />
+<p>Four benefits of multithreaded programming<br/>
 Five challenges of multicore programming</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="0-口訣">0. 口訣<a class="headerlink" href="#0-口訣" title="Permanent link"></a></h3>
-<p>優點：應資經擴 （影子經過）<br />
+<p>優點：應資經擴 （影子經過）<br/>
 挑戰：切平分依測 （切平分一側）</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-10.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-10.png"/></p>
 <h3 id="1-four-benefits-of-multithreaded-programming">1. Four Benefits of Multithreaded Programming<a class="headerlink" href="#1-four-benefits-of-multithreaded-programming" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17228,7 +17228,7 @@ Five challenges of multicore programming</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="2-five-challenges-of-multicore-programming">2. Five Challenges of Multicore Programming<a class="headerlink" href="#2-five-challenges-of-multicore-programming" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17267,7 +17267,7 @@ Five challenges of multicore programming</p>
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h3 id="最短背法">最短背法<a class="headerlink" href="#最短背法" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>Four benefits:
 Responsiveness, Resource Sharing, Economy, Scalability
@@ -17276,7 +17276,7 @@ Five challenges:
 Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debugging
 </code></pre></div>
 <h2 id="user-threads使用者執行緒-與-kernel-threads核心執行緒">User Threads(使用者執行緒) 與 Kernel Threads(核心執行緒)<a class="headerlink" href="#user-threads使用者執行緒-與-kernel-threads核心執行緒" title="Permanent link"></a></h2>
-<p><strong>User Threads and Kernel Threads</strong><br />
+<p><strong>User Threads and Kernel Threads</strong><br/>
 <strong>User Threads(使用者執行緒) 與 Kernel Threads(核心執行緒)</strong></p>
 <p>這是 Chapter 4 後面接多執行緒模式的前置知識。講義有明確區分 user threads 是由 user-level thread library 管理，而 kernel threads 是由 OS kernel 支援與排程。</p>
 <h3 id="user-threads-是什麼">User Threads 是什麼？<a class="headerlink" href="#user-threads-是什麼" title="Permanent link"></a></h3>
@@ -17318,7 +17318,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="kernel-threads-是什麼">Kernel Threads 是什麼？<a class="headerlink" href="#kernel-threads-是什麼" title="Permanent link"></a></h3>
 <p><strong>Kernel threads(核心執行緒)</strong> 是由 OS kernel 管理與排程的 threads。</p>
 <p>重點：</p>
@@ -17352,7 +17352,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="最容易考的比較">最容易考的比較<a class="headerlink" href="#最容易考的比較" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17487,7 +17487,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 </tbody>
 </table>
 <p>講義說 User Threads(使用者執行緒) 是由 user-level thread library 管理，Kernel Threads(核心執行緒) 是由 Kernel 支援與排程；One-to-One model 是每個 user thread 對應一個 kernel thread。</p>
-<hr />
+<hr/>
 <h4 id="2-one-to-one-model-的美甲店類比">2. One-to-One model 的美甲店類比<a class="headerlink" href="#2-one-to-one-model-的美甲店類比" title="Permanent link"></a></h4>
 <h5 id="21-user-thread-階段客戶在店內預約系統登記">2.1 User Thread 階段：客戶在店內預約系統登記<a class="headerlink" href="#21-user-thread-階段客戶在店內預約系統登記" title="Permanent link"></a></h5>
 <p>假設你寫：</p>
@@ -17529,7 +17529,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 <p>這個客戶已經在「程式自己的管理系統」裡出現了。</p>
 </blockquote>
 <p>但此時如果 Kernel 完全不知道它，這個客戶還不能真正被「美甲設計師排班系統」正式安排。</p>
-<hr />
+<hr/>
 <h4 id="3-kernel-thread-階段客戶被登記到店長排班系統">3. Kernel Thread 階段：客戶被登記到店長排班系統<a class="headerlink" href="#3-kernel-thread-階段客戶被登記到店長排班系統" title="Permanent link"></a></h4>
 <p>One-to-One model 會讓：</p>
 <div class="highlight"><pre><span></span><code>一個 User Thread 對應一個 Kernel Thread
@@ -17573,7 +17573,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 <blockquote>
 <p>這個客戶已經被「OS 的正式排班系統」看見，可以真的被安排到某個 core 上執行。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="4-用圖看-one-to-one-model">4. 用圖看 One-to-One model<a class="headerlink" href="#4-用圖看-one-to-one-model" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     P["Process&lt;br&gt;美甲店本身"]
@@ -17597,11 +17597,11 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 <blockquote>
 <p>每一位「店內客戶紀錄」都有一張「正式排班號碼牌」，所以店長可以把不同客戶安排給不同設計師同時服務。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="5-對於同一個-thread它在-user-thread--kernel-thread-時分別代表什麼">5. 對於同一個 thread，它在 user thread / kernel thread 時分別代表什麼？<a class="headerlink" href="#5-對於同一個-thread它在-user-thread--kernel-thread-時分別代表什麼" title="Permanent link"></a></h4>
 <p>這裡要非常精準：</p>
 <blockquote>
-<p>不是同一個 thread 先變成 user thread，再變成 kernel thread。<br />
+<p>不是同一個 thread 先變成 user thread，再變成 kernel thread。<br/>
 而是同一個「邏輯上的客戶」在兩套系統裡有兩種表示。</p>
 </blockquote>
 <table>
@@ -17624,11 +17624,11 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 </table>
 <p>用美甲店講：</p>
 <blockquote>
-<p>客戶 A 本人只有一個。<br />
-但櫃台系統有「客戶 A 的預約資料」，店長排班系統有「客戶 A 的正式號碼牌」。<br />
+<p>客戶 A 本人只有一個。<br/>
+但櫃台系統有「客戶 A 的預約資料」，店長排班系統有「客戶 A 的正式號碼牌」。<br/>
 不是客戶 A 變成兩個人，而是同一個客戶在不同管理層級有不同紀錄。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="6-user-thread-時thread做了什麼">6. User Thread 時，thread「做了什麼」？<a class="headerlink" href="#6-user-thread-時thread做了什麼" title="Permanent link"></a></h4>
 <p>用比喻說：</p>
 <blockquote>
@@ -17645,7 +17645,7 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 <li>由 thread library 管理</li>
 </ul>
 <p>但如果沒有對應 kernel thread，kernel 可能不知道這位客戶的細節。</p>
-<hr />
+<hr/>
 <h4 id="7-kernel-thread-時thread做了什麼">7. Kernel Thread 時，thread「做了什麼」？<a class="headerlink" href="#7-kernel-thread-時thread做了什麼" title="Permanent link"></a></h4>
 <p>用比喻說：</p>
 <blockquote>
@@ -17662,19 +17662,19 @@ Dividing Activities, Balance, Data Splitting, Data Dependency, Testing and Debug
 <li>讓 blocking / waiting 狀態能由 kernel 管理</li>
 <li>讓多核心可以真正平行執行多條 threads</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="8-最關鍵一句話">8. 最關鍵一句話<a class="headerlink" href="#8-最關鍵一句話" title="Permanent link"></a></h4>
 <p>你可以這樣記：</p>
 <blockquote>
-<p><strong>User Thread = 客戶在店內櫃台系統的預約紀錄。</strong><br />
-<strong>Kernel Thread = 客戶在店長排班系統裡的正式號碼牌。</strong><br />
+<p><strong>User Thread = 客戶在店內櫃台系統的預約紀錄。</strong><br/>
+<strong>Kernel Thread = 客戶在店長排班系統裡的正式號碼牌。</strong><br/>
 <strong>Core = 真正服務客戶的美甲設計師。</strong></p>
 </blockquote>
 <p>One-to-One model 就是：</p>
 <blockquote>
 <p><strong>每一個預約客戶都有一張正式號碼牌，所以每個客戶都可以被店長直接安排給不同設計師服務。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="9-考試版英文">9. 考試版英文<a class="headerlink" href="#9-考試版英文" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>In the one-to-one model, each user thread maps to one kernel thread.
 A user thread is the thread abstraction managed by the user-level thread library.
@@ -17694,7 +17694,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <ol>
 <li>Many-to-One model</li>
 <li>One-to-One model</li>
-<li>Many-to-Many model<br />
+<li>Many-to-Many model<br/>
    另外還有 Two-level model。</li>
 </ol>
 <h3 id="many-to-one-model">Many-to-One model<a class="headerlink" href="#many-to-one-model" title="Permanent link"></a></h3>
@@ -17732,7 +17732,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="one-to-one-model">One-to-One model<a class="headerlink" href="#one-to-one-model" title="Permanent link"></a></h3>
 <p>一個 User Thread 對應一個 Kernel Thread。</p>
 <div class="highlight"><pre><span></span><code>One User Thread → One Kernel Thread
@@ -17768,7 +17768,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="many-to-many-model">Many-to-Many model<a class="headerlink" href="#many-to-many-model" title="Permanent link"></a></h3>
 <p>很多 User Threads 對應到多個 Kernel Threads。</p>
 <div class="highlight"><pre><span></span><code>Many User Threads → Some Kernel Threads
@@ -17800,7 +17800,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="最短比較">最短比較<a class="headerlink" href="#最短比較" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17858,7 +17858,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="pthreads-常用-api">Pthreads 常用 API<a class="headerlink" href="#pthreads-常用-api" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -17890,7 +17890,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="pthread_create-重點"><code>pthread_create()</code> 重點<a class="headerlink" href="#pthread_create-重點" title="Permanent link"></a></h3>
 <p>函式原型：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">pthread_create</span><span class="p">(</span>
@@ -17927,7 +17927,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="pthread_join-重點"><code>pthread_join()</code> 重點<a class="headerlink" href="#pthread_join-重點" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 </code></pre></div>
@@ -17936,7 +17936,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <p>main thread 等 <code>tid</code> 這條 thread 執行完再繼續。</p>
 </blockquote>
 <p>如果沒有 <code>pthread_join()</code>，main thread 可能先結束，導致其他 threads 還沒完成就被終止。</p>
-<hr />
+<hr/>
 <h3 id="編譯指令">編譯指令<a class="headerlink" href="#編譯指令" title="Permanent link"></a></h3>
 <p>Pthreads 程式通常要：</p>
 <div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-o<span class="w"> </span><span class="nb">test</span><span class="w"> </span>test.c<span class="w"> </span>-lpthread
@@ -17946,7 +17946,7 @@ This model allows the kernel to schedule different threads on different CPU core
 </code></pre></div>
 <p>講義使用的是 <code>-lpthread</code>。</p>
 <h3 id="pthread">Pthread<a class="headerlink" href="#pthread" title="Permanent link"></a></h3>
-<p><img alt="alt text" src="images/Pthread.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/Pthread.png"/></p>
 <h4 id="pthread_create-格式">pthread_create() 格式<a class="headerlink" href="#pthread_create-格式" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">pthread_create</span><span class="p">(</span>
 <span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="o">*</span><span class="kr">thread</span><span class="p">,</span>
@@ -17967,7 +17967,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <tbody>
 <tr>
 <td>pthread_t *thread,</td>
-<td>給 Thread，<br>當建立成功的話 Thread 會把 ID 存進去</td>
+<td>給 Thread，<br/>當建立成功的話 Thread 會把 ID 存進去</td>
 </tr>
 <tr>
 <td>pthread_attr_t *attr,</td>
@@ -18000,7 +18000,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;using command %s &lt;integer&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"using command %s &lt;integer&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 <span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -18008,7 +18008,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">runner</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="w"> </span>
 <span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;sum: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"sum: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -18027,9 +18027,9 @@ This model allows the kernel to schedule different threads on different CPU core
 <p>在 terminal 輸入：</p>
 <div class="highlight"><pre><span></span><code>./test 10
 </code></pre></div>
-<p>會計算：<br />
+<p>會計算：<br>
 <div class="highlight"><pre><span></span><code>sum = 1 + 2 + 3 + ... + 10 = 55
-</code></pre></div></p>
+</code></pre></div></br></p>
 <p>會輸出：</p>
 <div class="highlight"><pre><span></span><code>sum: 55
 </code></pre></div>
@@ -18071,7 +18071,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ans</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;usage: %s &lt;integer&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"usage: %s &lt;integer&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -18081,7 +18081,7 @@ This model allows the kernel to schedule different threads on different CPU core
 <span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span><span class="w">   </span><span class="c1">// 把 thread 的回傳值接回來</span>
 
 <span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">result</span><span class="p">;</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;平方總和 = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">ans</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"平方總和 = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">ans</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">ans</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -18106,15 +18106,15 @@ This model allows the kernel to schedule different threads on different CPU core
 <p>會計算：</p>
 <div class="highlight"><pre><span></span><code>1² + 2² + 3² = 1 + 4 + 9 = 14
 </code></pre></div>
-<p>最後輸出：<br />
+<p>最後輸出：<br/>
 <div class="highlight"><pre><span></span><code>平方總和 = 14
 </code></pre></div></p>
 <h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
 <p>Question 5 — Mixed</p>
 <p>A student creates a thread with <code>pthread_create()</code> but does not call <code>pthread_join()</code> before <code>main()</code> finishes. What is a possible problem?</p>
-<p>A(正解). The main thread may finish before the created thread completes.<br />
-B(我選的). The created thread becomes a zombie process immediately.<br />
-C. The CPU is physically replaced.<br />
+<p>A(正解). The main thread may finish before the created thread completes.<br/>
+B(我選的). The created thread becomes a zombie process immediately.<br/>
+C. The CPU is physically replaced.<br/>
 D. The thread automatically turns into a circular queue.</p>
 <pre class="arithmatex">\[Source: 講義\_chapter 4\_20240401／pthread\_join\]</pre>
 <p>題目：</p>
@@ -18125,9 +18125,9 @@ D. The thread automatically turns into a circular queue.</p>
 <blockquote>
 <p><strong>A. The main thread may finish before the created thread completes.</strong></p>
 </blockquote>
-<p>你答 <strong>B. The created thread becomes a zombie process immediately.</strong><br />
+<p>你答 <strong>B. The created thread becomes a zombie process immediately.</strong><br/>
 這裡錯在把 <strong>thread</strong> 和 <strong>process</strong> 的概念混在一起了。</p>
-<hr />
+<hr/>
 <h4 id="為什麼不是-zombie-process">為什麼不是 zombie process？<a class="headerlink" href="#為什麼不是-zombie-process" title="Permanent link"></a></h4>
 <p><strong>Zombie process(僵屍行程)</strong> 是 Chapter 3 的 process 概念：</p>
 <blockquote>
@@ -18138,12 +18138,12 @@ D. The thread automatically turns into a circular queue.</p>
 <p>thread，不是 process。</p>
 </blockquote>
 <p>所以它不會因為沒有 <code>pthread_join()</code> 就直接變成 <strong>zombie process</strong>。</p>
-<hr />
+<hr/>
 <h4 id="那沒有-pthread_join-真正的問題是什麼">那沒有 <code>pthread_join()</code> 真正的問題是什麼？<a class="headerlink" href="#那沒有-pthread_join-真正的問題是什麼" title="Permanent link"></a></h4>
 <p>假設：</p>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">runner</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;main ends</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"main ends</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>如果 main thread 很快結束，整個 process 可能直接結束，其他 thread 也可能還沒跑完就被迫停止。</p>
@@ -18195,7 +18195,7 @@ D. The thread automatically turns into a circular queue.</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="pthread_join"><code>pthread_join()</code><a class="headerlink" href="#pthread_join" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 </code></pre></div>
@@ -18210,7 +18210,7 @@ D. The thread automatically turns into a circular queue.</p>
 <blockquote>
 <p>接收 thread 用 <code>pthread_exit()</code> 回傳的值。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="pthread_exit"><code>pthread_exit()</code><a class="headerlink" href="#pthread_exit" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">pthread_exit</span><span class="p">(</span><span class="n">sum</span><span class="p">);</span>
 </code></pre></div>
@@ -18227,7 +18227,7 @@ D. The thread automatically turns into a circular queue.</p>
 <span class="w">    </span><span class="o">*</span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>int *sum ： 宣告一個指標變數，指向 malloc(sizeof(int));給的位置。<br />
+<p>int *sum ： 宣告一個指標變數，指向 malloc(sizeof(int));給的位置。<br/>
 *sum ： 解碼(取值)。</p>
 <h2 id="multiple-pthreads-and-work-partitioning多個-pthreads-與工作切分">Multiple Pthreads and Work Partitioning(多個 Pthreads 與工作切分)<a class="headerlink" href="#multiple-pthreads-and-work-partitioning多個-pthreads-與工作切分" title="Permanent link"></a></h2>
 <p>這段會接到 Chapter 4 講義裡的 vector addition、matrix multiplication、thread 數量過多、thread overhead 等內容。講義中有示範建立多個 threads，也有說明如果 thread 數量過多，建立與切換 overhead 可能反而讓 parallel version 比 sequential version 慢。</p>
@@ -18267,7 +18267,7 @@ D. The thread automatically turns into a circular queue.</p>
 <blockquote>
 <p><strong>Same operation on different subsets of data.</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="為什麼不是-thread-越多越好">為什麼不是 thread 越多越好？<a class="headerlink" href="#為什麼不是-thread-越多越好" title="Permanent link"></a></h3>
 <p>因為建立 thread 也有成本。</p>
 <p>如果你為每一個元素都建立一條 thread：</p>
@@ -18308,7 +18308,7 @@ D. The thread automatically turns into a circular queue.</p>
 </tbody>
 </table>
 <p>講義的 vector addition 範例中，建立大量 threads 的版本反而比 sequential version 慢；後面改成用固定數量 threads 分段處理後，效能才改善。</p>
-<hr />
+<hr/>
 <h3 id="考試核心句">考試核心句<a class="headerlink" href="#考試核心句" title="Permanent link"></a></h3>
 <p>你可以記：</p>
 <blockquote>
@@ -18317,9 +18317,9 @@ D. The thread automatically turns into a circular queue.</p>
 <h3 id="錯題_1">錯題<a class="headerlink" href="#錯題_1" title="Permanent link"></a></h3>
 <p>Question 3 — Variation</p>
 <p>If N = 1000, NUM_THREADS = 4, and chunk_size = 250, which range should Thread 2 process?</p>
-<p>A. 500 &lt;= i &lt; 750<br />
-B. 250 &lt;= i &lt; 500<br />
-C. 0 &lt;= i &lt; 250<br />
+<p>A. 500 &lt;= i &lt; 750<br/>
+B. 250 &lt;= i &lt; 500<br/>
+C. 0 &lt;= i &lt; 250<br/>
 D. 750 &lt;= i &lt; 1000</p>
 <p>[Generated: 依據本輪知識點]</p>
 <p>第 3 題講解：Thread 2 的範圍</p>
@@ -18405,20 +18405,20 @@ D. 750 &lt;= i &lt; 1000</p>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="openmp-是什麼">OpenMP 是什麼？<a class="headerlink" href="#openmp-是什麼" title="Permanent link"></a></h3>
 <p><strong>OpenMP(Open Multi-Processing)</strong> 是一組 compiler directives(編譯器指令) 和 API，用來讓 C / C++ / FORTRAN 程式比較容易加入 parallelism(平行化)。講義也明確說 OpenMP 支援 shared-memory environments(共享記憶體環境)，並用 parallel regions(可平行執行的程式區塊) 來描述可平行化的區域。</p>
 <p>最常見語法長這樣：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>意思是：</p>
 <blockquote>
 <p>這個 <code>{ ... }</code> 區塊會被多個 threads 平行執行。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="pragma-omp-parallel"><code>#pragma omp parallel</code><a class="headerlink" href="#pragma-omp-parallel" title="Permanent link"></a></h3>
 <p>最小範例：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -18429,7 +18429,7 @@ D. 750 &lt;= i &lt; 1000</p>
 
 <span class="w">    </span><span class="cp">#pragma omp parallel</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -18469,7 +18469,7 @@ Hello world!
 Hello world!
 </code></pre></div>
 <p>順序不一定固定，因為多個 threads 平行執行時，誰先印出不保證。</p>
-<hr />
+<hr/>
 <h3 id="pragma-omp-parallel-for"><code>#pragma omp parallel for</code><a class="headerlink" href="#pragma-omp-parallel-for" title="Permanent link"></a></h3>
 <p>這是更常考的形式：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for</span>
@@ -18540,7 +18540,7 @@ Hello world!
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="常見混淆點">常見混淆點<a class="headerlink" href="#常見混淆點" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -18574,7 +18574,7 @@ Hello world!
 </table>
 <h2 id="openmp-指令與子句">OpenMP 指令與子句<a class="headerlink" href="#openmp-指令與子句" title="Permanent link"></a></h2>
 <p>這段是程序型概念，所以先看最小必要程式碼，再出題。</p>
-<hr />
+<hr/>
 <h3 id="openmp-基本格式">OpenMP 基本格式<a class="headerlink" href="#openmp-基本格式" title="Permanent link"></a></h3>
 <p>OpenMP 常見格式是：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp directive [clause]</span>
@@ -18599,11 +18599,11 @@ Hello world!
 </tbody>
 </table>
 <p>講義也列出 <code>#pragma omp directive [clause]</code>，其中 directive 包含 <code>parallel</code>、<code>for</code> 等，clause 包含 <code>private</code>、<code>shared</code>、<code>reduction</code>、<code>schedule</code> 等。 </p>
-<hr />
+<hr/>
 <h3 id="parallel-directive"><code>parallel</code> directive<a class="headerlink" href="#parallel-directive" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>意思是：</p>
@@ -18611,7 +18611,7 @@ Hello world!
 <p>這個 block 會被多個 threads 執行。</p>
 </blockquote>
 <p>如果有 4 個 threads，可能印出 4 次 <code>Hello world!</code>。</p>
-<hr />
+<hr/>
 <h3 id="for-directive"><code>for</code> directive<a class="headerlink" href="#for-directive" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel</span>
 <span class="p">{</span>
@@ -18625,7 +18625,7 @@ Hello world!
 <blockquote>
 <p>先建立 parallel region，再把 <code>for</code> loop 的 iterations 分給 threads。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="parallel-for"><code>parallel for</code><a class="headerlink" href="#parallel-for" title="Permanent link"></a></h3>
 <p>這是常見簡寫：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for</span>
@@ -18638,7 +18638,7 @@ Hello world!
 <p>建立 threads，並把 <code>for</code> loop 的 iterations 分配給這些 threads。</p>
 </blockquote>
 <p>講義也有列出 <code>#pragma omp parallel for</code> 與 <code>#pragma omp parallel { #pragma omp for ... }</code> 兩種寫法。</p>
-<hr />
+<hr/>
 <h3 id="privatej-為什麼重要"><code>private(j)</code> 為什麼重要？<a class="headerlink" href="#privatej-為什麼重要" title="Permanent link"></a></h3>
 <p>看這段：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
@@ -18646,21 +18646,21 @@ Hello world!
 <span class="cp">#pragma omp parallel for</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;i:%d, j:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"i:%d, j:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>問題在 <code>j</code>。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><code>i</code> 是 OpenMP 平行化迴圈的 index，通常每個 thread 會自己處理不同的 <code>i</code>。<br />
+<p><code>i</code> 是 OpenMP 平行化迴圈的 index，通常每個 thread 會自己處理不同的 <code>i</code>。<br/>
 但 <code>j</code> 是外面宣告的 shared variable，如果多個 threads 同時改同一個 <code>j</code>，就可能互相干擾。</p>
 </div>
 <p>所以講義的修正版是：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for private(j)</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;i:%d, j:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"i:%d, j:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -18671,16 +18671,16 @@ Hello world!
 <p>講義也用這個 <code>Find the error</code> 例子示範，錯誤版沒有 <code>private(j)</code>，解法是加上 <code>private(j)</code>。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>但其實就是把 j 宣告為區域變數 (int j)，也就是：<br />
+<p>但其實就是把 j 宣告為區域變數 (int j)，也就是：<br/>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;i:%d, j:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"i:%d, j:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
 </div>
-<hr />
+<hr/>
 <h3 id="本輪先記這三句">本輪先記這三句<a class="headerlink" href="#本輪先記這三句" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>directive = 要 OpenMP 做什麼。
 clause = 補充 OpenMP 怎麼做。
@@ -18688,7 +18688,7 @@ private(x) = 每個 thread 各自有一份 x。
 </code></pre></div>
 <h2 id="openmp-atomic-and-reductionopenmp-原子操作與歸約">OpenMP atomic and reduction(OpenMP 原子操作與歸約)<a class="headerlink" href="#openmp-atomic-and-reductionopenmp-原子操作與歸約" title="Permanent link"></a></h2>
 <p>這段是 Procedure-based Concept(程序型概念)，所以先看 code，再出題。</p>
-<hr />
+<hr/>
 <h3 id="問題多個-threads-同時更新同一個變數">問題：多個 threads 同時更新同一個變數<a class="headerlink" href="#問題多個-threads-同時更新同一個變數" title="Permanent link"></a></h3>
 <p>看這段：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -18708,7 +18708,7 @@ private(x) = 每個 thread 各自有一份 x。
 3. write sum back
 </code></pre></div>
 <p>如果多個 threads 同時做這件事，就可能發生 race condition(競爭情況)。</p>
-<hr />
+<hr/>
 <h3 id="atomic-解法"><code>atomic</code> 解法<a class="headerlink" href="#atomic-解法" title="Permanent link"></a></h3>
 <p>OpenMP 可以用：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp atomic</span>
@@ -18728,7 +18728,7 @@ private(x) = 每個 thread 各自有一份 x。
 <p>每次更新 <code>sum</code> 時，讓這個更新動作變成 atomic，避免多個 threads 同時改壞 <code>sum</code>。</p>
 </blockquote>
 <p>講義也列出 <code>atomic</code> 的目的在於避免變數被同時修改而造成計算結果錯誤。</p>
-<hr />
+<hr/>
 <h3 id="reduction-解法"><code>reduction</code> 解法<a class="headerlink" href="#reduction-解法" title="Permanent link"></a></h3>
 <p>更常見、更適合加總的寫法是：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -18772,7 +18772,7 @@ private(x) = 每個 thread 各自有一份 x。
 <p>最後合併：</p>
 <div class="highlight"><pre><span></span><code>sum = 10 + 20 + 30 + 40 = 100
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="atomic-vs-reduction"><code>atomic</code> vs <code>reduction</code><a class="headerlink" href="#atomic-vs-reduction" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -18805,7 +18805,7 @@ private(x) = 每個 thread 各自有一份 x。
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="最短記法">最短記法<a class="headerlink" href="#最短記法" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>atomic = 保護一次 shared variable 更新。
 reduction = 每個 thread 先算自己的部分，最後合併。
@@ -18823,9 +18823,9 @@ reduction = 每個 thread 先算自己的部分，最後合併。
 <blockquote>
 <p>每一圈都要同步一次。</p>
 </blockquote>
-<p>如果 <code>N = 1,000,000</code>，就可能同步一百萬次。<br />
+<p>如果 <code>N = 1,000,000</code>，就可能同步一百萬次。<br/>
 所以雖然結果正確，但效能可能很差。</p>
-<hr />
+<hr/>
 <h4 id="reduction-的做法"><code>reduction</code> 的做法<a class="headerlink" href="#reduction-的做法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for reduction(+:sum)</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -18856,9 +18856,9 @@ Thread 3: partial sum
 <span class="p">}</span>
 </code></pre></div>
 <p>如果 loop 太小，平行化 overhead 可能比實際計算還大。</p>
-<p>直覺：<br />
+<p>直覺：<br/>
 本來只是搬 10 顆小石頭，結果你找 16 個人來開會分工，開會時間比搬石頭還久。</p>
-<hr />
+<hr/>
 <h3 id="常見錯誤二shared-variable-沒保護">常見錯誤二：shared variable 沒保護<a class="headerlink" href="#常見錯誤二shared-variable-沒保護" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
@@ -18867,7 +18867,7 @@ Thread 3: partial sum
 <span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這會有 race condition。<br />
+<p>這會有 race condition。<br/>
 修法通常是：</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for reduction(+:sum)</span>
 </code></pre></div>
@@ -18876,11 +18876,11 @@ Thread 3: partial sum
 <span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </code></pre></div>
 <p>但大量加總通常 <code>reduction</code> 更適合。</p>
-<hr />
+<hr/>
 <h3 id="常見錯誤三以為輸出順序固定">常見錯誤三：以為輸出順序固定<a class="headerlink" href="#常見錯誤三以為輸出順序固定" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>輸出順序不保證是：</p>
@@ -18898,7 +18898,7 @@ Thread 3: partial sum
 <span class="cp">#pragma omp parallel for private(j)</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;i:%d, j:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"i:%d, j:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -18918,7 +18918,7 @@ i = 2
 i = 3
 </code></pre></div>
 <p>每個 <code>i</code> 裡面的 <code>j = 0~3</code> 仍然是該 thread 自己跑完。</p>
-<hr />
+<hr/>
 <h3 id="有-collapse2把兩層-loop-合併後一起平行化">有 <code>collapse(2)</code>：把兩層 loop 合併後一起平行化<a class="headerlink" href="#有-collapse2把兩層-loop-合併後一起平行化" title="Permanent link"></a></h3>
 <p>講義的 <code>collapse(2)</code> 範例是：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
@@ -18926,7 +18926,7 @@ i = 3
 <span class="cp">#pragma omp parallel for collapse(2)</span>
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;i:%d, j:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"i:%d, j:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -18946,12 +18946,12 @@ i = 3
 (3,0), (3,1), (3,2), (3,3)
 </code></pre></div>
 <p>然後把這 16 個 <code>(i, j)</code> 工作分給 threads。</p>
-<hr />
+<hr/>
 <h3 id="生活化比喻">生活化比喻<a class="headerlink" href="#生活化比喻" title="Permanent link"></a></h3>
 <p>想像你有 4 排座位，每排 4 個座位要檢查。</p>
 <p><strong>沒有 <code>collapse(2)</code>：</strong></p>
 <blockquote>
-<p>只把「排」分給工作人員。<br />
+<p>只把「排」分給工作人員。<br/>
 每個人拿到一排後，自己檢查那排的 4 個座位。</p>
 </blockquote>
 <p><strong>有 <code>collapse(2)</code>：</strong></p>
@@ -18964,12 +18964,12 @@ i = 3
 <li>只平行化外層 loop 時工作分配不夠細</li>
 <li>想讓 OpenMP 把多層迴圈的 iteration 一起分配</li>
 </ul>
-<hr />
+<hr/>
 <h3 id="最短記法_1">最短記法<a class="headerlink" href="#最短記法_1" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>parallel for = 通常平行化緊接著的外層 for。
 collapse(2) = 把 2 層巢狀 for 合併成一個大迭代空間再平行化。
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="常見陷阱">常見陷阱<a class="headerlink" href="#常見陷阱" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -19023,7 +19023,7 @@ collapse(2) = 把 2 層巢狀 for 合併成一個大迭代空間再平行化。
 <blockquote>
 <p><strong><code>private(j)</code> 解決的是 j 被共用造成的變數干擾問題。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="12-collapse2-的用途">1.2 <code>collapse(2)</code> 的用途<a class="headerlink" href="#12-collapse2-的用途" title="Permanent link"></a></h4>
 <p><code>collapse(2)</code> 是在處理 <strong>巢狀迴圈的工作分配問題</strong>。</p>
 <div class="highlight"><pre><span></span><code><span class="cp">#pragma omp parallel for collapse(2)</span>
@@ -19048,7 +19048,7 @@ collapse(2) = 把 2 層巢狀 for 合併成一個大迭代空間再平行化。
 <blockquote>
 <p><strong><code>collapse(2)</code> 解決的是兩層迴圈一起平行化與工作分配的問題。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="2-你的主要盲點修正">2. 你的主要盲點修正<a class="headerlink" href="#2-你的主要盲點修正" title="Permanent link"></a></h3>
 <h4 id="21-盲點一把-collapse2-當成解決-j-共用問題">2.1 盲點一：把 <code>collapse(2)</code> 當成解決 <code>j</code> 共用問題<a class="headerlink" href="#21-盲點一把-collapse2-當成解決-j-共用問題" title="Permanent link"></a></h4>
 <p>錯誤理解：</p>
@@ -19058,7 +19058,7 @@ collapse(2) = 把 2 層巢狀 for 合併成一個大迭代空間再平行化。
 <div class="highlight"><pre><span></span><code>private(j) 才是讓每個 thread 有自己的 j。
 collapse(2) 是把兩層迴圈合併成一個大迭代空間。
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads">2.2 盲點二：把 <code>n × m</code> 個 iteration pairs 說成 <code>n × m</code> 個 threads<a class="headerlink" href="#22-盲點二把-n--m-個-iteration-pairs-說成-n--m-個-threads" title="Permanent link"></a></h4>
 <p>錯誤理解：</p>
 <div class="highlight"><pre><span></span><code>collapse(2) 會產生 n × m 個 threads。
@@ -19068,7 +19068,7 @@ collapse(2) 是把兩層迴圈合併成一個大迭代空間。
 再把這些工作分配給目前可用的 threads。
 </code></pre></div>
 <p>thread 數量不是由 <code>collapse(2)</code> 決定，而是由 OpenMP runtime、<code>omp_set_num_threads()</code>、環境變數或系統可用核心數決定。</p>
-<hr />
+<hr/>
 <h3 id="3-對照表">3. 對照表<a class="headerlink" href="#3-對照表" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -19091,7 +19091,7 @@ collapse(2) 是把兩層迴圈合併成一個大迭代空間。
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="4-最終記法">4. 最終記法<a class="headerlink" href="#4-最終記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -19106,7 +19106,7 @@ collapse(2)
 = 再分配給現有 threads
 </code></pre></div>
 </div>
-<hr />
+<hr/>
 <h3 id="5-英文考試版">5. 英文考試版<a class="headerlink" href="#5-英文考試版" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>private(j) gives each thread its own private copy of j, so the threads do not interfere with each other when updating j.
 
@@ -19152,7 +19152,7 @@ Thread B 算出 1 並寫回
 <div class="highlight"><pre><span></span><code>counter = 2
 </code></pre></div>
 <p>這就是 race condition。</p>
-<hr />
+<hr/>
 <h3 id="為什麼需要-mutex-lock">為什麼需要 Mutex Lock？<a class="headerlink" href="#為什麼需要-mutex-lock" title="Permanent link"></a></h3>
 <p><strong>Mutex Lock(互斥鎖)</strong> 的目的：</p>
 <blockquote>
@@ -19174,7 +19174,7 @@ Thread B 算出 1 並寫回
 <li>放鎖</li>
 </ol>
 <p>這樣其他 thread 要改 <code>counter</code> 時，就必須等目前這個 thread 改完。</p>
-<hr />
+<hr/>
 <h3 id="沒有-mutex-vs-有-mutex">沒有 mutex vs 有 mutex<a class="headerlink" href="#沒有-mutex-vs-有-mutex" title="Permanent link"></a></h3>
 <h4 id="沒有-mutex">沒有 mutex<a class="headerlink" href="#沒有-mutex" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
@@ -19208,7 +19208,7 @@ Thread B 算出 1 並寫回
 <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
 </code></pre></div>
 <p>真正危險的是 <code>counter++</code>，因為它會讀取、修改、寫回 shared variable。</p>
-<hr />
+<hr/>
 <h3 id="mutual-exclusion互斥">Mutual Exclusion(互斥)<a class="headerlink" href="#mutual-exclusion互斥" title="Permanent link"></a></h3>
 <p>意思是：</p>
 <blockquote>
@@ -19218,9 +19218,9 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>廁所一次只能一個人使用。有人在裡面，其他人要等。</p>
 </blockquote>
-<p>這是最基本條件。<br />
+<p>這是最基本條件。<br/>
 如果沒有 mutual exclusion，就可能發生 race condition。</p>
-<hr />
+<hr/>
 <h3 id="progress進行">Progress(進行)<a class="headerlink" href="#progress進行" title="Permanent link"></a></h3>
 <p>意思是：</p>
 <blockquote>
@@ -19234,7 +19234,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>明明 critical section 是空的，但大家都卡住進不去。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="bounded-waiting限制等待">Bounded Waiting(限制等待)<a class="headerlink" href="#bounded-waiting限制等待" title="Permanent link"></a></h3>
 <p>意思是：</p>
 <blockquote>
@@ -19245,7 +19245,7 @@ Thread B 算出 1 並寫回
 <p>你排廁所，別人可以先用幾次，但不能永遠讓別人插隊，害你永遠進不去。</p>
 </blockquote>
 <p>Bounded waiting 是為了避免 starvation(飢餓)。</p>
-<hr />
+<hr/>
 <h3 id="三個要求最短記法">三個要求最短記法<a class="headerlink" href="#三個要求最短記法" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -19277,22 +19277,22 @@ Thread B 算出 1 並寫回
 </table>
 </div>
 <h3 id="starvation-是啥意思">starvation 是啥意思<a class="headerlink" href="#starvation-是啥意思" title="Permanent link"></a></h3>
-<p>starvation：飢餓狀態；飢餓；資源長期得不到的狀態<br />
-├─ starv：挨餓、缺乏到無法維持<br />
-│  └─ starve：挨餓；使缺乏；使餓死<br />
-└─ ation：名詞字尾，表示行為、結果或狀態<br />
-   ├─ at：形成動作或狀態概念的連接成分<br />
+<p>starvation：飢餓狀態；飢餓；資源長期得不到的狀態<br/>
+├─ starv：挨餓、缺乏到無法維持<br/>
+│  └─ starve：挨餓；使缺乏；使餓死<br/>
+└─ ation：名詞字尾，表示行為、結果或狀態<br/>
+   ├─ at：形成動作或狀態概念的連接成分<br/>
    └─ ion：名詞化，表示行為、結果或狀態</p>
 <p><strong>Starvation(飢餓)</strong> 是指：</p>
 <blockquote>
 <p>一個 process / thread 一直想取得某個資源或進入 critical section(臨界區間)，但因為其他 process / thread 一直被優先處理，導致它可能永遠等不到。</p>
 </blockquote>
-<p>注意：<br />
+<p>注意：<br/>
 這裡的「餓死」不是程式真的死亡，而是：</p>
 <blockquote>
 <p><strong>它一直等、一直等、一直沒有機會執行。</strong></p>
 </blockquote>
-<p>I felt worried when the lost dog began to starve.<br />
+<p>I felt worried when the lost dog began to starve.<br/>
 當那隻走失的狗開始挨餓時，我很擔心。</p>
 <h2 id="petersons-solutionpeterson-解法">Peterson’s Solution(Peterson 解法)<a class="headerlink" href="#petersons-solutionpeterson-解法" title="Permanent link"></a></h2>
 <p>這是 Chapter 5 的 software solution(軟體解法)。</p>
@@ -19315,7 +19315,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>你舉手說：「我想進廁所。」</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="turn-是什麼"><code>turn</code> 是什麼？<a class="headerlink" href="#turn-是什麼" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">;</span>
 </code></pre></div>
@@ -19327,7 +19327,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>你跟對方都想進廁所時，你說：「如果我們同時想進，那先讓你。」</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="petersons-solution-的基本結構">Peterson’s Solution 的基本結構<a class="headerlink" href="#petersons-solution-的基本結構" title="Permanent link"></a></h3>
 <p>對 process <code>Pi</code> 來說，另一個 process 是 <code>Pj</code>：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
@@ -19344,7 +19344,7 @@ Thread B 算出 1 並寫回
 <span class="w">    </span><span class="cm">/* remainder section */</span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="為什麼可以互斥">為什麼可以互斥？<a class="headerlink" href="#為什麼可以互斥" title="Permanent link"></a></h3>
 <p>如果 <code>Pi</code> 和 <code>Pj</code> 同時想進去：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
@@ -19362,7 +19362,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>兩個 process 都可能想進入 critical section，但同一時間只能讓一個進去。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="程式骨架再看一次">程式骨架再看一次<a class="headerlink" href="#程式骨架再看一次" title="Permanent link"></a></h3>
 <p>對 <code>Pi</code> 來說，另一個 process 是 <code>Pj</code>：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
@@ -19379,7 +19379,7 @@ Thread B 算出 1 並寫回
 <span class="w">    </span><span class="cm">/* remainder section */</span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="為什麼滿足-mutual-exclusion互斥">為什麼滿足 Mutual Exclusion(互斥)？<a class="headerlink" href="#為什麼滿足-mutual-exclusion互斥" title="Permanent link"></a></h3>
 <p>如果 <code>Pi</code> 和 <code>Pj</code> 都想進去：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
@@ -19391,7 +19391,7 @@ Thread B 算出 1 並寫回
 <li>如果 <code>turn == i</code>，<code>Pj</code> 會等，<code>Pi</code> 可以進。</li>
 </ul>
 <p><code>turn</code> 不可能同時等於 <code>i</code> 又等於 <code>j</code>，所以兩個 process 不會同時進 critical section。</p>
-<hr />
+<hr/>
 <h3 id="為什麼滿足-progress進行">為什麼滿足 Progress(進行)？<a class="headerlink" href="#為什麼滿足-progress進行" title="Permanent link"></a></h3>
 <p>如果 <code>Pi</code> 想進，而 <code>Pj</code> 不想進：</p>
 <div class="highlight"><pre><span></span><code><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">false</span>
@@ -19404,7 +19404,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>如果對方沒有要進，就不需要等對方。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="為什麼滿足-bounded-waiting限制等待">為什麼滿足 Bounded Waiting(限制等待)？<a class="headerlink" href="#為什麼滿足-bounded-waiting限制等待" title="Permanent link"></a></h3>
 <p>如果兩個都想進，<code>turn</code> 會決定誰先進。</p>
 <p>當一個 process 離開 critical section 時，它會設定：</p>
@@ -19426,7 +19426,7 @@ Thread B 算出 1 並寫回
 <blockquote>
 <p>不是大家自己寫紙條排隊，而是門鎖本身保證「看門有沒有鎖」和「把門鎖上」是同一個不可插隊的動作。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="testandset-code-reading"><code>TestAndSet</code> code reading<a class="headerlink" href="#testandset-code-reading" title="Permanent link"></a></h3>
 <h4 id="testandset-定義"><code>TestAndSet</code> 定義<a class="headerlink" href="#testandset-定義" title="Permanent link"></a></h4>
 <p>講義概念如下，我把語法修成正常 C-like pseudo-code：</p>
@@ -19461,10 +19461,10 @@ Thread B 算出 1 並寫回
 </table>
 <p>最重要：</p>
 <blockquote>
-<p>這三步必須是 atomic(原子) 的。<br />
+<p>這三步必須是 atomic(原子) 的。<br/>
 也就是不能做到一半被別的 thread / process 插進來。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="用-testandset-做-lock">用 <code>TestAndSet</code> 做 lock<a class="headerlink" href="#用-testandset-做-lock" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span>
@@ -19481,7 +19481,7 @@ Thread B 算出 1 並寫回
 <div class="highlight"><pre><span></span><code>lock = false 代表 lock 可用
 lock = true 代表 lock 被占用
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="情況一lock-原本是-false">情況一：lock 原本是 <code>false</code><a class="headerlink" href="#情況一lock-原本是-false" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>lock = false
 </code></pre></div>
@@ -19500,7 +19500,7 @@ lock = true 代表 lock 被占用
 <p>結果是：</p>
 <div class="highlight"><pre><span></span><code>這個 process 成功拿到 lock。
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="情況二lock-原本是-true">情況二：lock 原本是 <code>true</code><a class="headerlink" href="#情況二lock-原本是-true" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>lock = true
 </code></pre></div>
@@ -19520,13 +19520,13 @@ lock = true 代表 lock 被占用
 <blockquote>
 <p><code>busy waiting(忙碌等待)</code> 或 <code>spinlock(自旋鎖)</code>。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="testandset-最短記法"><code>TestAndSet</code> 最短記法<a class="headerlink" href="#testandset-最短記法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>TestAndSet = 回傳 lock 舊值，並把 lock 設成 true。
 回傳 false → 原本沒人拿 lock → 可以進 critical section。
 回傳 true → 原本有人拿 lock → 繼續等。
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="compare_and_swap-code-reading"><code>compare_and_swap</code> code reading<a class="headerlink" href="#compare_and_swap-code-reading" title="Permanent link"></a></h3>
 <h4 id="compare_and_swap-定義"><code>compare_and_swap</code> 定義<a class="headerlink" href="#compare_and_swap-定義" title="Permanent link"></a></h4>
 <p>講義概念如下：</p>
@@ -19568,10 +19568,10 @@ lock = true 代表 lock 被占用
 </table>
 <p>重點：</p>
 <blockquote>
-<p><code>compare + update</code> 必須 atomic。<br />
+<p><code>compare + update</code> 必須 atomic。<br/>
 也就是「比較」和「修改」中間不能被插隊。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="用-compare_and_swap-做-lock">用 <code>compare_and_swap</code> 做 lock<a class="headerlink" href="#用-compare_and_swap-做-lock" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">compare_and_swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
@@ -19588,7 +19588,7 @@ lock = true 代表 lock 被占用
 <div class="highlight"><pre><span></span><code>lock = 0 代表 lock 可用
 lock = 1 代表 lock 被占用
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="情況一lock-原本是-0">情況一：lock 原本是 <code>0</code><a class="headerlink" href="#情況一lock-原本是-0" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>lock = 0
 </code></pre></div>
@@ -19608,7 +19608,7 @@ lock = 1 代表 lock 被占用
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 <p>是 false，不等待，可以進入 critical section。</p>
-<hr />
+<hr/>
 <h4 id="情況二lock-原本是-1">情況二：lock 原本是 <code>1</code><a class="headerlink" href="#情況二lock-原本是-1" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>lock = 1
 </code></pre></div>
@@ -19624,7 +19624,7 @@ lock = 1 代表 lock 被占用
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 <p>是 true，繼續等待。</p>
-<hr />
+<hr/>
 <h4 id="compare_and_swap-最短記法"><code>compare_and_swap</code> 最短記法<a class="headerlink" href="#compare_and_swap-最短記法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>compare_and_swap(&amp;lock, 0, 1)
 = 如果 lock 是 0，就改成 1
@@ -19633,7 +19633,7 @@ lock = 1 代表 lock 被占用
 回傳 0 → 成功拿到 lock
 回傳非 0 → lock 原本被占用，繼續等
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="testandset-vs-compare_and_swap"><code>TestAndSet</code> vs <code>compare_and_swap</code><a class="headerlink" href="#testandset-vs-compare_and_swap" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -19671,7 +19671,7 @@ lock = 1 代表 lock 被占用
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="常見陷阱_1">常見陷阱<a class="headerlink" href="#常見陷阱_1" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -19708,7 +19708,7 @@ lock = 1 代表 lock 被占用
 <p class="admonition-title">Danger</p>
 <p>這一章節很重要，究竟為何叫做硬體原子化</p>
 <blockquote>
-<p>提問：<br />
+<p>提問：<br/>
 所以實際上不是透過組合語言，那所以組合語言也會呼叫一個原子化指令的意思嗎，然後那個指令就會直接執行原子化的電路，那個電路會直接讀取、修改、回傳一條龍服務。</p>
 </blockquote>
 </div>
@@ -19724,7 +19724,7 @@ lock = 1 代表 lock 被占用
 → 回傳舊值或結果
 </code></pre></div>
 <p>講義層級只說「現代機器提供 special atomic hardware instructions」以及 <code>Atomic = non-interruptable</code>，沒有再深入到 CPU 電路怎麼實作。</p>
-<hr />
+<hr/>
 <h4 id="組合語言到底扮演什麼角色">組合語言到底扮演什麼角色？<a class="headerlink" href="#組合語言到底扮演什麼角色" title="Permanent link"></a></h4>
 <p>假設高階語言概念上寫：</p>
 <div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span>
@@ -19736,7 +19736,7 @@ lock = 1 代表 lock 被占用
 <p>或某種 CPU 架構支援的 atomic instruction。</p>
 <p>但這裡要注意：</p>
 <blockquote>
-<p>組合語言不是「呼叫函式」那種 call，而是直接寫出 CPU 指令。<br />
+<p>組合語言不是「呼叫函式」那種 call，而是直接寫出 CPU 指令。<br/>
 CPU 看到那條指令後，就用硬體規則執行它。</p>
 </blockquote>
 <p>所以更精準地說：</p>
@@ -19744,7 +19744,7 @@ CPU 看到那條指令後，就用硬體規則執行它。</p>
 Assembly：用某條 CPU atomic instruction 表達這件事
 CPU hardware：真正執行不可分割的 read-modify-write
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="電路一條龍可以這樣想">「電路一條龍」可以這樣想<a class="headerlink" href="#電路一條龍可以這樣想" title="Permanent link"></a></h4>
 <p>你可以想成：</p>
 <pre class="diagram"><code>flowchart TB
@@ -19763,7 +19763,7 @@ CPU hardware：真正執行不可分割的 read-modify-write
 <blockquote>
 <p>它不一定是一個單純的「單一電路」瞬間完成，可能牽涉 CPU 指令、cache line ownership、cache coherence protocol、memory bus 或 lock prefix 等機制；但對程式來說，它呈現出來的效果就是一個不可分割的一條龍操作。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="為什麼普通-c-code-做不到">為什麼普通 C code 做不到？<a class="headerlink" href="#為什麼普通-c-code-做不到" title="Permanent link"></a></h4>
 <p>普通 C code：</p>
 <div class="highlight"><pre><span></span><code><span class="n">boolean</span><span class="w"> </span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">target</span><span class="p">;</span>
@@ -19784,7 +19784,7 @@ return old value
 }
 </code></pre></div>
 <p>也就是「中間狀態不開放給別人插隊」。</p>
-<hr />
+<hr/>
 <h4 id="最終記法">最終記法<a class="headerlink" href="#最終記法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>TestAndSet 的 pseudo-code：
 描述它做什麼。
@@ -19820,7 +19820,7 @@ Assembly：
 <div class="highlight"><pre><span></span><code>bounded waiting：每個等待者都會在有限次內輪到
 </code></pre></div>
 <p>因為 lock 一釋放，所有 process 又一起搶，某個 process 可能一直被插隊。</p>
-<hr />
+<hr/>
 <h3 id="bounded-waiting-版本的核心">Bounded-waiting 版本的核心<a class="headerlink" href="#bounded-waiting-版本的核心" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -19858,7 +19858,7 @@ Assembly：
 而是離開 critical section 的 process 會沿著環狀順序找下一個 waiting[j] == true 的 process，
 然後指定它可以進入。
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="關鍵-code-先看一次">關鍵 code 先看一次<a class="headerlink" href="#關鍵-code-先看一次" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">waiting</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
@@ -19912,7 +19912,7 @@ Assembly：
 </tbody>
 </table>
 </div>
-<hr />
+<hr/>
 <h4 id="離開時找下一位">離開時找下一位<a class="headerlink" href="#離開時找下一位" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
 
@@ -19952,7 +19952,7 @@ Assembly：
 <p>這裡在講的其實就是 <code>Pthread</code> 的 <code>pthread_mutex_lock(&amp;mutex)</code>、<code>pthread_mutex_unlock(&amp;mutex);</code> 之類的工具。</p>
 <p>在講完軟體、硬體原子化之後，會有 <code>Mutex Lock</code> 是因為要更方便的使用原子化，像是高階語言對於組語一樣，為了更方便的寫程式。</p>
 </div>
-<p><code>Mutex(互斥鎖)</code> 的直覺是：<br />
+<p><code>Mutex(互斥鎖)</code> 的直覺是：<br/>
 共享資料像一間只有一支筆的登記櫃台。一次只能一個人進去改資料，其他人必須在外面等。這樣才不會兩個人同時改同一格，導致結果亂掉。</p>
 <p>正式來說，<code>mutex lock</code> 用來保護 <code>critical section(臨界區間)</code>：</p>
 <div class="highlight"><span class="filename">這代碼只是示意而已</span><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
@@ -20001,7 +20001,7 @@ Assembly：
     E --&gt; F[remainder section]
     B -- No --&gt; G[busy waiting&lt;br&gt;keep checking]
     G --&gt; B</code></pre>
-<hr />
+<hr/>
 <h3 id="這頁最重要的陷阱acquire-必須是-atomic">這頁最重要的陷阱：<code>acquire()</code> 必須是 atomic<a class="headerlink" href="#這頁最重要的陷阱acquire-必須是-atomic" title="Permanent link"></a></h3>
 <p>投影片的概念 pseudo-code 是：</p>
 <div class="highlight"><span class="filename">這代碼只是示意而已</span><pre><span></span><code><span class="n">acquire</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -20014,7 +20014,7 @@ Assembly：
 <span class="w">    </span><span class="n">available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>表面上看起來沒問題，但真正關鍵是：<br />
+<p>表面上看起來沒問題，但真正關鍵是：<br/>
 「檢查 <code>available</code>」和「把 <code>available</code> 改成 <code>false</code>」必須合在一起不可被打斷。</p>
 <p>不然可能發生：</p>
 <table>
@@ -20062,7 +20062,7 @@ Assembly：
 <blockquote>
 <p><code>acquire()</code> 必須用 atomic hardware instruction 做到「檢查並取得鎖」不可分割。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="常見混淆">常見混淆<a class="headerlink" href="#常見混淆" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -20103,17 +20103,17 @@ Assembly：
 <p>像這樣：</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TestAndSet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">))</span><span class="w">  </span>
 <span class="w">    </span><span class="p">;</span><span class="w"> </span><span class="c1">// keep spinning</span>
-</code></pre></div><br />
+</code></pre></div><br/>
 或講義這種概念寫法：</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">available</span><span class="p">)</span><span class="w">  </span>
 <span class="w">    </span><span class="p">;</span><span class="w"> </span><span class="c1">// busy wait</span>
-</code></pre></div><br />
-這個「一直檢查」就叫 <code>busy waiting(忙碌等待)</code>。<br />
+</code></pre></div><br/>
+這個「一直檢查」就叫 <code>busy waiting(忙碌等待)</code>。<br/>
 而「使用 busy waiting 的 lock」就叫 <code>spinlock(自旋鎖)</code>。</p>
 <h2 id="semaphore-是什麼">Semaphore 是什麼？<a class="headerlink" href="#semaphore-是什麼" title="Permanent link"></a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>後面的代碼也只是示意而已，實際上的用法會像是：<br />
+<p>後面的代碼也只是示意而已，實際上的用法會像是：<br/>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;semaphore.h&gt;</span>
 
 <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sem</span><span class="p">);</span><span class="w">   </span><span class="c1">// wait(S)</span>
@@ -20148,12 +20148,12 @@ Assembly：
 </tr>
 <tr>
 <td><code>Counting Semaphore</code></td>
-<td>值可以是 0、1、2、3&hellip;，可控制多個資源名額</td>
+<td>值可以是 0、1、2、3…，可控制多個資源名額</td>
 </tr>
 </tbody>
 </table>
 <p>講義接著定義 Semaphore 是一個 <code>integer variable(整數變數)</code>，只能透過兩個 atomic operations 修改：<code>wait()</code> 和 <code>signal()</code>；它們原本也叫 <code>P()</code> 和 <code>V()</code>。</p>
-<hr />
+<hr/>
 <h3 id="最小必要-pseudo-code">最小必要 pseudo-code<a class="headerlink" href="#最小必要-pseudo-code" title="Permanent link"></a></h3>
 <p>講義先給的是 busy waiting 版本：</p>
 <div class="highlight"><span class="filename">這代碼只是示意而已</span><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -20197,7 +20197,7 @@ Assembly：
     D --&gt; B
     C --&gt; E[finish work]
     E --&gt; F[signal S&lt;br&gt;S++]</code></pre>
-<hr />
+<hr/>
 <h3 id="本輪先抓三句">本輪先抓三句<a class="headerlink" href="#本輪先抓三句" title="Permanent link"></a></h3>
 <ol>
 <li><strong>Semaphore 是 integer variable，不只是 boolean。</strong></li>
@@ -20212,7 +20212,7 @@ Assembly：
 <span class="w">    </span><span class="n">S</span><span class="o">--</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>問題是：<br />
+<p>問題是：<br/>
 如果 <code>S &lt;= 0</code>，process 會一直空轉檢查，浪費 CPU。</p>
 <p>所以 no-busy-waiting 版本改成：</p>
 <div class="highlight"><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">semaphore</span><span class="w"> </span><span class="o">*</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -20232,7 +20232,7 @@ Assembly：
 <span class="p">}</span>
 </code></pre></div>
 <p>講義的意思是：拿不到資源時不要一直轉，而是先去睡覺；等有人釋放資源，再把你叫醒。</p>
-<hr />
+<hr/>
 <h4 id="四個操作的正確關係">四個操作的正確關係<a class="headerlink" href="#四個操作的正確關係" title="Permanent link"></a></h4>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -20270,10 +20270,10 @@ Assembly：
 </div>
 <p>重點不是 <code>block()</code> 自己拿資源，也不是 <code>wakeup()</code> 自己釋放資源。</p>
 <blockquote>
-<p><code>wait()</code> / <code>signal()</code> 是 semaphore 的主要操作；<br />
+<p><code>wait()</code> / <code>signal()</code> 是 semaphore 的主要操作；<br/>
 <code>block()</code> / <code>wakeup()</code> 是 OS 用來避免 busy waiting 的排程輔助動作。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="流程圖">流程圖<a class="headerlink" href="#流程圖" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[Process calls wait S] --&gt; B[S-&gt;value--]
@@ -20301,7 +20301,7 @@ Assembly：
 <p>沒資源時，不要一直空轉；把 process 放進 waiting queue，暫停執行。等別人 <code>signal(S)</code> 釋放資源時，再叫醒其中一個等待者。</p>
 </blockquote>
 <p>講義這裡明確說，每個 semaphore 會有一個 associated waiting queue，並且用 <code>block()</code> 把 process 放到等待佇列，用 <code>wakeup()</code> 把等待中的 process 移出並放到 ready queue。</p>
-<hr />
+<hr/>
 <h3 id="最小必要-code">最小必要 code<a class="headerlink" href="#最小必要-code" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
@@ -20327,7 +20327,7 @@ Assembly：
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h3 id="wait-的-no-busy-waiting-版本"><code>wait()</code> 的 no-busy-waiting 版本<a class="headerlink" href="#wait-的-no-busy-waiting-版本" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">semaphore</span><span class="w"> </span><span class="o">*</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">--</span><span class="p">;</span>
@@ -20357,13 +20357,13 @@ Assembly：
 </tr>
 </tbody>
 </table>
-<p>最容易錯的是：<br />
+<p>最容易錯的是：<br/>
 <code>S-&gt;value</code> 在這個版本中可以是負數。</p>
 <p>例如原本 <code>S-&gt;value = 0</code>，某 process 呼叫 <code>wait(S)</code>：</p>
 <div class="highlight"><pre><span></span><code>S-&gt;value--  →  -1
 </code></pre></div>
 <p>因為 <code>&lt; 0</code>，所以這個 process 會被放入 waiting queue 並 <code>block()</code>。</p>
-<hr />
+<hr/>
 <h3 id="signal-的-no-busy-waiting-版本"><code>signal()</code> 的 no-busy-waiting 版本<a class="headerlink" href="#signal-的-no-busy-waiting-版本" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">signal</span><span class="p">(</span><span class="n">semaphore</span><span class="w"> </span><span class="o">*</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">++</span><span class="p">;</span>
@@ -20395,7 +20395,7 @@ Assembly：
 </table>
 <p>為什麼是 <code>&lt;= 0</code>，不是 <code>&lt; 0</code>？</p>
 <p>因為如果 <code>S-&gt;value</code> 從 <code>-1</code> 加到 <code>0</code>，代表剛好還有一個 process 在等，而且這次釋放的資源應該交給它，所以要 <code>wakeup(P)</code>。</p>
-<hr />
+<hr/>
 <h3 id="關鍵直覺負數代表有人在等">關鍵直覺：負數代表有人在等<a class="headerlink" href="#關鍵直覺負數代表有人在等" title="Permanent link"></a></h3>
 <p>在 no-busy-waiting semaphore 中：</p>
 <div class="highlight"><pre><span></span><code>S-&gt;value =  2  → 有 2 個可用名額
@@ -20406,12 +20406,12 @@ S-&gt;value = -2  → 有 2 個 process 在等
 </code></pre></div>
 <p>生活化例子：</p>
 <blockquote>
-<p>停車場本來 0 個空位。<br />
-第一台車來，沒有空位，登記等待，<code>value = -1</code>。<br />
-第二台車也來，登記等待，<code>value = -2</code>。<br />
+<p>停車場本來 0 個空位。<br/>
+第一台車來，沒有空位，登記等待，<code>value = -1</code>。<br/>
+第二台車也來，登記等待，<code>value = -2</code>。<br/>
 有車離開時，<code>signal()</code> 讓 <code>value++</code>，並叫醒其中一台等待的車。</p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="流程圖_1">流程圖<a class="headerlink" href="#流程圖_1" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A[Process calls wait S] --&gt; B[S-&gt;value--]
@@ -20447,7 +20447,7 @@ A 不放，B 也不放
 → 不是整個隊伍停止，而是某個人永遠輪不到
 </code></pre></div>
 <p>社群討論裡常見的區分也類似：deadlock 偏向「彼此互等，整組卡住」；starvation 偏向「某些 thread/process 長期得不到機會，但其他人仍可能持續取得資源」。這個直覺和講義的 <code>infinite blocking</code> 說法一致。([Computer Science Stack Exchange][1])</p>
-<hr />
+<hr/>
 <h3 id="最小必要流程semaphore-造成-deadlock">最小必要流程：Semaphore 造成 Deadlock<a class="headerlink" href="#最小必要流程semaphore-造成-deadlock" title="Permanent link"></a></h3>
 <p>講義例子：</p>
 <div class="highlight"><pre><span></span><code><span class="n">Semaphore</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -20509,7 +20509,7 @@ P1 holds Q, waits for S
 <p>這個 process / thread 要繼續執行某段工作之前，<strong>必須同時取得兩個資源或兩把鎖</strong>。</p>
 </blockquote>
 <p>在講義例子中，<code>S</code> 和 <code>Q</code> 是兩個 semaphore，初始值都是 1。<code>P0</code> 先 <code>wait(S)</code> 再 <code>wait(Q)</code>，<code>P1</code> 則先 <code>wait(Q)</code> 再 <code>wait(S)</code>，這個設計是用來示範：如果兩個 process 取得資源的順序相反，就可能造成 <code>deadlock(死結)</code>。</p>
-<hr />
+<hr/>
 <h4 id="為什麼一個-process-會需要-wait-兩個-semaphore">為什麼一個 process 會需要 wait 兩個 semaphore？<a class="headerlink" href="#為什麼一個-process-會需要-wait-兩個-semaphore" title="Permanent link"></a></h4>
 <p>因為有些工作不是只需要一個資源，而是要同時拿到兩個資源才安全。</p>
 <p>例如：</p>
@@ -20563,7 +20563,7 @@ P1 holds Q, waits for S
 再取得資源 Q
 兩個都取得後，才能安全執行需要兩個資源的 critical section
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="生活化例子轉帳">生活化例子：轉帳<a class="headerlink" href="#生活化例子轉帳" title="Permanent link"></a></h4>
 <p>假設你要從 A 帳戶轉錢到 B 帳戶。</p>
 <p>你可能需要：</p>
@@ -20574,7 +20574,7 @@ B.balance += 100
 unlock(B帳戶)
 unlock(A帳戶)
 </code></pre></div>
-<p>如果只鎖 A，不鎖 B，另一個 thread 可能同時改 B。<br />
+<p>如果只鎖 A，不鎖 B，另一個 thread 可能同時改 B。<br/>
 如果只鎖 B，不鎖 A，另一個 thread 可能同時改 A。</p>
 <p>所以要兩個都鎖。</p>
 <p>對應到 semaphore：</p>
@@ -20647,7 +20647,7 @@ H 等 L 釋放鑰匙
 <blockquote>
 <p><strong>排程上誰比較急。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h3 id="為什麼要分高低優先權">為什麼要分高低優先權？<a class="headerlink" href="#為什麼要分高低優先權" title="Permanent link"></a></h3>
 <p>因為 CPU 同一時間能執行的工作有限。</p>
 <p>假設現在只有一顆 CPU，但有三件事同時 ready：</p>
@@ -20655,12 +20655,12 @@ H 等 L 釋放鑰匙
 M：更新畫面動畫
 L：背景掃毒
 </code></pre></div>
-<p>如果全部平等排隊，背景掃毒可能剛好佔住 CPU，導致音訊卡住。<br />
+<p>如果全部平等排隊，背景掃毒可能剛好佔住 CPU，導致音訊卡住。<br/>
 所以 OS 會用 priority 幫助 scheduler 判斷：</p>
 <div class="highlight"><pre><span></span><code>音訊播放 &gt; 畫面動畫 &gt; 背景掃毒
 </code></pre></div>
 <p>目的就是讓比較急的任務比較快被服務。</p>
-<hr />
+<hr/>
 <h3 id="那什麼是-priority-inversion">那什麼是 Priority Inversion？<a class="headerlink" href="#那什麼是-priority-inversion" title="Permanent link"></a></h3>
 <p>照正常想法：</p>
 <div class="highlight"><pre><span></span><code>H 高優先權
@@ -20676,14 +20676,14 @@ M 比 L 先跑
 <p><strong>明明 H 優先權最高，最後卻被 M 間接擋住；M 明明比 H 低，卻先於 H 繼續執行。</strong></p>
 </blockquote>
 <p>講義的情境是：三個行程 <code>L, M, H</code>，優先權順序是 <code>L &lt; M &lt; H</code>。<code>H</code> 需要的資源 <code>R</code> 正被 <code>L</code> 使用，而 <code>M</code> 又搶先 <code>L</code> 執行，導致 <code>L</code> 不能釋放 <code>R</code>，最後 <code>H</code> 被間接拖住；解法是讓 <code>L</code> 暫時繼承 <code>H</code> 的優先權，先跑完並釋放資源。</p>
-<hr />
+<hr/>
 <h3 id="最重要的一句h-為什麼不能直接跑">最重要的一句：H 為什麼不能直接跑？<a class="headerlink" href="#最重要的一句h-為什麼不能直接跑" title="Permanent link"></a></h3>
 <p>這是最容易卡住的地方。</p>
 <p>因為：</p>
 <blockquote>
 <p><strong>H 雖然優先權最高，但 H 正在等 L 手上的 lock/resource，所以 H 是 blocked，不是 ready。</strong></p>
 </blockquote>
-<p>Scheduler 只會從 <code>ready queue(就緒佇列)</code> 裡挑人跑。<br />
+<p>Scheduler 只會從 <code>ready queue(就緒佇列)</code> 裡挑人跑。<br/>
 如果 H 正在 blocked，它根本不在可執行名單裡。</p>
 <p>狀態大概是：</p>
 <table>
@@ -20718,10 +20718,10 @@ M 比 L 先跑
 <p>而且：</p>
 <div class="highlight"><pre><span></span><code>M priority &gt; L priority
 </code></pre></div>
-<p>因此 scheduler 會選 M，而不是 L。<br />
+<p>因此 scheduler 會選 M，而不是 L。<br/>
 問題就在這裡：<strong>H 想讓 L 快點跑完釋放 R，但 scheduler 卻一直讓 M 跑。</strong></p>
 <p>Real-time Ubuntu 文件也用同樣邏輯描述：高優先權 task 因 shared resource 被低優先權 task 延遲時，中優先權 task 可能先完成，這就是 priority inversion，通常用 priority inheritance 解決。([documentation.ubuntu.com][1])</p>
-<hr />
+<hr/>
 <h3 id="用時間線看一次">用時間線看一次<a class="headerlink" href="#用時間線看一次" title="Permanent link"></a></h3>
 <p>假設：</p>
 <div class="highlight"><pre><span></span><code>H = 高優先權
@@ -20737,7 +20737,7 @@ R = 共享資源，例如 mutex lock
 時間 5：H 拿到 R，繼續跑
 </code></pre></div>
 <p>這只是普通等待，不一定是嚴重問題。</p>
-<hr />
+<hr/>
 <h4 id="發生-priority-inversion-時">發生 Priority Inversion 時<a class="headerlink" href="#發生-priority-inversion-時" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>時間 1：L 開始跑，拿到 R
 時間 2：H 來了，想拿 R，但 R 被 L 拿著，所以 H blocked
@@ -20753,7 +20753,7 @@ L 又被 M 擋住
 所以 M 間接讓 H 等更久
 </code></pre></div>
 <p>這就是「倒置」。</p>
-<hr />
+<hr/>
 <h3 id="解法priority-inheritance">解法：Priority Inheritance<a class="headerlink" href="#解法priority-inheritance" title="Permanent link"></a></h3>
 <p><code>Priority Inheritance(優先權繼承)</code> 的想法很簡單：</p>
 <blockquote>
@@ -20771,7 +20771,7 @@ L 又被 M 擋住
 </code></pre></div>
 <p>講義也是這樣說：<code>priority-inheritance protocol</code> 讓 <code>L</code> 暫時繼承 <code>H</code> 的優先權，避免 <code>M</code> 搶先 <code>L</code>；當 <code>L</code> 完成使用資源 <code>R</code> 後，就放棄繼承來的優先權，恢復原本優先權。</p>
 <p>POSIX mutex 也有對應機制：<code>PTHREAD_PRIO_INHERIT</code> 表示當某 thread 因為持有 mutex 而阻塞較高優先權 thread 時，它會以自己原本優先權和等待者中最高優先權的較高者執行；若高優先權 thread 因 <code>pthread_mutex_lock()</code> 被擋住，mutex owner 會繼承該 priority。([pubs.opengroup.org][2])</p>
-<hr />
+<hr/>
 <h3 id="為什麼叫倒置">為什麼叫「倒置」？<a class="headerlink" href="#為什麼叫倒置" title="Permanent link"></a></h3>
 <p>正常優先權順序：</p>
 <div class="highlight"><pre><span></span><code>H &gt; M &gt; L
@@ -20790,7 +20790,7 @@ H 因為等 L 而不能跑
 <div class="highlight"><pre><span></span><code>M 間接比 H 更早被服務
 </code></pre></div>
 <p>優先權關係被「倒過來」了，所以叫 <code>Priority Inversion(優先權倒置)</code>。</p>
-<hr />
+<hr/>
 <h3 id="跟-deadlock--starvation-的差別">跟 Deadlock / Starvation 的差別<a class="headerlink" href="#跟-deadlock--starvation-的差別" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -20825,17 +20825,17 @@ Priority Inversion：高優先權被低優先權拿著的資源卡住，還被�
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Priority Inversion(優先權倒置)就是：<br />
+<p>Priority Inversion(優先權倒置)就是：<br/>
 <div class="highlight"><pre><span></span><code><span class="n">時間</span><span class="w"> </span><span class="mi">1</span><span class="err">：</span><span class="n">L</span><span class="w"> </span><span class="n">開始跑</span><span class="err">，</span><span class="n">拿到</span><span class="w"> </span><span class="n">R</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">2</span><span class="err">：</span><span class="n">H</span><span class="w"> </span><span class="n">來了</span><span class="err">，</span><span class="n">想拿</span><span class="w"> </span><span class="n">R</span><span class="err">，</span><span class="n">但</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">被</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="n">拿著</span><span class="err">，</span><span class="n">所以</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">blocked</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">3</span><span class="err">：</span><span class="n">M</span><span class="w"> </span><span class="n">來了</span><span class="err">，</span><span class="n">而且</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">不需要</span><span class="w"> </span><span class="n">R</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">4</span><span class="err">：</span><span class="n">scheduler</span><span class="w"> </span><span class="n">比較</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">和</span><span class="w"> </span><span class="n">L</span><span class="err">，</span><span class="n">因為</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">L</span><span class="err">，</span><span class="n">所以讓</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">跑</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">5</span><span class="err">：</span><span class="n">L</span><span class="w"> </span><span class="n">沒機會跑</span><span class="err">，</span><span class="n">所以</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="n">不能釋放</span><span class="w"> </span><span class="n">R</span>
 <span class="n">時間</span><span class="w"> </span><span class="mi">6</span><span class="err">：</span><span class="n">H</span><span class="w"> </span><span class="n">一直</span><span class="w"> </span><span class="n">blocked</span><span class="err">，</span><span class="n">因為</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="n">還在</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="n">手上</span>
-</code></pre></div><br />
-最後 H 因為被 L 搶鎖，然後 L 又被 M 搶權限，所以跑不了。<br />
+</code></pre></div><br/>
+最後 H 因為被 L 搶鎖，然後 L 又被 M 搶權限，所以跑不了。<br/>
 本來 H 應該要能夠在 L 和 M 前面跑的。</p>
-<hr />
+<hr/>
 <p>解法是 Priority Inheritance(優先權繼承)：</p>
 <p>如果 H 被 L 手上的資源擋住，就暫時把 L 的優先權提高到 H 的等級，讓 L 趕快跑完、釋放資源。</p>
 <div class="highlight"><pre><span></span><code><span class="n">時間</span><span class="w"> </span><span class="mi">1</span><span class="err">：</span><span class="n">L</span><span class="w"> </span><span class="n">拿到</span><span class="w"> </span><span class="n">R</span>
@@ -20945,9 +20945,9 @@ Priority Inversion：高優先權被低優先權拿著的資源卡住，還被�
 <div class="highlight"><pre><span></span><code>多個 readers 可以同時讀。
 writer 寫資料時，不能有其他 reader 或 writer 同時存取。
 </code></pre></div>
-<p>為什麼 reader 可以多人同時進去？因為大家只是看資料，不會改資料。<br />
+<p>為什麼 reader 可以多人同時進去？因為大家只是看資料，不會改資料。<br/>
 為什麼 writer 必須獨占？因為 writer 會修改 shared data，如果同時有人讀或寫，就可能讀到一半新一半舊的資料，或造成 race condition。講義這裡明確寫：允許多個 reader 同時讀，但同一時間只能有一個 writer 存取 shared data。</p>
-<hr />
+<hr/>
 <h3 id="三個共享變數">三個共享變數<a class="headerlink" href="#三個共享變數" title="Permanent link"></a></h3>
 <p>講義使用：</p>
 <div class="highlight"><pre><span></span><code><span class="n">semaphore</span><span class="w"> </span><span class="n">rw_mutex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -20981,7 +20981,7 @@ writer 寫資料時，不能有其他 reader 或 writer 同時存取。
 mutex 是保護 read_count。
 </code></pre></div>
 <p>網路上常見的講法也一樣：<code>rw_mutex/resource</code> 是控制 shared resource，<code>mutex/rmutex</code> 是防止多個 reader 同時更新 <code>read_count</code> 造成 race condition。([維基百科][1])</p>
-<hr />
+<hr/>
 <h3 id="writer-的程式邏輯">Writer 的程式邏輯<a class="headerlink" href="#writer-的程式邏輯" title="Permanent link"></a></h3>
 <p>Writer 很簡單：</p>
 <div class="highlight"><pre><span></span><code><span class="k">do</span><span class="w"> </span><span class="p">{</span>
@@ -20997,7 +20997,7 @@ mutex 是保護 read_count。
 寫完後，釋放 rw_mutex。
 </code></pre></div>
 <p>因為 writer 會修改資料，所以它必須獨占 shared data。</p>
-<hr />
+<hr/>
 <h3 id="reader-的程式邏輯">Reader 的程式邏輯<a class="headerlink" href="#reader-的程式邏輯" title="Permanent link"></a></h3>
 <p>Reader 比較難，因為它要允許「多個 reader 同時讀」。</p>
 <p>講義的 reader 結構是：</p>
@@ -21021,7 +21021,7 @@ mutex 是保護 read_count。
 <span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="reader-為什麼這樣寫">Reader 為什麼這樣寫？<a class="headerlink" href="#reader-為什麼這樣寫" title="Permanent link"></a></h3>
 <h4 id="進入時">進入時<a class="headerlink" href="#進入時" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
@@ -21042,7 +21042,7 @@ reader 數量 +1。
 <div class="highlight"><pre><span></span><code>第一個 reader 負責擋 writer。
 後面的 readers 可以一起進來讀。
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="離開時">離開時<a class="headerlink" href="#離開時" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="n">wait</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
 <span class="n">read_count</span><span class="o">--</span><span class="p">;</span>
@@ -21060,7 +21060,7 @@ reader 數量 +1。
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code>最後一個 reader 負責放 writer。
 </code></pre></div>
-<hr />
+<hr/>
 <h3 id="圖解">圖解<a class="headerlink" href="#圖解" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TB
     A[Reader wants to read] --&gt; B[wait mutex&lt;br&gt;protect read_count]
@@ -21078,7 +21078,7 @@ reader 數量 +1。
     K -- No --&gt; M[other readers still reading]
     L --&gt; N[signal mutex]
     M --&gt; N</code></pre>
-<hr />
+<hr/>
 <h3 id="最短記法_2">最短記法<a class="headerlink" href="#最短記法_2" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -21101,7 +21101,7 @@ mutex 保護 read_count。
 rw_mutex 保護 shared data。
 </code></pre></div>
 </div>
-<hr />
+<hr/>
 <h3 id="常見錯法">常見錯法<a class="headerlink" href="#常見錯法" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -21130,7 +21130,7 @@ rw_mutex 保護 shared data。
 </tbody>
 </table>
 <h2 id="dining-philosophers-problem哲學家進餐問題">Dining-Philosophers Problem(哲學家進餐問題)<a class="headerlink" href="#dining-philosophers-problem哲學家進餐問題" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-8.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E-8.png"/></p>
 <p><code>Dining-Philosophers Problem(哲學家進餐問題)</code> 是典型同步問題，用來展示：</p>
 <div class="highlight"><pre><span></span><code>多個 process/thread 共享有限資源時，
 如果每個人都先拿一部分資源、再等另一部分資源，
@@ -21155,7 +21155,7 @@ rw_mutex 保護 shared data。
 <span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
 </code></pre></div>
 <p>這代表 philosopher <code>i</code> 會先拿自己的左邊筷子 <code>chopstick[i]</code>，再拿右邊筷子 <code>chopstick[(i + 1) % 5]</code>。</p>
-<hr />
+<hr/>
 <h3 id="為什麼會-deadlock">為什麼會 deadlock？<a class="headerlink" href="#為什麼會-deadlock" title="Permanent link"></a></h3>
 <p>如果五個哲學家同時做第一步：</p>
 <div class="highlight"><pre><span></span><code>P0 拿到 chopstick[0]
@@ -21180,7 +21180,7 @@ P4 等 chopstick[0]，但在 P0 手上
     P4 --&gt; P0</code></pre>
 <p>這就是 <code>Deadlock(死結)</code>。</p>
 <p>講義也明確說：如果每個哲學家同時拿起左邊筷子，然後都在等右邊筷子，結果就是 deadlock。講義列出的解法包含：最多只允許四個哲學家同時上桌、只有左右筷子都可用時才允許哲學家吃、或採用非對稱拿筷子順序；同時提醒 deadlock-free 不代表一定 starvation-free。</p>
-<hr />
+<hr/>
 <h3 id="最短記法_3">最短記法<a class="headerlink" href="#最短記法_3" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code>Dining Philosophers：
 每個人需要兩支筷子才能吃。
@@ -21192,31 +21192,31 @@ P4 等 chopstick[0]，但在 P0 手上
 </code></pre></div>
 <h3 id="解法">解法<a class="headerlink" href="#解法" title="Permanent link"></a></h3>
 <h4 id="解法一最多只允許四個哲學家同時坐下">解法一：最多只允許四個哲學家同時坐下<a class="headerlink" href="#解法一最多只允許四個哲學家同時坐下" title="Permanent link"></a></h4>
-<p>原理：<br />
+<p>原理：<br/>
 <div class="highlight"><pre><span></span><code>不要讓五個人同時都有機會各拿一支筷子。
-</code></pre></div><br />
+</code></pre></div><br/>
 如果最多只有四個哲學家參與，桌上有五支筷子，至少會多出一支筷子。這樣至少有一個哲學家有機會拿到第二支筷子、吃完、釋放筷子，整個系統就不會形成完整 circular wait。</p>
 <h4 id="解法二只有左右兩支筷子都可用時才允許拿筷子">解法二：只有左右兩支筷子都可用時，才允許拿筷子<a class="headerlink" href="#解法二只有左右兩支筷子都可用時才允許拿筷子" title="Permanent link"></a></h4>
-<p>原理：<br />
+<p>原理：<br/>
 <div class="highlight"><pre><span></span><code>不要讓哲學家只拿一支筷子後卡住。
-</code></pre></div><br />
+</code></pre></div><br/>
 哲學家要吃飯前，必須先確認左右兩支筷子都可用，才能一次取得兩支。這樣就不會出現「每個人都拿一支、再等另一支」的狀態。</p>
 <h4 id="解法三非對稱拿筷子順序">解法三：非對稱拿筷子順序<a class="headerlink" href="#解法三非對稱拿筷子順序" title="Permanent link"></a></h4>
-<p>原理：<br />
+<p>原理：<br/>
 <div class="highlight"><pre><span></span><code>不要讓所有哲學家都用同一方向拿筷子。
-</code></pre></div><br />
-例如：<br />
+</code></pre></div><br/>
+例如：<br/>
 <div class="highlight"><pre><span></span><code>偶數哲學家：先拿左筷子，再拿右筷子  
 奇數哲學家：先拿右筷子，再拿左筷子
-</code></pre></div><br />
+</code></pre></div><br/>
 這樣就不可能發生「所有人都先拿左邊，再等右邊」或「所有人都先拿右邊，再等左邊」。因為如果「所有人都先拿左邊，再等右邊」，就會違反「奇數哲學家：先拿右筷子，再拿左筷子」的規則。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="starvation-可能是-deadlock-造成的嗎">starvation 可能是 deadlock 造成的嗎？<a class="headerlink" href="#starvation-可能是-deadlock-造成的嗎" title="Permanent link"></a></h3>
 <p>不能這樣說，因為 Starvation = 某個 process/thread 長期甚至永遠等不到資源或執行機會。</p>
 <p>它通常隱含：</p>
-<p>系統整體沒有卡死。<br />
-<mark>仍然有人可以繼續執行</mark> 。<br />
+<p>系統整體沒有卡死。<br/>
+<mark>仍然有人可以繼續執行</mark> 。<br/>
 只是某個人一直被略過、插隊、或搶輸。</p>
 </div>
 
@@ -21350,17 +21350,15 @@ P4 等 chopstick[0]，但在 P0 手上
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

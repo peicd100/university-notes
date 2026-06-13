@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6708,51 +6708,51 @@ is now available!
 <ol>
 <li>The seven great ideas in computer architecture are similar to ideas from other fields. Match the seven ideas from computer architecture, “Use Abstraction to Simplify Design,” “Make the Common Case Fast,” “Performance via Parallelism,” “Performance via Pipelining,” “Performance via Prediction” “Hierarchy of Memories,” and “Dependability via Redundancy” to the following ideas from other fields:</li>
 </ol>
-<p>a. Assembly lines in automobile manufacturing<br />
-b. Suspension bridge cables<br />
-c. Aircraft and marine navigation systems that incorporate wind information<br />
-d. Express elevators in buildings<br />
-e. Library reserve desk<br />
-f. Increasing the gate area on a CMOS transistor to decrease its switching time<br />
+<p>a. Assembly lines in automobile manufacturing<br/>
+b. Suspension bridge cables<br/>
+c. Aircraft and marine navigation systems that incorporate wind information<br/>
+d. Express elevators in buildings<br/>
+e. Library reserve desk<br/>
+f. Increasing the gate area on a CMOS transistor to decrease its switching time<br/>
 g. Building self-driving cars whose control systems partially rely on existing sensor systems already installed into the base vehicle, such as lane departure systems and smart cruise control systems.</p>
-<hr />
+<hr/>
 <h4 id="2-依序講解">2. 依序講解<a class="headerlink" href="#2-依序講解" title="Permanent link"></a></h4>
 <h5 id="a">a.<a class="headerlink" href="#a" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Performance via Pipelining ↔ Assembly lines in automobile manufacturing</strong><br />
+<p>答案英文(配對組合)：<strong>Performance via Pipelining ↔ Assembly lines in automobile manufacturing</strong><br/>
 答案中文(配對組合)：<strong>以管線化提升效能 ↔ 汽車製造裝配線</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 裝配線會把造車流程拆成很多 stage(階段)，不同車子同時在不同階段前進。這跟 pipelining(管線化) 很像：不是把單一工作本身變短，而是讓多個工作重疊進行，提升整體 throughput(吞吐量)。這組配對是非常常見的標準答案。(<a href="https://quizlet.com/219298236/comp-org-ch1-flash-cards/?utm_source=chatgpt.com" title="Comp Org CH1 Flashcards | Quizlet">quizlet.com</a>)</p>
 <h5 id="b">b.<a class="headerlink" href="#b" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Dependability via Redundancy ↔ Suspension bridge cables</strong><br />
+<p>答案英文(配對組合)：<strong>Dependability via Redundancy ↔ Suspension bridge cables</strong><br/>
 答案中文(配對組合)：<strong>以冗餘提升可靠度 ↔ 吊橋纜索</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 吊橋不會只靠單一纜索撐住，而是很多纜索一起分擔力量。就算其中一些出問題，整體仍能維持。這就是 redundancy(冗餘) 的核心精神：多放備援，換取系統更穩、更可靠。(<a href="https://quizlet.com/219298236/comp-org-ch1-flash-cards/?utm_source=chatgpt.com" title="Comp Org CH1 Flashcards | Quizlet">quizlet.com</a>)</p>
 <h5 id="c">c.<a class="headerlink" href="#c" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Performance via Prediction ↔ Aircraft and marine navigation systems that incorporate wind information</strong><br />
+<p>答案英文(配對組合)：<strong>Performance via Prediction ↔ Aircraft and marine navigation systems that incorporate wind information</strong><br/>
 答案中文(配對組合)：<strong>以預測提升效能 ↔ 納入風向資訊的航空／航海導航系統</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 飛機或船若能先預測風向、風速，就能提早修正航線，而不是偏掉後才補救。這就像 processor 先做 prediction(預測) 一樣：先猜未來大概會發生什麼，猜對就能省時間、少浪費資源。(<a href="https://quizlet.com/219298236/comp-org-ch1-flash-cards/?utm_source=chatgpt.com" title="Comp Org CH1 Flashcards | Quizlet">quizlet.com</a>)</p>
 <h5 id="d">d.<a class="headerlink" href="#d" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Make the Common Case Fast ↔ Express elevators in buildings</strong><br />
+<p>答案英文(配對組合)：<strong>Make the Common Case Fast ↔ Express elevators in buildings</strong><br/>
 答案中文(配對組合)：<strong>讓常見情況變快 ↔ 大樓中的直達電梯</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 直達電梯不是平均服務每一層，而是特別去加速最常見、最值得優化的移動需求，例如大量人要快速到高樓層。這正是 make the common case fast(讓常見情況變快)：不是每種情況都平均處理，而是優先讓最常發生的情況更快。你課堂檔案也把它描述成針對高頻率出現的運算做最佳化。</p>
 <h5 id="e">e.<a class="headerlink" href="#e" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Hierarchy of Memories ↔ Library reserve desk</strong><br />
+<p>答案英文(配對組合)：<strong>Hierarchy of Memories ↔ Library reserve desk</strong><br/>
 答案中文(配對組合)：<strong>記憶體階層 ↔ 圖書館保留書櫃台</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 圖書館會把最常被借、最急著用的書放在更容易拿到的位置，其他書再放到一般書架或庫房。這和 hierarchy of memories(記憶體階層) 一模一樣：常用資料放在更快、更近但容量較小的地方，不常用資料放在較慢但容量較大的地方。(<a href="https://quizlet.com/219298236/comp-org-ch1-flash-cards/?utm_source=chatgpt.com" title="Comp Org CH1 Flashcards | Quizlet">quizlet.com</a>)</p>
 <h5 id="f">f.<a class="headerlink" href="#f" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Performance via Parallelism ↔ Increasing the gate area on a CMOS transistor to decrease its switching time</strong><br />
+<p>答案英文(配對組合)：<strong>Performance via Parallelism ↔ Increasing the gate area on a CMOS transistor to decrease its switching time</strong><br/>
 答案中文(配對組合)：<strong>以平行化提升效能 ↔ 增加 CMOS 電晶體閘極面積以降低切換時間</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 既然你要把 F 配到 Parallelism，我們就照這個版本重寫。這種解法在部分網路解答中確實存在，且有來源直接把 f 配成 Performance via Parallelism。可把它理解成：增加可同時承擔、推動的電流能力，讓更多動作能更有效率地一起發生，對應到「用更多硬體同時做事」的 parallelism(平行化) 思想。不過這一組在不同版本答案中爭議最大，你若是要交作業，最好以老師上課版本為準。(<a href="https://www.gauthmath.com/solution/1985575915905924/any-necossary-calculation-step-Question-1-The-eight-great-ideas-in-computer-arch?utm_source=chatgpt.com" title="any necossary calculation step. Question 1. The eight great ideas in computer architecture [Others]">Gauth</a>)</p>
 <h5 id="g">g.<a class="headerlink" href="#g" title="Permanent link"></a></h5>
-<p>答案英文(配對組合)：<strong>Use Abstraction to Simplify Design ↔ Building self-driving cars whose control systems partially rely on existing sensor systems already installed into the base vehicle</strong><br />
+<p>答案英文(配對組合)：<strong>Use Abstraction to Simplify Design ↔ Building self-driving cars whose control systems partially rely on existing sensor systems already installed into the base vehicle</strong><br/>
 答案中文(配對組合)：<strong>用抽象化簡化設計 ↔ 自駕車控制系統部分依賴車上既有感測系統</strong></p>
-<p>一小段講解：<br />
+<p>一小段講解：<br/>
 自駕系統不是每一個底層感測功能都自己從零重做，而是建立在既有的 lane departure(車道偏移警示)、smart cruise control(智慧巡航) 等模組之上。這就是 abstraction(抽象化)：直接使用下層已經存在的功能介面，而不用反覆處理所有底層細節。你的課堂檔案也明確把 abstraction 定義成「隱藏較低級別的詳細資訊，幫助處理複雜性」。</p>
-<hr />
+<hr/>
 <h4 id="3-這版整理成最終配對表">3. 這版整理成最終配對表<a class="headerlink" href="#3-這版整理成最終配對表" title="Permanent link"></a></h4>
 <ul>
 <li>a → <strong>Performance via Pipelining</strong></li>
@@ -6763,14 +6763,14 @@ g. Building self-driving cars whose control systems partially rely on existing s
 <li>f → <strong>Performance via Parallelism</strong></li>
 <li>g → <strong>Use Abstraction to Simplify Design</strong></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="4-若你要直接抄成精簡版">4. 若你要直接抄成精簡版<a class="headerlink" href="#4-若你要直接抄成精簡版" title="Permanent link"></a></h4>
-<p>a. Performance via Pipelining<br />
-b. Dependability via Redundancy<br />
-c. Performance via Prediction<br />
-d. Make the Common Case Fast<br />
-e. Hierarchy of Memories<br />
-f. Performance via Parallelism<br />
+<p>a. Performance via Pipelining<br/>
+b. Dependability via Redundancy<br/>
+c. Performance via Prediction<br/>
+d. Make the Common Case Fast<br/>
+e. Hierarchy of Memories<br/>
+f. Performance via Parallelism<br/>
 g. Use Abstraction to Simplify Design</p>
 <p>你若要，我下一則可以再幫你改成「老師看了最順眼的作答版」，也就是每題只留 1 句、適合直接手寫上去的版本。</p>
 
@@ -6904,17 +6904,15 @@ g. Use Abstraction to Simplify Design</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

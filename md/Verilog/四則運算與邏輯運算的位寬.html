@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6733,7 +6733,7 @@ is now available!
 
 
 <h1 id="四則運算與邏輯運算的位寬">四則運算與邏輯運算的位寬<a class="headerlink" href="#四則運算與邏輯運算的位寬" title="Permanent link"></a></h1>
-<p>assign A = B 符號 C <br />
+<p>assign A = B 符號 C <br/>
 的通則</p>
 <ul>
 <li>RHS (B、C)</li>
@@ -6746,9 +6746,9 @@ is now available!
     S3 --&gt; S4["做運算，得到 RHS 結果"]
     S4 --&gt; S5["指派給 A"]
     S5 --&gt; S6["A 較窄 -&gt; 截掉高位&lt;br/&gt;A 較寬 -&gt; 補位"]</code></pre>
-<p>這個流程的法源依據是兩條：<br />
+<p>這個流程的法源依據是兩條：<br/>
 第一，Verilog 規定 expression 的位寬由 operands 和 context 一起決定；第二，在 assignment 中，RHS 的位寬會受 LHS 影響，而且若 RHS 比 LHS 寬，assign 時會直接丟掉 RHS 的 MSB(高位)。(<a href="https://www.cs.bilkent.edu.tr/~will/courses/CS223/Verilog/VerilogLangRefManual.pdf" title="Verilog HDL  LRM">比爾肯大學計算機科學系</a>)</p>
-<hr />
+<hr/>
 <h4 id="通則一先決定-rhs-要用幾-bit-算">通則一：先決定 RHS 要用幾 bit 算<a class="headerlink" href="#通則一先決定-rhs-要用幾-bit-算" title="Permanent link"></a></h4>
 <p>這一步不是看 <code>A</code> 一眼就結束，而是看 <code>符號</code> 的類型。</p>
 <h5 id="1-arithmetic--bitwise-binary-operators">1. Arithmetic / Bitwise binary operators<a class="headerlink" href="#1-arithmetic--bitwise-binary-operators" title="Permanent link"></a></h5>
@@ -6764,9 +6764,9 @@ is now available!
 <span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
 </code></pre></div>
 <p>都可以先套這條。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
-<p>題外話：<br />
+<p>題外話：<br/>
 如果想要 nor ，要寫 c = ~( A &amp; B );，就是二元運算外面套一個一元運算。nand 也是。</p>
-<hr />
+<hr/>
 <h5 id="2-shift-operators">2. Shift operators<a class="headerlink" href="#2-shift-operators" title="Permanent link"></a></h5>
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code><span class="o">&lt;&lt;</span><span class="w">  </span><span class="o">&gt;&gt;</span>
@@ -6784,9 +6784,9 @@ is now available!
 <div class="highlight"><pre><span></span><code>W = max( L(A), L(B) )
 </code></pre></div>
 <p>然後先把 <code>B</code> 擴到 <code>W</code>，再左移 <code>C</code>。<code>C</code> 不會把結果撐寬。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
-<p>這也是很多人第一次踩坑的地方：<br />
+<p>這也是很多人第一次踩坑的地方：<br/>
 <code>B &lt;&lt; C</code> 不是「左移後自動變寬」，而是「在既定位寬裡左移，移出去就沒了」。社群討論常見的誤解也集中在這裡。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
-<hr />
+<hr/>
 <h5 id="3-comparison--logical-operators">3. Comparison / Logical operators<a class="headerlink" href="#3-comparison--logical-operators" title="Permanent link"></a></h5>
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code><span class="o">==</span><span class="w">  </span><span class="o">!=</span><span class="w">  </span><span class="o">===</span><span class="w">  </span><span class="o">!==</span><span class="w">  </span><span class="o">&gt;</span><span class="w">  </span><span class="o">&gt;=</span><span class="w">  </span><span class="o">&lt;</span><span class="w">  </span><span class="o">&lt;=</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w">  </span><span class="o">||</span>
@@ -6795,13 +6795,13 @@ is now available!
 <p>所以：</p>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
 </code></pre></div>
-<p>RHS 的結果就是 1 bit。<br />
+<p>RHS 的結果就是 1 bit。<br/>
 接著 assign 給 <code>A</code> 時：</p>
 <ul>
 <li><code>A</code> 若比 1-bit 寬，就補位</li>
 <li><code>A</code> 若剛好 1-bit，就直接放進去。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h5 id="4-conditional-operator">4. Conditional operator<a class="headerlink" href="#4-conditional-operator" title="Permanent link"></a></h5>
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">D</span><span class="p">;</span>
@@ -6812,17 +6812,17 @@ is now available!
 <li>結果位寬看 <code>max(L(C), L(D))</code></li>
 <li>在 assignment 裡，再受 <code>A</code> 的 context 影響。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h5 id="5-concatenation">5. Concatenation<a class="headerlink" href="#5-concatenation" title="Permanent link"></a></h5>
 <p>也就是：</p>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">};</span>
 </code></pre></div>
-<p>這個是 <strong>self-determined</strong>。<br />
+<p>這個是 <strong>self-determined</strong>。<br/>
 位寬直接等於：</p>
 <div class="highlight"><pre><span></span><code>W = L(B) + L(C)
 </code></pre></div>
 <p>不是看 <code>A</code> 去決定運算位寬。也因為 concatenation 裡的成員是 self-determined，所以像 <code>{B+C}</code> 這種寫法會和直接 <code>B+C</code> 有差別，這是 Verilog 新手很常中招的點，Stack Overflow 上也很多這類問答。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
-<hr />
+<hr/>
 <h4 id="通則二擴位時看-signedness有號無號">通則二：擴位時看 signedness(有號/無號)<a class="headerlink" href="#通則二擴位時看-signedness有號無號" title="Permanent link"></a></h4>
 <p>決定出 RHS 要用 <code>W</code> bit 計算後，較窄 operand 需要先擴位。這時不是永遠補 0，而是：</p>
 <ul>
@@ -6830,9 +6830,9 @@ is now available!
 <li>否則就 <strong>zero-extension(補 0 擴位)</strong>。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</li>
 </ul>
 <p>所以你前面那幾題用 <code>wire [n:0]</code>、沒有 <code>signed</code>，都屬於無號向量；因此擴位時一律補 0。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</p>
-<hr />
+<hr/>
 <h4 id="通則三算完之後才-assign-給-a">通則三：算完之後才 assign 給 A<a class="headerlink" href="#通則三算完之後才-assign-給-a" title="Permanent link"></a></h4>
-<p>這一步很重要，因為很多人會誤以為「先把 RHS 壓成和 A 一樣寬再算」。<br />
+<p>這一步很重要，因為很多人會誤以為「先把 RHS 壓成和 A 一樣寬再算」。<br/>
 標準的流程其實是：</p>
 <ol>
 <li>先依規則決定 RHS 的運算位寬</li>
@@ -6841,7 +6841,7 @@ is now available!
 <li>若 RHS 比 <code>A</code> 寬，<strong>丟掉 RHS 的高位</strong></li>
 <li>若 RHS 比 <code>A</code> 窄，則延伸到 <code>A</code> 的寬度。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</li>
 </ol>
-<p>也就是說，<strong>截斷發生在 assignment 階段，不是先發生在運算階段</strong>。<br />
+<p>也就是說，<strong>截斷發生在 assignment 階段，不是先發生在運算階段</strong>。<br/>
 但你也要小心另一件事：如果 RHS 的運算位寬本身就不夠，那 overflow/carry 可能會在 <strong>RHS 計算時就先丟掉</strong>。IEEE 文件對 interim results 也特別提醒了這件事。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</p>
 <p>生活化一點講：</p>
 <ul>
@@ -6849,7 +6849,7 @@ is now available!
 <li>算完之後</li>
 <li>才看 <code>A</code> 這個答案欄夠不夠長。(<a href="https://www.csie.nuk.edu.tw/~stpan/course/Verilog1964-2005.pdf" title="Title">國立宜蘭大學資訊工程學系</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="你可以直接套用的簡化版通則">你可以直接套用的簡化版通則<a class="headerlink" href="#你可以直接套用的簡化版通則" title="Permanent link"></a></h4>
 <p>如果你現在只想處理最常見的 <code>assign A = B 符號 C;</code>，可以先背這張小表。</p>
 <table>
@@ -6894,23 +6894,23 @@ is now available!
 </tbody>
 </table>
 <p>這張表是把 Synopsys 參考手冊的 operator bit-width 表，和 IEEE/OVI 對 assignment context 的規則合在一起後，整理成最適合你現在解題的版本。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
-<hr />
+<hr/>
 <h4 id="套回你前面的三題">套回你前面的三題<a class="headerlink" href="#套回你前面的三題" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><code>assign A[3:0] = B[4:0] &amp; C[3:0];</code><br />
+<p><code>assign A[3:0] = B[4:0] &amp; C[3:0];</code><br/>
 <code>&amp;</code> 屬於 Arithmetic / Bitwise binary 類，所以 <code>W = max(4,5,4)=5</code>。先做 5-bit AND，再截成 4-bit。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
 </li>
 <li>
-<p><code>assign A[3:0] = B[4:0] + C[3:0];</code><br />
+<p><code>assign A[3:0] = B[4:0] + C[3:0];</code><br/>
 <code>+</code> 也屬於這一類，所以 <code>W = max(4,5,4)=5</code>。先做 5-bit 加法，再截成 4-bit。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
 </li>
 <li>
-<p><code>assign A[5:0] = B[4:0] + C[3:0];</code><br />
+<p><code>assign A[5:0] = B[4:0] + C[3:0];</code><br/>
    這次 <code>W = max(6,5,4)=6</code>。所以 <code>A</code> 會把整個加法拉寬到 6-bit，結果不用再截。(<a href="https://book.huihoo.com/pdf/crafting-a-chip-a-practical-guide-to-the-uofu-vlsi-cad-flow/synopsys/hdlcv_4.pdf" title="HDL Compiler for Verilog RM: 4. Expressions">开放图书</a>)</p>
 </li>
 </ol>
-<hr />
+<hr/>
 <h4 id="最後濃縮成一句最好背的版本">最後濃縮成一句最好背的版本<a class="headerlink" href="#最後濃縮成一句最好背的版本" title="Permanent link"></a></h4>
 <p>你可以直接背這句：</p>
 <blockquote>
@@ -7048,17 +7048,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

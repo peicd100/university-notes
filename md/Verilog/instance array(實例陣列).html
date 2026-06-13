@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6508,15 +6508,15 @@ is now available!
 
   <h1>Instance array(實例陣列)</h1>
 
-<p>題目：<a href="https://hdlbits.01xz.net/wiki/Bcdadd4">https://hdlbits.01xz.net/wiki/Bcdadd4</a><br />
-<img alt="alt text" src="images/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.png" /></p>
+<p>題目：<a href="https://hdlbits.01xz.net/wiki/Bcdadd4">https://hdlbits.01xz.net/wiki/Bcdadd4</a><br/>
+<img alt="alt text" decoding="async" src="images/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.png"/></p>
 <p>有三種寫法</p>
 <ol>
 <li>直接寫</li>
 <li>generate</li>
 <li>instance array(實例陣列)</li>
 </ol>
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
@@ -6561,7 +6561,7 @@ is now available!
 </code></pre></div>
 <div class="code-footer"><label class="expand icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">expand</span></label><label class="collapse icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">collapse</span></label></div>
 </div>
-<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox"/><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
@@ -6590,7 +6590,7 @@ is now available!
 </code></pre></div>
 <div class="code-footer"><label class="expand icon-only" for="__collapse1" tabindex="0"><span class="collapse-code__sr-only">expand</span></label><label class="collapse icon-only" for="__collapse1" tabindex="0"><span class="collapse-code__sr-only">collapse</span></label></div>
 </div>
-<div class="collapse-code"><input checked="checked" id="__collapse2" name="__collapse2" type="checkbox" /><div class="highlight"><span class="filename">第三種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
+<div class="collapse-code"><input checked="checked" id="__collapse2" name="__collapse2" type="checkbox"/><div class="highlight"><span class="filename">第三種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">cin</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span>
@@ -6612,18 +6612,18 @@ is now available!
 </code></pre></div>
 <div class="code-footer"><label class="expand icon-only" for="__collapse2" tabindex="0"><span class="collapse-code__sr-only">expand</span></label><label class="collapse icon-only" for="__collapse2" tabindex="0"><span class="collapse-code__sr-only">collapse</span></label></div>
 </div>
-<p>第三種最方便<br />
+<p>第三種最方便<br/>
 為何可以這樣寫呢？</p>
 <h2 id="語法講解">語法講解<a class="headerlink" href="#語法講解" title="Permanent link"></a></h2>
 <p>最基本語法</p>
-<p>語法長這樣：<br />
+<p>語法長這樣：<br/>
 <div class="highlight"><pre><span></span><code><span class="n">my_module</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">(...);</span>
-</code></pre></div><br />
-意思是建立 4 個 instance：<br />
+</code></pre></div><br/>
+意思是建立 4 個 instance：<br/>
 <div class="highlight"><pre><span></span><code><span class="n">u</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">u</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span>
 </code></pre></div></p>
-<hr />
-<p>所以這種寫法：<br />
+<hr/>
+<p>所以這種寫法：<br/>
 <div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
 <span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cin</span><span class="p">;</span>
 
@@ -6634,8 +6634,8 @@ is now available!
 <span class="w">    </span><span class="p">{</span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">1</span><span class="p">]},</span>
 <span class="w">    </span><span class="n">sum</span>
 <span class="p">);</span>
-</code></pre></div><br />
-本質上就是把下面 4 行壓縮成 1 行：<br />
+</code></pre></div><br/>
+本質上就是把下面 4 行壓縮成 1 行：<br/>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="c1">// [15:0]a    [15:0]b    [3:0]c {cout, c[3:1]} [15:0]sum</span>
 <span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u0</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w">    </span><span class="n">b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w">          </span><span class="n">c</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]);</span>
 <span class="n">bcd_fadd</span><span class="w"> </span><span class="n">u1</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">],</span><span class="w">    </span><span class="n">b</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">],</span><span class="w">    </span><span class="n">c</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w">          </span><span class="n">c</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">4</span><span class="p">]);</span>
@@ -6644,7 +6644,7 @@ is now available!
 </code></pre></div></p>
 <p>他會從 LSB 開始切。</p>
 <h3 id="如果總寬度和切片寬度不一樣呢">如果總寬度和切片寬度不一樣呢？<a class="headerlink" href="#如果總寬度和切片寬度不一樣呢" title="Permanent link"></a></h3>
-<p>也就是說，實務上你可以直接記成：<br />
+<p>也就是說，實務上你可以直接記成：<br/>
 <div class="highlight"><pre><span></span><code><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W</span><span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">廣播給每個</span><span class="w"> </span><span class="n">instance</span>
 <span class="mh">2</span><span class="p">)</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">W</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">自動切成</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="err">片</span>
 <span class="mh">3</span><span class="p">)</span><span class="w"> </span><span class="err">其他</span><span class="w">       </span><span class="o">-&gt;</span><span class="w"> </span><span class="err">錯</span>
@@ -6780,17 +6780,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

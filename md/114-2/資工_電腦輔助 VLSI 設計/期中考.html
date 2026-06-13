@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -7874,10 +7874,10 @@ is now available!
 <li>such as：例如</li>
 <li>Two-input OR gate：二輸入 OR 閘</li>
 <li>variable：變數</li>
-<li>with select：with&hellip;select&hellip; 選擇訊號指定</li>
+<li>with select：with…select… 選擇訊號指定</li>
 </ul>
 <h2 id="2-作業範例">2. 作業範例<a class="headerlink" href="#2-作業範例" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/VHDL-2.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/VHDL-2.png"/></p>
 <div class="highlight"><pre><span></span><code><span class="k">library</span><span class="w"> </span><span class="nn">ieee</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
@@ -7897,16 +7897,16 @@ is now available!
 <span class="w">    </span><span class="k">process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="p">)</span>
 <span class="w">    </span><span class="k">begin</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">to_unsigned</span><span class="p">(</span><span class="mi">47038</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;0000&quot;</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;00&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"0000"</span><span class="p">;</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"00"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="w">            </span><span class="k">else</span>
 <span class="w">                </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
 <span class="w">            </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;01&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"01"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">C</span><span class="p">;</span>
-<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">elsif</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"10"</span><span class="w"> </span><span class="k">then</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">C</span><span class="p">));</span>
 <span class="w">        </span><span class="k">else</span>
 <span class="w">            </span><span class="n">Y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
@@ -7915,7 +7915,7 @@ is now available!
 <span class="k">end</span><span class="w"> </span><span class="nc">simple</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="3-函數呼叫">3. 函數呼叫<a class="headerlink" href="#3-函數呼叫" title="Permanent link"></a></h2>
-<p>完整範例<br />
+<p>完整範例<br/>
 <div class="highlight"><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="k">is</span>
 <span class="w">    </span><span class="k">port</span><span class="p">(</span>
 <span class="w">        </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">bit</span><span class="p">;</span>
@@ -7927,10 +7927,10 @@ is now available!
 
 <span class="w">    </span><span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="w"> </span><span class="k">is</span>
 <span class="w">    </span><span class="k">begin</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'1'</span><span class="w"> </span><span class="k">then</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">'1'</span><span class="p">;</span>
 <span class="w">        </span><span class="k">else</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="sc">'0'</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
 
@@ -7940,7 +7940,7 @@ is now available!
 
 <span class="k">end</span><span class="w"> </span><span class="nc">behavior</span><span class="p">;</span>
 </code></pre></div></p>
-<p>可多載<br />
+<p>可多載<br/>
 <div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
 <span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
 <span class="k">function</span><span class="w"> </span><span class="n">my_fnc</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">D</span><span class="o">:</span><span class="w"> </span><span class="kt">bit</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
@@ -8004,7 +8004,7 @@ is now available!
 <tbody>
 <tr>
 <td>process 內 <code>:=</code></td>
-<td><code>A_var := B;</code><br><code>Z &lt;= A_var;</code></td>
+<td><code>A_var := B;</code><br/><code>Z &lt;= A_var;</code></td>
 <td><code>A_var</code> 是 <strong>variable</strong>，<code>Z</code> 是 <strong>signal</strong></td>
 <td><strong>sequential</strong></td>
 <td><strong>新的 <code>A_var</code></strong>，也就是 <code>B</code></td>
@@ -8012,7 +8012,7 @@ is now available!
 </tr>
 <tr>
 <td>process 內 <code>&lt;=</code></td>
-<td><code>A &lt;= B;</code><br><code>Z &lt;= A;</code></td>
+<td><code>A &lt;= B;</code><br/><code>Z &lt;= A;</code></td>
 <td><code>A</code>、<code>Z</code> 都是 <strong>signal</strong></td>
 <td><strong>sequential</strong>（但 signal 更新延後）</td>
 <td><strong>舊的 <code>A</code></strong></td>
@@ -8020,7 +8020,7 @@ is now available!
 </tr>
 <tr>
 <td>process 外 <code>&lt;=</code></td>
-<td><code>A &lt;= B;</code><br><code>Z &lt;= A;</code></td>
+<td><code>A &lt;= B;</code><br/><code>Z &lt;= A;</code></td>
 <td><code>A</code>、<code>Z</code> 都是 <strong>signal</strong></td>
 <td><strong>concurrent</strong></td>
 <td><code>Z</code> 最後會拿到 <strong>新的 <code>A</code></strong>，但要再多一拍 delta</td>
@@ -8034,7 +8034,7 @@ is now available!
 <li>signal assignment 是先執行，之後在 <code>Δ</code> 才更新 </li>
 <li><code>A &lt;= B; Z &lt;= A;</code> 放在 process 內外，時間行為不同 </li>
 </ul>
-<hr />
+<hr/>
 <h4 id="512-先提醒一個小地方">5.1.2 先提醒一個小地方<a class="headerlink" href="#512-先提醒一個小地方" title="Permanent link"></a></h4>
 <p>你說想用 <code>A&lt;=B, Z&lt;=A</code> 來看三種情況，這在 <strong>process 內 <code>:=</code></strong> 那一種要稍微改一下，因為：</p>
 <ul>
@@ -8050,7 +8050,7 @@ is now available!
 <span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A_var</span><span class="p">;</span>
 </code></pre></div>
 <p>這樣才合法。</p>
-<hr />
+<hr/>
 <h4 id="513-process-內-variable-assignment">5.1.3 process 內 <code>:=</code>：variable assignment<a class="headerlink" href="#513-process-內-variable-assignment" title="Permanent link"></a></h4>
 <h5 id="5131-vhdl-寫法">5.1.3.1 VHDL 寫法<a class="headerlink" href="#5131-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -8064,10 +8064,10 @@ is now available!
 <p>當 <code>B</code> 在時間 <code>T</code> 改變時：</p>
 <ol>
 <li>process 被叫醒</li>
-<li><code>A_var := B;</code><br />
-<code>A_var</code> <strong>立刻</strong>變成 <code>B</code></li>
-<li><code>Z &lt;= A_var;</code><br />
-   這時讀到的是<strong>新的 <code>A_var</code></strong></li>
+<li><code>A_var := B;</code><br>
+<code>A_var</code> <strong>立刻</strong>變成 <code>B</code></br></li>
+<li><code>Z &lt;= A_var;</code><br>
+   這時讀到的是<strong>新的 <code>A_var</code></strong></br></li>
 <li>所以 <code>Z</code> 會在 <code>T + Δ</code> 更新成 <code>B</code></li>
 </ol>
 <h5 id="5133-重點">5.1.3.3 重點<a class="headerlink" href="#5133-重點" title="Permanent link"></a></h5>
@@ -8087,7 +8087,7 @@ is now available!
 </ul>
 <h5 id="5135-一句話記">5.1.3.5 一句話記<a class="headerlink" href="#5135-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 內 <code>:=</code> 像 Verilog 的 <code>=</code>，後面馬上看得到新值。</strong></p>
-<hr />
+<hr/>
 <h4 id="514-process-內-sequential-signal-assignment">5.1.4 process 內 <code>&lt;=</code>：sequential signal assignment<a class="headerlink" href="#514-process-內-sequential-signal-assignment" title="Permanent link"></a></h4>
 <h5 id="5141-vhdl-寫法">5.1.4.1 VHDL 寫法<a class="headerlink" href="#5141-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -8100,9 +8100,9 @@ is now available!
 <p>當 <code>B</code> 在時間 <code>T</code> 改變時：</p>
 <ol>
 <li>process 被叫醒</li>
-<li><code>A &lt;= B;</code> 被執行<br />
-   但 <code>A</code> <strong>不會立刻更新</strong></li>
-<li><code>Z &lt;= A;</code> 被執行<br />
+<li><code>A &lt;= B;</code> 被執行<br>
+   但 <code>A</code> <strong>不會立刻更新</strong></br></li>
+<li><code>Z &lt;= A;</code> 被執行<br/>
    這時讀到的還是<strong>舊的 <code>A</code></strong></li>
 <li>
 <p>到 <code>T + Δ</code>：</p>
@@ -8118,7 +8118,7 @@ is now available!
 <li>這兩行是 <strong>sequential</strong></li>
 <li>但 <code>signal</code> 更新不是立刻發生</li>
 </ul>
-<p>所以雖然第二行寫在後面，<br />
+<p>所以雖然第二行寫在後面，<br/>
 它還是只看到<strong>舊的 <code>A</code></strong>。</p>
 <h5 id="5144-verilog-類比">5.1.4.4 Verilog 類比<a class="headerlink" href="#5144-verilog-類比" title="Permanent link"></a></h5>
 <p>最像 Verilog 在 <code>always</code> 裡用 <strong>nonblocking assignment</strong>：</p>
@@ -8135,7 +8135,7 @@ is now available!
 </ul>
 <h5 id="5145-一句話記">5.1.4.5 一句話記<a class="headerlink" href="#5145-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 內 <code>&lt;=</code> 雖然是 sequential，但後面那行看到的通常還是舊 signal 值。</strong></p>
-<hr />
+<hr/>
 <h4 id="515-process-外-concurrent-signal-assignment">5.1.5 process 外 <code>&lt;=</code>：concurrent signal assignment<a class="headerlink" href="#515-process-外-concurrent-signal-assignment" title="Permanent link"></a></h4>
 <h5 id="5151-vhdl-寫法">5.1.5.1 VHDL 寫法<a class="headerlink" href="#5151-vhdl-寫法" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
@@ -8165,7 +8165,7 @@ is now available!
 </code></pre></div>
 <h5 id="5155-一句話記">5.1.5.5 一句話記<a class="headerlink" href="#5155-一句話記" title="Permanent link"></a></h5>
 <p><strong>process 外 <code>&lt;=</code> 像兩條 <code>assign</code>，前一條輸出變了，下一條才跟著反應。</strong></p>
-<hr />
+<hr/>
 <h4 id="516-三種放在一起看">5.1.6 三種放在一起看<a class="headerlink" href="#516-三種放在一起看" title="Permanent link"></a></h4>
 <h5 id="5161-process-內-">5.1.6.1 process 內 <code>:=</code><a class="headerlink" href="#5161-process-內-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -8180,9 +8180,9 @@ is now available!
 <span class="w">    </span><span class="n">Z</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">A_var</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>Z</code> 拿到 <strong>B</strong></p>
-<hr />
+<hr/>
 <h5 id="5162-process-內-">5.1.6.2 process 內 <code>&lt;=</code><a class="headerlink" href="#5162-process-內-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
 <span class="k">begin</span>
@@ -8195,9 +8195,9 @@ is now available!
 <span class="w">    </span><span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>Z</code> 拿到 <strong>舊的 A</strong></p>
-<hr />
+<hr/>
 <h5 id="5163-process-外-">5.1.6.3 process 外 <code>&lt;=</code><a class="headerlink" href="#5163-process-外-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="n">Z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
@@ -8205,9 +8205,9 @@ is now available!
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
 <span class="k">assign</span><span class="w"> </span><span class="n">Z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span>
 </code></pre></div>
-<p>結果：<br />
+<p>結果：<br/>
 <code>A</code> 先變，之後 <code>Z</code> 才跟著變成<strong>新的 A</strong></p>
-<hr />
+<hr/>
 <h4 id="517-最後幫你濃縮成背誦版">5.1.7 最後幫你濃縮成背誦版<a class="headerlink" href="#517-最後幫你濃縮成背誦版" title="Permanent link"></a></h4>
 <h5 id="5171-">5.1.7.1 <code>:=</code><a class="headerlink" href="#5171-" title="Permanent link"></a></h5>
 <ul>
@@ -8235,7 +8235,7 @@ is now available!
 <li>前一條輸出 event 會再觸發下一條</li>
 <li>最像 Verilog <code>assign</code></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="518-一張圖收尾">5.1.8 一張圖收尾<a class="headerlink" href="#518-一張圖收尾" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A1[process內 :=] --&gt; A2[sequential]
@@ -8256,9 +8256,9 @@ is now available!
 <p>⭐ 你如果要，我下一則可以直接幫你把這份整理壓成「考前 10 秒速記版」。</p>
 <h3 id="52-提問">5.2 提問<a class="headerlink" href="#52-提問" title="Permanent link"></a></h3>
 <blockquote>
-<p>"always @(*) begin<br />
-    A &lt;= B;<br />
-    Z &lt;= A;<br />
+<p>"always @(*) begin<br/>
+    A &lt;= B;<br/>
+    Z &lt;= A;<br/>
 end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但是最後再一起更新，這個"先執行A&lt;=B，再執行Z&lt;=A"就是sequential對不對</p>
 </blockquote>
 <h4 id="521-對你這句理解是對的但要補兩個限定">5.2.1 對，你這句理解是對的，但要補兩個限定<a class="headerlink" href="#521-對你這句理解是對的但要補兩個限定" title="Permanent link"></a></h4>
@@ -8281,7 +8281,7 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>再執行 <code>Z &lt;= A;</code></li>
 </ol>
 <p>這個「先後執行順序」就是你說的 <strong>sequential</strong>。</p>
-<hr />
+<hr/>
 <h4 id="522-但要非常小心這裡的-sequential-不是sequential-circuit時序電路那個-sequential">5.2.2 但要非常小心：這裡的 sequential 不是「sequential circuit（時序電路）」那個 sequential<a class="headerlink" href="#522-但要非常小心這裡的-sequential-不是sequential-circuit時序電路那個-sequential" title="Permanent link"></a></h4>
 <p>這是最容易混的地方。</p>
 <p>你現在這裡的 <strong>sequential</strong> 指的是：</p>
@@ -8297,16 +8297,16 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <span class="w">    </span><span class="p">...</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>裡面的敘述可以是 <strong>sequential 執行</strong><br />
+<p>裡面的敘述可以是 <strong>sequential 執行</strong><br/>
 但整段邏輯仍然可能是 <strong>combinational logic（組合邏輯）</strong></p>
-<hr />
+<hr/>
 <h4 id="523-為什麼它又是-sequential又可能是-combinational">5.2.3 為什麼它又是 sequential，又可能是 combinational<a class="headerlink" href="#523-為什麼它又是-sequential又可能是-combinational" title="Permanent link"></a></h4>
 <p>因為這是兩個不同層面的詞。</p>
 <h5 id="5231-sequential">5.2.3.1 sequential<a class="headerlink" href="#5231-sequential" title="Permanent link"></a></h5>
-<p>講的是：<br />
+<p>講的是：<br/>
 <strong>區塊裡面的語句，是不是照順序跑</strong></p>
 <h5 id="5232-combinational--sequential-logic">5.2.3.2 combinational / sequential logic<a class="headerlink" href="#5232-combinational--sequential-logic" title="Permanent link"></a></h5>
-<p>講的是：<br />
+<p>講的是：<br/>
 <strong>這個硬體是不是有記憶、有 clock、有 FF</strong></p>
 <p>所以：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
@@ -8319,7 +8319,7 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>語句執行方式是 <strong>sequential</strong></li>
 <li>但硬體類型通常是 <strong>combinational</strong></li>
 </ul>
-<hr />
+<hr/>
 <h4 id="524-回到你這個-nonblocking-例子">5.2.4 回到你這個 nonblocking 例子<a class="headerlink" href="#524-回到你這個-nonblocking-例子" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
@@ -8337,21 +8337,21 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <blockquote>
 <p><strong>這個 block 之所以是 sequential，是因為 block 內的 statements 依照程式順序執行；至於最後一起更新，則是因為 <code>&lt;=</code> 是 nonblocking assignment 的語意。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="525-把兩件事拆開你就不會混了">5.2.5 把兩件事拆開你就不會混了<a class="headerlink" href="#525-把兩件事拆開你就不會混了" title="Permanent link"></a></h4>
 <h5 id="5251-先執行再執行">5.2.5.1 「先執行再執行」<a class="headerlink" href="#5251-先執行再執行" title="Permanent link"></a></h5>
 <p>這是 <strong>sequential</strong></p>
 <h5 id="5252-最後一起更新">5.2.5.2 「最後一起更新」<a class="headerlink" href="#5252-最後一起更新" title="Permanent link"></a></h5>
 <p>這是 <strong>nonblocking assignment (<code>&lt;=</code>) 的特性</strong></p>
 <p>這兩件事是<strong>同時成立</strong>的，但不是同一件事。</p>
-<hr />
+<hr/>
 <h4 id="526-最好這樣記">5.2.6 最好這樣記<a class="headerlink" href="#526-最好這樣記" title="Permanent link"></a></h4>
 <p>你可以把它拆成這個公式：</p>
 <div class="highlight"><pre><span></span><code>always block 裡：
 先後執行順序  -&gt; sequential
 更新時機      -&gt; 看你用 = 還是 &lt;=
 </code></pre></div>
-<hr />
+<hr/>
 <h4 id="527-用--和--對照一次">5.2.7 用 <code>=</code> 和 <code>&lt;=</code> 對照一次<a class="headerlink" href="#527-用--和--對照一次" title="Permanent link"></a></h4>
 <h5 id="5271-blocking-">5.2.7.1 blocking <code>=</code><a class="headerlink" href="#5271-blocking-" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
@@ -8378,13 +8378,13 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li><code>Z</code> 看到的是舊的 <code>A</code></li>
 <li>最後一起更新</li>
 </ul>
-<p>這兩段 <strong>都是 sequential 執行</strong><br />
+<p>這兩段 <strong>都是 sequential 執行</strong><br/>
 差別只在：</p>
 <ul>
 <li><code>=</code> 立刻更新</li>
 <li><code>&lt;=</code> 延後更新</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="528-對應回-vhdl-也是同一套邏輯">5.2.8 對應回 VHDL 也是同一套邏輯<a class="headerlink" href="#528-對應回-vhdl-也是同一套邏輯" title="Permanent link"></a></h4>
 <p>你之前學的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">process</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -8400,25 +8400,25 @@ end"之所以是sequential是因為他先執行A&lt;=B，再執行Z&lt;=A，但�
 <li>所以 <code>Z</code> 看到舊的 <code>A</code></li>
 </ul>
 <p>所以你現在這句理解，跟你前面 VHDL 筆記其實是同一件事。</p>
-<hr />
+<hr/>
 <h4 id="529-最後幫你濃縮成一句最準的版本">5.2.9 最後幫你濃縮成一句最準的版本<a class="headerlink" href="#529-最後幫你濃縮成一句最準的版本" title="Permanent link"></a></h4>
 <p><strong>對，<code>先執行 A&lt;=B，再執行 Z&lt;=A</code> 這個「按順序執行 statements」就是 sequential；而「最後再一起更新」則是 nonblocking assignment <code>&lt;=</code> 的語意。</strong></p>
-<hr />
+<hr/>
 <h4 id="5210-你可以直接背這兩句">5.2.10 你可以直接背這兩句<a class="headerlink" href="#5210-你可以直接背這兩句" title="Permanent link"></a></h4>
 <ul>
 <li><strong>sequential 看執行順序</strong></li>
 <li><strong>nonblocking 看更新時機</strong></li>
 </ul>
-<p>⭐ 你如果要，我下一則可以直接幫你畫一張<br />
+<p>⭐ 你如果要，我下一則可以直接幫你畫一張<br/>
 <strong><code>=</code> vs <code>&lt;=</code> 在 <code>always</code> 裡的時間線圖</strong>，你會一眼看懂。</p>
 <h2 id="6-vector">6. vector<a class="headerlink" href="#6-vector" title="Permanent link"></a></h2>
-<p>左邊的數字一定是 MSB ，右邊的數字一定是 LSB。<br />
+<p>左邊的數字一定是 MSB ，右邊的數字一定是 LSB。<br/>
 to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左邊大用 downto。</p>
 <div class="highlight"><pre><span></span><code><span class="k">signal</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w">      </span>
 <span class="k">signal</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bit_vector</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
-<span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
-<span class="n">B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">&quot;1000&quot;</span><span class="p">;</span>
+<span class="n">A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"1000"</span><span class="p">;</span>
+<span class="n">B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s">"1000"</span><span class="p">;</span>
 
 <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span>
@@ -8556,17 +8556,15 @@ to 、 downto 只是配合左右數字的大小而已，左邊小用 to ，左�
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

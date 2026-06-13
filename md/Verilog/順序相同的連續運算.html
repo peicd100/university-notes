@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6479,13 +6479,13 @@ is now available!
 <ol>
 <li>out_both[i] = in[i] &amp; in[i+1];</li>
 <li>out_any[i] = in[i] | in[i-1];</li>
-<li>out_different[i] = in[i] != in[i+1];<br />
-    &hellip;<br />
+<li>out_different[i] = in[i] != in[i+1];<br/>
+    …<br/>
     out_different[99] = in[99]!= in[0];</li>
 </ol>
 <p>要怎麼寫程式碼呢？</p>
 <p>有以下兩種寫法</p>
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><span class="filename">第一種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
@@ -6513,7 +6513,7 @@ is now available!
 </code></pre></div>
 <div class="code-footer"><label class="expand icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">expand</span></label><label class="collapse icon-only" for="__collapse0" tabindex="0"><span class="collapse-code__sr-only">collapse</span></label></div>
 </div>
-<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
+<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox"/><div class="highlight"><span class="filename">第二種</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">98</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_both</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="mh">99</span><span class="o">:</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="n">out_any</span><span class="p">,</span>
@@ -6551,15 +6551,15 @@ is now available!
 <span class="k">endmodule</span>
 </code></pre></div>
 <p>哪一種比較簡單 ？</p>
-<p>顯然是第三種比較方便。為何可以這樣寫呢？，因為等於的左右兩邊順序相同，其實<br />
+<p>顯然是第三種比較方便。為何可以這樣寫呢？，因為等於的左右兩邊順序相同，其實<br/>
 <div class="highlight"><pre><span></span><code>assign out_both      = in[98:0] &amp; in[99:1];
-</code></pre></div><br />
-就是<br />
+</code></pre></div><br/>
+就是<br/>
 <div class="highlight"><pre><span></span><code>assign out_both [99:0]     = in[98:0] &amp; in[99:1];
-</code></pre></div><br />
+</code></pre></div><br/>
 所以全部都能對齊，然後 &amp; 是對於左右兩邊的每一個 bit 運算，便能夠答道題目要求。</p>
 <p>不過這有一個限制，就是 vector 的方向要一樣。</p>
-<p>這邊也可以看到一個重點：<code>^</code>可以當不等於。那問題來了，啥符號可以當等於？<br />
+<p>這邊也可以看到一個重點：<code>^</code>可以當不等於。那問題來了，啥符號可以當等於？<br/>
 就是 <code>~^</code> ，其實就是不等於的相反啦。</p>
 <h2 id="進一步想">進一步想<a class="headerlink" href="#進一步想" title="Permanent link"></a></h2>
 <p>看以下兩格個程式碼：</p>
@@ -6589,11 +6589,11 @@ is now available!
 <span class="w">	</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>以上這兩種都是對的，但是為何第二種是對的呢？<br />
+<p>以上這兩種都是對的，但是為何第二種是對的呢？<br/>
 我們以<code>out_both = in &amp; in[99:1];</code>來看。</p>
-<p>運算<code>out_both = in &amp; in[99:1];</code>時，會先運算<code>in &amp; in[99:1]</code>再丟給<code>out_both</code>。<br />
-1. 在運算<code>in &amp; in[99:1]</code>時，因為左邊是 100 位，右邊是 99 位，所以右邊的最高位要補 0，變成 <code>in &amp; {1'b0,in[99:1]}</code>。<br />
-2. 運算<code>out_both</code> = <code>in &amp; {1'b0,in[99:1]}</code>時，等於的左邊是 99 位，右邊是 100 位，所以右邊的最高位被截掉。<br />
+<p>運算<code>out_both = in &amp; in[99:1];</code>時，會先運算<code>in &amp; in[99:1]</code>再丟給<code>out_both</code>。<br/>
+1. 在運算<code>in &amp; in[99:1]</code>時，因為左邊是 100 位，右邊是 99 位，所以右邊的最高位要補 0，變成 <code>in &amp; {1'b0,in[99:1]}</code>。<br/>
+2. 運算<code>out_both</code> = <code>in &amp; {1'b0,in[99:1]}</code>時，等於的左邊是 99 位，右邊是 100 位，所以右邊的最高位被截掉。<br/>
 也就是說打從一開始 in 的 in[99] 就沒用到。如下：</p>
 <div class="highlight"><pre><span></span><code>out_both    :          in[98],in[97]....in[1],in[0]
 =
@@ -6733,17 +6733,15 @@ in[99:1]    :          in[99],in[98]....in[2],in[1]
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

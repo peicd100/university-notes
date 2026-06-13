@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6972,44 +6972,44 @@ is now available!
 </tbody>
 </table>
 <p>最短記法：</p>
-<p><strong>Response Time：第一次等多久。</strong><br />
-<strong>Waiting Time：總共等 CPU 多久。</strong><br />
+<p><strong>Response Time：第一次等多久。</strong><br/>
+<strong>Waiting Time：總共等 CPU 多久。</strong><br/>
 <strong>Turnaround Time：整個 process 從到達到完成花多久。</strong></p>
 </div>
 <h3 id="考古題">考古題<a class="headerlink" href="#考古題" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><mark>Q:</mark><br />
-Discuss how CPU utilization and response time can conflict in a CPU scheduling system. Give one concrete example.<br />
+<p><mark>Q:</mark><br/>
+Discuss how CPU utilization and response time can conflict in a CPU scheduling system. Give one concrete example.<br/>
 [Adapted from: 期末考古_108_HTML化.html／Q1 Scheduling criteria conflicts；對應講義：講義_chapter 6_20240505.pdf／PDF viewer page 10／Scheduling Criteria]</p>
-<p><mark>Me:(可用)</mark><br />
+<p><mark>Me:(可用)</mark><br/>
 因為如果要高回應率，就要一直切換 process，就會導致大量 overhead，使 CPU 使用率很低。</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 為了降低 response time(反應時間)，排班器可能會讓互動式或新到達的 process 更快取得 CPU，因此會增加 preemption 或 context switch 的頻率。可是 context switch 本身不是真正在執行使用者程式，而是排班成本；如果切換太頻繁，CPU 花在切換上的時間變多，真正用來執行 process 的時間比例下降，因此可能降低 CPU utilization(CPU使用率)。</p>
-<hr />
-<p><mark>Q:</mark><br />
+<hr/>
+<p><mark>Q:</mark><br/>
 Suppose a scheduler is tuned so that many processes finish quickly, making the average turnaround time look low. However, one unlucky process waits for a very long time before it receives enough CPU service. Explain how minimizing average turnaround time can conflict with minimizing maximum waiting time.</p>
-<p><mark>Me:(可用)</mark><br />
+<p><mark>Me:(可用)</mark><br/>
 因為如果要 minimizing average turnaround time，就會讓 OS 優先選執行時間比較短的 process，進而導致執行時間比較長的 process 等待很久，很後面才執行甚至餓死，所以會與 minimizing maximum waiting time。</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 為了 minimize average turnaround time(最小化平均回復時間)，scheduler 可能會優先執行短工作，因為短工作很快完成，可以把整體平均完成時間壓低。但這會讓長工作一直排在後面，使 maximum waiting time(最大等待時間) 變大；若系統持續有新的短工作進來，長工作甚至可能發生 starvation(飢餓)。</p>
-<hr />
-<p><mark>Q:</mark><br />
+<hr/>
+<p><mark>Q:</mark><br/>
 Suppose a system has both I/O-bound processes and CPU-bound processes. A scheduler can favor I/O-bound processes to keep I/O devices busy, or favor CPU-bound processes to keep the CPU busy. Explain how I/O device utilization can conflict with CPU utilization.</p>
-<p><mark>Me:(可用)</mark><br />
+<p><mark>Me:(可用)</mark><br/>
 因為如果高 I/O 使用率就意味著會一直切換 process，一直 context switch，導致大量的時間都花在 process 切換，CPU的使用率就會降低。</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 為了 maximize I/O device utilization(最大化 I/O 裝置使用率)，scheduler 可能偏向讓 I/O-bound process 快速取得 CPU，讓它們很快發出 I/O request，使 I/O 裝置保持忙碌。但這些 process 通常 CPU burst 很短，可能造成較頻繁的阻塞、喚醒與 context switch，也可能讓 CPU 沒有足夠長的 CPU-bound work 可執行，導致 CPU utilization 下降。相反地，若只追求 maximize CPU utilization，scheduler 可能偏向讓 CPU-bound process 長時間占用 CPU，CPU 很忙，但 I/O-bound process 較少被推進到發出 I/O request，I/O device utilization 可能下降。</p>
-<hr />
-<p><mark>Q:</mark><br />
-Rewrite item &copy; in 2–4 sentences. Explain both directions of the conflict: how optimizing for I/O device utilization can reduce CPU utilization, and how optimizing for CPU utilization can reduce I/O device utilization. Do not rely only on context-switch overhead.</p>
-<p><mark>Me:(可用)</mark><br />
+<hr/>
+<p><mark>Q:</mark><br/>
+Rewrite item © in 2–4 sentences. Explain both directions of the conflict: how optimizing for I/O device utilization can reduce CPU utilization, and how optimizing for CPU utilization can reduce I/O device utilization. Do not rely only on context-switch overhead.</p>
+<p><mark>Me:(可用)</mark><br/>
 因為如果高 I/O device utilization ，會優先執行 I/O bound process，導致每次 CPU 都只用一點點就切換到下一個 process，CPU 會花大量時間在 context switch，導致 cpu 使用率下降。</p>
 <p>如果高CPU使用率代表OS會優先選擇 CPU bound process，process 會花較多時間在 CPU burst，讓I/O裝置使用率下降。</p>
-<p><mark>ANS:</mark><br />
+<p><mark>ANS:</mark><br/>
 為了提高 I/O device utilization，OS 可能會優先執行 I/O-bound process，讓它們快速發出 I/O request，使 I/O 裝置保持忙碌。但 I/O-bound process 通常 CPU burst 很短，會很快進入 I/O waiting，可能造成較頻繁的 context switch，或讓 CPU 沒有足夠長時間的工作可執行，因此 CPU utilization 可能下降。</p>
 <p>相反地，如果 OS 為了提高 CPU utilization 而偏向執行 CPU-bound process，這些 process 會花較長時間在 CPU burst 上，使 CPU 維持忙碌；但它們較少發出 I/O request，因此 I/O device utilization 可能下降。</p>
-<hr />
+<hr/>
 </div>
 <h2 id="fcfs--os-只照誰先進-ready-queue排班會發生什麼事">FCFS — OS 只照「誰先進 ready queue」排班會發生什麼事？<a class="headerlink" href="#fcfs--os-只照誰先進-ready-queue排班會發生什麼事" title="Permanent link"></a></h2>
 <div class="admonition danger">
@@ -7042,21 +7042,21 @@ Rewrite item &copy; in 2–4 sentences. Explain both directions of the conflict:
 </tr>
 </tbody>
 </table>
-<p>Using nonpreemptive FCFS scheduling, draw the Gantt chart and compute the response time, waiting time, and turnaround time for each process.<br />
+<p>Using nonpreemptive FCFS scheduling, draw the Gantt chart and compute the response time, waiting time, and turnaround time for each process.<br/>
 [Generated: 依據本輪講義知識點／FCFS]</p>
 <p><mark>ANS</mark></p>
-<p>0    7    11   12<br />
+<p>0    7    11   12<br/>
 | p1 | p2 | p3 |</p>
-<p>{response time, waiting time, turnaround time}<br />
-p1:0,0,7<br />
-p2:7-2=5,5,9<br />
+<p>{response time, waiting time, turnaround time}<br/>
+p1:0,0,7<br/>
+p2:7-2=5,5,9<br/>
 p3:11-4=7,7,8</p>
 <p><mark>要記得減去 arrival time</mark></p>
 </div>
 <h2 id="multilevel-queue-scheduling--為什麼-ready-queue-要分成好幾條隊伍">Multilevel Queue Scheduling — 為什麼 ready queue 要分成好幾條隊伍？<a class="headerlink" href="#multilevel-queue-scheduling--為什麼-ready-queue-要分成好幾條隊伍" title="Permanent link"></a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><img alt="alt text" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E.png"/></p>
 <p>兩層決策：queue 內怎麼排、queue 之間怎麼排</p>
 <p>這裡最重要的是不要只問「哪個 process 先跑」，而要分成兩層看。</p>
 <p>第一層是 intra-queue scheduling(queue 內排班)：同一條 queue 裡面怎麼排？</p>
@@ -7118,7 +7118,7 @@ p3:11-4=7,7,8</p>
 </tr>
 </tbody>
 </table>
-<p>生活化比喻：<br />
+<p>生活化比喻：<br/>
 高優先 queue 像「快速服務窗口」，適合一下子就能處理完的人；低優先 queue 像「大型案件窗口」，給會佔用很久的人。但如果大型案件窗口有人排太久，系統也要偶爾把他拉上來處理，不然他會永遠等不到。</p>
 <p>只要題目說 process 可以在 queues 之間移動，那就不是單純 MLQ，而是 MLFQ。</p>
 </div>
@@ -7154,7 +7154,7 @@ p3:11-4=7,7,8</p>
 <h2 id="earliest-deadline-first-schedulingedf">Earliest Deadline First Scheduling(EDF)<a class="headerlink" href="#earliest-deadline-first-schedulingedf" title="Permanent link"></a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><mark>Q:</mark><br />
+<p><mark>Q:</mark><br/>
 所以在 EDF ，只要使用率小於 1 ，就一定不會有process 超過 deadline 對不對？</p>
 <p><mark>ANS:</mark></p>
 <p>不可以無條件這樣說。比較精準是：</p>
@@ -7273,54 +7273,54 @@ p3:11-4=7,7,8</p>
 <li>For each algorithm, compute the waiting time of each process.</li>
 <li>State which algorithm gives the minimum average waiting time.</li>
 </ol>
-<p><mark>ANS:</mark><br />
-FCFS<br />
-0    2    3    11   15   20  <br />
+<p><mark>ANS:</mark><br/>
+FCFS<br/>
+0    2    3    11   15   20  <br/>
 / p1 / p2 / p3 / p4 / p5 /</p>
-<p>turnaround time,waiting time:<br />
-p1:2,0<br />
-p2:3,2<br />
-p3:11,3<br />
-p4:15,11<br />
+<p>turnaround time,waiting time:<br/>
+p1:2,0<br/>
+p2:3,2<br/>
+p3:11,3<br/>
+p4:15,11<br/>
 p5:20,15</p>
 <p>average waition time = 31/5 = 6.2</p>
-<hr />
-<p>SJF<br />
-0    1    3    7    12   20<br />
+<hr/>
+<p>SJF<br/>
+0    1    3    7    12   20<br/>
 / p2 / p1 / p4 / p5 / p3 /</p>
-<p>turnaround time,waiting time:<br />
-p1:3,1<br />
-p2:1,0<br />
-p3:20,12<br />
-p4:7,3<br />
+<p>turnaround time,waiting time:<br/>
+p1:3,1<br/>
+p2:1,0<br/>
+p3:20,12<br/>
+p4:7,3<br/>
 p5:12,7</p>
 <p>average waition time = 23/5 = 4.6</p>
-<hr />
+<hr/>
 <p>nonpreemptive priority scheduling.</p>
-<p>0    1    3    7    12   20<br />
+<p>0    1    3    7    12   20<br/>
 / p2 / p1 / p4 / p5 / p3 /</p>
-<p>turnaround time,waiting time:<br />
-p1:3,1<br />
-p2:1,0<br />
-p3:20,12<br />
-p4:7,3<br />
+<p>turnaround time,waiting time:<br/>
+p1:3,1<br/>
+p2:1,0<br/>
+p3:20,12<br/>
+p4:7,3<br/>
 p5:12,7</p>
 <p>average waition time = 23/5 = 4.6</p>
-<hr />
-<p>RR with quantum = 1<br />
-0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20<br />
-/ p1 / p2 / p3 / p4 / p5 / p1 / p3 / p4 / p5 / p3 / p4 / p5 / p3 / p4 / p5 / p3 / p5 / p3 / p3 / p3 /<br />
+<hr/>
+<p>RR with quantum = 1<br/>
+0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20<br/>
+/ p1 / p2 / p3 / p4 / p5 / p1 / p3 / p4 / p5 / p3 / p4 / p5 / p3 / p4 / p5 / p3 / p5 / p3 / p3 / p3 /<br/>
                               |</p>
-<p>turnaround time,waiting time:<br />
-p1:6,4<br />
-p2:2,1<br />
-p3:20,12<br />
-p4:14,10<br />
+<p>turnaround time,waiting time:<br/>
+p1:6,4<br/>
+p2:2,1<br/>
+p3:20,12<br/>
+p4:14,10<br/>
 p5:17,12</p>
 <p>average waition time = 39/5 = 7.8</p>
-<hr />
+<hr/>
 <p>Minimum average waiting time: SJF and nonpreemptive priority scheduling， average waiting time = 4.6</p>
-<hr />
+<hr/>
 <h3 id="q_1"><mark>Q:</mark><a class="headerlink" href="#q_1" title="Permanent link"></a></h3>
 <p>Using the following preemptive priority round-robin scheduling rule, draw the Gantt chart, then compute the turnaround time, waiting time, and CPU utilization rate.</p>
 <p>Rules:</p>
@@ -7425,9 +7425,9 @@ p5:17,12</p>
 <div class="highlight"><pre><span></span><code>0    10   20   25   35   45   55   60   70   75   80   90   100  105  115  120| P1 | P1 |Idle| P2 | P3 | P2 | P3 | P4 | P4 | P2 | P3 |Idle| P5 | P6 | P5 |
 </code></pre></div>
 <p>關鍵切點是：</p>
-<p>time 60：P4 到達，priority 35 &gt; P2/P3 的 30，所以<strong>立刻搶先</strong>。<br />
+<p>time 60：P4 到達，priority 35 &gt; P2/P3 的 30，所以<strong>立刻搶先</strong>。<br/>
 time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</strong>。</p>
-<hr />
+<hr/>
 <h4 id="3-正確-completion--turnaround--waiting-time">3. 正確 Completion / Turnaround / Waiting time<a class="headerlink" href="#3-正確-completion--turnaround--waiting-time" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -7495,10 +7495,10 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
 <p>Completion time：P1=20, P2=80, P3=90, P4=75, P5=120, P6=115</p>
 <p>Turnaround time：P1=20, P2=55, P3=60, P4=15, P5=20, P6=10</p>
 <p>Waiting time：P1=0, P2=30, P3=35, P4=0, P5=10, P6=0</p>
-<hr />
+<hr/>
 <h4 id="4-cpu-utilization-rate">4. CPU utilization rate<a class="headerlink" href="#4-cpu-utilization-rate" title="Permanent link"></a></h4>
 <p>Idle time 有兩段：</p>
-<p>20–25：5 units<br />
+<p>20–25：5 units<br/>
 90–100：10 units</p>
 <p>所以 total idle time = 15，total time = 120。</p>
 <p>CPU busy time = 120 - 15 = 105。</p>
@@ -7635,17 +7635,15 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

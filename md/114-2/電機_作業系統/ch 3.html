@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -14629,14 +14629,14 @@ is now available!
   <h1>Ch 3</h1>
 
 <h2 id="311-行程process">3.1.1 行程(Process)<a class="headerlink" href="#311-行程process" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/ch%203.png"/></p>
 <h3 id="講解">講解<a class="headerlink" href="#講解" title="Permanent link"></a></h3>
 <h4 id="這張投影片在回答什麼">這張投影片在回答什麼<a class="headerlink" href="#這張投影片在回答什麼" title="Permanent link"></a></h4>
 <p>這張圖在回答一個很核心的問題：</p>
 <p><strong>行程(Process) 到底只是「程式碼」嗎？</strong></p>
-<p>答案是不是。<br />
+<p>答案是不是。<br/>
 教材明確說，行程是「正在執行的程式」，除了程式碼本身，還包含目前執行位置的 <strong>Program counter(程式計數器)</strong>、CPU 的 <strong>registers(暫存器)</strong>、以及執行時會用到的 <strong>stack(堆疊)</strong>、<strong>data section(資料區)</strong>、<strong>heap(堆積)</strong>。</p>
-<hr />
+<hr/>
 <h4 id="先看右邊那張記憶體圖">先看右邊那張記憶體圖<a class="headerlink" href="#先看右邊那張記憶體圖" title="Permanent link"></a></h4>
 <p>右圖是在畫一個 process 的<strong>典型記憶體配置(memory layout)</strong>：</p>
 <ul>
@@ -14651,9 +14651,9 @@ is now available!
 <li><strong>heap 向上長</strong></li>
 <li><strong>stack 向下長</strong></li>
 </ul>
-<p>這種「兩邊往中間長」的配置，是常見的作法。教材後面也有更完整的圖，直接寫出 <strong>heap 向上增長、stack 向下增長</strong>。<br />
+<p>這種「兩邊往中間長」的配置，是常見的作法。教材後面也有更完整的圖，直接寫出 <strong>heap 向上增長、stack 向下增長</strong>。<br/>
 Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高位址成長；社群討論也提醒這是 <strong>typical(典型)</strong> 但不是所有架構都必然完全一樣。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Intel</a>)</p>
-<hr />
+<hr/>
 <h4 id="四個區塊各自在做什麼">四個區塊各自在做什麼<a class="headerlink" href="#四個區塊各自在做什麼" title="Permanent link"></a></h4>
 <h5 id="1-text-section程式碼區本文區">1. text section(程式碼區／本文區)<a class="headerlink" href="#1-text-section程式碼區本文區" title="Permanent link"></a></h5>
 <p>這裡放的是<strong>可執行的機器指令(machine instructions)</strong>，也就是 CPU 真正要跑的程式內容。教材說 text section 就是 executable code，通常是唯讀(read-only)，而且同一支程式的多個執行個體有時可以共享這一段。</p>
@@ -14664,7 +14664,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li>「要做什麼」的指令</li>
 </ul>
 <p>不是資料，而是<strong>操作規則</strong>。</p>
-<hr />
+<hr/>
 <h5 id="2-data-section資料區">2. data section(資料區)<a class="headerlink" href="#2-data-section資料區" title="Permanent link"></a></h5>
 <p>這裡主要放：</p>
 <ul>
@@ -14677,7 +14677,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
 </code></pre></div>
 <p>這類通常就在 data 區。</p>
-<p>補充一個考試常見點：<br />
+<p>補充一個考試常見點：<br/>
 教材其他頁還把資料再細分成 <strong>BSS</strong>，也就是「未初始化的全域／靜態變數區」。所以這張圖是<strong>簡化版</strong>，正式一點常會拆成：</p>
 <ul>
 <li><code>.text</code></li>
@@ -14686,9 +14686,9 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li><code>heap</code></li>
 <li><code>stack</code> </li>
 </ul>
-<hr />
+<hr/>
 <h5 id="3-heap堆積堆區">3. heap(堆積／堆區)<a class="headerlink" href="#3-heap堆積堆區" title="Permanent link"></a></h5>
-<p>這裡放的是<strong>動態配置(dynamic allocation)</strong>的記憶體。<br />
+<p>這裡放的是<strong>動態配置(dynamic allocation)</strong>的記憶體。<br/>
 像 C 的 <code>malloc()</code>、C++ 的 <code>new</code> 申請出來的空間，通常就在 heap。教材也明確這樣寫。</p>
 <p>特性是：</p>
 <ul>
@@ -14699,10 +14699,10 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 </ul>
 <p>生活化來說，heap 很像：</p>
 <blockquote>
-<p>你去倉庫臨時租一塊空地放東西。<br />
+<p>你去倉庫臨時租一塊空地放東西。<br/>
 要多大自己決定，但用完要記得退租。</p>
 </blockquote>
-<hr />
+<hr/>
 <h5 id="4-stack堆疊區">4. stack(堆疊區)<a class="headerlink" href="#4-stack堆疊區" title="Permanent link"></a></h5>
 <p>這裡放的是函式呼叫過程中的暫時資料，例如：</p>
 <ul>
@@ -14723,7 +14723,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li>函式一層一層呼叫，就像一層一層疊上去</li>
 <li>函式結束，最上面那層先彈掉</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="為什麼-heap-跟-stack-要往相反方向長">為什麼 heap 跟 stack 要往相反方向長？<a class="headerlink" href="#為什麼-heap-跟-stack-要往相反方向長" title="Permanent link"></a></h4>
 <p>因為這樣可以<strong>最大化利用中間那塊空間</strong>。</p>
 <p>中間藍色那塊可以理解成目前尚未使用的位址空間：</p>
@@ -14732,7 +14732,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li>stack 函式呼叫變深時，就往下擴</li>
 </ul>
 <p>兩邊互相逼近，能把可用空間撐到最大。這也是教材與外部資料都常用的示意方式。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Intel</a>)</p>
-<hr />
+<hr/>
 <h4 id="這張圖最容易考的重點">這張圖最容易考的重點<a class="headerlink" href="#這張圖最容易考的重點" title="Permanent link"></a></h4>
 <h5 id="第一個重點行程不只是程式碼">第一個重點：行程不只是程式碼<a class="headerlink" href="#第一個重點行程不只是程式碼" title="Permanent link"></a></h5>
 <p>行程還包含：</p>
@@ -14744,9 +14744,9 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li>program counter</li>
 <li>registers </li>
 </ul>
-<p>也就是說，<strong>program(程式)</strong> 比較像靜態檔案；<br />
+<p>也就是說，<strong>program(程式)</strong> 比較像靜態檔案；<br/>
 <strong>process(行程)</strong> 是那個檔案「跑起來之後」的完整執行狀態。</p>
-<hr />
+<hr/>
 <h5 id="第二個重點哪種變數放哪裡">第二個重點：哪種變數放哪裡<a class="headerlink" href="#第二個重點哪種變數放哪裡" title="Permanent link"></a></h5>
 <p>你可以這樣記：</p>
 <ul>
@@ -14756,7 +14756,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li><strong>程式指令本身</strong> → text</li>
 </ul>
 <p>教材範例也正是在強調這件事。</p>
-<hr />
+<hr/>
 <h5 id="第三個重點stack-與-heap-的差別">第三個重點：stack 與 heap 的差別<a class="headerlink" href="#第三個重點stack-與-heap-的差別" title="Permanent link"></a></h5>
 <p>最簡單的對照：</p>
 <ul>
@@ -14781,11 +14781,11 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li>可放較大型、較長生命週期資料</li>
 <li>容易 memory leak / fragmentation  </li>
 </ul>
-<hr />
+<hr/>
 <h4 id="你可以這樣一句話背起來">你可以這樣一句話背起來<a class="headerlink" href="#你可以這樣一句話背起來" title="Permanent link"></a></h4>
 <p><strong>Process = text + data + heap + stack + CPU 執行狀態(PC、registers)</strong>。</p>
 <p>其中，CPU 執行狀態(PC、registers)是放在CPU中。</p>
-<hr />
+<hr/>
 <h4 id="我幫你整理成一張小圖">我幫你整理成一張小圖<a class="headerlink" href="#我幫你整理成一張小圖" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[高位址 max] --&gt; B[stack(堆疊)&lt;br&gt;函式參數、區域變數、返回位址&lt;br&gt;通常向下成長]
@@ -14794,7 +14794,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
     D --&gt; E[data section(資料區)&lt;br&gt;global / static 變數]
     E --&gt; F[text section(程式碼區)&lt;br&gt;可執行機器指令]
     F --&gt; G["低位址 0"]</code></pre>
-<hr />
+<hr/>
 <h4 id="再補一個你之後很常連到的觀念">再補一個你之後很常連到的觀念<a class="headerlink" href="#再補一個你之後很常連到的觀念" title="Permanent link"></a></h4>
 <p>到了多執行緒(multithread)時，常見情況是：</p>
 <ul>
@@ -14802,7 +14802,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <li><strong>每個 thread 有自己的 stack</strong></li>
 </ul>
 <p>這也是為什麼 thread 跟 process 的記憶體模型不一樣。教材第 4 章有直接畫出這件事。</p>
-<hr />
+<hr/>
 <h4 id="一句話總結">一句話總結<a class="headerlink" href="#一句話總結" title="Permanent link"></a></h4>
 <p>這張投影片的核心是在告訴你：</p>
 <p><strong>行程(Process)不是只有程式碼，而是一個正在執行中的完整記憶體與 CPU 狀態集合；右圖則是在畫它典型的記憶體配置：text、data、heap、stack。</strong> </p>
@@ -14816,7 +14816,7 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
     A --&gt; D["malloc / new&lt;br&gt;dynamic storage duration&lt;br&gt;程式執行時手動/動態建立"]</code></pre>
 <p>更精確地說，C/C++ 標準主要談的是 <strong>automatic / static / dynamic storage duration(自動／靜態／動態儲存期)</strong>；而「stack(堆疊) / heap(堆積)」是非常常見的實作模型。你的課內教材也是用 data section、stack、heap 來教，這樣考試最好記，但寫程式時要知道那是常見實作，不是語言標準逐字保證。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</p>
 <h4 id="1-global--static-是什麼">1. global / static 是什麼？<a class="headerlink" href="#1-global--static-是什麼" title="Permanent link"></a></h4>
-<p>這一類的共同點是：<strong>活得很久</strong>。<br />
+<p>這一類的共同點是：<strong>活得很久</strong>。<br/>
 它們通常有 <strong>static storage duration(靜態儲存期)</strong>，也就是程式開始時就存在，到程式結束才消失。教材也把 <strong>initialized global and static variables(已初始化的全域與靜態變數)</strong> 放在 <strong>data section(data segment，資料區段)</strong>，未初始化的通常在 <strong>BSS</strong>。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</p>
 <p>先看最普通的 <strong>global variable(全域變數)</strong>：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">   </span><span class="c1">// global variable</span>
@@ -14826,25 +14826,25 @@ Intel 文件也描述了常見配置裡 stack 往低位址成長、heap 往高�
 <p>第一種是 <strong>file-scope static(檔案層級的 static)</strong>：</p>
 <div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">99</span><span class="p">;</span>
 </code></pre></div>
-<p>這個也是活到程式結束，但它只在<strong>這個 <code>.c</code> 檔案內可見</strong>，也就是 <strong>internal linkage(內部連結)</strong>。你可以把它想成「公司公告欄」和「部門內部便條紙」的差別：<br />
-普通 global 像公司公告欄，別的檔案可用 <code>extern</code> 看到；<br />
+<p>這個也是活到程式結束，但它只在<strong>這個 <code>.c</code> 檔案內可見</strong>，也就是 <strong>internal linkage(內部連結)</strong>。你可以把它想成「公司公告欄」和「部門內部便條紙」的差別：<br/>
+普通 global 像公司公告欄，別的檔案可用 <code>extern</code> 看到；<br/>
 file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Cppreference</a>)</p>
 <p>第二種是 <strong>static local variable(靜態區域變數)</strong>：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這個 <code>count</code> 很特別：<br />
-它的 <strong>scope(作用域)</strong> 只在 <code>f()</code> 裡，所以「看起來像 local」；<br />
+<p>這個 <code>count</code> 很特別：<br/>
+它的 <strong>scope(作用域)</strong> 只在 <code>f()</code> 裡，所以「看起來像 local」；<br/>
 但它的 <strong>lifetime(生命週期)</strong> 卻是整個程式，所以每次呼叫 <code>f()</code> 時，它都會保留上一次的值。教材也直接用這個例子說明，並指出這類會放在 data segment。 (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Cppreference</a>)</p>
 <p>所以一句話整理：</p>
-<p><strong>global / static 的核心不是「在哪宣告」，而是它們通常有 static storage duration(靜態儲存期)。</strong><br />
+<p><strong>global / static 的核心不是「在哪宣告」，而是它們通常有 static storage duration(靜態儲存期)。</strong><br/>
 只是普通 global 可見範圍大，<code>static</code> 會改變它的可見性，或讓函式內變數變成「值會保留」。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</p>
-<hr />
+<hr/>
 <h4 id="2-local-variable-是什麼">2. local variable 是什麼？<a class="headerlink" href="#2-local-variable-是什麼" title="Permanent link"></a></h4>
-<p><strong>local variable(區域變數)</strong> 是你在函式或區塊裡直接宣告、而且沒有加 <code>static</code> 的變數。<br />
+<p><strong>local variable(區域變數)</strong> 是你在函式或區塊裡直接宣告、而且沒有加 <code>static</code> 的變數。<br/>
 這類通常有 <strong>automatic storage duration(自動儲存期)</strong>：進入那個區塊時建立，離開就消失。cppreference 對 C 的說法很明確：所有函式參數和 non-static 的 block-scope objects 都屬於 automatic storage duration。教材則用比較直觀的說法：這類通常放在 <strong>stack memory</strong>，用來存 local variables、function parameters、return addresses。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">cppreference.net</a>) </p>
 <p>例如：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -14852,14 +14852,14 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這裡的 <code>x</code> 和 <code>a</code> 都是 local variable。<br />
+<p>這裡的 <code>x</code> 和 <code>a</code> 都是 local variable。<br/>
 你前一題問的「local variable 包不包括陣列」，答案就是：<strong>包括，只要它是函式內直接宣告、又不是 <code>static</code></strong>。教材也直接寫到 stack 用來放 local variables。 (<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">cppreference.net</a>)</p>
 <p>但這裡有一個非常值得你現在就建立的精確觀念：</p>
-<p><strong>local ≠ 一定在 stack</strong>。<br />
+<p><strong>local ≠ 一定在 stack</strong>。<br/>
 在課堂和實作裡，我們通常先記成「local 通常在 stack」完全沒問題；但更嚴格地說，語言標準保證的是它有 automatic storage duration，不是逐字保證一定在某種實體區域。社群上也常有人特別提醒這個 distinction(區分)。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">cppreference.net</a>)</p>
-<hr />
+<hr/>
 <h4 id="3-malloc--new-是什麼">3. malloc / new 是什麼？<a class="headerlink" href="#3-malloc--new-是什麼" title="Permanent link"></a></h4>
-<p>這一類的共同點是：<strong>執行到那行程式時，才動態要一塊記憶體</strong>。<br />
+<p>這一類的共同點是：<strong>執行到那行程式時，才動態要一塊記憶體</strong>。<br/>
 它們對應的是 <strong>dynamic storage duration(動態儲存期)</strong>。教材把這塊記憶體叫做 <strong>heap memory</strong>，並指出它適合那些要超過單次函式呼叫還繼續存在的資料。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</p>
 <h5 id="malloc動態配置c-常見">malloc(動態配置，C 常見)<a class="headerlink" href="#malloc動態配置c-常見" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
@@ -14872,7 +14872,7 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div>
-<p>你可以把 <code>malloc</code> 想成：<br />
+<p>你可以把 <code>malloc</code> 想成：<br/>
 不是在家裡櫃子裡拿一個抽屜，而是臨時去倉庫租一塊空地。你要自己記得租多少、怎麼用、什麼時候歸還。(<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">man7.org</a>)</p>
 <h5 id="newc-常見">new(C++ 常見)<a class="headerlink" href="#newc-常見" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
@@ -14884,7 +14884,7 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <li><code>malloc</code>：偏 C 風格，拿到的是一塊原始記憶體(raw storage)，預設不初始化。(<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">man7.org</a>)</li>
 <li><code>new</code>：偏 C++ 風格，建立的是物件(object)或物件陣列，並有對應的 <code>delete</code> / <code>delete[]</code>。(<a href="https://stackoverflow.com/questions/24999567/process-states-new-state-ready-state?utm_source=chatgpt.com" title="operating system - process states - new state &amp; ready state - Stack Overflow">Cppreference</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="4-三者最核心的比較">4. 三者最核心的比較<a class="headerlink" href="#4-三者最核心的比較" title="Permanent link"></a></h4>
 <h5 id="a-活多久">A. 活多久？<a class="headerlink" href="#a-活多久" title="Permanent link"></a></h5>
 <ul>
@@ -14910,7 +14910,7 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <li><strong>local variable</strong>：把它的位址回傳出去，函式結束後就變成無效位址。教材直接把這列成常見記憶體錯誤。</li>
 <li><strong>malloc / new</strong>：忘記釋放、重複釋放、越界寫入、<code>malloc/free</code> 與 <code>new/delete</code> 配錯。Valgrind 的 Memcheck 也特別會抓這些配對和非法存取問題。(<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/3_Processes.html?utm_source=chatgpt.com" title="Operating Systems: Processes">man7.org</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="5-一次看懂的例子">5. 一次看懂的例子<a class="headerlink" href="#5-一次看懂的例子" title="Permanent link"></a></h4>
 <h5 id="例子一global--static--local-同時出現">例子一：global / static / local 同時出現<a class="headerlink" href="#例子一global--static--local-同時出現" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -14922,13 +14922,13 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">            </span><span class="c1">// local variable</span>
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// static local variable</span>
 <span class="w">    </span><span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;x=%d, cnt=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">cnt</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"x=%d, cnt=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">cnt</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">f</span><span class="p">();</span>
 <span class="w">    </span><span class="n">f</span><span class="p">();</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;g=%d, sg=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"g=%d, sg=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>執行重點是：</p>
@@ -14948,13 +14948,13 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
 <span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這裡 <code>a</code> 這個指標變數本身是 <strong>local variable</strong>，通常在 stack；<br />
+<p>這裡 <code>a</code> 這個指標變數本身是 <strong>local variable</strong>，通常在 stack；<br/>
 但 <code>a</code> 指到的那塊陣列記憶體是 <strong>dynamic storage</strong>，通常在 heap。這正是很多初學者第一次會混淆的地方。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">cppreference.net</a>)</p>
 <h5 id="例子三new">例子三：new<a class="headerlink" href="#例子三new" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
@@ -14964,16 +14964,16 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <span class="w">    </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這和 <code>malloc</code> 的概念很像：<br />
-<code>a</code> 是 local variable；<br />
-<code>new int[5]</code> 建出的陣列是動態儲存期；<br />
+<p>這和 <code>malloc</code> 的概念很像：<br/>
+<code>a</code> 是 local variable；<br/>
+<code>new int[5]</code> 建出的陣列是動態儲存期；<br/>
 配對釋放必須用 <code>delete[]</code>，不能用 <code>free()</code>。Valgrind 文件和 GCC/編譯器文件都提醒 mismatched deallocation 會出問題。(<a href="https://stackoverflow.com/questions/24999567/process-states-new-state-ready-state?utm_source=chatgpt.com" title="operating system - process states - new state &amp; ready state - Stack Overflow">Cppreference</a>)</p>
-<hr />
+<hr/>
 <h4 id="6-社群上最常搞混的點">6. 社群上最常搞混的點<a class="headerlink" href="#6-社群上最常搞混的點" title="Permanent link"></a></h4>
 <h5 id="混淆-1static-local-算不算-local">混淆 1：static local 算不算 local？<a class="headerlink" href="#混淆-1static-local-算不算-local" title="Permanent link"></a></h5>
 <p><strong>看哪個面向。</strong></p>
@@ -14992,8 +14992,8 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>p</code> 是 local variable；<br />
-但 <code>*p</code> 所在的那塊記憶體是 heap/dynamic storage。<br />
+<p><code>p</code> 是 local variable；<br/>
+但 <code>*p</code> 所在的那塊記憶體是 heap/dynamic storage。<br/>
 這就像你手上拿著一張倉庫租約：租約紙在你手上，但貨物在倉庫。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">cppreference.net</a>)</p>
 <h5 id="混淆-3global-跟-static-哪個比較大">混淆 3：global 跟 static 哪個比較「大」？<a class="headerlink" href="#混淆-3global-跟-static-哪個比較大" title="Permanent link"></a></h5>
 <p>如果是指<strong>可見範圍</strong>：</p>
@@ -15005,7 +15005,7 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <ul>
 <li>兩者通常都活到程式結束。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="7-你可以這樣背最不容易錯">7. 你可以這樣背，最不容易錯<a class="headerlink" href="#7-你可以這樣背最不容易錯" title="Permanent link"></a></h4>
 <p>我建議你背這三句：</p>
 <ol>
@@ -15017,9 +15017,9 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 <blockquote>
 <p><strong>static local：看起來在函式裡，但不會跟著函式結束而消失。</strong>  (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Cppreference</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="8-如果你要自己在-ubuntu-vm-驗證最可靠的方法">8. 如果你要自己在 Ubuntu VM 驗證，最可靠的方法<a class="headerlink" href="#8-如果你要自己在-ubuntu-vm-驗證最可靠的方法" title="Permanent link"></a></h4>
-<p>你這種題目，光背還不夠，<strong>自己跑一次最穩</strong>。<br />
+<p>你這種題目，光背還不夠，<strong>自己跑一次最穩</strong>。<br/>
 在你的 Ubuntu VM 上，C/C++ 記憶體錯誤最實用的兩套工具是：</p>
 <ul>
 <li><strong>AddressSanitizer(位址消毒器, ASan)</strong>：GCC 官方文件說它能抓 out-of-bounds(越界) 與 use-after-free(釋放後再用) 這類錯誤。(<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html?utm_source=chatgpt.com" title="Instrumentation Options (Using the GNU Compiler Collection (GCC))">GCC</a>)</li>
@@ -15034,20 +15034,20 @@ file-scope static 像部門內部便條紙，只有本檔案看得到。(<a href
 valgrind<span class="w"> </span>--leak-check<span class="o">=</span>full<span class="w"> </span>./a.out
 </code></pre></div>
 <p>這比只靠肉眼看 code 可靠很多，尤其在 <code>malloc/new</code> 題目上。(<a href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html?utm_source=chatgpt.com" title="Instrumentation Options (Using the GNU Compiler Collection (GCC))">GCC</a>)</p>
-<hr />
+<hr/>
 <h4 id="最後幫你濃縮成一句話">最後幫你濃縮成一句話<a class="headerlink" href="#最後幫你濃縮成一句話" title="Permanent link"></a></h4>
-<p><strong>global / static</strong>：像「固定放在家裡的家具」，一直都在。<br />
-<strong>local variable</strong>：像「借你這次上課用的白板筆」，下課就收走。<br />
+<p><strong>global / static</strong>：像「固定放在家裡的家具」，一直都在。<br/>
+<strong>local variable</strong>：像「借你這次上課用的白板筆」，下課就收走。<br/>
 <strong>malloc / new</strong>：像「你臨時租的倉庫空間」，不用時要自己退租。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cppreference.com</a>)</p>
 <p>下一則我可以直接幫你整理成「宣告方式 → 放哪裡 → 活多久 → 誰釋放 → 常見錯誤」的超好背考前表。</p>
 <h2 id="text-section程式碼區文字區text-segment">Text Section(程式碼區／文字區／text segment)<a class="headerlink" href="#text-section程式碼區文字區text-segment" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-1.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-1.png"/></p>
 <h4 id="這張圖在講什麼">這張圖在講什麼？<a class="headerlink" href="#這張圖在講什麼" title="Permanent link"></a></h4>
-<p>這張投影片是在專講 <strong>Text Section(程式碼區／文字區／text segment)</strong>。<br />
+<p>這張投影片是在專講 <strong>Text Section(程式碼區／文字區／text segment)</strong>。<br/>
 核心意思只有一句：</p>
-<p><strong>Text section 就是放「可執行機器指令(machine instructions)」的地方。</strong><br />
+<p><strong>Text section 就是放「可執行機器指令(machine instructions)」的地方。</strong><br/>
 教材直接寫它包含程式的 <strong>executable code(可執行程式碼)</strong>，也就是處理器可以直接執行的指令序列。</p>
-<hr />
+<hr/>
 <h4 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h4>
 <p>你可以把整個程式想成一本食譜：</p>
 <ul>
@@ -15056,61 +15056,61 @@ valgrind<span class="w"> </span>--leak-check<span class="o">=</span>full<span cl
 <li><strong>stack / heap</strong> = 做菜過程中臨時拿來放東西的工作區</li>
 </ul>
 <p>所以 <strong>text section 不是拿來放變數值的</strong>，而是拿來放「CPU 要做哪些動作」。</p>
-<hr />
+<hr/>
 <h4 id="逐點翻譯講解">逐點翻譯＋講解<a class="headerlink" href="#逐點翻譯講解" title="Permanent link"></a></h4>
 <p>投影片的五點其實可以拆成下面這樣：</p>
 <h5 id="1-contains-the-executable-code">1. contains the executable code<a class="headerlink" href="#1-contains-the-executable-code" title="Permanent link"></a></h5>
 <p>意思是：</p>
-<p><strong>這裡放的是程式真正要執行的程式碼。</strong><br />
+<p><strong>這裡放的是程式真正要執行的程式碼。</strong><br/>
 不是原始碼 <code>.c</code>、<code>.cpp</code> 那種人看的文字，而是編譯後的 <strong>machine instructions(機器指令)</strong>。</p>
 <p>例如你寫：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>CPU 不會直接看懂這段 C 程式。<br />
+<p>CPU 不會直接看懂這段 C 程式。<br/>
 編譯器會把它翻成機器指令，最後那些指令就會進到 <strong>text section</strong>。這點也符合一般 object file / executable 的 code segment 定義。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Oracle Docs</a>)</p>
-<hr />
+<hr/>
 <h5 id="2-stores-the-machine-instructions">2. stores the machine instructions<a class="headerlink" href="#2-stores-the-machine-instructions" title="Permanent link"></a></h5>
 <p>這句是在強調：</p>
-<p><strong>text section 放的是 CPU 可以直接跑的低階指令。</strong><br />
+<p><strong>text section 放的是 CPU 可以直接跑的低階指令。</strong><br/>
 也就是像 <code>load</code>、<code>add</code>、<code>jump</code>、<code>call</code> 這類最終處理器理解的內容，而不是單純「程式文字」。教材原文就是這樣寫的。</p>
-<p>這也是為什麼在作業系統課講 process layout 時，會把 <strong>text</strong> 跟 <strong>data / stack / heap</strong> 分開看：<br />
+<p>這也是為什麼在作業系統課講 process layout 時，會把 <strong>text</strong> 跟 <strong>data / stack / heap</strong> 分開看：<br/>
 因為它們用途根本不同。</p>
-<hr />
+<hr/>
 <h5 id="3-specifies-the-sequence-of-operations">3. specifies the sequence of operations<a class="headerlink" href="#3-specifies-the-sequence-of-operations" title="Permanent link"></a></h5>
 <p>這句是在說：</p>
-<p><strong>text section 裡的指令，決定了程式執行的流程。</strong><br />
+<p><strong>text section 裡的指令，決定了程式執行的流程。</strong><br/>
 例如先做加法、再呼叫函式、再判斷 if、再跳到某個位址繼續跑，這些「執行步驟順序」都是靠 text section 裡的指令定義的。</p>
 <p>你可以把它記成：</p>
 <blockquote>
 <p><strong>text section = 行為規則</strong></p>
 <p><strong>data / stack / heap = 被操作的資料</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h5 id="4-usually-read-only">4. usually read-only<a class="headerlink" href="#4-usually-read-only" title="Permanent link"></a></h5>
 <p>這句非常重要。</p>
-<p>教材說 <strong>text section 通常是 read-only(唯讀)</strong>。<br />
+<p>教材說 <strong>text section 通常是 read-only(唯讀)</strong>。<br/>
 這樣設計的好處有兩個：</p>
-<p>第一，<strong>保護程式碼不被意外改壞</strong>。<br />
+<p>第一，<strong>保護程式碼不被意外改壞</strong>。<br/>
 如果程式跑一跑可以隨便把自己的指令覆寫掉，那非常容易壞掉，安全性也很差。</p>
-<p>第二，<strong>比較容易共享(shared)</strong>。<br />
-因為既然不會改，作業系統就可以讓多個正在執行的相同程式，共用同一份 code pages，而不用每個 process 都複製一份。教材也直接寫「shared among multiple instances of the same program」。<br />
+<p>第二，<strong>比較容易共享(shared)</strong>。<br/>
+因為既然不會改，作業系統就可以讓多個正在執行的相同程式，共用同一份 code pages，而不用每個 process 都複製一份。教材也直接寫「shared among multiple instances of the same program」。<br/>
 ELF / linker 文件也把 text segment 描述成 <strong>read-only executable loadable segment</strong>。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Oracle Docs</a>)</p>
-<p>但這裡有一個精確但書：<br />
+<p>但這裡有一個精確但書：<br/>
 投影片寫的是 <strong>usually read-only</strong>，不是「永遠絕對」。在某些特殊情況，像 JIT(即時編譯) 或 <code>mprotect</code> 改頁面權限，確實可以讓某些區域變成可執行甚至可修改；只是那不是你現在這張基礎投影片的主軸。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Oracle Docs</a>)</p>
-<hr />
+<hr/>
 <h5 id="5-mapped-into-memory-from-the-programs-executable-file">5. mapped into memory from the program's executable file<a class="headerlink" href="#5-mapped-into-memory-from-the-programs-executable-file" title="Permanent link"></a></h5>
 <p>這句很多同學第一次看會卡住，我幫你翻成白話：</p>
 <p><strong>程式執行時，作業系統會把可執行檔(executable file)裡面屬於 code 的那一部分，對映(mapped)到這個 process 的記憶體空間。</strong> </p>
-<p>也就是說，不是你一按執行，系統就「手抄一份原始碼到 RAM」；<br />
+<p>也就是說，不是你一按執行，系統就「手抄一份原始碼到 RAM」；<br/>
 而是 loader / OS 依照 executable 格式，把對應的 segment 載入或映射到 process 的虛擬位址空間。Program loading 文件也說明了系統會把檔案中的 segment 對應到 process image 的 virtual memory segment。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Oracle Docs</a>)</p>
-<p>這和你們後面第 9 章的 <strong>memory-mapped file(記憶體映射檔案)</strong> 觀念其實有呼應：<br />
+<p>這和你們後面第 9 章的 <strong>memory-mapped file(記憶體映射檔案)</strong> 觀念其實有呼應：<br/>
 「把檔案內容對映到虛擬記憶體」本來就是 OS 很核心的技巧，教材後面也有講。</p>
-<hr />
+<hr/>
 <h4 id="為什麼-text-section-常常可以被多個-process-共用">為什麼 text section 常常可以被多個 process 共用？<a class="headerlink" href="#為什麼-text-section-常常可以被多個-process-共用" title="Permanent link"></a></h4>
-<p>因為它通常是<strong>唯讀</strong>。<br />
-如果你今天同時開了 3 個 <code>/bin/ls</code>，它們的 <strong>code</strong> 大致相同，OS 沒必要浪費記憶體複製 3 份完全一樣的機器指令。唯讀頁面很適合共享，這也是教材說它可被 multiple instances 共用的原因。<br />
+<p>因為它通常是<strong>唯讀</strong>。<br/>
+如果你今天同時開了 3 個 <code>/bin/ls</code>，它們的 <strong>code</strong> 大致相同，OS 沒必要浪費記憶體複製 3 份完全一樣的機器指令。唯讀頁面很適合共享，這也是教材說它可被 multiple instances 共用的原因。<br/>
 Linker 文件也提到 text segment 的共享性與唯讀屬性密切相關。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">Oracle Docs</a>)</p>
 <p>不過要注意：</p>
 <ul>
@@ -15118,7 +15118,7 @@ Linker 文件也提到 text segment 的共享性與唯讀屬性密切相關。(<
 <li><strong>不是每個 process 的全部記憶體都共享</strong></li>
 </ul>
 <p>像 stack、很多 writable data，通常還是各自獨立。這也是你前面學到 process 彼此有自己 address space 的原因。</p>
-<hr />
+<hr/>
 <h4 id="text-section-和其他區塊怎麼比">text section 和其他區塊怎麼比？<a class="headerlink" href="#text-section-和其他區塊怎麼比" title="Permanent link"></a></h4>
 <h5 id="text-section">text section<a class="headerlink" href="#text-section" title="Permanent link"></a></h5>
 <ul>
@@ -15141,37 +15141,37 @@ Linker 文件也提到 text segment 的共享性與唯讀屬性密切相關。(<
 <li>放 <code>malloc/free</code>、<code>new/delete</code> 那種動態配置資料</li>
 <li>存活期可跨函式呼叫 </li>
 </ul>
-<hr />
+<hr/>
 <pre class="diagram"><code>flowchart TB
     A["Process 記憶體"] --&gt; B["Text Section&lt;br&gt;可執行機器指令&lt;br&gt;通常唯讀"]
     A --&gt; C["Data Section&lt;br&gt;global / static"]
     A --&gt; D["Stack&lt;br&gt;local variable / parameter / return address"]
     A --&gt; E["Heap&lt;br&gt;malloc / new 動態配置"]</code></pre>
-<hr />
+<hr/>
 <h4 id="最容易考的觀念">最容易考的觀念<a class="headerlink" href="#最容易考的觀念" title="Permanent link"></a></h4>
 <h5 id="q1text-section-裡放的是不是-c-原始碼">Q1：text section 裡放的是不是 C 原始碼？<a class="headerlink" href="#q1text-section-裡放的是不是-c-原始碼" title="Permanent link"></a></h5>
-<p>不是。<br />
+<p>不是。<br/>
 放的是編譯後的 <strong>machine instructions(機器指令)</strong>。</p>
 <h5 id="q2text-section-為什麼常是唯讀">Q2：text section 為什麼常是唯讀？<a class="headerlink" href="#q2text-section-為什麼常是唯讀" title="Permanent link"></a></h5>
 <p>為了<strong>保護程式碼</strong>、也為了讓相同程式的多個實例能<strong>共享同一份 code</strong>。</p>
 <h5 id="q3text-section-是不是變數區">Q3：text section 是不是變數區？<a class="headerlink" href="#q3text-section-是不是變數區" title="Permanent link"></a></h5>
-<p>不是。<br />
+<p>不是。<br/>
 變數通常在 <strong>data / stack / heap</strong>，不是 text。</p>
 <h5 id="q4text-section-從哪裡來">Q4：text section 從哪裡來？<a class="headerlink" href="#q4text-section-從哪裡來" title="Permanent link"></a></h5>
 <p>通常是從 <strong>program’s executable file(可執行檔)</strong> 映射進 process 的記憶體空間。</p>
-<hr />
+<hr/>
 <h4 id="你可以直接這樣背">你可以直接這樣背<a class="headerlink" href="#你可以直接這樣背" title="Permanent link"></a></h4>
 <p><strong>Text section = executable code = machine instructions = 通常 read-only = 可由多個相同程式實例共享 = 來自 executable file 的映射。</strong></p>
 <p>如果你要，我下一則可以直接幫你接著講 <strong>Data section / BSS / Text section 三者差異</strong>，這個很容易一起考。</p>
 <h3 id="映射是啥">映射是啥<a class="headerlink" href="#映射是啥" title="Permanent link"></a></h3>
 <h4 id="什麼叫映射">什麼叫「映射」？<a class="headerlink" href="#什麼叫映射" title="Permanent link"></a></h4>
 <p>最生活化的比喻：</p>
-<p>你有一本很厚的書放在圖書館（檔案在磁碟）。<br />
-你桌上有一份索引卡（虛擬位址空間）。<br />
+<p>你有一本很厚的書放在圖書館（檔案在磁碟）。<br/>
+你桌上有一份索引卡（虛擬位址空間）。<br/>
 映射不是把整本書先影印到你桌上，而是先在索引卡寫：</p>
 <p>桌上第 A 區 → 書的第 1 章</p>
 <p>桌上第 B 區 → 書的第 2 章</p>
-<p>之後你真的翻到 A 區時，館員才把那幾頁送來。<br />
+<p>之後你真的翻到 A 區時，館員才把那幾頁送來。<br/>
 這就是「先建立對應，再按需載入」的感覺。</p>
 <h4 id="為什麼要用映射不要每次都整份複製">為什麼要用「映射」，不要每次都整份複製？<a class="headerlink" href="#為什麼要用映射不要每次都整份複製" title="Permanent link"></a></h4>
 <p>因為映射有幾個很大的好處：</p>
@@ -15190,10 +15190,10 @@ Linker 文件也提到 text segment 的共享性與唯讀屬性密切相關。(<
 <h4 id="mmap-的映射跟複製差在哪">mmap() 的「映射」跟「複製」差在哪？<a class="headerlink" href="#mmap-的映射跟複製差在哪" title="Permanent link"></a></h4>
 <p>這裡最容易誤解，我直接對比：</p>
 <p>複製(copy)</p>
-<p>你真的把檔案內容讀出來，放進一塊新記憶體裡。<br />
+<p>你真的把檔案內容讀出來，放進一塊新記憶體裡。<br/>
 之後那塊記憶體和原檔案可以完全脫鉤。</p>
 <p>映射(map)</p>
-<p>你建立「這段虛擬位址對應到那個檔案 offset」的關係。<br />
+<p>你建立「這段虛擬位址對應到那個檔案 offset」的關係。<br/>
 Linux mmap(2) 手冊明講：file mapping 的內容，是由檔案中某個 offset 開始的 length bytes 來初始化。</p>
 <p>所以映射比較像：</p>
 <ul>
@@ -15203,24 +15203,24 @@ Linux mmap(2) 手冊明講：file mapping 的內容，是由檔案中某個 offs
 </ul>
 <h4 id="再問一個你現在很該懂的問題text-section-是被載入還是被映射">再問一個你現在很該懂的問題：text section 是「被載入」還是「被映射」？<a class="headerlink" href="#再問一個你現在很該懂的問題text-section-是被載入還是被映射" title="Permanent link"></a></h4>
 <p>兩個都可以講，但精確度不同。</p>
-<p>課堂口語講法：<br />
+<p>課堂口語講法：<br/>
 text section 被載入到記憶體</p>
-<p>更精確的 OS / VM 講法：<br />
+<p>更精確的 OS / VM 講法：<br/>
 text section 常是從 executable file 映射到 process 的虛擬位址空間中，再由 demand paging 視需要把頁面帶進 RAM。</p>
 <p>所以你看到教材寫 mapped into memory from the executable file，就是在用比較精確的講法。</p>
 <h2 id="data-section資料區--data-segment">Data Section(資料區 / data segment)<a class="headerlink" href="#data-section資料區--data-segment" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-2.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-2.png"/></p>
 <h4 id="這張圖在講什麼_1">這張圖在講什麼？<a class="headerlink" href="#這張圖在講什麼_1" title="Permanent link"></a></h4>
-<p>這張投影片是在講 <strong>Data Section(資料區 / data segment)</strong>。<br />
+<p>這張投影片是在講 <strong>Data Section(資料區 / data segment)</strong>。<br/>
 最核心一句話是：</p>
 <p><strong>Data section 主要放的是具有 static storage duration(靜態儲存期) 的資料，也就是 global variable(全域變數) 與 static variable(靜態變數)；其中已初始化的通常在 <code>.data</code>，未初始化的通常在 <code>.bss</code>。</strong> 教材也明確寫到：initialized global/static 在 data section，而 uninitialized global/static 常稱為 <strong>bss/common section</strong>，會在程式執行前被系統設成 0。 </p>
-<hr />
+<hr/>
 <h4 id="先講白話版">先講白話版<a class="headerlink" href="#先講白話版" title="Permanent link"></a></h4>
 <p>你可以把 <strong>data section</strong> 想成：</p>
 <blockquote>
 <p>程式一啟動，就已經先幫你準備好的「固定資料櫃」</p>
 </blockquote>
-<p>這個櫃子裡放的，不是函式裡臨時用一下就消失的東西，<br />
+<p>這個櫃子裡放的，不是函式裡臨時用一下就消失的東西，<br/>
 而是那種：</p>
 <ul>
 <li>程式一開始就存在</li>
@@ -15228,7 +15228,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>整個程式執行期間都會在</li>
 </ul>
 <p>的資料。這也是為什麼它和 <strong>stack</strong>、<strong>heap</strong> 分開講。</p>
-<hr />
+<hr/>
 <h4 id="投影片每一點在說什麼">投影片每一點在說什麼<a class="headerlink" href="#投影片每一點在說什麼" title="Permanent link"></a></h4>
 <h5 id="1-initialized-global-and-static-variables">1. initialized global and static variables<a class="headerlink" href="#1-initialized-global-and-static-variables" title="Permanent link"></a></h5>
 <p>教材這句的重點是：</p>
@@ -15242,7 +15242,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">   </span><span class="c1">// static，已初始化</span>
 </code></pre></div>
 <p>這兩個都屬於教材說的 data section 典型成員。</p>
-<hr />
+<hr/>
 <h5 id="2-global-scope-與-static-local">2. global scope 與 static local<a class="headerlink" href="#2-global-scope-與-static-local" title="Permanent link"></a></h5>
 <p>這句是在提醒你：</p>
 <p><strong>不是只有函式外面的變數才可能進 data section。</strong></p>
@@ -15251,7 +15251,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>cnt</code> 雖然<strong>作用域(scope)</strong> 在函式內，<br />
+<p><code>cnt</code> 雖然<strong>作用域(scope)</strong> 在函式內，<br/>
 但它的<strong>生命週期(lifetime)</strong> 是整個程式期間，所以教材也特別說它會放在 data segment。</p>
 <p>這個是超常考點：</p>
 <ul>
@@ -15259,14 +15259,14 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><code>static int x = 3;</code> → static local variable，通常在 data section</li>
 </ul>
 <p>也就是說，<strong>你不能只看它寫在函式裡還是外面，還要看有沒有 <code>static</code>。</strong></p>
-<hr />
+<hr/>
 <h5 id="3-initialized-arrays-也可能在-data-section">3. initialized arrays 也可能在 data section<a class="headerlink" href="#3-initialized-arrays-也可能在-data-section" title="Permanent link"></a></h5>
 <p>教材這句是說：</p>
 <p>像這種已初始化的全域陣列，也會在 data section：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
 </code></pre></div>
 <p>因為它是<strong>全域 + 已初始化</strong>。</p>
-<p>但你要小心不要一看到陣列就以為都在 data section。<br />
+<p>但你要小心不要一看到陣列就以為都在 data section。<br/>
 陣列放哪裡，要看它是哪一種宣告方式：</p>
 <ul>
 <li><code>int a[100];</code> 在函式裡 → 通常 stack</li>
@@ -15274,7 +15274,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><code>int a[100] = {...};</code> 在函式外 → data</li>
 <li><code>malloc(...)</code> 配出來的陣列 → heap</li>
 </ul>
-<hr />
+<hr/>
 <h5 id="4-data-section-is-writable">4. data section is writable<a class="headerlink" href="#4-data-section-is-writable" title="Permanent link"></a></h5>
 <p>這點也很重要。</p>
 <p>教材說 <strong>data section 是 writable(可寫的)</strong>，代表程式執行中可以修改它的值。</p>
@@ -15291,7 +15291,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><strong>text section</strong>：通常 read-only，放指令</li>
 <li><strong>data section</strong>：通常 writable，放可修改資料 </li>
 </ul>
-<hr />
+<hr/>
 <h5 id="5-uninitialized-globalstatic-其實多半是-bss">5. uninitialized global/static 其實多半是 <code>.bss</code><a class="headerlink" href="#5-uninitialized-globalstatic-其實多半是-bss" title="Permanent link"></a></h5>
 <p>這張投影片寫得有一點容易讓初學者誤會，我幫你精確化：</p>
 <p>教材說未初始化的 global / static variables 常稱為 <strong>bss</strong> 或 <strong>common section</strong>，並在程式開始前被設成 0。 </p>
@@ -15307,7 +15307,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><strong>未初始化全域 / 靜態變數</strong> → <code>.bss</code></li>
 </ul>
 <p>有些老師或教材會把 <code>.data + .bss</code> 口語合稱成「data segment」，但嚴格一點它們是不同 section。</p>
-<hr />
+<hr/>
 <h5 id="6-constants-這句要保留但不要背太死">6. constants 這句要保留但不要背太死<a class="headerlink" href="#6-constants-這句要保留但不要背太死" title="Permanent link"></a></h5>
 <p>投影片最後一句寫：</p>
 <blockquote>
@@ -15317,7 +15317,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <p>更精確地說：</p>
 <ul>
 <li>很多 <strong>read-only data(唯讀資料)</strong> 會被放在 <strong><code>.rodata</code></strong></li>
-<li><code>.rodata</code> 是 read-only data section，通常屬於 non-writable segment<br />
+<li><code>.rodata</code> 是 read-only data section，通常屬於 non-writable segment<br/>
   Oracle 文件直接把 <code>.rodata</code> 定義成 read-only data。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Oracle 文檔</a>)</li>
 </ul>
 <p>而且 Oracle 也舉例說明：</p>
@@ -15330,13 +15330,13 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <p><strong>「const」不等於一定在 <code>.data</code>，很多時候反而更可能在 <code>.rodata</code>。</strong></p>
 </blockquote>
 <p>也就是說，這張投影片這一句適合先理解成「常數資料可能在靜態區域的一部分」，但做 ELF / 編譯器 / linker 題時，最好進一步區分 <code>.data</code> 與 <code>.rodata</code>。</p>
-<hr />
+<hr/>
 <h4 id="我幫你整理成一張你現在最好背的表">我幫你整理成一張你現在最好背的表<a class="headerlink" href="#我幫你整理成一張你現在最好背的表" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A["靜態儲存期資料"] --&gt; B[".data&lt;br&gt;已初始化 global / static&lt;br&gt;通常可寫"]
     A --&gt; C[".bss&lt;br&gt;未初始化 global / static&lt;br&gt;執行前設為 0"]
     A --&gt; D[".rodata&lt;br&gt;唯讀常數資料&lt;br&gt;通常不可寫"]</code></pre>
-<hr />
+<hr/>
 <h4 id="用程式直接對照最清楚">用程式直接對照最清楚<a class="headerlink" href="#用程式直接對照最清楚" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -15345,7 +15345,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="kt">int</span><span class="w"> </span><span class="n">g2</span><span class="p">;</span><span class="w">               </span><span class="c1">// .bss</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">   </span><span class="c1">// .data</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s2</span><span class="p">;</span><span class="w">        </span><span class="c1">// .bss</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 指標本身常在 .data，字串常在 .rodata</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hi"</span><span class="p">;</span><span class="w"> </span><span class="c1">// 指標本身常在 .data，字串常在 .rodata</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">              </span><span class="c1">// stack</span>
@@ -15361,7 +15361,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><code>p</code> 指到的空間 → heap</li>
 <li><code>"Hi"</code> 這種字串常值通常是唯讀資料 → 常在 <code>.rodata</code>   (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Oracle 文檔</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="這張投影片最容易考的-5-件事">這張投影片最容易考的 5 件事<a class="headerlink" href="#這張投影片最容易考的-5-件事" title="Permanent link"></a></h4>
 <h5 id="1-data-section-放誰">1. Data section 放誰？<a class="headerlink" href="#1-data-section-放誰" title="Permanent link"></a></h5>
 <p>主要放 <strong>global / static variables</strong>。</p>
@@ -15373,7 +15373,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <p>更精確地說通常在 <strong><code>.bss</code></strong> (Data section裡面)，並且執行前被設成 0。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Oracle 文檔</a>)</p>
 <h5 id="5-const-一定在-data-section-嗎">5. const 一定在 data section 嗎？<a class="headerlink" href="#5-const-一定在-data-section-嗎" title="Permanent link"></a></h5>
 <p>不一定。很多唯讀常數會在 <strong><code>.rodata</code></strong> (Text section裡面)，不要背死。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Oracle 文檔</a>)</p>
-<hr />
+<hr/>
 <h4 id="跟前一張-text-section-一起比較">跟前一張 Text Section 一起比較<a class="headerlink" href="#跟前一張-text-section-一起比較" title="Permanent link"></a></h4>
 <h5 id="text-section_1">Text Section<a class="headerlink" href="#text-section_1" title="Permanent link"></a></h5>
 <ul>
@@ -15393,17 +15393,17 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>執行前設成 0</li>
 <li>通常不佔 executable 的實際檔案內容空間  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Oracle 文檔</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="一句話總結_1">一句話總結<a class="headerlink" href="#一句話總結_1" title="Permanent link"></a></h4>
 <p><strong>Data section 不是放函式裡臨時變數，而是放程式整個生命週期都存在的靜態資料；其中已初始化的通常在 <code>.data</code>，未初始化的通常在 <code>.bss</code>，而很多唯讀常數其實更常在 <code>.rodata</code>。</strong>   (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Oracle 文檔</a>)</p>
 <p>你若要，我下一則我可以直接幫你做一張 <strong>Text / Data / BSS / Stack / Heap</strong> 的總整理對照表。</p>
 <h2 id="stack-memory堆疊記憶體">Stack memory(堆疊記憶體)<a class="headerlink" href="#stack-memory堆疊記憶體" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-3.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-3.png"/></p>
 <h3 id="講解_1">講解<a class="headerlink" href="#講解_1" title="Permanent link"></a></h3>
 <h4 id="這張投影片在講什麼">這張投影片在講什麼<a class="headerlink" href="#這張投影片在講什麼" title="Permanent link"></a></h4>
-<p>這張是在專講 <strong>Stack memory(堆疊記憶體)</strong>。<br />
+<p>這張是在專講 <strong>Stack memory(堆疊記憶體)</strong>。<br/>
 它想傳達的核心是：</p>
-<p><strong>Stack 是專門服務「函式呼叫(function call)」的一塊記憶體區域。</strong><br />
+<p><strong>Stack 是專門服務「函式呼叫(function call)」的一塊記憶體區域。</strong><br/>
 裡面通常放：</p>
 <ul>
 <li><strong>local variables(區域變數)</strong></li>
@@ -15412,7 +15412,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>其他和呼叫流程有關的資料</li>
 </ul>
 <p>這也和你們教材前面整理的一致。 </p>
-<hr />
+<hr/>
 <h4 id="先用最白話方式理解">先用最白話方式理解<a class="headerlink" href="#先用最白話方式理解" title="Permanent link"></a></h4>
 <p>你可以把 stack 想成一疊托盤。</p>
 <ul>
@@ -15420,9 +15420,9 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>函式裡的區域變數、參數，就放在那個托盤上</li>
 <li>函式結束，就把最上面那個托盤拿掉</li>
 </ul>
-<p>所以它是 <strong>LIFO(Last-In, First-Out，後進先出)</strong>。<br />
+<p>所以它是 <strong>LIFO(Last-In, First-Out，後進先出)</strong>。<br/>
 教材這張投影片也直接這樣寫。</p>
-<hr />
+<hr/>
 <h4 id="1-為什麼函式呼叫會用-stack">1. 為什麼函式呼叫會用 stack？<a class="headerlink" href="#1-為什麼函式呼叫會用-stack" title="Permanent link"></a></h4>
 <p>因為函式呼叫天然就很適合「後進先出」。</p>
 <p>例如：</p>
@@ -15444,9 +15444,9 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><code>B()</code> 再回去 <code>A()</code></li>
 <li><code>A()</code> 再回去 <code>main()</code></li>
 </ul>
-<p>這就是標準的後進先出。<br />
+<p>這就是標準的後進先出。<br/>
 所以用 stack 來管理函式呼叫，非常自然。教材也把 stack 定義成用於 function calls 與 local variables 的區域。</p>
-<hr />
+<hr/>
 <h4 id="2-stack-裡面到底放什麼">2. stack 裡面到底放什麼？<a class="headerlink" href="#2-stack-裡面到底放什麼" title="Permanent link"></a></h4>
 <p>你現在先記這四種最重要：</p>
 <h5 id="local-variables區域變數">local variables(區域變數)<a class="headerlink" href="#local-variables區域變數" title="Permanent link"></a></h5>
@@ -15465,14 +15465,14 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 </code></pre></div>
 <p><code>a</code>、<code>b</code> 是這次呼叫 <code>add()</code> 所需要的資料，通常和這次呼叫的 stack frame 一起管理。教材也列出 function parameters。</p>
 <h5 id="return-address返回位址">return address(返回位址)<a class="headerlink" href="#return-address返回位址" title="Permanent link"></a></h5>
-<p>函式跑完後，CPU 要知道「回哪一行繼續執行」。<br />
+<p>函式跑完後，CPU 要知道「回哪一行繼續執行」。<br/>
 這個位置資訊就是 <strong>return address</strong>。教材也明講 stack 會存 return addresses。</p>
 <h5 id="其他-function-related-data">其他 function-related data<a class="headerlink" href="#其他-function-related-data" title="Permanent link"></a></h5>
 <p>例如某些暫存器保存值、對齊資訊、呼叫慣例需要的額外空間。這些細節會依 <strong>calling convention(呼叫慣例)</strong> 和架構不同而變。這屬於更底層的 ABI 細節。</p>
-<hr />
+<hr/>
 <h4 id="3-什麼是-stack-frame堆疊框架">3. 什麼是 stack frame(堆疊框架)？<a class="headerlink" href="#3-什麼是-stack-frame堆疊框架" title="Permanent link"></a></h4>
 <p>雖然你這張投影片沒直接寫這個詞，但它是理解 stack 最關鍵的概念之一。</p>
-<p>每呼叫一次函式，通常就會建立一個 <strong>stack frame(堆疊框架)</strong>。<br />
+<p>每呼叫一次函式，通常就會建立一個 <strong>stack frame(堆疊框架)</strong>。<br/>
 你可以把它想成：</p>
 <blockquote>
 <p>這一次函式呼叫專屬的小工作區</p>
@@ -15489,9 +15489,9 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
     A["stack top&lt;br&gt;C 的 frame"] --&gt; B["B 的 frame"]
     B --&gt; C["A 的 frame"]
     C --&gt; D["main 的 frame"]</code></pre>
-<p><code>C()</code> 結束時，最上面的 frame 先被移掉。<br />
+<p><code>C()</code> 結束時，最上面的 frame 先被移掉。<br/>
 這就是 LIFO。</p>
-<hr />
+<hr/>
 <h4 id="4-為什麼-stack-常被說自動管理">4. 為什麼 stack 常被說「自動管理」？<a class="headerlink" href="#4-為什麼-stack-常被說自動管理" title="Permanent link"></a></h4>
 <p>因為和 heap 不同，stack 通常不需要你手動 <code>free()</code> 或 <code>delete()</code>。</p>
 <p>教材寫的是：</p>
@@ -15508,10 +15508,10 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>x</code> 不需要你自己回收。<br />
+<p><code>x</code> 不需要你自己回收。<br/>
 <code>f()</code> 結束，<code>x</code> 對應的 stack 空間就自動失效了。</p>
 <p>這也是為什麼 <strong>返回 local variable 位址</strong> 會出事。教材後面也特別把這列成常見記憶體錯誤。</p>
-<hr />
+<hr/>
 <h4 id="5-為什麼-stack-通常比較快">5. 為什麼 stack 通常比較快？<a class="headerlink" href="#5-為什麼-stack-通常比較快" title="Permanent link"></a></h4>
 <p>因為 stack 的管理方式很規律：</p>
 <ul>
@@ -15528,10 +15528,10 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 </ul>
 <p>所以你可以把它記成：</p>
 <blockquote>
-<p><strong>stack 快，是因為規則單純。</strong><br />
+<p><strong>stack 快，是因為規則單純。</strong><br/>
 <strong>heap 彈性大，但管理成本高。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="6-這張投影片哪裡要小心有一點講得太簡化">6. 這張投影片哪裡要小心？有一點講得太簡化<a class="headerlink" href="#6-這張投影片哪裡要小心有一點講得太簡化" title="Permanent link"></a></h4>
 <p>投影片有一句：</p>
 <blockquote>
@@ -15550,21 +15550,21 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li><strong>教材簡化背法</strong>：stack 較小、有限、通常比 heap 小</li>
 <li><strong>精確背法</strong>：stack 大小通常受 OS / thread 建立設定限制，不是單靠編譯器決定 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="7-local-variable-一定保證在-stack-嗎">7. local variable 一定「保證」在 stack 嗎？<a class="headerlink" href="#7-local-variable-一定保證在-stack-嗎" title="Permanent link"></a></h4>
 <p>在你這門課的簡化模型裡，先記：</p>
 <ul>
 <li><strong>local variable → stack</strong></li>
 </ul>
 <p>這樣做題通常沒問題。教材也是這樣教。</p>
-<p>但更精確地說，C/C++ 語言標準講的是 <strong>automatic storage duration(自動儲存期)</strong>：<br />
+<p>但更精確地說，C/C++ 語言標準講的是 <strong>automatic storage duration(自動儲存期)</strong>：<br/>
 區域變數在進入區塊時建立、離開時銷毀；至於底層實作是不是一定放在 stack，語言標準不直接強制。cppreference 也是這樣整理。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">CPP參考</a>)</p>
 <p>所以考試通常答：</p>
 <ul>
 <li><strong>課堂講法</strong>：local variable 在 stack</li>
 <li><strong>語言精確講法</strong>：多半是 automatic storage duration，stack 是常見實作</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="8-為什麼-stack-容易-overflow溢位">8. 為什麼 stack 容易 overflow(溢位)？<a class="headerlink" href="#8-為什麼-stack-容易-overflow溢位" title="Permanent link"></a></h4>
 <p>教材後面有直接點出兩個常見原因：</p>
 <ul>
@@ -15583,7 +15583,7 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="p">}</span>
 </code></pre></div>
 <p>沒有停止條件的遞迴，stack frame 會一直疊上去，也很容易 stack overflow。</p>
-<hr />
+<hr/>
 <h4 id="9-stack-和-heap-最重要的比較">9. stack 和 heap 最重要的比較<a class="headerlink" href="#9-stack-和-heap-最重要的比較" title="Permanent link"></a></h4>
 <h5 id="stack_1">stack<a class="headerlink" href="#stack_1" title="Permanent link"></a></h5>
 <ul>
@@ -15602,16 +15602,16 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>管理成本較高</li>
 <li>容易 memory leak / fragmentation  </li>
 </ul>
-<hr />
+<hr/>
 <pre class="diagram"><code>flowchart TB
     A["函式被呼叫"] --&gt; B["建立一個 stack frame"]
     B --&gt; C["放參數、區域變數、返回位址"]
     C --&gt; D["函式執行完畢"]
     D --&gt; E["frame 自動移除"]</code></pre>
-<hr />
+<hr/>
 <h4 id="10-多執行緒時還要再補一個觀念">10. 多執行緒時還要再補一個觀念<a class="headerlink" href="#10-多執行緒時還要再補一個觀念" title="Permanent link"></a></h4>
 <p>到了 thread(執行緒) 那章，這件事很重要：</p>
-<p><strong>每個 thread 通常都有自己的 stack。</strong><br />
+<p><strong>每個 thread 通常都有自己的 stack。</strong><br/>
 教材在 pthread 那章也直接寫了：每個 pthread 都需要自己的 stack 來存 local variables 和 function call information；如果 thread 太多、stack 太大，會消耗很多記憶體，甚至造成 stack overflow。</p>
 <p>所以：</p>
 <ul>
@@ -15619,31 +15619,31 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>但<strong>各自有自己的 stack</strong></li>
 </ul>
 <p>這點你之後學 race condition、thread-local 行為時會非常重要。</p>
-<hr />
+<hr/>
 <h4 id="這張投影片最容易考的重點">這張投影片最容易考的重點<a class="headerlink" href="#這張投影片最容易考的重點" title="Permanent link"></a></h4>
 <h5 id="第一個重點">第一個重點<a class="headerlink" href="#第一個重點" title="Permanent link"></a></h5>
-<p><strong>stack 用來管理 function calls。</strong><br />
+<p><strong>stack 用來管理 function calls。</strong><br/>
 所以 local variables、parameters、return addresses 常在這裡。</p>
 <h5 id="第二個重點">第二個重點<a class="headerlink" href="#第二個重點" title="Permanent link"></a></h5>
-<p><strong>stack 是 LIFO。</strong><br />
+<p><strong>stack 是 LIFO。</strong><br/>
 最後進去的那層函式，最先返回。</p>
 <h5 id="第三個重點">第三個重點<a class="headerlink" href="#第三個重點" title="Permanent link"></a></h5>
-<p><strong>stack 是自動管理。</strong><br />
+<p><strong>stack 是自動管理。</strong><br/>
 不像 heap 要自己 <code>free/delete</code>。</p>
 <h5 id="第四個重點">第四個重點<a class="headerlink" href="#第四個重點" title="Permanent link"></a></h5>
-<p><strong>stack 通常較快，但比較小。</strong><br />
+<p><strong>stack 通常較快，但比較小。</strong><br/>
 而且容易因深遞迴或大區域變數而 overflow。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 <h5 id="第五個重點">第五個重點<a class="headerlink" href="#第五個重點" title="Permanent link"></a></h5>
 <p>投影片的「fixed at compile time」要保留但別背死；更精確是<strong>受執行環境與 thread 建立設定影響</strong>。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="一句話總結_2">一句話總結<a class="headerlink" href="#一句話總結_2" title="Permanent link"></a></h4>
 <p><strong>Stack memory 是用來支撐函式呼叫的自動管理記憶體區；它以 LIFO 方式運作，通常存放區域變數、參數與返回位址，速度快但空間有限，也因此特別怕深遞迴和大區域陣列。</strong>  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 <p>下一張如果你貼 <strong>Heap memory</strong>，我們就可以把兩者完整對照起來。</p>
 <h4 id="main-也算是一種函數對不對然後就算函數沒有新增任何變數裡面的運算都用全域變數也會增加記憶體對不對">main 也算是一種函數對不對，然後就算函數沒有新增任何變數(裡面的運算都用全域變數)，也會增加記憶體對不對<a class="headerlink" href="#main-也算是一種函數對不對然後就算函數沒有新增任何變數裡面的運算都用全域變數也會增加記憶體對不對" title="Permanent link"></a></h4>
-<p>對，<strong><code>main</code> 也算函數(function)</strong>。<br />
+<p>對，<strong><code>main</code> 也算函數(function)</strong>。<br/>
 在 C 裡，<code>main</code> 是程式在 <strong>hosted environment(有作業系統的執行環境)</strong> 下的指定起點；C++ 也一樣把 <code>main</code> 視為全域命名空間中的那個特殊函數。<a href="https://en.cppreference.com/w/c/language/main_function.html?utm_source=chatgpt.com">en.cppreference.com+1</a></p>
 <h4 id="第一個問題main-算不算函數">第一個問題：<code>main</code> 算不算函數？<a class="headerlink" href="#第一個問題main-算不算函數" title="Permanent link"></a></h4>
-<p>✅ 算。<br />
+<p>✅ 算。<br/>
 只是它是<strong>很特殊的函數</strong>：</p>
 <ul>
 <li>
@@ -15657,9 +15657,9 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <blockquote>
 <p><code>main</code> 就是「第一個被執行的使用者函數」。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="第二個問題函數就算沒有新增任何區域變數也會增加記憶體嗎">第二個問題：函數就算沒有新增任何區域變數，也會增加記憶體嗎？<a class="headerlink" href="#第二個問題函數就算沒有新增任何區域變數也會增加記憶體嗎" title="Permanent link"></a></h4>
-<p>✅ 一般來說，<strong>會有一些額外成本</strong>。<br />
+<p>✅ 一般來說，<strong>會有一些額外成本</strong>。<br/>
 因為函數呼叫不只是在跑程式碼，通常還要處理和呼叫流程有關的資料，例如：</p>
 <ul>
 <li>
@@ -15680,31 +15680,31 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="w">    </span><span class="n">recur</span><span class="p">();</span><span class="w">  </span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這個例子很關鍵。<br />
+<p>這個例子很關鍵。<br/>
 就算你<strong>完全沒有宣告區域變數</strong>，只要每次呼叫都要保留「回來的位置」和呼叫狀態，遞迴還是會一層一層疊上去，最後可能 <strong>stack overflow(堆疊溢位)</strong>。</p>
 <h2 id="heap-memory堆積記憶體">Heap memory(堆積記憶體)<a class="headerlink" href="#heap-memory堆積記憶體" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-4.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-4.png"/></p>
 <h3 id="講解_2">講解<a class="headerlink" href="#講解_2" title="Permanent link"></a></h3>
 <h4 id="這張投影片在講什麼_1">這張投影片在講什麼<a class="headerlink" href="#這張投影片在講什麼_1" title="Permanent link"></a></h4>
-<p>這張是在講 <strong>Heap memory(堆積記憶體)</strong>。<br />
+<p>這張是在講 <strong>Heap memory(堆積記憶體)</strong>。<br/>
 最核心一句話：</p>
 <p><strong>Heap 是給「執行期間動態配置(dynamic allocation)」用的記憶體區。</strong></p>
-<p>也就是說，當你在程式跑到一半，才決定「我現在需要一塊空間」，這時常用的就是 heap。<br />
+<p>也就是說，當你在程式跑到一半，才決定「我現在需要一塊空間」，這時常用的就是 heap。<br/>
 在 C 裡常見是 <code>malloc()/free()</code>；在 C++ 裡常見是 <code>new/delete</code>。cppreference 將這類物件稱為 <strong>dynamic storage duration(動態儲存期)</strong> 物件；Linux 的 <code>malloc(3)</code> 也直接寫到 <code>malloc()</code> 通常從 heap 配置記憶體。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">en.cppreference.com</a>)</p>
-<hr />
+<hr/>
 <h4 id="先用白話理解">先用白話理解<a class="headerlink" href="#先用白話理解" title="Permanent link"></a></h4>
 <p>你可以把 heap 想成：</p>
 <blockquote>
 <p>程式執行時，去倉庫臨時租空間。</p>
 </blockquote>
-<p>跟 stack 不同，heap 不是「函式結束就自動回收」那種。<br />
+<p>跟 stack 不同，heap 不是「函式結束就自動回收」那種。<br/>
 它比較像：</p>
 <ul>
 <li>你要多少，執行時才去申請</li>
 <li>你要用多久，自己決定</li>
 <li>用完要記得還回去，不然就會變成 <strong>memory leak(記憶體洩漏)</strong> (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">en.cppreference.com</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="1-為什麼需要-heap">1. 為什麼需要 heap？<a class="headerlink" href="#1-為什麼需要-heap" title="Permanent link"></a></h4>
 <p>因為有些資料：</p>
 <ul>
@@ -15719,23 +15719,23 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <li>dynamic array(動態陣列)</li>
 <li>執行時才決定大小的 buffer(緩衝區)</li>
 </ul>
-<p>這也是投影片最後一點在講的重點。<br />
+<p>這也是投影片最後一點在講的重點。<br/>
 從語言角度看，這些通常屬於 <strong>dynamic storage duration</strong>。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">en.cppreference.com</a>)</p>
-<hr />
+<hr/>
 <h4 id="2-mallocfreenewdelete-在做什麼">2. <code>malloc/free</code>、<code>new/delete</code> 在做什麼？<a class="headerlink" href="#2-mallocfreenewdelete-在做什麼" title="Permanent link"></a></h4>
 <h5 id="c-的-mallocfree">C 的 <code>malloc/free</code><a class="headerlink" href="#c-的-mallocfree" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div>
-<p><code>malloc()</code> 會配置一塊未初始化的儲存空間並回傳指標；<br />
+<p><code>malloc()</code> 會配置一塊未初始化的儲存空間並回傳指標；<br/>
 <code>free()</code> 則釋放先前配置的空間。Linux <code>malloc(3)</code> 與 cppreference 都是這樣定義的。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 <h5 id="c-的-newdelete">C++ 的 <code>new/delete</code><a class="headerlink" href="#c-的-newdelete" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
 <span class="k">delete</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
 </code></pre></div>
-<p><code>new</code> 建立的是 <strong>dynamic storage duration</strong> 物件；<br />
+<p><code>new</code> 建立的是 <strong>dynamic storage duration</strong> 物件；<br/>
 <code>delete</code> 會銷毀該物件並呼叫對應的 deallocation。cppreference 也是這樣描述。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">en.cppreference.com</a>)</p>
-<hr />
+<hr/>
 <h4 id="3-為什麼說-heap-適合超過單一函式生命週期的資料">3. 為什麼說 heap 適合「超過單一函式生命週期」的資料？<a class="headerlink" href="#3-為什麼說-heap-適合超過單一函式生命週期的資料" title="Permanent link"></a></h4>
 <p>看這個例子：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="nf">make_array</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -15743,18 +15743,18 @@ text section 常是從 executable file 映射到 process 的虛擬位址空間�
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>這裡 <code>p</code> 這個指標變數本身是 <strong>local variable(區域變數)</strong>，通常在 stack。<br />
+<p>這裡 <code>p</code> 這個指標變數本身是 <strong>local variable(區域變數)</strong>，通常在 stack。<br/>
 但 <code>malloc()</code> 配出來的那塊空間在 heap，所以即使 <code>make_array()</code> 結束，那塊 heap 記憶體仍然存在，呼叫者還可以繼續使用它。這就是動態配置最典型的用途。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 <p>這也順便再提醒一次：</p>
 <blockquote>
-<p><strong>指標變數在哪裡</strong><br />
-跟<br />
-<strong>指標指向的資料在哪裡</strong><br />
+<p><strong>指標變數在哪裡</strong><br/>
+跟<br/>
+<strong>指標指向的資料在哪裡</strong><br/>
 是兩件不同的事。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="4-為什麼-heap-比-stack-更彈性">4. 為什麼 heap 比 stack 更彈性？<a class="headerlink" href="#4-為什麼-heap-比-stack-更彈性" title="Permanent link"></a></h4>
-<p>因為 stack 的使用模式很固定，主要服務函式呼叫；<br />
+<p>因為 stack 的使用模式很固定，主要服務函式呼叫；<br/>
 heap 則是「你要幾塊、要多大、要活多久」都可以執行時決定。</p>
 <p>Linux <code>malloc(3)</code> 提到，<code>malloc()</code> 通常會調整 heap 大小；而在 glibc 裡，較大的配置甚至可能改用 <code>mmap()</code> 來做，不一定全都來自傳統意義上的單一 heap 區。這也說明了：<strong>教材裡的 heap 圖是教學模型，實際 allocator 實作會更複雜。</strong> (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 <p>所以你可以這樣背：</p>
@@ -15762,16 +15762,16 @@ heap 則是「你要幾塊、要多大、要活多久」都可以執行時決定
 <li><strong>課堂簡化講法</strong>：動態配置資料在 heap</li>
 <li><strong>精確系統講法</strong>：動態配置通常由 allocator 管理，底層可能透過 heap 擴張、<code>mmap()</code> 等方式取得記憶體 (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="5-為什麼-heap-容易出問題">5. 為什麼 heap 容易出問題？<a class="headerlink" href="#5-為什麼-heap-容易出問題" title="Permanent link"></a></h4>
 <p>這張投影片提到兩個大坑，很重要：</p>
 <h5 id="memory-leak記憶體洩漏">memory leak(記憶體洩漏)<a class="headerlink" href="#memory-leak記憶體洩漏" title="Permanent link"></a></h5>
-<p>你申請了 heap 空間，但之後沒有正確釋放，或者把原本唯一能指向它的指標弄丟了。<br />
+<p>你申請了 heap 空間，但之後沒有正確釋放，或者把原本唯一能指向它的指標弄丟了。<br/>
 cppreference 的 <code>new</code> 頁面直接舉了這種例子：指標丟失後，物件變成 unreachable(不可達)，就無法釋放，形成 memory leak。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">en.cppreference.com</a>)</p>
 <h5 id="fragmentation碎裂">fragmentation(碎裂)<a class="headerlink" href="#fragmentation碎裂" title="Permanent link"></a></h5>
-<p>heap 反覆配置與釋放後，可用空間可能被切成很多零碎小塊。<br />
+<p>heap 反覆配置與釋放後，可用空間可能被切成很多零碎小塊。<br/>
 這不像 stack 那樣只要移動一下 stack pointer 就好，heap allocator 需要管理零散區塊，因此通常成本更高。<code>malloc_trim(3)</code> 與 <code>malloc(3)</code> 都反映了 glibc allocator 需要處理 heap 回收與管理的複雜性。(<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="6-heap-一定比-stack-大嗎">6. heap 一定比 stack 大嗎？<a class="headerlink" href="#6-heap-一定比-stack-大嗎" title="Permanent link"></a></h4>
 <p>這張投影片說 heap 通常比 stack 大，方向上沒問題，但不要背成「絕對永遠如此」。</p>
 <p>更精確地說：</p>
@@ -15781,7 +15781,7 @@ cppreference 的 <code>new</code> 頁面直接舉了這種例子：指標丟失�
 <li>但最終仍受 process 位址空間、OS 限制、allocator 行為影響</li>
 </ul>
 <p>所以課堂上記成「heap 通常比 stack 大、比較不受單一函式呼叫模式限制」是合理的，但在真實系統裡它不是一條數學定律。<code>malloc(3)</code> 也說明了配置行為會受實作與系統限制影響。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="7-heap-跟-stack-最關鍵的差別">7. heap 跟 stack 最關鍵的差別<a class="headerlink" href="#7-heap-跟-stack-最關鍵的差別" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A["記憶體用途"] --&gt; B["Stack&lt;br&gt;函式呼叫用&lt;br&gt;自動管理&lt;br&gt;通常較快"]
@@ -15798,19 +15798,19 @@ cppreference 的 <code>new</code> 頁面直接舉了這種例子：指標丟失�
 <li>要 <code>free/delete</code>，或交給容器 / 智慧指標管理</li>
 <li>較彈性，但容易 leak、碎裂、管理複雜 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">en.cppreference.com</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="8-c-實務上不要把heap--一定自己手寫-newdelete背太死">8. C++ 實務上不要把「heap = 一定自己手寫 new/delete」背太死<a class="headerlink" href="#8-c-實務上不要把heap--一定自己手寫-newdelete背太死" title="Permanent link"></a></h4>
-<p>這點很重要。<br />
+<p>這點很重要。<br/>
 在現代 C++ 裡，雖然底層很多東西仍然用到 dynamic allocation，但實務上常建議：</p>
 <ul>
 <li>動態陣列優先用 <code>std::vector</code></li>
 <li>單一擁有權物件優先用 <code>std::unique_ptr</code></li>
 <li>少直接裸寫 <code>new/delete</code></li>
 </ul>
-<p>原因很簡單：<br />
+<p>原因很簡單：<br/>
 這樣更不容易 memory leak，也更容易在例外情況下正確回收。cppreference 在 <code>new</code> 的 leak 說明後，也提到常把 <code>new</code> 結果放進 smart pointer。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">en.cppreference.com</a>)</p>
 <p>如果你是在你自己的 Win11 + Python/C++ 學習環境做實驗，這種做法也比較可靠。</p>
-<hr />
+<hr/>
 <h4 id="9-最容易考的觀念">9. 最容易考的觀念<a class="headerlink" href="#9-最容易考的觀念" title="Permanent link"></a></h4>
 <h5 id="heap-放什麼">heap 放什麼？<a class="headerlink" href="#heap-放什麼" title="Permanent link"></a></h5>
 <p>放 <strong>執行時動態配置</strong> 的資料。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">en.cppreference.com</a>)</p>
@@ -15822,12 +15822,12 @@ cppreference 的 <code>new</code> 頁面直接舉了這種例子：指標丟失�
 <p>最典型是 <strong>memory leak</strong> 與 <strong>fragmentation</strong>。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">en.cppreference.com</a>)</p>
 <h5 id="heap-一定是單一連續區塊嗎">heap 一定是單一連續區塊嗎？<a class="headerlink" href="#heap-一定是單一連續區塊嗎" title="Permanent link"></a></h5>
 <p>教材圖上會畫成一塊往上長的區域，但真實 allocator 可能透過 <code>sbrk()</code> 與 <code>mmap()</code> 等不同方式取得記憶體，所以那張圖是<strong>概念圖</strong>。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="一句話總結_3">一句話總結<a class="headerlink" href="#一句話總結_3" title="Permanent link"></a></h4>
 <p><strong>Heap memory 是程式執行期間用來做動態配置的記憶體區；它比 stack 更彈性，適合存活期較長或大小執行時才知道的資料，但因為管理較複雜，也更容易出現 memory leak 與 fragmentation。</strong> (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">en.cppreference.com</a>)</p>
 <p>下一步最適合的是，我幫你做一張 <strong>Text / Data / BSS / Stack / Heap 總整理表</strong>，把前面所有概念一次串起來。</p>
 <h2 id="312-行程狀態">3.1.2 行程狀態<a class="headerlink" href="#312-行程狀態" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-5.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-5.png"/></p>
 <p>已啟用教學模式</p>
 <h3 id="講解_3">講解<a class="headerlink" href="#講解_3" title="Permanent link"></a></h3>
 <h4 id="這張圖在回答什麼">這張圖在回答什麼<a class="headerlink" href="#這張圖在回答什麼" title="Permanent link"></a></h4>
@@ -15848,28 +15848,28 @@ cppreference 的 <code>new</code> 頁面直接舉了這種例子：指標丟失�
     W --&gt;|I/O or event completion| R
     X --&gt;|exit| T</code></pre>
 <h4 id="五個狀態各代表什麼">五個狀態各代表什麼<a class="headerlink" href="#五個狀態各代表什麼" title="Permanent link"></a></h4>
-<p><strong>1. new(新產生)</strong><br />
+<p><strong>1. new(新產生)</strong><br/>
 行程剛被建立，還在「出生階段」。你可以把它想成「剛報到、資料還在建立」。在較完整的說法裡，new 表示它還沒正式進入可執行池，還在等被系統接納。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>2. ready(就緒)</strong><br />
+<p><strong>2. ready(就緒)</strong><br/>
 行程已經「準備好跑了」，缺的只是一件事：<strong>CPU 還沒輪到它</strong>。也就是說，它不是不能跑，而是現在 CPU 正在忙別人，所以它先排隊。這是最容易和 waiting 搞混的地方。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>3. running(執行)</strong><br />
+<p><strong>3. running(執行)</strong><br/>
 CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能有一個 running；多核心則可同時有多個 running，但每個核心同一時間仍只跑一個。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>4. waiting(等待)</strong><br />
+<p><strong>4. waiting(等待)</strong><br/>
 行程暫時不能往下做，因為它在等某個外部事件，例如磁碟 I/O 完成、鍵盤輸入、收到訊號、等某個子行程結束。重點是：<strong>它不是在等 CPU，而是在等條件成立</strong>。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>5. terminated(結束)</strong><br />
+<p><strong>5. terminated(結束)</strong><br/>
 行程執行完成，生命週期結束。基本五狀態圖通常畫成 running 直接走到 terminated。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
 <h4 id="圖上的每一條箭頭怎麼讀">圖上的每一條箭頭怎麼讀<a class="headerlink" href="#圖上的每一條箭頭怎麼讀" title="Permanent link"></a></h4>
-<p><strong>new → ready：admitted</strong><br />
+<p><strong>new → ready：admitted</strong><br/>
 表示這個新建立的行程，被系統正式接納，可以進入排隊等待 CPU 的階段。你可以把 admitted 想成「拿到入場資格」。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>ready → running：scheduler dispatch</strong><br />
+<p><strong>ready → running：scheduler dispatch</strong><br/>
 表示 <strong>scheduler(排班器)</strong> 選中它，把 CPU 派給它執行。就像排隊的人，終於輪到你進櫃檯辦事。 (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Department of Computer Science</a>)</p>
-<p><strong>running → ready：interrupt</strong><br />
+<p><strong>running → ready：interrupt</strong><br/>
 表示它原本在跑，但被中斷或被搶先，於是先回到 ready，等下一次再被排到。這常見於 <strong>preemptive scheduling(可搶先排班)</strong>，例如時間片用完。你的課本投影片也有明寫：執行狀態轉成就緒狀態，例子就是中斷發生。 (<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">Department of Computer Science</a>)</p>
-<p><strong>running → waiting：I/O or event wait</strong><br />
+<p><strong>running → waiting：I/O or event wait</strong><br/>
 表示它跑到一半，發現自己必須等某件事，例如讀硬碟、等網路封包、等使用者輸入，所以先停下來去等。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
-<p><strong>waiting → ready：I/O or event completion</strong><br />
+<p><strong>waiting → ready：I/O or event completion</strong><br/>
 表示原本在等的事情發生了，例如 I/O 做完了，所以它重新變成「可以執行」的狀態。但注意，這時它是回到 <strong>ready</strong>，不是直接回 <strong>running</strong>，因為還是要等排班器分配 CPU。 (<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">Stack Overflow</a>)</p>
-<p><strong>running → terminated：exit</strong><br />
+<p><strong>running → terminated：exit</strong><br/>
 表示程式正常結束，或被要求結束。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">維基百科</a>)</p>
 <h4 id="最容易考也最容易混淆的兩組差別">最容易考、也最容易混淆的兩組差別<a class="headerlink" href="#最容易考也最容易混淆的兩組差別" title="Permanent link"></a></h4>
 <p><strong>new vs ready</strong></p>
@@ -15903,20 +15903,20 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <p><strong>這張圖的核心不是背名詞，而是分清楚「在等 CPU」和「在等事件」：前者是 ready，後者是 waiting。</strong> 一旦這個觀念清楚，整張圖就會突然很好懂。 (<a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/3_Processes.html?utm_source=chatgpt.com" title="Operating Systems: Processes">cs.uic.edu</a>)</p>
 <p>下一張若你貼上來，我們可以接著對照 <strong>五狀態模型</strong> 和 <strong>七狀態模型</strong> 的差別。</p>
 <h2 id="313-行程控制表">3.1.3 行程控制表<a class="headerlink" href="#313-行程控制表" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-8.png" /><br />
-<img alt="alt text" src="images/ch%203-9.png" /><br />
-<img alt="alt text" src="images/ch%203-10.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-8.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-9.png"/><br/>
+<img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-10.png"/></p>
 <p>已啟用教學模式</p>
 <h3 id="講解_4">講解<a class="headerlink" href="#講解_4" title="Permanent link"></a></h3>
 <h4 id="這三張圖在回答什麼">這三張圖在回答什麼<a class="headerlink" href="#這三張圖在回答什麼" title="Permanent link"></a></h4>
 <p>這三張其實是在講同一件事的前後兩面：</p>
 <ol>
 <li>
-<p><strong>作業系統怎麼記住一個行程(Process)</strong><br />
+<p><strong>作業系統怎麼記住一個行程(Process)</strong><br/>
    答案就是用 <strong>PCB, Process Control Block(行程控制表)</strong>。</p>
 </li>
 <li>
-<p><strong>作業系統怎麼把 CPU 從一個行程切到另一個行程</strong><br />
+<p><strong>作業系統怎麼把 CPU 從一個行程切到另一個行程</strong><br/>
    答案就是先把目前行程的狀態存進它的 PCB，再把下一個行程的狀態從它的 PCB 載回來。這個動作叫 <strong>context switch(內容轉換)</strong>。 </p>
 </li>
 </ol>
@@ -15925,7 +15925,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li><strong>PCB</strong> 像是每個行程的「個人資料夾」</li>
 <li><strong>context switch</strong> 像是「先把甲同學做到一半的考卷夾進資料夾，再把乙同學做到一半的考卷拿出來繼續寫」</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="第一張圖pcbprocess-control-block行程控制表-是什麼">第一張圖：PCB(Process Control Block，行程控制表) 是什麼？<a class="headerlink" href="#第一張圖pcbprocess-control-block行程控制表-是什麼" title="Permanent link"></a></h4>
 <p>每一個行程在作業系統裡，都有一份對應的 PCB。教材列出的核心內容包含：</p>
 <ul>
@@ -15945,10 +15945,10 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li>…（還有其他欄位）</li>
 </ul>
 <h4 id="為什麼一定要記錄-pc-與-registers">為什麼一定要記錄 PC 與 registers？<a class="headerlink" href="#為什麼一定要記錄-pc-與-registers" title="Permanent link"></a></h4>
-<p>因為行程不只是「程式碼」而已，它還有「目前跑到哪裡、手上算到哪裡」。<br />
+<p>因為行程不只是「程式碼」而已，它還有「目前跑到哪裡、手上算到哪裡」。<br/>
 例如你在算：</p>
 <p><code>a = b + c * d</code></p>
-<p>算到一半被切走，CPU 裡可能已經暫存了某些中間結果。<br />
+<p>算到一半被切走，CPU 裡可能已經暫存了某些中間結果。<br/>
 若不把這些 <strong>registers(暫存器)</strong> 和 <strong>PC(下一條指令位置)</strong> 存起來，之後切回來時就不知道：</p>
 <ul>
 <li>原本算到哪一步</li>
@@ -15956,7 +15956,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li>堆疊(stack)在什麼位置</li>
 </ul>
 <p>那整個行程就接不回去了。</p>
-<hr />
+<hr/>
 <h4 id="第二張圖pcb-裡還會放哪些東西">第二張圖：PCB 裡還會放哪些東西？<a class="headerlink" href="#第二張圖pcb-裡還會放哪些東西" title="Permanent link"></a></h4>
 <p>第二張圖是第一張的延伸版本，補充 PCB 其他重要欄位：</p>
 <ul>
@@ -15977,7 +15977,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li><strong>IPC(Interprocess Communication，行程間通訊)</strong> 主要看：communication 資訊</li>
 </ul>
 <p>也就是說，PCB 不是只給 CPU 用，它是整個 OS(作業系統) 管理這個行程的總檔案。</p>
-<hr />
+<hr/>
 <h4 id="第三張圖cpu-switch-from-process-to-process-到底在畫什麼">第三張圖：CPU switch from process to process 到底在畫什麼？<a class="headerlink" href="#第三張圖cpu-switch-from-process-to-process-到底在畫什麼" title="Permanent link"></a></h4>
 <p>這張圖是在畫 <strong>P0</strong> 和 <strong>P1</strong> 兩個行程，如何輪流使用 CPU。中間那條是 <strong>operating system(作業系統)</strong>。流程大致如下：</p>
 <ol>
@@ -15993,9 +15993,9 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li>P0 從上次停下的位置繼續執行。 </li>
 </ol>
 <p>這就是 <strong>context switch(內容轉換)</strong>。教材也明確說明：當中斷發生時，系統需要先儲存目前行程的 context(內容/狀態)，之後再還原；把 CPU 從一個行程轉到另一個行程時，要先存舊行程狀態，再載入新行程狀態。</p>
-<hr />
+<hr/>
 <h4 id="這張圖最容易看錯的地方idle-不一定等於-waiting">這張圖最容易看錯的地方：idle 不一定等於 waiting<a class="headerlink" href="#這張圖最容易看錯的地方idle-不一定等於-waiting" title="Permanent link"></a></h4>
-<p>圖上在 P0、P1 旁邊有標 <strong>idle</strong>。<br />
+<p>圖上在 P0、P1 旁邊有標 <strong>idle</strong>。<br/>
 這裡你要很小心，不要直接把它解讀成教材前面那個 <strong>waiting state(等待狀態)</strong>。</p>
 <p>這張圖裡的 <strong>idle</strong> 比較接近：</p>
 <blockquote>
@@ -16007,7 +16007,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li>waiting(等待 I/O 或事件)</li>
 <li>或其他更細的狀態</li>
 </ul>
-<p>因為這張圖的重點是 <strong>CPU ownership(誰拿到 CPU)</strong>，不是完整狀態轉移圖。<br />
+<p>因為這張圖的重點是 <strong>CPU ownership(誰拿到 CPU)</strong>，不是完整狀態轉移圖。<br/>
 所以這張圖比較像在表達：</p>
 <ul>
 <li>P0 現在沒跑，因為 CPU 給了 P1</li>
@@ -16015,7 +16015,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 </ul>
 <p>而不是在嚴格分類它們是 ready 還是 waiting。</p>
 <p>這個地方很常考文字陷阱。</p>
-<hr />
+<hr/>
 <h4 id="把三張圖串起來你就懂了">把三張圖串起來，你就懂了<a class="headerlink" href="#把三張圖串起來你就懂了" title="Permanent link"></a></h4>
 <p>整體邏輯其實很順：</p>
 <ul>
@@ -16024,7 +16024,7 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li>之後想讓另一個行程執行，就從那個行程自己的 <strong>PCB</strong> 把先前狀態載回來</li>
 <li>因此，<strong>PCB 是 context switch 的基礎資料結構</strong>。 </li>
 </ul>
-<hr />
+<hr/>
 <h4 id="用生活化例子記憶">用生活化例子記憶<a class="headerlink" href="#用生活化例子記憶" title="Permanent link"></a></h4>
 <p>想像有兩個人共用一張書桌：</p>
 <ul>
@@ -16045,51 +16045,51 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 </li>
 <li>筆停在哪裡</li>
 <li>
-<p>草稿算到哪<br />
+<p>草稿算到哪<br/>
      這就是 <strong>save state into PCB₀</strong></p>
 </li>
 <li>
-<p>拿出 P1 上次的資料夾，照著上次停的位置接著做<br />
+<p>拿出 P1 上次的資料夾，照著上次停的位置接著做<br/>
    這就是 <strong>reload state from PCB₁</strong></p>
 </li>
 </ol>
 <p>這樣來回切換，兩個人都能「接續上次進度」繼續做。</p>
-<hr />
+<hr/>
 <h4 id="一張圖記完整流程">一張圖記完整流程<a class="headerlink" href="#一張圖記完整流程" title="Permanent link"></a></h4>
-<p><img alt="alt text" src="images/ch%203-11.png" /></p>
-<hr />
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-11.png"/></p>
+<hr/>
 <h4 id="最容易考的觀念_1">最容易考的觀念<a class="headerlink" href="#最容易考的觀念_1" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><strong>PCB 是什麼？</strong><br />
+<p><strong>PCB 是什麼？</strong><br/>
    是 OS 用來保存某個行程所有管理資訊的資料結構。</p>
 </li>
 <li>
-<p><strong>為什麼要存 PC 與 registers？</strong><br />
+<p><strong>為什麼要存 PC 與 registers？</strong><br/>
    因為行程之後要從「中斷前的精確位置」接著執行。</p>
 </li>
 <li>
-<p><strong>context switch 做了什麼？</strong><br />
+<p><strong>context switch 做了什麼？</strong><br/>
    存舊行程狀態，載入新行程狀態。</p>
 </li>
 <li>
-<p><strong>context switch 有沒有成本？</strong><br />
+<p><strong>context switch 有沒有成本？</strong><br/>
    有。教材說這是 <strong>overhead(額外負擔)</strong>，切換時系統沒有在做真正有用的工作。</p>
 </li>
 <li>
-<p><strong>圖中的 idle 能不能直接當 waiting？</strong><br />
+<p><strong>圖中的 idle 能不能直接當 waiting？</strong><br/>
    ❌ 不行。這張圖只是在表達「目前沒拿到 CPU」。</p>
 </li>
 </ol>
-<hr />
+<hr/>
 <h4 id="你可以這樣背">你可以這樣背<a class="headerlink" href="#你可以這樣背" title="Permanent link"></a></h4>
 <p>一句話版本：</p>
 <blockquote>
-<p><strong>PCB 負責記住行程現在是誰、跑到哪、手上有哪些資源；context switch 就是把目前行程的狀態存進 PCB，再把下一個行程的狀態從 PCB 取出來。</strong>  </p>
+<p><strong>PCB 負責記住行程現在是誰、跑到哪、手上有哪些資源；context switch 就是把目前行程的狀態存進 PCB，再把下一個行程的狀態從 PCB 取出來。</strong> </p>
 </blockquote>
 <p>下一則我幫你把這三張直接整理成「考試作答版」，你可以拿來背誦。</p>
 <h2 id="32-行程排班process-scheduling">3.2 行程排班(Process Scheduling)<a class="headerlink" href="#32-行程排班process-scheduling" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-12.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-12.png"/></p>
 <p>已啟用教學模式</p>
 <h3 id="講解_5">講解<a class="headerlink" href="#講解_5" title="Permanent link"></a></h3>
 <h4 id="這張圖在回答什麼_1">這張圖在回答什麼<a class="headerlink" href="#這張圖在回答什麼_1" title="Permanent link"></a></h4>
@@ -16099,18 +16099,18 @@ CPU 正在真的執行這個行程。單核心 CPU 在同一瞬間通常只能�
 <li><strong>排班器(process scheduler)到底在做什麼</strong></li>
 <li><strong>為什麼在單一處理器(single processor)裡，多個行程(process)看起來像同時跑，但其實不是同時跑</strong></li>
 </ol>
-<p>你可以把這張圖當成前一張 <strong>PCB(Process Control Block，行程控制表)</strong> 與 <strong>context switch(內容轉換)</strong> 的下一步：<br />
+<p>你可以把這張圖當成前一張 <strong>PCB(Process Control Block，行程控制表)</strong> 與 <strong>context switch(內容轉換)</strong> 的下一步：<br/>
 前面在講「怎麼保存行程狀態」，這一張在講「那保存好之後，CPU 接下來要輪到誰」。</p>
-<hr />
+<hr/>
 <h4 id="第一行什麼是-process-scheduling行程排班">第一行：什麼是 Process Scheduling(行程排班)<a class="headerlink" href="#第一行什麼是-process-scheduling行程排班" title="Permanent link"></a></h4>
 <p>投影片第一句在講：</p>
 <ul>
 <li><strong>multiprogramming(多元程式規劃)</strong> 的目標：讓 <strong>CPU 盡量不要閒著</strong></li>
 <li><strong>time sharing(分時)</strong> 的目標：讓 <strong>使用者感覺系統有反應、可以互動</strong></li>
 </ul>
-<p>教材原文就是這樣切的：<br />
+<p>教材原文就是這樣切的：<br/>
 multiprogramming 重點是「提高 CPU 使用率」；time sharing 重點是「CPU 在不同行程之間不斷切換，讓使用者能與執行中的程式互動」。 </p>
-<hr />
+<hr/>
 <h4 id="multiprogramming多元程式規劃-到底是什麼意思">multiprogramming(多元程式規劃) 到底是什麼意思？<a class="headerlink" href="#multiprogramming多元程式規劃-到底是什麼意思" title="Permanent link"></a></h4>
 <p>先講最容易懂的版本：</p>
 <blockquote>
@@ -16128,7 +16128,7 @@ multiprogramming 重點是「提高 CPU 使用率」；time sharing 重點是「
 <p><strong>不要讓廚師閒著</strong></p>
 </blockquote>
 <p>這就是 <strong>CPU utilization(CPU 使用率)</strong> 的核心精神。</p>
-<hr />
+<hr/>
 <h4 id="time-sharing--multitasking-分時-又是什麼">time sharing / multitasking (分時) 又是什麼？<a class="headerlink" href="#time-sharing--multitasking-分時-又是什麼" title="Permanent link"></a></h4>
 <p>這個概念比較像：</p>
 <blockquote>
@@ -16140,31 +16140,31 @@ multiprogramming 重點是「提高 CPU 使用率」；time sharing 重點是「
 <li>滑視窗有反應</li>
 <li>指令打下去不用等很久</li>
 </ul>
-<p>也就是說，<strong>multiprogramming</strong> 比較在意「CPU 不要閒」，<br />
+<p>也就是說，<strong>multiprogramming</strong> 比較在意「CPU 不要閒」，<br/>
 而 <strong>time sharing</strong> 比較在意「互動要順、反應要快」。 </p>
-<hr />
+<hr/>
 <h4 id="兩者差在哪裡這裡最常考">兩者差在哪裡？這裡最常考<a class="headerlink" href="#兩者差在哪裡這裡最常考" title="Permanent link"></a></h4>
 <p>你可以直接這樣背：</p>
 <ul>
-<li><strong>Multiprogramming</strong>：重點是 <strong>效率 efficiency</strong><br />
+<li><strong>Multiprogramming</strong>：重點是 <strong>效率 efficiency</strong><br/>
   讓 CPU 有事做，減少空轉。</li>
-<li><strong>Time sharing</strong>：重點是 <strong>互動性 interactivity / response time(反應時間)</strong><br />
+<li><strong>Time sharing</strong>：重點是 <strong>互動性 interactivity / response time(反應時間)</strong><br/>
   讓每個使用者或行程都能很快得到回應。</li>
 </ul>
 <p>一句話版：</p>
 <blockquote>
 <p><strong>multiprogramming 偏「不浪費 CPU」；time sharing 偏「讓人感覺順」。</strong></p>
 </blockquote>
-<p>你的投影片不是在說兩個完全沒關係的東西，<br />
+<p>你的投影片不是在說兩個完全沒關係的東西，<br/>
 而是在說：</p>
 <blockquote>
 <p><strong>time sharing 可以看成是 multiprogramming 再往互動式系統延伸的一步。</strong></p>
 </blockquote>
 <p>我也順手對照了大學課程講義與社群常見問答，這個切法是很標準的；很多人也正是卡在「兩者都在輪流執行，那差別到底在哪」這個點。UCSB 的課程講義直接把實際 CPU 在行程間切換描述成「multiprogramming with time-sharing」，而社群常見解釋也會把 time sharing 視為 multiprogramming 在互動式環境中的延伸。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">sites.cs.ucsb.edu</a>)</p>
 <h4 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h4>
-<p>Multiprogramming：不同事情輪流做。<br />
+<p>Multiprogramming：不同事情輪流做。<br/>
 time sharing：每件事情只做一下下。</p>
-<hr />
+<hr/>
 <h4 id="第二行process-scheduler行程排班程式-在做什麼">第二行：process scheduler(行程排班程式) 在做什麼？<a class="headerlink" href="#第二行process-scheduler行程排班程式-在做什麼" title="Permanent link"></a></h4>
 <p>投影片第二句的意思很直接：</p>
 <blockquote>
@@ -16182,7 +16182,7 @@ time sharing：每件事情只做一下下。</p>
 <li>誰已經跑太久了</li>
 </ul>
 <p>它會根據規則選下一個。</p>
-<hr />
+<hr/>
 <h4 id="你可以把-scheduler-想成發號碼牌的人">你可以把 scheduler 想成「發號碼牌的人」<a class="headerlink" href="#你可以把-scheduler-想成發號碼牌的人" title="Permanent link"></a></h4>
 <p>例如有三個行程：</p>
 <ul>
@@ -16190,18 +16190,18 @@ time sharing：每件事情只做一下下。</p>
 <li>P2：ready，可以立刻跑</li>
 <li>P3：ready，也可以跑</li>
 </ul>
-<p>此時 scheduler 不會選 P1，因為它還在等。<br />
+<p>此時 scheduler 不會選 P1，因為它還在等。<br/>
 它會在 P2、P3 之間挑一個。</p>
 <p>也就是：</p>
 <blockquote>
 <p><strong>scheduler 只會從目前可執行的候選者中選。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="第三行單一處理器為什麼不能同時執行多個行程">第三行：單一處理器為什麼不能同時執行多個行程？<a class="headerlink" href="#第三行單一處理器為什麼不能同時執行多個行程" title="Permanent link"></a></h4>
 <p>這一行超重要。</p>
 <p>投影片在講：</p>
 <blockquote>
-<p><strong>單一處理器(single processor) 系統，不可能同時有一個以上的行程真正執行。</strong><br />
+<p><strong>單一處理器(single processor) 系統，不可能同時有一個以上的行程真正執行。</strong><br/>
 如果有多個行程，其它的只能等 CPU 空出來。</p>
 </blockquote>
 <p>這句話的關鍵字是：</p>
@@ -16215,14 +16215,14 @@ time sharing：每件事情只做一下下。</p>
 <li>所以多個 process 在單核上，頂多只能 <strong>輪流</strong> 跑</li>
 <li>因為切換得很快，人看起來才像同時</li>
 </ul>
-<p>這跟你前面看到的 <strong>context switch(內容轉換)</strong> 正好接上：<br />
+<p>這跟你前面看到的 <strong>context switch(內容轉換)</strong> 正好接上：<br/>
 就是因為不能真的同時跑，所以 OS 才要不斷：</p>
 <ol>
 <li>存下目前行程狀態</li>
 <li>載入下一個行程狀態</li>
 <li>讓 CPU 換人用</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="最容易混淆的點看起來同時不代表真的同時">最容易混淆的點：看起來同時，不代表真的同時<a class="headerlink" href="#最容易混淆的點看起來同時不代表真的同時" title="Permanent link"></a></h4>
 <p>例如你開著：</p>
 <ul>
@@ -16231,7 +16231,7 @@ time sharing：每件事情只做一下下。</p>
 <li>編輯器</li>
 <li>終端機</li>
 </ul>
-<p>在單核心觀念下，並不是四個程式真的同時佔用同一顆 CPU。<br />
+<p>在單核心觀念下，並不是四個程式真的同時佔用同一顆 CPU。<br/>
 而是 OS 很快地做：</p>
 <ul>
 <li>跑一下瀏覽器</li>
@@ -16248,7 +16248,7 @@ time sharing：每件事情只做一下下。</p>
 <blockquote>
 <p><strong>單一處理器下，多個 process 是交錯執行(interleaving)，不是同時執行。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="這張圖和前一張-pcb--context-switch-的關係">這張圖和前一張 PCB / context switch 的關係<a class="headerlink" href="#這張圖和前一張-pcb--context-switch-的關係" title="Permanent link"></a></h4>
 <p>你可以把它們串成這樣：</p>
 <ul>
@@ -16269,7 +16269,7 @@ time sharing：每件事情只做一下下。</p>
 <p><strong>「PCB 幫你記住進度之後，接下來誰先跑？」</strong></p>
 </blockquote>
 <p>答案就是：<strong>scheduler 決定。</strong></p>
-<hr />
+<hr/>
 <h4 id="這張投影片每一句我幫你翻成白話">這張投影片每一句，我幫你翻成白話<a class="headerlink" href="#這張投影片每一句我幫你翻成白話" title="Permanent link"></a></h4>
 <h5 id="1-多元程式規劃multiprogramming的目的">1. 多元程式規劃(multiprogramming)的目的<a class="headerlink" href="#1-多元程式規劃multiprogramming的目的" title="Permanent link"></a></h5>
 <p>白話：</p>
@@ -16291,49 +16291,49 @@ time sharing：每件事情只做一下下。</p>
 <blockquote>
 <p>同一瞬間只能有一個人真的站在 CPU 上做事，其它人只能排隊。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="自問自答最容易卡住的地方">自問自答：最容易卡住的地方<a class="headerlink" href="#自問自答最容易卡住的地方" title="Permanent link"></a></h4>
 <h5 id="q1既然-multiprogramming-也是輪流跑跟-time-sharing-差在哪">Q1：既然 multiprogramming 也是輪流跑，跟 time sharing 差在哪？<a class="headerlink" href="#q1既然-multiprogramming-也是輪流跑跟-time-sharing-差在哪" title="Permanent link"></a></h5>
-<p>A：<br />
+<p>A：<br/>
 差在<strong>目標</strong>。</p>
 <ul>
 <li>multiprogramming：偏重 <strong>讓 CPU 忙碌</strong></li>
 <li>time sharing：偏重 <strong>讓使用者感覺系統很快有回應</strong></li>
 </ul>
 <h5 id="q2scheduler-是不是負責存暫存器register">Q2：scheduler 是不是負責存暫存器(register)？<a class="headerlink" href="#q2scheduler-是不是負責存暫存器register" title="Permanent link"></a></h5>
-<p>A：<br />
-不是它本身在做全部細節。<br />
-它主要負責<strong>選人</strong>。<br />
+<p>A：<br/>
+不是它本身在做全部細節。<br/>
+它主要負責<strong>選人</strong>。<br/>
 真正切換時，會牽涉到 <strong>dispatcher(分派程式)</strong> 與 <strong>context switch</strong>。你後面學到 CPU scheduling 章節會再看到。教材也把 dispatcher 的工作列成切換 context、切到 user mode、跳回正確執行位置。</p>
 <h5 id="q3單核電腦開很多程式真的只有一個在跑">Q3：單核電腦開很多程式，真的只有一個在跑？<a class="headerlink" href="#q3單核電腦開很多程式真的只有一個在跑" title="Permanent link"></a></h5>
-<p>A：<br />
-在「某個瞬間、某顆核心」的角度，是的。<br />
+<p>A：<br/>
+在「某個瞬間、某顆核心」的角度，是的。<br/>
 只是 OS 切得很快，所以你感覺像大家一起跑。</p>
-<hr />
+<hr/>
 <h4 id="最容易考的觀念_2">最容易考的觀念<a class="headerlink" href="#最容易考的觀念_2" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><strong>Process scheduling(行程排班)</strong><br />
+<p><strong>Process scheduling(行程排班)</strong><br/>
    就是從可執行行程中，選一個給 CPU。</p>
 </li>
 <li>
-<p><strong>Multiprogramming 的目標</strong><br />
+<p><strong>Multiprogramming 的目標</strong><br/>
    提高 <strong>CPU utilization(CPU 使用率)</strong>。</p>
 </li>
 <li>
-<p><strong>Time sharing 的目標</strong><br />
+<p><strong>Time sharing 的目標</strong><br/>
    提高 <strong>互動性</strong> 與 <strong>response(回應感)</strong>。</p>
 </li>
 <li>
-<p><strong>單一處理器的事實</strong><br />
+<p><strong>單一處理器的事實</strong><br/>
    同一時間不會真的有多個 process 同時執行。</p>
 </li>
 <li>
-<p><strong>為什麼會看起來像同時？</strong><br />
+<p><strong>為什麼會看起來像同時？</strong><br/>
    因為快速切換，也就是 context switch。</p>
 </li>
 </ol>
-<hr />
+<hr/>
 <h4 id="你可以這樣背這一頁">你可以這樣背這一頁<a class="headerlink" href="#你可以這樣背這一頁" title="Permanent link"></a></h4>
 <blockquote>
 <p><strong>行程排班(Process Scheduling) 的核心，是由 scheduler 從可執行行程中選出下一個使用 CPU 的行程。multiprogramming 著重提高 CPU 使用率，time sharing 著重互動與回應速度；在單一處理器中，多個行程不是同時執行，而是快速輪流執行。</strong></p>
@@ -16344,7 +16344,7 @@ time sharing：每件事情只做一下下。</p>
 </blockquote>
 <p>下一張如果你貼 <strong>ready queue / job queue / scheduler 類型</strong>，我們可以直接無縫接著講。</p>
 <h2 id="321-排班佇列scheduling-queue">3.2.1 排班佇列(scheduling queue)<a class="headerlink" href="#321-排班佇列scheduling-queue" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-13.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-13.png"/></p>
 <h3 id="講解_6">講解<a class="headerlink" href="#講解_6" title="Permanent link"></a></h3>
 <p>這張投影片在講的核心，其實只有一句話：</p>
 <p><strong>作業系統會把行程 (process) 依照目前「在等什麼」放進不同佇列 (queue) 裡，排班器 (scheduler) 再從適合的佇列挑行程出來跑。</strong> 你的課本也明講：新進系統的行程先進 <strong>工作佇列 (job queue)</strong>，而已在主記憶體、且「只差 CPU 就能跑」的行程，會放在 <strong>就緒佇列 (ready queue)</strong>；這個 ready queue 常用 linked list 實作，前端會存第一個與最後一個 PCB 的指標。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Prexams</a>)</p>
@@ -16365,7 +16365,7 @@ time sharing：每件事情只做一下下。</p>
 <li>左邊每個小框框的 <code>head / tail</code>，是該 queue 的表頭，指向 linked list 的開頭與結尾。這和課本文字說明一致。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Prexams</a>)</li>
 </ul>
 <h4 id="為什麼-ready-queue-在最上面">為什麼 ready queue 在最上面？<a class="headerlink" href="#為什麼-ready-queue-在最上面" title="Permanent link"></a></h4>
-<p>因為 <strong>ready queue 裡的行程是「已經在記憶體內，所有條件都差不多齊了，只差 CPU」</strong>。<br />
+<p>因為 <strong>ready queue 裡的行程是「已經在記憶體內，所有條件都差不多齊了，只差 CPU」</strong>。<br/>
 所以 CPU scheduler 每次要決定下一個誰跑，就是從這裡挑。課本也寫得很明白：<strong>short-term scheduler / CPU scheduler</strong> 會選一個 ready queue 裡的 process，把 CPU 配給它。</p>
 <p>你可以把它想成醫院叫號：</p>
 <ul>
@@ -16374,11 +16374,11 @@ time sharing：每件事情只做一下下。</p>
 <li><strong>device queue</strong>：去抽血室、X 光室、心電圖室排隊的人</li>
 </ul>
 <h4 id="job-queueready-queuedevice-queue-三者差在哪">job queue、ready queue、device queue 三者差在哪？<a class="headerlink" href="#job-queueready-queuedevice-queue-三者差在哪" title="Permanent link"></a></h4>
-<p><strong>1. job queue（工作佇列）</strong><br />
+<p><strong>1. job queue（工作佇列）</strong><br/>
 是「系統中的所有行程」的集合。投影片文字有寫，但圖裡沒有特別把它整個畫成一條獨立大佇列；圖比較聚焦在 ready queue 與各裝置 queue。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Prexams</a>)</p>
-<p><strong>2. ready queue（就緒佇列）</strong><br />
+<p><strong>2. ready queue（就緒佇列）</strong><br/>
 行程已經在 RAM 裡，而且目前不等 I/O、不等事件，只是在等 CPU。</p>
-<p><strong>3. device queue / I/O queue（裝置佇列）</strong><br />
+<p><strong>3. device queue / I/O queue（裝置佇列）</strong><br/>
 某行程如果發出 I/O 要求，例如要讀磁碟、等終端機、等磁帶，就先離開 CPU，去對應裝置的 queue 排隊。每個裝置通常有自己的 queue。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Prexams</a>)</p>
 <h4 id="圖上的箭頭代表什麼">圖上的箭頭代表什麼？<a class="headerlink" href="#圖上的箭頭代表什麼" title="Permanent link"></a></h4>
 <p>箭頭不是資料流，而是 <strong>linked list 指標</strong>。</p>
@@ -16390,7 +16390,7 @@ time sharing：每件事情只做一下下。</p>
 </ul>
 <p>也就是說，<strong>queue 裡面實際串起來的是 PCB，不是整個行程本體</strong>。</p>
 <h4 id="這裡的-pcb-是什麼很容易考">這裡的 PCB 是什麼？很容易考<a class="headerlink" href="#這裡的-pcb-是什麼很容易考" title="Permanent link"></a></h4>
-<p>圖上每個 <code>PCB7</code>、<code>PCB2</code> 裡面畫了 <code>registers ...</code>，那只是示意。<br />
+<p>圖上每個 <code>PCB7</code>、<code>PCB2</code> 裡面畫了 <code>registers ...</code>，那只是示意。<br/>
 <strong>PCB 不只是 registers</strong>，它實際上還會記錄 PID、state、program counter、CPU registers、priority、memory management information、open files 等排班與管理資訊。</p>
 <p>這點超容易和「process 本身的記憶體內容」搞混：</p>
 <ul>
@@ -16411,13 +16411,13 @@ time sharing：每件事情只做一下下。</p>
     C --&gt;|執行完畢| F[terminated]</code></pre>
 <p>這和教科書的文字一致：process 被分派執行後，可能發 I/O 要求進 I/O queue、可能等待子行程、也可能因中斷被移出 CPU 再回到 ready queue。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">全球村大學</a>)</p>
 <h4 id="你這張圖最該抓住的-4-個考點">你這張圖最該抓住的 4 個考點<a class="headerlink" href="#你這張圖最該抓住的-4-個考點" title="Permanent link"></a></h4>
-<p><strong>第一，queue 裡面串的是 PCB。</strong><br />
+<p><strong>第一，queue 裡面串的是 PCB。</strong><br/>
 不是程式碼本體，也不是 text/data/stack/heap。</p>
-<p><strong>第二，ready queue 是「等 CPU」，device queue 是「等 I/O / 等裝置」。</strong><br />
+<p><strong>第二，ready queue 是「等 CPU」，device queue 是「等 I/O / 等裝置」。</strong><br/>
 等的東西不同，所以要分不同佇列。</p>
-<p><strong>第三，job queue 範圍最大，ready queue 是其中更接近執行的那群。</strong><br />
+<p><strong>第三，job queue 範圍最大，ready queue 是其中更接近執行的那群。</strong><br/>
 job queue 是進系統的所有行程；ready queue 是已在主記憶體、可執行但尚未拿到 CPU 的行程。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Prexams</a>)</p>
-<p><strong>第四，CPU scheduler 主要是從 ready queue 挑人。</strong><br />
+<p><strong>第四，CPU scheduler 主要是從 ready queue 挑人。</strong><br/>
 這就是排班的核心。</p>
 <h4 id="我幫你順手糾正一個常見誤解">我幫你順手糾正一個常見誤解<a class="headerlink" href="#我幫你順手糾正一個常見誤解" title="Permanent link"></a></h4>
 <p>很多人會把這張圖理解成：</p>
@@ -16431,11 +16431,11 @@ job queue 是進系統的所有行程；ready queue 是已在主記憶體、可�
 <li>只有當它再次具備執行條件、只差 CPU 時，才回到 ready queue。</li>
 </ul>
 <h4 id="一句話背法">一句話背法<a class="headerlink" href="#一句話背法" title="Permanent link"></a></h4>
-<p><strong>Ready queue = 等 CPU</strong><br />
-<strong>Device queue = 等裝置 / 等 I/O</strong><br />
+<p><strong>Ready queue = 等 CPU</strong><br/>
+<strong>Device queue = 等裝置 / 等 I/O</strong><br/>
 <strong>PCB = OS 用來管理 process 的控制表，不是 process 的程式內容</strong></p>
 <p>你如果要，我們下一步可以直接把這張圖和 <strong>new / ready / running / waiting / terminated 五狀態圖</strong> 對起來，一次把「狀態」和「佇列」的關係整個串通。</p>
-<p><img alt="alt text" src="images/ch%203-14.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-14.png"/></p>
 <h3 id="講解_7">講解<a class="headerlink" href="#講解_7" title="Permanent link"></a></h3>
 <p>已啟用教學模式</p>
 <h4 id="這張圖在回答什麼_2">這張圖在回答什麼<a class="headerlink" href="#這張圖在回答什麼_2" title="Permanent link"></a></h4>
@@ -16444,7 +16444,7 @@ job queue 是進系統的所有行程；ready queue 是已在主記憶體、可�
 <blockquote>
 <p><strong>ready queue 是候位區，CPU 是服務台，右邊那些灰色框是「離開 CPU 的原因」，左邊再繞回來表示「之後有機會再回 ready queue 等待下一次執行」。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="先看主幹ready-queue--cpu">先看主幹：ready queue → CPU<a class="headerlink" href="#先看主幹ready-queue--cpu" title="Permanent link"></a></h4>
 <ul>
 <li><strong>ready queue(就緒佇列)</strong>：代表這些行程已經「準備好可以跑」，只是現在還沒拿到 CPU。教材也寫得很明白：位於主記憶體中、就緒等待執行的行程會保存在 ready queue。</li>
@@ -16453,10 +16453,10 @@ job queue 是進系統的所有行程；ready queue 是已在主記憶體、可�
 </ul>
 <p>這裡最容易考的一句是：</p>
 <blockquote>
-<p><strong>ready 不等於 running。</strong><br />
+<p><strong>ready 不等於 running。</strong><br/>
 ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 CPU 上跑」。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="圖中第一條io-request--io-queue--io">圖中第一條：I/O request → I/O queue → I/O<a class="headerlink" href="#圖中第一條io-request--io-queue--io" title="Permanent link"></a></h4>
 <p>這條是在講：</p>
 <ol>
@@ -16474,7 +16474,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <blockquote>
 <p><strong>等 I/O 的行程不是 ready，而是 waiting / blocked(等待/阻塞)。</strong>  (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Stack Overflow</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="圖中第二條time-slice-expired">圖中第二條：time slice expired<a class="headerlink" href="#圖中第二條time-slice-expired" title="Permanent link"></a></h4>
 <p>這條超重要，因為它就是 <strong>preemptive scheduling(可搶先排班)</strong> 的代表情況。</p>
 <ul>
@@ -16491,13 +16491,13 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li><strong>I/O request</strong>：不能繼續跑，因為在等外部事件</li>
 <li><strong>time slice expired</strong>：其實還能跑，只是被排班器暫停，先讓別人跑</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="圖中第三條fork-a-child--child-executes">圖中第三條：fork a child → child executes<a class="headerlink" href="#圖中第三條fork-a-child--child-executes" title="Permanent link"></a></h4>
 <p>這條的意思是：</p>
 <ul>
 <li>目前執行中的行程呼叫 <strong>fork()</strong> 產生一個 <strong>child process(子行程)</strong>。</li>
-<li>這張投影片上方的文字說得更具體：<br />
-<strong>「行程可產生出一個新的子行程並等待後者的結束。」</strong><br />
+<li>這張投影片上方的文字說得更具體：<br/>
+<strong>「行程可產生出一個新的子行程並等待後者的結束。」</strong><br/>
   所以這張圖的語境不是單純「生出 child 就各跑各的」，而是偏向「父行程建立 child，然後父行程等待 child 結束」這種教科書簡化情境。</li>
 </ul>
 <p>所以圖上的 <strong>child executes</strong> 比較像在表達：</p>
@@ -16511,7 +16511,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>之後會牽涉到 parent / child 的排班與等待關係</li>
 </ul>
 <p>而不是要把所有細節箭頭都畫完整。</p>
-<hr />
+<hr/>
 <h4 id="圖中第四條wait-for-an-interrupt--interrupt-occurs">圖中第四條：wait for an interrupt → interrupt occurs<a class="headerlink" href="#圖中第四條wait-for-an-interrupt--interrupt-occurs" title="Permanent link"></a></h4>
 <p>這條的核心意思是：</p>
 <ul>
@@ -16526,13 +16526,13 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>等到我等待的訊號來了，才重新變成 ready</li>
 </ul>
 <p>這和上面的 I/O 其實很像，只是 I/O 是特定的一種等待來源；<strong>interrupt / event</strong> 是比較一般化的說法。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h4 id="這張圖最關鍵的二分法ready-vs-waiting">這張圖最關鍵的二分法：ready vs waiting<a class="headerlink" href="#這張圖最關鍵的二分法ready-vs-waiting" title="Permanent link"></a></h4>
 <p>這頁最值得你背的是這個：</p>
 <ul>
-<li><strong>ready(就緒)</strong>：<br />
+<li><strong>ready(就緒)</strong>：<br/>
   已經具備執行條件，<strong>只差 CPU</strong></li>
-<li><strong>waiting / blocked(等待/阻塞)</strong>：<br />
+<li><strong>waiting / blocked(等待/阻塞)</strong>：<br/>
 <strong>連 CPU 給你也沒用</strong>，因為你還在等 I/O、等 child、等事件</li>
 </ul>
 <p>教材對 state 的定義也剛好就是這樣切：</p>
@@ -16540,17 +16540,17 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>ready：等待指定一個處理器</li>
 <li>waiting：等待某件事件發生，例如 I/O 完成或收到信號。</li>
 </ul>
-<p>社群問答裡，這也是大家最常搞混的點之一。常見的解釋也是：<br />
+<p>社群問答裡，這也是大家最常搞混的點之一。常見的解釋也是：<br/>
 <strong>ready 是可以執行但未被排到；waiting 是目前根本不能執行。</strong> (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h4 id="把整張圖翻成白話">把整張圖翻成白話<a class="headerlink" href="#把整張圖翻成白話" title="Permanent link"></a></h4>
 <p>你可以直接背成這樣：</p>
 <blockquote>
-<p>一個新行程先進 ready queue。<br />
-被 scheduler 選到後，經過 dispatcher 分派到 CPU 執行。<br />
+<p>一個新行程先進 ready queue。<br/>
+被 scheduler 選到後，經過 dispatcher 分派到 CPU 執行。<br/>
 執行途中如果要做 I/O，就去 I/O queue 等；如果時間片到，就被移回 ready queue；如果 fork 出 child，可能會等待 child 完成；如果正在等某個事件或中斷，就等事件發生後再回 ready queue。 (<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">OMSCN Notes</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="你可以這樣看圖不容易亂">你可以這樣看圖，不容易亂<a class="headerlink" href="#你可以這樣看圖不容易亂" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[new process&lt;br&gt;新行程] --&gt; B[ready queue&lt;br&gt;就緒佇列]
@@ -16573,7 +16573,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
     K --&gt; L[interrupt occurs&lt;br&gt;中斷發生]
     L --&gt; B</code></pre>
 <p>這張 mermaid 跟原圖不是逐像素重畫，而是把它的<strong>邏輯骨架</strong>整理出來。</p>
-<hr />
+<hr/>
 <h4 id="最容易考的觀念_3">最容易考的觀念<a class="headerlink" href="#最容易考的觀念_3" title="Permanent link"></a></h4>
 <ol>
 <li><strong>ready queue 裡的行程不是在跑</strong>，只是已經能跑。</li>
@@ -16581,27 +16581,27 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li><strong>I/O request</strong> 會讓行程進入 waiting，不再佔 CPU。</li>
 <li><strong>time slice expired</strong> 代表被搶先，但行程仍是可執行的，所以回 ready queue。</li>
 <li><strong>fork a child</strong> 這條在本投影片是簡化圖，重點是 child 會進入排班，而 parent 可能等待 child。</li>
-<li><strong>waiting 跟 ready 最大差別</strong>：<br />
+<li><strong>waiting 跟 ready 最大差別</strong>：<br/>
    waiting 是還在等事件；ready 是事件都好了，只差 CPU。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">Stack Overflow</a>)</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="一句話總結這張圖">一句話總結這張圖<a class="headerlink" href="#一句話總結這張圖" title="Permanent link"></a></h4>
 <blockquote>
 <p><strong>這張圖是在畫：行程被 dispatch 到 CPU 後，可能因為 I/O、時間片到、建立子行程、或等待中斷而離開 CPU；等條件成熟後，再回 ready queue 等下一次執行。</strong>  (<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">OMSCN Notes</a>)</p>
 </blockquote>
 <p>下一則我可以直接幫你把這張圖整理成「考試作答版」或「ready / running / waiting 狀態轉移對照表」。</p>
 <h2 id="schedulers">Schedulers<a class="headerlink" href="#schedulers" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-15.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-15.png"/></p>
 <h3 id="講解_8">講解<a class="headerlink" href="#講解_8" title="Permanent link"></a></h3>
 <p>已啟用教學模式</p>
 <h4 id="這張圖的核心在講什麼">這張圖的核心在講什麼<a class="headerlink" href="#這張圖的核心在講什麼" title="Permanent link"></a></h4>
 <p>這張投影片其實分成上下兩半，但核心只有一句話：</p>
 <blockquote>
-<p><strong>Long-term scheduler(長程排班器 / job scheduler)</strong> 決定「哪些行程先被放進 ready queue(就緒佇列)」：誰放進 pool<br />
-<strong>Short-term scheduler(短程排班器 / CPU scheduler)</strong> 決定「ready queue 裡下一個誰拿到 CPU」：pool 中誰先執行<br />
+<p><strong>Long-term scheduler(長程排班器 / job scheduler)</strong> 決定「哪些行程先被放進 ready queue(就緒佇列)」：誰放進 pool<br/>
+<strong>Short-term scheduler(短程排班器 / CPU scheduler)</strong> 決定「ready queue 裡下一個誰拿到 CPU」：pool 中誰先執行<br/>
 而 long-term scheduler 還要顧整體搭配，避免系統裡全部都是 I/O-bound process 或全部都是 CPU-bound process。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="先用一張圖把整體關係看懂">先用一張圖把整體關係看懂<a class="headerlink" href="#先用一張圖把整體關係看懂" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[尚未進 ready queue 的工作] --&gt; B[Long-term scheduler&lt;br&gt;決定誰先進場]
@@ -16610,11 +16610,11 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
     D --&gt; E[CPU 執行]
     E --&gt; F[I/O wait / event wait&lt;br&gt;暫時不能跑]
     F --&gt; C</code></pre>
-<p>這張圖要你建立的不是某個公式，而是「兩層決策」的概念：<br />
+<p>這張圖要你建立的不是某個公式，而是「兩層決策」的概念：<br/>
 <strong>先決定哪些工作進系統，再決定此刻 CPU 給誰。</strong>(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h4 id="long-term-scheduler長程排班器-是做什麼的">Long-term scheduler(長程排班器) 是做什麼的？<a class="headerlink" href="#long-term-scheduler長程排班器-是做什麼的" title="Permanent link"></a></h4>
-<p>它也叫 <strong>job scheduler(工作排班器)</strong>。<br />
+<p>它也叫 <strong>job scheduler(工作排班器)</strong>。<br/>
 它的工作不是每幾毫秒決定一次 CPU 要給誰，而是比較高層地決定：</p>
 <ul>
 <li>哪些 process(行程) 先被帶進 <strong>ready queue</strong></li>
@@ -16629,9 +16629,9 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 </ul>
 <p>所以它比較像 <strong>控制進場名單</strong>，不是現場每秒鐘發言順序的人。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
 <p>另外，長程排班器通常<strong>執行頻率比較低</strong>；課程講義常把它放在 batch system(批次系統) 或高負載系統的脈絡來講，因為它不需要像 short-term scheduler 那樣頻繁運作。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h4 id="short-term-scheduler短程排班器-是做什麼的">Short-term scheduler(短程排班器) 是做什麼的？<a class="headerlink" href="#short-term-scheduler短程排班器-是做什麼的" title="Permanent link"></a></h4>
-<p>它也叫 <strong>CPU scheduler(CPU 排班器)</strong>。<br />
+<p>它也叫 <strong>CPU scheduler(CPU 排班器)</strong>。<br/>
 它的工作很直接：</p>
 <blockquote>
 <p><strong>從 ready queue 裡，挑一個現在就能跑的 process，然後把 CPU 分給它。</strong>(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">cs.uic.edu</a>)</p>
@@ -16650,7 +16650,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li><strong>Short-term scheduler</strong>：決定 ready queue 裡誰下一個跑</li>
 </ul>
 <p>這兩個很容易混，但考試最愛考這個分工。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h4 id="controls-the-degree-of-multiprogramming到底是什麼意思">「controls the degree of multiprogramming」到底是什麼意思？<a class="headerlink" href="#controls-the-degree-of-multiprogramming到底是什麼意思" title="Permanent link"></a></h4>
 <p>這句是這頁最抽象、也最容易背不起來的地方。</p>
 <p><strong>degree of multiprogramming(多元程式程度)</strong>，你可以先把它想成：</p>
@@ -16667,7 +16667,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>放太多：ready queue 很擠、記憶體壓力大、切換成本也變高</li>
 </ul>
 <p>因此它不是只在「有沒有工作」之間二選一，而是在做<strong>整體負載控制</strong>。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
-<hr />
+<hr/>
 <h4 id="為什麼-long-term-scheduler-要管-io-bound-跟-cpu-bound-的比例">為什麼 long-term scheduler 要管 I/O-bound 跟 CPU-bound 的比例？<a class="headerlink" href="#為什麼-long-term-scheduler-要管-io-bound-跟-cpu-bound-的比例" title="Permanent link"></a></h4>
 <p>這就是投影片下半部的重點。</p>
 <p>教材模型會希望系統裡有一個<strong>適當 mix(混合比例)</strong> 的 I/O-bound 與 CPU-bound process，因為這樣 CPU 和 I/O device(輸入輸出裝置) 才比較不會互相閒置。UIC 的課程講義也直接寫到：有效率的排班系統會選擇好的 CPU-bound / I/O-bound process 組合。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
@@ -16680,7 +16680,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <blockquote>
 <p><strong>long-term scheduler 其實在做系統層級的「工作組合管理」。</strong>(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="io-bound-process-是什麼">I/O-bound process 是什麼？<a class="headerlink" href="#io-bound-process-是什麼" title="Permanent link"></a></h4>
 <p><strong>I/O-bound process(I/O 密集型行程)</strong> 指的是：</p>
 <ul>
@@ -16708,7 +16708,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>網頁伺服器處理很多請求但常在等資料回來</li>
 </ul>
 <p>這類工作常不是「算很久」，而是「常常在等」。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Baeldung on Kotlin</a>)</p>
-<hr />
+<hr/>
 <h4 id="cpu-bound-process-是什麼">CPU-bound process 是什麼？<a class="headerlink" href="#cpu-bound-process-是什麼" title="Permanent link"></a></h4>
 <p><strong>CPU-bound process(CPU 密集型行程)</strong> 則相反：</p>
 <ul>
@@ -16716,7 +16716,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>比較少依賴 I/O</li>
 <li>常見特徵是 <strong>few very long CPU bursts(次數較少，但每次 CPU burst 很長)</strong>(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Baeldung on Kotlin</a>)</li>
 </ul>
-<p>也就是說，它一旦拿到 CPU，通常會持續算比較久。<br />
+<p>也就是說，它一旦拿到 CPU，通常會持續算比較久。<br/>
 典型例子像：</p>
 <ul>
 <li>大量數值運算</li>
@@ -16724,23 +16724,23 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>科學模擬</li>
 <li>大型編譯工作(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Baeldung on Kotlin</a>)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="這裡最容易搞混的地方">這裡最容易搞混的地方<a class="headerlink" href="#這裡最容易搞混的地方" title="Permanent link"></a></h4>
 <h5 id="1-long-term-scheduler-不是在決定下一個-cpu-給誰">1. Long-term scheduler 不是在決定「下一個 CPU 給誰」<a class="headerlink" href="#1-long-term-scheduler-不是在決定下一個-cpu-給誰" title="Permanent link"></a></h5>
-<p>不是。<br />
+<p>不是。<br/>
 它是先做「誰可以進 ready queue」這種較高層的 admission(准入) 決策；真正從 ready queue 挑下一個上 CPU 的，是 short-term scheduler。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
 <h5 id="2-short-term-scheduler-跟-dispatcher分派程式-不完全一樣">2. Short-term scheduler 跟 dispatcher(分派程式) 不完全一樣<a class="headerlink" href="#2-short-term-scheduler-跟-dispatcher分派程式-不完全一樣" title="Permanent link"></a></h5>
-<p>這是社群上很常混淆的點。<br />
+<p>這是社群上很常混淆的點。<br/>
 <strong>scheduler</strong> 負責「決定選誰」；<strong>dispatcher</strong> 則負責真的把控制權交出去，例如 context switch(內容轉換)、切回 user mode(使用者模式)、跳到正確的 program counter 位置。這個區分在教材講義與社群問答裡都很一致。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">cs.uic.edu</a>)</p>
 <h5 id="3-io-bound-不是比較弱或比較慢">3. I/O-bound 不是「比較弱」或「比較慢」<a class="headerlink" href="#3-io-bound-不是比較弱或比較慢" title="Permanent link"></a></h5>
-<p>不是。<br />
+<p>不是。<br/>
 它只是表示瓶頸多半卡在 I/O，不是卡在 CPU。CPU-bound 則表示瓶頸多半在計算。這是在描述<strong>資源瓶頸類型</strong>，不是在給程式貼「好壞標籤」。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">Baeldung on Kotlin</a>)</p>
-<hr />
+<hr/>
 <h4 id="你可以這樣背這一頁_1">你可以這樣背這一頁<a class="headerlink" href="#你可以這樣背這一頁_1" title="Permanent link"></a></h4>
 <blockquote>
 <p><strong>Long-term scheduler 先決定哪些 process 進入 ready queue，並控制系統中的工作量與工作組合；Short-term scheduler 再從 ready queue 裡挑出下一個拿 CPU 的 process。I/O-bound process 有很多短 CPU bursts，CPU-bound process 則有較少但較長的 CPU bursts。</strong> (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">cs.uic.edu</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="考試作答版">考試作答版<a class="headerlink" href="#考試作答版" title="Permanent link"></a></h4>
 <p>如果考題問你「說明 long-term scheduler、short-term scheduler，以及 I/O-bound / CPU-bound process 的差異」，你可以直接寫：</p>
 <blockquote>
@@ -16748,40 +16748,40 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 </blockquote>
 <p>下一張如果你貼的是 <strong>medium-term scheduler(中程排班器 / swapper)</strong>，我們就可以把三種 scheduler 一次串完整。</p>
 <h2 id="322-排班程式">3.2.2 排班程式<a class="headerlink" href="#322-排班程式" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-16.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-16.png"/></p>
 <h3 id="講解_9">講解<a class="headerlink" href="#講解_9" title="Permanent link"></a></h3>
 <p>已啟用教學模式。</p>
 <h4 id="這張圖在回答什麼_3">這張圖在回答什麼？<a class="headerlink" href="#這張圖在回答什麼_3" title="Permanent link"></a></h4>
 <p>這張投影片在回答：</p>
-<p><strong>行程 (process) 在系統裡不是一直待在同一個地方，它會在不同佇列 (queue) 之間移動；而不同種類的排班程式 (scheduler) 會在不同時機決定它下一步去哪裡。</strong><br />
+<p><strong>行程 (process) 在系統裡不是一直待在同一個地方，它會在不同佇列 (queue) 之間移動；而不同種類的排班程式 (scheduler) 會在不同時機決定它下一步去哪裡。</strong><br/>
 你的課程投影片直接寫到：行程在整個生命週期會在各種排班佇列間遷移，系統會由適當的 scheduler 來選取；其中 <strong>中程排班程式 medium-term scheduler</strong> 的核心工作，是把行程暫時從記憶體移開、降低對 CPU 的競爭，這個動作就叫 <strong>swapping(置換)</strong>。</p>
-<hr />
+<hr/>
 <h4 id="先抓整張圖的主軸">先抓整張圖的主軸<a class="headerlink" href="#先抓整張圖的主軸" title="Permanent link"></a></h4>
 <p>你可以把圖看成 4 個區塊：</p>
 <ol>
 <li>
-<p><strong>ready queue(就緒佇列)</strong><br />
+<p><strong>ready queue(就緒佇列)</strong><br/>
    裡面放的是「已經在主記憶體裡，而且現在只差 CPU 就可以跑」的行程。短程排班程式 <strong>short-term scheduler / CPU scheduler</strong> 會從這裡挑一個去 CPU 執行。</p>
 </li>
 <li>
-<p><strong>CPU</strong><br />
+<p><strong>CPU</strong><br/>
    被選中的行程會到 CPU 上執行。</p>
 </li>
 <li>
-<p><strong>I/O waiting queues(I/O 等待佇列)</strong><br />
+<p><strong>I/O waiting queues(I/O 等待佇列)</strong><br/>
    如果執行中的行程發出 I/O 要求，例如讀磁碟、等鍵盤輸入，它就不能繼續占用 CPU，會先去 I/O waiting queues 等。I/O 完成後，再回到 ready queue。前一張投影片也寫得很清楚：行程執行中若發出 I/O 要求，就會進入 I/O queue；之後事件完成再回到 ready queue。</p>
 </li>
 <li>
-<p><strong>partially executed swapped-out processes(部分已執行、但被換出的行程)</strong><br />
+<p><strong>partially executed swapped-out processes(部分已執行、但被換出的行程)</strong><br/>
    這些是「本來跑過一部分了，但暫時被移出主記憶體」的行程。</p>
 </li>
 <li>
 <p><strong>swap out</strong>：從記憶體移到磁碟</p>
 </li>
-<li><strong>swap in</strong>：再從磁碟搬回記憶體，之後繼續執行<br />
+<li><strong>swap in</strong>：再從磁碟搬回記憶體，之後繼續執行<br/>
      這整件事就是 <strong>swapping(置換)</strong>。</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="用一句話看懂這張流程圖">用一句話看懂這張流程圖<a class="headerlink" href="#用一句話看懂這張流程圖" title="Permanent link"></a></h4>
 <p>這張圖的邏輯其實是：</p>
 <ul>
@@ -16800,21 +16800,21 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
     B --&gt;|執行完成| D[end]
     A --&gt;|swap out| E[swapped-out processes&lt;br&gt;暫時換到 disk]
     E --&gt;|swap in| A</code></pre>
-<hr />
+<hr/>
 <h4 id="每個-scheduler排班程式-到底在做什麼">每個 scheduler(排班程式) 到底在做什麼？<a class="headerlink" href="#每個-scheduler排班程式-到底在做什麼" title="Permanent link"></a></h4>
 <p>這裡最容易混的是三種 scheduler。</p>
-<p><strong>long-term scheduler(長程排班程式 / job scheduler)</strong><br />
+<p><strong>long-term scheduler(長程排班程式 / job scheduler)</strong><br/>
 決定哪些行程要被帶進 ready queue。投影片明寫：它控制 <strong>degree of multiprogramming(多元程式規劃程度)</strong>。</p>
-<p><strong>short-term scheduler(短程排班程式 / CPU scheduler)</strong><br />
+<p><strong>short-term scheduler(短程排班程式 / CPU scheduler)</strong><br/>
 這個最常出現。它從 ready queue 選一個行程，分配 CPU 給它。</p>
-<p><strong>medium-term scheduler(中程排班程式)</strong><br />
+<p><strong>medium-term scheduler(中程排班程式)</strong><br/>
 它不是在問「下一個誰用 CPU」，而是在問：</p>
 <blockquote>
-<p>現在主記憶體是不是擠太多行程了？<br />
+<p>現在主記憶體是不是擠太多行程了？<br/>
 要不要先把某些行程暫時搬出去，晚點再搬回來？</p>
 </blockquote>
 <p>所以它管理的是 <strong>swapping(置換)</strong>。課程投影片在行程排班與記憶體管理兩章都一致寫到：行程可暫時被 swapped out 到 backing store(後備儲存體)，之後再回來繼續執行，而這由 <strong>mid-term scheduler</strong> 負責。</p>
-<hr />
+<hr/>
 <h4 id="什麼叫-degree-of-multiprogramming多元程式規劃程度">什麼叫 degree of multiprogramming(多元程式規劃程度)？<a class="headerlink" href="#什麼叫-degree-of-multiprogramming多元程式規劃程度" title="Permanent link"></a></h4>
 <p>這個名詞很抽象，我們把它講白一點：</p>
 <p>就是「<strong>同一時間有多少個行程一起待在主記憶體裡，準備競爭 CPU 與其他資源</strong>」。</p>
@@ -16825,25 +16825,25 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>每個人都想用桌子、電風扇、插座</li>
 </ul>
 <p>這時候如果先請幾個暫時出去，房間裡就比較不擠，剩下的人做事反而更順。</p>
-<p>在作業系統裡，<strong>swap out</strong> 某些行程，就像把房間裡一部分人先請出去；<br />
+<p>在作業系統裡，<strong>swap out</strong> 某些行程，就像把房間裡一部分人先請出去；<br/>
 這樣主記憶體裡活躍的行程變少，系統壓力會下降。這正是投影片所說「減低多元程式規劃的程度」。</p>
-<hr />
+<hr/>
 <h4 id="這張圖最容易誤解的地方">這張圖最容易誤解的地方<a class="headerlink" href="#這張圖最容易誤解的地方" title="Permanent link"></a></h4>
-<p><strong>誤解 1：medium-term scheduler 也是在選下一個 CPU 使用者。</strong><br />
-不是。<br />
-選「下一個誰上 CPU」的是 <strong>short-term scheduler</strong>。<br />
+<p><strong>誤解 1：medium-term scheduler 也是在選下一個 CPU 使用者。</strong><br/>
+不是。<br/>
+選「下一個誰上 CPU」的是 <strong>short-term scheduler</strong>。<br/>
 <strong>medium-term scheduler</strong> 管的是「要不要先把某些行程搬出記憶體」。</p>
-<p><strong>誤解 2：swap out 就等於結束。</strong><br />
-不是。<br />
+<p><strong>誤解 2：swap out 就等於結束。</strong><br/>
+不是。<br/>
 被 swap out 的行程只是<strong>暫時離開主記憶體</strong>，之後還可以 <strong>swap in</strong> 回來，從原本進度繼續執行。投影片原文就寫：store on disk, bring back in from disk to continue execution。</p>
-<p><strong>誤解 3：I/O waiting 和 swapped out 是同一件事。</strong><br />
+<p><strong>誤解 3：I/O waiting 和 swapped out 是同一件事。</strong><br/>
 不是。</p>
 <ul>
 <li><strong>I/O waiting</strong>：在等某個 I/O 事件完成</li>
-<li><strong>swapped out</strong>：因系統策略或記憶體壓力，被暫時移出主記憶體<br />
+<li><strong>swapped out</strong>：因系統策略或記憶體壓力，被暫時移出主記憶體<br/>
   兩者可能同時和「暫時不能跑」有關，但原因不同。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="你可以怎麼背">你可以怎麼背<a class="headerlink" href="#你可以怎麼背" title="Permanent link"></a></h4>
 <p>我建議背成這三句：</p>
 <ul>
@@ -16851,7 +16851,7 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li><strong>medium-term scheduler</strong>：負責 <strong>swapping</strong>，把行程從 memory 搬到 disk，再搬回來。</li>
 <li><strong>swapping 的目的</strong>：降低 <strong>degree of multiprogramming</strong>，讓記憶體不要太擠。</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="這張投影片和前一張-queue-圖要怎麼串起來">這張投影片和前一張 queue 圖要怎麼串起來？<a class="headerlink" href="#這張投影片和前一張-queue-圖要怎麼串起來" title="Permanent link"></a></h4>
 <p>前一張是告訴你：</p>
 <ul>
@@ -16871,35 +16871,35 @@ ready 是「已經能跑，只差 CPU」；running 才是「現在真的正在 C
 <li>scheduler 決定何時挑人</li>
 <li>medium-term scheduler 額外管理「要不要先搬出去」</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="社群上最常卡住的點">社群上最常卡住的點<a class="headerlink" href="#社群上最常卡住的點" title="Permanent link"></a></h4>
 <p>我也查了社群討論，很多人最容易卡在：</p>
 <blockquote>
 <p>「medium-term scheduler 是不是每次排 CPU 都會用到？」</p>
 </blockquote>
-<p>不是。<br />
+<p>不是。<br/>
 Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</strong>、需要降低 multiprogramming 時才比較重要；若實體記憶體非常充足，它的重要性就會下降。社群也常順帶提到，現代系統很多時候更常看到的是 <strong>paging(分頁)</strong>，而不是傳統教材裡這種整個 process 為單位的 swapping。這是實務補充，你考試時還是要先以投影片定義為主。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h4 id="這裡最容易考的觀念">這裡最容易考的觀念<a class="headerlink" href="#這裡最容易考的觀念" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><strong>誰從 ready queue 挑 process 給 CPU？</strong><br />
+<p><strong>誰從 ready queue 挑 process 給 CPU？</strong><br/>
    是 <strong>short-term scheduler / CPU scheduler</strong>。</p>
 </li>
 <li>
-<p><strong>誰負責 swapping？</strong><br />
+<p><strong>誰負責 swapping？</strong><br/>
    是 <strong>medium-term scheduler</strong>。</p>
 </li>
 <li>
-<p><strong>swapping 的效果是什麼？</strong><br />
+<p><strong>swapping 的效果是什麼？</strong><br/>
    暫時把行程移出主記憶體，降低 <strong>degree of multiprogramming</strong>。</p>
 </li>
 <li>
-<p><strong>swapped out 的行程會不會直接消失？</strong><br />
+<p><strong>swapped out 的行程會不會直接消失？</strong><br/>
    不會，它之後可以 <strong>swap in</strong> 回來繼續執行。</p>
 </li>
 </ol>
-<hr />
+<hr/>
 <h4 id="一句話總結_4">一句話總結<a class="headerlink" href="#一句話總結_4" title="Permanent link"></a></h4>
 <p><strong>這張圖的重點不是排班演算法本身，而是：除了從 ready queue 挑人給 CPU 的 short-term scheduler 之外，系統還可能用 medium-term scheduler 做 swapping，把部分行程暫時搬出記憶體，等之後再搬回來繼續跑。</strong></p>
 <p>下一步我們可以直接把這張圖和 <strong>new / ready / running / waiting / terminated 五狀態圖</strong> 一起對照，這樣你會一次看懂「狀態」和「queue / scheduler」到底怎麼連起來。</p>
@@ -16913,13 +16913,13 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li><strong>行程怎麼結束</strong></li>
 </ol>
 <p>教材原文先總結：系統中的行程可以並行執行，而且也要能動態地產生或刪除，所以作業系統必須提供<strong>行程產生(process creation)</strong>與<strong>行程結束(process termination)</strong> 的功能。</p>
-<hr />
+<hr/>
 <h4 id="先用一句話抓住整章">先用一句話抓住整章<a class="headerlink" href="#先用一句話抓住整章" title="Permanent link"></a></h4>
 <p>你可以先背這句：</p>
 <blockquote>
 <p><strong>3.3 就是在講：父行程(parent process) 可以生出子行程(child process)；子行程可能跟父行程一起跑，也可能讓父行程等它結束；最後行程用 exit() 結束，而父行程通常用 wait()/waitpid() 收屍(reap) 取得子行程的結束狀態。</strong>  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="331-行程的產生process-creation">3.3.1 行程的產生(Process Creation)<a class="headerlink" href="#331-行程的產生process-creation" title="Permanent link"></a></h4>
 <p>教材先說，一個行程在執行期間，可以利用系統呼叫產生新行程；原本那個叫 <strong>parent process(父行程)</strong>，新產生的叫 <strong>child process(子行程)</strong>。而且 child 還可以再生 child，所以整體可以形成 <strong>process tree(行程樹)</strong>。每個行程都有自己的 <strong>PID(Process Identifier，行程識別碼)</strong>。</p>
 <p>你可以把它想成家譜：</p>
@@ -16931,7 +16931,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <blockquote>
 <p><strong>OS 不是只有一個程式從頭跑到尾，而是執行中還能再產生新行程。</strong> </p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="父行程生出子行程後接下來會怎樣">父行程生出子行程後，接下來會怎樣<a class="headerlink" href="#父行程生出子行程後接下來會怎樣" title="Permanent link"></a></h4>
 <p>教材列了兩種典型可能：</p>
 <ul>
@@ -16944,7 +16944,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li><strong>同時執行</strong>：爸媽跟小孩一起各做各的事</li>
 <li><strong>父行程等待</strong>：爸媽先停下來，等小孩把任務做完再繼續</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="父子行程的資源關係">父子行程的資源關係<a class="headerlink" href="#父子行程的資源關係" title="Permanent link"></a></h4>
 <p>教材也列了三種可能性：</p>
 <ul>
@@ -16956,7 +16956,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <blockquote>
 <p><strong>child 並不是一定跟 parent 一模一樣，也不是一定完全獨立；資源共享可以有不同設計。</strong> </p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="記憶體空間address-space-這裡最重要">記憶體空間(address space) 這裡最重要<a class="headerlink" href="#記憶體空間address-space-這裡最重要" title="Permanent link"></a></h4>
 <p>教材在 UNIX 例子裡講得很清楚：</p>
 <ul>
@@ -16967,10 +16967,10 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <p>官方 Linux man page 也一致：<code>fork()</code> 會建立 child process，父子在<strong>不同的記憶體空間</strong>中執行；<code>execve()</code> 成功後，會用新程式直接<strong>取代目前行程的程式映像(image)</strong>，重新初始化 stack、heap、data segments，而且 <code>execve()</code> 成功時<strong>不會返回</strong>。(<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 <p>這裡有一個超常見誤解，我直接幫你拆掉：</p>
 <blockquote>
-<p><strong>fork 會建立新的 process；exec 不會再多生一個 process。</strong><br />
+<p><strong>fork 會建立新的 process；exec 不會再多生一個 process。</strong><br/>
 <strong>exec 做的是「換腦袋」，不是「再生一個人」。</strong>  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="fork-到底在做什麼">fork() 到底在做什麼<a class="headerlink" href="#fork-到底在做什麼" title="Permanent link"></a></h4>
 <p>教材給的 <code>fork()</code> 重點是：</p>
 <ul>
@@ -16998,7 +16998,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <span class="p">}</span>
 </code></pre></div>
 <p>也就是說，<strong>同一行 <code>fork()</code> 之後，程式分裂成兩條執行路徑</strong>。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="為什麼教材常寫-fork--exec">為什麼教材常寫 fork() + exec()<a class="headerlink" href="#為什麼教材常寫-fork--exec" title="Permanent link"></a></h4>
 <p>因為這是 UNIX / Linux 非常典型的流程：</p>
 <ol>
@@ -17016,7 +17016,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <blockquote>
 <p><strong>直接把爸爸變成另一個人。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="wait-在幹嘛">wait() 在幹嘛<a class="headerlink" href="#wait-在幹嘛" title="Permanent link"></a></h4>
 <p>教材寫到：</p>
 <div class="highlight"><pre><span></span><code><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
@@ -17034,10 +17034,10 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 </ul>
 <p>這段的生活化版本：</p>
 <blockquote>
-<p><strong>wait() 像父行程去櫃台領「孩子的成績單與結業通知」。</strong><br />
+<p><strong>wait() 像父行程去櫃台領「孩子的成績單與結業通知」。</strong><br/>
 沒去領，就會留下後續問題。</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="332-行程的結束process-termination">3.3.2 行程的結束(Process Termination)<a class="headerlink" href="#332-行程的結束process-termination" title="Permanent link"></a></h4>
 <p>教材說，行程在執行完最後一個敘述，或使用 <code>exit()</code> 要求 OS 把自己刪除時，就會結束。結束後，它的資源會被 OS 回收，包括：</p>
 <ul>
@@ -17052,7 +17052,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>子行程的工作已不需要</li>
 <li>父行程結束後，系統不允許子行程繼續執行 </li>
 </ul>
-<hr />
+<hr/>
 <h4 id="zombie-process僵屍行程-是什麼">Zombie Process(僵屍行程) 是什麼<a class="headerlink" href="#zombie-process僵屍行程-是什麼" title="Permanent link"></a></h4>
 <p>這一段最容易混。</p>
 <p>教材的定義是：</p>
@@ -17062,15 +17062,15 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <p>Linux man page 也一致指出：一個 child 終止後，如果還沒有被 <code>wait</code> 類系統呼叫處理，它就會變成 <strong>zombie</strong>；kernel 只保留最小必要資訊，例如 PID、termination status、resource usage，直到 parent 後續來 wait。若 zombie 長期不被清掉，會佔用 process table 的槽位。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 <p>所以你一定要記住：</p>
 <blockquote>
-<p><strong>zombie 不是「還在跑」的行程。</strong><br />
+<p><strong>zombie 不是「還在跑」的行程。</strong><br/>
 <strong>它其實已經死了，只是戶籍還沒註銷。</strong>  (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 </blockquote>
 <p>這也是社群最常出現的誤解之一；高票解釋通常也都會強調 zombie 幾乎不吃 CPU，也不是活著的工作，而是還沒被 reaped 的結束紀錄。(<a href="https://stackoverflow.com/questions/20688982/zombie-process-vs-orphan-process?utm_source=chatgpt.com" title="c - Zombie process vs Orphan process - Stack Overflow">Stack Overflow</a>)</p>
-<hr />
+<hr/>
 <h4 id="orphan-process孤兒行程-是什麼">Orphan Process(孤兒行程) 是什麼<a class="headerlink" href="#orphan-process孤兒行程-是什麼" title="Permanent link"></a></h4>
 <p>教材說：</p>
 <blockquote>
-<p><strong>如果 parent 還沒等 child 結束就自己先結束，而 child 還活著，這個 child 就叫 orphan process。</strong><br />
+<p><strong>如果 parent 還沒等 child 結束就自己先結束，而 child 還活著，這個 child 就叫 orphan process。</strong><br/>
 之後它很快會被 <code>init</code> 認養。</p>
 </blockquote>
 <p>POSIX / Linux 文件也說，如果 parent process 終止時仍有 children，這些 child 會被指派新的 parent process。Linux 文件則進一步說，會被 <code>init(1)</code> 或最近的 subreaper 收養。(<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">man7.org</a>)</p>
@@ -17080,7 +17080,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li><strong>zombie 是已經死掉、但尚未被 wait 的 child</strong>  (<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</li>
 </ul>
 <p>這兩個不要搞反。</p>
-<hr />
+<hr/>
 <h4 id="zombie-跟-orphan-最簡單的差別">Zombie 跟 Orphan 最簡單的差別<a class="headerlink" href="#zombie-跟-orphan-最簡單的差別" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
     A[child 還在執行] --&gt; B{parent 先死了嗎}
@@ -17092,7 +17092,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <blockquote>
 <p><strong>orphan 看的是 parent 先死；zombie 看的是 child 先死但 parent 還沒收尾。</strong></p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="這章最容易考的-4-個陷阱">這章最容易考的 4 個陷阱<a class="headerlink" href="#這章最容易考的-4-個陷阱" title="Permanent link"></a></h4>
 <h4 id="1-fork-之後父子變數會不會互相影響">1. fork() 之後，父子變數會不會互相影響？<a class="headerlink" href="#1-fork-之後父子變數會不會互相影響" title="Permanent link"></a></h4>
 <p>教材 Quiz 1 的答案已經告訴你：<code>value</code> 在 parent 印出來仍然是 5，不會因 child 把它加 15 就變成 20，因為 parent 和 child 各自有自己的 copy。</p>
@@ -17101,15 +17101,15 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <p><strong>fork 後是各自的位址空間副本，不是共用一般變數。</strong>  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 </blockquote>
 <h4 id="2-exec-會不會建立新-process">2. exec() 會不會建立新 process？<a class="headerlink" href="#2-exec-會不會建立新-process" title="Permanent link"></a></h4>
-<p><strong>不會。</strong><br />
+<p><strong>不會。</strong><br/>
 建立新 process 的是 <code>fork()</code>；<code>exec()</code> 是把目前 process 的記憶體映像換成新程式。 (<a href="https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=chatgpt.com" title="execve(2) - Linux manual page">man7.org</a>)</p>
 <h4 id="3-zombie-會不會一直吃-cpu">3. zombie 會不會一直吃 CPU？<a class="headerlink" href="#3-zombie-會不會一直吃-cpu" title="Permanent link"></a></h4>
-<p>通常不會。<br />
+<p>通常不會。<br/>
 它重點是 process table 裡那個還沒回收的紀錄，不是持續執行中的工作。(<a href="https://man7.org/linux/man-pages/man2/waitpid.2.html" title="wait(2) - Linux manual page">man7.org</a>)</p>
 <h4 id="4-orphan-是不是壞事">4. orphan 是不是壞事？<a class="headerlink" href="#4-orphan-是不是壞事" title="Permanent link"></a></h4>
-<p>不一定。<br />
+<p>不一定。<br/>
 它只是 parent 先結束、child 還活著；之後通常會被系統重新收養。 (<a href="https://www.man7.org/linux/man-pages/man3/wait.3p.html?utm_source=chatgpt.com" title="wait(3p) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="我幫你整理成一張總表">我幫你整理成一張總表<a class="headerlink" href="#我幫你整理成一張總表" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -17146,26 +17146,26 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 </tbody>
 </table>
 <p>教材對這整組流程的描述，和 Linux / POSIX 手冊的行為是一致的。 (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
-<hr />
+<hr/>
 <h4 id="考試作答版_1">考試作答版<a class="headerlink" href="#考試作答版_1" title="Permanent link"></a></h4>
 <p>如果老師問你「說明 3.3 行程的操作」，你可以直接寫：</p>
 <blockquote>
 <p><strong>作業系統必須提供行程的產生與結束功能。行程在執行期間可透過系統呼叫產生新行程，原行程稱為 parent process，新行程稱為 child process，並可形成 process tree。父子行程可能同時執行，或由父行程等待子行程結束。UNIX 中常以 fork() 建立新行程，再以 exec() 載入新程式。行程結束時可呼叫 exit()，其資源由作業系統回收；父行程通常以 wait()/waitpid() 取得子行程的結束狀態。若 child 結束但 parent 未 wait，則 child 成為 zombie；若 parent 先結束而 child 尚未結束，則 child 成為 orphan。</strong>  (<a href="https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=chatgpt.com" title="fork(2) - Linux manual page">man7.org</a>)</p>
 </blockquote>
-<hr />
+<hr/>
 <h4 id="超短口訣">超短口訣<a class="headerlink" href="#超短口訣" title="Permanent link"></a></h4>
 <blockquote>
 <p><strong>fork 生小孩，exec 換工作，wait 收結果，exit 結束；父不收屍是 zombie，父先死是 orphan。</strong></p>
 </blockquote>
 <h4 id="最後給你一個學這章的最好方法">最後給你一個學這章的最好方法<a class="headerlink" href="#最後給你一個學這章的最好方法" title="Permanent link"></a></h4>
 <p>這章很適合在你的 Ubuntu VM 直接做小實驗，因為 <strong>fork / exec / wait / ps</strong> 這種主題，自己跑一次會比只看投影片穩很多。光靠背定義，最容易在 <strong>fork 與 exec 的差別</strong>、<strong>zombie 與 orphan 的差別</strong> 這兩個地方出錯。</p>
-<p>下一步我們可以直接進入手把手模式，先只做 2 個最重要的小實驗：<br />
+<p>下一步我們可以直接進入手把手模式，先只做 2 個最重要的小實驗：<br/>
 <strong>fork()+wait() 基本版</strong>，以及 <strong>zombie / orphan 觀察版</strong>。</p>
 <h3 id="child-有啥東東">child 有啥東東<a class="headerlink" href="#child-有啥東東" title="Permanent link"></a></h3>
-<p>當 fork() 發生時，child 會得到 parent 在那一瞬間的整個位址空間(address space)內容副本。<br />
-所以不只程式碼，變數當下的值也會一起帶過去。fork(2) 的 Linux manual 明確寫到：在 fork() 當下，父子兩邊的 memory space 內容相同，而且之後一方的寫入不會影響另一方。<br />
-不只 global 變數，local 變數、heap 內容也會一起延續「當下狀態」<br />
-這裡你可以把 fork() 想成：<br />
+<p>當 fork() 發生時，child 會得到 parent 在那一瞬間的整個位址空間(address space)內容副本。<br/>
+所以不只程式碼，變數當下的值也會一起帶過去。fork(2) 的 Linux manual 明確寫到：在 fork() 當下，父子兩邊的 memory space 內容相同，而且之後一方的寫入不會影響另一方。<br/>
+不只 global 變數，local 變數、heap 內容也會一起延續「當下狀態」<br/>
+這裡你可以把 fork() 想成：<br/>
 把 parent 在那一刻的執行現場整份複製給 child</p>
 <h3 id="child-從哪裡開始">child 從哪裡開始<a class="headerlink" href="#child-從哪裡開始" title="Permanent link"></a></h3>
 <p>答案：子行程不是從 int main(){ 重新開始，也不是再去「執行一次 pid = fork();」；它是從 fork() 呼叫「返回之後」的狀態繼續往下跑</p>
@@ -17182,28 +17182,28 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 
 <span class="w">    </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;fork&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">"fork"</span><span class="p">);</span>
 <span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child 1: pid=%d, ppid=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">getppid</span><span class="p">());</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"child 1: pid=%d, ppid=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">getppid</span><span class="p">());</span>
 <span class="w">        </span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;fork&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">"fork"</span><span class="p">);</span>
 <span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child 2: pid=%d, ppid=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">getppid</span><span class="p">());</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"child 2: pid=%d, ppid=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">getppid</span><span class="p">());</span>
 <span class="w">        </span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// 誰先結束就 wait 到誰</span>
 <span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent: pid=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">());</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent: pid=%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">());</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -17212,10 +17212,10 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>兩個 wait(NULL); ，哪個 child 先回來就找誰。</li>
 </ol>
 <h3 id="連續兩次-fork-會怎樣">連續兩次 fork 會怎樣<a class="headerlink" href="#連續兩次-fork-會怎樣" title="Permanent link"></a></h3>
-<p>例如這樣：<br />
+<p>例如這樣：<br/>
 <div class="highlight"><pre><span></span><code><span class="n">fork</span><span class="p">();</span>
 <span class="n">fork</span><span class="p">();</span>
-</code></pre></div><br />
+</code></pre></div><br/>
 最後會有 4 個 process，不是只有「1 父 + 2 子」：</p>
 <ul>
 <li>原始 parent</li>
@@ -17237,7 +17237,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
     F2B --&gt; P1b["P1：第一次產生的 child 繼續執行"]
     F2B --&gt; P3["P3：P1 在第二次 fork 產生的 child"]</code></pre>
 <h2 id="34-行程間通訊">3.4 行程間通訊<a class="headerlink" href="#34-行程間通訊" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-17.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-17.png"/></p>
 <p>已啟用教學模式</p>
 <h3 id="講解_11">講解<a class="headerlink" href="#講解_11" title="Permanent link"></a></h3>
 <h4 id="這張圖在回答什麼問題">這張圖在回答什麼問題<a class="headerlink" href="#這張圖在回答什麼問題" title="Permanent link"></a></h4>
@@ -17246,21 +17246,21 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <p>也就是說，不是每個行程都各做各的。有時候它們必須交換資料、共享資源，甚至一起完成一件大工作。這就是 <strong>Interprocess Communication, IPC(行程間通訊)</strong> 的核心。圖中列出合作理由，下面兩張小圖則在對比兩種主要 IPC 方式：</p>
 <ol>
 <li><strong>message passing(訊息傳遞)</strong></li>
-<li><strong>shared memory(共享記憶體)</strong>  </li>
+<li><strong>shared memory(共享記憶體)</strong> </li>
 </ol>
-<hr />
+<hr/>
 <h4 id="先用直覺理解">先用直覺理解<a class="headerlink" href="#先用直覺理解" title="Permanent link"></a></h4>
 <p>你可以把每個 process(行程)想成一個人在做事。</p>
 <p>如果兩個人要合作，有兩種常見方法：</p>
 <ol>
 <li>
-<p><strong>傳紙條</strong><br />
-   你寫一張紙條給我，我看完再回你。<br />
+<p><strong>傳紙條</strong><br/>
+   你寫一張紙條給我，我看完再回你。<br/>
    這就是 <strong>message passing(訊息傳遞)</strong>。</p>
 </li>
 <li>
-<p><strong>共用白板</strong><br />
-   我們兩個都可以看同一塊白板，也可以在上面寫東西。<br />
+<p><strong>共用白板</strong><br/>
+   我們兩個都可以看同一塊白板，也可以在上面寫東西。<br/>
    這就是 <strong>shared memory(共享記憶體)</strong>。</p>
 </li>
 </ol>
@@ -17269,31 +17269,31 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>左圖：像傳紙條，中間有系統幫忙轉交</li>
 <li>右圖：像共用白板，兩個行程直接看到同一塊資料區</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="核心概念">核心概念<a class="headerlink" href="#核心概念" title="Permanent link"></a></h4>
 <p>投影片上半部先講 <strong>process cooperation(行程合作)</strong> 的理由，有四個：</p>
 <ol>
 <li>
-<p><strong>Information sharing(資訊共享)</strong><br />
+<p><strong>Information sharing(資訊共享)</strong><br/>
    多個使用者或多個程式可能都要用同一份資料，例如公用檔案。</p>
 </li>
 <li>
-<p><strong>Computation speedup(加速運算)</strong><br />
+<p><strong>Computation speedup(加速運算)</strong><br/>
    一個大工作拆成很多小工作，交給不同 process(行程) 平行做。</p>
 </li>
 <li>
-<p><strong>Modularity(模組化)</strong><br />
+<p><strong>Modularity(模組化)</strong><br/>
    系統拆成多個模組，每個模組由不同 process(行程) 負責。</p>
 </li>
 <li>
-<p><strong>Convenience(方便性)</strong><br />
-   就算只有一個使用者，也可能同時做很多事。<br />
+<p><strong>Convenience(方便性)</strong><br/>
+   就算只有一個使用者，也可能同時做很多事。<br/>
    例如一邊下載、一邊播放音樂、一邊編輯文件。 </p>
 </li>
 </ol>
 <p>這四個理由可以簡單記成：</p>
 <p><strong>共享、加速、拆模組、方便多工</strong></p>
-<hr />
+<hr/>
 <h4 id="下方兩張圖在講什麼">下方兩張圖在講什麼<a class="headerlink" href="#下方兩張圖在講什麼" title="Permanent link"></a></h4>
 <h4 id="a-左圖message-passing訊息傳遞">(a) 左圖：message passing(訊息傳遞)<a class="headerlink" href="#a-左圖message-passing訊息傳遞" title="Permanent link"></a></h4>
 <p>左邊那張圖中：</p>
@@ -17320,7 +17320,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>process 彼此隔離比較好</li>
 <li>但通常會比 shared memory 慢，因為要經過 kernel 幫忙</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="b-右圖shared-memory共享記憶體">(b) 右圖：shared memory(共享記憶體)<a class="headerlink" href="#b-右圖shared-memory共享記憶體" title="Permanent link"></a></h4>
 <p>右邊那張圖中：</p>
 <ul>
@@ -17346,7 +17346,7 @@ Stack Overflow 上常見的回答是：它主要在<strong>記憶體有限</stro
 <li>但比較危險，因為兩個 process 可能同時改同一塊資料</li>
 <li>所以常常要搭配 <strong>synchronization(同步機制)</strong>，例如 semaphore(號誌) 或 mutex(互斥鎖)</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="關係--流程--因果">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果" title="Permanent link"></a></h4>
 <pre class="diagram"><code>flowchart TB
 A[兩個 process 需要合作] --&gt; B{要怎麼交換資料?}
@@ -17354,7 +17354,7 @@ B --&gt; C[message passing&lt;br&gt;透過 kernel 傳訊息]
 B --&gt; D[shared memory&lt;br&gt;共用同一塊記憶體]
 C --&gt; E[安全性較高&lt;br&gt;但通常較慢]
 D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
-<hr />
+<hr/>
 <h4 id="生活化例子">生活化例子<a class="headerlink" href="#生活化例子" title="Permanent link"></a></h4>
 <h4 id="例子-1聊天室伺服器">例子 1：聊天室伺服器<a class="headerlink" href="#例子-1聊天室伺服器" title="Permanent link"></a></h4>
 <ul>
@@ -17367,7 +17367,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>A process 收到使用者訊息</li>
 <li>把訊息送給 B process 去存資料庫</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="例子-2瀏覽器--渲染器">例子 2：瀏覽器 + 渲染器<a class="headerlink" href="#例子-2瀏覽器--渲染器" title="Permanent link"></a></h4>
 <p>有些系統會拆成多個 process：</p>
 <ul>
@@ -17376,14 +17376,14 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>一個負責畫面渲染</li>
 </ul>
 <p>如果它們需要大量共享資料，例如畫面 buffer(緩衝區)，就可能用 <strong>shared memory</strong></p>
-<hr />
+<hr/>
 <h4 id="例子-3producer-consumer生產者消費者">例子 3：Producer-Consumer(生產者消費者)<a class="headerlink" href="#例子-3producer-consumer生產者消費者" title="Permanent link"></a></h4>
 <p>這章常見的經典題。</p>
 <ul>
 <li>producer(生產者) 負責放資料</li>
 <li>consumer(消費者) 負責拿資料</li>
 </ul>
-<p>如果它們共用同一個 buffer(緩衝區)，那通常就是 <strong>shared memory</strong><br />
+<p>如果它們共用同一個 buffer(緩衝區)，那通常就是 <strong>shared memory</strong><br/>
 但這時就會遇到同步問題：</p>
 <ul>
 <li>不能同時亂寫</li>
@@ -17391,7 +17391,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>不能 overflow(塞爆) 或 underflow(讀空)</li>
 </ul>
 <p>這也就是為什麼後面章節會接到 synchronization(同步)。</p>
-<hr />
+<hr/>
 <h4 id="為什麼會這樣">為什麼會這樣<a class="headerlink" href="#為什麼會這樣" title="Permanent link"></a></h4>
 <p>因為 <strong>process(行程)</strong> 本質上是彼此隔離的。</p>
 <p>這種隔離有好處：</p>
@@ -17408,12 +17408,12 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li><strong>message passing</strong>：讓大家透過 OS 幫忙傳遞</li>
 <li><strong>shared memory</strong>：讓大家共用資料區，但自己要小心同步</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="最容易考--最容易混淆">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆" title="Permanent link"></a></h4>
 <h4 id="1-cooperation合作-不是-thread-才有process-也有">1. cooperation(合作) 不是 thread 才有，process 也有<a class="headerlink" href="#1-cooperation合作-不是-thread-才有process-也有" title="Permanent link"></a></h4>
 <p>很多人會以為只有 thread(執行緒) 才會合作。不是。</p>
 <p>process 也會合作，只是因為位址空間不同，合作通常需要 IPC。</p>
-<hr />
+<hr/>
 <h4 id="2-shared-memory-不是完全不用-kernel">2. shared memory 不是「完全不用 kernel」<a class="headerlink" href="#2-shared-memory-不是完全不用-kernel" title="Permanent link"></a></h4>
 <p>這很容易搞錯。</p>
 <p>正確說法是：</p>
@@ -17422,7 +17422,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>但<strong>建立完成後，資料交換本身可以直接在共享區做</strong></li>
 <li>所以它通常比 message passing 更快</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="3-message-passing-不等於一定很慢">3. message passing 不等於一定很慢<a class="headerlink" href="#3-message-passing-不等於一定很慢" title="Permanent link"></a></h4>
 <p>相對 shared memory 常常較慢，但它有優點：</p>
 <ul>
@@ -17432,7 +17432,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>分散式系統也很適合</li>
 </ul>
 <p>所以不是誰絕對比較好，而是看需求。</p>
-<hr />
+<hr/>
 <h4 id="4-shared-memory-幾乎一定會連到-synchronization同步">4. shared memory 幾乎一定會連到 synchronization(同步)<a class="headerlink" href="#4-shared-memory-幾乎一定會連到-synchronization同步" title="Permanent link"></a></h4>
 <p>如果考題看到：</p>
 <ul>
@@ -17441,10 +17441,10 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>multiple processes access same data</li>
 </ul>
 <p>那你就要立刻想到：</p>
-<p><strong>race condition(競爭情況)</strong><br />
-以及需要<br />
+<p><strong>race condition(競爭情況)</strong><br/>
+以及需要<br/>
 <strong>mutex / semaphore / monitor</strong> 等同步機制。</p>
-<hr />
+<hr/>
 <h4 id="用這張圖來做考試記憶">用這張圖來做考試記憶<a class="headerlink" href="#用這張圖來做考試記憶" title="Permanent link"></a></h4>
 <p>你可以這樣背：</p>
 <ul>
@@ -17468,7 +17468,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>右邊：shared memory = 共用白板</li>
 </ul>
 <p>這樣通常就不會混掉。</p>
-<hr />
+<hr/>
 <h4 id="小結">小結<a class="headerlink" href="#小結" title="Permanent link"></a></h4>
 <p>這張圖的重點是：</p>
 <ol>
@@ -17485,25 +17485,25 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 </ol>
 <h4 id="你現在最該抓住的一句話">你現在最該抓住的一句話<a class="headerlink" href="#你現在最該抓住的一句話" title="Permanent link"></a></h4>
 <p><strong>IPC 的本質，就是讓彼此隔離的 process 能安全地合作。</strong></p>
-<p>如果你要，我下一步可以直接接著幫你講這張圖下面最重要的考點：<br />
+<p>如果你要，我下一步可以直接接著幫你講這張圖下面最重要的考點：<br/>
 <strong>message passing 和 shared memory 的比較表 + Producer-Consumer 為什麼會浪費一格空間。</strong></p>
 <h2 id="342-訊息傳遞系統-message-passing">3.4.2 訊息傳遞系統 Message Passing<a class="headerlink" href="#342-訊息傳遞系統-message-passing" title="Permanent link"></a></h2>
-<p><img alt="alt text" src="images/ch%203-18.png" /></p>
+<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%203-18.png"/></p>
 <h3 id="講解_12">講解<a class="headerlink" href="#講解_12" title="Permanent link"></a></h3>
 <p>已啟用教學模式</p>
 <h4 id="這幾張圖在回答什麼問題">這幾張圖在回答什麼問題<a class="headerlink" href="#這幾張圖在回答什麼問題" title="Permanent link"></a></h4>
 <p>這三張圖其實在回答同一個核心問題：</p>
 <p><strong>行程(Process)之間如果不能直接共用資料，還能怎麼互相合作？</strong></p>
-<p>答案就是用 <strong>Message Passing(訊息傳遞)</strong>。<br />
+<p>答案就是用 <strong>Message Passing(訊息傳遞)</strong>。<br/>
 也就是說，不是兩邊一起摸同一塊記憶體，而是你送我一則訊息、我收你一則訊息，靠這種方式溝通與同步。這正是作業系統中另一大類的 IPC(Interprocess Communication，行程間通訊)方法。</p>
-<hr />
+<hr/>
 <h4 id="先講直覺為什麼要有-message-passing訊息傳遞">先講直覺：為什麼要有 Message Passing(訊息傳遞)<a class="headerlink" href="#先講直覺為什麼要有-message-passing訊息傳遞" title="Permanent link"></a></h4>
 <p>你可以把它想成：</p>
 <ul>
 <li><strong>Shared Memory(共享記憶體)</strong>：像兩個人共用一塊白板，大家都能直接改上面的內容。</li>
 <li><strong>Message Passing(訊息傳遞)</strong>：像兩個人傳紙條，一方寫好送出去，另一方收到再看。</li>
 </ul>
-<p>白板方式速度常常比較快，但要很小心「同時改」造成混亂。<br />
+<p>白板方式速度常常比較快，但要很小心「同時改」造成混亂。<br/>
 傳紙條方式比較有秩序，因為每次都是「送」與「收」，比較容易控制誰先做什麼。</p>
 <p>所以投影片第一張才會說：</p>
 <ul>
@@ -17512,7 +17512,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>而且<strong>不需要共享同一個位址空間(address space)</strong></li>
 </ul>
 <p>這句話非常重要。</p>
-<hr />
+<hr/>
 <h4 id="核心概念-1message-passing-至少有兩個基本動作">核心概念 1：Message Passing 至少有兩個基本動作<a class="headerlink" href="#核心概念-1message-passing-至少有兩個基本動作" title="Permanent link"></a></h4>
 <p>投影片第一張最重要的句子就是：</p>
 <ul>
@@ -17525,9 +17525,9 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>寄件人：<code>send</code></li>
 <li>收件人：<code>receive</code></li>
 </ul>
-<p>沒有 send，就沒東西送。<br />
+<p>沒有 send，就沒東西送。<br/>
 沒有 receive，訊息也沒人拿。</p>
-<hr />
+<hr/>
 <h4 id="核心概念-2兩個行程要互傳必須先連得上">核心概念 2：兩個行程要互傳，必須先「連得上」<a class="headerlink" href="#核心概念-2兩個行程要互傳必須先連得上" title="Permanent link"></a></h4>
 <p>第一張圖後半段說：</p>
 <p>如果兩個行程 <code>P</code> 和 <code>Q</code> 要互相聯繫，它們必須有一條 <strong>communication link(通訊鏈結)</strong>。</p>
@@ -17538,7 +17538,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>兩個程式要傳訊息，先要有 OS 提供的通道</li>
 </ul>
 <p>所以不是隨便一個 process 都能直接對任何 process 傳訊息，必須有某種機制把兩邊接起來。</p>
-<hr />
+<hr/>
 <h4 id="第二張圖命名naming-其實是在講訊息到底寄給誰">第二張圖：命名(Naming) 其實是在講「訊息到底寄給誰」<a class="headerlink" href="#第二張圖命名naming-其實是在講訊息到底寄給誰" title="Permanent link"></a></h4>
 <p>這張圖在區分兩種方式：</p>
 <ol>
@@ -17546,7 +17546,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li><strong>Indirect communication(間接通訊)</strong></li>
 </ol>
 <p>這是很常考的分類。</p>
-<hr />
+<hr/>
 <h4 id="1-direct-communication直接通訊">1. Direct communication(直接通訊)<a class="headerlink" href="#1-direct-communication直接通訊" title="Permanent link"></a></h4>
 <p>投影片寫法大意是：</p>
 <ul>
@@ -17565,9 +17565,9 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>耦合比較緊，因為雙方直接指定彼此</li>
 </ul>
 <h5 id="生活化例子_1">生活化例子<a class="headerlink" href="#生活化例子_1" title="Permanent link"></a></h5>
-<p>你在 LINE 直接傳訊息給某個朋友。<br />
+<p>你在 LINE 直接傳訊息給某個朋友。<br/>
 你不是把訊息丟到某個公開信箱，而是明確傳給「小明」。</p>
-<hr />
+<hr/>
 <h4 id="2-indirect-communication間接通訊">2. Indirect communication(間接通訊)<a class="headerlink" href="#2-indirect-communication間接通訊" title="Permanent link"></a></h4>
 <p>投影片寫的是透過 <strong>mailbox(信箱)</strong>，也叫 <strong>port(埠口)</strong>。</p>
 <p>例如：</p>
@@ -17591,14 +17591,14 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>誰是實際處理的人，不重要</li>
 <li>只要有人從這個信箱把信取出即可</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="這兩種怎麼記">這兩種怎麼記<a class="headerlink" href="#這兩種怎麼記" title="Permanent link"></a></h4>
 <p>你可以這樣記：</p>
 <ul>
 <li><strong>Direct</strong>：我知道「你是誰」，我直接傳給你</li>
 <li><strong>Indirect</strong>：我只知道「信箱在哪」，我把東西放進去</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="第三張圖同步化synchronization-在講-send--receive-會不會等">第三張圖：同步化(Synchronization) 在講 send / receive 會不會等<a class="headerlink" href="#第三張圖同步化synchronization-在講-send--receive-會不會等" title="Permanent link"></a></h4>
 <p>這張圖很重要，因為很多人第一次看會搞混。</p>
 <p>它把訊息傳遞分成：</p>
@@ -17612,9 +17612,9 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li><strong>asynchronous(非同步式)</strong></li>
 </ul>
 <p>不過這裡你要注意一件事：</p>
-<p>在這份投影片的脈絡裡，<strong>blocking ≈ synchronous</strong>；<strong>nonblocking ≈ asynchronous</strong>。<br />
+<p>在這份投影片的脈絡裡，<strong>blocking ≈ synchronous</strong>；<strong>nonblocking ≈ asynchronous</strong>。<br/>
 考試通常就是照老師投影片用法記，但在更廣泛系統領域中，這兩組詞有時不會被完全等號看待，所以這裡先以課堂版本理解。</p>
-<hr />
+<hr/>
 <h4 id="1-blocking-send等待傳送">1. blocking send(等待傳送)<a class="headerlink" href="#1-blocking-send等待傳送" title="Permanent link"></a></h4>
 <p>投影片意思是：</p>
 <p>傳送者送出訊息後，要<strong>等到接收者或信箱接收完成</strong>，自己才繼續往下做。</p>
@@ -17625,7 +17625,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>sender 會卡住等一下</li>
 <li>確定訊息真的被接住後才繼續</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="2-nonblocking-send非等待傳送">2. nonblocking send(非等待傳送)<a class="headerlink" href="#2-nonblocking-send非等待傳送" title="Permanent link"></a></h4>
 <p>投影片意思是：</p>
 <p>傳送者把訊息送出去後，<strong>立刻繼續做別的事</strong>，不等對方現在有沒有處理完。</p>
@@ -17636,7 +17636,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>sender 不會卡住</li>
 <li>送完就繼續執行</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="3-blocking-receive等待接收">3. blocking receive(等待接收)<a class="headerlink" href="#3-blocking-receive等待接收" title="Permanent link"></a></h4>
 <p>投影片意思是：</p>
 <p>接收者如果現在還沒有有效訊息，就要<strong>等到真的有訊息到來</strong>。</p>
@@ -17647,7 +17647,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>receiver 會卡住</li>
 <li>一直到有資料才繼續</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="4-nonblocking-receive非等待接收">4. nonblocking receive(非等待接收)<a class="headerlink" href="#4-nonblocking-receive非等待接收" title="Permanent link"></a></h4>
 <p>投影片意思是：</p>
 <p>接收者去看看有沒有訊息：</p>
@@ -17666,7 +17666,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 <li>receiver 不會卡住</li>
 <li>可能拿到資料，也可能得到「目前沒有資料」</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="四種組合怎麼看">四種組合怎麼看<a class="headerlink" href="#四種組合怎麼看" title="Permanent link"></a></h4>
 <p>你可以整理成這樣：</p>
 <table>
@@ -17700,7 +17700,7 @@ D --&gt; F[速度較快&lt;br&gt;但需要額外同步]</code></pre>
 </tr>
 </tbody>
 </table>
-<hr />
+<hr/>
 <h4 id="關係--流程--因果_1">關係 / 流程 / 因果<a class="headerlink" href="#關係--流程--因果_1" title="Permanent link"></a></h4>
 <p>我們把這三張圖串起來看，整體邏輯其實是：</p>
 <pre class="diagram"><code>flowchart TB
@@ -17716,7 +17716,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <li>再決定 send / receive 遇到對方沒準備好時要不要等</li>
 <li>最後形成整個合作流程</li>
 </ol>
-<hr />
+<hr/>
 <h4 id="為什麼-message-passing-也能做到同步">為什麼 Message Passing 也能做到同步？<a class="headerlink" href="#為什麼-message-passing-也能做到同步" title="Permanent link"></a></h4>
 <p>這點很關鍵。</p>
 <p>因為「等不等」本身就能控制先後順序。</p>
@@ -17731,7 +17731,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <p>這就等於：</p>
 <p><strong>P2 一定晚於 P1 的 send 之後才往下跑</strong></p>
 <p>所以訊息不只是資料傳遞工具，也能當作同步工具。</p>
-<hr />
+<hr/>
 <h4 id="一個非常好懂的小例子">一個非常好懂的小例子<a class="headerlink" href="#一個非常好懂的小例子" title="Permanent link"></a></h4>
 <p>假設有兩個 process：</p>
 <ul>
@@ -17746,7 +17746,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <li>Consumer 收到 <code>"done"</code> 才開始下一步</li>
 </ul>
 <p>這就是最基本的「先做完再通知」。</p>
-<hr />
+<hr/>
 <h4 id="最容易考--最容易混淆_1">最容易考 / 最容易混淆<a class="headerlink" href="#最容易考--最容易混淆_1" title="Permanent link"></a></h4>
 <p>這裡我直接幫你抓重點。</p>
 <h5 id="1-message-passing-不等於只做通訊也能做同步">1. Message Passing 不等於只做通訊，也能做同步<a class="headerlink" href="#1-message-passing-不等於只做通訊也能做同步" title="Permanent link"></a></h5>
@@ -17762,7 +17762,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <p>因為它很好拿來做「等通知」</p>
 <h5 id="5-mailboxport-是間接通訊的核心">5. mailbox(port) 是間接通訊的核心<a class="headerlink" href="#5-mailboxport-是間接通訊的核心" title="Permanent link"></a></h5>
 <p>這是第二張圖最該記住的字</p>
-<hr />
+<hr/>
 <h4 id="你可以這樣背整段">你可以這樣背整段<a class="headerlink" href="#你可以這樣背整段" title="Permanent link"></a></h4>
 <p>我幫你濃縮成考前版：</p>
 <ul>
@@ -17772,7 +17772,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <li><strong>blocking</strong>：呼叫後要等</li>
 <li><strong>nonblocking</strong>：呼叫後不等，立刻返回</li>
 </ul>
-<hr />
+<hr/>
 <h4 id="小結_1">小結<a class="headerlink" href="#小結_1" title="Permanent link"></a></h4>
 <p>這三張圖其實就是在建立 Message Passing 的完整骨架：</p>
 <ol>
@@ -17781,7 +17781,7 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
 <li><strong>送給誰</strong>：direct 或 indirect</li>
 <li><strong>要不要等</strong>：blocking 或 nonblocking</li>
 </ol>
-<p>如果你要，我下一步可以直接幫你把這三張整理成一份<br />
+<p>如果你要，我下一步可以直接幫你把這三張整理成一份<br/>
 <strong>「考試背誦版 + 容易混淆比較表」</strong>，讓你可以 1 分鐘快速複習。</p>
 
 
@@ -17914,17 +17914,15 @@ E --&gt; F[影響行程是否等待&lt;br&gt;以及合作順序]</code></pre>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       

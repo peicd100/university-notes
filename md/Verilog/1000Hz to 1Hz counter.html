@@ -1956,7 +1956,7 @@
     
       <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-8611f6c398.css">
     
-      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260611-2">
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/自定義.css?v=20260614-1">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -6481,7 +6481,7 @@ is now available!
 <h1 id="1000hz-to-1hz-counter">1000Hz to 1Hz counter<a class="headerlink" href="#1000hz-to-1hz-counter" title="Permanent link"></a></h1>
 <p>題目：</p>
 <p><a href="https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q7b">https://hdlbits.01xz.net/wiki/Exams/ece241_2014_q7b</a></p>
-<p><img alt="alt text" src="images/1000Hz%20to%201Hz%20counter.png" /></p>
+<p><img alt="alt text" decoding="async" src="images/1000Hz%20to%201Hz%20counter.png"/></p>
 <h2 id="題解">題解<a class="headerlink" href="#題解" title="Permanent link"></a></h2>
 <p>他是要做一個 1000 Hz 轉為 1 Hz 的 counter ，所以每 1000 次 clk 之後要給一次 OneHertz 信號。</p>
 <p>BCD 計數器的用途是來執行 0~9 循環。</p>
@@ -6505,7 +6505,7 @@ is now available!
 
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這三顆 BCD counter 串起來，本質上是在數：<br />
+<p>這三顆 BCD counter 串起來，本質上是在數：<br/>
 <div class="highlight"><pre><span></span><code>000, 001, 002, ..., 998, 999, 000, 001, ...
 </code></pre></div></p>
 <p>所以是 1000 Hz (1000 個數字)，第 999 時輸出 1。</p>
@@ -6640,17 +6640,15 @@ is now available!
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1"></script>
       
-        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1"></script>
       
-        <script src="../../assets/pymdownx-extras/extra-loader-iLQ-keay.js"></script>
-      
-        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1"></script>
+        <script src="../../assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1"></script>
       
         <script src="../../assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1"></script>
       
