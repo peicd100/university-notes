@@ -81,3 +81,14 @@
 - 原因：不依賴本機 preview endpoint，靜態 build 也能使用；與現有 `Danger | title` 渲染規則相容；可避開 Material instant navigation 對同頁 hash link 的重新初始化。
 - 後果：最近 heading 的距離以渲染後畫面位置近似原始行距，不直接讀 Markdown 行號；若未來需要精準原始行距，需在 build 階段注入 source metadata。
 - 相關檔案：`theme/assets/pymdownx-extras/toc-fold.js`、`theme/assets/pymdownx-extras/自定義.css`、`mkdocs.yml`
+
+## ADR-0009：Mermaid runtime 改為接近 viewport 才動態載入
+
+- 狀態：accepted
+- 日期：2026-06-14
+- 背景：`ch 3.html` 有 18 個 Mermaid 圖表；實測靜態載入 Mermaid 並開頁全量 render 會讓 `DOMContentLoaded` 約 7.8s。
+- 選項：拆 Markdown 頁面；保留靜態 Mermaid 但延後 render；動態載入 Mermaid runtime 並逐張 lazy render。
+- 決策：移除 `mkdocs.yml` 的靜態 Mermaid runtime 與 `extra-loader` Mermaid eager render，改由 `mermaid-render-fix.js` 在圖表接近 viewport 時動態載入 `mermaid@10.6.1` 並用 queue 逐張 render。
+- 原因：不改筆記內容、不犧牲搜尋功能，且可把目標頁初始 `DOMContentLoaded` 降到約 3s 級距。
+- 後果：圖表首次捲到附近時才開始載入 Mermaid；若 CDN 失敗，對應圖表顯示失敗狀態並保留原始 `pre.diagram` fallback。
+- 相關檔案：`mkdocs.yml`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`theme/assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js`

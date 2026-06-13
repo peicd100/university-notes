@@ -110,6 +110,16 @@
 - 不要做：不要只靠降低 line-height；不要只改 `.nodeLabel` 而漏 edge label、SVG text、flowchart link 或放大檢視。
 - 驗證方式：`ch 6.md` 的 RM 關係圖檢查 `Higher priority` / `Lower priority` 的 `y` 下緣；`ch 7.md` deadlock flowchart 檢查 dark node label、fill、stroke、edge label 與 console。
 
+## Mermaid 不可回到開頁全量 eager render
+
+- 狀態：active
+- 證據：verified
+- 日期：2026-06-14
+- 影響範圍：`mkdocs.yml`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`theme/assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js`
+- 正確做法：`mkdocs.yml` 不靜態載入 `mermaid.min.js`；`mermaid-render-fix.js` 以 `IntersectionObserver` 接近 viewport 才動態載入 Mermaid runtime 並逐張 render；legacy flowchart fallback 由 `window.peicdPatchMermaidRender()` 在 runtime 載入後套用。
+- 不要做：不要把 `https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js` 加回 `extra_javascript`，也不要加回會在 `document$` 中全頁掃描並呼叫 `mermaid.render()` 的 `extra-loader-iLQ-keay.js` Mermaid 路徑。
+- 驗證方式：Playwright 開啟 `ch 3.html#311-行程process` 時 `performance` 不應有 `mermaid.min.js` request、`.peicd-mermaid-host.is-rendered` 應為 0；捲到圖表後才載入 Mermaid，完整捲頁後 18 張圖都應 render 且 console error/warn 為空。
+
 ## .codex/ Git 忽略策略
 
 - 狀態：active

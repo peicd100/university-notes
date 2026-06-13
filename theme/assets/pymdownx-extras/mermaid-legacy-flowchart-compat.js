@@ -86,5 +86,6 @@
     mermaid[PATCH_FLAG] = true;
   }
 
+  window.peicdPatchMermaidRender = patchMermaidRender;
   patchMermaidRender();
 })();

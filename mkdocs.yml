@@ -92,15 +92,14 @@ plugins:
 
 extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css  # 自定義 CSS 文件
-  - assets/pymdownx-extras/自定義.css?v=20260611-2  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
+  - assets/pymdownx-extras/自定義.css?v=20260614-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js  # Mermaid 圖表支持
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # MathJax 支持數學公式
+  - assets/pymdownx-extras/mathjax-refresh.js?v=20260614-1  # Material instant navigation 後刷新 MathJax
   - assets/pymdownx-extras/mermaid-config-override.js?v=20260523-1  # Mermaid flowchart 啟用 htmlLabels，支援節點內 <br>
-  - assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260329-1  # Mermaid 舊 flowchart 語法相容：方括號節點內未加引號的括號文字自動 fallback
-  - assets/pymdownx-extras/extra-loader-iLQ-keay.js  # 自定義 JavaScript 文件
-  - assets/pymdownx-extras/mermaid-render-fix.js?v=20260522-1  # 補強 Mermaid 首次載入 / instant navigation / 主題切換渲染
+  - assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js?v=20260614-1  # Mermaid 舊 flowchart 語法相容：方括號節點內未加引號的括號文字自動 fallback
+  - assets/pymdownx-extras/mermaid-render-fix.js?v=20260614-1  # Mermaid 動態載入 / lazy render / 主題切換渲染
   - assets/pymdownx-extras/mermaid-zoom.js?v=20260404-1  # Mermaid 圖卡化與放大檢視
   - assets/pymdownx-extras/toc-fold.js?v=20260611-2  # 右側 TOC 可摺疊 / 展開控制
   - assets/pymdownx-extras/image-zoom.js  # 文章圖片放大檢視 / 拖曳 / 縮放
@@ -115,6 +114,7 @@ hooks:
   - tools/markdown_embed_hook.py
   - tools/source_jump_hook.py
   - tools/admonition_title_hook.py
+  - tools/image_lazy_loading_hook.py
 
 # Markdown 擴展設置
 markdown_extensions:

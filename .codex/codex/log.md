@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-14 00:28：Mermaid 與文章圖片動態載入
+
+- 任務類型：feature
+- 修改範圍：`mkdocs.yml`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`mermaid-legacy-flowchart-compat.js`、`mathjax-refresh.js`、`自定義.css`、`tools/image_lazy_loading_hook.py`、`.codex/codex/`。
+- 主要決策：移除 Mermaid 靜態 runtime 與 `extra-loader` eager render；改為接近 viewport 才動態載入 Mermaid 並逐張 render；文章首圖 eager，其餘 lazy。
+- 驗證結果：JS/Python 語法檢查通過；`mermaid-lazy-build` returncode 0；Playwright 量測 `ch 3.html` 初始 DCL 約 2.7s、初始 Mermaid rendered 0，完整捲頁後 18/18 render；ch6/ch7 Mermaid 回歸通過。
+- 尚未完成：未調整搜尋索引，保留全文搜尋能力。
+- 下次建議先讀：`GOTCHAS.md` 的 Mermaid lazy render 條目、`ARCHITECTURE.md` 的 Mermaid Rendering 與 Article Image Loading。
+- 相關檔案：`.codex/codex/tmp/20260614-002100-mermaid-lazy-build.meta.json`。
+
 ## 2026-06-11 22:58：Preview 改用 p.exe 避開 Ctrl+C 批次詢問
 
 - 任務類型：bugfix

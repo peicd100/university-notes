@@ -40,7 +40,7 @@
 - 中版面左側導覽、drawer 背景或路徑列對比：先看 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引、`VERIFY.md` 的前端互動清單，再改 `theme/assets/pymdownx-extras/自定義.css`。
 - 文章圖片大小或放大檢視：先看 `USER_REQUIREMENTS.md` 的圖片寬度偏好、`GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css` 與必要時 `image-zoom.js`。
 - 深色主題背景或右側 TOC：先看 `USER_REQUIREMENTS.md` 的 UI 偏好與 `GOTCHAS.md` 的 UI 深色主題與版面壓縮索引，再改 `theme/assets/pymdownx-extras/自定義.css`。
-- Mermaid 圖表文字可讀性（裁切或深色對比）：先看 `GOTCHAS.md` 的 Mermaid Rendering 高風險索引，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js`、`theme/assets/pymdownx-extras/mermaid-render-fix.js` 與 `theme/assets/pymdownx-extras/自定義.css`。
+- Mermaid 圖表載入速度、裁切或深色對比：先看 `GOTCHAS.md` 的 Mermaid Rendering / lazy render 高風險索引，再改 `theme/assets/pymdownx-extras/mermaid-config-override.js`、`theme/assets/pymdownx-extras/mermaid-render-fix.js`、`theme/assets/pymdownx-extras/mermaid-legacy-flowchart-compat.js` 與 `theme/assets/pymdownx-extras/自定義.css`；不要把 `mermaid.min.js` 或 `extra-loader` eager render 加回 `mkdocs.yml`。
 - 多益600：看 `docs/md/多益600/`、`PROJECT.md` 的小專案說明。
 
 ## 舊檔封存與映射

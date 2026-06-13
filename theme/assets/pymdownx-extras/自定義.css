@@ -2314,6 +2314,26 @@ html.peicd-image-viewer-open body {
   width: fit-content;
 }
 
+.md-typeset .peicd-mermaid-host.is-pending,
+.md-typeset .peicd-mermaid-host.is-rendering,
+.md-typeset .peicd-mermaid-host.is-error {
+  align-items: center;
+  background: #000000;
+  color: #72e3fd;
+  cursor: default;
+  display: flex;
+  justify-content: center;
+  min-height: 6rem;
+  width: min(100%, 58rem);
+}
+
+.md-typeset .peicd-mermaid-status {
+  color: inherit;
+  font-family: var(--md-code-font), "Cascadia Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
 .md-typeset .peicd-mermaid-host::before {
   background-image:
     linear-gradient(var(--peicd-mermaid-border-strong) 0 0),

@@ -16,6 +16,7 @@
 
 ## 最後驗證
 
+- 2026-06-14 Mermaid lazy render：`node --check` 通過；`image_lazy_loading_hook.py` py_compile 通過；`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name mermaid-lazy-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean` returncode 0；Playwright local server 量測 `ch 3.html#311-行程process` 初始 DCL 約 2.7s、初始 Mermaid rendered 0，完整捲頁後 18/18 Mermaid render；ch6/ch7 Mermaid 回歸通過。
 - `Y:\conda\envs\mkdocs_desk\python.exe -m py_compile tools\p.py`：通過。
 - `cmd /d /c "pushd ""\\vmware-host\Shared Folders\github_note\university notes"" && p /? && set PREVIEW_SKIP_SERVE=1&& p docs\md\114-2\科技_計算機結構\期末考複習-ch5.md && popd"`：通過；`p /?` 顯示 `Usage: p ...`，確認目前 `p` 走 `p.exe`。
 - `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& ""\\vmware-host\Shared Folders\github_note\university notes\p.bat"""`：通過。

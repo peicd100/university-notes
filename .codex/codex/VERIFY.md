@@ -58,6 +58,8 @@ Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean
 ## 前端互動
 
 - 使用瀏覽器確認選字右鍵與未選字右鍵都可顯示選單。
+- 若修改 Mermaid 動態載入，開啟 `site/md/114-2/電機_作業系統/ch 3.html#311-行程process`：初始 `DOMContentLoaded` 目標約 3s 級距，`performance.getEntriesByType("resource")` 不應含 `mermaid.min.js`，`.peicd-mermaid-host` 應有 18 個且初始 rendered 為 0。捲到第一個 `.peicd-mermaid-host` 後才應載入 Mermaid runtime 並渲染附近圖表；逐段捲完整頁後 18 張都應 `.is-rendered`，`pre.diagram` 不應可見。
+- 若修改文章圖片 lazy loading，build 後檢查 `ch 3.html`：文章第一張圖應有 `decoding="async"` 且不含 `loading="lazy"`，其餘文章圖應同時有 `loading="lazy"` 與 `decoding="async"`；logo/twemoji 不應被改動。
 - 若涉及 Material instant navigation，從其他頁切到目標頁後再測一次。
 - 若修改右側 TOC / Danger 目錄，開啟含多個 Danger block 的頁面如 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：按 `Danger` 後應只顯示 Danger 項目，一般 TOC 連結不可同時可見；目前項目應顯示「現在在這裡」；點擊項目應跳到 `#peicd-danger-block-*` 且停留在 Danger 視圖；重複按 `Danger` 與帶 Danger hash 重新載入都應維持 Danger 視圖；按「自動」應回到一般 TOC。工具列中 `Danger` 文字不可被裁切，其他按鈕可比 Danger 更窄。再開啟無 Danger block 但有標題的頁面如 `site/md/Verilog/首頁.html`，應顯示「此筆記沒有任何 Danger Block」。
 - 若修改 Mermaid 樣式，至少開啟 `docs/md/114-2/電機_作業系統/ch 6.md` 的 RM 關係圖，確認 `Priority-based Preemptive Scheduling`、`Shorter period`、`Higher priority` 等英文字下緣沒有被裁切。

@@ -86,10 +86,17 @@
 
 ## Mermaid Rendering
 
-- Mermaid 由 `mkdocs.yml` 載入 `mermaid@10.6.1`、`mermaid-config-override.js`、`mermaid-render-fix.js` 與 `mermaid-zoom.js`。
+- Mermaid 不再由 `mkdocs.yml` 靜態載入 `mermaid.min.js`；`mermaid-render-fix.js` 會在頁面存在 `pre.diagram` 且圖表接近 viewport 時動態插入 `mermaid@10.6.1`。
 - `mermaid-config-override.js` 強制 flowchart 使用 `htmlLabels`，讓節點內 `<br>` 正常換行；暗色主題會合併高對比 flowchart themeVariables/themeCSS。
-- `mermaid-render-fix.js` 負責把 `pre.diagram` 渲染成 `.peicd-mermaid-host`，支援主題切換與 Material instant navigation，並在渲染後把 htmlLabels 的 `foreignObject` 高度加大 5px，避免 descender 被裁切。
+- `mermaid-render-fix.js` 負責把 `pre.diagram` 轉成 `.peicd-mermaid-host` placeholder，透過 `IntersectionObserver` 與 render queue 逐張 lazy render；支援 Material instant navigation，並用 token 忽略舊頁未完成 render。
+- 主題切換只重繪已渲染過的 Mermaid host，不主動渲染尚未看見的圖表。
+- `mermaid-legacy-flowchart-compat.js` 匯出 `window.peicdPatchMermaidRender()`；Mermaid runtime 動態載入完成後必須呼叫它，舊 flowchart fallback 才會生效。
 - `theme/assets/pymdownx-extras/自定義.css` 控制 `.peicd-mermaid-host` 圖卡外觀、htmlLabels 行高與暗色主題 SVG 保底樣式；行高不可大於 Mermaid 的 `foreignObject` 量測高度，且 `foreignObject` 需要允許 visible overflow，否則英文字母 descender 會被裁切。
+
+## Article Image Loading
+
+- `tools/image_lazy_loading_hook.py` 在 `on_page_content` 階段只處理文章內容中的圖片；第一張文章圖保留 eager 並加 `decoding="async"`，其餘文章圖加 `loading="lazy"` 與 `decoding="async"`。
+- hook 不處理 logo、twemoji、導覽圖示或 image viewer runtime 中的動態圖。
 
 ## 多益600 小專案
 
