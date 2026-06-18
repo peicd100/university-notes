@@ -193,3 +193,34 @@ signed main() {
 
 ### 哈哈
 ```
+
+
+## 嵌入網頁/PDF
+
+
+```tex title="雲端 PDF"
+
+<iframe src="https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview" width="100%" height="300px"></iframe>
+
+
+```
+/// html | div.result
+
+<iframe src="https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview" width="100%" height="300px"></iframe>
+
+
+///
+
+
+```tex title="docs/ 中的 PDF"
+
+<iframe src="\筆記素材\Dijkstra.pdf" width="100%" height="550px"></iframe>
+
+
+```
+/// html | div.result
+
+<iframe src="\筆記素材\Dijkstra.pdf" width="100%" height="550px"></iframe>
+
+///
+
