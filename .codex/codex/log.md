@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-20 16:35：多益 9–16 題目格式化
+
+- 任務類型：docs
+- 修改範圍：`docs/md/多益600/9.md`～`16.md`、`.codex/codex/log.md`。
+- 主要決策：依 v2.2 轉換規格人工整理標題、TTS、斷句、正解星號與克漏字；原位保留 HTML 表格及 `images/11.png`、`images/16.png`，以 16.png 判定 Q100，金額選項以 `&#36;` 避免誤觸數學語法。
+- 驗證結果：8 檔題號與星號一一對應，TTS 均成對；無粗體題號、NBSP、行尾空白、BOM 或錯誤 math span；最終 `mkdocs build --clean` returncode 0。
+- 尚未完成：沒有；頁面未列入 nav 為既有站台資訊提示，本次未擴充範圍。
+- 下次建議先讀：`docs/md/多益600/貼給codex的轉換規則.md` 與本條紀錄。
+- 相關檔案：`.codex/codex/tmp/20260620-163636-toeic-9-16-format-final-build.meta.json`、`docs/md/多益600/images/16.png`。
+
 ## 2026-06-14 01:30：手機路徑列巢狀頁與搜尋遮擋修正
 
 - 任務類型：bugfix
