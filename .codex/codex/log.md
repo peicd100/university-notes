@@ -1,5 +1,15 @@
 # log
 
+## 2026-06-20 16:47：多益 9–16 加入網站導覽
+
+- 任務類型：docs
+- 修改範圍：`docs/.mkdocs/site.yml`、`.codex/codex/log.md`。
+- 主要決策：在 `600` 導覽區接續 Ch4–Ch8 加入 Ch9–Ch16，標題統一為 `Ch編號 英文分類 中文分類 全文集中區`。
+- 驗證結果：最終 `mkdocs build --clean` returncode 0；Playwright 桌面預覽確認 Ch4–Ch16 順序、換行與選取狀態正常，並成功由 Ch9 點入 Ch16。
+- 尚未完成：沒有。
+- 下次建議先讀：`docs/.mkdocs/site.yml` 的 `600` 導覽區。
+- 相關檔案：`.codex/codex/tmp/20260620-164520-toeic-nav-9-16-final-build.meta.json`、`.codex/codex/tmp/.playwright-cli/element-2026-06-20T08-46-37-673Z.png`。
+
 ## 2026-06-20 16:35：多益 9–16 題目格式化
 
 - 任務類型：docs
