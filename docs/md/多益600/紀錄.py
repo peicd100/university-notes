@@ -40,6 +40,8 @@ VIDEO_FPS = 30
 VIDEO_FONT_SIZE = 220
 VIDEO_FONT_COLOR = "white"
 SUBTITLE_RENDER_SIGNATURE = "bilingual-subtitles-v4"
+RENDER_CACHE_SCHEMA_VERSION = 1
+RENDER_CACHE_DIR_NAME = "_render_cache"
 TRANSLATION_CACHE_FILENAME = "_translation_cache.json"
 TRANSLATE_FROM = "en"
 TRANSLATE_TO = "zh-TW"
@@ -60,6 +62,7 @@ ESTIMATED_CONTAINER_OVERHEAD_BYTES = 180 * 1024
 GPU_MONITOR_TIMEOUT_SECONDS = 0.35
 GPU_MONITOR_MIN_INTERVAL_SECONDS = 0.25
 GPU_MONITOR_STALE_SECONDS = 5.0
+FFPROBE_TIMEOUT_SECONDS = 15.0
 RESOURCE_MONITOR_INTERVAL_MS = 1500
 PROGRESS_SCAN_MIN_INTERVAL_SECONDS = 0.25
 CLI_PROGRESS_REPORT_MIN_INTERVAL_SECONDS = 0.1
@@ -258,9 +261,51 @@ def options_signature(options: ConvertOptions) -> str:
             f"{options.rate_multiplier:.4f}",
             f"{options.gap_seconds:.4f}",
             "gpu" if options.use_gpu else "cpu",
-            options.repeat_mode,
         ]
     )
+
+
+def is_nonempty_file(path: Path) -> bool:
+    try:
+        return path.is_file() and path.stat().st_size > 0
+    except OSError:
+        return False
+
+
+def build_file_render_cache_signature(
+    options: ConvertOptions,
+    mode_name: str,
+    mp3_encoder: str,
+    h264_encoder: str,
+    aac_encoder: str,
+    source_sentences: Iterable[str] | None = None,
+    translation_map: dict[str, str] | None = None,
+) -> str:
+    parts = [
+        SUBTITLE_RENDER_SIGNATURE,
+        f"render-cache-v{RENDER_CACHE_SCHEMA_VERSION}",
+        mode_name,
+        options.voice,
+        f"{options.rate_multiplier:.4f}",
+        f"{options.gap_seconds:.4f}",
+        "gpu" if options.use_gpu else "cpu",
+        mp3_encoder,
+        h264_encoder,
+        aac_encoder,
+        f"{VIDEO_WIDTH}x{VIDEO_HEIGHT}@{VIDEO_FPS}",
+        OUTPUT_BITRATE,
+    ]
+    if source_sentences is not None and translation_map is not None:
+        seen: set[str] = set()
+        translation_parts: list[str] = []
+        for sentence in source_sentences:
+            normalized = normalize_sentence_for_cache(sentence)
+            if not normalized or normalized in seen:
+                continue
+            seen.add(normalized)
+            translation_parts.append(f"{normalized}\t{translation_map.get(normalized, '')}")
+        parts.append(hashlib.sha1("\n".join(translation_parts).encode("utf-8")).hexdigest())
+    return "|".join(parts)
 
 
 def load_manifest(root_output_dir: Path) -> dict:
@@ -330,6 +375,167 @@ def load_translation_cache(root_output_dir: Path) -> dict:
 def save_translation_cache(root_output_dir: Path, cache_doc: dict) -> None:
     path = root_output_dir / TRANSLATION_CACHE_FILENAME
     path.write_text(json.dumps(cache_doc, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def render_cache_paths(
+    root_output_dir: Path,
+    mode_name: str,
+    md_path: Path,
+) -> tuple[Path, Path]:
+    cache_dir = root_output_dir / RENDER_CACHE_DIR_NAME / mode_name
+    return (
+        cache_dir / f"{md_path.stem}.json",
+        cache_dir / f"{md_path.stem}.mp3",
+    )
+
+
+def _relative_to_root(root_output_dir: Path, path: Path) -> str | None:
+    try:
+        return str(path.resolve().relative_to(root_output_dir.resolve()))
+    except ValueError:
+        return None
+
+
+def _resolve_under_root(root_output_dir: Path, relative_path: object) -> Path | None:
+    if not isinstance(relative_path, str) or not relative_path.strip():
+        return None
+    try:
+        path = (root_output_dir / Path(relative_path)).resolve()
+        path.relative_to(root_output_dir.resolve())
+    except (OSError, ValueError):
+        return None
+    return path
+
+
+def save_rendered_output_cache(
+    root_output_dir: Path,
+    mode_name: str,
+    md_path: Path,
+    input_hash: str,
+    cache_signature: str,
+    rendered_output: RenderedMarkdownOutput,
+) -> bool:
+    if not is_nonempty_file(rendered_output.video_file):
+        return False
+    if not is_nonempty_file(rendered_output.audio_file):
+        return False
+
+    metadata_path, audio_cache_path = render_cache_paths(root_output_dir, mode_name, md_path)
+    video_relative = _relative_to_root(root_output_dir, rendered_output.video_file)
+    audio_relative = _relative_to_root(root_output_dir, audio_cache_path)
+    if video_relative is None or audio_relative is None:
+        return False
+
+    audio_temp_path = audio_cache_path.with_name(audio_cache_path.name + ".tmp")
+    metadata_temp_path = metadata_path.with_name(metadata_path.name + ".tmp")
+    try:
+        metadata_path.parent.mkdir(parents=True, exist_ok=True)
+        if audio_temp_path.exists():
+            audio_temp_path.unlink()
+        shutil.copy2(rendered_output.audio_file, audio_temp_path)
+        audio_temp_path.replace(audio_cache_path)
+
+        payload = {
+            "schema_version": RENDER_CACHE_SCHEMA_VERSION,
+            "mode": mode_name,
+            "md_name": md_path.name,
+            "input_hash": input_hash,
+            "cache_signature": cache_signature,
+            "video_file": video_relative,
+            "audio_file": audio_relative,
+            "audio_duration_seconds": rendered_output.audio_duration_seconds,
+            "subtitle_cues": [
+                {
+                    "start_seconds": cue.start_seconds,
+                    "end_seconds": cue.end_seconds,
+                    "english": cue.english,
+                    "chinese": cue.chinese,
+                }
+                for cue in rendered_output.subtitle_cues
+            ],
+        }
+        if metadata_temp_path.exists():
+            metadata_temp_path.unlink()
+        metadata_temp_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        metadata_temp_path.replace(metadata_path)
+        return True
+    except (OSError, TypeError, ValueError):
+        for temp_path in (audio_temp_path, metadata_temp_path):
+            try:
+                if temp_path.exists():
+                    temp_path.unlink()
+            except OSError:
+                pass
+        return False
+
+
+def load_rendered_output_cache(
+    root_output_dir: Path,
+    mode_name: str,
+    md_path: Path,
+    input_hash: str,
+    cache_signature: str,
+) -> RenderedMarkdownOutput | None:
+    metadata_path, audio_cache_path = render_cache_paths(root_output_dir, mode_name, md_path)
+    if not metadata_path.exists() or not is_nonempty_file(audio_cache_path):
+        return None
+
+    try:
+        payload = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            return None
+        if payload.get("schema_version") != RENDER_CACHE_SCHEMA_VERSION:
+            return None
+        if payload.get("mode") != mode_name or payload.get("md_name") != md_path.name:
+            return None
+        if payload.get("input_hash") != input_hash:
+            return None
+        if payload.get("cache_signature") != cache_signature:
+            return None
+
+        video_file = _resolve_under_root(root_output_dir, payload.get("video_file"))
+        recorded_audio_file = _resolve_under_root(root_output_dir, payload.get("audio_file"))
+        expected_video = root_output_dir / mode_name / (
+            f"{md_path.stem}_{'兩次' if mode_name == '兩次' else '一次'}.mp4"
+        )
+        if video_file is None or recorded_audio_file is None:
+            return None
+        if video_file != expected_video.resolve() or recorded_audio_file != audio_cache_path.resolve():
+            return None
+        if not is_nonempty_file(video_file):
+            return None
+
+        raw_cues = payload.get("subtitle_cues")
+        if not isinstance(raw_cues, list) or not raw_cues:
+            return None
+        subtitle_cues: list[SubtitleCue] = []
+        for raw_cue in raw_cues:
+            if not isinstance(raw_cue, dict):
+                return None
+            english = raw_cue.get("english")
+            chinese = raw_cue.get("chinese")
+            if not isinstance(english, str) or not isinstance(chinese, str):
+                return None
+            subtitle_cues.append(
+                SubtitleCue(
+                    start_seconds=float(raw_cue["start_seconds"]),
+                    end_seconds=float(raw_cue["end_seconds"]),
+                    english=english,
+                    chinese=chinese,
+                )
+            )
+
+        return RenderedMarkdownOutput(
+            video_file=video_file,
+            audio_file=audio_cache_path,
+            subtitle_cues=subtitle_cues,
+            audio_duration_seconds=float(payload["audio_duration_seconds"]),
+        )
+    except (OSError, TypeError, ValueError, KeyError, json.JSONDecodeError):
+        return None
 
 
 def build_markdown_metadata(
@@ -663,6 +869,11 @@ def extract_tts_sentences(md_path: Path) -> list[str]:
     return sentences
 
 
+def normalize_sentence_for_cache(text: str) -> str:
+    """統一句子空白，讓只差換行、Tab 或多個空白的句子共用快取。"""
+    return re.sub(r"\s+", " ", text.replace("\ufeff", "")).strip()
+
+
 def translate_text_to_zh(text: str, retries: int = 2) -> str:
     disable_blocking_proxy_env()
     normalized = text.strip()
@@ -708,11 +919,18 @@ async def build_translation_map(
     cached_translations = cache_doc.get("translations", {})
     if not isinstance(cached_translations, dict):
         cached_translations = {}
+    normalized_cached_translations: dict[str, str] = {}
+    for raw_key, raw_value in cached_translations.items():
+        if not isinstance(raw_key, str) or not isinstance(raw_value, str):
+            continue
+        normalized_key = normalize_sentence_for_cache(raw_key)
+        if normalized_key and normalized_key not in normalized_cached_translations:
+            normalized_cached_translations[normalized_key] = raw_value
 
     unique_sentences: list[str] = []
     seen: set[str] = set()
     for sentence in sentences:
-        normalized = sentence.strip()
+        normalized = normalize_sentence_for_cache(sentence)
         if not normalized or normalized in seen:
             continue
         seen.add(normalized)
@@ -722,7 +940,7 @@ async def build_translation_map(
     cache_hits = 0
     missing_sentences: list[str] = []
     for sentence in unique_sentences:
-        cached = cached_translations.get(sentence)
+        cached = normalized_cached_translations.get(sentence)
         if isinstance(cached, str) and cached.strip():
             translation_map[sentence] = cached.strip()
             cache_hits += 1
@@ -761,7 +979,8 @@ def build_subtitle_sentences(
 ) -> list[SubtitleSentence]:
     subtitle_sentences: list[SubtitleSentence] = []
     for sentence in source_sentences:
-        translated = translation_map.get(sentence.strip(), "").strip()
+        normalized = normalize_sentence_for_cache(sentence)
+        translated = translation_map.get(normalized, "").strip()
         if not translated:
             raise ConversionError(f"找不到句子的中文字幕：{sentence}")
         subtitle_sentences.append(SubtitleSentence(english=sentence, chinese=translated))
@@ -896,6 +1115,7 @@ def run_checked(cmd: list[str], cwd: Path | None = None) -> None:
     if control is None:
         proc = subprocess.run(
             cmd,
+            stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -914,6 +1134,7 @@ def run_checked(cmd: list[str], cwd: Path | None = None) -> None:
 
     proc = subprocess.Popen(
         cmd,
+        stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
@@ -1033,7 +1254,7 @@ def validate_h264_encoder(ffmpeg_bin: Path, encoder: str) -> tuple[bool, str]:
             "-f",
             "lavfi",
             "-i",
-            "color=c=black:s=64x64:r=1",
+            f"color=c=black:s={VIDEO_WIDTH}x{VIDEO_HEIGHT}:r=1",
             "-frames:v",
             "1",
             "-c:v",
@@ -1238,30 +1459,56 @@ def locate_ffprobe_binary(ffmpeg_bin: Path) -> Path:
         raise
 
 
-def get_media_duration_seconds(ffprobe_bin: Path, media_path: Path) -> float:
-    proc = subprocess.run(
-        [
-            str(ffprobe_bin),
-            "-v",
-            "error",
-            "-show_entries",
-            "format=duration",
-            "-of",
-            "default=noprint_wrappers=1:nokey=1",
-            str(media_path),
-        ],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-    )
-    if proc.returncode != 0:
-        raise ConversionError(f"無法讀取媒體長度：{media_path.name}")
+def get_media_duration_seconds(
+    ffprobe_bin: Path,
+    media_path: Path,
+    duration_cache: dict[Path, float] | None = None,
+) -> float:
+    cache_key = media_path.resolve()
+    if duration_cache is not None:
+        cached_duration = duration_cache.get(cache_key)
+        if cached_duration is not None:
+            return cached_duration
+
     try:
-        duration = float(proc.stdout.strip())
+        proc = subprocess.run(
+            [
+                str(ffprobe_bin),
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-of",
+                "default=noprint_wrappers=1:nokey=1",
+                str(media_path),
+            ],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=FFPROBE_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise ConversionError(
+            f"ffprobe 逾時（{FFPROBE_TIMEOUT_SECONDS:.0f} 秒）：{media_path}"
+        ) from exc
+    except OSError as exc:
+        raise ConversionError(f"無法啟動 ffprobe：{ffprobe_bin}（檔案：{media_path}）") from exc
+
+    if proc.returncode != 0:
+        detail = proc.stderr.strip() or f"exit={proc.returncode}"
+        raise ConversionError(f"無法讀取媒體長度：{media_path}\nffprobe：{detail}")
+    try:
+        duration = max(0.0, float(proc.stdout.strip()))
     except ValueError as exc:
-        raise ConversionError(f"媒體長度格式異常：{media_path.name}") from exc
-    return max(0.0, duration)
+        raise ConversionError(
+            f"媒體長度格式異常：{media_path}\nffprobe 輸出：{proc.stdout.strip()!r}"
+        ) from exc
+
+    if duration_cache is not None:
+        duration_cache[cache_key] = duration
+    return duration
 
 
 def build_subtitle_cues(
@@ -1270,16 +1517,17 @@ def build_subtitle_cues(
     ffprobe_bin: Path,
     repeat_sentences: bool,
     gap_duration_seconds: float,
+    duration_cache: dict[Path, float] | None = None,
 ) -> list[SubtitleCue]:
     if len(subtitle_sentences) != len(sentence_audio_files):
         raise ConversionError("字幕句數與音訊片段數量不一致。")
-    duration_cache: dict[Path, float] = {}
+    duration_lookup = duration_cache if duration_cache is not None else {}
 
     def get_cached_duration(path: Path) -> float:
-        cached = duration_cache.get(path)
+        cached = duration_lookup.get(path.resolve())
         if cached is None:
-            cached = get_media_duration_seconds(ffprobe_bin, path)
-            duration_cache[path] = cached
+            cached = get_media_duration_seconds(ffprobe_bin, path, duration_lookup)
+            duration_lookup[path.resolve()] = cached
         return cached
 
     playback_pairs = list(zip(subtitle_sentences, sentence_audio_files))
@@ -1507,7 +1755,8 @@ async def synthesize_sentence(
 
 
 def sentence_audio_cache_key(text: str, voice: str, rate: str) -> str:
-    payload = f"{voice}\n{rate}\n{text}".encode("utf-8")
+    normalized_text = normalize_sentence_for_cache(text)
+    payload = f"{voice}\n{rate}\n{normalized_text}".encode("utf-8")
     return hashlib.sha1(payload).hexdigest()
 
 
@@ -1518,13 +1767,13 @@ class SentenceAudioCache:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self._lock = asyncio.Lock()
         self._inflight: dict[str, asyncio.Task[Path]] = {}
+        self.cache_hit_count = 0
+        self.inflight_dedup_count = 0
+        self.synthesized_count = 0
 
     @staticmethod
     def _is_ready(path: Path) -> bool:
-        try:
-            return path.exists() and path.stat().st_size > 0
-        except OSError:
-            return False
+        return is_nonempty_file(path)
 
     async def get_or_create(
         self,
@@ -1536,6 +1785,7 @@ class SentenceAudioCache:
         key = sentence_audio_cache_key(text, voice, rate)
         target = self.cache_dir / f"{key}.mp3"
         if self._is_ready(target):
+            self.cache_hit_count += 1
             return target
 
         async with self._lock:
@@ -1545,6 +1795,8 @@ class SentenceAudioCache:
                     self._create_cached_file(target, text, voice, rate, retries=retries)
                 )
                 self._inflight[key] = task
+            else:
+                self.inflight_dedup_count += 1
 
         try:
             return await task
@@ -1570,13 +1822,14 @@ class SentenceAudioCache:
 
         try:
             await synthesize_sentence(
-                text=text,
+                text=normalize_sentence_for_cache(text),
                 voice=voice,
                 rate=rate,
                 out_path=temp_target,
                 retries=retries,
             )
             temp_target.replace(target)
+            self.synthesized_count += 1
             return target
         except Exception:
             if temp_target.exists():
@@ -1596,18 +1849,25 @@ async def synthesize_sentence_audio_files(
     assert_not_cancelled()
     total_sentences = len(source_sentences)
     sentence_audio_files: list[Path] = []
+    local_audio_cache: dict[str, Path] = {}
     for idx, sentence in enumerate(source_sentences, start=1):
         assert_not_cancelled()
         segment = part_dir / f"{idx:04d}.mp3"
         try:
             if audio_cache is None:
-                await synthesize_sentence(
-                    text=sentence,
-                    voice=voice,
-                    rate=rate,
-                    out_path=segment,
-                    retries=1,
-                )
+                local_key = sentence_audio_cache_key(sentence, voice, rate)
+                local_cached_segment = local_audio_cache.get(local_key)
+                if local_cached_segment is not None and is_nonempty_file(local_cached_segment):
+                    shutil.copy2(local_cached_segment, segment)
+                else:
+                    await synthesize_sentence(
+                        text=sentence,
+                        voice=voice,
+                        rate=rate,
+                        out_path=segment,
+                        retries=1,
+                    )
+                    local_audio_cache[local_key] = segment
                 sentence_audio_files.append(segment)
             else:
                 cached_segment = await audio_cache.get_or_create(
@@ -1664,6 +1924,7 @@ async def convert_markdown_file(
     translation_map: dict[str, str] | None = None,
     audio_cache: SentenceAudioCache | None = None,
     video_encode_semaphore: asyncio.Semaphore | None = None,
+    duration_cache: dict[Path, float] | None = None,
 ) -> tuple[RenderedMarkdownOutput | None, list[str]]:
     assert_not_cancelled()
     warnings: list[str] = []
@@ -1708,6 +1969,7 @@ async def convert_markdown_file(
         aac_encoder=aac_encoder,
         drawtext_font=drawtext_font,
         video_encode_semaphore=video_encode_semaphore,
+        duration_cache=duration_cache,
     )
     progress(f"done {rendered_output.video_file.name}")
     return rendered_output, warnings
@@ -1729,6 +1991,7 @@ async def build_markdown_outputs_from_segments(
     aac_encoder: str,
     drawtext_font: Path | None,
     video_encode_semaphore: asyncio.Semaphore | None = None,
+    duration_cache: dict[Path, float] | None = None,
 ) -> RenderedMarkdownOutput:
     if repeat_sentences:
         playback_files = [segment for segment in sentence_audio_files for _ in range(2)]
@@ -1757,6 +2020,7 @@ async def build_markdown_outputs_from_segments(
         ffprobe_bin=ffprobe_bin,
         repeat_sentences=repeat_sentences,
         gap_duration_seconds=gap_duration_seconds,
+        duration_cache=duration_cache,
     )
     subtitle_file = part_dir / f"{output_stem}.ffmpeg-filter"
     write_drawtext_filter_script(subtitle_file, subtitle_cues, drawtext_font)
@@ -1770,7 +2034,12 @@ async def build_markdown_outputs_from_segments(
         drawtext_font,
         video_encode_semaphore=video_encode_semaphore,
     )
-    audio_duration_seconds = await asyncio.to_thread(get_media_duration_seconds, ffprobe_bin, audio_file)
+    audio_duration_seconds = await asyncio.to_thread(
+        get_media_duration_seconds,
+        ffprobe_bin,
+        audio_file,
+        duration_cache,
+    )
     return RenderedMarkdownOutput(
         video_file=output_file,
         audio_file=audio_file,
@@ -1859,10 +2128,10 @@ async def convert_workspace(
         suffix = "_一次" if mode_name == "一次" else "_兩次"
         for md_path in markdown_files:
             out_path = mode_dir / f"{md_path.stem}{suffix}.mp4"
-            if not out_path.exists():
+            if not is_nonempty_file(out_path):
                 return False
         merged_name = build_range_mp4_name(markdown_files, suffix)
-        return (mode_dir / merged_name).exists()
+        return is_nonempty_file(mode_dir / merged_name)
 
     can_skip = previous_signature == current_signature
     if can_skip and set(previous_manifest_files.keys()) != current_file_names:
@@ -1926,6 +2195,7 @@ async def convert_workspace(
         root_output_dir / "_tts_sentence_cache",
         workspace_root / "del",
     )
+    media_duration_cache: dict[Path, float] = {}
     assert_not_cancelled()
     video_encode_limit = (
         MAX_GPU_VIDEO_ENCODE_CONCURRENCY if options.use_gpu else MAX_CPU_VIDEO_ENCODE_CONCURRENCY
@@ -1969,9 +2239,11 @@ async def convert_workspace(
             drawtext_font=drawtext_font,
             progress=progress,
             sentence_cache=effective_sentence_cache,
+            markdown_metadata=markdown_metadata,
             translation_map=translation_map,
             audio_cache=sentence_audio_cache,
             video_encode_semaphore=video_encode_semaphore,
+            duration_cache=media_duration_cache,
         )
         results["once"] = once_results
         results["twice"] = twice_results
@@ -1994,9 +2266,11 @@ async def convert_workspace(
             progress,
             repeat_sentences=False,
             sentence_cache=effective_sentence_cache,
+            markdown_metadata=markdown_metadata,
             translation_map=translation_map,
             audio_cache=sentence_audio_cache,
             video_encode_semaphore=video_encode_semaphore,
+            duration_cache=media_duration_cache,
         )
         results["once"] = once_results
         warnings.extend(once_results[2])
@@ -2018,12 +2292,26 @@ async def convert_workspace(
             progress,
             repeat_sentences=True,
             sentence_cache=effective_sentence_cache,
+            markdown_metadata=markdown_metadata,
             translation_map=translation_map,
             audio_cache=sentence_audio_cache,
             video_encode_semaphore=video_encode_semaphore,
+            duration_cache=media_duration_cache,
         )
         results["twice"] = twice_results
         warnings.extend(twice_results[2])
+
+    if (
+        sentence_audio_cache.cache_hit_count > 0
+        or sentence_audio_cache.inflight_dedup_count > 0
+        or sentence_audio_cache.synthesized_count > 0
+    ):
+        progress(
+            "TTS 句子快取："
+            f"命中 {sentence_audio_cache.cache_hit_count} 句；"
+            f"同批去重 {sentence_audio_cache.inflight_dedup_count} 句；"
+            f"新增合成 {sentence_audio_cache.synthesized_count} 句。"
+        )
 
     manifest_files: dict[str, dict] = {}
     for md_path in markdown_files:
@@ -2054,9 +2342,11 @@ async def _convert_both_modes_shared_tts(
     drawtext_font: Path | None,
     progress: Callable[[str], None],
     sentence_cache: dict[Path, list[str]] | None = None,
+    markdown_metadata: dict[Path, dict[str, int | str]] | None = None,
     translation_map: dict[str, str] | None = None,
     audio_cache: SentenceAudioCache | None = None,
     video_encode_semaphore: asyncio.Semaphore | None = None,
+    duration_cache: dict[Path, float] | None = None,
 ) -> tuple[tuple[list[Path], Path, list[str]], tuple[list[Path], Path, list[str]]]:
     assert_not_cancelled()
     once_output_dir = root_output_dir / "一次"
@@ -2080,7 +2370,12 @@ async def _convert_both_modes_shared_tts(
             await asyncio.to_thread(
                 create_silence_mp3, ffmpeg_bin, mp3_encoder, options.gap_seconds, gap_file
             )
-            gap_duration_seconds = await asyncio.to_thread(get_media_duration_seconds, ffprobe_bin, gap_file)
+            gap_duration_seconds = await asyncio.to_thread(
+                get_media_duration_seconds,
+                ffprobe_bin,
+                gap_file,
+                duration_cache,
+            )
 
         rate = multiplier_to_edge_rate(options.rate_multiplier)
         semaphore = asyncio.Semaphore(max(1, min(len(markdown_files), MAX_FILE_CONCURRENCY)))
@@ -2100,7 +2395,59 @@ async def _convert_both_modes_shared_tts(
                     warning = f"{md_path.name} 沒有 tts 句子，已略過。"
                     local_warnings.append(warning)
                     progress(f"警告：{warning}")
-                    return None, None, None, None, local_warnings
+                    return None, None, local_warnings
+
+                md_meta = (markdown_metadata or {}).get(md_path, {})
+                input_hash = str(md_meta.get("hash", ""))
+                once_cache_signature = build_file_render_cache_signature(
+                    options=options,
+                    mode_name="一次",
+                    mp3_encoder=mp3_encoder,
+                    h264_encoder=h264_encoder,
+                    aac_encoder=aac_encoder,
+                    source_sentences=source_sentences,
+                    translation_map=translation_map,
+                )
+                twice_cache_signature = build_file_render_cache_signature(
+                    options=options,
+                    mode_name="兩次",
+                    mp3_encoder=mp3_encoder,
+                    h264_encoder=h264_encoder,
+                    aac_encoder=aac_encoder,
+                    source_sentences=source_sentences,
+                    translation_map=translation_map,
+                )
+                once_rendered = (
+                    load_rendered_output_cache(
+                        root_output_dir,
+                        "一次",
+                        md_path,
+                        input_hash,
+                        once_cache_signature,
+                    )
+                    if input_hash
+                    else None
+                )
+                twice_rendered = (
+                    load_rendered_output_cache(
+                        root_output_dir,
+                        "兩次",
+                        md_path,
+                        input_hash,
+                        twice_cache_signature,
+                    )
+                    if input_hash
+                    else None
+                )
+                cached_modes = [
+                    mode_name
+                    for mode_name, rendered in (("一次", once_rendered), ("兩次", twice_rendered))
+                    if rendered is not None
+                ]
+                if cached_modes:
+                    progress(f"快取命中 {md_path.name}：{'、'.join(cached_modes)}，略過 TTS 與影片編碼")
+                if once_rendered is not None and twice_rendered is not None:
+                    return once_rendered, twice_rendered, local_warnings
 
                 total_sentences = len(source_sentences)
                 progress(f"處理 {md_path.name}（{total_sentences} 句，重複：both-共用）")
@@ -2120,43 +2467,63 @@ async def _convert_both_modes_shared_tts(
                     raise ConversionError("缺少翻譯快取，無法產生雙語字幕。")
                 subtitle_sentences = build_subtitle_sentences(source_sentences, translation_map)
 
-                once_rendered = await build_markdown_outputs_from_segments(
-                    md_path=md_path,
-                    part_dir=part_dir,
-                    output_dir=once_output_dir,
-                    sentence_audio_files=sentence_audio_files,
-                    subtitle_sentences=subtitle_sentences,
-                    repeat_sentences=False,
-                    gap_file=gap_file,
-                    gap_duration_seconds=gap_duration_seconds,
-                    ffmpeg_bin=ffmpeg_bin,
-                    ffprobe_bin=ffprobe_bin,
-                    mp3_encoder=mp3_encoder,
-                    h264_encoder=h264_encoder,
-                    aac_encoder=aac_encoder,
-                    drawtext_font=drawtext_font,
-                    video_encode_semaphore=video_encode_semaphore,
-                )
-                progress(f"完成 一次/{once_rendered.video_file.name}")
+                if once_rendered is None:
+                    once_rendered = await build_markdown_outputs_from_segments(
+                        md_path=md_path,
+                        part_dir=part_dir,
+                        output_dir=once_output_dir,
+                        sentence_audio_files=sentence_audio_files,
+                        subtitle_sentences=subtitle_sentences,
+                        repeat_sentences=False,
+                        gap_file=gap_file,
+                        gap_duration_seconds=gap_duration_seconds,
+                        ffmpeg_bin=ffmpeg_bin,
+                        ffprobe_bin=ffprobe_bin,
+                        mp3_encoder=mp3_encoder,
+                        h264_encoder=h264_encoder,
+                        aac_encoder=aac_encoder,
+                        drawtext_font=drawtext_font,
+                        video_encode_semaphore=video_encode_semaphore,
+                        duration_cache=duration_cache,
+                    )
+                    save_rendered_output_cache(
+                        root_output_dir,
+                        "一次",
+                        md_path,
+                        input_hash,
+                        once_cache_signature,
+                        once_rendered,
+                    )
+                    progress(f"完成 一次/{once_rendered.video_file.name}")
 
-                twice_rendered = await build_markdown_outputs_from_segments(
-                    md_path=md_path,
-                    part_dir=part_dir,
-                    output_dir=twice_output_dir,
-                    sentence_audio_files=sentence_audio_files,
-                    subtitle_sentences=subtitle_sentences,
-                    repeat_sentences=True,
-                    gap_file=gap_file,
-                    gap_duration_seconds=gap_duration_seconds,
-                    ffmpeg_bin=ffmpeg_bin,
-                    ffprobe_bin=ffprobe_bin,
-                    mp3_encoder=mp3_encoder,
-                    h264_encoder=h264_encoder,
-                    aac_encoder=aac_encoder,
-                    drawtext_font=drawtext_font,
-                    video_encode_semaphore=video_encode_semaphore,
-                )
-                progress(f"完成 兩次/{twice_rendered.video_file.name}")
+                if twice_rendered is None:
+                    twice_rendered = await build_markdown_outputs_from_segments(
+                        md_path=md_path,
+                        part_dir=part_dir,
+                        output_dir=twice_output_dir,
+                        sentence_audio_files=sentence_audio_files,
+                        subtitle_sentences=subtitle_sentences,
+                        repeat_sentences=True,
+                        gap_file=gap_file,
+                        gap_duration_seconds=gap_duration_seconds,
+                        ffmpeg_bin=ffmpeg_bin,
+                        ffprobe_bin=ffprobe_bin,
+                        mp3_encoder=mp3_encoder,
+                        h264_encoder=h264_encoder,
+                        aac_encoder=aac_encoder,
+                        drawtext_font=drawtext_font,
+                        video_encode_semaphore=video_encode_semaphore,
+                        duration_cache=duration_cache,
+                    )
+                    save_rendered_output_cache(
+                        root_output_dir,
+                        "兩次",
+                        md_path,
+                        input_hash,
+                        twice_cache_signature,
+                        twice_rendered,
+                    )
+                    progress(f"完成 兩次/{twice_rendered.video_file.name}")
 
                 return once_rendered, twice_rendered, local_warnings
 
@@ -2242,9 +2609,11 @@ async def _convert_with_mode(
     progress: Callable[[str], None],
     repeat_sentences: bool = False,
     sentence_cache: dict[Path, list[str]] | None = None,
+    markdown_metadata: dict[Path, dict[str, int | str]] | None = None,
     translation_map: dict[str, str] | None = None,
     audio_cache: SentenceAudioCache | None = None,
     video_encode_semaphore: asyncio.Semaphore | None = None,
+    duration_cache: dict[Path, float] | None = None,
 ) -> tuple[list[Path], Path, list[str]]:
     assert_not_cancelled()
     """轉換一種模式（一次或兩次）"""
@@ -2265,7 +2634,12 @@ async def _convert_with_mode(
             await asyncio.to_thread(
                 create_silence_mp3, ffmpeg_bin, mp3_encoder, options.gap_seconds, gap_file
             )
-            gap_duration_seconds = await asyncio.to_thread(get_media_duration_seconds, ffprobe_bin, gap_file)
+            gap_duration_seconds = await asyncio.to_thread(
+                get_media_duration_seconds,
+                ffprobe_bin,
+                gap_file,
+                duration_cache,
+            )
 
         rate = multiplier_to_edge_rate(options.rate_multiplier)
         semaphore = asyncio.Semaphore(max(1, min(len(markdown_files), MAX_FILE_CONCURRENCY)))
@@ -2273,6 +2647,35 @@ async def _convert_with_mode(
         async def run_one(md_path: Path) -> tuple[RenderedMarkdownOutput | None, list[str]]:
             async with semaphore:
                 assert_not_cancelled()
+                source_sentences = (
+                    list(sentence_cache.get(md_path, []))
+                    if sentence_cache is not None
+                    else extract_tts_sentences(md_path)
+                )
+                md_meta = (markdown_metadata or {}).get(md_path, {})
+                input_hash = str(md_meta.get("hash", ""))
+                if source_sentences and input_hash:
+                    cache_signature = build_file_render_cache_signature(
+                        options=options,
+                        mode_name=mode_name,
+                        mp3_encoder=mp3_encoder,
+                        h264_encoder=h264_encoder,
+                        aac_encoder=aac_encoder,
+                        source_sentences=source_sentences,
+                        translation_map=translation_map,
+                    )
+                    cached_output = load_rendered_output_cache(
+                        root_output_dir,
+                        mode_name,
+                        md_path,
+                        input_hash,
+                        cache_signature,
+                    )
+                    if cached_output is not None:
+                        progress(f"快取命中 {mode_name}/{md_path.name}，略過 TTS 與影片編碼")
+                        return cached_output, []
+                else:
+                    cache_signature = ""
                 rendered_output, local_warnings = await convert_markdown_file(
                     md_path=md_path,
                     tmp_root=tmp_root,
@@ -2293,7 +2696,17 @@ async def _convert_with_mode(
                     translation_map=translation_map,
                     audio_cache=audio_cache,
                     video_encode_semaphore=video_encode_semaphore,
+                    duration_cache=duration_cache,
                 )
+                if rendered_output is not None and input_hash and cache_signature:
+                    save_rendered_output_cache(
+                        root_output_dir,
+                        mode_name,
+                        md_path,
+                        input_hash,
+                        cache_signature,
+                        rendered_output,
+                    )
                 return rendered_output, local_warnings
 
         tasks = [run_one(md_path) for md_path in markdown_files]

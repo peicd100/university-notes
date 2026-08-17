@@ -97,6 +97,8 @@ nav:
         - 'md\Verilog\1000Hz to 1Hz counter.md'
         - 'md\Verilog\按鈕去彈跳.md'
         - 'md\Verilog\Finite State Machine(有限狀態機).md'
+      - 'HDLBits':
+        - 'Conway`s Game of Life': 'md\Verilog\Conway`s Game of Life 16_16.html'
       
       
       
