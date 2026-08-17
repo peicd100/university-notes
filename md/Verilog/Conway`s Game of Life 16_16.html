@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conwaylife｜HDLBits 階梯式 Verilog Online Judge</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/hint/show-hint.min.css">
+<style>
+:root{
+  --bg:#f3f5f7;--paper:#fff;--ink:#17202c;--muted:#697386;--line:#dce2e8;--line2:#c9d2dc;
+  --soft:#f7f9fb;--accent:#315b7d;--accent2:#244762;--accentSoft:#edf3f8;
+  --ok:#18794e;--okSoft:#edf8f2;--bad:#b42318;--badSoft:#fff2f0;--warn:#9a5b13;--warnSoft:#fff8e8;
+  --terminal:#111827;--terminal2:#182235;--shadow:0 1px 2px rgba(15,23,42,.04),0 10px 28px rgba(15,23,42,.045);
+}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.68}
+button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid rgba(49,91,125,.18);outline-offset:2px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar{max-width:1580px;min-height:60px;margin:auto;padding:9px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{margin-right:auto;display:flex;align-items:baseline;gap:9px;white-space:nowrap}.brand-code{font-family:"Cascadia Mono",Consolas,monospace;color:var(--accent);font-size:.8rem;font-weight:850}.brand-title{font-weight:850}.brand-sub{font-size:.78rem;color:#7a8494;font-weight:650}
+.progress-wrap{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.79rem;font-weight:750}.progress{width:116px;height:6px;border-radius:999px;background:#e7ebef;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .2s ease}
+.runtime{display:inline-flex;align-items:center;gap:7px;min-height:32px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#647083;font-size:.78rem}.dot{width:7px;height:7px;border-radius:999px;background:#aaa}.dot.ready{background:var(--ok)}.dot.busy{background:var(--warn)}.dot.error{background:var(--bad)}
+.btn{min-height:34px;padding:6px 11px;border:1px solid #cfd6de;border-radius:5px;background:#fff;color:#3f4b5d;font-size:.8rem;font-weight:750}.btn:hover{background:#f4f7f9;border-color:#b9c3cd}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.primary:hover{background:var(--accent2)}.btn.danger{color:#9e3a33;border-color:#e0c9c7}.btn:disabled{opacity:.5;cursor:not-allowed}
+.source-link{display:inline-flex;align-items:center;min-height:34px;padding:0 10px;border:1px solid var(--line);border-radius:6px;color:#445064;text-decoration:none;font-size:.8rem;font-weight:750}.source-link:hover{background:var(--soft);color:var(--accent2)}
+.app{max-width:1580px;margin:20px auto 54px;padding:0 20px;display:grid;grid-template-columns:minmax(480px,.95fr) minmax(590px,1.05fr);gap:20px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:9px;box-shadow:var(--shadow);overflow:hidden}.left-panel{min-height:calc(100vh - 102px)}.right-panel{position:sticky;top:78px;min-height:calc(100vh - 100px)}
+.level-strip{display:grid;grid-template-columns:repeat(7,minmax(44px,1fr));gap:6px;padding:10px 12px;background:#f8fafb;border-bottom:1px solid var(--line)}.level-btn{min-height:38px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#596579;font-size:.82rem;font-weight:800}.level-btn:hover{background:#f4f7fa;border-color:#bdc8d2}.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}.level-btn.accepted:not(.active){background:var(--okSoft);border-color:#b7dfca;color:var(--ok)}.level-btn:disabled{cursor:default;opacity:.62}
+.problem{padding:27px 30px 30px}.kicker{color:#7b8796;font-size:.76rem;font-weight:750}.problem h1{margin:2px 0 0;font-size:1.48rem;line-height:1.35}.meta{margin:7px 0 24px;color:#7a8492;font-size:.8rem}.meta span+span::before{content:"·";margin:0 8px;color:#b1b8c1}.section-title{position:relative;margin:27px 0 10px;padding:0 0 8px 13px;border-bottom:1px solid #e7ebef;color:#273345;font-size:.92rem;font-weight:850}.section-title::before{content:"";position:absolute;left:0;top:.25em;width:3px;height:1.05em;border-radius:2px;background:var(--accent)}.problem p{margin:.45rem 0;color:#374151;font-size:.95rem}.statement-body{display:grid;gap:10px;color:#374151;font-size:.95rem}.statement-body p{margin:0}.statement-body ul,.statement-body ol{margin:0;padding-left:1.5rem}.statement-body li{margin:.28rem 0}.learning-guide{display:grid;gap:10px}.learn-card{padding:11px 12px;border:1px solid #dfe5ea;border-radius:6px;background:#fff}.learn-card>strong{display:block;margin-bottom:6px;color:#334155}.learn-card p{margin:.3rem 0}.learn-card ul,.learn-card ol{margin:.2rem 0;padding-left:1.5rem}.learn-card li{margin:.28rem 0}.learn-recap{background:#fafbfc;border-left:3px solid #9ba6b4}.learn-new{background:#f5f8fc;border-left:3px solid #6f98bb}.learn-plan{background:#f7fbf8;border-left:3px solid #79ab8f}.learn-pitfall{background:#fffaf2;border-left:3px solid #d1a04e}.learn-tag{display:inline-block;margin-bottom:6px;padding:2px 7px;border-radius:999px;border:1px solid #d9e1e8;background:#f8fafb;color:#647083;font-size:.72rem;font-weight:800}.learn-equation{margin:7px 0;padding:8px 10px;border:1px solid #dfe5ea;border-radius:5px;background:#fff;font-family:"Cascadia Mono",Consolas,monospace;font-size:.8rem;white-space:pre-wrap}.rule-card{padding:10px 12px;border:1px solid #dfe5ea;border-radius:6px;background:#f8fafb}.rule-card strong{display:block;margin-bottom:5px;color:#334155}.mapping-code{margin:6px 0;padding:9px 11px;border:1px solid #dfe5ea;border-radius:6px;background:#fff;font-family:"Cascadia Mono",Consolas,monospace;font-size:.82rem;white-space:pre;overflow:auto}.submission-note{margin-top:8px;padding:8px 10px;border-left:3px solid #9ba6b4;background:#fafbfc;color:#5c6778;font-size:.83rem}.public-cases{display:grid;gap:7px}.public-case{padding:8px 10px;border:1px solid #e1e6eb;border-radius:5px;background:#fff;font-size:.82rem}.public-case strong{display:block;color:#405064;margin-bottom:2px}.public-case code{white-space:normal;overflow-wrap:anywhere}.problem code,.dialog-body code{font-family:"Cascadia Mono",Consolas,monospace;background:#f1f4f7;border:1px solid #e5e9ee;border-radius:4px;padding:.06em .28em;color:#25364a}
+pre{margin:9px 0;padding:13px 15px;background:#f8fafb;color:#273345;border:1px solid #e1e6eb;border-radius:6px;white-space:pre-wrap;word-break:break-word;font-family:"Cascadia Mono",Consolas,monospace;font-size:.87rem;line-height:1.62}.port-box{background:#f7f9fb;border:1px solid #dfe5ea;border-radius:6px;padding:11px 13px}.sample-explanation{margin-top:9px;padding:16px;border:1px solid #dfe5ea;border-radius:7px;background:#f8fafb}.demo-step{margin:10px 0;padding:14px 15px;border:1px solid #e3e8ed;border-radius:6px;background:#fff}.why{margin:10px 0 0;padding:9px 11px;border-left:3px solid #91a9bc;background:#f5f8fa;color:#4b596a;font-size:.88rem}
+.logic-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.logic-node{min-width:108px;padding:8px 10px;border:1px solid #d9e0e7;border-radius:6px;background:#fff;text-align:center}.logic-node strong{display:block;font-size:.9rem}.logic-node small{display:block;color:#6b7584;font-size:.75rem}.logic-node.good{background:var(--okSoft);border-color:#b9ddca}.logic-node.answer{background:var(--accentSoft);border-color:#c5d5e2}.arrow{color:#8591a0;font-weight:900}
+.grid-card{display:grid;gap:6px;justify-content:center;margin:12px auto}.grid-title{text-align:center;font-size:.78rem;color:#596579;font-weight:800}.cell-grid{display:grid;grid-template-columns:repeat(var(--cols),var(--cell,32px));gap:3px;justify-content:center}.cell{display:grid;place-items:center;width:var(--cell,32px);height:var(--cell,32px);border:1px solid #d9e0e6;border-radius:4px;background:#f8fafb;font-family:"Cascadia Mono",Consolas,monospace;font-size:.72rem;color:#4a5668}.cell.on{background:#263a4d;border-color:#263a4d;color:#fff}.cell.focus{box-shadow:inset 0 0 0 2px #5f8fb6;background:#edf4fa;color:#22364b}.cell.wrap{background:#fff5dc;border-color:#d9b969;color:#705014}.grid-pair{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}.coord-list{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:9px 0}.coord-list span{padding:4px 7px;border:1px solid #d9e0e6;border-radius:5px;background:#fff;font-family:"Cascadia Mono",Consolas,monospace;font-size:.72rem}
+.clockline{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}.clockstep{border:1px solid #dce2e8;border-radius:6px;background:#fff;padding:8px;text-align:center;font-size:.76rem}.clockstep.edge{background:var(--accentSoft);border-color:#b9ccdc}.clockstep strong{display:block;font-family:"Cascadia Mono",Consolas,monospace}
+.micro16{--cell:15px;gap:1px}.micro16 .cell{border-radius:2px;font-size:0}.note{margin-top:12px;padding:9px 11px;border-left:3px solid #9ba6b4;background:#fafbfc;color:#5c6778;font-size:.85rem}
+.results-wrap{padding:20px 30px 28px;border-top:1px solid var(--line)}.results-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.results-head h2{margin:0;margin-right:auto;font-size:1rem}.status-pill{min-width:74px;padding:4px 9px;border:1px solid var(--line);border-radius:5px;background:#f7f9fb;text-align:center;font-size:.76rem;font-weight:850;color:#697386}.status-pill.ok{color:var(--ok);border-color:#b5dec8;background:var(--okSoft)}.status-pill.bad{color:var(--bad);border-color:#efc0ba;background:var(--badSoft)}.status-pill.warn{color:var(--warn);border-color:#ead3a5;background:var(--warnSoft)}.result-summary{padding:11px 13px;border:1px solid #dfe5ea;border-radius:6px;background:#f8fafb;color:#5d697b;font-size:.86rem}.hidden-tests,.submission-history{margin-top:14px}.hidden-tests summary,.submission-history summary{position:relative;list-style:none;padding:10px 12px;border:1px solid #e1e6ea;border-radius:5px;background:#f9fafb;color:#485568;font-size:.84rem;font-weight:750;cursor:pointer}.hidden-tests summary::-webkit-details-marker,.submission-history summary::-webkit-details-marker{display:none}.hidden-tests summary::after,.submission-history summary::after{content:"＋";position:absolute;right:12px}.hidden-tests[open] summary::after,.submission-history[open] summary::after{content:"−"}.hidden-tests-list,.history-list{display:grid;gap:8px;margin-top:8px}.hidden-item,.history-item{padding:9px 10px;border:1px solid #e5e9ee;border-radius:5px;background:#fff;font-size:.8rem}.hidden-item pre{max-height:200px;overflow:auto}.history-item{display:flex;justify-content:space-between;color:#657184}
+.editor-head{min-height:50px;padding:8px 11px 8px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#f8fafb;border-bottom:1px solid var(--line)}.editor-head strong{margin-right:auto;font-size:.88rem}.editor-shell{height:calc(100vh - 427px);min-height:370px;background:#fbfcfd}.CodeMirror{height:100%;background:#fbfcfd;color:#263548;font-family:"Cascadia Mono",Consolas,monospace;font-size:14.2px;line-height:1.6}.CodeMirror-gutters{background:#f6f8fa;border-right:1px solid #e1e6ea}.CodeMirror-linenumber{color:#9aa4b2;padding:0 9px}.CodeMirror-cursor{border-left:2px solid #315b7d}.CodeMirror-focused{box-shadow:inset 0 0 0 1px rgba(49,91,125,.18)}.cm-s-default .cm-keyword{color:#315b7d;font-weight:700}.cm-s-default .cm-number{color:#a05a16}.cm-s-default .cm-comment{color:#8792a1;font-style:italic}.cm-s-default .cm-string{color:#28724a}.cm-s-default .cm-meta{color:#7750a0}.fallback-editor{width:100%;height:100%;resize:none;border:0;outline:0;padding:16px 18px;background:#fbfcfd;color:#263548;font-family:"Cascadia Mono",Consolas,monospace;font-size:14.2px;line-height:1.6}
+.terminal-workspace{display:grid;grid-template-columns:minmax(0,1fr) 235px;background:var(--terminal);border-top:1px solid #0b1220}.terminal-panel{min-width:0;background:var(--terminal)}.terminal-head,.tests-head{min-height:39px;padding:7px 12px;display:flex;align-items:center;gap:8px;background:var(--terminal2);border-bottom:1px solid #2b3649;color:#eef2f7;font-family:"Cascadia Mono",Consolas,monospace;font-size:.76rem}.terminal-head strong,.tests-head strong{margin-right:auto;letter-spacing:.04em}.terminal-meta{color:#9da8b8;font-size:.72rem}.terminal-test-select{max-width:180px;min-width:108px;border:1px solid #3a4659;border-radius:4px;background:#202b3d;color:#dce3ec;padding:3px 6px;font-family:"Cascadia Mono",Consolas,monospace;font-size:.70rem}.terminal-test-select:disabled{opacity:.55}.terminal-clear,.waveform-open-btn{border:1px solid #3a4659;background:#202b3d;color:#cbd3df;border-radius:4px;padding:4px 8px;font-size:.72rem}.terminal-clear:hover,.waveform-open-btn:hover:not(:disabled){background:#2a374b;color:#fff}.waveform-open-btn:disabled{opacity:.42;cursor:not-allowed}.terminal-output{margin:0;border:0;border-radius:0;min-height:178px;max-height:246px;overflow:auto;padding:13px 15px;background:var(--terminal);color:#e7ebf0;white-space:pre-wrap;word-break:break-word;font-family:"Cascadia Mono",Consolas,monospace;font-size:.8rem;line-height:1.58}.terminal-output.error{color:#ffb8b2}.tests-panel{background:#121a29;border-left:1px solid #2b3649;color:#eee}.tests-list{min-height:178px;max-height:246px;overflow:auto;padding:8px;display:grid;align-content:start;gap:5px}.test-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;min-height:32px;padding:5px 7px;border:1px solid #303b4e;border-radius:4px;background:#182235;font-family:"Cascadia Mono",Consolas,monospace;font-size:.69rem}.test-row .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#c8d0db}.test-row .verdict{font-weight:900;color:#999}.test-row.pass{border-color:#2f6d50;background:#162a22}.test-row.pass .verdict{color:#72d7a5}.test-row.fail{border-color:#713936;background:#2c1d20}.test-row.fail .verdict{color:#ff9992}.editor-foot{padding:8px 12px;background:#f8fafb;border-top:1px solid var(--line);color:#7b8695;font-size:.73rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.waveform-dock[hidden],.waveform-empty[hidden]{display:none!important}.waveform-dock{position:relative;scroll-margin-top:84px;width:100%;height:min(44vh,500px);display:grid;grid-template-rows:auto minmax(0,1fr);background:#fff;border-top:1px solid var(--line);overflow:hidden}.waveform-dock.expanded{height:min(68vh,760px)}.waveform-dock-head{min-height:44px;padding:8px 12px;display:flex;align-items:center;gap:12px;background:#f8fafb;border-bottom:1px solid var(--line)}.waveform-dock-title{min-width:0;margin-right:auto;display:flex;align-items:baseline;gap:10px}.waveform-dock-title strong{font-family:"Cascadia Mono",Consolas,monospace;font-size:.8rem;letter-spacing:.045em;color:#273345}.waveform-dock-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#7a8492;font-size:.74rem}.waveform-dock-actions{display:flex;gap:6px}.waveform-dock-btn{min-height:30px;padding:4px 9px;border:1px solid #cfd6de;border-radius:5px;background:#fff;color:#4c586a;font-size:.75rem;font-weight:750}.waveform-dock-btn:hover{background:#eef3f7;border-color:#b9c3cd}.waveform-view{min-height:0;overflow:auto;background:#fff;color:#263548}.waveform-empty{min-height:220px;display:grid;place-items:center;padding:22px;color:#7a8492;font-size:.84rem;text-align:center;background:#f8fafb}.waveform-svg{display:block;min-width:100%;height:auto;background:#fff}.waveform-svg text{font-family:"Cascadia Mono",Consolas,monospace}.waveform-svg .grid-line{stroke:#dce2e8;stroke-width:1;stroke-dasharray:2 3}.waveform-svg .row-line{stroke:#eef1f4;stroke-width:1}.waveform-svg .sig-line{fill:none;stroke:#27384a;stroke-width:1.5;stroke-linejoin:miter}.waveform-svg .sig-bus{fill:#f8fafb;stroke:#68778a;stroke-width:1.2}.waveform-svg .sig-input{stroke:#315b7d}.waveform-svg .sig-yours{stroke:#27384a}.waveform-svg .sig-ref{stroke:#18794e}.waveform-svg .sig-mismatch{stroke:#b42318}.waveform-svg .mismatch-fill{fill:#fff0ef;stroke:#d5675e}.waveform-svg .group-label{font-weight:900;font-size:11px}.waveform-svg .signal-name{font-weight:800;font-size:11px;fill:#405064}.waveform-svg .tick-label{font-size:9px;fill:#8a94a3}.waveform-svg .bus-value{font-size:9px;fill:#344154}.waveform-svg .wave-title{font-size:11px;font-weight:850;fill:#273345}.waveform-svg .wave-subtitle{font-size:9px;fill:#7a8492}
+dialog{padding:0;width:min(860px,92vw);border:1px solid #d7dee5;border-radius:8px;box-shadow:0 24px 70px rgba(15,23,42,.22)}dialog::backdrop{background:rgba(15,23,42,.4)}.dialog-head{padding:12px 15px;display:flex;align-items:center;gap:12px;background:#f8fafb;border-bottom:1px solid var(--line)}.dialog-head strong{margin-right:auto}.dialog-body{padding:17px;max-height:72vh;overflow:auto}.close-btn{min-height:32px;border:1px solid #cfd6de;border-radius:5px;background:#fff;color:#4b586a}
+@media(max-width:1120px){.app{grid-template-columns:1fr;max-width:980px}.right-panel{position:relative;top:0}.editor-shell{height:560px;min-height:430px}.brand-sub{display:none}}
+@media(max-width:720px){.topbar{padding:8px 12px}.app{padding:0 10px;margin-top:10px}.problem,.results-wrap{padding:20px}.terminal-workspace{grid-template-columns:1fr}.tests-panel{border-left:0;border-top:1px solid #2b3649}.tests-list{grid-template-columns:repeat(2,minmax(0,1fr));min-height:0}.grid-pair{gap:8px}.waveform-dock{height:min(52vh,520px)}.waveform-dock.expanded{height:70vh}.waveform-dock-head{padding:7px 8px}.waveform-dock-meta{display:none}}
+@media(max-width:520px){.level-strip{grid-template-columns:repeat(4,1fr)}.problem,.results-wrap{padding:17px 15px}.problem h1{font-size:1.32rem}.editor-head strong{width:100%}.btn{flex:1}.editor-shell{height:500px;min-height:380px}.micro16{--cell:12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="topbar">
+  <div class="brand"><span class="brand-code">HDLBits</span><span class="brand-title">Conwaylife</span><span class="brand-sub">階梯式 Verilog Online Judge · v0.0.11</span></div>
+  <div class="progress-wrap"><span id="progressText">0 / 7 AC</span><div class="progress"><span id="progressBar"></span></div></div>
+  <div class="runtime"><span id="runtimeDot" class="dot"></span><span id="runtimeText">Icarus WASM 尚未載入</span></div>
+  <button class="btn danger" id="clearAllBtn" type="button">清除所有紀錄</button>
+  <a class="source-link" href="https://hdlbits.01xz.net/wiki/Conwaylife" target="_blank" rel="noopener">原題</a>
+</div></header>
+<main class="app">
+<section class="panel left-panel">
+  <nav class="level-strip" id="levelStrip" aria-label="練習階段"></nav>
+  <article class="problem" id="problemPane"></article>
+  <section class="results-wrap">
+    <div class="results-head"><h2>提交結果</h2><span class="status-pill" id="overallVerdict">尚未提交</span></div>
+    <div class="result-summary" id="resultSummary">F9 會執行目前選定的公開測試，OJ 自動產生 Debug Testbench；完成後會在 TERMINAL + TEST RESULTS 正下方展開 WAVEFORM，比較 Inputs / Yours / Ref / Mismatch；TERMINAL 仍保留文字輸出與 $display。Ctrl+Enter 才提交全部公開與隱藏測試。</div>
+    <details class="hidden-tests" id="hiddenDetails"><summary id="hiddenSummary">隱藏測試（AC 後解鎖）</summary><div class="hidden-tests-list" id="hiddenList"></div></details>
+    <details class="submission-history"><summary>本機提交紀錄</summary><div class="history-list" id="historyList"></div></details>
+  </section>
+</section>
+<section class="panel right-panel">
+  <div class="editor-head"><strong>SystemVerilog / Verilog 編輯器</strong><button class="btn" id="answerBtn" type="button">參考答案（AC 後解鎖）</button><button class="btn" id="resetBtn" type="button">清空</button><button class="btn" id="runBtn" type="button" title="F9：執行公開測試並顯示波形 / 實際輸出">執行</button><button class="btn primary" id="submitBtn" type="button" title="Ctrl+Enter：提交全部測試">提交</button></div>
+  <div class="editor-shell"><textarea id="codeEditor" spellcheck="false"></textarea></div>
+  <div class="terminal-workspace">
+    <section class="terminal-panel"><div class="terminal-head"><strong>TERMINAL</strong><select class="terminal-test-select" id="publicTestSelect" aria-label="選擇公開測試"></select><span class="terminal-meta" id="terminalMeta">Icarus Verilog · -g2012</span><button class="waveform-open-btn" id="waveformOpenBtn" type="button" disabled>波形</button><button class="terminal-clear" id="clearTerminalBtn" type="button">清除</button></div><pre class="terminal-output" id="terminalOutput" aria-live="polite">Ready. Press F9 to run the selected public test; successful runs expand WAVEFORM directly below TERMINAL + TEST RESULTS. Ctrl+Enter submits all tests.</pre></section>
+    <aside class="tests-panel"><div class="tests-head"><strong>TEST RESULTS</strong><span id="testsCount">AC 0 / 0</span></div><div class="tests-list" id="testsList" aria-live="polite"></div></aside>
+  </div>
+  <section class="waveform-dock" id="waveformDock" hidden aria-label="Public Debug Waveform Workspace">
+    <div class="waveform-dock-head">
+      <div class="waveform-dock-title"><strong>WAVEFORM</strong><span class="waveform-dock-meta" id="waveformDockMeta">Selected Public Test · Inputs / Yours / Ref / Mismatch</span></div>
+      <div class="waveform-dock-actions"><button class="waveform-dock-btn" id="waveformExpandBtn" type="button">放大</button><button class="waveform-dock-btn" id="waveformCloseBtn" type="button">收合</button></div>
+    </div>
+    <div class="waveform-view" id="waveformView"><div class="waveform-empty" id="waveformEmpty">F9 執行選定的 Public Test 後，這裡會顯示 Inputs / Yours / Ref / Mismatch 波形。</div><div id="waveformCanvas"></div></div>
+  </section>
+  <div class="editor-foot"><span>Enter：繼承目前縮排；區塊／控制語法後自動 +4 spaces｜輸入 end / endcase / endmodule 等結束語法：自動退 4 spaces｜Backspace：縮排區一次退 4 spaces｜Tab / Shift+Tab：縮排／反縮排｜Ctrl+/：註解｜Ctrl+Space / Alt+/：補全｜F9：執行並在 TERMINAL / TEST RESULTS 下方展開公開測試波形 / DUT 輸出｜Ctrl+Enter：提交</span><span>F9 的 Debug Testbench 與波形 trace 由 OJ 自動產生，不需要自行撰寫 testbench｜瀏覽器端 Icarus Verilog WASM（classic Worker；固定版本 VeriSim runtime）｜針對直接開啟 HTML 設計，不需本機 server｜每次模擬上限 15 秒</span></div>
+</section>
+</main>
+<dialog id="answerDialog"><div class="dialog-head"><strong id="answerTitle">參考答案</strong><button class="close-btn" id="closeAnswer">關閉</button></div><div class="dialog-body"><pre id="answerCode"></pre></div></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/verilog/verilog.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/hint/show-hint.min.js"></script>
+<script>
+const VERISIM_COMMIT='a275a9ac28c59db1130505973644c9a3754ec1d7';
+const VERISIM_CDN=`https://cdn.jsdelivr.net/gh/senolgulgonul/verisim@${VERISIM_COMMIT}/`;
+const STORAGE_PREFIX='conwaylife_verilog_oj:v2';
+const LEGACY_STORAGE_PREFIX='conwaylife_verilog_oj:v1';
+const ACCEPTED_KEY=STORAGE_PREFIX+':accepted';
+const HISTORY_KEY=STORAGE_PREFIX+':history';
+const TIMEOUT_MS=15000;
+const RUNTIME_INIT_TIMEOUT_MS=30000;
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function bitCount(n,width){let c=0;for(let i=0;i<width;i++)c+=(n>>i)&1;return c}
+function lifeRule(alive,count){return count===3?1:(count===2?alive:0)}
+function getBitBig(v,i){return Number((v>>BigInt(i))&1n)}
+function lifeStepHex(hex,size){
+  const v=BigInt('0x'+String(hex).replace(/^0x/i,''));let out=0n;
+  for(let r=0;r<size;r++)for(let c=0;c<size;c++){
+    let count=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(dr===0&&dc===0)continue;const rr=(r+dr+size)%size,cc=(c+dc+size)%size;count+=getBitBig(v,rr*size+cc)}
+    const alive=getBitBig(v,r*size+c);if(lifeRule(alive,count))out|=1n<<BigInt(r*size+c);
+  }
+  return out.toString(16);
+}
+function neighbourCountHex(hex,size,row,col){const v=BigInt('0x'+hex);let count=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(dr===0&&dc===0)continue;const rr=(row+dr+size)%size,cc=(col+dc+size)%size;count+=getBitBig(v,rr*size+cc)}return count}
+function gridHtml(hex,size,opts={}){const v=BigInt('0x'+hex);let h=`<div class="cell-grid ${size===16?'micro16':''}" style="--cols:${size}">`;for(let r=0;r<size;r++)for(let c=0;c<size;c++){const idx=r*size+c,alive=getBitBig(v,idx);let cls='cell'+(alive?' on':'');if(opts.focus&&opts.focus[0]===r&&opts.focus[1]===c)cls+=' focus';if(opts.wrap&&opts.wrap.some(p=>p[0]===r&&p[1]===c))cls+=' wrap';h+=`<span class="${cls}" title="(${r},${c}) bit ${idx}">${size<=4?idx:''}</span>`}return h+'</div>'}
+function q16HexFromCoords(coords){let v=0n;for(const [r,c] of coords)v|=1n<<BigInt(r*16+c);return v.toString(16)}
+
+const TASKS=[
+{
+ id:1,title:'單一細胞的生死規則',difficulty:'基礎',ports:'module top_module( input alive, input [3:0] neighbours, output next );',
+ statement:`<p>本題只處理 <strong>一個細胞</strong> 的下一代狀態，不需要時鐘，也不需要處理二維座標。</p><div class="rule-card"><strong>訊號定義</strong><ul><li><code>alive</code>：目前細胞狀態，<code>1</code> 代表存活、<code>0</code> 代表死亡。</li><li><code>neighbours</code>：周圍八格中「活著的鄰居數量」，範圍是 0～8；它已經是計算好的數字，不是 8-bit 圖樣。</li><li><code>next</code>：這個細胞下一代的狀態。</li></ul></div><div class="rule-card"><strong>Conway 生死規則</strong><ul><li>0 或 1 個活鄰居：下一代為 0。</li><li>2 個活鄰居：維持目前 <code>alive</code>。</li><li>3 個活鄰居：下一代為 1。</li><li>4～8 個活鄰居：下一代為 0。</li></ul></div><p>請實作一個純組合邏輯電路，讓 <code>alive</code> 或 <code>neighbours</code> 改變時，<code>next</code> 立即反映正確結果。</p>`,
+ learning:`<div class="learn-card learn-new"><span class="learn-tag">第一次學</span><strong>把規則表翻成組合邏輯</strong><p>這一階的新能力不是二維盤面，而是把「輸入條件 → 輸出結果」寫成完整的 combinational logic。你可以先把 <code>neighbours</code> 想成已經算好的整數 0～8，再根據四種情況決定 <code>next</code>。</p><div class="learn-equation">0～1 → 0\n2   → alive\n3   → 1\n4～8 → 0</div><p>因為每一種輸入都應該立即得到輸出，所以所有可能路徑都必須讓 <code>next</code> 有值。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>先決定你要用 <code>if / else if / else</code> 或 <code>case</code> 表達四種規則。</li><li>把「2 個鄰居」保留目前 <code>alive</code>、「3 個鄰居」設成 1。</li><li>其餘數量都應該得到 0；最後檢查 0～8 是否每個值都有定義。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>只寫 <code>neighbours == 4</code>，漏掉 5～8 也應死亡。</li><li>在條件式裡把 logical OR 寫成一般英文 <code>or</code>；Verilog expression 常用 <code>||</code>。</li><li>某些 branch 沒有指定 <code>next</code>，造成非預期 latch。</li></ul></div>`,
+ visual:()=>`<div class="demo-step"><p>範例：中心細胞目前是活的，周圍只有 2 個活鄰居。</p><div class="grid-card"><div class="cell-grid" style="--cols:3"><span class="cell on"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell on focus">中心</span><span class="cell on"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div></div><div class="logic-flow"><div class="logic-node"><strong>alive = 1</strong><small>目前活著</small></div><span class="arrow">＋</span><div class="logic-node"><strong>2 個鄰居</strong><small>規則：保持</small></div><span class="arrow">→</span><div class="logic-node answer"><strong>next = 1</strong><small>下一代仍存活</small></div></div><div class="why">這一階先把「生命規則」從二維索引問題中拆開，確認你能正確處理 2 與 3 這兩個最容易寫錯的分支。</div></div>`,
+ answer:`module top_module(
+    input alive,
+    input [3:0] neighbours,
+    output reg next
+);
+    always @(*) begin
+        case (neighbours)
+            4'd2: next = alive;
+            4'd3: next = 1'b1;
+            default: next = 1'b0;
+        endcase
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"活細胞 + 2 鄰居", alive:1, n:2, expected:1},
+  {public:true, label:"死細胞 + 3 鄰居", alive:0, n:3, expected:1},
+  {public:true, label:"活細胞 + 4 鄰居", alive:1, n:4, expected:0},
+  {label:"活細胞 + 0 鄰居", alive:1, n:0, expected:0},
+  {label:"活細胞 + 1 鄰居", alive:1, n:1, expected:0},
+  {label:"死細胞 + 2 鄰居", alive:0, n:2, expected:0},
+  {label:"活細胞 + 3 鄰居", alive:1, n:3, expected:1},
+  {label:"死細胞 + 5 鄰居", alive:0, n:5, expected:0},
+  {label:"活細胞 + 8 鄰居", alive:1, n:8, expected:0}
+ ]
+},
+{
+ id:2,title:'八個鄰居的 Population Count',difficulty:'基礎+',ports:'module top_module( input [7:0] neighbours, output [3:0] count );',
+ statement:`<p>本題只做 <strong>Population Count（位元 1 計數）</strong>：計算一個 8-bit 向量裡總共有幾個 bit 是 1。這題不需要知道 Conway 生死規則，也沒有 clock。</p><div class="rule-card"><strong>訊號定義</strong><ul><li><code>neighbours[7:0]</code>：八個彼此獨立的 1-bit 狀態；每一個 bit 的 <code>1</code> 代表一個活鄰居，<code>0</code> 代表死鄰居。</li><li><code>count[3:0]</code>：八個 bit 中 1 的總數，答案範圍 0～8，因此需要 4 bits。</li></ul></div><p>例如 <code>8'b10110100</code> 有四個 1，所以 <code>count = 4</code>。請輸出「1 的個數」，不是把輸入向量當成二進位整數輸出。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">快速回顧</span><strong>你只需要記得</strong><p>一個 1-bit 訊號本身就是 0 或 1；組合邏輯每次輸入改變都要重新算出輸出。</p></div><div class="learn-card learn-new"><span class="learn-tag">本題新能力</span><strong>Population Count：把 8 個 bit 當成八個 0/1 來加</strong><p><code>neighbours[7:0]</code> 不是一個要轉成十進位的整數，而是八個獨立狀態。直接讀 <code>neighbours[i]</code> 時，得到的就是 0 或 1。</p><div class="learn-equation">8'b10110100\nbit 值：1 0 1 1 0 1 0 0\n相加： 1+0+1+1+0+1+0+0 = 4</div><p>答案可能是 0～8，所以累加器至少要能表示 8，也就是需要 4 bits。沒有寫位寬的 <code>reg c;</code> 只有 1 bit，數到 2 就會截斷。</p><p><code>&amp; (1&lt;&lt;i)</code> 會保留該 bit 的權重（1、2、4、8…），而 <code>&amp;&amp;</code> 會判斷「整個運算元是不是非 0」；兩者都不是這題真正要的逐 bit 0/1。最直接的是 bit-select：<code>neighbours[i]</code>。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>準備一個 4-bit 的計數結果，先清成 0。</li><li>用 <code>for</code> 讓 index 從 0 走到 7。</li><li>每次只把 <code>neighbours[i]</code> 加進計數結果。</li><li>確認清零只做一次，不能放在迴圈裡每次重設。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>用 1-bit accumulator，最後只剩奇偶資訊。</li><li>用 mask 後直接相加，得到的是帶權重的數值。</li><li>用 <code>&amp;&amp;</code>，其實是在問整個 vector 是否非 0。</li></ul></div>`,
+ visual:()=>`<div class="demo-step"><p><code>neighbours = 8'b10110100</code> 時，8 個位置中共有 4 個 1。</p><div class="logic-flow">${'10110100'.split('').map((b,i)=>`<div class="logic-node ${b==='1'?'good':''}"><strong>${b}</strong><small>bit ${7-i}</small></div>`).join('')}</div><div class="logic-flow"><div class="logic-node answer"><strong>count = 4</strong><small>四個活鄰居</small></div></div><div class="why">原題的每個細胞都必須先知道 8 鄰居中有幾個 1。這一階只練計數，不混入 Game of Life 的生死條件。</div></div>`,
+ answer:`module top_module(
+    input [7:0] neighbours,
+    output reg [3:0] count
+);
+    integer i;
+    always @(*) begin
+        count = 4'd0;
+        for (i = 0; i < 8; i = i + 1)
+            count = count + neighbours[i];
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"10110100（4 個 1）", v:180, expected:4},
+  {public:true, label:"全部為 0", v:0, expected:0},
+  {public:true, label:"全部為 1", v:255, expected:8},
+  {label:"只有 bit0", v:1, expected:1},
+  {label:"只有 bit7", v:128, expected:1},
+  {label:"01010101", v:85, expected:4},
+  {label:"10000001", v:129, expected:2},
+  {label:"11111110", v:254, expected:7},
+  {label:"01111111", v:127, expected:7}
+ ]
+},
+{
+ id:3,title:'3×3 中心細胞下一代',difficulty:'中階',ports:'module top_module( input [8:0] cells, output next_center );',
+ statement:`<p>本題給你一個完整的 <strong>3×3 細胞區域</strong>，每格都是 0（死亡）或 1（存活）。你只需要求「中心格」的下一代狀態；這題沒有 clock，也沒有邊界環繞。</p><div class="rule-card"><strong>3×3 與 <code>cells[8:0]</code> 的對應</strong><div class="mapping-code">row 0:  cells[0]  cells[1]  cells[2]
+row 1:  cells[3]  cells[4]  cells[5]
+row 2:  cells[6]  cells[7]  cells[8]</div><ul><li><code>cells[4]</code> 是中心格。</li><li>其餘八個 bit 都是中心格的鄰居；中心格自己不能算進鄰居數。</li><li>bit 值 <code>1</code> 表示該格存活，<code>0</code> 表示死亡。</li></ul></div><div class="rule-card"><strong>中心格的 Conway 規則</strong><ul><li>活鄰居數 0～1：<code>next_center = 0</code>。</li><li>活鄰居數 2：<code>next_center = cells[4]</code>，維持原狀。</li><li>活鄰居數 3：<code>next_center = 1</code>。</li><li>活鄰居數 4～8：<code>next_center = 0</code>。</li></ul></div><p>因此你需要先把 <code>cells[0..8]</code> 中除了 <code>cells[4]</code> 以外的八個 bit 相加，得到活鄰居數，再套用上面的四條規則。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">快速回顧</span><strong>這題會再次用到兩件事</strong><ul><li>Population count：把若干個 0/1 bit 相加。</li><li>Conway 規則：鄰居數 2 時保持、3 時存活、其他死亡。</li></ul><p>這兩項不再重新從語法開始教；忘記細節時，上面的題目敘述已重新列出完整規則。</p></div><div class="learn-card learn-new"><span class="learn-tag">本題新能力</span><strong>把二維 3×3 位置對應到一維 bit vector</strong><p>本題第一次把「格子的位置」和「vector index」放在一起。mapping 已固定：row 0 是 bit 0～2、row 1 是 bit 3～5、row 2 是 bit 6～8，所以正中央一定是 <code>cells[4]</code>。</p><div class="mapping-code">cells[0]  cells[1]  cells[2]\ncells[3]  cells[4]  cells[5]\ncells[6]  cells[7]  cells[8]</div><p>求中心格下一代時，只有另外八格是鄰居；<code>cells[4]</code> 自己不能被加進 population count。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>先建立一個鄰居計數，從 0 開始。</li><li>掃過 bit 0～8，但遇到 index 4 時跳過。</li><li>得到鄰居數後，再套 Conway 規則；鄰居數為 2 時，輸出要使用目前中心 <code>cells[4]</code>。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>把中心 bit 4 也算進鄰居數。</li><li>把 <code>cells[0]</code> 誤認為中心。</li><li>鄰居數為 2 時直接輸出 1，而不是維持中心原狀。</li></ul></div>`,
+ visual:()=>`<div class="demo-step"><p>公開範例：<code>cells = 9'b100010001</code>。bit 0、4、8 是 1，所以左上、中心、右下三格存活；中心周圍剛好有 2 個活鄰居。</p><div class="grid-card"><div class="grid-title">每格顯示 bit index；深色=活，藍框=中心</div><div class="cell-grid" style="--cols:3"><span class="cell on">[0]</span><span class="cell">[1]</span><span class="cell">[2]</span><span class="cell">[3]</span><span class="cell on focus">[4]</span><span class="cell">[5]</span><span class="cell">[6]</span><span class="cell">[7]</span><span class="cell on">[8]</span></div></div><div class="logic-flow"><div class="logic-node"><strong>中心 cells[4] = 1</strong><small>目前活著</small></div><span class="arrow">＋</span><div class="logic-node"><strong>鄰居數 = 2</strong><small>只數另外八格</small></div><span class="arrow">→</span><div class="logic-node answer"><strong>next_center = 1</strong><small>2 個鄰居：保持</small></div></div><div class="why">這題的關鍵不是記得上一題，而是看懂本題自己定義的 mapping：中心永遠是 bit 4，另外八個 bit 才是鄰居。</div></div>`,
+ answer:`module top_module(
+    input [8:0] cells,
+    output reg next_center
+);
+    integer i;
+    integer count;
+    always @(*) begin
+        count = 0;
+        for (i = 0; i < 9; i = i + 1)
+            if (i != 4)
+                count = count + cells[i];
+
+        if (count == 3)
+            next_center = 1'b1;
+        else if (count == 2)
+            next_center = cells[4];
+        else
+            next_center = 1'b0;
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"中心活、2 鄰居", v:273, expected:1},
+  {public:true, label:"中心死、3 鄰居", v:7, expected:1},
+  {public:true, label:"中心活、4 鄰居", v:31, expected:0},
+  {label:"中心死、2 鄰居", v:257, expected:0},
+  {label:"中心活、3 鄰居", v:30, expected:1},
+  {label:"中心活、0 鄰居", v:16, expected:0},
+  {label:"中心死、1 鄰居", v:128, expected:0},
+  {label:"中心活、8 鄰居", v:511, expected:0}
+ ]
+},
+{
+ id:4,title:'4×4 Torus 邊界環繞鄰居計數',difficulty:'中階+',ports:'module top_module( input [15:0] q, input [1:0] row, input [1:0] col, output [3:0] count );',
+ statement:`<p>本題是一個獨立的 <strong>4×4 Torus（環面）鄰居計數器</strong>。每格仍只有 0（死亡）與 1（存活），但四條邊彼此相接，所以邊界格也永遠有八個鄰居。</p><div class="rule-card"><strong>座標與 bit mapping</strong><ul><li><code>row</code>、<code>col</code> 都是 0～3；<code>(0,0)</code> 是左上角，row 往下增加、col 往右增加。</li><li>4×4 盤面存放在 <code>q[15:0]</code>，公式是 <code>q[row*4 + col]</code>。</li></ul><div class="mapping-code">row 0: q[0]   q[1]   q[2]   q[3]
+row 1: q[4]   q[5]   q[6]   q[7]
+row 2: q[8]   q[9]   q[10]  q[11]
+row 3: q[12]  q[13]  q[14]  q[15]</div></div><div class="rule-card"><strong>Torus wrap-around</strong><ul><li>row 從 0 再往上會回到 row 3；從 3 再往下會回到 row 0。</li><li>col 從 0 再往左會回到 col 3；從 3 再往右會回到 col 0。</li><li>例如 <code>(0,0)</code> 的左上鄰居是 <code>(3,3)</code>。</li></ul></div><p>輸出 <code>count</code> 是指定 <code>(row,col)</code> 周圍八格中值為 1 的數量。不要把指定格自己算進去；本題也還不需要計算下一代。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">快速回顧</span><strong>這題已假設你會的部分</strong><ul><li>用 <code>q[index]</code> 取得單一 bit。</li><li>把八個 0/1 累加成鄰居數。</li><li>用 <code>index = row*4 + col</code> 把 4×4 座標換成 bit index。</li></ul></div><div class="learn-card learn-new"><span class="learn-tag">本題新能力</span><strong>Torus：越過邊界不是消失，而是從另一側回來</strong><p>普通矩陣的左上角 <code>(0,0)</code> 上面與左邊沒有格子；Torus 則把上下、左右兩側接起來。因此它的八個鄰居是：</p><div class="mapping-code">(3,3)  (3,0)  (3,1)\n(0,3)  [0,0]  (0,1)\n(1,3)  (1,0)  (1,1)</div><p>最實用的做法不是為四個角、四條邊各寫特例，而是把鄰居位置表示成相對位移 <code>dr</code>、<code>dc</code>，兩者都走 -1、0、1，只有 <code>(0,0)</code> 這組位移要跳過。</p><div class="learn-equation">rr = (row + dr + 4) % 4\ncc = (col + dc + 4) % 4</div><p>加上 4 是為了讓往上／往左時仍先保持非負，再做 modulo。算出 <code>rr</code>、<code>cc</code> 後，真正要讀的 bit 就是 <code>q[rr*4 + cc]</code>。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>準備 <code>dr</code>、<code>dc</code> 兩個迴圈，分別跑 -1～1。</li><li>遇到 <code>dr=0</code> 且 <code>dc=0</code> 時跳過，因為那是指定格自己。</li><li>用 wrap 公式算出合法的 <code>rr</code>、<code>cc</code>。</li><li>把座標轉成 <code>rr*4+cc</code>，讀出該 bit 並累加。</li><li>先拿公開測試的 <code>(0,0)</code> 手算八個座標，確認你的 wrap 方向正確，再跑 Judge。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>只處理上、下、左、右，忘了四個對角也會跨邊界。</li><li>把 <code>row*4+col</code> 寫成 <code>col*4+row</code>。</li><li>沒有跳過 <code>dr=0, dc=0</code>，把自己算成鄰居。</li><li>直接做負數 modulo，造成不同模擬器／語言語意上的困擾；這題先加 4 再做 <code>% 4</code>。</li></ul></div>`,
+ visual:()=>{const wrap=[[3,3],[3,0],[3,1],[0,3],[0,1],[1,3],[1,0],[1,1]];return `<div class="demo-step"><p>公開範例：<code>q = 16'h8002</code>、焦點 <code>(row,col)=(0,0)</code>。存活的是 bit 1 = (0,1) 與 bit 15 = (3,3)，兩者都是 (0,0) 的 torus 鄰居，所以答案是 2。</p><div class="grid-card"><div class="grid-title">4×4 torus；格內數字是 bit index，藍框是焦點</div>${gridHtml('8002',4,{focus:[0,0],wrap})}</div><div class="coord-list">${wrap.map(([r,c])=>`<span>(${r},${c})</span>`).join('')}</div><div class="logic-flow"><div class="logic-node"><strong>q[1] = 1</strong><small>(0,1)</small></div><div class="logic-node"><strong>q[15] = 1</strong><small>(3,3)，跨邊界</small></div><span class="arrow">→</span><div class="logic-node answer"><strong>count = 2</strong><small>八鄰居中兩格存活</small></div></div></div>`},
+ answer:`module top_module(
+    input [15:0] q,
+    input [1:0] row,
+    input [1:0] col,
+    output reg [3:0] count
+);
+    integer dr, dc;
+    integer rr, cc;
+    always @(*) begin
+        count = 0;
+        for (dr = -1; dr <= 1; dr = dr + 1) begin
+            for (dc = -1; dc <= 1; dc = dc + 1) begin
+                if (!(dr == 0 && dc == 0)) begin
+                    rr = (row + dr + 4) % 4;
+                    cc = (col + dc + 4) % 4;
+                    count = count + q[rr*4 + cc];
+                end
+            end
+        end
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"左上角：跨上/左邊界", hex:"8002", r:0, c:0, expected:2},
+  {public:true, label:"中間格：一般鄰居", hex:"0770", r:1, c:1, expected:5},
+  {public:true, label:"右下角：跨下/右邊界", hex:"1009", r:3, c:3, expected:3},
+  {label:"上邊中間", hex:"a55a", r:0, c:2, expected:5},
+  {label:"左邊中間", hex:"0f0f", r:2, c:0, expected:2},
+  {label:"右邊中間", hex:"33cc", r:1, c:3, expected:4},
+  {label:"下邊中間", hex:"c3a5", r:3, c:1, expected:5},
+  {label:"全部為 1", hex:"ffff", r:1, c:2, expected:8},
+  {label:"全部為 0", hex:"0000", r:3, c:1, expected:0},
+  {label:"單一對角 wrap 鄰居", hex:"8000", r:0, c:0, expected:1}
+ ]
+},
+{
+ id:5,title:'4×4 Torus 同步更新一整代',difficulty:'進階',ports:'module top_module( input [15:0] q, output [15:0] next_q );',
+ statement:`<p>本題要用純組合邏輯，把一個 <strong>4×4 Torus</strong> 的目前狀態 <code>q</code> 一次轉成完整下一代 <code>next_q</code>。沒有 clock；<code>next_q</code> 必須完全由目前的 <code>q</code> 決定。</p><div class="rule-card"><strong>盤面表示與環繞</strong><ul><li>每格 1 代表存活、0 代表死亡。</li><li><code>q[row*4+col]</code> 對應座標 <code>(row,col)</code>，row/col 皆為 0～3，<code>(0,0)</code> 在左上。</li><li>上下、左右都 wrap-around：例如 <code>(0,0)</code> 的上方在 row 3，左方在 col 3。</li></ul></div><div class="rule-card"><strong>每一格都獨立套用 Conway 規則</strong><ul><li>0～1 個活鄰居 → 0。</li><li>2 個活鄰居 → 維持該格目前狀態。</li><li>3 個活鄰居 → 1。</li><li>4～8 個活鄰居 → 0。</li></ul></div><div class="rule-card"><strong>同步更新的意思</strong><p>計算 16 個 <code>next_q</code> bit 時，所有鄰居都必須讀同一份「舊 <code>q</code>」。不能先改 <code>q[0]</code>，再拿已更新的值去算 <code>q[1]</code>。</p></div><p>輸出 bit mapping 與輸入相同：<code>next_q[row*4+col]</code> 就是該座標的下一代。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">快速回顧</span><strong>你已經有兩個積木</strong><ul><li>對任意 <code>(row,col)</code> 算 Torus 八鄰居數。</li><li>用 Conway 規則從「目前狀態 + 鄰居數」得到下一代單一 bit。</li></ul></div><div class="learn-card learn-new"><span class="learn-tag">本題新能力</span><strong>把「算一格」擴展成「同一時間算完整 4×4 下一代」</strong><p>本題最重要的不變量是：16 個新格子都只能讀同一份舊 <code>q</code>。因此不要一邊算、一邊修改目前狀態；應該把結果寫到另一個 <code>next_q</code>。</p><div class="learn-equation">舊 q ──讀取──► 每格鄰居計數 + Conway 規則 ──寫入──► next_q\n                 16 格全部完成後，next_q 才代表完整下一代</div><p>這會自然形成兩層外迴圈：一層走 row、一層走 col；每個格子裡再使用你已經學過的鄰居計數。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>準備 <code>next_q</code>，在組合邏輯開始時給它完整預設值。</li><li>用 row/col 走遍 16 個座標。</li><li>每換到一個新格子，就把該格的鄰居 count 重新清成 0。</li><li>只從舊 <code>q</code> 計算八鄰居，最後把該格結果寫入 <code>next_q[row*4+col]</code>。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>直接改 <code>q</code>，導致後面的格子讀到「半新半舊」的一代。</li><li>忘了每格重新把 count 清 0。</li><li>只算部分格子，使 <code>next_q</code> 某些 bit 沒有組合邏輯賦值。</li></ul></div>`,
+ visual:()=>{const a='0070',b=lifeStepHex(a,4);return `<div class="demo-step"><p>下面是 4×4 中的一個三連線。所有格子都先讀同一份舊狀態，再一起得到下一代。</p><div class="grid-pair"><div class="grid-card"><div class="grid-title">目前 q</div>${gridHtml(a,4)}</div><span class="arrow">→ 一代 →</span><div class="grid-card"><div class="grid-title">next_q</div>${gridHtml(b,4)}</div></div><div class="why">硬體中通常把「next-state 組合邏輯」和「clocked state register」分開。這一階先只完成 next-state。</div></div>`},
+ answer:`module top_module(
+    input [15:0] q,
+    output reg [15:0] next_q
+);
+    integer r, c, dr, dc;
+    integer rr, cc;
+    integer count;
+    always @(*) begin
+        next_q = 16'b0;
+        for (r = 0; r < 4; r = r + 1) begin
+            for (c = 0; c < 4; c = c + 1) begin
+                count = 0;
+                for (dr = -1; dr <= 1; dr = dr + 1) begin
+                    for (dc = -1; dc <= 1; dc = dc + 1) begin
+                        if (!(dr == 0 && dc == 0)) begin
+                            rr = (r + dr + 4) % 4;
+                            cc = (c + dc + 4) % 4;
+                            count = count + q[rr*4 + cc];
+                        end
+                    end
+                end
+                if (count == 3)
+                    next_q[r*4+c] = 1'b1;
+                else if (count == 2)
+                    next_q[r*4+c] = q[r*4+c];
+                else
+                    next_q[r*4+c] = 1'b0;
+            end
+        end
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"中央水平三連線", hex:"0070", expected:"0222"},
+  {public:true, label:"單一活細胞", hex:"0001", expected:"0000"},
+  {public:true, label:"中央 2×2 block", hex:"0660", expected:"0660"},
+  {label:"全 0", hex:"0000", expected:"0000"},
+  {label:"全 1", hex:"ffff", expected:"0000"},
+  {label:"上邊水平三連線", hex:"0007", expected:"2022"},
+  {label:"左邊垂直三連線", hex:"0111", expected:"00b0"},
+  {label:"棋盤型", hex:"a5a5", expected:"0000"},
+  {label:"四角存活", hex:"9009", expected:"9009"}
+ ]
+},
+{
+ id:6,title:'加入 Clock 與同步 load',difficulty:'進階+',ports:'module top_module( input clk, input load, input [15:0] data, output [15:0] q );',
+ statement:`<p>本題是一個完整的 <strong>4×4、具 clock 的 Conway Life 狀態機</strong>。你不需要知道任何前一題內容；下面列出盤面、生命規則與 clock 行為。</p><div class="rule-card"><strong>盤面與 Conway 規則</strong><ul><li><code>q[15:0]</code> 是目前 4×4 狀態，<code>data[15:0]</code> 是要載入的新盤面；兩者都使用 <code>bit = row*4+col</code>，<code>(0,0)</code> 在左上。</li><li>盤面是 torus：上下相接、左右相接，每格永遠有八個鄰居。</li><li>0～1 個活鄰居 → 0；2 個 → 維持；3 個 → 1；4～8 個 → 0。</li><li>一代的所有格必須根據同一份舊 <code>q</code> 同步計算。</li></ul></div><div class="rule-card"><strong>Clock / load 時序</strong><ul><li><code>load</code> 是<strong>同步</strong>控制訊號，只有在 <code>posedge clk</code> 才生效。</li><li>在某個上升沿若 <code>load=1</code>：<code>q</code> 直接載入 <code>data</code>，該上升沿不做生命演化。</li><li>在某個上升沿若 <code>load=0</code>：<code>q</code> 更新成目前盤面的下一代。</li><li>題目沒有 reset；Judge 會先用 <code>load=1</code> 初始化。</li></ul></div><p>典型架構是先用組合邏輯算出 <code>next_q</code>，再在 <code>always @(posedge clk)</code> 中以 nonblocking assignment（<code>&lt;=</code>）更新 <code>q</code>。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">快速回顧</span><strong>本題會沿用</strong><p>你已經知道如何由目前 4×4 <code>q</code> 用純組合邏輯算出完整 <code>next_q</code>。這一階不再重教 Torus 與每格生死計算。</p></div><div class="learn-card learn-new"><span class="learn-tag">本題新能力</span><strong>Sequential Logic：把 next state 真正存進 register</strong><p>有 clock 之後要分清楚兩層：</p><div class="learn-equation">Combinational：q ─► next_q\nSequential：    posedge clk 時，q &lt;= data 或 next_q</div><p><code>load</code> 是 synchronous load，意思是它不是一變 1 就立刻改 q，而是等到下一個 <code>posedge clk</code> 才判斷。若該上升沿 <code>load=1</code>，載入 <code>data</code> 的優先權高於生命演化。</p><p>時序 state register 應使用 nonblocking assignment <code>&lt;=</code>，讓「這個 clock edge 前的狀態」與「edge 後的新狀態」界線清楚。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解</strong><ol><li>保留一個組合區塊：只負責從 <code>q</code> 算 <code>next_q</code>。</li><li>再建立一個 <code>always @(posedge clk)</code> 的時序區塊。</li><li>在時序區塊先判斷 <code>load</code>：1 時把 <code>data</code> 放進 q；否則把 <code>next_q</code> 放進 q。</li><li>用公開測試先驗證「只 load、不演化」，再測一個 clock 的生命演化。</li></ol></div><div class="learn-card learn-pitfall"><strong>常見錯誤</strong><ul><li>把 synchronous load 寫成 <code>posedge load</code> 的 asynchronous 控制。</li><li>load=1 的同一個 edge 又順便演化一代。</li><li>在 state register 使用 blocking <code>=</code>，讓時序語意不清楚。</li></ul></div>`,
+ visual:()=>`<div class="demo-step"><p>load 是同步控制訊號，只在 clock 上升沿決定 q 要載入 data 還是更新一代。</p><div class="clockline"><div class="clockstep"><strong>t0</strong>load=1</div><div class="clockstep edge"><strong>↑ clk</strong>q ← data</div><div class="clockstep"><strong>t1</strong>load=0</div><div class="clockstep edge"><strong>↑ clk</strong>q ← next_q</div><div class="clockstep"><strong>t2</strong>看到下一代</div></div><div class="why">如果把 q 用 blocking assignment 在組合迴圈裡一格一格更新，就會破壞「同一代同時更新」的規則。應先算 next_q，再在 posedge 用 <code>q &lt;= next_q</code>。</div></div>`,
+ answer:`module top_module(
+    input clk,
+    input load,
+    input [15:0] data,
+    output reg [15:0] q
+);
+    reg [15:0] next_q;
+    integer r, c, dr, dc;
+    integer rr, cc;
+    integer count;
+
+    always @(*) begin
+        next_q = 16'b0;
+        for (r = 0; r < 4; r = r + 1) begin
+            for (c = 0; c < 4; c = c + 1) begin
+                count = 0;
+                for (dr = -1; dr <= 1; dr = dr + 1)
+                    for (dc = -1; dc <= 1; dc = dc + 1)
+                        if (!(dr == 0 && dc == 0)) begin
+                            rr = (r + dr + 4) % 4;
+                            cc = (c + dc + 4) % 4;
+                            count = count + q[rr*4 + cc];
+                        end
+                if (count == 3)
+                    next_q[r*4+c] = 1'b1;
+                else if (count == 2)
+                    next_q[r*4+c] = q[r*4+c];
+                else
+                    next_q[r*4+c] = 1'b0;
+            end
+        end
+    end
+
+    always @(posedge clk) begin
+        if (load)
+            q <= data;
+        else
+            q <= next_q;
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"只測同步 load", hex:"a55a", cycles:0, expected:"a55a"},
+  {public:true, label:"load 後推進中央三連線 1 代", hex:"0070", cycles:1, expected:"0222"},
+  {public:true, label:"中央 2×2 block 推進 2 代", hex:"0660", cycles:2, expected:"0660"},
+  {label:"上邊三連線推進 2 代", hex:"0007", cycles:2, expected:"0007"},
+  {label:"全 0 推進 3 代", hex:"0000", cycles:3, expected:"0000"},
+  {label:"全 1 推進 1 代", hex:"ffff", cycles:1, expected:"0000"},
+  {label:"單一活細胞推進 1 代", hex:"0001", cycles:1, expected:"0000"},
+  {label:"四角 pattern 推進 2 代", hex:"9009", cycles:2, expected:"9009"}
+ ]
+},
+{
+ id:7,title:'完整題：Conwaylife 16×16',difficulty:'HDLBits 原題',ports:'module top_module( input clk, input load, input [255:0] data, output [255:0] q );',
+ statement:`<p>本題就是 HDLBits <strong>Conwaylife</strong> 的完整介面。請實作一個 16×16 的 Conway's Game of Life 電路；本題所有必要規則都列在這裡，不需要回頭查看前面的練習。</p><div class="rule-card"><strong>細胞與 Conway 規則</strong><ul><li>每格只有 0（死亡）或 1（存活）。</li><li>每格看周圍八個鄰居，不包含自己。</li><li>0～1 個活鄰居 → 下一代 0。</li><li>2 個活鄰居 → 維持目前狀態。</li><li>3 個活鄰居 → 下一代 1。</li><li>4～8 個活鄰居 → 下一代 0。</li></ul></div><div class="rule-card"><strong>16×16 vector mapping</strong><ul><li><code>q[15:0]</code> 是 row 0，<code>q[31:16]</code> 是 row 1，依此類推。</li><li>一般公式是 <code>q[row*16 + col]</code>；row、col 都是 0～15，<code>(0,0)</code> 在左上。</li><li><code>data</code> 使用完全相同的 256-bit mapping。</li></ul></div><div class="rule-card"><strong>Torus（環面）邊界</strong><p>上下與左右都相接。舉例：角落 <code>(0,0)</code> 的八個鄰居是 <code>(15,15)</code>、<code>(15,0)</code>、<code>(15,1)</code>、<code>(0,15)</code>、<code>(0,1)</code>、<code>(1,15)</code>、<code>(1,0)</code>、<code>(1,1)</code>。</p></div><div class="rule-card"><strong>Clock / load</strong><ul><li><code>load</code> 是同步訊號。</li><li>每個 <code>posedge clk</code> 若 <code>load=1</code>：直接把 <code>data</code> 載入 <code>q</code>。</li><li>若 <code>load=0</code>：把整個 16×16 盤面同步推進一代；所有格都必須根據上升沿前的同一份舊狀態計算。</li><li>題目沒有 reset。</li></ul></div><p>輸出 <code>q</code> 是目前盤面狀態。HDLBits 原題提示的 <code>256'h7</code> 會測到 row 0 與 row 15 的上下 wrap-around。</p>`,
+ learning:`<div class="learn-card learn-recap"><span class="learn-tag">整合回顧</span><strong>這一階主要是把已學能力放大到正式規格</strong><p>需要的核心積木都已出現過：bit mapping、八鄰居 count、Torus wrap、同步 next-state、<code>posedge clk</code> 與 synchronous load。本題不再逐項重教語法；題目區仍完整重列規格，讓你不必回前題查定義。</p></div><div class="learn-card learn-new"><span class="learn-tag">本題唯一主要新點</span><strong>把 4×4 的相同架構縮放成 16×16，並完全符合 HDLBits interface</strong><p>演算法沒有改，只是尺寸由 4 變 16，因此所有邊界常數、迴圈範圍與 bit index 都必須同步改成 16。正式 mapping 是 <code>q[row*16+col]</code>，且 <code>q[15:0]</code> 就是 row 0。</p></div><div class="learn-card learn-plan"><strong>怎麼開始解：最後整合檢查表</strong><ol><li>row、col 都走 0～15；wrap 使用 size 16。</li><li>每格排除自己後數八鄰居，依 B3/S23 規則寫入 <code>next_q</code>。</li><li>所有 <code>next_q</code> 都只讀舊 <code>q</code>。</li><li><code>posedge clk</code>：load=1 載入 data，否則 q 更新為 next_q。</li><li>最後用 <code>256'h7</code> 檢查 row 0 ↔ row 15 的上下 wrap。</li></ol></div><div class="learn-card learn-pitfall"><strong>最終題常見錯誤</strong><ul><li>仍使用 4×4 的常數或 loop bound。</li><li>把 <code>q[15:0]</code> 當成最後一列而不是 row 0。</li><li>只在左右 wrap，忘記上下 wrap（或反之）。</li><li>擅自加入題目沒有的 reset 行為。</li></ul></div>`,
+ visual:()=>{const init='7',next=lifeStepHex(init,16);return `<div class="demo-step"><p>原題提示的 <code>256'h7</code>：第 0 列的 column 0～2 三格存活。因為上下相接，下一代會變成 column 1 的三格，分布在 row 15、0、1。</p><div class="grid-pair"><div class="grid-card"><div class="grid-title">載入 256'h7</div>${gridHtml(init,16)}</div><span class="arrow">→ 1 clock →</span><div class="grid-card"><div class="grid-title">下一代</div>${gridHtml(next,16)}</div></div><div class="coord-list"><span>原本：(0,0)</span><span>(0,1)</span><span>(0,2)</span><span>下一代：(15,1)</span><span>(0,1)</span><span>(1,1)</span></div><div class="why">這一筆同時測到生命規則、256-bit row-major 映射、clocked 更新，以及上下邊界 wrap-around。能正確通過它，才真正接近原題需求。</div></div>`},
+ answer:`module top_module(
+    input clk,
+    input load,
+    input [255:0] data,
+    output reg [255:0] q
+);
+    reg [255:0] next_q;
+    integer r, c, dr, dc;
+    integer rr, cc;
+    integer count;
+
+    always @(*) begin
+        next_q = 256'b0;
+        for (r = 0; r < 16; r = r + 1) begin
+            for (c = 0; c < 16; c = c + 1) begin
+                count = 0;
+                for (dr = -1; dr <= 1; dr = dr + 1) begin
+                    for (dc = -1; dc <= 1; dc = dc + 1) begin
+                        if (!(dr == 0 && dc == 0)) begin
+                            rr = (r + dr + 16) % 16;
+                            cc = (c + dc + 16) % 16;
+                            count = count + q[rr*16 + cc];
+                        end
+                    end
+                end
+
+                if (count == 3)
+                    next_q[r*16+c] = 1'b1;
+                else if (count == 2)
+                    next_q[r*16+c] = q[r*16+c];
+                else
+                    next_q[r*16+c] = 1'b0;
+            end
+        end
+    end
+
+    always @(posedge clk) begin
+        if (load)
+            q <= data;
+        else
+            q <= next_q;
+    end
+endmodule`,
+ tests:[
+  {public:true, label:"HDLBits blinker 256'h7：1 代", hex:"0000000000000000000000000000000000000000000000000000000000000007", cycles:1, expected:"0002000000000000000000000000000000000000000000000000000000020002"},
+  {public:true, label:"HDLBits blinker 256'h7：2 代", hex:"0000000000000000000000000000000000000000000000000000000000000007", cycles:2, expected:"0000000000000000000000000000000000000000000000000000000000000007"},
+  {public:true, label:"中央 2×2 still life：2 代", hex:"0000000000000000000000000000000000000060006000000000000000000000", cycles:2, expected:"0000000000000000000000000000000000000060006000000000000000000000"},
+  {label:"只測同步 load", hex:"8001000000000000000000000000000000000000000000000000000000008001", cycles:0, expected:"8001000000000000000000000000000000000000000000000000000000008001"},
+  {label:"右邊界垂直三連線：1 代", hex:"8000000000000000000000000000000000000000000000000000000080008000", cycles:1, expected:"000000000000000000000000000000000000000000000000000000000000c001"},
+  {label:"下邊界水平三連線：1 代", hex:"0007000000000000000000000000000000000000000000000000000000000000", cycles:1, expected:"0002000200000000000000000000000000000000000000000000000000000002"},
+  {label:"全 0：3 代", hex:"0000000000000000000000000000000000000000000000000000000000000000", cycles:3, expected:"0000000000000000000000000000000000000000000000000000000000000000"},
+  {label:"全 1：1 代", hex:"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", cycles:1, expected:"0000000000000000000000000000000000000000000000000000000000000000"},
+  {label:"單一角落活細胞：1 代", hex:"0000000000000000000000000000000000000000000000000000000000000001", cycles:1, expected:"0000000000000000000000000000000000000000000000000000000000000000"},
+  {label:"glider：2 代", hex:"000000000000000000000000000000000000000000000000000e000800040000", cycles:2, expected:"00000000000000000000000000000000000000000000000c000a000800000000"}
+ ]
+}
+];
+
+const COMPLETIONS=['module','endmodule','input','output','wire','reg','logic','assign','always','always_comb','always_ff','posedge','negedge','begin','end','if','else','case','endcase','default','for','integer','genvar','generate','endgenerate','parameter','localparam'];
+let currentTaskIndex=0,selectedPublicTestIndex=0,editor=null,busy=false,hdlWorker=null,workerReady=null,workerBlobUrl=null,operationSeq=0,activeToken=0;
+const $=s=>document.querySelector(s);
+
+function draftKey(id){return STORAGE_PREFIX+':code:'+id}
+function getAccepted(){try{return JSON.parse(localStorage.getItem(ACCEPTED_KEY)||'{}')}catch{return {}}}
+function setAccepted(id){const a=getAccepted();a[id]=true;localStorage.setItem(ACCEPTED_KEY,JSON.stringify(a))}
+function getHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]')}catch{return []}}
+function addHistory(taskId,verdict,passed,total){const h=getHistory();h.unshift({time:new Date().toLocaleString('zh-TW',{hour12:false}),taskId,verdict,passed,total});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,30)));renderHistory()}
+function clearRecords(){const keys=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('conwaylife_verilog_oj:'))keys.push(k)}keys.forEach(k=>localStorage.removeItem(k))}
+function migrateLegacyDrafts(){for(const t of TASKS){const nk=draftKey(t.id),ok=LEGACY_STORAGE_PREFIX+':code:'+t.id;if(localStorage.getItem(nk)===null&&localStorage.getItem(ok)!==null)localStorage.setItem(nk,localStorage.getItem(ok))}}
+function getCode(){return editor?editor.getValue():$('#codeEditor').value}function setCode(v){if(editor)editor.setValue(v);else $('#codeEditor').value=v}function saveDraft(){localStorage.setItem(draftKey(TASKS[currentTaskIndex].id),getCode())}
+
+function renderProgress(){const a=getAccepted(),n=TASKS.filter(t=>a[t.id]).length;$('#progressText').textContent=`${n} / ${TASKS.length} AC`;$('#progressBar').style.width=`${n/TASKS.length*100}%`}
+function renderLevels(){const a=getAccepted(),strip=$('#levelStrip');strip.innerHTML='';TASKS.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.disabled=busy;b.className='level-btn'+(i===currentTaskIndex?' active':'')+(a[t.id]?' accepted':'');b.textContent=a[t.id]?`${t.id} ✓`:String(t.id);b.title=`第 ${t.id} 階：${t.title}`;b.onclick=()=>switchTask(i);strip.appendChild(b)});updateAnswerButton()}
+function publicCasesHtml(t){return `<div class="public-cases">${t.tests.map((x,i)=>({x,i})).filter(({x})=>x.public).map(({x,i})=>`<div class="public-case"><strong>#${i+1} ${esc(x.label)}</strong><code>${esc(caseReview(t,x))}</code></div>`).join('')}</div>`}
+function renderProblem(){const t=TASKS[currentTaskIndex];$('#problemPane').innerHTML=`<div class="kicker">第 ${t.id} 階 / ${TASKS.length}</div><h1>${esc(t.title)}</h1><div class="meta"><span>難度：${esc(t.difficulty)}</span><span>Verilog / SystemVerilog</span></div><div class="section-title">題目</div><div class="statement-body">${t.statement}</div><div class="section-title">Module declaration</div><div class="port-box"><pre>${esc(t.ports)}</pre></div><div class="submission-note">只需提交一個符合上方介面的完整 <code>top_module</code>。不需要自行撰寫 Testbench：按 F9 時，本頁會自動產生 Debug Testbench 驅動選定的公開測試，並把 DUT 的實際輸出顯示在 TERMINAL，同時在 TERMINAL + TEST RESULTS 正下方的 WAVEFORM 面板畫出 Inputs / Yours / Ref / Mismatch；Ctrl+Enter 才會使用完整 Judge Testbench 評測所有測試。</div><div class="section-title">學習指南</div><div class="learning-guide">${t.learning}</div><div class="section-title">公開測試</div>${publicCasesHtml(t)}<div class="section-title">公開範例講解</div><div class="sample-explanation">${t.visual()}</div>${t.id===7?'<div class="note">本階使用 HDLBits 原題介面與 16×16 torus 規則；本頁為教學用模擬 Judge，正式評測仍以 HDLBits 為準。</div>':''}`}
+function updateAnswerButton(){const t=TASKS[currentTaskIndex],ok=!!getAccepted()[t.id],b=$('#answerBtn');b.disabled=busy||!ok;b.textContent=ok?'參考答案':'參考答案（AC 後解鎖）';b.title=ok?'查看參考答案':'本階取得 Accepted 後解鎖'}
+function renderHidden(){const t=TASKS[currentTaskIndex],hidden=t.tests.filter(x=>!x.public),ok=!!getAccepted()[t.id],details=$('#hiddenDetails');$('#hiddenList').innerHTML='';if(!ok){details.open=false;$('#hiddenSummary').textContent=`隱藏測試 ${hidden.length} 筆（AC 後解鎖）`;$('#hiddenList').innerHTML='<div class="hidden-item">提交前只顯示測試編號與 verdict，不顯示刺激值或期望輸出。此單 HTML 的測試內容仍可從原始碼查看，因此這只是教學介面的隱藏，不是防作弊機制。</div>';return}$('#hiddenSummary').textContent=`AC 後測試回顧（${hidden.length} 筆）`;hidden.forEach((x,i)=>{const d=document.createElement('div');d.className='hidden-item';d.innerHTML=`<strong>#${t.tests.indexOf(x)+1} ${esc(x.label)}</strong><div>${esc(caseReview(t,x))}</div>`;$('#hiddenList').appendChild(d)})}
+function renderHistory(){const h=getHistory(),el=$('#historyList');el.innerHTML=h.length?'':'<div class="history-item">尚無提交紀錄</div>';h.forEach(x=>{const d=document.createElement('div');d.className='history-item';d.innerHTML=`<span>${esc(x.time)}｜第 ${x.taskId} 階</span><strong>${esc(x.verdict)} ${x.passed}/${x.total}</strong>`;el.appendChild(d)})}
+function caseReview(t,x){
+  if(t.id===1)return `alive=${x.alive}, neighbours=${x.n}, expected=${x.expected}`;
+  if(t.id===2)return `neighbours=8'h${x.v.toString(16).padStart(2,'0')}, expected count=${x.expected}`;
+  if(t.id===3)return `cells=9'b${x.v.toString(2).padStart(9,'0')}, expected next_center=${x.expected}`;
+  if(t.id===4)return `q=16'h${x.hex}, cell=(${x.r},${x.c}), expected count=${x.expected}`;
+  if(t.id===5)return `q=16'h${x.hex}, expected next_q=16'h${x.expected}`;
+  if(t.id===6)return `load data=16'h${x.hex}, advance ${x.cycles} cycle(s), expected q=16'h${x.expected}`;
+  return `load data=256'h${x.hex}, advance ${x.cycles} cycle(s), expected q=256'h${x.expected}`;
+}
+function caseStimulus(t,x){
+  if(t.id===1)return `alive=${x.alive}, neighbours=${x.n}`;
+  if(t.id===2)return `neighbours=8'b${x.v.toString(2).padStart(8,'0')} (8'h${x.v.toString(16).padStart(2,'0')})`;
+  if(t.id===3)return `cells=9'b${x.v.toString(2).padStart(9,'0')}`;
+  if(t.id===4)return `q=16'h${x.hex}, row=${x.r}, col=${x.c}`;
+  if(t.id===5)return `q=16'h${x.hex}`;
+  if(t.id===6)return `load data=16'h${x.hex}; then load=0; advance ${x.cycles} generation(s)`;
+  return `load data=256'h${x.hex}; then load=0; advance ${x.cycles} generation(s)`;
+}
+function outputSignalName(t){return t.id===1?'next':t.id===2?'count':t.id===3?'next_center':t.id===4?'count':t.id===5?'next_q':'q'}
+function formatSignalValue(t,value){
+  const v=String(value??'?').trim();
+  if(t.id===1||t.id===3||t.id===2||t.id===4)return v;
+  if(t.id===5||t.id===6)return `16'h${v}`;
+  return `256'h${v}`;
+}
+function expectedSignalValue(t,x){return formatSignalValue(t,x.expected)}
+function debugRunText(t,entry,actual,result,userConsole,warn,ms){
+  const lines=['$ iverilog -g2012 design.v tb.v','$ vvp sim.vvp','',`[PUBLIC DEBUG] #${entry.index+1} ${entry.test.label}`,`Stimulus : ${caseStimulus(t,entry.test)}`,`Actual   : ${outputSignalName(t)} = ${formatSignalValue(t,actual)}`,`Expected : ${outputSignalName(t)} = ${expectedSignalValue(t,entry.test)}`,`Verdict  : ${result?.verdict||'JE'}`];
+  if(result?.detail)lines.push(`Detail   : ${result.detail}`);
+  if(warn&&String(warn).trim())lines.push('','[COMPILER / SIMULATOR]',String(warn).trim());
+  if(userConsole&&String(userConsole).trim())lines.push('','[DESIGN $display OUTPUT]',String(userConsole).trim());
+  lines.push('',`Process finished in ${ms} ms.`);
+  return lines.join('\n');
+}
+
+function canonicalWaveValue(t,value){
+  const raw=String(value??'x').trim().toLowerCase();
+  if(/[xz]/.test(raw))return raw;
+  if(t.id===1||t.id===3)return String(Number(raw));
+  if(t.id===2||t.id===4)return String(Number(raw));
+  const digits=t.id===7?64:4;
+  return raw.replace(/^0x/,'').padStart(digits,'0').slice(-digits);
+}
+function expectedWaveSequence(t,x){
+  if(t.id<6)return [canonicalWaveValue(t,x.expected)];
+  const size=t.id===7?16:4,digits=t.id===7?64:4;
+  let cur=String(x.hex).toLowerCase().padStart(digits,'0').slice(-digits),seq=[cur];
+  for(let i=0;i<x.cycles;i++){cur=lifeStepHex(cur,size).padStart(digits,'0').slice(-digits);seq.push(cur)}
+  return seq;
+}
+function waveValuesEqual(t,a,b){return canonicalWaveValue(t,a)===canonicalWaveValue(t,b)}
+function shortWaveValue(v,max=18){const s=String(v);return s.length<=max?s:s.slice(0,8)+'…'+s.slice(-8)}
+function combinationalWaveModel(t,x,actual){
+  const a=canonicalWaveValue(t,actual),ref=canonicalWaveValue(t,x.expected),bad=waveValuesEqual(t,a,ref)?'0':'1';
+  const ticks=['drive','settle','sample'],trip=v=>[v,v,v],late=v=>['x',v,v];
+  const inputs=[];
+  if(t.id===1){inputs.push({name:'alive',kind:'scalar',values:trip(String(x.alive))},{name:'neighbours',kind:'bus',values:trip(String(x.n))})}
+  else if(t.id===2)inputs.push({name:'neighbours',kind:'bus',values:trip('8\'b'+x.v.toString(2).padStart(8,'0'))});
+  else if(t.id===3)inputs.push({name:'cells',kind:'bus',values:trip('9\'b'+x.v.toString(2).padStart(9,'0'))});
+  else if(t.id===4)inputs.push({name:'q',kind:'bus',values:trip('16\'h'+x.hex)},{name:'row',kind:'bus',values:trip(String(x.r))},{name:'col',kind:'bus',values:trip(String(x.c))});
+  else inputs.push({name:'q',kind:'bus',values:trip('16\'h'+x.hex)});
+  return {title:`Public #${t.tests.indexOf(x)+1} · ${x.label}`,subtitle:'Combinational sample · Actual trace comes from Icarus simulation',ticks,groups:[
+    {name:'Inputs',className:'input',signals:inputs},
+    {name:'Yours',className:'yours',signals:[{name:outputSignalName(t),kind:(t.id===1||t.id===3)?'scalar':'bus',values:late(a)}]},
+    {name:'Ref',className:'ref',signals:[{name:outputSignalName(t),kind:(t.id===1||t.id===3)?'scalar':'bus',values:late(ref)}]},
+    {name:'Mismatch',className:'mismatch',signals:[{name:'mismatch',kind:'scalar',values:['0',bad,bad]}]}
+  ]};
+}
+function sequentialWaveModel(t,x,actualEdges){
+  const refEdges=expectedWaveSequence(t,x),edgeCount=refEdges.length;
+  const phases=edgeCount*2+1,ticks=['setup'];
+  for(let e=0;e<edgeCount;e++){ticks.push(e===0?'load ↑':`gen ${e} ↑`);ticks.push('hold')}
+  const clk=Array.from({length:phases},(_,i)=>String(i%2));
+  const load=Array.from({length:phases},(_,i)=>i<=1?'1':'0');
+  const data=Array(phases).fill((t.id===7?'256\'h':'16\'h')+String(x.hex));
+  const yours=['x'],ref=['x'],mismatch=['0'];
+  for(let e=0;e<edgeCount;e++){
+    const a=canonicalWaveValue(t,actualEdges[e]),r=canonicalWaveValue(t,refEdges[e]),m=waveValuesEqual(t,a,r)?'0':'1';
+    yours.push(a,a);ref.push(r,r);mismatch.push(m,m);
+  }
+  return {title:`Public #${t.tests.indexOf(x)+1} · ${x.label}`,subtitle:'Clocked trace · q is sampled after each rising edge',ticks,groups:[
+    {name:'Inputs',className:'input',signals:[{name:'clk',kind:'scalar',values:clk},{name:'load',kind:'scalar',values:load},{name:'data',kind:'bus',values:data}]},
+    {name:'Yours',className:'yours',signals:[{name:'q',kind:'bus',values:yours}]},
+    {name:'Ref',className:'ref',signals:[{name:'q',kind:'bus',values:ref}]},
+    {name:'Mismatch',className:'mismatch',signals:[{name:'mismatch',kind:'scalar',values:mismatch}]}
+  ]};
+}
+function buildWaveformModel(t,x,actualValues){return t.id>=6?sequentialWaveModel(t,x,actualValues):combinationalWaveModel(t,x,actualValues[0])}
+function scalarY(v,top){return String(v)==='1'?top+8:String(v)==='0'?top+24:top+16}
+function svgEscape(s){return esc(String(s))}
+function renderWaveform(model){
+  const canvas=$('#waveformCanvas'),empty=$('#waveformEmpty'),openBtn=$('#waveformOpenBtn');
+  if(!model){canvas.innerHTML='';empty.hidden=false;openBtn.disabled=true;return}
+  const ticks=model.ticks||[],n=Math.max(1,ticks.length),left=190,colW=96,rowH=38,topPad=52,bottom=34;
+  let rowCount=0;model.groups.forEach(g=>rowCount+=g.signals.length);
+  const width=left+n*colW+18,height=topPad+rowCount*rowH+bottom;
+  let parts=[`<svg class="waveform-svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg" aria-label="Public debug waveform">`,`<text class="wave-title" x="12" y="17">${svgEscape(model.title)}</text>`,`<text class="wave-subtitle" x="12" y="33">${svgEscape(model.subtitle)}</text>`];
+  for(let i=0;i<=n;i++){const x=left+i*colW;parts.push(`<line class="grid-line" x1="${x}" y1="${topPad-8}" x2="${x}" y2="${height-bottom+2}"/>`)}
+  ticks.forEach((t,i)=>parts.push(`<text class="tick-label" x="${left+i*colW+colW/2}" y="${height-9}" text-anchor="middle">${svgEscape(t)}</text>`));
+  let row=0;
+  for(const group of model.groups){
+    const startRow=row,groupColor=group.className==='input'?'#315b7d':group.className==='ref'?'#18794e':group.className==='mismatch'?'#b42318':'#27384a';
+    for(const sig of group.signals){
+      const y=topPad+row*rowH;parts.push(`<line class="row-line" x1="84" y1="${y+rowH-2}" x2="${width-10}" y2="${y+rowH-2}"/>`);parts.push(`<text class="signal-name" x="92" y="${y+20}">${svgEscape(sig.name)}</text>`);
+      const vals=(sig.values||[]).slice(0,n);while(vals.length<n)vals.push(vals.length?vals[vals.length-1]:'x');
+      if(sig.kind==='scalar'){
+        let d=`M ${left} ${scalarY(vals[0],y)}`;
+        for(let i=0;i<n;i++){const x2=left+(i+1)*colW,y1=scalarY(vals[i],y);d+=` L ${x2} ${y1}`;if(i+1<n){const y2=scalarY(vals[i+1],y);if(y2!==y1)d+=` L ${x2} ${y2}`}}
+        parts.push(`<path class="sig-line sig-${group.className}" d="${d}"/>`);
+        if(group.className==='mismatch')for(let i=0;i<n;i++)if(String(vals[i])==='1')parts.push(`<rect class="mismatch-fill" x="${left+i*colW+2}" y="${y+5}" width="${colW-4}" height="22" rx="2" opacity=".55"/>`);
+      }else{
+        for(let i=0;i<n;i++){
+          const x=left+i*colW+2,w=colW-4,label=shortWaveValue(vals[i]);
+          parts.push(`<rect class="sig-bus sig-${group.className}" x="${x}" y="${y+6}" width="${w}" height="21" rx="2"><title>${svgEscape(vals[i])}</title></rect>`);
+          parts.push(`<text class="bus-value" x="${x+w/2}" y="${y+20}" text-anchor="middle">${svgEscape(label)}</text>`);
+        }
+      }
+      row++;
+    }
+    const y1=topPad+startRow*rowH+4,y2=topPad+row*rowH-7,mid=(y1+y2)/2;parts.push(`<path d="M 74 ${y1} h -6 v ${Math.max(1,y2-y1)} h 6" fill="none" stroke="${groupColor}" stroke-width="1.4"/>`);parts.push(`<text class="group-label" fill="${groupColor}" x="12" y="${mid+4}">${svgEscape(group.name)}</text>`);
+  }
+  parts.push('</svg>');canvas.innerHTML=parts.join('');empty.hidden=true;openBtn.disabled=false;$('#waveformDockMeta').textContent=model.title+' · '+model.subtitle;
+}
+function openWaveform(expand=false){const btn=$('#waveformOpenBtn'),dock=$('#waveformDock');if(btn.disabled)return;dock.hidden=false;if(expand)dock.classList.add('expanded');$('#waveformExpandBtn').textContent=dock.classList.contains('expanded')?'還原':'放大';if(typeof dock.scrollIntoView==='function')dock.scrollIntoView({block:'nearest'})}
+function closeWaveform(){const dock=$('#waveformDock');dock.hidden=true;dock.classList.remove('expanded');$('#waveformExpandBtn').textContent='放大'}
+function toggleWaveformExpand(){const dock=$('#waveformDock');dock.classList.toggle('expanded');$('#waveformExpandBtn').textContent=dock.classList.contains('expanded')?'還原':'放大'}
+function resetWaveform(message='F9 執行選定的 Public Test 後，這裡會顯示 Inputs / Yours / Ref / Mismatch 波形。'){$('#waveformCanvas').innerHTML='';$('#waveformEmpty').textContent=message;$('#waveformEmpty').hidden=false;$('#waveformOpenBtn').disabled=true;$('#waveformDockMeta').textContent='Selected Public Test · Inputs / Yours / Ref / Mismatch';closeWaveform()}
+function renderTests(state='idle',results=[]){
+  const t=TASKS[currentTaskIndex],el=$('#testsList'),accepted=!!getAccepted()[t.id];
+  el.innerHTML='';let ac=0,done=0;
+  t.tests.forEach((x,i)=>{const r=results[i];let verdict='—',cls='';if(r){done++;verdict=r.verdict;cls=r.verdict==='AC'?'pass':'fail';if(r.verdict==='AC')ac++}else if(state==='running'&&r!==undefined)verdict='WAIT';const visibleLabel=x.public||accepted?` · ${esc(x.label)}`:'';const d=document.createElement('div');d.className=`test-row ${cls}`;d.innerHTML=`<span class="label">#${i+1} ${x.public?'PUBLIC':'HIDDEN'}${visibleLabel}</span><span class="verdict">${verdict}</span>`;el.appendChild(d)});
+  const evaluated=results.filter(Boolean).length;$('#testsCount').textContent=state==='running'?`${evaluated}/${t.tests.length}`:`AC ${ac}/${t.tests.length}`;
+}
+function publicTestIndices(task){return task.tests.map((x,i)=>x.public?i:-1).filter(i=>i>=0)}
+function selectedCaseEntries(task,submit){if(submit)return task.tests.map((test,index)=>({test,index}));const p=publicTestIndices(task);if(!p.length)return[];if(selectedPublicTestIndex>=p.length)selectedPublicTestIndex=0;const index=p[selectedPublicTestIndex];return[{test:task.tests[index],index}]}
+function renderPublicTestSelector(){const sel=$('#publicTestSelect'),t=TASKS[currentTaskIndex],idxs=publicTestIndices(t);if(selectedPublicTestIndex>=idxs.length)selectedPublicTestIndex=0;sel.innerHTML=idxs.map((ti,j)=>`<option value="${j}">#${ti+1} ${esc(t.tests[ti].label)}</option>`).join('');sel.value=String(selectedPublicTestIndex);sel.disabled=busy||idxs.length<=1;sel.hidden=idxs.length<=1;updateTerminalMeta()}
+function updateTerminalMeta(){const t=TASKS[currentTaskIndex],idxs=publicTestIndices(t),ti=idxs[selectedPublicTestIndex]??idxs[0];$('#terminalMeta').textContent=ti===undefined?'Icarus Verilog · -g2012':`Icarus Verilog · public #${ti+1}`}
+function switchTask(i){if(busy||i===currentTaskIndex)return;saveDraft();currentTaskIndex=i;selectedPublicTestIndex=0;renderLevels();renderProblem();renderTests();renderHidden();resetWaveform();$('#overallVerdict').className='status-pill';$('#overallVerdict').textContent='尚未提交';$('#resultSummary').textContent='F9 會自動用選定的公開測試驅動 DUT；文字輸出留在 TERMINAL，成功後在 TERMINAL + TEST RESULTS 下方自動展開 WAVEFORM；Ctrl+Enter 才提交全部測試。';setCode(localStorage.getItem(draftKey(TASKS[i].id))||'');renderPublicTestSelector();resetTerminal();if(editor){editor.clearHistory();editor.focus()}}
+
+function spacesToStop(col){const r=col%4;return r===0?4:4-r}
+function toggleCommentsCM(cm){const from=cm.getCursor('from'),to=cm.getCursor('to');let end=to.line;if(from.line!==to.line&&to.ch===0)end--;const lines=[];for(let l=from.line;l<=end;l++)lines.push(cm.getLine(l));const non=lines.filter(x=>x.trim());const un=non.length&&non.every(x=>/^\s*\/\//.test(x));cm.operation(()=>{for(let l=end;l>=from.line;l--){const s=cm.getLine(l);let n=s;if(un)n=s.replace(/^(\s*)\/\/ ?/,'$1');else if(s.trim()){const m=s.match(/^\s*/)[0];n=m+'// '+s.slice(m.length)}if(n!==s)cm.replaceRange(n,CodeMirror.Pos(l,0),CodeMirror.Pos(l,s.length),'+comment')}})}
+function indentBackspaceCount(prefix){return /^ +$/.test(prefix)&&prefix.length?Math.min(4,prefix.length):0}
+function deleteIndentCM(cm){if(cm.somethingSelected())return CodeMirror.Pass;const c=cm.getCursor(),line=cm.getLine(c.line),p=line.slice(0,c.ch),n=indentBackspaceCount(p);if(!n)return CodeMirror.Pass;cm.replaceRange('',CodeMirror.Pos(c.line,c.ch-n),c,'+delete')}
+function toggleCommentsTA(ta){const v=ta.value,s=ta.selectionStart,e=ta.selectionEnd,ls=v.lastIndexOf('\n',Math.max(0,s-1))+1;let ee=e;if(e>s&&v[e-1]==='\n')ee--;let le=v.indexOf('\n',ee);if(le<0)le=v.length;const block=v.slice(ls,le),lines=block.split('\n'),non=lines.filter(x=>x.trim()),un=non.length&&non.every(x=>/^\s*\/\//.test(x));const out=lines.map(x=>un?x.replace(/^(\s*)\/\/ ?/,'$1'):(x.trim()?x.match(/^\s*/)[0]+'// '+x.slice(x.match(/^\s*/)[0].length):x)).join('\n');ta.value=v.slice(0,ls)+out+v.slice(le);ta.selectionStart=ls;ta.selectionEnd=ls+out.length;saveDraft()}
+function indentTA(ta,un=false){const v=ta.value,s=ta.selectionStart,e=ta.selectionEnd,ls=v.lastIndexOf('\n',Math.max(0,s-1))+1;let le=v.indexOf('\n',e);if(le<0)le=v.length;const block=v.slice(ls,le);const out=block.split('\n').map(x=>un?x.replace(/^ {1,4}/,''):'    '+x).join('\n');ta.value=v.slice(0,ls)+out+v.slice(le);ta.selectionStart=ls;ta.selectionEnd=ls+out.length;saveDraft()}
+function stripVerilogLineComment(line){return String(line).replace(/\/\/.*$/,'')}
+const VERILOG_CLOSING_KEYWORD_RE=/^(?:end|endcase|endfunction|endtask|endmodule|endgenerate|endprimitive|endtable|endspecify|endconfig|endclass|endinterface|endpackage|endprogram|endclocking|endgroup|endproperty|endsequence|endchecker|join|join_any|join_none)$/;
+function verilogClosingTokenNeedsDedent(line,insertedText=''){const raw=String(line),m=raw.match(/^( +)([^\s].*)$/);if(!m)return false;const code=stripVerilogLineComment(m[2]).trim();if(!code)return false;const text=String(insertedText||'');if(text.length===1)return code==='end'||code==='join';return VERILOG_CLOSING_KEYWORD_RE.test(code)}
+function autoDedentClosingCM(cm,change){const c=cm.getCursor(),line=cm.getLine(c.line),typed=(change&&Array.isArray(change.text)?change.text.join('\n'):'');if(typed.includes('\n')||!verilogClosingTokenNeedsDedent(line,typed))return;const lead=(line.match(/^ +/)||[''])[0],n=Math.min(4,lead.length);if(!n)return;cm.replaceRange('',CodeMirror.Pos(c.line,0),CodeMirror.Pos(c.line,n),'+auto-dedent')}
+function autoDedentClosingTA(ta,e){if(!e||!String(e.inputType||'').startsWith('insert'))return false;const s=ta.selectionStart;if(s!==ta.selectionEnd)return false;const v=ta.value,ls=v.lastIndexOf('\n',Math.max(0,s-1))+1;let le=v.indexOf('\n',s);if(le<0)le=v.length;const line=v.slice(ls,le),typed=typeof e.data==='string'?e.data:'';if(typed.includes('\n')||!verilogClosingTokenNeedsDedent(line,typed))return false;const lead=(line.match(/^ +/)||[''])[0],n=Math.min(4,lead.length);if(!n)return false;ta.value=v.slice(0,ls)+v.slice(ls+n);ta.selectionStart=ta.selectionEnd=Math.max(ls,s-n);return true}
+function verilogLineOpensIndent(line){const s=stripVerilogLineComment(line).trim();if(!s)return false;if(/\bbegin(?:\s*:\s*[A-Za-z_][A-Za-z0-9_$]*)?\s*$/.test(s))return true;if(/\bfork(?:\s*:\s*[A-Za-z_][A-Za-z0-9_$]*)?\s*$/.test(s))return true;if(/^(?:generate|case|casex|casez)\b/.test(s)&&!/[;:]\s*$/.test(s))return true;if(/^(?:if|for|while|repeat)\s*\(.*\)\s*$/.test(s))return true;if(/^else(?:\s+if\s*\(.*\))?\s*$/.test(s))return true;if(/^(?:always|always_comb|always_ff|always_latch|initial|forever)\b.*$/.test(s)&&!/;\s*$/.test(s))return true;if(/^do\s*$/.test(s))return true;if(/^(?:default|[^;]+)\s*:\s*$/.test(s))return true;return false}
+function nextVerilogIndent(lineBeforeCursor){const base=(String(lineBeforeCursor).match(/^[ \t]*/)||[''])[0];return base+(verilogLineOpensIndent(lineBeforeCursor)?'    ':'')}
+function insertVerilogNewlineCM(cm){const from=cm.getCursor('from'),to=cm.getCursor('to'),line=cm.getLine(from.line),before=line.slice(0,from.ch),indent=nextVerilogIndent(before);cm.replaceRange('\n'+indent,from,to,'+input')}
+function insertVerilogNewlineTA(ta){const s=ta.selectionStart,v=ta.value,ls=v.lastIndexOf('\n',Math.max(0,s-1))+1,lineBefore=v.slice(ls,s),ins='\n'+nextVerilogIndent(lineBefore);ta.value=v.slice(0,s)+ins+v.slice(ta.selectionEnd);ta.selectionStart=ta.selectionEnd=s+ins.length;saveDraft()}
+function setupEditor(){const ta=$('#codeEditor');if(window.CodeMirror){CodeMirror.registerHelper('hint','verilog-custom',cm=>{const c=cm.getCursor(),tok=cm.getTokenAt(c);let w=tok.string.slice(0,c.ch-tok.start),start=tok.start;if(!/^[A-Za-z_][A-Za-z0-9_$]*$/.test(w)){w='';start=c.ch}const list=COMPLETIONS.filter(x=>x.startsWith(w)&&x!==w);return{list:list.length?list:COMPLETIONS,from:CodeMirror.Pos(c.line,start),to:CodeMirror.Pos(c.line,c.ch)}});editor=CodeMirror.fromTextArea(ta,{mode:'verilog',lineNumbers:true,indentUnit:4,tabSize:4,indentWithTabs:false,autoCloseBrackets:true,matchBrackets:true,smartIndent:false,electricChars:false,extraKeys:{'Ctrl-Space':cm=>cm.showHint({hint:CodeMirror.hint['verilog-custom'],completeSingle:false}),'Alt-/':cm=>cm.showHint({hint:CodeMirror.hint['verilog-custom'],completeSingle:false}),'Ctrl-/':toggleCommentsCM,'Backspace':deleteIndentCM,'Enter':insertVerilogNewlineCM,'F9':()=>runJudge(false),'Ctrl-Enter':()=>runJudge(true),'Tab':cm=>cm.somethingSelected()?cm.indentSelection('add'):(()=>{const c=cm.getCursor(),line=cm.getLine(c.line),col=CodeMirror.countColumn(line,c.ch,4);cm.replaceSelection(' '.repeat(spacesToStop(col)),'end','+input')})(),'Shift-Tab':cm=>cm.indentSelection('subtract')}});editor.on('inputRead',autoDedentClosingCM);editor.on('change',saveDraft)}else{ta.className='fallback-editor';ta.addEventListener('input',e=>{autoDedentClosingTA(ta,e);saveDraft()});ta.addEventListener('keydown',e=>{if(e.key==='F9'){e.preventDefault();runJudge(false)}else if(e.ctrlKey&&e.key==='Enter'){e.preventDefault();runJudge(true)}else if(e.ctrlKey&&e.key==='/'){e.preventDefault();toggleCommentsTA(ta)}else if(e.key==='Tab'){e.preventDefault();if(e.shiftKey||ta.selectionStart!==ta.selectionEnd)indentTA(ta,e.shiftKey);else{const s=ta.selectionStart,v=ta.value,ls=v.lastIndexOf('\n',s-1)+1,col=s-ls,n=spacesToStop(col);ta.value=v.slice(0,s)+' '.repeat(n)+v.slice(s);ta.selectionStart=ta.selectionEnd=s+n;saveDraft()}}else if(e.key==='Backspace'&&ta.selectionStart===ta.selectionEnd){const s=ta.selectionStart,v=ta.value,ls=v.lastIndexOf('\n',s-1)+1,p=v.slice(ls,s),n=indentBackspaceCount(p);if(n){e.preventDefault();ta.value=v.slice(0,s-n)+v.slice(s);ta.selectionStart=ta.selectionEnd=s-n;saveDraft()}}else if(e.key==='Enter'){e.preventDefault();insertVerilogNewlineTA(ta)}})}}
+
+function markerToken(){return 'OJ'+Math.random().toString(36).slice(2,10).toUpperCase()}
+function markerLine(M,index,cond,got,expected,fmt){return `  if(${cond}) $display("${M} ${index+1} AC");\n  else $display("${M} ${index+1} WA got=${fmt} expected=${fmt}",${got},${expected});`}
+function debugLine(D,index,got,fmt){return `  $display("${D} ${index+1} ${fmt}",${got});`}
+function waveLine(W,index,step,got,fmt){return `  $display("${W} ${index+1} ${step} ${fmt}",${got});`}
+function buildTestbench(task,entries,nonce,debug=false){
+  const M=nonce+'_RESULT',D=nonce+'_DEBUG',W=nonce+'_WAVE';
+  const dbg=(index,got,fmt)=>debug?('\n'+debugLine(D,index,got,fmt)):'';
+  const wv=(index,step,got,fmt)=>debug?('\n'+waveLine(W,index,step,got,fmt)):'';
+  if(task.id===1){
+    const body=entries.map(({test:x,index})=>`  alive=1'b${x.alive}; neighbours=4'd${x.n}; #1;${wv(index,0,'next','%b')}${dbg(index,'next','%b')}\n${markerLine(M,index,`next===1'b${x.expected}`,'next',`1'b${x.expected}`,'%b')}`).join('\n');
+    return `module tb;\nreg alive; reg [3:0] neighbours; wire next;\ntop_module dut(.alive(alive),.neighbours(neighbours),.next(next));\ninitial begin\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  if(task.id===2){
+    const body=entries.map(({test:x,index})=>`  neighbours=8'h${x.v.toString(16).padStart(2,'0')}; #1;${wv(index,0,'count','%0d')}${dbg(index,'count','%0d')}\n${markerLine(M,index,`count===4'd${x.expected}`,'count',`4'd${x.expected}`,'%0d')}`).join('\n');
+    return `module tb;\nreg [7:0] neighbours; wire [3:0] count;\ntop_module dut(.neighbours(neighbours),.count(count));\ninitial begin\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  if(task.id===3){
+    const body=entries.map(({test:x,index})=>`  cells=9'b${x.v.toString(2).padStart(9,'0')}; #1;${wv(index,0,'next_center','%b')}${dbg(index,'next_center','%b')}\n${markerLine(M,index,`next_center===1'b${x.expected}`,'next_center',`1'b${x.expected}`,'%b')}`).join('\n');
+    return `module tb;\nreg [8:0] cells; wire next_center;\ntop_module dut(.cells(cells),.next_center(next_center));\ninitial begin\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  if(task.id===4){
+    const body=entries.map(({test:x,index})=>`  q=16'h${x.hex}; row=2'd${x.r}; col=2'd${x.c}; #1;${wv(index,0,'count','%0d')}${dbg(index,'count','%0d')}\n${markerLine(M,index,`count===4'd${x.expected}`,'count',`4'd${x.expected}`,'%0d')}`).join('\n');
+    return `module tb;\nreg [15:0] q; reg [1:0] row,col; wire [3:0] count;\ntop_module dut(.q(q),.row(row),.col(col),.count(count));\ninitial begin\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  if(task.id===5){
+    const body=entries.map(({test:x,index})=>`  q=16'h${x.hex}; #1;${wv(index,0,'next_q','%h')}${dbg(index,'next_q','%h')}\n${markerLine(M,index,`next_q===16'h${x.expected}`,'next_q',`16'h${x.expected}`,'%h')}`).join('\n');
+    return `module tb;\nreg [15:0] q; wire [15:0] next_q;\ntop_module dut(.q(q),.next_q(next_q));\ninitial begin\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  if(task.id===6){
+    const body=entries.map(({test:x,index})=>{
+      let code=`  load=1'b1; data=16'h${x.hex}; @(posedge clk); #1;${wv(index,0,'q','%h')}\n  load=1'b0;`;
+      for(let step=1;step<=x.cycles;step++)code+=`\n  @(posedge clk); #1;${wv(index,step,'q','%h')}`;
+      code+=`${dbg(index,'q','%h')}\n${markerLine(M,index,`q===16'h${x.expected}`,'q',`16'h${x.expected}`,'%h')}`;return code;
+    }).join('\n');
+    return `module tb;\nreg clk=1'b0,load=1'b0; reg [15:0] data=16'b0; wire [15:0] q;\ntop_module dut(.clk(clk),.load(load),.data(data),.q(q));\nalways #5 clk=~clk;\ninitial begin\n  #1;\n${body}\n  $finish;\nend\nendmodule`;
+  }
+  const body=entries.map(({test:x,index})=>{
+    let code=`  load=1'b1; data=256'h${x.hex}; @(posedge clk); #1;${wv(index,0,'q','%h')}\n  load=1'b0;`;
+    for(let step=1;step<=x.cycles;step++)code+=`\n  @(posedge clk); #1;${wv(index,step,'q','%h')}`;
+    code+=`${dbg(index,'q','%h')}\n${markerLine(M,index,`q===256'h${x.expected}`,'q',`256'h${x.expected}`,'%h')}`;return code;
+  }).join('\n');
+  return `module tb;\nreg clk=1'b0,load=1'b0; reg [255:0] data=256'b0; wire [255:0] q;\ntop_module dut(.clk(clk),.load(load),.data(data),.q(q));\nalways #5 clk=~clk;\ninitial begin\n  #1;\n${body}\n  $finish;\nend\nendmodule`;
+}
+function workerSource(){return `
+const VERISIM_COMMIT=${JSON.stringify(VERISIM_COMMIT)};
+const BASES=[
+  ${JSON.stringify(VERISIM_CDN)},
+  'https://raw.githubusercontent.com/senolgulgonul/verisim/'+VERISIM_COMMIT+'/'
+];
+const conf=g=>\`basedir:/\\nmodule:system.vpi\\ngeneration:\${g}\\ngeneration:no-specify\\nout:/out.vvp\\niwidth:32\\nwidthcap:65536\\nfunctor:cprop\\nfunctor:nodangle\\nflag:DLL=vvp.tgt\\n\`;
+const clean=s=>String(s).replace(/[\\u00A0\\u1680\\u2000-\\u200A\\u202F\\u205F\\u3000]/g,' ').replace(/[\\u200B-\\u200D\\uFEFF]/g,'').replace(/[\\u2018\\u2019\\u201A\\u201B\\u2032]/g,"'").replace(/[\\u201C\\u201D\\u201E\\u201F\\u2033]/g,'\\"');
+
+function sendProgress(text){ self.postMessage({type:'progress',text}); }
+async function fetchPinned(file,binary=false){
+  let lastErr=null;
+  for(const base of BASES){
+    const url=base+file;
+    try{
+      const r=await fetch(url,{mode:'cors',cache:'force-cache'});
+      if(!r.ok) throw new Error('HTTP '+r.status+' '+r.statusText);
+      return {url,data:binary?new Uint8Array(await r.arrayBuffer()):await r.text()};
+    }catch(err){ lastErr=new Error(file+' @ '+base+': '+String(err&&err.message||err)); }
+  }
+  throw lastErr||new Error('Unable to load '+file);
+}
+function patchEmscriptenModule(source,sourceUrl,symbol){
+  let s=String(source);
+  // Emscripten generated these as ES modules. A file:// page cannot reliably
+  // start that module graph in a Worker, so convert only the module wrapper
+  // to a classic-worker factory while keeping the generated runtime intact.
+  s=s.replace(/import\\.meta\\.url/g,JSON.stringify(sourceUrl));
+  const exportRe=/export\\s+default\\s+Module\\s*;?\\s*$/m;
+  if(!exportRe.test(s)) throw new Error('Unsupported '+symbol+' wrapper: export marker not found');
+  s=s.replace(exportRe,'self["'+symbol+'"] = Module;');
+  return s;
+}
+async function loadFactory(file,symbol){
+  sendProgress('載入 '+file+'…');
+  const got=await fetchPinned(file,false);
+  const patched=patchEmscriptenModule(got.data,got.url,symbol);
+  const blob=new Blob([patched],{type:'text/javascript'});
+  const url=URL.createObjectURL(blob);
+  try{ importScripts(url); }
+  finally{ URL.revokeObjectURL(url); }
+  const fn=self[symbol];
+  try{ delete self[symbol]; }catch(_e){}
+  if(typeof fn!=='function') throw new Error(file+' factory did not initialize');
+  return fn;
+}
+
+let initIvlpp=null,initIvl=null,initVvp=null;
+let wasmIvlpp=null,wasmIvl=null,wasmVvp=null;
+let bootReady=false;
+
+async function boot(){
+  try{
+    sendProgress('準備 Icarus classic Worker…');
+    // Load the JS factories as classic scripts. This avoids module Worker +
+    // file:// restrictions while preserving the real Icarus/VeriSim runtime.
+    initIvlpp=await loadFactory('ivlpp.js','__ojInitIvlpp');
+    initIvl=await loadFactory('ivl.js','__ojInitIvl');
+    initVvp=await loadFactory('vvp.js','__ojInitVvp');
+    sendProgress('載入 Icarus WebAssembly…');
+    const bins=await Promise.all([
+      fetchPinned('ivlpp.wasm',true),
+      fetchPinned('ivl.wasm',true),
+      fetchPinned('vvp.wasm',true)
+    ]);
+    wasmIvlpp=bins[0].data; wasmIvl=bins[1].data; wasmVvp=bins[2].data;
+    bootReady=true;
+    self.postMessage({type:'ready'});
+  }catch(err){
+    self.postMessage({type:'init-error',error:String(err&&err.stack||err)});
+  }
+}
+
+async function pp(files){
+  const out=[];
+  const m=await initIvlpp({wasmBinary:wasmIvlpp,print:s=>out.push(s),printErr:()=>{}});
+  const args=['-L'];
+  for(const f of files){m.FS.writeFile('/'+f.name,clean(f.src)+(f.src.endsWith('\\n')?'':'\\n'));args.push('/'+f.name)}
+  m.callMain(args);
+  return out.join('\\n')+'\\n';
+}
+async function compile(src){
+  const err=[];
+  const m=await initIvl({wasmBinary:wasmIvl,print:()=>{},printErr:s=>err.push(s)});
+  m.FS.writeFile('/ivl.conf',conf('2012'));
+  m.FS.writeFile('/src.v',src);
+  try{m.callMain(['-C/ivl.conf','--','/src.v'])}catch(e){}
+  let vvp=null;try{vvp=m.FS.readFile('/out.vvp')}catch(e){}
+  return{vvp,err:err.join('\\n')};
+}
+async function sim(bytes){
+  const out=[];
+  const m=await initVvp({wasmBinary:wasmVvp,print:s=>out.push(s),printErr:s=>out.push(s)});
+  m.FS.writeFile('/sim.vvp',bytes);
+  let thrown=null;
+  try{m.callMain(['/sim.vvp'])}catch(e){const status=(e&&typeof e.status==='number')?e.status:null;if(status!==0)thrown=e}
+  return {out:out.join('\\n'),error:thrown?String(thrown&&thrown.stack||thrown):''};
+}
+
+self.onmessage=async e=>{
+  if(e.data.type!=='run')return;
+  if(!bootReady){self.postMessage({type:'result',id:e.data.id,ok:false,phase:'engine',error:'Icarus runtime is not ready.'});return}
+  try{
+    const src=await pp([{name:'design.v',src:e.data.design},{name:'tb.v',src:e.data.tb}]);
+    const c=await compile(src);
+    const filtered=c.err.split('\\n').filter(l=>!/system\\.vpi|dynamic linking not enabled/.test(l)).join('\\n');
+    if(!c.vvp){self.postMessage({type:'result',id:e.data.id,ok:false,phase:'compile',error:filtered||'Compilation failed.'});return}
+    const simResult=await sim(c.vvp);
+    if(simResult.error){self.postMessage({type:'result',id:e.data.id,ok:false,phase:'simulate',infrastructure:true,error:simResult.error});return}
+    self.postMessage({type:'result',id:e.data.id,ok:true,out:simResult.out,warn:filtered});
+  }catch(err){self.postMessage({type:'result',id:e.data.id,ok:false,phase:'engine',error:String(err&&err.stack||err)})}
+};
+boot();
+`}
+
+function setRuntime(cls,text){$('#runtimeDot').className='dot'+(cls?' '+cls:'');$('#runtimeText').textContent=text}
+function disposeWorker(){if(hdlWorker)hdlWorker.terminate();if(workerBlobUrl)URL.revokeObjectURL(workerBlobUrl);hdlWorker=null;workerReady=null;workerBlobUrl=null}
+function ensureWorker(){if(hdlWorker&&workerReady)return workerReady;setRuntime('busy','載入 Icarus WASM…');const blob=new Blob([workerSource()],{type:'text/javascript'});workerBlobUrl=URL.createObjectURL(blob);hdlWorker=new Worker(workerBlobUrl);const ref=hdlWorker;workerReady=new Promise((resolve,reject)=>{let settled=false;const cleanup=()=>{clearTimeout(timer);ref.removeEventListener('message',onMsg);ref.removeEventListener('error',onErr)};const fail=(message,label)=>{if(settled)return;settled=true;cleanup();if(hdlWorker===ref)disposeWorker();else ref.terminate();setRuntime('error',label);reject(new Error(message))};const onMsg=e=>{if(e.data.type==='progress'){setRuntime('busy',e.data.text||'載入 Icarus WASM…');return}if(e.data.type==='ready'){if(settled)return;settled=true;cleanup();setRuntime('ready','Icarus Verilog WASM 已就緒');resolve();return}if(e.data.type==='init-error'){fail(e.data.error||'Icarus initialization failed','Icarus 載入失敗')}};const onErr=e=>fail(e.message||'Classic Worker load failed','Icarus Worker 失敗');const timer=setTimeout(()=>fail('Icarus WASM initialization exceeded '+Math.round(RUNTIME_INIT_TIMEOUT_MS/1000)+' seconds','Icarus 載入逾時'),RUNTIME_INIT_TIMEOUT_MS);ref.addEventListener('message',onMsg);ref.addEventListener('error',onErr)});return workerReady}
+let runSeq=0;async function simulateDesign(design,tb){await ensureWorker();const ref=hdlWorker,id=++runSeq;return new Promise(resolve=>{let done=false;const h=e=>{if(e.data.type==='result'&&e.data.id===id){if(done)return;done=true;clearTimeout(timer);ref.removeEventListener('message',h);resolve(e.data)}};ref.addEventListener('message',h);const timer=setTimeout(()=>{if(done)return;done=true;ref.removeEventListener('message',h);if(hdlWorker===ref){disposeWorker();setRuntime('','Icarus WASM 尚未載入')}resolve({ok:false,phase:'timeout',error:'Time Limit Exceeded'})},TIMEOUT_MS);ref.postMessage({type:'run',id,design,tb})})}
+function setBusy(v){busy=v;$('#runBtn').disabled=v;$('#submitBtn').disabled=v;$('#resetBtn').disabled=v;$('#clearAllBtn').disabled=v;document.querySelectorAll('.level-btn').forEach(b=>b.disabled=v);const sel=$('#publicTestSelect');if(sel)sel.disabled=v||publicTestIndices(TASKS[currentTaskIndex]).length<=1;const w=$('#waveformOpenBtn');if(w&&v)w.disabled=true;updateAnswerButton()}
+function resetTerminal(msg='Ready. Press F9 to run the selected public test; successful runs expand WAVEFORM directly below TERMINAL + TEST RESULTS. Ctrl+Enter submits all tests.'){const o=$('#terminalOutput');o.className='terminal-output';o.textContent=msg}
+function writeTerminal(msg,err=false){const o=$('#terminalOutput');o.className='terminal-output'+(err?' error':'');o.textContent=msg;o.scrollTop=o.scrollHeight}
+function parseResults(out,nonce,entries,total){
+  const result=Array.from({length:total},()=>null),seen=new Map(),re=new RegExp(nonce+'_RESULT[ \t]+(\\d+)[ \t]+(AC|WA)(?:[ \t]+([^\\r\\n]*))?','g');let m;
+  while((m=re.exec(out))){const idx=Number(m[1])-1;if(idx<0||idx>=total)continue;const n=(seen.get(idx)||0)+1;seen.set(idx,n);if(n===1)result[idx]={verdict:m[2],detail:m[3]||''};else result[idx]={verdict:'JE',detail:'duplicate testbench result marker'}}
+  for(const {index} of entries)if(!result[index])result[index]={verdict:'JE',detail:'testbench result marker missing'};
+  return result;
+}
+function parseDebugActual(out,nonce,entry){
+  const re=new RegExp(nonce+'_DEBUG[ \\t]+(\\d+)[ \\t]+([^\\r\\n]+)','g');
+  let m,found=null,count=0;
+  while((m=re.exec(out))){if(Number(m[1])-1!==entry.index)continue;count++;if(count===1)found=String(m[2]).trim()}
+  if(count===0)return {ok:false,error:'debug output marker missing'};
+  if(count>1)return {ok:false,error:'duplicate debug output marker'};
+  return {ok:true,actual:found};
+}
+function parseWaveActuals(out,nonce,entry,task){
+  const re=new RegExp(nonce+'_WAVE[ \\t]+(\\d+)[ \\t]+(\\d+)[ \\t]+([^\\r\\n]+)','g'),seen=new Map();let m;
+  while((m=re.exec(out))){if(Number(m[1])-1!==entry.index)continue;const step=Number(m[2]),value=String(m[3]).trim();if(seen.has(step))return {ok:false,error:'duplicate waveform sample marker'};seen.set(step,value)}
+  const need=task.id>=6?entry.test.cycles+1:1,values=[];for(let i=0;i<need;i++){if(!seen.has(i))return {ok:false,error:`waveform sample ${i} missing`};values.push(seen.get(i))}
+  return {ok:true,values};
+}
+function stripInternalMarkers(out,nonce){return String(out||'').split(/\r?\n/).filter(line=>!line.includes(nonce+'_RESULT')&&!line.includes(nonce+'_DEBUG')&&!line.includes(nonce+'_WAVE')).join('\n').trim()}
+async function runJudge(submit){
+  if(busy)return;
+  const task=TASKS[currentTaskIndex],design=getCode();saveDraft();
+  if(!design.trim()){writeTerminal('$ iverilog -g2012 design.v tb.v\n\nNo Verilog code to compile.',true);return}
+  const entries=selectedCaseEntries(task,submit);if(!entries.length){writeTerminal('No public test is available.',true);return}
+  const op=++operationSeq;activeToken=op;setBusy(true);if(submit)resetWaveform('波形只提供 F9 選定的 Public Test；Submit 不顯示 Hidden trace。');else resetWaveform('Icarus 正在執行選定的 Public Test；完成後會自動開啟波形。')
+  const nonce=markerToken(),tb=buildTestbench(task,entries,nonce,!submit),running=Array(task.tests.length);for(const {index} of entries)running[index]=null;
+  $('#overallVerdict').className='status-pill warn';$('#overallVerdict').textContent=submit?'評測中':'執行中';
+  $('#resultSummary').textContent=submit?`正在評測全部 ${entries.length} 筆測試…`:`正在執行公開測試 #${entries[0].index+1}…`;
+  renderTests('running',running);writeTerminal(`$ iverilog -g2012 design.v tb.v\nCompiling...\n$ vvp sim.vvp\nSimulating...`);
+  const start=performance.now();
+  try{
+    const r=await simulateDesign(design,tb);if(activeToken!==op)return;
+    if(!r.ok){
+      const verdict=r.phase==='timeout'?'TLE':(r.phase==='compile'?'CE':'JE');
+      const results=Array(task.tests.length);for(const {index} of entries)results[index]={verdict,detail:r.error||''};
+      renderTests('idle',results);$('#overallVerdict').className='status-pill bad';$('#overallVerdict').textContent=verdict;
+      $('#resultSummary').textContent=verdict==='JE'?'Judge / runtime 發生環境錯誤；這不是學生程式的 RE。':(r.error||'Compilation / simulation failed.');
+      writeTerminal(`$ iverilog -g2012 design.v tb.v\n\n${r.error||'Compilation / simulation failed.'}`,true);if(submit)addHistory(task.id,verdict,0,entries.length);return
+    }
+    const parsed=parseResults(r.out,nonce,entries,task.tests.length),evaluated=entries.map(({index})=>parsed[index]);
+    let passed=evaluated.filter(x=>x&&x.verdict==='AC').length;
+    const ms=Math.round(performance.now()-start),consoleOut=stripInternalMarkers(r.out,nonce);
+    if(!submit){
+      const entry=entries[0],dbg=parseDebugActual(r.out,nonce,entry),wave=parseWaveActuals(r.out,nonce,entry,task);
+      if(!dbg.ok){parsed[entry.index]={verdict:'JE',detail:dbg.error};passed=0}
+      if(!wave.ok){parsed[entry.index]={verdict:'JE',detail:wave.error};passed=0;resetWaveform('Waveform unavailable: '+wave.error)}
+      else{renderWaveform(buildWaveformModel(task,entry.test,wave.values));openWaveform(false)}
+      renderTests('idle',parsed);
+      writeTerminal(debugRunText(task,entry,dbg.ok?dbg.actual:'?',parsed[entry.index],consoleOut,r.warn,ms),parsed[entry.index]?.verdict==='JE');
+    }else{
+      renderTests('idle',parsed);
+      writeTerminal(`$ iverilog -g2012 design.v tb.v\n$ vvp sim.vvp\n\n${r.warn?r.warn+'\n':''}${consoleOut?consoleOut+'\n':''}Process finished in ${ms} ms.`);
+    }
+    if(submit){
+      if(passed===entries.length){setAccepted(task.id);$('#overallVerdict').className='status-pill ok';$('#overallVerdict').textContent='Accepted';$('#resultSummary').textContent=`全部 ${entries.length} 筆測試通過。這一階完成。`;addHistory(task.id,'AC',passed,entries.length);renderProgress();renderLevels();renderHidden()}
+      else{const first=evaluated.find(x=>!x||x.verdict!=='AC');const verdict=first?.verdict||'JE';$('#overallVerdict').className='status-pill bad';$('#overallVerdict').textContent=verdict;$('#resultSummary').textContent=verdict==='JE'?`Judge 沒有得到完整可驗證結果；請看 TERMINAL。`:`通過 ${passed} / ${entries.length}。先修正第一個失敗測試再重新提交。`;addHistory(task.id,verdict,passed,entries.length)}
+    }else{$('#overallVerdict').className=passed===entries.length?'status-pill ok':'status-pill bad';$('#overallVerdict').textContent=passed===entries.length?'公開測試通過':(evaluated[0]?.verdict||'JE');$('#resultSummary').textContent=`公開測試 #${entries[0].index+1}：${evaluated[0]?.verdict||'JE'}。F9 不會解鎖 AC；請用 Ctrl+Enter 提交全部測試。`}
+  }catch(e){const detail=String(e&&e.stack||e);writeTerminal('$ iverilog -g2012 design.v tb.v\n\nRuntime initialization failed.\n'+detail,true);$('#overallVerdict').className='status-pill bad';$('#overallVerdict').textContent='JE';$('#resultSummary').textContent='Judge runtime 無法初始化；這不是學生程式的 RE。'}
+  finally{if(activeToken===op){activeToken=0;setBusy(false);renderPublicTestSelector()}}
+}
+
+$('#answerBtn').onclick=()=>{const t=TASKS[currentTaskIndex];if(!getAccepted()[t.id])return;$('#answerTitle').textContent=`第 ${t.id} 階參考答案｜${t.title}`;$('#answerCode').textContent=t.answer;$('#answerDialog').showModal()};$('#closeAnswer').onclick=()=>$('#answerDialog').close();$('#answerDialog').onclick=e=>{if(e.target===$('#answerDialog'))$('#answerDialog').close()};$('#resetBtn').onclick=()=>{if(confirm('確定清空這一階的 Verilog 程式碼？')){setCode('');saveDraft();if(editor)editor.focus()}};$('#runBtn').onclick=()=>runJudge(false);$('#submitBtn').onclick=()=>runJudge(true);$('#publicTestSelect').onchange=e=>{selectedPublicTestIndex=Number(e.target.value)||0;updateTerminalMeta();resetWaveform();resetTerminal(`Ready. Public test #${publicTestIndices(TASKS[currentTaskIndex])[selectedPublicTestIndex]+1} selected.`);if(editor)editor.focus()};$('#waveformOpenBtn').onclick=()=>openWaveform(false);$('#waveformExpandBtn').onclick=toggleWaveformExpand;$('#waveformCloseBtn').onclick=closeWaveform;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#waveformDock').hidden)closeWaveform()});$('#clearTerminalBtn').onclick=()=>{resetTerminal('Terminal cleared.');resetWaveform();};$('#clearAllBtn').onclick=()=>{if(busy)return;if(!confirm('確定清除所有紀錄？\n\n這會刪除 7 階草稿、AC 進度與提交紀錄，且無法復原。'))return;clearRecords();currentTaskIndex=0;selectedPublicTestIndex=0;setCode('');renderLevels();renderProblem();renderTests();renderHidden();renderHistory();renderProgress();$('#overallVerdict').className='status-pill';$('#overallVerdict').textContent='尚未提交';$('#resultSummary').textContent='所有本機紀錄已清除。';renderPublicTestSelector();resetWaveform();resetTerminal('All local records cleared.');if(editor){editor.clearHistory();editor.focus()}};
+migrateLegacyDrafts();setupEditor();renderLevels();renderProblem();renderTests();renderHidden();renderHistory();renderProgress();setCode(localStorage.getItem(draftKey(TASKS[0].id))||'');renderPublicTestSelector();resetWaveform();
+</script>
+</body>
+</html>
