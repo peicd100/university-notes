@@ -1,0 +1,16 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "mkdocs",
+    "build",
+    "-f",
+    "\\\\vmware-host\\Shared Folders\\github_note\\university notes\\mkdocs.preview.yml",
+    "--clean"
+  ],
+  "cwd": "\\\\vmware-host\\Shared Folders\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": ".codex\\codex\\tmp\\20260611-224242-preview-absolute-config-build.out.log",
+  "stderr_log": ".codex\\codex\\tmp\\20260611-224242-preview-absolute-config-build.err.log",
+  "timestamp": "20260611-224242"
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "mkdocs",
+    "build",
+    "--clean"
+  ],
+  "cwd": "Y:\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": ".codex\\codex\\tmp\\20260524-194143-right-toc-black-build-2.out.log",
+  "stderr_log": ".codex\\codex\\tmp\\20260524-194143-right-toc-black-build-2.err.log",
+  "timestamp": "20260524-194143"
+}

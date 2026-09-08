@@ -1,0 +1,13 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "py_compile",
+    "tools\\run_logged.py"
+  ],
+  "cwd": "Y:\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": "codex\\tmp\\20260412-115143-pycheck-run-logged.out.log",
+  "stderr_log": "codex\\tmp\\20260412-115143-pycheck-run-logged.err.log",
+  "timestamp": "20260412-115143"
+}

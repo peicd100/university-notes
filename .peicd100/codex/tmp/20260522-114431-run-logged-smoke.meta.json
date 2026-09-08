@@ -1,0 +1,12 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-c",
+    "print('ok')"
+  ],
+  "cwd": "Y:\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": ".codex\\codex\\tmp\\20260522-114431-run-logged-smoke.out.log",
+  "stderr_log": ".codex\\codex\\tmp\\20260522-114431-run-logged-smoke.err.log",
+  "timestamp": "20260522-114431"
+}

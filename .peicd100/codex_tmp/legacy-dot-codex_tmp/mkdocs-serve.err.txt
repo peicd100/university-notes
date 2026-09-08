@@ -1,0 +1,720 @@
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Cleaning site directory
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\x1064\AppData\Local\Temp\jieba.cache
+Loading model cost 0.399 seconds.
+Prefix dict has been built successfully.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.34 seconds
+INFO    -  [08:39:48] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [08:39:48] Serving on http://127.0.0.1:8000/university-notes/
+INFO    -  [08:39:49] Browser connected: http://127.0.0.1:8000/university-notes/md/114-2/%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html
+INFO    -  [08:40:39] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.38 seconds
+INFO    -  [08:40:57] Reloading browsers
+INFO    -  [11:02:28] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.03 seconds
+INFO    -  [11:02:46] Reloading browsers
+INFO    -  [11:03:59] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.53 seconds
+INFO    -  [11:04:17] Reloading browsers
+INFO    -  [11:04:17] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.05 seconds
+INFO    -  [11:04:34] Reloading browsers
+INFO    -  [11:08:59] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.58 seconds
+INFO    -  [11:09:17] Reloading browsers
+INFO    -  [11:09:17] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.80 seconds
+INFO    -  [11:09:35] Reloading browsers
+INFO    -  [11:11:16] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.66 seconds
+INFO    -  [11:11:34] Reloading browsers
+INFO    -  [11:18:24] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.25 seconds
+INFO    -  [11:18:43] Reloading browsers
+INFO    -  [11:18:43] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [11:19:01] Reloading browsers
+INFO    -  [11:19:01] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.31 seconds
+INFO    -  [11:19:19] Reloading browsers
+INFO    -  [11:24:08] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.17 seconds
+INFO    -  [11:24:26] Reloading browsers
+INFO    -  [11:24:45] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.67 seconds
+INFO    -  [11:25:03] Reloading browsers
+INFO    -  [11:25:26] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.69 seconds
+INFO    -  [11:25:44] Reloading browsers
+INFO    -  [11:28:48] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.00 seconds
+INFO    -  [11:29:07] Reloading browsers
+INFO    -  [11:32:11] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 23.94 seconds
+INFO    -  [11:32:35] Reloading browsers
+INFO    -  [11:36:42] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.61 seconds
+INFO    -  [11:37:01] Reloading browsers
+INFO    -  [11:37:01] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.48 seconds
+INFO    -  [11:37:20] Reloading browsers
+INFO    -  [11:37:20] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.62 seconds
+INFO    -  [11:37:39] Reloading browsers
+INFO    -  [11:37:39] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.44 seconds
+INFO    -  [11:37:56] Reloading browsers
+INFO    -  [11:38:09] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [11:38:28] Reloading browsers
+INFO    -  [11:38:28] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.64 seconds
+INFO    -  [11:38:46] Reloading browsers
+INFO    -  [11:38:46] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.22 seconds
+INFO    -  [11:39:03] Reloading browsers
+INFO    -  [11:41:04] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-30.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-30.png' is not found among documentation files.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.69 seconds
+INFO    -  [11:41:23] Reloading browsers
+INFO    -  [11:41:23] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.62 seconds
+INFO    -  [11:41:41] Reloading browsers
+INFO    -  [13:45:44] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 20.50 seconds
+INFO    -  [13:46:05] Reloading browsers
+INFO    -  [13:46:12] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.73 seconds
+INFO    -  [13:46:31] Reloading browsers
+INFO    -  [13:46:31] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-32.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-32.png' is not found among documentation files.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.45 seconds
+INFO    -  [13:46:50] Reloading browsers
+INFO    -  [13:46:50] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.02 seconds
+INFO    -  [13:47:08] Reloading browsers
+INFO    -  [13:52:15] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.00 seconds
+INFO    -  [13:52:34] Reloading browsers
+INFO    -  [13:52:34] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.30 seconds
+INFO    -  [13:52:53] Reloading browsers
+INFO    -  [13:52:53] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.05 seconds
+INFO    -  [13:53:11] Reloading browsers
+INFO    -  [13:56:11] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.92 seconds
+INFO    -  [13:56:29] Reloading browsers
+INFO    -  [13:56:29] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  A reference to 'md\Verilog\同步重置、.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  Path 'md\Verilog\同步重置、.md' uses OS-specific separator '\'. That will be unsupported in a future release. Please change it to '/'.
+INFO    -  Modified search_index.
+INFO    -  [13:56:47] Reloading browsers
+INFO    -  [13:56:47] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  A reference to 'md\Verilog\同步重置、非同步重置.md' is included in the 'nav' configuration, which is not found in the documentation files.
+WARNING -  Path 'md\Verilog\同步重置、非同步重置.md' uses OS-specific separator '\'. That will be unsupported in a future release. Please change it to '/'.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.81 seconds
+INFO    -  [13:57:05] Reloading browsers
+INFO    -  [13:57:05] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.97 seconds
+INFO    -  [13:57:23] Reloading browsers
+INFO    -  [13:57:23] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [13:57:42] Reloading browsers
+INFO    -  [13:57:42] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.39 seconds
+INFO    -  [13:58:00] Reloading browsers
+INFO    -  [13:58:00] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [13:58:19] Reloading browsers
+INFO    -  [13:58:19] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.88 seconds
+INFO    -  [13:58:37] Reloading browsers
+INFO    -  [13:58:37] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [13:58:55] Reloading browsers
+INFO    -  [13:59:43] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.33 seconds
+INFO    -  [14:00:02] Reloading browsers
+INFO    -  [14:00:02] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.12 seconds
+INFO    -  [14:00:20] Reloading browsers
+INFO    -  [14:00:20] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.94 seconds
+INFO    -  [14:00:38] Reloading browsers
+INFO    -  [14:01:07] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:01:25] Reloading browsers
+INFO    -  [14:01:25] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.91 seconds
+INFO    -  [14:01:43] Reloading browsers
+INFO    -  [14:01:43] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.70 seconds
+INFO    -  [14:02:01] Reloading browsers
+INFO    -  [14:02:01] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.72 seconds
+INFO    -  [14:02:19] Reloading browsers
+INFO    -  [14:02:19] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.74 seconds
+INFO    -  [14:02:37] Reloading browsers
+INFO    -  [14:02:37] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:02:55] Reloading browsers
+INFO    -  [14:02:55] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.59 seconds
+INFO    -  [14:03:12] Reloading browsers
+INFO    -  [14:03:12] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:03:30] Reloading browsers
+INFO    -  [14:04:02] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:04:20] Reloading browsers
+INFO    -  [14:04:20] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.77 seconds
+INFO    -  [14:04:38] Reloading browsers
+INFO    -  [14:04:38] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:04:56] Reloading browsers
+INFO    -  [14:04:56] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:05:14] Reloading browsers
+INFO    -  [14:05:14] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.08 seconds
+INFO    -  [14:05:33] Reloading browsers
+INFO    -  [14:05:33] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.86 seconds
+INFO    -  [14:05:51] Reloading browsers
+INFO    -  [14:05:51] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:06:09] Reloading browsers
+INFO    -  [14:06:09] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:06:27] Reloading browsers
+INFO    -  [14:06:27] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:06:45] Reloading browsers
+INFO    -  [14:06:45] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:07:03] Reloading browsers
+INFO    -  [14:07:03] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.42 seconds
+INFO    -  [14:07:21] Reloading browsers
+INFO    -  [14:07:54] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.50 seconds
+INFO    -  [14:08:12] Reloading browsers
+INFO    -  [14:08:12] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:08:30] Reloading browsers
+INFO    -  [14:08:30] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:08:48] Reloading browsers
+INFO    -  [14:08:48] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:09:06] Reloading browsers
+INFO    -  [14:09:06] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.47 seconds
+INFO    -  [14:09:23] Reloading browsers
+INFO    -  [14:09:23] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.73 seconds
+INFO    -  [14:09:41] Reloading browsers
+INFO    -  [14:10:14] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:10:32] Reloading browsers
+INFO    -  [14:10:32] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:10:50] Reloading browsers
+INFO    -  [14:10:50] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.41 seconds
+INFO    -  [14:11:09] Reloading browsers
+INFO    -  [14:25:13] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:25:30] Reloading browsers
+INFO    -  [14:25:30] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:25:48] Reloading browsers
+INFO    -  [14:26:54] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:27:11] Reloading browsers
+INFO    -  [14:27:11] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:27:29] Reloading browsers
+INFO    -  [14:27:29] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:27:47] Reloading browsers
+INFO    -  [14:27:47] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:28:05] Reloading browsers
+INFO    -  [14:28:05] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:28:23] Reloading browsers
+INFO    -  [14:30:05] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:30:23] Reloading browsers
+INFO    -  [14:30:23] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.89 seconds
+INFO    -  [14:30:41] Reloading browsers
+INFO    -  [14:30:41] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [14:30:59] Reloading browsers
+INFO    -  [17:13:33] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-37.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-37.png' is not found among documentation files.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.84 seconds
+INFO    -  [17:13:53] Reloading browsers
+INFO    -  [17:13:53] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.38 seconds
+INFO    -  [17:14:12] Reloading browsers
+INFO    -  [17:34:00] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.50 seconds
+INFO    -  [17:34:19] Reloading browsers
+INFO    -  [17:34:31] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [17:34:49] Reloading browsers
+INFO    -  [17:47:57] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 20.14 seconds
+INFO    -  [17:48:17] Reloading browsers
+INFO    -  [17:48:17] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.88 seconds
+INFO    -  [17:48:38] Reloading browsers
+INFO    -  [17:48:38] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.42 seconds
+INFO    -  [17:48:58] Reloading browsers
+INFO    -  [17:48:58] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.98 seconds
+INFO    -  [17:49:17] Reloading browsers
+INFO    -  [17:56:18] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.27 seconds
+INFO    -  [17:56:38] Reloading browsers
+INFO    -  [18:22:24] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-48.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-48.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-50.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-50.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-52.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-52.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-54.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-54.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-51.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-51.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-49.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-49.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-53.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-53.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-55.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-55.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-56.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-56.png' is not found among documentation files.
+WARNING -  Doc file 'md/114-2/科技_計算機結構/ch 2.md' contains a link 'images/ch 2-57.png', but the target 'md/114-2/科技_計算機結構/images/ch 2-57.png' is not found among documentation files.
+INFO    -  Modified search_index.
+INFO    -  [18:22:42] Reloading browsers
+INFO    -  [18:22:42] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:23:00] Reloading browsers
+INFO    -  [18:25:16] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:25:34] Reloading browsers
+INFO    -  [18:25:34] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 16.78 seconds
+INFO    -  [18:25:51] Reloading browsers
+INFO    -  [18:26:35] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.45 seconds
+INFO    -  [18:26:52] Reloading browsers
+INFO    -  [18:44:19] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:44:37] Reloading browsers
+INFO    -  [18:44:40] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.23 seconds
+INFO    -  [18:44:59] Reloading browsers
+INFO    -  [18:44:59] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 19.44 seconds
+INFO    -  [18:45:19] Reloading browsers
+INFO    -  [18:45:19] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.08 seconds
+INFO    -  [18:45:36] Reloading browsers
+INFO    -  [18:46:18] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 17.56 seconds
+INFO    -  [18:46:36] Reloading browsers
+INFO    -  [18:46:41] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:46:59] Reloading browsers
+INFO    -  [18:46:59] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  Documentation built in 18.24 seconds
+INFO    -  [18:47:17] Reloading browsers
+INFO    -  [18:47:17] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:47:35] Reloading browsers
+INFO    -  [18:47:35] Detected file changes
+INFO    -  Building documentation...
+INFO    -  "highlightjs" feature is disabled in your plugin configuration.
+INFO    -  "mermaid2" feature is disabled in your plugin configuration.
+INFO    -  Modified search_index.
+INFO    -  [18:47:54] Reloading browsers

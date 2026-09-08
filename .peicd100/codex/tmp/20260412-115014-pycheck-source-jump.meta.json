@@ -1,0 +1,13 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "py_compile",
+    "tools\\source_jump_hook.py"
+  ],
+  "cwd": "\\\\vmware-host\\Shared Folders\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": "codex\\tmp\\20260412-115014-pycheck-source-jump.out.log",
+  "stderr_log": "codex\\tmp\\20260412-115014-pycheck-source-jump.err.log",
+  "timestamp": "20260412-115014"
+}

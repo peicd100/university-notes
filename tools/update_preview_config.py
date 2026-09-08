@@ -82,15 +82,46 @@ def yaml_single_quoted(value: str) -> str:
 
 def build_managed_block(relative_markdown_path: str) -> str:
     quoted = yaml_single_quoted(relative_markdown_path)
+    target_path = Path(relative_markdown_path)
+    target_parent = target_path.parent.as_posix()
+
+    # Most generated audio/video output lives below docs/md. Excluding only
+    # Markdown files still makes every preview build scan and copy those static
+    # files. Keep the selected page's directory so relative images and
+    # downloads continue to work, then re-exclude sibling Markdown pages to
+    # preserve the single-page preview behaviour.
+    exclude_lines = ["/md/**"]
+    if target_parent == "md":
+        exclude_lines.extend(
+            [
+                "!/md/*",
+                "/md/*.md",
+            ]
+        )
+    elif target_parent.startswith("md/"):
+        exclude_lines.extend(
+            [
+                f"!/{target_parent}/**",
+                f"/{target_parent}/**/*.md",
+            ]
+        )
+
+    exclude_lines.extend(
+        [
+            "*.md",
+            f"!/{relative_markdown_path}",
+            "!/index.md",
+        ]
+    )
+    exclude_block = "".join(f"  {line}\n" for line in exclude_lines)
+
     return (
         f"{MANAGED_START}\n"
         "nav:\n"
         f"  - {quoted}\n"
         "\n"
         "exclude_docs: |\n"
-        "  *.md\n"
-        f"  !/{relative_markdown_path}\n"
-        "  !/index.md\n"
+        f"{exclude_block}"
         f"{MANAGED_END}\n"
     )
 

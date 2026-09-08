@@ -1,0 +1,14 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "mkdocs",
+    "build",
+    "--clean"
+  ],
+  "cwd": "\\\\vmware-host\\Shared Folders\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": ".codex\\codex\\tmp\\20260610-164854-admonition-body-font-final-build.out.log",
+  "stderr_log": ".codex\\codex\\tmp\\20260610-164854-admonition-body-font-final-build.err.log",
+  "timestamp": "20260610-164854"
+}

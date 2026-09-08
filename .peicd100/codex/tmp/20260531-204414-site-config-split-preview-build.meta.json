@@ -1,0 +1,16 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "mkdocs",
+    "build",
+    "-f",
+    "mkdocs.preview.yml",
+    "--clean"
+  ],
+  "cwd": "Y:\\github_note\\university notes",
+  "returncode": 0,
+  "stdout_log": ".codex\\codex\\tmp\\20260531-204414-site-config-split-preview-build.out.log",
+  "stderr_log": ".codex\\codex\\tmp\\20260531-204414-site-config-split-preview-build.err.log",
+  "timestamp": "20260531-204414"
+}

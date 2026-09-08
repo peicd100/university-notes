@@ -1,0 +1,14 @@
+{
+  "command": [
+    "Y:\\conda\\envs\\mkdocs\\python.exe",
+    "-m",
+    "mkdocs",
+    "build",
+    "--clean"
+  ],
+  "cwd": "\\\\?\\UNC\\vmware-host\\Shared Folders\\github_note\\university notes",
+  "returncode": 1,
+  "stdout_log": "codex\\tmp\\20260423-001834-build-scroll-bottom.out.log",
+  "stderr_log": "codex\\tmp\\20260423-001834-build-scroll-bottom.err.log",
+  "timestamp": "20260423-001834"
+}
