@@ -4,14 +4,6 @@
 {{ super() }}
 {% include "partials/libs.html" ignore missing %}
 
-<!-- google 朗讀和翻譯 -->
-<!-- {% include "tts.html" ignore missing %}   -->
-
-
-
-<!-- {% include "search.html" ignore missing %} -->
-<!-- {% include "comments.html" ignore missing %} -->
-
 
 {% endblock %}
 
@@ -25,8 +17,18 @@
   {{ super() }}
 {% endblock %}
 
+<!-- google 朗讀和翻譯 -->
+
+{# {% include "tts.html" ignore missing %} #}
+
+
+
+{# {% include "search.html" ignore missing %} #}
+{# {% include "comments.html" ignore missing %} #}
+
+
 <!-- 贊助 -->
-<!-- {% block announce %}{% include "announce.html" ignore missing %}{% endblock %}
+{# {% block announce %}{% include "announce.html" ignore missing %}{% endblock %}
 
 {% block content %}
   {{ super() }}
@@ -42,4 +44,4 @@
     <hr>
   </footer>
   {% endif %}
-{% endblock %} -->
+{% endblock %} #}
