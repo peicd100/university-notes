@@ -7,13 +7,13 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/115-1/硬體描述語言/ch00.md'
+  - 'md/115-1/C程式設計/環境.md'
 
 exclude_docs: |
   /md/**
-  !/md/115-1/硬體描述語言/**
-  /md/115-1/硬體描述語言/**/*.md
+  !/md/115-1/C程式設計/**
+  /md/115-1/C程式設計/**/*.md
   *.md
-  !/md/115-1/硬體描述語言/ch00.md
+  !/md/115-1/C程式設計/環境.md
   !/index.md
 # preview-target:end
