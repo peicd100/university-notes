@@ -64,135 +64,138 @@ nav:
     - 'md/115-1/C程式設計/環境.md'
   
 
-  - 'Verilog':
-      - '首頁': 'md/Verilog/首頁.md'
-      - '學習資源': 'md/Verilog/學習資源整理.md'
-      - '基礎語法':
-        - 'md/Verilog/模組與建模方式.md'
-        - 'md/Verilog/常見資料型別.md'
-        - 'md/Verilog/數值.md'
-        - 'md/Verilog/運算子.md'
-        - 'md/Verilog/運算子優先度.md'
-        - 'md/Verilog/vector.md'
-        - 'md/Verilog/Generate.md'
-        - 'md/Verilog/四則運算.md'
-      - '程序式寫法 / Testbench':
-        - 'md/Verilog/always、initial 與事件控制.md'
-        - 'md/Verilog/blocking 與 non-blocking.md'
-        - 'md/Verilog/選擇結構.md'
-        - 'md/Verilog/迴圈與程序控制.md'
-        - 'md/Verilog/Testbench 寫 clk.md'
-        - 'md/Verilog/Testbench 用數學式驗證.md'
-        - 'md/Verilog/Fork.md'
-      - '模擬與常見電路':
-        - 'md/Verilog/system tasks.md'
-        - 'md/Verilog/priority encoder.md'
-        - 'md/Verilog/full adder.md'
-      - '進階觀念/技巧':
-        - 'md\Verilog\防止變成 latch.md'
-        - 'md\Verilog\不會被刪除的變數.md'
-        - 'md\Verilog\順序相同的連續運算.md'
-        - 'md\Verilog\多工器.md'
-        - 'md\Verilog\adder.md'
-        - 'md\Verilog\half_adder & full_adder.md'
-        - 'md\Verilog\四則運算與邏輯運算的位寬.md'
-        - 'md\Verilog\overflow.md'
-        - 'md\Verilog\instance array(實例陣列).md'
-        - 'md\Verilog\同步重置、非同步重置.md'
-        - 'md\Verilog\dff.md'
-        - 'md\Verilog\雙邊緣觸發.md'
-        - 'md\Verilog\1000Hz to 1Hz counter.md'
-        - 'md\Verilog\按鈕去彈跳.md'
-        - 'md\Verilog\Finite State Machine(有限狀態機).md'
-      - 'HDLBits':
-        - 'Conway`s Game of Life': 'md\Verilog\Conway`s Game of Life 16_16.html'
-      
-  - '114-2':      
+  - '其他學期筆記':
+    
+    - '114-2':      
 
-    - '科大_數位邏輯設計實習':
-        - 'md/114-2/科大_數位邏輯設計實習/教材.md'
-        - 'md/114-2/科大_數位邏輯設計實習/Vivado 專案.md'
-        - 'md/114-2/科大_數位邏輯設計實習/燒錄板子.md'
-        
+      - '科大_數位邏輯設計實習':
+          - 'md/114-2/科大_數位邏輯設計實習/教材.md'
+          - 'md/114-2/科大_數位邏輯設計實習/Vivado 專案.md'
+          - 'md/114-2/科大_數位邏輯設計實習/燒錄板子.md'
+          
 
 
-    - '電機_作業系統':
-        - 'md/114-2/電機_作業系統/首頁.md'
-        - 'md/114-2/電機_作業系統/windows CLI 指令.md'
-        - 'md/114-2/電機_作業系統/Linux CLI 指令.md'
-        - 'md/114-2/電機_作業系統/vim.md'
-        - 'md/114-2/電機_作業系統/ch 1.md'
-        - 'md/114-2/電機_作業系統/ch 3.md'
-        - 'md/114-2/電機_作業系統/ch 4.md'
-        - 'md/114-2/電機_作業系統/ch 5.md'
-        - '期中考整理':
-          - 'md/114-2/電機_作業系統/期中考英文.md'
-          - 'md/114-2/電機_作業系統/期中考重點.md'
-        - 'md/114-2/電機_作業系統/ch 6.md'
-        - 'md/114-2/電機_作業系統/ch 7.md'
-        - 'md/114-2/電機_作業系統/ch 8.md'
-        - 'md/114-2/電機_作業系統/ch 9.md'
-        - '期末考整理':
-          - 'md/114-2/電機_作業系統/期末考重點-ch6.md'
-          - 'md/114-2/電機_作業系統/期末考重點-ch7.md'
-          - 'md/114-2/電機_作業系統/期末考重點-ch8.md'
-          - 'md/114-2/電機_作業系統/期末考重點-ch9.md'
-          - 'md/114-2/電機_作業系統/期末考所有重點.md'
+      - '電機_作業系統':
+          - 'md/114-2/電機_作業系統/首頁.md'
+          - 'md/114-2/電機_作業系統/windows CLI 指令.md'
+          - 'md/114-2/電機_作業系統/Linux CLI 指令.md'
+          - 'md/114-2/電機_作業系統/vim.md'
+          - 'md/114-2/電機_作業系統/ch 1.md'
+          - 'md/114-2/電機_作業系統/ch 3.md'
+          - 'md/114-2/電機_作業系統/ch 4.md'
+          - 'md/114-2/電機_作業系統/ch 5.md'
+          - '期中考整理':
+            - 'md/114-2/電機_作業系統/期中考英文.md'
+            - 'md/114-2/電機_作業系統/期中考重點.md'
+          - 'md/114-2/電機_作業系統/ch 6.md'
+          - 'md/114-2/電機_作業系統/ch 7.md'
+          - 'md/114-2/電機_作業系統/ch 8.md'
+          - 'md/114-2/電機_作業系統/ch 9.md'
+          - '期末考整理':
+            - 'md/114-2/電機_作業系統/期末考重點-ch6.md'
+            - 'md/114-2/電機_作業系統/期末考重點-ch7.md'
+            - 'md/114-2/電機_作業系統/期末考重點-ch8.md'
+            - 'md/114-2/電機_作業系統/期末考重點-ch9.md'
+            - 'md/114-2/電機_作業系統/期末考所有重點.md'
+            
+            
+            
           
           
           
-        
-        
-        
-    - '機電_數位邏輯實驗':
-        - 'md/114-2/機電_數位邏輯實驗/首頁.md'
-        - 'md/114-2/機電_數位邏輯實驗/Quartus 創建專案.md'
-        - 'md/114-2/機電_數位邏輯實驗/安裝 usb.md'
-        - 'md/114-2/機電_數位邏輯實驗/跑 tb.md'
-        - 'md/114-2/機電_數位邏輯實驗/選腳位.md'
-        - 'md/114-2/機電_數位邏輯實驗/上傳電路板.md'
-        - 'md/114-2/機電_數位邏輯實驗/期中考.md'
+      - '機電_數位邏輯實驗':
+          - 'md/114-2/機電_數位邏輯實驗/首頁.md'
+          - 'md/114-2/機電_數位邏輯實驗/Quartus 創建專案.md'
+          - 'md/114-2/機電_數位邏輯實驗/安裝 usb.md'
+          - 'md/114-2/機電_數位邏輯實驗/跑 tb.md'
+          - 'md/114-2/機電_數位邏輯實驗/選腳位.md'
+          - 'md/114-2/機電_數位邏輯實驗/上傳電路板.md'
+          - 'md/114-2/機電_數位邏輯實驗/期中考.md'
 
-    - '資工_電腦輔助 VLSI 設計':
-        - 'md/114-2/資工_電腦輔助 VLSI 設計/教材.md'
-        - 'md/114-2/資工_電腦輔助 VLSI 設計/正負電源.md'
-        - 'md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md'
-        - 'md/114-2/資工_電腦輔助 VLSI 設計/Quartus 9.0.md'
-        - 'md/114-2/資工_電腦輔助 VLSI 設計/期中考.md'
+      - '資工_電腦輔助 VLSI 設計':
+          - 'md/114-2/資工_電腦輔助 VLSI 設計/教材.md'
+          - 'md/114-2/資工_電腦輔助 VLSI 設計/正負電源.md'
+          - 'md/114-2/資工_電腦輔助 VLSI 設計/VHDL.md'
+          - 'md/114-2/資工_電腦輔助 VLSI 設計/Quartus 9.0.md'
+          - 'md/114-2/資工_電腦輔助 VLSI 設計/期中考.md'
 
-    - '科技_計算機結構':
-        - 'md/114-2/科技_計算機結構/SI 前綴表.md'
-        - 'md/114-2/科技_計算機結構/作業 1 配對.md'
-        - 'md/114-2/科技_計算機結構/ch 0.md'
-        - 'md/114-2/科技_計算機結構/ch 1.md'
-        - 'md/114-2/科技_計算機結構/ch 2.md'
-        - 'md/114-2/科技_計算機結構/期中考重點整理.md'
-        - 'md/114-2/科技_計算機結構/MIPS 欄位表.md'
-        - 'md/114-2/科技_計算機結構/ch 3.md'
-        - 'md/114-2/科技_計算機結構/ch 4.1.md'
-        - 'md/114-2/科技_計算機結構/ch 4.2.md'
-        - 'md/114-2/科技_計算機結構/ch 5.md'
-        - 'md/114-2/科技_計算機結構/ch 6-Lab.md'
-        - '期末考整理':
-          - 'md/114-2/科技_計算機結構/期末考複習-ch3.md'
-          - 'md/114-2/科技_計算機結構/期末考複習-ch4.1.md'
-          - 'md/114-2/科技_計算機結構/期末考複習-ch4.2.md'
-          - 'md/114-2/科技_計算機結構/期末考複習-ch5.md'
-          - 'md/114-2/科技_計算機結構/期末考複習-ch6-Lab.md'
-          - 'md/114-2/科技_計算機結構/期末考複習總整理.md'
-        
+      - '科技_計算機結構':
+          - 'md/114-2/科技_計算機結構/SI 前綴表.md'
+          - 'md/114-2/科技_計算機結構/作業 1 配對.md'
+          - 'md/114-2/科技_計算機結構/ch 0.md'
+          - 'md/114-2/科技_計算機結構/ch 1.md'
+          - 'md/114-2/科技_計算機結構/ch 2.md'
+          - 'md/114-2/科技_計算機結構/期中考重點整理.md'
+          - 'md/114-2/科技_計算機結構/MIPS 欄位表.md'
+          - 'md/114-2/科技_計算機結構/ch 3.md'
+          - 'md/114-2/科技_計算機結構/ch 4.1.md'
+          - 'md/114-2/科技_計算機結構/ch 4.2.md'
+          - 'md/114-2/科技_計算機結構/ch 5.md'
+          - 'md/114-2/科技_計算機結構/ch 6-Lab.md'
+          - '期末考整理':
+            - 'md/114-2/科技_計算機結構/期末考複習-ch3.md'
+            - 'md/114-2/科技_計算機結構/期末考複習-ch4.1.md'
+            - 'md/114-2/科技_計算機結構/期末考複習-ch4.2.md'
+            - 'md/114-2/科技_計算機結構/期末考複習-ch5.md'
+            - 'md/114-2/科技_計算機結構/期末考複習-ch6-Lab.md'
+            - 'md/114-2/科技_計算機結構/期末考複習總整理.md'
+  
+  - 'Else':
 
-  - '600':
-      - 'Ch4 Travel 全文集中區': 'md/多益600/4.md'
-      - 'Ch5 Dining out 全文集中區': 'md/多益600/5.md'
-      - 'Ch6 Entertainment 全文集中區': 'md/多益600/6.md'
-      - 'Ch7 Housing 全文集中區': 'md/多益600/7.md'
-      - 'Ch8 Purchasing 全文集中區': 'md/多益600/8.md'
-      - 'Ch9 Personnel 人事篇 全文集中區': 'md/多益600/9.md'
-      - 'Ch10 Offices 辦公室篇 全文集中區': 'md/多益600/10.md'
-      - 'Ch11 Health 健康篇 全文集中區': 'md/多益600/11.md'
-      - 'Ch12 General Business 一般商務篇 全文集中區': 'md/多益600/12.md'
-      - 'Ch13 Manufacturing 製造業篇 全文集中區': 'md/多益600/13.md'
-      - 'Ch14 Corporate Development 企業發展篇 全文集中區': 'md/多益600/14.md'
-      - 'Ch15 Technical areas 技術層面篇 全文集中區': 'md/多益600/15.md'
-      - 'Ch16 Financing 財務金融篇 全文集中區': 'md/多益600/16.md'
+    - 'Verilog':
+        - '首頁': 'md/Verilog/首頁.md'
+        - '學習資源': 'md/Verilog/學習資源整理.md'
+        - '基礎語法':
+          - 'md/Verilog/模組與建模方式.md'
+          - 'md/Verilog/常見資料型別.md'
+          - 'md/Verilog/數值.md'
+          - 'md/Verilog/運算子.md'
+          - 'md/Verilog/運算子優先度.md'
+          - 'md/Verilog/vector.md'
+          - 'md/Verilog/Generate.md'
+          - 'md/Verilog/四則運算.md'
+        - '程序式寫法 / Testbench':
+          - 'md/Verilog/always、initial 與事件控制.md'
+          - 'md/Verilog/blocking 與 non-blocking.md'
+          - 'md/Verilog/選擇結構.md'
+          - 'md/Verilog/迴圈與程序控制.md'
+          - 'md/Verilog/Testbench 寫 clk.md'
+          - 'md/Verilog/Testbench 用數學式驗證.md'
+          - 'md/Verilog/Fork.md'
+        - '模擬與常見電路':
+          - 'md/Verilog/system tasks.md'
+          - 'md/Verilog/priority encoder.md'
+          - 'md/Verilog/full adder.md'
+        - '進階觀念/技巧':
+          - 'md\Verilog\防止變成 latch.md'
+          - 'md\Verilog\不會被刪除的變數.md'
+          - 'md\Verilog\順序相同的連續運算.md'
+          - 'md\Verilog\多工器.md'
+          - 'md\Verilog\adder.md'
+          - 'md\Verilog\half_adder & full_adder.md'
+          - 'md\Verilog\四則運算與邏輯運算的位寬.md'
+          - 'md\Verilog\overflow.md'
+          - 'md\Verilog\instance array(實例陣列).md'
+          - 'md\Verilog\同步重置、非同步重置.md'
+          - 'md\Verilog\dff.md'
+          - 'md\Verilog\雙邊緣觸發.md'
+          - 'md\Verilog\1000Hz to 1Hz counter.md'
+          - 'md\Verilog\按鈕去彈跳.md'
+          - 'md\Verilog\Finite State Machine(有限狀態機).md'
+        - 'HDLBits':
+          - 'Conway`s Game of Life': 'md\Verilog\Conway`s Game of Life 16_16.html'
+    
+    - '600':
+        - 'Ch4 Travel 全文集中區': 'md/多益600/4.md'
+        - 'Ch5 Dining out 全文集中區': 'md/多益600/5.md'
+        - 'Ch6 Entertainment 全文集中區': 'md/多益600/6.md'
+        - 'Ch7 Housing 全文集中區': 'md/多益600/7.md'
+        - 'Ch8 Purchasing 全文集中區': 'md/多益600/8.md'
+        - 'Ch9 Personnel 人事篇 全文集中區': 'md/多益600/9.md'
+        - 'Ch10 Offices 辦公室篇 全文集中區': 'md/多益600/10.md'
+        - 'Ch11 Health 健康篇 全文集中區': 'md/多益600/11.md'
+        - 'Ch12 General Business 一般商務篇 全文集中區': 'md/多益600/12.md'
+        - 'Ch13 Manufacturing 製造業篇 全文集中區': 'md/多益600/13.md'
+        - 'Ch14 Corporate Development 企業發展篇 全文集中區': 'md/多益600/14.md'
+        - 'Ch15 Technical areas 技術層面篇 全文集中區': 'md/多益600/15.md'
+        - 'Ch16 Financing 財務金融篇 全文集中區': 'md/多益600/16.md'
