@@ -5260,20 +5260,19 @@
 <h1 id="環境">環境<a class="headerlink" href="#環境" title="Permanent link"></a></h1>
 <h2 id="makefile">Makefile<a class="headerlink" href="#makefile" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code><span class="nv">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>g++
-
 <span class="nv">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Q1<span class="w"> </span>Q2<span class="w"> </span>Q3<span class="w"> </span>Q4
-<span class="nv">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Q1.o<span class="w"> </span>Q2.o<span class="w"> </span>Q3.o<span class="w"> </span>Q4.o
+<span class="nv">ob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Q1.o<span class="w"> </span>Q2.o<span class="w"> </span>Q3.o<span class="w"> </span>Q4.o
 
-<span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">t</span><span class="k">)</span>
+<span class="nf">all </span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">t</span><span class="k">)</span>
 
-<span class="nf">$(o)</span><span class="o">:</span><span class="w"> </span>%.<span class="n">o</span>: %.<span class="n">cpp</span>
+<span class="nf">$(ob)</span><span class="o">:</span><span class="w"> </span>%.<span class="n">o</span>: %.<span class="n">cpp</span>
 <span class="w">	</span><span class="k">$(</span>c<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
 
 <span class="nf">$(t)</span><span class="o">:</span><span class="w"> </span>%: %.<span class="n">o</span>
 <span class="w">	</span><span class="k">$(</span>c<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;
 
 <span class="nf">clean</span><span class="o">:</span>
-<span class="w">	</span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>t<span class="k">)</span><span class="w"> </span><span class="k">$(</span>o<span class="k">)</span>
+<span class="w">	</span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>t<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ob<span class="k">)</span>
 </code></pre></div>
 <h2 id="指令">指令<a class="headerlink" href="#指令" title="Permanent link"></a></h2>
 <ul>
@@ -5282,15 +5281,16 @@
     復原： <code>Alt + U</code><br/>
     重做： <code>Alt + E</code></li>
 <li>編譯與執行： <code>make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;</code></li>
+<li>複製貼上：滑鼠選取按右鍵</li>
 </ul>
 <h2 id="快捷鍵">快捷鍵<a class="headerlink" href="#快捷鍵" title="Permanent link"></a></h2>
 <p>切換終端分頁： Alt + 1 、 Alt + 2</p>
 <h2 id="流程">流程<a class="headerlink" href="#流程" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>toush Q1.cpp                    # 創建檔案
-nano Q1.cpp                     # 編輯
-toush makefile                  # 創建檔案
-nano makefile                   # 寫上內容
-make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;  # 編譯和執行
+<div class="highlight"><pre><span></span><code>toush Q1.cpp Q2.cpp Q3.cpp Q4.cpp   # 創建檔案
+nano Q1.cpp                         # 編輯
+toush makefile                      # 創建檔案
+nano makefile                       # 寫上內容
+make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;      # 編譯和執行
 </code></pre></div>
 
 
