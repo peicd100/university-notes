@@ -5263,7 +5263,7 @@
 <span class="nv">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Q1<span class="w"> </span>Q2<span class="w"> </span>Q3<span class="w"> </span>Q4
 <span class="nv">ob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Q1.o<span class="w"> </span>Q2.o<span class="w"> </span>Q3.o<span class="w"> </span>Q4.o
 
-<span class="nf">all </span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">t</span><span class="k">)</span>
+<span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="k">$(</span><span class="nv">t</span><span class="k">)</span>
 
 <span class="nf">$(ob)</span><span class="o">:</span><span class="w"> </span>%.<span class="n">o</span>: %.<span class="n">cpp</span>
 <span class="w">	</span><span class="k">$(</span>c<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>$&lt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span>
@@ -5274,6 +5274,12 @@
 <span class="nf">clean</span><span class="o">:</span>
 <span class="w">	</span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>t<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ob<span class="k">)</span>
 </code></pre></div>
+<ol>
+<li>為何是寫<code>$(ob): %.o: %.cpp</code>？<br/>
+   因為整句其實在說：對 Q1.o Q2.o Q3.o Q4.o 這四個 target，凡是符合 %.o 的，就去找同名的 %.cpp 當 prerequisite。<mark>所以 $(ob): 對應 %.o</mark></li>
+<li>為何是寫<code>$(t): %: %.o</code>？<br/>
+   對 TARGETS 裡的每一個 target，都去找「同名的 .o 檔」當作它的 prerequisite。<mark>所以 $(t): 對應  %</mark></li>
+</ol>
 <h2 id="指令">指令<a class="headerlink" href="#指令" title="Permanent link"></a></h2>
 <ul>
 <li>記事本：<code>nano &lt;檔名&gt;</code></li>
