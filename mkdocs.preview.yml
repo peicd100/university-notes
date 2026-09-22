@@ -7,13 +7,13 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/115-1/離散/L01.md'
+  - 'md/Verilog/Generate.md'
 
 exclude_docs: |
   /md/**
-  !/md/115-1/離散/**
-  /md/115-1/離散/**/*.md
+  !/md/Verilog/**
+  /md/Verilog/**/*.md
   *.md
-  !/md/115-1/離散/L01.md
+  !/md/Verilog/Generate.md
   !/index.md
 # preview-target:end

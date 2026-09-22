@@ -1,3 +1,10 @@
+## 重點：
+
+- genvar ≈ generate variable​
+- generate / endgenerate
+- 所有 `begin:` 建議都要命名，包含 if、else、case、always
+
+
 ## 一句話先懂
 
 `parameter` 讓模組可調大小；`generate` 讓 Verilog 在模組層級自動展開重複或條件式硬體。
@@ -29,6 +36,8 @@
 ### `genvar` 是什麼？
 
 `genvar` 是給 `generate for` 用的索引。
+
+genvar ≈ generate variable​
 
 它不是：
 
