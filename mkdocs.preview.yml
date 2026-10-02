@@ -7,13 +7,13 @@ plugins: []
 
 # preview-target:start
 nav:
-  - 'md/Verilog/Generate.md'
+  - 'md/115-1/硬體描述語言/L03.md'
 
 exclude_docs: |
   /md/**
-  !/md/Verilog/**
-  /md/Verilog/**/*.md
+  !/md/115-1/硬體描述語言/**
+  /md/115-1/硬體描述語言/**/*.md
   *.md
-  !/md/Verilog/Generate.md
+  !/md/115-1/硬體描述語言/L03.md
   !/index.md
 # preview-target:end
