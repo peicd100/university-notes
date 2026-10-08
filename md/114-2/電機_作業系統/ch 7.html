@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../logo/logo.png">
+      <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -52,17 +52,9 @@
 
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
-    
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.3e739e32312ae717d52f.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -112,7 +104,8 @@
       aria-label="PEICD100"
     >
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -418,7 +411,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     PEICD100
@@ -1033,6 +1027,8 @@
       
         
       
+        
+      
     
     
     
@@ -1119,6 +1115,34 @@
     
   
     L02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L03
   
 
     
@@ -7678,7 +7702,7 @@ P3 又等 P1 手上的資源。</p>
 <hr/>
 <h3 id="6-但有-cycle-一定是-deadlock-嗎">6. 但有 cycle 一定是 deadlock 嗎？<a class="headerlink" href="#6-但有-cycle-一定是-deadlock-嗎" title="Permanent link"></a></h3>
 <p>這裡要小心，p.8 的圖示其實就在提醒這個陷阱。</p>
-<p><img alt="alt text" decoding="async" src="images/ch%207.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="409" src="../../../assets/generated/optimized-images/6b/6bb85baefe9c3df461336479d57206dd4c1b0db5c7d6ebb9333aade50546e6c5.webp" width="682"/></p>
 <p>p.8 左圖標成「含死結的資源配置圖」，下面列出循環，例如 <code>P1 → R1 → P2 → R3 → P3 → R2 → P1</code>。右圖則標成「含循環但無死結現象之資源配置圖」，雖然也有循環 <code>P1 → R1 → P3 → R2 → P1</code>，但因為 P4 之後可以釋放它所佔用的 R2 instance，讓 P3 取得資源並消除循環，所以不一定 deadlock。</p>
 <p>所以判斷規則是：</p>
 <table>
@@ -8279,7 +8303,7 @@ P0 完成後釋放 5 個：</p>
 <p>前面 <code>Safe State(安全狀態)</code> 的核心是：</p>
 <p><strong>資源分配前，OS 要先判斷「如果現在給資源，系統還能不能保證安全」。</strong></p>
 <p>p.15 換成圖的角度來做這件事。</p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%207-2.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="795" loading="lazy" src="../../../assets/generated/optimized-images/84/84f0bf3a57654f11fdf1c5014b139675a8d0dc71791df34c99cc19b5dad522c3.webp" width="1417"/></p>
 <p>也就是：</p>
 <p><strong>process 要資源時，不是馬上給，而是先把圖更新看看會不會形成 cycle(循環)。如果給了會形成 cycle，就不要給，讓 process 等待。</strong></p>
 <p>講義 p.15 說，只有當把 request edge 轉成 assignment edge 不會導致 resource-allocation graph 形成 cycle 時，才可以同意這個 request。</p>
@@ -9316,7 +9340,7 @@ Why should the OS deny a resource request if converting the request edge to an a
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20260614-3"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1"></script>
       
     
 

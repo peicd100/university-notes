@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../logo/logo.png">
+      <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -52,17 +52,9 @@
 
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
-    
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.3e739e32312ae717d52f.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -112,7 +104,8 @@
       aria-label="PEICD100"
     >
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -418,7 +411,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     PEICD100
@@ -1033,6 +1027,8 @@
       
         
       
+        
+      
     
     
     
@@ -1119,6 +1115,34 @@
     
   
     L02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L03
   
 
     
@@ -6908,7 +6932,7 @@
 <p>講義 PDF viewer page 7 先給 <code>main()</code>：它從 <code>badfile</code> 讀 300 bytes 到 <code>str[400]</code>，然後呼叫 <code>foo(str)</code>。這一步本身還沒有 overflow，因為 300 bytes 放進 400-byte 的 <code>str</code> 還放得下。真正危險發生在下一頁的 <code>foo()</code>。</p>
 <hr/>
 <h3 id="2-第一層main-讀入-attacker-controlled-input攻擊者可控輸入">2. 第一層：<code>main()</code> 讀入 attacker-controlled input(攻擊者可控輸入)<a class="headerlink" href="#2-第一層main-讀入-attacker-controlled-input攻擊者可控輸入" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" src="images/ch%205-3.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="593" src="../../../assets/generated/optimized-images/a2/a28bea27cf8bc926e159cecf2696155ce54d83928b7ac4ec042b60c0c4c45ff1.webp" width="1141"/><br/>
 PDF viewer page 7 的重點是：<code>badfile</code> 是 user-created，也就是使用者可以控制內容。程式把 300 bytes 從 <code>badfile</code> 讀進 <code>str[400]</code>，再把 <code>str</code> 傳給 <code>foo(str)</code>。</p>
 <p>這裡要分清楚：</p>
 <p><code>str[400]</code> 本身夠大，所以 <code>fread()</code> 讀 300 bytes 進 <code>str</code>，不是主要爆點。<br/>
@@ -6916,7 +6940,7 @@ PDF viewer page 7 的重點是：<code>badfile</code> 是 user-created，也就�
 <p>所以考試看到這種題目，不要只看「第一個 buffer 夠不夠大」，還要追資料之後流到哪裡。</p>
 <hr/>
 <h3 id="3-第二層foo-裡的-buffer100-才是爆點">3. 第二層：<code>foo()</code> 裡的 <code>buffer[100]</code> 才是爆點<a class="headerlink" href="#3-第二層foo-裡的-buffer100-才是爆點" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-2.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="593" loading="lazy" src="../../../assets/generated/optimized-images/eb/ebff731838840d10a7cb69064fc3a61cff76707ef140f37e4c5f81977fac577a.webp" width="1193"/><br/>
 PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
 <p><code>char buffer[100];</code></p>
 <p>然後：</p>
@@ -7206,7 +7230,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
     E --&gt; F["shellcode 第一個有效指令"]</code></pre>
 <p>所以你這句如果改成「通常 new return address 是 buffer 或輸入資料所在位置 + n，目標是落在 NOP sled 裡」就很正確。</p>
 <h3 id="圖中的-0xbffeaf8--8-是怎麼來的">圖中的 0xbffeaf8 + 8 是怎麼來的<a class="headerlink" href="#圖中的-0xbffeaf8--8-是怎麼來的" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-4.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="888" loading="lazy" src="../../../assets/generated/optimized-images/1d/1d40c80d1db6f0bc735ab65273d68a328b0747f1837a5cc302ce161153b86323.webp" width="1554"/></p>
 <h4 id="1-直接答案_3">1. 直接答案<a class="headerlink" href="#1-直接答案_3" title="Permanent link"></a></h4>
 <p>圖中的 <code>0xbfffeaf8 + 8</code> 是從 <code>ebp(frame pointer, 框架指標)</code> 算出來的。</p>
 <p>在這張圖的例子裡：</p>
@@ -7271,7 +7295,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
 <p>圖中 <code>RT</code> 佔掉 return address 那 4 bytes。<code>RT</code> 後面接著放 <code>NOP NOP ... NOP Malicious Code</code>。所以如果把 <code>RT</code> 裡面填成 <code>ebp + 8</code>，CPU return 時就會跳到 <code>RT</code> 後面的 NOP 區，然後一路滑到 malicious code。</p>
 <p>外部 x86 stack frame 資料也採同樣概念：<code>EBP+4</code> 通常是 return address，<code>EBP+8</code> 是下一個 slot，也常是第一個參數位置；這裡因 overflow 已經把後面也蓋成攻擊者資料，所以 <code>EBP+8</code> 變成 NOP sled 起點附近。(<a href="https://www.varonis.com/blog/stack-memory-3?utm_source=chatgpt.com" title="Stack Memory: An Overview (Part 3)">Varonis</a>)</p>
 <hr/>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%205-5.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="888" loading="lazy" src="../../../assets/generated/optimized-images/1d/1d40c80d1db6f0bc735ab65273d68a328b0747f1837a5cc302ce161153b86323.webp" width="1554"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h4 id="4-用這張圖的數字完整串一次">4. 用這張圖的數字完整串一次<a class="headerlink" href="#4-用這張圖的數字完整串一次" title="Permanent link"></a></h4>
@@ -7495,7 +7519,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20260614-3"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1"></script>
       
     
 

@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../logo/logo.png">
+      <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -52,17 +52,9 @@
 
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
-    
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.3e739e32312ae717d52f.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -112,7 +104,8 @@
       aria-label="PEICD100"
     >
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -418,7 +411,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     PEICD100
@@ -1033,6 +1027,8 @@
       
         
       
+        
+      
     
     
     
@@ -1119,6 +1115,34 @@
     
   
     L02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L03
   
 
     
@@ -10641,16 +10665,16 @@ P1 原本正在執行，P2 原本在 waiting。當 P2 完成 I/O 後，P2 會從
 <ol>
 <li>
 <p><code>Switching context(轉換內容 / 內容切換)</code><br/>
-   把舊 process 的狀態存起來，把新 process 的狀態載入。<br/>
-   例如暫存器、program counter、stack pointer 等等。</p>
+    把舊 process 的狀態存起來，把新 process 的狀態載入。<br/>
+    例如暫存器、program counter、stack pointer 等等。</p>
 </li>
 <li>
 <p><code>Switching to user mode(切換成使用者模式)</code><br/>
-   OS 做排班時在 kernel mode；但一般程式要回 user mode 跑。</p>
+    OS 做排班時在 kernel mode；但一般程式要回 user mode 跑。</p>
 </li>
 <li>
 <p><code>Jumping to the proper location(跳到使用者程式的適當位置)</code><br/>
-   新 process 不是從 main 重新開始，而是從它上次停下來的位置繼續跑。</p>
+    新 process 不是從 main 重新開始，而是從它上次停下來的位置繼續跑。</p>
 </li>
 </ol>
 <p>用流程看：</p>
@@ -11782,7 +11806,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <p><strong>priority 數字越大越高，quantum = 10，idle 只在沒人可跑時出現。</strong></p>
 <h2 id="multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍">⭐Multilevel Queue Scheduling — 為什麼 ready queue 要拆成好幾條隊伍？<a class="headerlink" href="#multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 21 ~ PDF viewer page 22<br/>
-<img alt="alt text" decoding="async" src="images/ch%206.png"/></p>
+<img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="357" src="../../../assets/generated/optimized-images/1c/1cb1357eae0cdeaefcd42db07577e537582c83b3a41918c8f77cd9570e22ffc4.webp" width="518"/></p>
 <h3 id="1-這個概念在解決什麼問題_3">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_3" title="Permanent link"></a></h3>
 <p>前面 FCFS、SJF、Priority、RR 都有一個共同假設：</p>
 <p><strong>所有 ready process 都在同一條 ready queue 裡面排隊。</strong></p>
@@ -11998,7 +12022,7 @@ Priority 的問題是：低優先權 process 可能 starvation。</p>
 <li>Scheduling must also be done among the queues.</li>
 </ol>
 <h2 id="multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動">⭐Multilevel Feedback-Queue Scheduling — 為什麼 process 可以在不同 queue 之間移動？<a class="headerlink" href="#multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動" title="Permanent link"></a></h2>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-1.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="228" loading="lazy" src="../../../assets/generated/optimized-images/da/da007dc68afe771cd8ca1749e8bef156a882be70c84656641b7d13d689fdef57.webp" width="346"/><br/>
 講義位置：PDF viewer page 23</p>
 <h3 id="1-這個概念在解決什麼問題_4">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_4" title="Permanent link"></a></h3>
 <p>上一頁 <code>Multilevel Queue Scheduling(多層佇列排班)</code> 的想法是：</p>
@@ -12136,7 +12160,7 @@ CPU 用太久 → 降到低優先 queue。<br/>
 MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue 加上動態移動。</p>
 <h2 id="thread-scheduling--執行緒到底是在跟誰競爭-cpu">⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？<a class="headerlink" href="#thread-scheduling--執行緒到底是在跟誰競爭-cpu" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 24</p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-2.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="348" loading="lazy" src="../../../assets/generated/optimized-images/70/704beb5ebf360607940c44288003516e623f2451b232157151fdba58882b18a3.webp" width="656"/></p>
 <h3 id="1-這個概念在解決什麼問題_5">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_5" title="Permanent link"></a></h3>
 <p>前面我們都在講 <code>Process Scheduling(行程排班)</code>，也就是 OS 從 ready queue 裡選 process 來用 CPU。</p>
 <p>但 p.24 開始講 <code>Thread Scheduling(執行緒排班)</code>。</p>
@@ -12535,7 +12559,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>CPU 不一定一直在算，有時候它在等 memory。</strong></p>
 <p>如果一個 thread 正在等 memory 資料，CPU core 其實有一段時間沒有真正做 compute。<br/>
 如果系統能在這段 memory stall cycle 裡用其他 core 去執行其他 thread，就能提高資源利用率。</p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-3.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="349" loading="lazy" src="../../../assets/generated/optimized-images/86/86f22851adb1ee5947b05b47a1e34aae3748d06b9edb2c3fb85244680e773471.webp" width="654"/></p>
 <p>講義 p.31 的圖也在表達 <code>compute cycle</code> 和 <code>memory stall cycle</code> 交錯出現：當一個 thread 卡在 memory stall 時，可以讓其他 thread 接著使用執行資源。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -12590,7 +12614,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <strong>排班要考慮 memory stall，讓其他 thread 利用等待時間執行。</strong></p>
 <h2 id="real-time-cpu-scheduling--即時系統最怕什麼">⭐Real-Time CPU Scheduling — 即時系統最怕什麼？<a class="headerlink" href="#real-time-cpu-scheduling--即時系統最怕什麼" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 32</p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-4.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="449" loading="lazy" src="../../../assets/generated/optimized-images/b5/b5f9e762e78e6e4922a5c39bd6f5bb70dfc79e9aed5d4bb64ee8922bac67bc2e.webp" width="576"/></p>
 <h3 id="1-這個概念在解決什麼問題_7">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_7" title="Permanent link"></a></h3>
 <p>前面的一般排班演算法，例如 <code>FCFS</code>、<code>SJF</code>、<code>RR</code>，常常在意：</p>
 <ul>
@@ -13228,7 +13252,7 @@ Explain why giving a real-time process the highest scheduling priority does not 
 <p><code>25/50 + 35/80 = 0.94</code></p>
 <p>雖然 0.94 &lt; 1，但講義說：</p>
 <p><strong>P2 cannot meet its deadline.</strong> </p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-5.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="139" loading="lazy" src="../../../assets/generated/optimized-images/c0/c09e76c31746ec7890063b13974efe6aba5ca1bbc5d391edb01e538f2a11b849.webp" width="579"/></p>
 <p>這代表：</p>
 <p><strong>CPU 總工作量小於 1，不代表 RM 一定能排得出來。</strong></p>
 <p>原因是 RM 固定讓 period 短的 P1 priority 較高。<br/>
@@ -13408,7 +13432,7 @@ P2 需要 35 單位 CPU time。</p>
 <li><code>@80</code>，P1 繼續執行，因為 P1 的 deadline 是 100，P2 的 deadline 是 160。</li>
 <li><code>@100</code>，P1 取代 P2，因為 P1 的 deadline 是 150，P2 的 deadline 是 160。</li>
 </ul>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%206-6.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="146" loading="lazy" src="../../../assets/generated/optimized-images/cd/cd25154d4af547329c09d7e6adca403544a0665c3fe8ff36214d0e82f2ffeaf5.webp" width="683"/></p>
 <hr/>
 <h3 id="5-用時間線看-edf-怎麼排">5. 用時間線看 EDF 怎麼排<a class="headerlink" href="#5-用時間線看-edf-怎麼排" title="Permanent link"></a></h3>
 <p>先假設每個 task 的 deadline = period。</p>
@@ -13892,7 +13916,7 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20260614-3"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1"></script>
       
     
 

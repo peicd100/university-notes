@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../logo/logo.png">
+      <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -52,17 +52,9 @@
 
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
-    
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.3e739e32312ae717d52f.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -112,7 +104,8 @@
       aria-label="PEICD100"
     >
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -418,7 +411,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     PEICD100
@@ -1033,6 +1027,8 @@
       
         
       
+        
+      
     
     
     
@@ -1119,6 +1115,34 @@
     
   
     L02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L03
   
 
     
@@ -8627,7 +8651,7 @@ Data Memory 在 <code>MemWr=1</code> 時把資料寫進去</p>
 <p><code>RegWr</code> 和 <code>MemWr</code> (寫 Wr 的)是 register 和 memory 的 enable。<br/>
 <code>MemtoReg</code> 是用來選要把 ALU result 還是 memory out 給 busW 的，因為 RegDst = 0 ，用 MemtoReg 選了誰要當 busW 也沒用，根本不會存到 Reg，所以在 sw 是 don't care。</p>
 </div>
-<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4-1.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="342" src="../../../assets/generated/optimized-images/90/9013326f10549843f634f0cf0b45dadfec02b1bb84d677f84fb0a9539196f4b4.webp" width="624"/></p>
 <h3 id="5-p27-的數據通路初步完成是什麼意思">5. p27 的「數據通路初步完成」是什麼意思？<a class="headerlink" href="#5-p27-的數據通路初步完成是什麼意思" title="Permanent link"></a></h3>
 <p>到這裡，講義前面選出的代表指令都已經有基本 datapath(數據通路) 可以支援：</p>
 <table>
@@ -9063,7 +9087,7 @@ Data Memory 在 <code>MemWr=1</code> 時把資料寫進去</p>
 第二，CPU 要根據判斷結果選擇 next PC(下一個 PC)。</p>
 <p>這就是為什麼 <code>beq</code> 會比 <code>ori</code>、<code>lw</code>、<code>sw</code> 多出一個重要訊號：<code>zero</code>。</p>
 <h3 id="2-beq-的三個操作步驟">2. <code>beq</code> 的三個操作步驟<a class="headerlink" href="#2-beq-的三個操作步驟" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4-1-2.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="473" loading="lazy" src="../../../assets/generated/optimized-images/c9/c952e98d8acd05fdec47f322c73062cdf3b8d05d89f5716da76dcfdf8d7a77f2.webp" width="711"/><br/>
 講義把 <code>beq rs, rt, imm16</code> 拆成三步：</p>
 <p>第一步，取指令：</p>
 <p><code>Instruction = MEM[PC]</code></p>
@@ -9140,7 +9164,7 @@ Data Memory 在 <code>MemWr=1</code> 時把資料寫進去</p>
 <p><code>zero = 1</code> 還是 <code>zero = 0</code></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4-1-1.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="458" loading="lazy" src="../../../assets/generated/optimized-images/44/444365bbf9ba057e7bb590a95555a71d5e41631f4663b4b885a0802f3b960df1.webp" width="693"/></p>
 <p>這圖有三個重點：<br/>
 1. PC+4 是兩條路共用的。<br/>
 2. <mark>nPC_sel 和 zero 要做 and 運算。</mark><br/>
@@ -9517,8 +9541,8 @@ branch target address 產生器：必須 sign-extend <code>imm16</code> 並左�
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="結論-控制信號">結論-控制信號<a class="headerlink" href="#結論-控制信號" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-5.png"/></p>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-6.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="207" loading="lazy" src="../../../assets/generated/optimized-images/0d/0d90d3d3c7c3e8f0ff315bb814376076eefdf68f1045095de83daaa05c67539b.webp" width="407"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="321" loading="lazy" src="../../../assets/generated/optimized-images/d4/d41b1924a666c727408ba4e0bf4b98554f4e062eb929ab6201f3677fc2e025c4.webp" width="463"/></p>
 <div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Control_Logic</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">opcode</span><span class="p">,</span><span class="w"> </span><span class="n">func</span><span class="p">,</span>
 <span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="n">RegDst</span><span class="p">,</span><span class="w"> </span><span class="n">ALUSrc</span><span class="p">,</span><span class="w"> </span><span class="n">MemtoReg</span><span class="p">,</span><span class="w"> </span><span class="n">RegWr</span><span class="p">,</span><span class="w"> </span><span class="n">MemWr</span><span class="p">,</span><span class="w"> </span><span class="n">nPC_sel</span><span class="p">,</span><span class="w"> </span><span class="n">ExtOp</span><span class="p">,</span><span class="w"> </span>
@@ -9609,7 +9633,7 @@ branch target address 產生器：必須 sign-extend <code>imm16</code> 並左�
 </div>
 </div>
 <h2 id="控制訊號小整理">⭐控制訊號小整理<a class="headerlink" href="#控制訊號小整理" title="Permanent link"></a></h2>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/ch%204-4.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="630" loading="lazy" src="../../../assets/generated/optimized-images/f6/f6dcd6db419adcba7ccb9467e449a59ec41f58536468095261974c8593703ed2.webp" width="1466"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>以下整理所有的訊號用途。</p>
@@ -10401,7 +10425,7 @@ branch target address 產生器：必須 sign-extend <code>imm16</code> 並左�
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20260614-3"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1"></script>
       
     
 

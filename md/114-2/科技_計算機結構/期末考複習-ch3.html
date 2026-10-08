@@ -23,7 +23,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
         <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../../../logo/logo.png">
+      <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -52,17 +52,9 @@
 
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/extra-8611f6c398.css">
-    
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/自定義.css?v=20260614-2">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.3e739e32312ae717d52f.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -112,7 +104,8 @@
       aria-label="PEICD100"
     >
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -418,7 +411,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
-  <img src="../../../logo/logo.png" alt="logo">
+  <img src="../../../assets/generated/optimized-images/00/00fc3f1c24e8bc2c57e2cc2f094dd75cce7dbb1b477b9d484dd97e4418cbed53.webp" alt="logo"
+       width="96" height="96" decoding="async">
 
     </a>
     PEICD100
@@ -1033,6 +1027,8 @@
       
         
       
+        
+      
     
     
     
@@ -1119,6 +1115,34 @@
     
   
     L02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L03
   
 
     
@@ -9495,7 +9519,7 @@ product(乘積)        </p>
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" decoding="async" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-3.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="428" src="../../../assets/generated/optimized-images/b0/b0cb9e41a031beff4f7aa939ab52becc78e4fa86869825ddffff8144c9b83918.webp" width="692"/></p>
 </div>
 <p>最重要的控制邏輯只有一句：</p>
 <p>看 <code>Multiplier Register</code> 的最低位。<br/>
@@ -9569,7 +9593,7 @@ product(乘積)        </p>
 </table>
 <p>所以每一輪把 multiplicand 左移，其實就是在準備下一個 bit 位置對應的 partial product。</p>
 <h3 id="5-第一版乘法器的完整流程">5. 第一版乘法器的完整流程<a class="headerlink" href="#5-第一版乘法器的完整流程" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-1.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="496" loading="lazy" src="../../../assets/generated/optimized-images/aa/aa3addae00f5d055bad27cbe365efe93ac5945824b7ce4342b27fe3a40d11f56.webp" width="684"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>對 N-bit multiplier，流程是：</p>
@@ -9682,7 +9706,7 @@ product(乘積)        </p>
 <h2 id="乘法器優化-1--為什麼乘法器可以從每輪-3-個-cycle-變成每輪-1-個-cycle">⭐乘法器優化 1 — 為什麼乘法器可以從每輪 3 個 cycle 變成每輪 1 個 cycle？<a class="headerlink" href="#乘法器優化-1--為什麼乘法器可以從每輪-3-個-cycle-變成每輪-1-個-cycle" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 65 ~ PDF viewer page 75</p>
 <h3 id="1-第一版乘法器慢在哪裡">1. 第一版乘法器慢在哪裡？<a class="headerlink" href="#1-第一版乘法器慢在哪裡" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="496" loading="lazy" src="../../../assets/generated/optimized-images/aa/aa3addae00f5d055bad27cbe365efe93ac5945824b7ce4342b27fe3a40d11f56.webp" width="684"/><br/>
 第一版乘法器每一輪做三件事：</p>
 <table>
 <thead>
@@ -9732,7 +9756,7 @@ product(乘積)        </p>
 </tr>
 </tbody>
 </table>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-2.png"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="464" loading="lazy" src="../../../assets/generated/optimized-images/21/215dcabaccc2105353c0744e9f2b2d40113df5cb97f9796edc9f6c71cf32d0af.webp" width="685"/></p>
 <p>因此，加法、左移、右移不一定要拆成三個 cycle。只要硬體路徑設計好，它們可以在同一個 cycle 內「準備好下一狀態」，然後在同一個 clock edge 寫入。</p>
 <h3 id="3-優化後一輪的正確-mental-model">3. 優化後一輪的正確 mental model<a class="headerlink" href="#3-優化後一輪的正確-mental-model" title="Permanent link"></a></h3>
 <p>每一輪不是「先真的改掉 multiplicand，再用新的 multiplicand 加」。正確觀念是：</p>
@@ -10017,12 +10041,12 @@ product(乘積)        </p>
 <li>如果 LSB 是 <code>0</code>，product 不加東西。</li>
 <li>
 <p>每輪結束後：</p>
-</li>
-<li>
-<p>multiplicand 左移一位。</p>
-</li>
+<ul>
+<li>multiplicand 左移一位。</li>
 <li>multiplier 右移一位。</li>
 <li>product 保留累加結果。</li>
+</ul>
+</li>
 </ol>
 <p>PDF viewer page 81 ~ 83 做的事情不是發明新規則，而是用 <code>2 × 3</code> 的小例子讓你會讀 trace table(追蹤表)。</p>
 <p>講義用 4-bit 數字是為了節省空間：</p>
@@ -10095,7 +10119,7 @@ product(乘積)        </p>
 </tbody>
 </table>
 <h3 id="3-用-2--3-追一次流程">3. 用 <code>2 × 3</code> 追一次流程<a class="headerlink" href="#3-用-2--3-追一次流程" title="Permanent link"></a></h3>
-<p><img alt="alt text" decoding="async" loading="lazy" src="images/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3-4.png"/><br/>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="534" loading="lazy" src="../../../assets/generated/optimized-images/cd/cdafd37d4127e9079ab1b774f90cbce601cee654a9b734ee683f4b96891c2d1f.webp" width="708"/><br/>
 初始狀態可以理解成：</p>
 <table>
 <thead>
@@ -11033,7 +11057,7 @@ exponent 是 8 bit，8 bit 可以表示 255(2^8-1)，7 bit 可以表示 127(2^7-
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20260614-3"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1"></script>
       
     
 
