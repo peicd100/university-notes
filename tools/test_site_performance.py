@@ -87,6 +87,35 @@ class ImageDerivativeTests(unittest.TestCase):
         self.assertEqual(images[2]["src"],"https://example.com/remote.png")
         self.assertIsNone(image_lazy_loading_hook._local_image("../../private.png",self.page,self.config))
 
+    def test_original_images_reserve_dimensions_even_without_derivatives(self):
+        for suffix in [".jpg", ".gif", ".webp", ".png"]:
+            with self.subTest(suffix=suffix):
+                source = self.docs / ("original" + suffix)
+                Image.new("RGB", (120, 80), "blue").save(source)
+                before = source.read_bytes()
+                with patch.object(image_lazy_loading_hook, "derive_image", return_value=None):
+                    output = image_lazy_loading_hook.on_page_content(f'<img src="../original{suffix}">', page=self.page, config=self.config, files=None)
+                img = BeautifulSoup(output, "html.parser").img
+                self.assertEqual((img["width"], img["height"]), ("120", "80"))
+                self.assertEqual(img["src"], "../original" + suffix)
+                self.assertEqual(source.read_bytes(), before)
+
+    def test_exif_orientation_and_author_dimensions(self):
+        source = self.docs / "rotated.jpg"
+        exif = Image.Exif()
+        exif[274] = 6
+        Image.new("RGB", (120, 80), "blue").save(source, exif=exif)
+        output = image_lazy_loading_hook.on_page_content('<img src="../rotated.jpg"><img src="../rotated.jpg" width="40">', page=self.page, config=self.config, files=None)
+        images = BeautifulSoup(output, "html.parser").select("img")
+        self.assertEqual((images[0]["width"], images[0]["height"]), ("80", "120"))
+        self.assertEqual(images[1]["width"], "40")
+        self.assertNotIn("height", images[1].attrs)
+
+    def test_remote_images_are_never_read_to_determine_dimensions(self):
+        with patch.object(image_lazy_loading_hook, "_intrinsic_dimensions", side_effect=AssertionError("No network/outside-docs read")):
+            output = image_lazy_loading_hook.on_page_content('<img src="https://example.com/remote.jpg"><img src="../../private.jpg">', page=self.page, config=self.config, files=None)
+        self.assertTrue(all(not img.get("width") for img in BeautifulSoup(output, "html.parser").select("img")))
+
     def test_animated_png_is_not_converted(self):
         frames = [Image.new("RGBA",(64,64),color) for color in ("red","blue")]
         frames[0].save(self.source,save_all=True,append_images=frames[1:],duration=100,loop=0)
@@ -121,6 +150,7 @@ class CSSBundleTests(unittest.TestCase):
         self.assertLess(len(result.encode()),len(css.encode()))
         self.assertNotIn("fonts.googleapis.com",result)
         self.assertIn("Cascadia Mono",result)
+        self.assertRegex(result,r"overflow-anchor:\s*none")
 
 
 class SourceIndexCacheTests(unittest.TestCase):

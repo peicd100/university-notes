@@ -3568,6 +3568,15 @@ html.peicd-image-viewer-open body {
    - 需求：文字中的（inline）latex 不要背景、不加 padding
    ========================================================================== */
 
+/* Raw TeX/diagram DOM is replaced during incremental loading. Never select
+   these changing subtrees as scroll anchors: anchor stable surrounding prose
+   instead, while keeping native document/user scrolling fully enabled. */
+.md-content__inner :is(.arithmatex, pre.diagram, .mermaid, .peicd-mermaid-host),
+.md-content__inner :is(p, h1, h2, h3, h4, h5, h6, table):has(.arithmatex),
+.md-content__inner :is(li, td, th):has(> .arithmatex) {
+  overflow-anchor: none;
+}
+
 /* inline：完全透明、不留底、不留框、不加 padding */
 .md-typeset span.arithmatex {
   background: transparent !important;

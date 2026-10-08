@@ -61,6 +61,23 @@ def _local_image(src: str, page: Any, config: Any) -> Path | None:
     return None
 
 
+def _intrinsic_dimensions(source: Path) -> tuple[int, int] | None:
+    # Header-only read; no conversion or source mutation. JPEG/GIF/WebP and PNGs
+    # retained by the optimizer still need space reserved before lazy loading.
+    try:
+        from PIL import Image
+    except ImportError:
+        return None
+    try:
+        with Image.open(source) as image:
+            width, height = image.size
+            if image.getexif().get(274) in (5, 6, 7, 8):
+                width, height = height, width  # Match browser EXIF orientation.
+            return (width, height) if width > 0 and height > 0 else None
+    except (OSError, ValueError, Image.DecompressionBombError):
+        return None
+
+
 def _optimize_image(img: Any, page: Any, config: Any) -> None:
     src = str(img.get("src") or "")
     width = re.search(r"=(\d+)%x$", src)
@@ -76,9 +93,10 @@ def _optimize_image(img: Any, page: Any, config: Any) -> None:
     if derived:
         img["src"] = _relative_asset_url(page, derived["url"])
         img["data-peicd-optimized-image"] = "lossless"
-        if not img.get("width") and not img.get("height"):
-            img["width"] = str(derived["width"])
-            img["height"] = str(derived["height"])
+    if not img.get("width") and not img.get("height"):
+        dimensions = (derived["width"], derived["height"]) if derived else _intrinsic_dimensions(source)
+        if dimensions:
+            img["width"], img["height"] = map(str, dimensions)
 
 
 def on_page_context(context: dict[str, Any], /, *, page: Any, config: Any, nav: Any) -> dict[str, Any]:
