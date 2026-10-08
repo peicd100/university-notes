@@ -1,40 +1,5 @@
 # CURRENT STATE
 
-## 目前狀態
+最新 divisibility-table completed：使用者明確授權內容編輯，只修 L03.md 指定整除條件表格，2 columns/3 data rows/9 inline math。移除重複 MathML 複製文字、冗餘 TeX delimiters；其餘原文 bytes 與 CRLF 維持相同。實際 MkDocs Markdown extensions +Danger table parsing PASS。
 
-- 2026-05-31 已將網站資訊與導覽設定從 `mkdocs.yml` 拆到 `docs/.mkdocs/site.yml`，根目錄 `mkdocs.yml` 以 `INHERIT: docs/.mkdocs/site.yml` 繼承。
-- 2026-05-31 已將 `docs/theme/` 移到根目錄 `theme/`，並將 `theme.custom_dir` 改為 `theme`；後續外觀、模板與自訂 JS/CSS 請先看 `theme/`。
-- 2026-05-31 已把根目錄 `指令.txt` 加入 `.gitignore`，並用 `git rm --cached -- 指令.txt` 保留本機檔案但停止 Git 追蹤。
-- 2026-05-31 已壓縮舊 `CURRENT_STATE.md` 與 `log.md`：全文封存在 `archive/current-state-2026-05-31-site-config-reorg.md` 與 `archive/log-2026-05-31-site-config-reorg.md`。
-
-## 下次建議先讀
-
-- 導覽、網站名稱、`site_url`、`exclude_docs`：`docs/.mkdocs/site.yml`。
-- MkDocs 技術設定、plugins、hooks、Markdown extensions、extra CSS/JS：`mkdocs.yml`。
-- 自訂 Material template、TTS 面板、前端互動、CSS/JS：`theme/`。
-- Preview 流程：`COMMANDS.md`、`VERIFY.md`、`mkdocs.preview.yml`、`p.exe`、`tools/p.py`。
-
-## 最後驗證
-
-- 2026-06-14 mobile folder pathbar/search：`node --check folder-path-bar.js` 與 `conditional-loader.js` 通過；`mobile-pathbar-search-build` returncode 0；Playwright mobile 390x844 驗證 `期末考重點-ch9.html` 第二個 select 選中 `期末考整理 / 期末考重點 ch9` 且包含巢狀期末考選項；搜尋開啟與結果出現時 `.peicd-folder-pathbar` 為 `display:none`，console error/warning 0。
-- 2026-06-14 asset conditional loading：`asset-conditional-search-lazy-build` returncode 0；Playwright target `ch 3.html#311-行程process` DCL 約 2.0s，初始無 search index/worker、MathJax CDN、Mermaid runtime；搜尋互動後才載入索引並顯示 28 筆結果；`ch 1.html` base64 圖外部化後約 476KB、48/48 圖可顯示並可放大。
-- 2026-06-14 Mermaid lazy render：`node --check` 通過；`image_lazy_loading_hook.py` py_compile 通過；`Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name mermaid-lazy-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean` returncode 0；Playwright local server 量測 `ch 3.html#311-行程process` 初始 DCL 約 2.7s、初始 Mermaid rendered 0，完整捲頁後 18/18 Mermaid render；ch6/ch7 Mermaid 回歸通過。
-- `Y:\conda\envs\mkdocs_desk\python.exe -m py_compile tools\p.py`：通過。
-- `cmd /d /c "pushd ""\\vmware-host\Shared Folders\github_note\university notes"" && p /? && set PREVIEW_SKIP_SERVE=1&& p docs\md\114-2\科技_計算機結構\期末考複習-ch5.md && popd"`：通過；`p /?` 顯示 `Usage: p ...`，確認目前 `p` 走 `p.exe`。
-- `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& ""\\vmware-host\Shared Folders\github_note\university notes\p.bat"""`：通過。
-- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name preview-absolute-config-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f "\\vmware-host\Shared Folders\github_note\university notes\mkdocs.preview.yml" --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260611-224242-preview-absolute-config-build.*`。
-- 從 `C:\Windows` 執行 `Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f "\\vmware-host\Shared Folders\github_note\university notes\mkdocs.preview.yml" -d ".codex/codex/tmp/preview-absolute-cwd-site" --clean`：returncode 0；暫存 site 已刪除。
-- `node --check theme\assets\pymdownx-extras\toc-fold.js`：通過。
-- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name danger-toc-button-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260611-222259-danger-toc-button-build.*`。
-- Playwright CLI 驗證 `site/md/114-2/科技_計算機結構/期末考複習-ch4.2.html`：`Danger` 文字完整可見；重複按 `Danger`、點 Danger 項目、帶 `#peicd-danger-block-1` 重載後皆維持 Danger 視圖；截圖在 `.codex/codex/artifacts/danger-toc-toolbar-after.png`。
-- `cmd /d /c "set PREVIEW_SKIP_SERVE=1&& p.bat"`：通過。
-- `Y:\conda\envs\mkdocs\python.exe -m py_compile tools\admonition_title_hook.py tools\source_jump_hook.py`：通過。
-- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name ctrlc-details-final-preview-build-retry -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260610-233544-ctrlc-details-final-preview-build-retry.*`。
-- Playwright 量測 `docs/md/114-2/電機_作業系統/ch 5.md` 的 plain details：`summary::before position=static`、`mask=none`、`noOverlap=true`，截圖在 `.codex/codex/artifacts/details-summary-after.png`。
-- `node --check theme\assets\pymdownx-extras\source-jump.js`：通過。
-- `node --check theme\assets\pymdownx-extras\folder-path-bar.js`：通過。
-- `node --check theme\assets\pymdownx-extras\mermaid-config-override.js`：通過。
-- `Y:\conda\envs\mkdocs\python.exe -m py_compile tools\source_jump_hook.py`：通過。
-- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name site-config-split-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260531-204305-site-config-split-build.*`。
-- `Y:\conda\envs\mkdocs\python.exe tools\run_logged.py --name site-config-split-preview-build -- Y:\conda\envs\mkdocs\python.exe -m mkdocs build -f mkdocs.preview.yml --clean`：returncode 0；輸出在 `.codex/codex/tmp/20260531-204414-site-config-split-preview-build.*`。
-- 檢查：`site/assets/pymdownx-extras/source-jump.js` 與 `site/assets/pymdownx-extras/自定義.css` 存在；`site/.mkdocs/site.yml` 不存在；`docs/theme` 不存在；`theme/main.html` 存在。
+前次 sidebar 47 math/mirror/desktop/mobile/nav 已完成；渲染任務通常不改原文，此次 table edit 是使用者明確例外。不改 JS/圖片，不 commit/push/deploy。下步查看 preview／重新整理。Gmail 工具不可用。

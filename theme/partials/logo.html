@@ -1,0 +1,9 @@
+{% if peicd_optimized_logo %}
+  <img src="{{ peicd_optimized_logo | url }}" alt="logo"
+       width="{{ peicd_logo_width }}" height="{{ peicd_logo_height }}" decoding="async">
+{% elif config.theme.logo %}
+  <img src="{{ config.theme.logo | url }}" alt="logo">
+{% else %}
+  {% set icon = config.theme.icon.logo or "material/library" %}
+  {% include ".icons/" ~ icon ~ ".svg" %}
+{% endif %}

@@ -97,6 +97,10 @@ Thumbs.db
 .idea/
 
 # 專案協作紀錄
+# 公開 Repository：新版 PEICD 記憶與驗證產物不新增至 Git。
+/.peicd100/codex/
+/.peicd100/codex_compressed/
+/.peicd100/codex_tmp/
 /codex/
 /README_PEICD100.md
 /專案規格書.md

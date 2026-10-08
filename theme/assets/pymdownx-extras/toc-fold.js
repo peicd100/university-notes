@@ -530,8 +530,81 @@
       }
 
       const target = document.getElementById(id);
+      if (target) mirrorMathLabel(target, link.querySelector(".md-ellipsis") || link);
       return target ? { link, target } : null;
     }).filter(Boolean);
+  }
+
+  function cleanMathLabel(clone) {
+    clone.removeAttribute("id");
+    clone.removeAttribute("tabindex");
+    clone.querySelectorAll(".headerlink, .anchor").forEach((node) => node.remove());
+    // Labels live inside navigation links: never copy nested links or IDs from
+    // the article's equations. Assistive MathML is retained for accessibility.
+    clone.querySelectorAll("a").forEach((link) => link.replaceWith(...link.childNodes));
+    clone.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+    clone.querySelectorAll("[tabindex]").forEach((node) => node.removeAttribute("tabindex"));
+    clone.querySelectorAll("[aria-labelledby], [aria-describedby]").forEach((node) => {
+      node.removeAttribute("aria-labelledby");
+      node.removeAttribute("aria-describedby");
+    });
+    return clone;
+  }
+
+  function mirrorMathLabel(source, label, stripDanger = false) {
+    if (!source?.querySelector(".arithmatex") || !label) return;
+    const sources = Array.from(source.querySelectorAll(".arithmatex"));
+    const clone = cleanMathLabel(source.cloneNode(true));
+    if (stripDanger && clone.firstChild?.nodeType === Node.TEXT_NODE) {
+      clone.firstChild.textContent = clone.firstChild.textContent.replace(/^\s*Danger(?:\s*\|\s*|\s*[:：-]\s*|\s+)?/i, "");
+    }
+    label.replaceChildren(...clone.childNodes);
+    const copies = Array.from(label.querySelectorAll(".arithmatex"));
+    sources.forEach((sourceMath, index) => {
+      const copy = copies[index];
+      if (!copy) return;
+      if (!state.mathMirrors.has(sourceMath)) state.mathMirrors.set(sourceMath, new Set());
+      state.mathMirrors.get(sourceMath).add(copy);
+      if (sourceMath.querySelector("mjx-container")) state.mirrorVersions.set(copy, sourceMath.innerHTML);
+    });
+  }
+
+  function syncMathMirrors(nodes) {
+    if (!state) return;
+    let changed = false;
+    for (const source of nodes) {
+      const copies = state.mathMirrors.get(source);
+      if (!copies || !source.querySelector("mjx-container")) continue;
+      const version = source.innerHTML;
+      for (const copy of copies) {
+        if (!copy.isConnected || state.mirrorVersions.get(copy) === version) continue;
+        const clone = cleanMathLabel(source.cloneNode(true));
+        copy.replaceChildren(...clone.childNodes);
+        state.mirrorVersions.set(copy, version);
+        changed = true;
+      }
+    }
+    if (changed) scheduleSync(false);
+  }
+
+  function observeLabelMath() {
+    if (!state.mathMirrors.size || typeof MutationObserver !== "function") return;
+    // Forward references can update an earlier heading after a later semantic
+    // batch. Watch only our article sources; never observe the mirrored labels.
+    state.mathObserver = new MutationObserver((records) => {
+      const sources = records.map(({target}) => (target.nodeType === Node.ELEMENT_NODE ? target : target.parentElement)?.closest(".arithmatex"));
+      syncMathMirrors(new Set(sources.filter(Boolean)));
+    });
+    state.mathMirrors.forEach((_, source) => state.mathObserver.observe(source, {childList: true, subtree: true, characterData: true, attributes: true}));
+  }
+
+  function prioritizeLabelMath() {
+    if (!state) return;
+    const sources = Array.from(state.mathMirrors.keys());
+    syncMathMirrors(sources);
+    // Use the article controller's existing queue, never typeset the sidebar:
+    // duplicate TeX processing would redefine macros, labels and equation tags.
+    window.__PEICD_MATH__?.prioritize(sources);
   }
 
   function normalizeText(text) {
@@ -543,6 +616,9 @@
 
     const clone = heading.cloneNode(true);
     clone.querySelectorAll(".headerlink, .anchor, a[href^='#']").forEach((element) => element.remove());
+    clone.querySelectorAll(".arithmatex").forEach((math) => {
+      math.textContent = math.querySelector("mjx-assistive-mml")?.textContent || math.textContent;
+    });
     return normalizeText(clone.textContent);
   }
 
@@ -619,6 +695,7 @@
     const label = document.createElement("span");
     label.className = "md-ellipsis";
     label.textContent = entry.title;
+    mirrorMathLabel(entry.labelSource, label, entry.stripDanger);
 
     const meta = document.createElement("span");
     meta.className = CLASS.dangerMeta;
@@ -674,6 +751,8 @@
         target: block,
         title,
         meta,
+        labelSource: customTitle ? block.querySelector(":scope > .admonition-title, :scope > summary") : nearest?.heading,
+        stripDanger: Boolean(customTitle),
         link: null
       };
     });
@@ -823,6 +902,9 @@
     listen(window, "resize", onResize, { passive: true });
     listen(window, "scroll", onWindowScroll, { passive: true });
     listen(window, "hashchange", onHashChange);
+    listen(window, "peicd:math-anchor", onHashChange);
+    listen(window, "peicd:math-ready", prioritizeLabelMath);
+    listen(window, "peicd:math-rendered", (event) => syncMathMirrors(event.detail?.nodes || []));
     listen(document, "keydown", onKeyDown);
     state.cleanups.push(() => clearTimeout(state.resizeTimer));
 
@@ -864,6 +946,7 @@
     if (!state) return;
 
     if (state.observer) state.observer.disconnect();
+    state.mathObserver?.disconnect();
     state.cleanups.forEach((cleanup) => {
       try {
         cleanup();
@@ -898,6 +981,9 @@
       entries: [],
       dangerEntries: [],
       dangerList: null,
+      mathMirrors: new Map(),
+      mirrorVersions: new WeakMap(),
+      mathObserver: null,
       nestedItems: [],
       buttons: {},
       observer: null,
@@ -918,6 +1004,7 @@
     buildEntries();
     buildDangerEntries();
     renderDangerList();
+    observeLabelMath();
     buildMobileChrome();
     createObserver();
     bindSidebarEvents();
@@ -925,6 +1012,7 @@
     setMode("auto");
     setView(hasDangerHash() ? "danger" : "toc");
     updateMobileUI();
+    prioritizeLabelMath();
     scheduleSync(true);
   }
 

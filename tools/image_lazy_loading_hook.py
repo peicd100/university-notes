@@ -8,8 +8,10 @@ import posixpath
 import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote, urlsplit
 
 from bs4 import BeautifulSoup
+from tools.optimized_images import derive_image
 
 DATA_IMAGE_RE = re.compile(r"^data:(image/[A-Za-z0-9.+-]+)(;[^,]*)?,(.*)$", re.DOTALL)
 EXTENSION_BY_MIME = {
@@ -23,6 +25,90 @@ EXTENSION_BY_MIME = {
     "image/webp": ".webp",
 }
 GENERATED_IMAGE_DIR = "assets/generated/base64-images"
+_LOGOS: dict[str, dict[str, Any] | None] = {}
+
+
+def on_config(config: Any) -> Any:
+    _LOGOS.clear()
+    return config
+
+
+def on_pre_build(*, config: Any) -> None:
+    # Every clean/dirty build must re-stage cached logo files in its site_dir.
+    _LOGOS.clear()
+
+
+def _local_image(src: str, page: Any, config: Any) -> Path | None:
+    # Remote/data URLs, fragments and paths outside docs are never read.
+    parsed = urlsplit(src)
+    if parsed.scheme or parsed.netloc or not parsed.path:
+        return None
+    docs = Path(config["docs_dir"]).resolve()
+    page_source = str(getattr(getattr(page, "file", None), "src_uri", "index.md"))
+    relative = unquote(parsed.path)
+    if relative.startswith("/"):
+        source = docs / relative.lstrip("/")
+    else:
+        source = docs / Path(page_source).parent / relative
+    source = source.resolve()
+    if source.is_relative_to(docs) and source.is_file():
+        return source
+    # Already-externalized base64 images live in staging site_dir, not docs.
+    site = Path(config["site_dir"]).resolve()
+    generated = (site / Path(_page_url(page)).parent / relative).resolve()
+    if generated.is_relative_to(site / "assets/generated") and generated.is_file():
+        return generated
+    return None
+
+
+def _optimize_image(img: Any, page: Any, config: Any) -> None:
+    src = str(img.get("src") or "")
+    width = re.search(r"=(\d+)%x$", src)
+    if width:
+        src = src[:width.start()]
+        img["style"] = (str(img.get("style") or "").rstrip("; ") +
+                        f"; width:{width.group(1)}%; height:auto;").lstrip("; ")
+        img["src"] = src  # Apply legacy width before a browser makes a malformed request.
+    source = _local_image(src, page, config)
+    if source is None:
+        return
+    derived = derive_image(source, config)
+    if derived:
+        img["src"] = _relative_asset_url(page, derived["url"])
+        img["data-peicd-optimized-image"] = "lossless"
+        if not img.get("width") and not img.get("height"):
+            img["width"] = str(derived["width"])
+            img["height"] = str(derived["height"])
+
+
+def on_page_context(context: dict[str, Any], /, *, page: Any, config: Any, nav: Any) -> dict[str, Any]:
+    for key, favicon in (("logo", False), ("favicon", True)):
+        raw = config["theme"].get(key)
+        if not raw or urlsplit(str(raw)).scheme or str(raw).startswith("//"):
+            continue
+        docs = Path(config["docs_dir"]).resolve()
+        source = (docs / str(raw)).resolve()
+        if not source.is_relative_to(docs):
+            continue
+        cache_key = str(source) + f"/favicon={favicon}"
+        if cache_key not in _LOGOS:
+            _LOGOS[cache_key] = derive_image(source, config, logo=not favicon, favicon=favicon)
+        derived = _LOGOS[cache_key]
+        if derived:
+            context[f"peicd_optimized_{key}"] = derived["url"]
+            context[f"peicd_{key}_width"] = derived["width"]
+            context[f"peicd_{key}_height"] = derived["height"]
+            if favicon:
+                page.meta["peicd_optimized_favicon"] = _relative_asset_url(page, derived["url"])
+    return context
+
+
+def on_post_page(output: str, /, *, page: Any, config: Any) -> str:
+    favicon = page.meta.get("peicd_optimized_favicon")
+    if favicon:
+        output = re.sub(r'(<link\s+rel="icon"\s+href=")[^"]+("[^>]*>)',
+                        lambda m: m.group(1) + favicon + m.group(2), output, count=1)
+    return output
 
 
 def _classes(node: Any) -> set[str]:
@@ -135,6 +221,7 @@ def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
     for index, img in enumerate(images):
         if _externalize_base64_image(img, page, config):
             externalized_count += 1
+        _optimize_image(img, page, config)
 
         img["decoding"] = "async"
         if index == 0:

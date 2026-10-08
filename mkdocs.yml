@@ -12,6 +12,7 @@ theme:
   custom_dir: theme  # 指定自定義主題目錄
   logo: 'logo/logo.png'  # 設置網站的 LOGO
   favicon: 'logo/logo.png'  # 設置瀏覽器標籤上的圖標
+  font: false  # 自訂 CSS 已使用 Cascadia Mono；不要額外請求未使用的 Google Fonts
   palette:
     scheme: slate  # 使用 dracula 色彩方案，提供深色背景 slate
     primary: cyan  # 設置主色調為深紫色
@@ -95,9 +96,10 @@ extra_css:
   - assets/pymdownx-extras/自定義.css?v=20260614-2  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js?v=20260614-3  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
+  - assets/pymdownx-extras/conditional-loader.js?v=20261008-toc-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
 
 hooks:
+  - tools/asset_bundle_hook.py
   - tools/fence_id_cleanup_hook.py
   - tools/latex_bracket_math_hook.py
   - tools/markdown_embed_hook.py

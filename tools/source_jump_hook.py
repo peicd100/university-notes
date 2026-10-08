@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
@@ -25,6 +26,8 @@ _CONTEXT_FALLBACK_MIN_SCORE = 2500.0
 _VSCODE_OPEN_TIMEOUT_SECONDS = 8
 _MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 _PAGE_INDEX: dict[str, "PageRecord"] = {}
+_SOURCE_INDEX_CACHE: dict[tuple[str, str, str], tuple[str, "PageRecord"]] = {}
+_INDEX_ENABLED = True  # Standalone tests index by default; CLI startup sets the mode.
 _VSCODE_COMMAND: str | None = None
 _MARK_EXTENSION_RE = re.compile(r"==([^\s=](?:[^=\n]*?[^\s=])?)==")
 _CARET_EXTENSION_RE = re.compile(r"\^\^([^\s^](?:[^^\n]*?[^\s^])?)\^\^")
@@ -98,26 +101,52 @@ class AdmonitionSpan:
     content_line_number_map: list[int]
 
 
-def on_config(config: Any) -> Any:
+def on_startup(*, command: str, dirty: bool) -> None:
+    global _INDEX_ENABLED
+    _INDEX_ENABLED = command == "serve"
+    _SOURCE_INDEX_CACHE.clear()
     _PAGE_INDEX.clear()
+
+
+def on_config(config: Any) -> Any:
+    if not _INDEX_ENABLED:
+        _PAGE_INDEX.clear()
     return config
 
 
 @event_priority(-100)
 def on_files(files: Any, /, *, config: Any) -> Any:
-    _PAGE_INDEX.clear()
+    global _PAGE_INDEX
+    if not _INDEX_ENABLED:
+        _PAGE_INDEX = {}
+        return files
 
+    active_keys = set()
+    next_index = {}
     for file_obj in _iter_documentation_files(files):
+        active_keys.add(_source_cache_key(file_obj))
         markdown = _read_markdown_content(file_obj)
         if markdown is None:
             continue
+        try:
+            record = _cached_page_record(markdown, file_obj)
+            next_index[record.dest_uri] = record
+        except Exception:
+            _SOURCE_INDEX_CACHE.pop(_source_cache_key(file_obj), None)
+            log.exception("Failed to index page source for %s", getattr(file_obj, "src_uri", "<unknown>"))
 
-        _index_page_markdown(markdown, file_obj)
-
+    # Publish atomically: lookups during a rebuild see the last complete map,
+    # never a temporarily empty index. Removed pages/cache keys are then pruned.
+    _PAGE_INDEX = next_index
+    for key in list(_SOURCE_INDEX_CACHE):
+        if key not in active_keys:
+            del _SOURCE_INDEX_CACHE[key]
     return files
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
+    if not _INDEX_ENABLED:
+        return markdown
     file_obj = getattr(page, "file", None)
     if file_obj is None:
         return markdown
@@ -306,11 +335,29 @@ def _read_source_markdown_content(file_obj: Any, fallback: str) -> str:
     return fallback
 
 
+def _source_cache_key(file_obj: Any) -> tuple[str, str, str]:
+    return (str(getattr(file_obj, "abs_src_path", "")),
+            str(getattr(file_obj, "src_uri", "")), str(getattr(file_obj, "dest_uri", "")))
+
+
+def _cached_page_record(markdown: str, file_obj: Any) -> PageRecord:
+    key = _source_cache_key(file_obj)
+    digest = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
+    cached = _SOURCE_INDEX_CACHE.get(key)
+    if cached is not None and cached[0] == digest:
+        return cached[1]
+    record = _build_page_record(markdown, file_obj)
+    _SOURCE_INDEX_CACHE[key] = (digest, record)
+    return record
+
+
 def _index_page_markdown(markdown: str, file_obj: Any) -> None:
     try:
-        record = _build_page_record(markdown, file_obj)
+        record = _cached_page_record(markdown, file_obj)
         _PAGE_INDEX[record.dest_uri] = record
     except Exception:
+        _PAGE_INDEX.pop(str(getattr(file_obj, "dest_uri", "")), None)
+        _SOURCE_INDEX_CACHE.pop(_source_cache_key(file_obj), None)
         log.exception("Failed to index page source for %s", getattr(file_obj, "src_uri", "<unknown>"))
 
 

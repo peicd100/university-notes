@@ -8,6 +8,8 @@ mkdocs-gen-files
 mkdocs-minify-plugin
 markdown-include
 requests
+Pillow>=10,<13  # content-hash-cached lossless image / logo derivatives
+tinycss2>=1.2,<2  # conservative CSS bundle parsing; preserve cascade order
 .
 mkdocs-encryptcontent-plugin
 jieba
