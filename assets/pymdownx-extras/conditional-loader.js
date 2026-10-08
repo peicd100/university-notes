@@ -16,7 +16,7 @@
     mermaidZoom: "mermaid-zoom.js?v=20260404-1",
     scrollBottom: "scroll-bottom.js?v=20260424-3",
     sourceJump: "source-jump.js?v=20260523-2",
-    tocFold: "toc-fold.js?v=20261008-toc-1"
+    tocFold: "toc-fold.js?v=20261009-follow-1"
   };
 
   const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);

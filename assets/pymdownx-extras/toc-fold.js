@@ -36,7 +36,6 @@
   };
 
   const MOBILE_MQ = "(max-width: 59.999em)";
-  const AUTO_SCROLL_GUARD_MS = 360;
   const ACTIVATION_OFFSET = 28;
   const FOLLOW_TARGET_RATIO = 0.42;
   const FOLLOW_PADDING_RATIO = 0.18;
@@ -44,10 +43,6 @@
   const MOBILE_TOGGLE_ID = "peicd-mobile-toc-toggle";
 
   let state = null;
-
-  function now() {
-    return Date.now();
-  }
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -303,7 +298,6 @@
 
     if (Math.abs(nextTop - wrap.scrollTop) < 4) return;
 
-    state.autoScrollUntil = now() + AUTO_SCROLL_GUARD_MS;
     wrap.scrollTo({
       top: nextTop,
       behavior: prefersReducedMotion() ? "auto" : "smooth"
@@ -311,8 +305,11 @@
   }
 
   function holdManual() {
-    if (!state) return;
+    if (!state || state.sidebarManualLocked) return;
     state.sidebarManualLocked = true;
+    // Cancel an already-running smooth follow before the user chooses a link.
+    const wrap = state.scrollWrap;
+    if (wrap) wrap.scrollTo({ top: wrap.scrollTop, behavior: "instant" });
   }
 
   function releaseManualHold() {
@@ -329,7 +326,7 @@
 
     applyCurrent(entry);
 
-    if (state.mode === "auto" && (changed || force)) {
+    if (state.mode === "auto" && !state.sidebarManualLocked && (changed || force)) {
       state.sidebar.classList.add(CLASS.syncing);
       collapseToCurrent(entry);
       applyCurrent(entry);
@@ -800,6 +797,7 @@
   function setMobileOpen(open) {
     if (!state?.sidebar) return;
 
+    if (open) holdManual(); // Opening the panel means choosing, before the first touch.
     state.sidebar.classList.toggle(CLASS.mobileVisible, open);
     document.documentElement.classList.toggle(CLASS.mobileOpen, open);
 
@@ -866,6 +864,9 @@
 
     const markManualKeys = new Set(["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "]);
 
+    // Sticky browsing ownership: layout/MathJax scrolls must not erase it.
+    listen(state.sidebar, "pointerenter", holdManual, { passive: true });
+    listen(state.sidebar, "focusin", holdManual);
     listen(wrap, "wheel", holdManual, { passive: true });
     listen(wrap, "touchstart", holdManual, { passive: true });
     listen(wrap, "touchmove", holdManual, { passive: true });
@@ -873,9 +874,10 @@
     listen(wrap, "keydown", (event) => {
       if (markManualKeys.has(event.key)) holdManual();
     });
-    listen(wrap, "scroll", () => {
-      if (now() > state.autoScrollUntil) holdManual();
-    }, { passive: true });
+    // A scroll event alone is ambiguous here too (smooth follow, scrollIntoView
+    // and label reflow). Wheel/touch/pointer/key events above own manual intent.
+    // The pointer/focus may already be here when this lazy-loaded controller starts.
+    if (state.sidebar.matches(":hover") || state.sidebar.contains(document.activeElement)) holdManual();
   }
 
   function bindGlobalEvents() {
@@ -892,15 +894,33 @@
       scheduleSync(true);
     };
     const onWindowScroll = () => {
-      releaseManualHold();
+      // Native scroll anchoring, image/math loads and scrollTo also emit this.
+      // Update highlighting, but never infer user intent from a scroll event.
       scheduleSync();
+    };
+    const scrollKeys = new Set(["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "]);
+    const onMainScrollIntent = (event) => {
+      if (!state || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      const target = event.target;
+      if (target?.closest?.(".md-sidebar, .md-search, input, textarea, select, [contenteditable]")) return;
+      if (event.type === "keydown" && (!scrollKeys.has(event.key) ||
+          (event.key === " " && target?.closest?.("button, a")))) return;
+      const wasHeld = state.sidebarManualLocked;
+      releaseManualHold();
+      if (wasHeld) scheduleSync(true); // Reapply the path after deferred layout updates.
     };
     const onKeyDown = (event) => {
       if (event.key === "Escape" && state?.sidebar?.classList.contains(CLASS.mobileVisible)) setMobileOpen(false);
+      onMainScrollIntent(event);
     };
 
     listen(window, "resize", onResize, { passive: true });
     listen(window, "scroll", onWindowScroll, { passive: true });
+    listen(window, "wheel", onMainScrollIntent, { passive: true });
+    listen(window, "touchmove", onMainScrollIntent, { passive: true });
+    listen(window, "pointerdown", (event) => {
+      if (event.target === document.documentElement && event.clientX >= document.documentElement.clientWidth) onMainScrollIntent(event);
+    }, { passive: true });
     listen(window, "hashchange", onHashChange);
     listen(window, "peicd:math-anchor", onHashChange);
     listen(window, "peicd:math-ready", prioritizeLabelMath);
@@ -991,7 +1011,6 @@
       view: "toc",
       activeKey: "",
       sidebarManualLocked: false,
-      autoScrollUntil: 0,
       resizeTimer: 0,
       syncRaf: 0,
       forceSync: false,
