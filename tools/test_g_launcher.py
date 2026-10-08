@@ -4,6 +4,7 @@ import os
 import shutil
 import shlex
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -37,6 +38,14 @@ class BuiltSiteTests(unittest.TestCase):
             self.assertIn("public.txt", result.stdout)
             self.assertNotIn("private.txt", result.stdout)
 
+    def test_module_entry_preflight_loads_project_hooks_without_publishing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / "index.html").write_text("preflight", encoding="utf8")
+            result = subprocess.run([sys.executable, "-m", "tools.publish_built_site", "--site-dir", directory, "--check"],
+                                    cwd=ROOT, capture_output=True, text=True, encoding="utf8", errors="replace", timeout=20)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("no Git changes or push", result.stderr)
+
     def test_missing_build_cannot_publish(self):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaises(FileNotFoundError):
@@ -65,7 +74,7 @@ class LauncherTests(unittest.TestCase):
             shutil.copyfile(ROOT / "g.bat", root / "g.bat")
             scripts = {
                 "activate.cmd": '@echo off\necho activate %*>>"%CALL_LOG%"\nif "%FAIL_STEP%"=="activate" exit /b %FAIL_CODE%\nexit /b 0\n',
-                "python.cmd": '@echo off\necho python %*>>"%CALL_LOG%"\nif "%~1"=="-m" (\n if "%FAIL_STEP%"=="build" exit /b %FAIL_CODE%\n) else (\n if "%FAIL_STEP%"=="deploy" exit /b %FAIL_CODE%\n)\nexit /b 0\n',
+                "python.cmd": '@echo off\necho python %*>>"%CALL_LOG%"\nif "%~2"=="mkdocs" (\n if "%FAIL_STEP%"=="build" exit /b %FAIL_CODE%\n) else (\n if "%FAIL_STEP%"=="deploy" exit /b %FAIL_CODE%\n)\nexit /b 0\n',
                 "git.cmd": '@echo off\necho git %*>>"%CALL_LOG%"\nif "%~1"=="branch" (\n echo %MOCK_BRANCH%\n exit /b 0\n)\nif "%~1"=="diff" (\n if "%~4"=="--" exit /b %PRIVATE_STAGED%\n exit /b %DIFF_EXIT%\n)\nif "%FAIL_STEP%"=="%~1" exit /b %FAIL_CODE%\nexit /b 0\n',
             }
             for name, text in scripts.items():

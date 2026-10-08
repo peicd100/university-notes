@@ -58,7 +58,7 @@ if errorlevel 1 goto :failed
 :deploy
 set "G_STEP=deploy validated site"
 echo [g] Deploying the validated build; no second full build is needed.
-call python "%~dp0tools\publish_built_site.py" --site-dir "%G_SITE%"
+call python -m tools.publish_built_site --site-dir "%G_SITE%"
 if errorlevel 1 goto :failed
 set "G_STEP=push main"
 call git push -u origin main
