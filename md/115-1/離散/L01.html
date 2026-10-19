@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1089,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1788,6 +1790,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -6568,11 +6598,11 @@
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=1.15.0 | REFRESH=ManualPromptRefresh_CONFIRMED | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_01_0911.txt; Locator=Session=01/L166–186; KP=Rules of Sum and Product; Boundary=已核對_L166–186_下一主題L188開始Permutations; Transcript={File=逐字稿_01_0911.txt; Session=01; SessionSource=FilenamePrefix; WithinSessionOrder=NA; Span=L166–186; Coverage=FULL_for_current_KP; TeachingState=TAUGHT_CORE; Signals=Explanation+Emphasis; Scope=Rule_of_Sum+Rule_of_Product+辨識條件; Correction=NONE; ASR=部分口語措辭以課本precision校準; Residual=已核對至L220}; Reference={Aligned=Textbook_Ch1_§1.1_PDFviewer_p24–26; PrecisionStatus=已核對}; Practice={LearningObjective=能依問題結構辨識並正確套用Sum/Product Rule; Modality=classification+calculation+brief_reasoning; ExpectedArtifact=答案+簡短理由; AcceptedSubmission=中文或英文文字/列式; RequiredModality=NO; AssessmentFidelity=Learning; SubmissionStatus=NOT_SUBMITTED}; AdjQueue=Rules_of_Sum_Product→Permutations→Combinations_preview; ExerciseDebt=本則教完後產生; TeachingMainlineDebt=Permutations尚未處理; AssessmentRequirementDebt=Homework_4_5_6_9_28待對應知識點後處理; ReferenceResolutionDebt=NONE_high_priority; PastExamDebt=108_Quiz1_ProductRule_direct_available_but_not_yet_used; Weakness=UNKNOWN; Coverage=Session01局部進行中; Completion=本KP尚未完成; Evidence=逐字稿L166–186+課本p24–26; Blockers=NONE; NextLegal=完成本KP練習後批改} | PLAN={ThisResponse=重構Rules_of_Sum_and_Product並輸出3個Practice_Tasks; ExpectedDebtChange=ExerciseDebt題目輸出後待使用者作答; ExpectedNext=批改並視結果推進§1.2}
 </code></pre></div>
 <h2 id="-rule-of-sum加法原理與-rule-of-product乘法原理-到底什麼時候加什麼時候乘">⭐ Rule of Sum（加法原理）與 Rule of Product（乘法原理）— 到底什麼時候加、什麼時候乘？<a class="headerlink" href="#-rule-of-sum加法原理與-rule-of-product乘法原理-到底什麼時候加什麼時候乘" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L166–186<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L166–186<br />
 對齊參考：Grimaldi Ch.1 §1.1／PDF viewer page 24–26</p>
 <p>老師在第 01 堂正式進入課程內容後，第一個真正教的核心就是這兩條 Counting Principle（計數原理）。逐字稿中老師先講 Rule of Sum，再用程式、餐廳、舞台選角等例子區分 Rule of Product，到了後面才切換到 §1.2 Permutations（排列），所以這裡是一個完整自然知識點。</p>
 <p>課本 §1.1 也是同樣順序：先定義 Rule of Sum，再定義 Rule of Product，並用多個例子說明。 Pearson 官方目錄也確認 Chapter 1 的第一小節就是 <em>The Rules of Sum and Product</em>，接著才是 <em>Permutations</em>。(<a href="https://www.pearson.com/en-us/subject-catalog/p/Grimaldi-Discrete-and-Combinatorial-Mathematics-Classic-Version-5th-Edition/P200000006199?utm_source=chatgpt.com" title="Discrete and Combinatorial Mathematics (Classic Version)">Pearson</a>)</p>
-<hr/>
+<hr />
 <h3 id="1-最根本的問題一個計數問題到底是在問選一條路還是走完多個步驟">1. 最根本的問題：一個計數問題，到底是在問「選一條路」還是「走完多個步驟」？<a class="headerlink" href="#1-最根本的問題一個計數問題到底是在問選一條路還是走完多個步驟" title="Permanent link"></a></h3>
 <p>不要先背：</p>
 <pre class="arithmatex">\[
@@ -6588,7 +6618,7 @@ m\times n
 <p>還是必須依序完成多個 stage（階段），每個階段都要作選擇？</p>
 </blockquote>
 <p>這就是兩條規則的分界。</p>
-<hr/>
+<hr />
 <h3 id="2-rule-of-sum加法原理or--加">2. Rule of Sum（加法原理）：OR → 加<a class="headerlink" href="#2-rule-of-sum加法原理or--加" title="Permanent link"></a></h3>
 <p>假設完成某件事有兩種<strong>互斥的途徑</strong>：</p>
 <ul>
@@ -6617,7 +6647,7 @@ m\times n
 5+7=12.
 \]</pre>
 <p>這是一個 OR（或）的結構。</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼不能重複計算很重要">3. 為什麼「不能重複計算」很重要？<a class="headerlink" href="#3-為什麼不能重複計算很重要" title="Permanent link"></a></h3>
 <p>假設：</p>
 <ul>
@@ -6635,7 +6665,7 @@ m\times n
 \boxed{\text{互斥的選擇} \Rightarrow \text{加}}
 \]</pre>
 <p>之後課程再遇到 Inclusion-Exclusion Principle（排容原理）時，才會系統處理「不互斥怎麼辦」。</p>
-<hr/>
+<hr />
 <h3 id="4-老師上課的三種程式語言教材例子">4. 老師上課的三種程式語言教材例子<a class="headerlink" href="#4-老師上課的三種程式語言教材例子" title="Permanent link"></a></h3>
 <p>逐字稿舉的情境是：有三種程式語言教材可以推薦，而且每種各有 7 本：</p>
 <ul>
@@ -6652,7 +6682,7 @@ m\times n
 <p>完整結果只會落在其中一類。</p>
 </blockquote>
 <p>所以用 Sum。</p>
-<hr/>
+<hr />
 <h3 id="5-rule-of-product乘法原理and--乘">5. Rule of Product（乘法原理）：AND → 乘<a class="headerlink" href="#5-rule-of-product乘法原理and--乘" title="Permanent link"></a></h3>
 <p>另一種情況：</p>
 <p>第一階段有 <span class="arithmatex">\(m\)</span> 種選擇。</p>
@@ -6666,7 +6696,7 @@ m\times n
 \boxed{m\times n}
 \]</pre>
 <p>課本正式定義正是把 procedure（程序）拆成 first stage（第一階段）與 second stage（第二階段）；第一階段有 <span class="arithmatex">\(m\)</span> 種結果，對其中每個結果，第二階段有 <span class="arithmatex">\(n\)</span> 種結果，因此完整 procedure 有 <span class="arithmatex">\(mn\)</span> 種。</p>
-<hr/>
+<hr />
 <h3 id="6-生活化理解餐廳--餐點">6. 生活化理解：餐廳 × 餐點<a class="headerlink" href="#6-生活化理解餐廳--餐點" title="Permanent link"></a></h3>
 <p>假設：</p>
 <ul>
@@ -6687,7 +6717,7 @@ m\times n
 <blockquote>
 <p>餐廳 <strong>而且</strong> 餐點。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="7-老師為什麼一直拿程式執行流程解釋">7. 老師為什麼一直拿「程式執行流程」解釋？<a class="headerlink" href="#7-老師為什麼一直拿程式執行流程解釋" title="Permanent link"></a></h3>
 <p>因為老師想建立的不是高中式「看到排列組合就套公式」，而是把問題拆成 stages（階段）。</p>
 <p>逐字稿用 pseudo-code（虛擬碼）的概念說明：先進入 first stage 的某一個 case，接著該 case 裡又一定要執行 second stage，所以一個完整 execution path（執行路徑）包含兩層選擇。</p>
@@ -6710,7 +6740,7 @@ m\times n
 <pre class="arithmatex">\[
 3\times3=9.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="8-老師的舞台劇例子6--8">8. 老師的舞台劇例子：6 × 8<a class="headerlink" href="#8-老師的舞台劇例子6--8" title="Permanent link"></a></h3>
 <p>老師接著講 Example 1.5：</p>
 <ul>
@@ -6731,7 +6761,7 @@ m\times n
 6+8=14
 \]</pre>
 <p>因為「選男主角」與「選女主角」並不是二選一；兩件事都必須完成。</p>
-<hr/>
+<hr />
 <h3 id="9-最值得記的判斷法or--and">9. 最值得記的判斷法：OR / AND<a class="headerlink" href="#9-最值得記的判斷法or--and" title="Permanent link"></a></h3>
 <p>遇到題目時先不要算。</p>
 <p>先翻譯成一句話：</p>
@@ -6764,7 +6794,7 @@ m\times n
 \boxed{\text{AND}\rightarrow \times}
 \]</pre>
 <p>但這個口訣不是百分之百機械式的。真正要看的是<strong>完整 outcome（結果）如何形成</strong>。</p>
-<hr/>
+<hr />
 <h3 id="10-一題為什麼可以同時用加法和乘法">10. 一題為什麼可以同時用加法和乘法？<a class="headerlink" href="#10-一題為什麼可以同時用加法和乘法" title="Permanent link"></a></h3>
 <p>這是非常重要的。</p>
 <p>假設早餐可以：</p>
@@ -6792,7 +6822,7 @@ m\times n
 <p>哪一層是 AND？</p>
 </blockquote>
 <p>這也是老師後面提到 application problem（應用題）特別重要的原因：不是公式難，而是你能不能從長文字中看出結構。</p>
-<hr/>
+<hr />
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <h3 id="11-一個非常實用的解題流程">11. 一個非常實用的解題流程<a class="headerlink" href="#11-一個非常實用的解題流程" title="Permanent link"></a></h3>
@@ -6808,7 +6838,7 @@ m\times n
 \boxed{\text{Cases 加；Stages 乘}}
 \]</pre>
 </div>
-<hr/>
+<hr />
 <h3 id="12-這個知識點和後面的-permutation-有什麼關係">12. 這個知識點和後面的 Permutation 有什麼關係？<a class="headerlink" href="#12-這個知識點和後面的-permutation-有什麼關係" title="Permanent link"></a></h3>
 <p>老師下一個正式主題是 §1.2 Permutations（排列）。逐字稿明確說，排列其實就是把 Rule of Product 用在一連串位置選擇上。</p>
 <p>例如從 10 個不同學生選 5 個排成一列：</p>
@@ -6833,19 +6863,19 @@ P(10,5)
 \boxed{\text{Rule of Product}}
 \]</pre>
 <p>所以這一小節一定要真的懂，而不是只記「加或乘」。</p>
-<hr/>
+<hr />
 <h3 id="13-assessment-quick-check評量快速檢查">13. Assessment Quick Check（評量快速檢查）<a class="headerlink" href="#13-assessment-quick-check評量快速檢查" title="Permanent link"></a></h3>
 <p>目前歷屆小考中確實有直接的 Product Rule 題型：108 Quiz 1 Problem 1 給定汽車有 4 種車型、12 種顏色、3 種引擎、2 種變速箱，要求計算完整配置數；其解法就是逐階段相乘。</p>
 <p>不過我們現在先不用考古題原題；先確認你能自己辨識 Sum/Product，再進 §1.2。老師本堂也明確說作業偏好長文字應用題，並指定了 4、5、6、9、28，表示「從文字辨識計數結構」是這堂需要練的能力。</p>
 <h3 id="14-practice-tasks練習任務">14. Practice Tasks（練習任務）<a class="headerlink" href="#14-practice-tasks練習任務" title="Permanent link"></a></h3>
 <h4 id="141-task-1--classification">14.1 Task 1 — Classification<a class="headerlink" href="#141-task-1--classification" title="Permanent link"></a></h4>
 <p><strong>For each situation, decide whether the Rule of Sum or the Rule of Product should be used. Give one short reason.</strong></p>
-<p>a. A student chooses <strong>one</strong> elective: 8 CS courses or 5 math courses.<br/>
-b. A password consists of <strong>one letter followed by one digit</strong>. There are 26 possible letters and 10 possible digits.<br/>
+<p>a. A student chooses <strong>one</strong> elective: 8 CS courses or 5 math courses.<br />
+b. A password consists of <strong>one letter followed by one digit</strong>. There are 26 possible letters and 10 possible digits.<br />
 c. You choose <strong>one</strong> dessert: 4 cakes, 3 puddings, or 6 ice creams.</p>
 <p>作答格式可直接寫：</p>
 <p><code>a. Sum, because ...</code></p>
-<hr/>
+<hr />
 <h4 id="142-task-2--calculation">14.2 Task 2 — Calculation<a class="headerlink" href="#142-task-2--calculation" title="Permanent link"></a></h4>
 <p><strong>A restaurant offers 4 main dishes and 3 drinks. A lunch set contains exactly one main dish and one drink. How many different lunch sets are possible?</strong></p>
 <p>請給：</p>
@@ -6854,7 +6884,7 @@ c. You choose <strong>one</strong> dessert: 4 cakes, 3 puddings, or 6 ice creams
 <li>列式；</li>
 <li>答案。</li>
 </ol>
-<hr/>
+<hr />
 <h4 id="143-task-3--mixed-structure">14.3 Task 3 — Mixed Structure<a class="headerlink" href="#143-task-3--mixed-structure" title="Permanent link"></a></h4>
 <p><strong>A student may choose either:</strong></p>
 <ul>
@@ -6914,9 +6944,9 @@ c. You choose <strong>one</strong> dessert: 4 cakes, 3 puddings, or 6 ice creams
 \boxed{\text{同一完整結果中的 stages 之間乘}}
 \]</pre>
 <p>因此 <code>Rules of Sum and Product</code> 這個知識點可以通過，下一個合法主線就是老師實際接著教的 §1.2 <code>Permutations(排列)</code>。老師也是直接從 Rule of Product 延伸到「10 人選 5 人排成一列」。</p>
-<hr/>
+<hr />
 <h2 id="-permutations排列-為什麼同樣選到這些人換位置就變成不同答案">⭐ Permutations（排列）— 為什麼「同樣選到這些人」，換位置就變成不同答案？<a class="headerlink" href="#-permutations排列-為什麼同樣選到這些人換位置就變成不同答案" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L188–210<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L188–210<br />
 對齊參考：Grimaldi Ch.1 §1.2／PDF viewer page 27–31</p>
 <h3 id="1-核心問題order順序有沒有影響答案">1. 核心問題：Order（順序）有沒有影響答案？<a class="headerlink" href="#1-核心問題order順序有沒有影響答案" title="Permanent link"></a></h3>
 <p>老師第一個例子是：</p>
@@ -6943,7 +6973,7 @@ BACDE
 <pre class="arithmatex">\[
 \boxed{\text{Order matters} \Rightarrow \text{Permutation}}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-為什麼-10-個人排-5-個是-10times9times8times7times6">2. 為什麼 10 個人排 5 個是 <span class="arithmatex">\(10\times9\times8\times7\times6\)</span>？<a class="headerlink" href="#2-為什麼-10-個人排-5-個是-10times9times8times7times6" title="Permanent link"></a></h3>
 <p>不要先背公式。</p>
 <p>用上一個知識點的 Rule of Product：</p>
@@ -6970,7 +7000,7 @@ BACDE
 <pre class="arithmatex">\[
 \boxed{\text{Permutation = Rule of Product applied to ordered positions}}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="3-factorial階乘">3. Factorial（階乘）<a class="headerlink" href="#3-factorial階乘" title="Permanent link"></a></h3>
 <p>為了讓這種連乘寫得簡單，定義：</p>
 <pre class="arithmatex">\[
@@ -6986,7 +7016,7 @@ n!=n(n-1)(n-2)\cdots2\cdot1
 \]</pre>
 <p>這不是因為 <span class="arithmatex">\(0\)</span> 真的拿去一路乘得到 1，而是數學上把 <span class="arithmatex">\(0!\)</span> 定義成 1，使後面的排列、組合公式保持一致。</p>
 <p>老師在課堂上正式介紹了這個 Definition 1.1。</p>
-<hr/>
+<hr />
 <h3 id="4-pnr-到底代表什麼">4. <span class="arithmatex">\(P(n,r)\)</span> 到底代表什麼？<a class="headerlink" href="#4-pnr-到底代表什麼" title="Permanent link"></a></h3>
 <p>假設有：</p>
 <ul>
@@ -7023,7 +7053,7 @@ n(n-1)(n-2)\cdots(n-r+1).
 \]</pre>
 </div>
 <p>老師在逐字稿就是由 Rule of Product 推到這個式子；課本 Definition 1.2 也正式給出相同公式。 </p>
-<hr/>
+<hr />
 <h3 id="5-為什麼分母是-n-r">5. 為什麼分母是 <span class="arithmatex">\((n-r)!\)</span>？<a class="headerlink" href="#5-為什麼分母是-n-r" title="Permanent link"></a></h3>
 <p>以：</p>
 <pre class="arithmatex">\[
@@ -7052,7 +7082,7 @@ P(10,5)=\frac{10!}{5!}.
 \boxed{\frac{n!}{(n-r)!}}
 \]</pre>
 <p>就是把「沒被選進來的 <span class="arithmatex">\(n-r\)</span> 個位置」消掉。</p>
-<hr/>
+<hr />
 <h3 id="6-一個超重要前提distinct相異">6. 一個超重要前提：Distinct（相異）<a class="headerlink" href="#6-一個超重要前提distinct相異" title="Permanent link"></a></h3>
 <p>公式</p>
 <pre class="arithmatex">\[
@@ -7072,7 +7102,7 @@ P(10,5)=\frac{10!}{5!}.
 P(8,5)=\frac{8!}{3!}.
 \]</pre>
 <p>老師還特別提醒：如果 word 裡有 repeated letters（重複字母），直接套這條就會錯。</p>
-<hr/>
+<hr />
 <h3 id="7-repeated-objects重複物件的排列">7. Repeated Objects（重複物件）的排列<a class="headerlink" href="#7-repeated-objects重複物件的排列" title="Permanent link"></a></h3>
 <p>例如：</p>
 <pre class="arithmatex">\[
@@ -7130,7 +7160,7 @@ n_1+n_2+\cdots+n_k=n.
 </div>
 <p>老師特別強調：條件 <span class="arithmatex">\(n_1+\cdots+n_k=n\)</span> 也要寫清楚，不能只丟一個公式。</p>
 <p>課本接著用 <code>BALL</code>、<code>DATABASES</code>、<code>MASSASAUGA</code> 展開同樣的重複排列觀念。</p>
-<hr/>
+<hr />
 <h3 id="8-block-method綁成一塊">8. Block Method（綁成一塊）<a class="headerlink" href="#8-block-method綁成一塊" title="Permanent link"></a></h3>
 <p>老師最後還教了一個很常考的變形。</p>
 <p>假設 <code>MASSASAUGA</code> 中四個 A 必須全部連在一起：</p>
@@ -7153,7 +7183,7 @@ AAAA,\ S,S,S,\ M,\ U,\ G
 <p>若題目說某些東西 must stay together（必須相鄰），先把它們綁成一個 block（區塊）。</p>
 </blockquote>
 <p>老師在本堂確實做到這個延伸，之後才宣布 permutation 部分結束、轉進 1.3 combination。</p>
-<hr/>
+<hr />
 <h3 id="9-目前你要能快速分辨的三種模式">9. 目前你要能快速分辨的三種模式<a class="headerlink" href="#9-目前你要能快速分辨的三種模式" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -7203,7 +7233,7 @@ AAAA,\ S,S,S,\ M,\ U,\ G
 <li>列式；</li>
 <li>最後答案。</li>
 </ol>
-<hr/>
+<hr />
 <h4 id="102-task-2--repeated-objects">10.2 Task 2 — Repeated Objects<a class="headerlink" href="#102-task-2--repeated-objects" title="Permanent link"></a></h4>
 <p><strong>How many distinct arrangements of the letters in <code>BANANA</code> are possible?</strong></p>
 <p>提示只到這裡：</p>
@@ -7212,7 +7242,7 @@ AAAA,\ S,S,S,\ M,\ U,\ G
 <li>哪些字母重複、各重複幾次？</li>
 </ul>
 <p>請自行列完整公式。</p>
-<hr/>
+<hr />
 <h4 id="103-task-3--block-method">10.3 Task 3 — Block Method<a class="headerlink" href="#103-task-3--block-method" title="Permanent link"></a></h4>
 <p><strong>How many distinct arrangements of the letters in <code>BANANA</code> are possible if all three A's must appear together?</strong></p>
 <p>Expected Artifact：請至少寫出「你把哪些東西視為一個 block」以及最後列式。</p>
@@ -7266,9 +7296,9 @@ AAA,\ B,\ N,\ N
 \frac{4!}{2!}=12.
 \]</pre>
 <p>這輪沒有發現需要建立的 Weakness（弱點），因此不再追加同型排列題，直接依老師的授課順序往下。</p>
-<hr/>
+<hr />
 <h2 id="-combinations組合-選到哪些東西重要但順序不重要">⭐ Combinations（組合）— 選到「哪些東西」重要，但順序不重要<a class="headerlink" href="#-combinations組合-選到哪些東西重要但順序不重要" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L210–214<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_01_0911.txt</code>／Session=01／L210–214<br />
 對齊參考：Grimaldi Ch.1 §1.3／PDF viewer page 35–36</p>
 <p>這裡要很精確區分老師實際教到哪裡：</p>
 <ul>
@@ -7305,7 +7335,7 @@ C,A,B
 \boxed{\text{Order does not matter} \Rightarrow \text{Combination}}
 \]</pre>
 <p>老師在逐字稿就是用 <code>selection</code> 這個字來區分：只關心袋子裡有哪些東西，不關心它們排列在哪裡。</p>
-<hr/>
+<hr />
 <h3 id="2-為什麼-combination-要把-r-除掉">2. 為什麼 Combination 要把 <span class="arithmatex">\(r!\)</span> 除掉？<a class="headerlink" href="#2-為什麼-combination-要把-r-除掉" title="Permanent link"></a></h3>
 <p>從 <span class="arithmatex">\(n\)</span> 個相異物件選 <span class="arithmatex">\(r\)</span> 個，如果先當成排列：</p>
 <pre class="arithmatex">\[
@@ -7337,7 +7367,7 @@ C(n,r)
 \]</pre>
 </div>
 <p>課本 §1.3 也是用「每一個 selection 對應 <span class="arithmatex">\(r!\)</span> 個 permutations」推導這個式子。</p>
-<hr/>
+<hr />
 <h3 id="3-用一個很小的例子真正看懂除-r">3. 用一個很小的例子真正看懂「除 <span class="arithmatex">\(r!\)</span>」<a class="headerlink" href="#3-用一個很小的例子真正看懂除-r" title="Permanent link"></a></h3>
 <p>從</p>
 <pre class="arithmatex">\[
@@ -7374,7 +7404,7 @@ P(5,3)=5\cdot4\cdot3=60
 <pre class="arithmatex">\[
 C(5,3)=\frac{60}{6}=10.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="4-最重要的辨識表">4. 最重要的辨識表<a class="headerlink" href="#4-最重要的辨識表" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -7419,7 +7449,7 @@ P
 <pre class="arithmatex">\[
 C.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-本堂的停止點">5. 本堂的停止點<a class="headerlink" href="#5-本堂的停止點" title="Permanent link"></a></h3>
 <p>老師接下來只稍微提到</p>
 <pre class="arithmatex">\[
@@ -7476,7 +7506,7 @@ C(n,0),C(n,1),\ldots
 <p><code>with lemon</code>：加檸檬</p>
 </li>
 <li>
-<p><code>with lemon and sugar</code>：加檸檬和糖<br/>
+<p><code>with lemon and sugar</code>：加檸檬和糖<br />
 </p>
 </li>
 </ol>
@@ -7539,7 +7569,7 @@ C(n,0),C(n,1),\ldots
               <span class="md-footer__direction">
                 Previous
               </span>
-              打星星
+              老師打星星的重點
             </div>
           </div>
         </a>
@@ -7616,7 +7646,7 @@ C(n,0),C(n,1),\ldots
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5757,7 +5787,7 @@
 <h3 id="repeat偏-testbench"><code>repeat</code>，偏 testbench<a class="headerlink" href="#repeat偏-testbench" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">repeat</span><span class="w"> </span><span class="p">(</span><span class="mh">4</span><span class="p">)</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">);</span>
-<span class="w">    </span><span class="n">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <h3 id="while偏-testbench"><code>while</code>，偏 testbench<a class="headerlink" href="#while偏-testbench" title="Permanent link"></a></h3>
@@ -5771,7 +5801,7 @@
 </ul>
 <h3 id="forever偏-testbench"><code>forever</code>，偏 testbench<a class="headerlink" href="#forever偏-testbench" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">forever</span><span class="w"> </span><span class="p">#</span><span class="mh">5</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clk</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
@@ -5781,17 +5811,17 @@
 <h3 id="wait偏-testbench"><code>wait</code>，偏 testbench<a class="headerlink" href="#wait偏-testbench" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="p">(</span><span class="n">ready</span><span class="p">);</span>
-<span class="w">    </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <h3 id="fork--join偏-testbench"><code>fork ... join</code>，偏 testbench<a class="headerlink" href="#fork--join偏-testbench" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">fork</span>
 <span class="w">        </span><span class="k">begin</span>
-<span class="w">            </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span>
 <span class="w">        </span><span class="k">begin</span>
-<span class="w">            </span><span class="p">#</span><span class="mh">20</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">#</span><span class="mh">20</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span>
 <span class="w">    </span><span class="k">join</span>
 <span class="k">end</span>
@@ -5952,7 +5982,7 @@
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

@@ -14,7 +14,7 @@
         <link rel="prev" href="L02.html">
       
       
-        <link rel="next" href="../../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html">
+        <link rel="next" href="L04.html">
       
       
         
@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1089,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -3864,6 +3866,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -10701,10 +10731,10 @@
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 1 次對話 | PROMPT=1.16.1 | REFRESH=Manual Prompt Refresh APPLIED | REFRESH_REMINDER=NONE | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Locator=Session=03／L5–L159; KP=Well-Ordering Principle→Principle of Mathematical Induction 的成立理由; Boundary=VERIFIED，L161起轉入一般歸納法例子並再往 Theorem 4.2 推進; Transcript={File=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; WithinSessionOrder=NA/UNKNOWN，同 Session 另有逐字稿_03_v0.0.1.txt且非part命名，本輪不視為後續片段; Span=L5–L159; Coverage=FULL，檔案由上課開場延伸至老師收課; TeachingState=TAUGHT_CORE; Signals=TeacherExplanation+Scope; Scope=Z+／正整數; Correction=NONE; ASR=minor wording uncertainty; Residual=checked through L161}; Reference={Aligned=教材截圖1000004033.png之Well-Ordering Principle正式敘述; PrecisionStatus=HIGH for WOP，PARTIAL for完整Theorem4.1教材原文; 課本詳解.pdf=AVAILABLE但本知識點未以其重構正式題目}; Practice={LearningObjective=尚未實際檢查; Modality=NA; ExpectedArtifact=NA; AcceptedSubmission=NA; RequiredModality=NO; TaskOrigin=NA; SourceReopened=NA; SourceIdentity=NA; ContentFidelity=NA; SourceMatch=NA; AssessmentFidelity=Learning; SubmissionStatus=NOT_SUBMITTED}; AdjQueue=Theorem4.2→Example4.14→4.1指定習題→後續整數性質; ExerciseDebt=NOT_YET_CREATED; TeachingMainlineDebt=Session03其餘內容待複習; AssessmentRequirementDebt=目前知識點未確認; ReferenceResolutionDebt=LOW; PastExamDebt=P0 candidate，已找到數學歸納法proof考古題但原始考卷尚未重新核對; Weakness=UNKNOWN; Coverage=第一知識點尚未驗證學會; Completion=IN_PROGRESS; Evidence=Transcript L5–L159＋教材WOP原文; Blockers=NONE for current KP; NextLegal=完成本知識點教學與練習後才進Theorem4.2} | PLAN={ThisResponse=只教第三堂第一個自然知識點，完成必要知識包後給3個Generated Practice Tasks; ExpectedDebtChange=產生並輸出Exercise Debt對應任務; ExpectedNext=批改後依表現決定是否進Theorem4.2}
 </code></pre></div>
 <h2 id="well-ordering-principle良序原理-mathematical-induction數學歸納法為什麼成立">⭐Well-Ordering Principle（良序原理）→ Mathematical Induction（數學歸納法）為什麼成立？<a class="headerlink" href="#well-ordering-principle良序原理-mathematical-induction數學歸納法為什麼成立" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L5–L159<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L5–L159<br />
 對齊參考：教材原文 <code>The Well-Ordering Principle</code>；<code>課本詳解.pdf</code> 已確認存在，但這一輪沒有拿它冒充定理原文。</p>
 <p>老師第三堂一開始直接從 <code>Well-Ordering Principle（良序原理）</code> 接到「如何證明數學歸納法本身成立」，而且最後特別限制這段論證是在正整數範圍內。逐字稿_03 逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="1-這段到底在解決什麼問題">1. 這段到底在解決什麼問題？<a class="headerlink" href="#1-這段到底在解決什麼問題" title="Permanent link"></a></h3>
 <p>你以前大概已經會用數學歸納法：</p>
 <pre class="arithmatex">\[
@@ -10724,7 +10754,7 @@ S(n)\text{ 對所有 }n\in\mathbb Z^+\text{ 成立。}
 </blockquote>
 <p>老師這堂不是只教你「怎麼用 induction」，而是在回答「<strong>induction 憑什麼是合法的證明方法？</strong>」。</p>
 <p>老師也明確說，正整數有無限多個，不可能靠一個一個列舉來驗證，因此改採 <code>proof by contradiction（反證法）</code>，去證明「反例根本不可能存在」。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="2-well-ordering-principle良序原理">2. Well-Ordering Principle（良序原理）<a class="headerlink" href="#2-well-ordering-principle良序原理" title="Permanent link"></a></h3>
 <p>教材的精確版本是：</p>
 <blockquote>
@@ -10787,7 +10817,7 @@ A=\{8,17,25,101,\ldots\}
 \]</pre>
 <p>只要 <span class="arithmatex">\(A\)</span> 不是空的，它就一定有「最前面那一個」，例如這裡的 <span class="arithmatex">\(8\)</span>。</p>
 <p>這就是後面證明最重要的武器：<strong>如果真的存在反例，那所有反例之中一定存在「第一個反例」。</strong></p>
-<hr/>
+<hr />
 <h3 id="3-數學歸納法的正式邏輯">3. 數學歸納法的正式邏輯<a class="headerlink" href="#3-數學歸納法的正式邏輯" title="Permanent link"></a></h3>
 <p>設 <span class="arithmatex">\(S(n)\)</span> 是一個 <code>open mathematical statement（開放數學敘述）</code>。</p>
 <p>我們已知兩件事：</p>
@@ -10810,7 +10840,7 @@ A \Rightarrow B
 \]</pre>
 <p>的意思是：如果 A 成立 ( 等於 True ) 那 B 也會成立 ( 等於 True )</p>
 </div>
-<hr/>
+<hr />
 <h3 id="4-核心技巧把所有反例收集成集合-f">4. 核心技巧：把「所有反例」收集成集合 <span class="arithmatex">\(F\)</span><a class="headerlink" href="#4-核心技巧把所有反例收集成集合-f" title="Permanent link"></a></h3>
 <p>這一步最重要。</p>
 <p>定義：</p>
@@ -10830,7 +10860,7 @@ S(4)=\text{false},
 F=\varnothing.
 \]</pre>
 <p>因為如果 <span class="arithmatex">\(F\)</span> 是空集合，就代表「根本不存在反例」，因此所有正整數的 <span class="arithmatex">\(S(n)\)</span> 都成立。這正是老師在 L53–L71 建立的反例集合。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="5-反證法一步一步推">5. 反證法一步一步推<a class="headerlink" href="#5-反證法一步一步推" title="Permanent link"></a></h3>
 <p>現在假設相反的事情：</p>
 <pre class="arithmatex">\[
@@ -10925,7 +10955,7 @@ F\neq\varnothing
 <pre class="arithmatex">\[
 \boxed{\forall n\in\mathbb Z^+,\ S(n)\text{ is true}.}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="6-把整個證明壓成一張圖">6. 把整個證明壓成一張圖<a class="headerlink" href="#6-把整個證明壓成一張圖" title="Permanent link"></a></h3>
 <pre class="diagram"><code>flowchart TD
     A["假設存在反例"] --&gt; B["建立 F={t∈Z⁺ | S(t) 為假}"]
@@ -10945,7 +10975,7 @@ F\neq\varnothing
 \boxed{\text{假設有反例}\rightarrow\text{抓最小反例}\rightarrow\text{用前一個推出它其實不是反例}}
 \]</pre>
 <p>這就是整個 proof 的靈魂。</p>
-<hr/>
+<hr />
 <h3 id="7-為什麼偏偏要-well-ordering-principle">7. 為什麼偏偏要 Well-Ordering Principle？<a class="headerlink" href="#7-為什麼偏偏要-well-ordering-principle" title="Permanent link"></a></h3>
 <p>因為我們需要「<strong>最小反例 <span class="arithmatex">\(m\)</span></strong>」。</p>
 <p>如果你沒有辦法保證反例集合有最小元素，你就沒有辦法合法地談：</p>
@@ -10963,7 +10993,7 @@ S(m-1).
 \left\{1,\frac12,\frac13,\frac14,\ldots\right\}
 \]</pre>
 <p>就沒有最小元素，所以你不能直接把這套 <code>Well-Ordering Principle</code> 原封不動搬去所有正有理數。</p>
-<hr/>
+<hr />
 <h3 id="8-這裡最容易錯的三件事">8. 這裡最容易錯的三件事<a class="headerlink" href="#8-這裡最容易錯的三件事" title="Permanent link"></a></h3>
 <p>第一個錯法是把 induction step 寫成：</p>
 <pre class="arithmatex">\[
@@ -10989,7 +11019,7 @@ S(m)\text{ true},
 \]</pre>
 <p>因此矛盾。</p>
 <p>這個寫法會比口頭敘述更乾淨。</p>
-<hr/>
+<hr />
 <h3 id="9-本堂後續先不要跳">9. 本堂後續先不要跳<a class="headerlink" href="#9-本堂後續先不要跳" title="Permanent link"></a></h3>
 <p>這個自然邊界在老師完成 induction 成立性的反證、再次限制正整數範圍後收束；後面才轉向一般歸納法例子，再進 <code>Theorem 4.2</code>。逐字稿_03</p>
 <p>另外我已找到一題直接相關的歷屆 <code>108 Quiz1 Problem 12</code>，要求用 mathematical induction 做 divisibility proof；它屬於之後值得做的 proof 型校準題。不過目前只找到整理版索引，還沒有重新打開原始考卷核對，所以這輪不會把它冒充正式原題。考古題_所有小考_v0.0.3</p>
@@ -11003,7 +11033,7 @@ A=\{5,9,13,17,\ldots\}\subseteq\mathbb Z^+
 B=\left\{1,\frac12,\frac13,\frac14,\ldots\right\}
 \]</pre>
 <p>回答格式可寫：</p>
-<p><code>A: Yes/No, because ...</code><br/>
+<p><code>A: Yes/No, because ...</code><br />
 <code>B: Yes/No, because ...</code></p>
 <h4 id="102-task-2--complete-the-least-counterexample-proof">10.2 Task 2 — Complete the Least-Counterexample Proof<a class="headerlink" href="#102-task-2--complete-the-least-counterexample-proof" title="Permanent link"></a></h4>
 <p><strong>Instruction:</strong> Fill in the five blanks.</p>
@@ -11037,7 +11067,7 @@ F=\{t\in\mathbb Z^+\mid S(t)\text{ is false}\}.
 <h2 id="theorem-42--為什麼數學歸納法有時不能只假設-sk">⭐Theorem 4.2 — 為什麼數學歸納法有時不能只假設 <span class="arithmatex">\(S(k)\)</span>？<a class="headerlink" href="#theorem-42--為什麼數學歸納法有時不能只假設-sk" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L171–L191</p>
 <p>老師接著介紹另一種 Mathematical Induction（數學歸納法）形式：不是一定從 <span class="arithmatex">\(1\)</span> 開始，而且可能先確認一整段起始情況，再用前面多個已成立的 statement 去證明下一個。老師還特別說這件事「很重要」。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="1-先回想剛才的普通-induction">1. 先回想剛才的普通 induction<a class="headerlink" href="#1-先回想剛才的普通-induction" title="Permanent link"></a></h3>
 <p>剛才學的是：</p>
 <pre class="arithmatex">\[
@@ -11056,7 +11086,7 @@ S(k)\Rightarrow S(k+1).
 S(1)\to S(2)\to S(3)\to S(4)\to\cdots
 \]</pre>
 <p>一張骨牌推下一張。</p>
-<hr/>
+<hr />
 <h3 id="2-但有些問題只知道-sk不夠">2. 但有些問題「只知道 <span class="arithmatex">\(S(k)\)</span>」不夠<a class="headerlink" href="#2-但有些問題只知道-sk不夠" title="Permanent link"></a></h3>
 <p>假設某個證明中，要證：</p>
 <pre class="arithmatex">\[
@@ -11087,7 +11117,7 @@ S(n_0),S(n_0+1),\ldots,S(k)
 \boxed{S(k+1)=True}.
 \]</pre>
 <p>這就是老師 Theorem 4.2 在處理的核心。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼還會有-n_0n_1">3. 為什麼還會有 <span class="arithmatex">\(n_0,n_1\)</span>？<a class="headerlink" href="#3-為什麼還會有-n_0n_1" title="Permanent link"></a></h3>
 <p>老師這裡不是強迫：</p>
 <pre class="arithmatex">\[
@@ -11113,7 +11143,7 @@ S(14),S(15),S(16)
 \]</pre>
 <p>先全部成立。</p>
 <p>之後才啟動 induction。</p>
-<hr/>
+<hr />
 <h3 id="4-theorem-42-的結構">4. Theorem 4.2 的結構<a class="headerlink" href="#4-theorem-42-的結構" title="Permanent link"></a></h3>
 <p>你可以先把老師這段整理成：</p>
 <p><strong>Base Cases（基礎情況）：</strong></p>
@@ -11144,7 +11174,7 @@ S(n_0),S(n_0+1),\ldots,S(k)
 S(n)\text{ 對所有 }n\ge n_0\text{ 成立}
 }
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-它跟剛才版本差在哪">5. 它跟剛才版本差在哪？<a class="headerlink" href="#5-它跟剛才版本差在哪" title="Permanent link"></a></h3>
 <p>最重要就這張表：</p>
 <table>
@@ -11174,7 +11204,7 @@ S(n)\text{ 對所有 }n\ge n_0\text{ 成立}
 </tbody>
 </table>
 <p>所以右邊的假設「比較強」。</p>
-<hr/>
+<hr />
 <h3 id="6-為什麼要多個-base-cases">6. 為什麼要多個 Base Cases？<a class="headerlink" href="#6-為什麼要多個-base-cases" title="Permanent link"></a></h3>
 <p>假設你的 induction step 要使用：</p>
 <pre class="arithmatex">\[
@@ -11199,7 +11229,7 @@ S(14),S(15),S(16)
 \]</pre>
 <p>都成立。</p>
 <p>這也是老師下一個 Example 4.14 會真正拿來操作的地方：他會利用 <span class="arithmatex">\(14,15,16\)</span> 當起始 cases，再往後推。這部分我們下一輪正式進入，不先把例題答案混進來。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="7-一句話分辨兩種">7. 一句話分辨兩種<a class="headerlink" href="#7-一句話分辨兩種" title="Permanent link"></a></h3>
 <p>普通版本：</p>
 <pre class="arithmatex">\[
@@ -11223,7 +11253,7 @@ S(n_0),S(n_0+1),\ldots,S(k)
 <h4 id="81-task-1--classification">8.1 Task 1 — Classification<a class="headerlink" href="#81-task-1--classification" title="Permanent link"></a></h4>
 <p><strong>Instruction:</strong> Which induction form is more suitable?</p>
 <p>要證明 <span class="arithmatex">\(S(k+1)\)</span> 時，推導過程一定需要使用 <span class="arithmatex">\(S(k-2)\)</span>。</p>
-<p>A. 只假設 <span class="arithmatex">\(S(k)\)</span> 為真<br/>
+<p>A. 只假設 <span class="arithmatex">\(S(k)\)</span> 為真<br />
 B. 假設 <span class="arithmatex">\(S(n_0),S(n_0+1),\ldots,S(k)\)</span> 全部為真</p>
 <p>請回答 <code>A</code> 或 <code>B</code>，再說一句原因。</p>
 <h4 id="82-task-2--base-cases">8.2 Task 2 — Base Cases<a class="headerlink" href="#82-task-2--base-cases" title="Permanent link"></a></h4>
@@ -11258,7 +11288,7 @@ S(8),S(9),S(10),\ldots
 \boxed{S(n)\text{ 對所有 }n\ge5\text{ 都成立}}
 \]</pre>
 <p>你選 B 沒問題，這題通過。</p>
-<hr/>
+<hr />
 <h2 id="example-414--為什麼需要前面一整段都成立">⭐Example 4.14 — 為什麼需要前面「一整段」都成立？<a class="headerlink" href="#example-414--為什麼需要前面一整段都成立" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L193–L315</p>
 <p>老師接著真的拿 Theorem 4.2 做了一個完整例子：證明<strong>每個 <span class="arithmatex">\(n\ge14\)</span> 的整數，都可以寫成若干個 3 和 8 的總和</strong>。逐字稿_03</p>
@@ -11303,7 +11333,7 @@ S(16)=True.
 n_0=14,\qquad n_1=16.
 \]</pre>
 <p>逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="2-接著假設前面一路到-k-都成立">2. 接著假設前面一路到 <span class="arithmatex">\(k\)</span> 都成立<a class="headerlink" href="#2-接著假設前面一路到-k-都成立" title="Permanent link"></a></h3>
 <p>假設：</p>
 <pre class="arithmatex">\[
@@ -11321,7 +11351,7 @@ S(k+1)=True.
 <blockquote>
 <p><span class="arithmatex">\(k+1\)</span> 也能用 3 和 8 加出來。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="3-為什麼老師突然看-k-2">3. 為什麼老師突然看 <span class="arithmatex">\(k-2\)</span>？<a class="headerlink" href="#3-為什麼老師突然看-k-2" title="Permanent link"></a></h3>
 <p>這是整題最重要的技巧。</p>
 <p>因為：</p>
@@ -11358,7 +11388,7 @@ k-2=18.
 21=18+3
 \]</pre>
 <p>自然也可以。</p>
-<hr/>
+<hr />
 <h3 id="4-但我們怎麼知道-sk-2-可以用">4. 但我們怎麼知道 <span class="arithmatex">\(S(k-2)\)</span> 可以用？<a class="headerlink" href="#4-但我們怎麼知道-sk-2-可以用" title="Permanent link"></a></h3>
 <p>因為：</p>
 <pre class="arithmatex">\[
@@ -11390,7 +11420,7 @@ S(14),S(15),\ldots,S(k)
 \boxed{S(k-2)=True}.
 \]</pre>
 <p>老師正是先指出 <span class="arithmatex">\(k-2\)</span> 落在 <span class="arithmatex">\(14\)</span> 到 <span class="arithmatex">\(k\)</span> 之間，再利用它推出 <span class="arithmatex">\(k+1=(k-2)+3\)</span>。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="5-最後推出-sk1">5. 最後推出 <span class="arithmatex">\(S(k+1)\)</span><a class="headerlink" href="#5-最後推出-sk1" title="Permanent link"></a></h3>
 <p>既然：</p>
 <pre class="arithmatex">\[
@@ -11421,9 +11451,9 @@ S(17),S(18),S(19),\ldots
 <h3 id="6-practice-tasks練習任務">6. Practice Tasks（練習任務）<a class="headerlink" href="#6-practice-tasks練習任務" title="Permanent link"></a></h3>
 <h4 id="61-task-1">6.1 Task 1<a class="headerlink" href="#61-task-1" title="Permanent link"></a></h4>
 <p><strong>Instruction:</strong> Why do we need all three base cases <span class="arithmatex">\(S(14),S(15),S(16)\)</span>, instead of proving only <span class="arithmatex">\(S(14)\)</span>?</p>
-<p>A. Because the proof of <span class="arithmatex">\(S(k+1)\)</span> uses <span class="arithmatex">\(S(k-2)\)</span>, so the first few cases must already cover 14, 15, and 16.<br/>
-B. Because 14, 15, and 16 are all prime numbers.<br/>
-C. Because mathematical induction always requires exactly three base cases.<br/>
+<p>A. Because the proof of <span class="arithmatex">\(S(k+1)\)</span> uses <span class="arithmatex">\(S(k-2)\)</span>, so the first few cases must already cover 14, 15, and 16.<br />
+B. Because 14, 15, and 16 are all prime numbers.<br />
+C. Because mathematical induction always requires exactly three base cases.<br />
 D. Because <span class="arithmatex">\(k+1=k+3\)</span>.</p>
 <p>直接回答 A/B/C/D，再用一句話說明為什麼。</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 13 次對話 | PROMPT=1.16.1 | REFRESH=NO（最新訊息主要意圖為作答，附帶Prompt不觸發刷新） | REFRESH_REMINDER=建議手動貼上最新版複習-Prompt 重新刷新規則❗❗❗ | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Locator=Session=03／L193–L315; KP=Example4.14一般化數學歸納法; Boundary=VERIFIED; Transcript={File=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; Span=L193–L315; Coverage=FULL; TeachingState=TAUGHT_CORE; Signals=TeacherExplanation; Scope=n&gt;=14可由3與8之和表示; Correction=NONE; ASR=minor; Residual=CHECKED}; Reference={Aligned=Example4.14教材截圖; PrecisionStatus=HIGH for base cases}; Practice={LearningObjective=理解為何需S(14),S(15),S(16)及S(k-2); Modality=MultipleChoice+Explanation; ExpectedArtifact=選項+理由; AcceptedSubmission=中文或英文; RequiredModality=NO; TaskOrigin=Generated; ContentFidelity=GENERATED; AssessmentFidelity=Learning; SubmissionStatus=GRADABLE}; AdjQueue=4.1作業指定→4.3 Divisibility; ExerciseDebt=CLEARED; TeachingMainlineDebt=4.3及後續待複習; AssessmentRequirementDebt=4.1 Exercises 2,6,10,13,21待原題核對與完成; ReferenceResolutionDebt=LOW; PastExamDebt=induction/divisibility皆有候選但原題未核對; Weakness=NONE; Coverage=Example4.14已練習; Completion=EXAMPLE4.14_COMPLETE; Evidence=使用者選A且正確指出證S(k+1)需已知S(k-2); Blockers=NONE; NextLegal=4.3 Divisibility} | PLAN={ThisResponse=確認答對後進入4.3第一個自然知識點Divisibility定義與符號，安排1題概念練習; ExpectedDebtChange=建立並輸出新KP Exercise Debt; ExpectedNext=通過後進Theorem4.3 divisibility properties}
@@ -11452,11 +11482,11 @@ k+1=(k-2)+3
 \]</pre>
 <p>得到 <span class="arithmatex">\(S(k+1)\)</span> 成立。老師就是這樣推的。逐字稿_03</p>
 <p>還有一個更深的觀察：為什麼剛好需要 <span class="arithmatex">\(14,15,16\)</span> 三個 Base Cases（基礎情況）？因為後面每次本質上是「已有一個可表示的數，再加 <span class="arithmatex">\(3\)</span>」，所以要先把連續三種情況都啟動起來。</p>
-<hr/>
+<hr />
 <p>老師接著指定了 4.1 的 Exercise 2、6、10、13，以及程式題 21；這些我會保留成 <code>Assessment Requirement（課程要求）</code>，之後若正式帶你做，我會先重新核對課本原題與 <code>課本詳解.pdf</code>，不會自行改題。接著老師明確跳到 4.3。逐字稿_03</p>
-<hr/>
+<hr />
 <h2 id="divisibility整除-bmid-a-到底代表什麼">⭐Divisibility（整除）— <span class="arithmatex">\(b\mid a\)</span> 到底代表什麼？<a class="headerlink" href="#divisibility整除-bmid-a-到底代表什麼" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L345–L417<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L345–L417<br />
 對齊參考：標準 Integer Divisibility（整數整除）定義已交叉核對。</p>
 <h3 id="1-老師接下來實際先教的是整除">1. 老師接下來實際先教的是「整除」<a class="headerlink" href="#1-老師接下來實際先教的是整除" title="Permanent link"></a></h3>
 <p>老師雖然先口頭提到 <code>Division Algorithm（除法演算法）</code>，但接下來第一件真正展開的事情其實是：</p>
@@ -11473,7 +11503,7 @@ k+1=(k-2)+3
 \]</pre>
 <p>逐字稿_03 逐字稿_03</p>
 <p>正式定義也確實如此：<span class="arithmatex">\(b\mid a\)</span> 表示存在某個 integer（整數）<span class="arithmatex">\(n\)</span>，使 <span class="arithmatex">\(a=bn\)</span>。<a href="https://math.libretexts.org/Bookshelves/Combinatorics_and_Discrete_Mathematics/Elementary_Number_Theory_%28Raji%29/01%3A_Introduction/1.03%3A_Divisibility_and_the_Division_Algorithm?utm_source=chatgpt.com">Mathematics LibreTexts</a></p>
-<hr/>
+<hr />
 <h3 id="2-例子3mid12">2. 例子：<span class="arithmatex">\(3\mid12\)</span><a class="headerlink" href="#2-例子3mid12" title="Permanent link"></a></h3>
 <p>因為可以找到整數：</p>
 <pre class="arithmatex">\[
@@ -11493,7 +11523,7 @@ n=4
 <li>3 is a divisor of 12（3 是 12 的除數）</li>
 <li>12 is a multiple of 3（12 是 3 的倍數）</li>
 </ul>
-<hr/>
+<hr />
 <h3 id="3-那-5mid12-呢">3. 那 <span class="arithmatex">\(5\mid12\)</span> 呢？<a class="headerlink" href="#3-那-5mid12-呢" title="Permanent link"></a></h3>
 <p>要問：</p>
 <blockquote>
@@ -11519,7 +11549,7 @@ n=\frac{12}{5}=2.4
 <blockquote>
 <p>5 does not divide 12（5 不整除 12）。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="4-特別注意mid-不是除法運算">4. 特別注意：<span class="arithmatex">\(\mid\)</span> 不是除法運算<a class="headerlink" href="#4-特別注意mid-不是除法運算" title="Permanent link"></a></h3>
 <p>這個很容易和你之前問的 <span class="arithmatex">\(\Rightarrow\)</span> 一樣混淆。</p>
 <pre class="arithmatex">\[
@@ -11548,7 +11578,7 @@ True\quad\text{或}\quad False.
 \boxed{\frac ab\quad\text{是在問：除完是多少？}}
 \]</pre>
 <p>離散數學教材也特別提醒不要把 <span class="arithmatex">\(a\mid b\)</span> 與 <span class="arithmatex">\(a/b\)</span> 混在一起；前者是 True/False 的關係，後者是數值。<a href="https://math.libretexts.org/Bookshelves/Combinatorics_and_Discrete_Mathematics/A_Spiral_Workbook_for_Discrete_Mathematics_%28Kwong%29/05%253A_Basic_Number_Theory/5.03%253A_Divisibility?utm_source=chatgpt.com">Mathematics LibreTexts</a></p>
-<hr/>
+<hr />
 <h3 id="5-為什麼一定要求乘數-n-是整數">5. 為什麼一定要求乘數 <span class="arithmatex">\(n\)</span> 是整數？<a class="headerlink" href="#5-為什麼一定要求乘數-n-是整數" title="Permanent link"></a></h3>
 <p>因為如果 <span class="arithmatex">\(n\)</span> 可以隨便是實數，那任何非零 <span class="arithmatex">\(b\)</span> 幾乎都可以寫：</p>
 <pre class="arithmatex">\[
@@ -11585,8 +11615,8 @@ a=b\left(\frac ab\right).
 </li>
 </ol>
 <p>回答格式例如：</p>
-<p><code>1. True, n = ...</code><br/>
-<code>2. False, because ...</code><br/>
+<p><code>1. True, n = ...</code><br />
+<code>2. False, because ...</code><br />
 <code>3. True/False, ...</code></p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 14 次對話 | PROMPT=1.16.1 | REFRESH=NO（最新訊息主要意圖為作答，附帶Prompt不觸發刷新） | REFRESH_REMINDER=建議手動貼上最新版複習-Prompt 重新刷新規則❗❗❗ | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Locator=Session=03／L345–L417; KP=Divisibility定義; Boundary=VERIFIED; Transcript={File=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; Span=L345–L417; Coverage=FULL; TeachingState=TAUGHT_CORE; Signals=TeacherExplanation; Scope=整數整除b|a↔a=bn; Correction=老師口頭曾立即修正divides方向; ASR=minor; Residual=CHECKED}; Reference={Aligned=整除標準定義; PrecisionStatus=HIGH}; Practice={LearningObjective=判斷整除並給integer witness; Modality=TrueFalse+Witness; ExpectedArtifact=True/False+等式; AcceptedSubmission=中文或英文; RequiredModality=NO; TaskOrigin=Generated; SourceReopened=NA; SourceIdentity=NA; ContentFidelity=GENERATED; SourceMatch=NA; AssessmentFidelity=Learning; SubmissionStatus=GRADABLE}; AdjQueue=Theorem4.3 divisibility properties→休息後續主線; ExerciseDebt=CLEARED; TeachingMainlineDebt=Theorem4.3及後續待複習; AssessmentRequirementDebt=4.1 Exercises 2,6,10,13,21待原題核對; ReferenceResolutionDebt=LOW; PastExamDebt=Divisibility有候選但原題未核對; Weakness=NONE; Coverage=Divisibility定義已練習; Completion=DIVISIBILITY_DEFINITION_COMPLETE; Evidence=三題全部答對且1、3給出合法integer witness; Blockers=NONE; NextLegal=Theorem4.3} | PLAN={ThisResponse=批改後進入Theorem4.3整除性質與linear combination，示範f性質證明並安排2題練習; ExpectedDebtChange=建立並輸出Theorem4.3 Exercise Debt; ExpectedNext=通過後繼續第三堂休息後主線}
 </code></pre></div>
@@ -11631,7 +11661,7 @@ n=\frac{10}{3}\notin\mathbb Z,
 6\nmid20.
 \]</pre>
 <p>你已經掌握 <span class="arithmatex">\(a\mid b\)</span> 的定義，可以往下。</p>
-<hr/>
+<hr />
 <div class="admonition danger">
 <p class="admonition-title">Danger | 整除公式規則</p>
 <h2 id="theorem-43--整除有哪些可以直接使用的規則">⭐Theorem 4.3 — 整除有哪些可以直接使用的規則？<a class="headerlink" href="#theorem-43--整除有哪些可以直接使用的規則" title="Permanent link"></a></h2>
@@ -11677,7 +11707,7 @@ a=1\cdot a
 <pre class="arithmatex">\[
 37=1(37).
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-非零整數都可以整除-0">2. 非零整數都可以整除 <span class="arithmatex">\(0\)</span><a class="headerlink" href="#2-非零整數都可以整除-0" title="Permanent link"></a></h3>
 <pre class="arithmatex">\[
 \boxed{a\mid0}
@@ -11707,7 +11737,7 @@ a=1\cdot a
 n=0.
 \]</pre>
 <p>所以成立。</p>
-<hr/>
+<hr />
 <h3 id="3-互相整除時只可能差一個正負號">3. 互相整除時，只可能差一個正負號<a class="headerlink" href="#3-互相整除時只可能差一個正負號" title="Permanent link"></a></h3>
 <p>如果：</p>
 <pre class="arithmatex">\[
@@ -11734,7 +11764,7 @@ b\mid a,
 <pre class="arithmatex">\[
 3=-(-3).
 \]</pre>
-<hr/>
+<hr />
 <h3 id="4-整除具有-transitivity傳遞性">4. 整除具有 Transitivity（傳遞性）<a class="headerlink" href="#4-整除具有-transitivity傳遞性" title="Permanent link"></a></h3>
 <p>如果：</p>
 <pre class="arithmatex">\[
@@ -11778,7 +11808,7 @@ xy\in\mathbb Z,
 <pre class="arithmatex">\[
 a\mid c.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-如果-amid-b那-b-的任何整數倍也能被-a-整除">5. 如果 <span class="arithmatex">\(a\mid b\)</span>，那 <span class="arithmatex">\(b\)</span> 的任何整數倍也能被 <span class="arithmatex">\(a\)</span> 整除<a class="headerlink" href="#5-如果-amid-b那-b-的任何整數倍也能被-a-整除" title="Permanent link"></a></h3>
 <pre class="arithmatex">\[
 a\mid b
@@ -11805,7 +11835,7 @@ x\in\mathbb Z
 3\mid(12\cdot(-5))
 \]</pre>
 <p>也成立。</p>
-<hr/>
+<hr />
 <h3 id="6-linear-combination線性組合是這段最重要的規則">6. Linear Combination（線性組合）是這段最重要的規則<a class="headerlink" href="#6-linear-combination線性組合是這段最重要的規則" title="Permanent link"></a></h3>
 <p>老師接著說：</p>
 <p>如果：</p>
@@ -11829,7 +11859,7 @@ x,y\in\mathbb Z
 bx+cy
 \]</pre>
 <p>就叫做 <span class="arithmatex">\(b,c\)</span> 的 <code>linear combination（線性組合）</code>。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="7-為什麼一定成立">7. 為什麼一定成立？<a class="headerlink" href="#7-為什麼一定成立" title="Permanent link"></a></h3>
 <p>從：</p>
 <pre class="arithmatex">\[
@@ -11876,7 +11906,7 @@ rx+sy\in\mathbb Z.
 \boxed{a\mid(bx+cy)}.
 \]</pre>
 <p>這也是老師說教材下面特別有證明的那個性質。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="8-實際例子">8. 實際例子<a class="headerlink" href="#8-實際例子" title="Permanent link"></a></h3>
 <p>已知：</p>
 <pre class="arithmatex">\[
@@ -11959,7 +11989,7 @@ a\mid b,\quad a\mid c
 a\mid(bx+cy).
 \]</pre>
 <p>這段可以過。</p>
-<hr/>
+<hr />
 <h2 id="利用-linear-combination線性組合湊出想證明的式子">⭐利用 Linear Combination（線性組合）「湊」出想證明的式子<a class="headerlink" href="#利用-linear-combination線性組合湊出想證明的式子" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L510–L514</p>
 <p>老師下一個例子開始變成真正的「解題技巧」。</p>
@@ -11997,7 +12027,7 @@ a,b\in\mathbb Z.
 <pre class="arithmatex">\[
 \boxed{17\mid(-8a-12b)}.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-再造一個一定是-17-倍數的式子">2. 再造一個「一定是 17 倍數」的式子<a class="headerlink" href="#2-再造一個一定是-17-倍數的式子" title="Permanent link"></a></h3>
 <p>因為：</p>
 <pre class="arithmatex">\[
@@ -12011,7 +12041,7 @@ a+b\in\mathbb Z,
 <pre class="arithmatex">\[
 \boxed{17\mid(17a+17b)}.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="3-把兩個可以被-17-整除的式子加起來">3. 把兩個可以被 17 整除的式子加起來<a class="headerlink" href="#3-把兩個可以被-17-整除的式子加起來" title="Permanent link"></a></h3>
 <p>現在：</p>
 <pre class="arithmatex">\[
@@ -12036,7 +12066,7 @@ a+b\in\mathbb Z,
 <pre class="arithmatex">\[
 \boxed{17\mid(9a+5b)}.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="4-真正要學的是這個-mental-model心智模型">4. 真正要學的是這個 Mental Model（心智模型）<a class="headerlink" href="#4-真正要學的是這個-mental-model心智模型" title="Permanent link"></a></h3>
 <p>你看到：</p>
 <pre class="arithmatex">\[
@@ -12143,7 +12173,7 @@ a+b\in\mathbb Z,
 13a+13b=13(a+b),\quad a+b\in\mathbb Z.
 \]</pre>
 <p>這樣會更完整。</p>
-<hr/>
+<hr />
 <h2 id="lemma-41--為什麼每個-composite-number合成數一定有-prime-divisor質數因數">⭐Lemma 4.1 — 為什麼每個 Composite Number（合成數）一定有 Prime Divisor（質數因數）？<a class="headerlink" href="#lemma-41--為什麼每個-composite-number合成數一定有-prime-divisor質數因數" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／約 L515–L523</p>
 <p>老師下一段又把我們前面學過的 <code>Well-Ordering Principle（良序原理）</code> 拿回來：假設真的存在「沒有任何質數可以整除的合成數」，就挑其中最小的一個來製造矛盾。逐字稿_03</p>
@@ -12164,7 +12194,7 @@ n\text{ 是 composite positive integer}
 <pre class="arithmatex">\[
 2\mid12,\qquad3\mid12.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-老師又用最小反例">2. 老師又用「最小反例」<a class="headerlink" href="#2-老師又用最小反例" title="Permanent link"></a></h3>
 <p>假設這個敘述是錯的。</p>
 <p>建立集合：</p>
@@ -12210,7 +12240,7 @@ m_1\notin S.
 p\mid m_1.
 \]</pre>
 <p>如果 <span class="arithmatex">\(m_1\)</span> 本身就是 prime，那直接取 <span class="arithmatex">\(p=m_1\)</span> 即可。</p>
-<hr/>
+<hr />
 <h3 id="4-然後矛盾出現">4. 然後矛盾出現<a class="headerlink" href="#4-然後矛盾出現" title="Permanent link"></a></h3>
 <p>因為：</p>
 <pre class="arithmatex">\[
@@ -12281,7 +12311,7 @@ m=m_1m_2,\qquad 1&lt;m_1&lt;m.
 \boxed{\text{Proof by contradiction(反證法)}}
 \]</pre>
 <p>先假裝相反的事情是真的。</p>
-<hr/>
+<hr />
 <h3 id="2-第一步假設質數只有有限個">2. 第一步：假設質數只有有限個<a class="headerlink" href="#2-第一步假設質數只有有限個" title="Permanent link"></a></h3>
 <p>假設所有質數全部都已經被列完：</p>
 <pre class="arithmatex">\[
@@ -12293,7 +12323,7 @@ p_1,p_2,\ldots,p_k
 \boxed{\text{世界上沒有其他質數了}}
 \]</pre>
 <p>這就是等等要推翻的假設。老師上課也是從「假設質數有限個」開始。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="3-第二步故意造出一個奇怪的數">3. 第二步：故意造出一個奇怪的數<a class="headerlink" href="#3-第二步故意造出一個奇怪的數" title="Permanent link"></a></h3>
 <p>定義</p>
 <pre class="arithmatex">\[
@@ -12318,7 +12348,7 @@ B\equiv1\pmod{p_i}.
 \boxed{p_i\nmid B\quad\text{for every }i=1,\ldots,k}
 \]</pre>
 <p>這一步是整題的靈魂。</p>
-<hr/>
+<hr />
 <h3 id="4-用小例子看懂為什麼要-1">4. 用小例子看懂「為什麼要 +1」<a class="headerlink" href="#4-用小例子看懂為什麼要-1" title="Permanent link"></a></h3>
 <p>假設我們亂假設世界上只有：</p>
 <pre class="arithmatex">\[
@@ -12344,7 +12374,7 @@ B=2\cdot3\cdot5+1=31.
 <pre class="arithmatex">\[
 \boxed{\text{舊清單裡的所有質數都不可能整除 }B}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-接-lemma-41矛盾出現了">5. 接 Lemma 4.1：矛盾出現了<a class="headerlink" href="#5-接-lemma-41矛盾出現了" title="Permanent link"></a></h3>
 <p>現在 <span class="arithmatex">\(B&gt;1\)</span>。</p>
 <p>如果 <span class="arithmatex">\(B\)</span> 是 <code>composite(合數)</code>，我們剛剛的 Lemma 4.1 已經證明：</p>
@@ -12387,7 +12417,7 @@ p_j\mid1.
 \boxed{\text{Contradiction(矛盾)}}
 \]</pre>
 <p>這正是老師上課走的核心證明鏈。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="6-所以真正被推翻的是什麼">6. 所以真正被推翻的是什麼？<a class="headerlink" href="#6-所以真正被推翻的是什麼" title="Permanent link"></a></h3>
 <p>我們不是得到：</p>
 <blockquote>
@@ -12402,7 +12432,7 @@ p_j\mid1.
 <pre class="arithmatex">\[
 \boxed{\text{There are infinitely many primes.}}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="7-一個非常容易寫錯的地方">7. 一個非常容易寫錯的地方<a class="headerlink" href="#7-一個非常容易寫錯的地方" title="Permanent link"></a></h3>
 <p>不要背成：</p>
 <pre class="arithmatex">\[
@@ -12417,7 +12447,7 @@ p_1p_2\cdots p_k+1
 \]</pre>
 <p>因此如果你宣稱那張清單已經包含「所有質數」，一定會發生矛盾。</p>
 <p>這才是證明的核心。</p>
-<hr/>
+<hr />
 <h3 id="8-考試最短骨架">8. 考試最短骨架<a class="headerlink" href="#8-考試最短骨架" title="Permanent link"></a></h3>
 <p>你可以記：</p>
 <div class="admonition danger">
@@ -12456,9 +12486,9 @@ B=p_1p_2\cdots p_k+1.
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 ? 次對話 | PROMPT=1.17.0 | REFRESH=NO | REFRESH_REMINDER=NONE | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Locator=Session=03／L524–L526; KP=The Division Algorithm（除法演算法）; Boundary=已核對，L528切換至GCD; Transcript={File=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; WithinSessionOrder=NA; Span=L524–L526; Coverage=FULL_FOR_KP; TeachingState=TAUGHT_BRIEF; Signals=Explanation+Homework/Exam; Scope=定理敘述與existence/uniqueness概念，課堂此處未重新證明; Correction=NONE; ASR=低風險; Residual=已核對至GCD切換}; Reference={Aligned=課本詳解.pdf目前未定位到此定理的直接詳解頁；後續課本例證可見division algorithm被用於GCD proof; PrecisionStatus=PARTIAL}; QuickSheet={Status=PENDING; Type=Formula+ProcedureSkeleton; SourceScope=VERIFIED_ONLY}; Practice={LearningObjective=能正確寫出a=qb+r並遵守0≤r&lt;b及理解唯一性; Modality=Calculation+Explanation; ExpectedArtifact=q,r與理由; AcceptedSubmission=文字／公式／手寫圖片; RequiredModality=NO; TaskOrigin=Generated; SourceReopened=NA; SourceIdentity=NA; ContentFidelity=GENERATED; SourceMatch=NA; AssessmentFidelity=Learning; SubmissionStatus=NOT_SUBMITTED}; AdjQueue=Common Divisor→GCD→Theorem4.6; ExerciseDebt=本輪產生; TeachingMainlineDebt=後續GCD主線; AssessmentRequirementDebt=習題訊號存在; ReferenceResolutionDebt=無高優先; PastExamDebt=UNKNOWN; Weakness=NONE_CURRENT; Coverage=開始新KP; Completion=IN_PROGRESS; Evidence=逐字稿L524–L528; Blockers=NONE; NextLegal=完成本輪練習後進Common Divisor/GCD} | PLAN={ThisResponse=教Division Algorithm的公式、限制、existence/uniqueness與最小例子，輸出Quick Sheet及2題練習; ExpectedDebtChange=ExerciseDebt待使用者作答; ExpectedNext=Common Divisor與GCD}
 </code></pre></div>
 <h2 id="the-division-algorithm除法演算法除不盡到底能不能永遠寫成固定形式">⭐The Division Algorithm（除法演算法）—「除不盡」到底能不能永遠寫成固定形式？<a class="headerlink" href="#the-division-algorithm除法演算法除不盡到底能不能永遠寫成固定形式" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L524–L526<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L524–L526<br />
 對齊參考：老師這裡明確說明公式與 <code>existence（存在性）</code>、<code>uniqueness（唯一性）</code>；這堂此處沒有重新展開完整證明，而是說之後可以直接使用。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="1-先抓最核心公式">1. 先抓最核心公式<a class="headerlink" href="#1-先抓最核心公式" title="Permanent link"></a></h3>
 <p>只要</p>
 <pre class="arithmatex">\[
@@ -12500,7 +12530,7 @@ a,b\in\mathbb Z,\qquad b&gt;0
 </tbody>
 </table>
 <p>老師這段真正強調的是：<strong>商 <span class="arithmatex">\(q\)</span> 跟餘數 <span class="arithmatex">\(r\)</span> 不只是找得到，而且是唯一的一組。</strong> 逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="2-其實就是你從小學就在做的事情">2. 其實就是你從小學就在做的事情<a class="headerlink" href="#2-其實就是你從小學就在做的事情" title="Permanent link"></a></h3>
 <p>例如：</p>
 <pre class="arithmatex">\[
@@ -12520,7 +12550,7 @@ a=17,\quad b=5,\quad q=3,\quad r=2
 \]</pre>
 <p>成立。</p>
 <p>所以這就是合法的 Division Algorithm 表示法。</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼一定要有-0le-rb">3. 為什麼一定要有 <span class="arithmatex">\(0\le r&lt;b\)</span>？<a class="headerlink" href="#3-為什麼一定要有-0le-rb" title="Permanent link"></a></h3>
 <p>這個限制非常重要，因為沒有它的話，同一個數字可以亂寫很多種：</p>
 <pre class="arithmatex">\[
@@ -12549,7 +12579,7 @@ a=17,\quad b=5,\quad q=3,\quad r=2
 \boxed{0\le r&lt;b}
 \]</pre>
 <p>這個條件把答案「鎖死」，讓 <span class="arithmatex">\(q,r\)</span> 成為唯一。</p>
-<hr/>
+<hr />
 <h3 id="4-負數才是這個公式最容易搞錯的地方">4. 負數才是這個公式最容易搞錯的地方<a class="headerlink" href="#4-負數才是這個公式最容易搞錯的地方" title="Permanent link"></a></h3>
 <p>例如：</p>
 <pre class="arithmatex">\[
@@ -12585,7 +12615,7 @@ q=-4,\qquad r=3
 \]</pre>
 <p>之中。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="5-exist存在跟-unique唯一到底差在哪">5. Exist（存在）跟 Unique（唯一）到底差在哪？<a class="headerlink" href="#5-exist存在跟-unique唯一到底差在哪" title="Permanent link"></a></h3>
 <p>老師特別說，這個定理若要證明，要分兩件事情：existence（存在性）跟 uniqueness（唯一性）。逐字稿_03</p>
 <p><strong>Existence（存在性）</strong>是在說：</p>
@@ -12610,7 +12640,7 @@ a=qb+r,\qquad0\le r&lt;b.
 \boxed{\text{一定找得到，而且只有這一組。}}
 \]</pre>
 <p>老師這堂在這裡沒有重新證完整 proof，而是明確說這個 proof 已處理過，現在重點是後面要直接使用。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="6-為什麼這東西下一段馬上有用">6. 為什麼這東西下一段馬上有用？<a class="headerlink" href="#6-為什麼這東西下一段馬上有用" title="Permanent link"></a></h3>
 <p>因為老師接下來進入 <code>GCD（最大公因數）</code>，而後面的 proof 就會出現這種操作：</p>
 <pre class="arithmatex">\[
@@ -12623,7 +12653,7 @@ a=qc+r,\qquad0&lt;r&lt;c
 \]</pre>
 <p>來推進 GCD 的證明。1000004035</p>
 <p>所以這一段你現在不用背一大堆證明，先把 <strong>「怎麼合法地拆成 <span class="arithmatex">\(qb+r\)</span>」</strong>弄熟，下一部分會立刻用到。</p>
-<hr/>
+<hr />
 <h3 id="7-exam-quick-sheet考試速記最短骨架">7. Exam Quick Sheet（考試速記／最短骨架）<a class="headerlink" href="#7-exam-quick-sheet考試速記最短骨架" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">除法表示</p>
@@ -12711,7 +12741,7 @@ q=?,\qquad r=?
 \]</pre>
 <p>所以不能當成 Division Algorithm(除法演算法) 的合法商、餘數。</p>
 <p>因此這部分可以通過，我們往下一段。</p>
-<hr/>
+<hr />
 <h2 id="common-divisor公因數與-greatest-common-divisor最大公因數最大正式上到底是什麼意思">⭐Common Divisor（公因數）與 Greatest Common Divisor（最大公因數）—「最大」正式上到底是什麼意思？<a class="headerlink" href="#common-divisor公因數與-greatest-common-divisor最大公因數最大正式上到底是什麼意思" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L528–L530</p>
 <p>老師接下來正式進入最大公因數，先定義 <code>common divisor(公因數)</code>，再定義 <code>greatest common divisor(最大公因數)</code>。逐字稿_03</p>
@@ -12744,7 +12774,7 @@ q=?,\qquad r=?
 <pre class="arithmatex">\[
 \boxed{1,2,3,6}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-greatest-common-divisor最大公因數">2. Greatest Common Divisor（最大公因數）<a class="headerlink" href="#2-greatest-common-divisor最大公因數" title="Permanent link"></a></h3>
 <p>你以前大概會直接想：</p>
 <blockquote>
@@ -12769,7 +12799,7 @@ q=?,\qquad r=?
 \boxed{d\mid c}
 \]</pre>
 <p>老師特別用這個方式描述「最大」：其他所有 common divisor 都要整除 <span class="arithmatex">\(c\)</span>。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼第二個條件很重要">3. 為什麼第二個條件很重要？<a class="headerlink" href="#3-為什麼第二個條件很重要" title="Permanent link"></a></h3>
 <p>拿剛才：</p>
 <pre class="arithmatex">\[
@@ -12799,7 +12829,7 @@ a=12,\qquad b=18
 \boxed{\text{每一個公因數 }d\text{ 都有 }d\mid c}
 \]</pre>
 <p>才是 GCD 的正式骨架。</p>
-<hr/>
+<hr />
 <h3 id="4-一個很容易混淆的地方">4. 一個很容易混淆的地方<a class="headerlink" href="#4-一個很容易混淆的地方" title="Permanent link"></a></h3>
 <p>例如 <span class="arithmatex">\(a=12,b=18\)</span>。</p>
 <p><span class="arithmatex">\(3\)</span> 的確是 common divisor，因為：</p>
@@ -12816,7 +12846,7 @@ a=12,\qquad b=18
 <pre class="arithmatex">\[
 \text{每個 common divisor }d\mid c.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-這個定義下一步要拿來幹嘛">5. 這個定義下一步要拿來幹嘛？<a class="headerlink" href="#5-這個定義下一步要拿來幹嘛" title="Permanent link"></a></h3>
 <p>老師下一步不是只要你「算出」GCD，而是要證明：</p>
 <blockquote>
@@ -12926,9 +12956,9 @@ d\mid c.
 \]</pre>
 <p>這正是老師定義 GCD 時的兩層條件。逐字稿_03</p>
 <p>這部分通過，往下一個主線。</p>
-<hr/>
+<hr />
 <h2 id="theorem-46--greatest-common-divisor-existence最大公因數的存在性到底怎麼證">⭐Theorem 4.6 — Greatest Common Divisor Existence（最大公因數的存在性）到底怎麼證？<a class="headerlink" href="#theorem-46--greatest-common-divisor-existence最大公因數的存在性到底怎麼證" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L532–L536<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L532–L536<br />
 對齊參考：課本 p.232／GCD existence proof 1000004036</p>
 <p>老師接下來要證明的不是「怎麼算 GCD」，而是更根本的問題：</p>
 <blockquote>
@@ -12989,7 +13019,7 @@ S=\{as+bt&gt;0\mid s,t\in\mathbb Z\}
 \boxed{x,y\in\mathbb Z},
 \]</pre>
 <p>不是一定要在 <span class="arithmatex">\(\mathbb Z^+\)</span>。1000004036</p>
-<hr/>
+<hr />
 <h3 id="2-先證明任何-common-divisor-都會整除-c">2. 先證明：任何 common divisor 都會整除 <span class="arithmatex">\(c\)</span><a class="headerlink" href="#2-先證明任何-common-divisor-都會整除-c" title="Permanent link"></a></h3>
 <p>假設 <span class="arithmatex">\(d\)</span> 是 <span class="arithmatex">\(a,b\)</span> 的任一 common divisor：</p>
 <pre class="arithmatex">\[
@@ -13013,7 +13043,7 @@ c=ax+by,
 c\mid a,\qquad c\mid b.
 \]</pre>
 <p>也就是還沒證明 <span class="arithmatex">\(c\)</span> <strong>自己真的是公因數</strong>。</p>
-<hr/>
+<hr />
 <h3 id="3-最精彩的地方假設-cnmid-a">3. 最精彩的地方：假設 <span class="arithmatex">\(c\nmid a\)</span><a class="headerlink" href="#3-最精彩的地方假設-cnmid-a" title="Permanent link"></a></h3>
 <p>我們用 Proof by Contradiction(反證法)。</p>
 <p>先假設：</p>
@@ -13039,7 +13069,7 @@ a=qc
 \boxed{0&lt;r&lt;c}.
 \]</pre>
 <p>這一步非常重要。</p>
-<hr/>
+<hr />
 <h3 id="4-接著把餘數-r-寫成-ab-的-linear-combination">4. 接著把餘數 <span class="arithmatex">\(r\)</span> 寫成 <span class="arithmatex">\(a,b\)</span> 的 linear combination<a class="headerlink" href="#4-接著把餘數-r-寫成-ab-的-linear-combination" title="Permanent link"></a></h3>
 <p>由</p>
 <pre class="arithmatex">\[
@@ -13076,7 +13106,7 @@ r&gt;0.
 <pre class="arithmatex">\[
 \boxed{r\in S}.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-矛盾出現了">5. 矛盾出現了<a class="headerlink" href="#5-矛盾出現了" title="Permanent link"></a></h3>
 <p>我們一開始是怎麼選 <span class="arithmatex">\(c\)</span> 的？</p>
 <pre class="arithmatex">\[
@@ -13109,7 +13139,7 @@ c\nmid a
 \boxed{c\mid b}.
 \]</pre>
 <p>老師逐字稿也是以「假設 <span class="arithmatex">\(c\)</span> 不能整除 <span class="arithmatex">\(a\)</span> → 除法演算法產生 <span class="arithmatex">\(r\)</span> → <span class="arithmatex">\(r\in S\)</span> 且 <span class="arithmatex">\(r&lt;c\)</span> → 與 <span class="arithmatex">\(c\)</span> 是最小元素矛盾」完成存在性證明。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="6-現在兩個-gcd-條件都齊了">6. 現在兩個 GCD 條件都齊了<a class="headerlink" href="#6-現在兩個-gcd-條件都齊了" title="Permanent link"></a></h3>
 <p>我們已經證明：</p>
 <pre class="arithmatex">\[
@@ -13125,7 +13155,7 @@ d\mid c.
 <pre class="arithmatex">\[
 \boxed{\text{Greatest common divisor exists.}}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="7-你可以把整個證明想成這一句">7. 你可以把整個證明想成這一句<a class="headerlink" href="#7-你可以把整個證明想成這一句" title="Permanent link"></a></h3>
 <p>最核心的技巧其實是：</p>
 <blockquote>
@@ -13257,7 +13287,7 @@ c\nmid18
 r=18(1-qx)+30(-qy).
 \]</pre>
 <p>因此 <span class="arithmatex">\(r\in S\)</span>，可是 <span class="arithmatex">\(0&lt;r&lt;c\)</span>，跟 <span class="arithmatex">\(c=\min S\)</span> 矛盾。</p>
-<hr/>
+<hr />
 <h3 id="2-接著要證明-cmid30">2. 接著要證明 <span class="arithmatex">\(c\mid30\)</span><a class="headerlink" href="#2-接著要證明-cmid30" title="Permanent link"></a></h3>
 <p>完全同一招，只是把 <span class="arithmatex">\(18\)</span> 換成 <span class="arithmatex">\(30\)</span>。</p>
 <p>假設</p>
@@ -13312,7 +13342,7 @@ c=\min S
 \boxed{c\mid18\quad\text{且}\quad c\mid30}.
 \]</pre>
 <p>也就是說，<span class="arithmatex">\(c\)</span> 至少確定是一個 <code>Common Divisor(公因數)</code>。</p>
-<hr/>
+<hr />
 <h3 id="3-但是公因數還不夠還要證明它是最大的">3. 但「是公因數」還不夠，還要證明它是最大的<a class="headerlink" href="#3-但是公因數還不夠還要證明它是最大的" title="Permanent link"></a></h3>
 <p>這裡是整個證明另一個超重要的地方。</p>
 <p>假設 <span class="arithmatex">\(d\)</span> 是 <strong>18 和 30 任意一個公因數</strong>：</p>
@@ -13342,7 +13372,7 @@ d\mid(18x+30y).
 <p><strong>任何 18、30 的公因數，都一定整除 <span class="arithmatex">\(c\)</span>。</strong></p>
 </blockquote>
 <p>這正是老師定義 <code>Greatest Common Divisor(最大公因數)</code> 時用的條件之一。老師在這段證明也是先利用 <span class="arithmatex">\(c=ax+by\)</span>，推出任意公因數 <span class="arithmatex">\(d\)</span> 都整除 <span class="arithmatex">\(c\)</span>。逐字稿_03</p>
-<hr/>
+<hr />
 <h3 id="4-所以現在為什麼能說-cgcd1830">4. 所以現在為什麼能說 <span class="arithmatex">\(c=\gcd(18,30)\)</span>？<a class="headerlink" href="#4-所以現在為什麼能說-cgcd1830" title="Permanent link"></a></h3>
 <p>把兩件事情放在一起：</p>
 <p>第一件：</p>
@@ -13369,7 +13399,7 @@ d\mid c.
 6=18(2)+30(-1).
 \]</pre>
 <p>所以這個抽象證明最後找到的 <span class="arithmatex">\(c\)</span>，實際上就是 6。</p>
-<hr/>
+<hr />
 <h3 id="5-這裡有一個很容易混淆的地方">5. 這裡有一個很容易混淆的地方<a class="headerlink" href="#5-這裡有一個很容易混淆的地方" title="Permanent link"></a></h3>
 <p>你可能會想：</p>
 <blockquote>
@@ -13392,7 +13422,7 @@ c=dk.
 d\le c.
 \]</pre>
 <p>因此這其實也保證了 <span class="arithmatex">\(c\)</span> 數值上不會比任何其他正公因數小。</p>
-<hr/>
+<hr />
 <h3 id="6-最後還差一件事為什麼最大公因數是唯一的">6. 最後還差一件事：為什麼最大公因數是唯一的？<a class="headerlink" href="#6-最後還差一件事為什麼最大公因數是唯一的" title="Permanent link"></a></h3>
 <p>老師休息完接著證明這個。假設竟然有兩個最大公因數：</p>
 <pre class="arithmatex">\[
@@ -13470,7 +13500,7 @@ c_1=c_2.
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 ? 次對話 | PROMPT=1.17.0 | REFRESH=NO（最新訊息主要意圖為繼續複習，附帶Prompt不觸發刷新） | REFRESH_REMINDER=建議手動貼上最新版複習-Prompt 重新刷新規則❗❗❗ | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Locator=L609–L617; KP=Theorem 4.6／GCD existence已練習、uniqueness待處理; Transcript={File=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; TeachingState=TAUGHT_CORE}; Reference={Aligned=課本Theorem 4.6 p.232; PrecisionStatus=已核對}; QuickSheet={Status=PENDING; Type=ProofSkeleton}; Practice={PreviousTask2=PASS; SubmissionStatus=GRADABLE}; ExerciseDebt=Uniqueness待練; Completion=IN_PROGRESS; NextLegal=Theorem 4.6 uniqueness→Euclidean Algorithm} | PLAN={ThisResponse=完成uniqueness教學並安排1題練習; ExpectedDebtChange=輸出uniqueness practice; ExpectedNext=Euclidean Algorithm}}
 </code></pre></div>
 <h2 id="theorem-46--uniqueness唯一性為什麼最大公因數不可能有兩個不同答案">⭐Theorem 4.6 — Uniqueness(唯一性)：為什麼最大公因數不可能有兩個不同答案？<a class="headerlink" href="#theorem-46--uniqueness唯一性為什麼最大公因數不可能有兩個不同答案" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L609–L617<br/>
+<p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L609–L617<br />
 對齊參考：Textbook／Theorem 4.6／p.232</p>
 <p>你剛剛已經處理完 <code>Existence(存在性)</code> 的核心。老師接下來就是證明 <code>Uniqueness(唯一性)</code>，而且老師自己也說這一段比較簡單：假設有兩個最大公因數 <span class="arithmatex">\(c_1,c_2\)</span>，最後證明它們其實必須相等。逐字稿_03</p>
 <p>課本的證明也是同一個結構：先得到 <span class="arithmatex">\(c_2\mid c_1\)</span>，反過來得到 <span class="arithmatex">\(c_1\mid c_2\)</span>，因此 <span class="arithmatex">\(c_1=c_2\)</span>。1000004037</p>
@@ -13486,7 +13516,7 @@ c_1=c_2.
 \]</pre>
 <p>也就是<strong>任何公因數 <span class="arithmatex">\(d\)</span>，都要能整除 <span class="arithmatex">\(c\)</span></strong>。</p>
 <p>你剛剛 Task 2 證的其實就是第二條。</p>
-<hr/>
+<hr />
 <h3 id="2-現在故意假設有兩個最大公因數">2. 現在故意假設有兩個最大公因數<a class="headerlink" href="#2-現在故意假設有兩個最大公因數" title="Permanent link"></a></h3>
 <p>假設：</p>
 <pre class="arithmatex">\[
@@ -13497,7 +13527,7 @@ c_1=\gcd(a,b)
 c_2=\gcd(a,b).
 \]</pre>
 <p>我們現在的目標不是立刻說它們相等，而是一步一步逼出來。</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼-c_2mid-c_1">3. 為什麼 <span class="arithmatex">\(c_2\mid c_1\)</span>？<a class="headerlink" href="#3-為什麼-c_2mid-c_1" title="Permanent link"></a></h3>
 <p>因為 <span class="arithmatex">\(c_2\)</span> 也是最大公因數，所以當然：</p>
 <pre class="arithmatex">\[
@@ -13513,7 +13543,7 @@ c_2\mid a,\qquad c_2\mid b.
 <pre class="arithmatex">\[
 \boxed{c_2\mid c_1}.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="4-然後把角色完全反過來">4. 然後把角色完全反過來<a class="headerlink" href="#4-然後把角色完全反過來" title="Permanent link"></a></h3>
 <p>現在把 <span class="arithmatex">\(c_1,c_2\)</span> 的角色交換。</p>
 <p><span class="arithmatex">\(c_1\)</span> 本身也是 <span class="arithmatex">\(a,b\)</span> 的公因數，而 <span class="arithmatex">\(c_2\)</span> 是最大公因數。</p>
@@ -13529,7 +13559,7 @@ c_2\mid c_1
 <pre class="arithmatex">\[
 c_1\mid c_2.
 \]</pre>
-<hr/>
+<hr />
 <h3 id="5-為什麼互相整除就代表相等">5. 為什麼互相整除就代表相等？<a class="headerlink" href="#5-為什麼互相整除就代表相等" title="Permanent link"></a></h3>
 <p>因為 <span class="arithmatex">\(c_1,c_2\)</span> 都是 positive integers(正整數)。</p>
 <p>例如假設：</p>
@@ -13568,7 +13598,7 @@ m=n=1.
 \boxed{c_1=c_2}.
 \]</pre>
 <p>這就完成 <code>Uniqueness(唯一性)</code>。</p>
-<hr/>
+<hr />
 <h3 id="6-你要特別分清楚c-唯一不代表xy-唯一">6. 你要特別分清楚：「c 唯一」不代表「x,y 唯一」<a class="headerlink" href="#6-你要特別分清楚c-唯一不代表xy-唯一" title="Permanent link"></a></h3>
 <p>這裡非常容易混。</p>
 <p>我們之前有：</p>
@@ -13679,7 +13709,7 @@ a=18,\quad b=30,\quad \gcd(18,30)=6
 \]</pre>
 <p><span class="arithmatex">\(9\mid18\)</span>，但 <span class="arithmatex">\(9\nmid30\)</span>，所以 <span class="arithmatex">\(9\)</span> 不是「公因數」，而且 <span class="arithmatex">\(9\nmid6\)</span>。</p>
 <p>所以你的這題算答對，只要把「因數」改成「公因數」即可。</p>
-<hr/>
+<hr />
 <h2 id="euclidean-algorithm歐幾里得演算法輾轉相除法--怎麼真的把最大公因數算出來">⭐Euclidean Algorithm(歐幾里得演算法／輾轉相除法) — 怎麼真的把最大公因數算出來？<a class="headerlink" href="#euclidean-algorithm歐幾里得演算法輾轉相除法--怎麼真的把最大公因數算出來" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L613–L621</p>
 <p>老師證明完 gcd 的 existence(存在性) 和 uniqueness(唯一性) 後，立刻轉到：「那最大公因數到底怎麼算？」接著正式進入 Euclidean Algorithm(歐幾里得演算法)，也就是你以前學過的輾轉相除法。逐字稿_03</p>
@@ -13710,7 +13740,7 @@ a=q_1b+r_2
 \gcd(a,b)=b.
 \]</pre>
 <p>如果不等於 0，就繼續。</p>
-<hr/>
+<hr />
 <h3 id="2-下一次不是又拿-a-算而是把數字往前推">2. 下一次不是又拿 <span class="arithmatex">\(a\)</span> 算，而是把數字往前推<a class="headerlink" href="#2-下一次不是又拿-a-算而是把數字往前推" title="Permanent link"></a></h3>
 <p>第一次：</p>
 <pre class="arithmatex">\[
@@ -13782,7 +13812,7 @@ a=qb+r,
 \boxed{\gcd(a,b)=\gcd(b,r)}
 \]</pre>
 <p>這就是輾轉相除法可以一直把數字越變越小，卻不會把 gcd 弄丟的原因。</p>
-<hr/>
+<hr />
 <h3 id="4-老師的-example-434gcd250111">4. 老師的 Example 4.34：<span class="arithmatex">\(\gcd(250,111)\)</span><a class="headerlink" href="#4-老師的-example-434gcd250111" title="Permanent link"></a></h3>
 <p>老師接著直接用 <span class="arithmatex">\(250\)</span> 和 <span class="arithmatex">\(111\)</span> 示範。逐字稿_03</p>
 <p>第一步：</p>
@@ -13930,7 +13960,7 @@ r_{n-1}=q_nr_n+0.
 \boxed{\text{因為 }21\text{ 是 Euclidean Algorithm 中最後一個非零餘數，所以 }\gcd(252,105)=21.}
 \]</pre>
 <p>這不是計算觀念錯誤，所以這題 Euclidean Algorithm 的操作我算你通過。</p>
-<hr/>
+<hr />
 <h2 id="back-substitution倒推還原--怎麼真的得到-asbtgcdab">⭐Back-substitution(倒推還原) — 怎麼真的得到 <span class="arithmatex">\(as+bt=\gcd(a,b)\)</span>？<a class="headerlink" href="#back-substitution倒推還原--怎麼真的得到-asbtgcdab" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L625–L631</p>
 <p>這裡剛好接回你前面一直問的：</p>
@@ -14109,7 +14139,7 @@ s=?\qquad t=?
 \gcd(252,105)=252s+105t.
 \]</pre>
 <p>你現在已經真的會做老師說的「還原、倒帶」：從最後一個非零餘數一路代回原本兩個數。老師課堂也是用這種方式把 gcd 寫回兩個原數的 linear combination(線性組合)。逐字稿_03</p>
-<hr/>
+<hr />
 <h2 id="linear-combination線性組合不唯一--為什麼-st-不只一組">⭐Linear Combination(線性組合)不唯一 — 為什麼 <span class="arithmatex">\(s,t\)</span> 不只一組？<a class="headerlink" href="#linear-combination線性組合不唯一--為什麼-st-不只一組" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L629–L636</p>
 <p>老師接下來特別強調一件事：</p>
@@ -14248,7 +14278,7 @@ g=as_0+bt_0
 252(8)+105(-19).
 \]</pre>
 <p>所以你已經掌握「<strong>gcd 唯一，但 linear combination(線性組合) 的係數不唯一</strong>」。</p>
-<hr/>
+<hr />
 <h2 id="linear-diophantine-application線性整數方程應用--怎麼把-gcd-技巧拿來解實際問題">⭐Linear Diophantine Application(線性整數方程應用) — 怎麼把 gcd 技巧拿來解實際問題？<a class="headerlink" href="#linear-diophantine-application線性整數方程應用--怎麼把-gcd-技巧拿來解實際問題" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／逐字稿_03.txt／Session=03／L635–L643</p>
 <p>老師接著用 programming contest 的例子：debug 一個 Java 程式花 6 分鐘，C++ 花 10 分鐘，總共剛好使用 104 分鐘；令 <span class="arithmatex">\(x\)</span> 是 Java 程式數量、<span class="arithmatex">\(y\)</span> 是 C++ 程式數量，就得到</p>
@@ -14415,7 +14445,7 @@ ax+by=c
 \boxed{\text{如果第 }k\text{ 張倒了，第 }k+1\text{ 張也一定倒}}
 \]</pre>
 <p>這樣就可以一路推下去。</p>
-<hr/>
+<hr />
 <h4 id="2-數學歸納法的標準步驟">2. 數學歸納法的標準步驟<a class="headerlink" href="#2-數學歸納法的標準步驟" title="Permanent link"></a></h4>
 <p>假設題目要求：</p>
 <pre class="arithmatex">\[
@@ -14428,7 +14458,7 @@ S(n)\text{ 對所有 }n\ge n_0\text{ 成立}
 <pre class="arithmatex">\[
 S(n):\quad \sum_{i=1}^{n}2^{i-1}=2^n-1
 \]</pre>
-<hr/>
+<hr />
 <p><strong>Step 1：Base Case(基礎步驟)</strong></p>
 <p>把最小的 <span class="arithmatex">\(n\)</span> 代進去。</p>
 <p>如果題目是</p>
@@ -14448,7 +14478,7 @@ n\ge10
 S(10)
 \]</pre>
 <p>所以不是永遠從 <span class="arithmatex">\(1\)</span> 開始。</p>
-<hr/>
+<hr />
 <p><strong>Step 2：Induction Hypothesis(歸納假設)</strong></p>
 <p>假設對某一個任意的 <span class="arithmatex">\(k\)</span>：</p>
 <pre class="arithmatex">\[
@@ -14456,7 +14486,7 @@ S(k)\text{ is true}
 \]</pre>
 <p>注意這一步不是要你重新證明 <span class="arithmatex">\(S(k)\)</span>。</p>
 <p>而是「暫時假設它成立」，然後拿它去推下一個。</p>
-<hr/>
+<hr />
 <p><strong>Step 3：Inductive Step(歸納步驟)</strong></p>
 <p>利用剛剛假設的</p>
 <pre class="arithmatex">\[
@@ -14471,14 +14501,14 @@ S(k+1)
 S(k)\Rightarrow S(k+1)
 \]</pre>
 <p>這通常是整題最重要的地方。</p>
-<hr/>
+<hr />
 <p><strong>Step 4：Conclusion(結論)</strong></p>
 <p>最後寫：</p>
 <pre class="arithmatex">\[
 \therefore S(n)\text{ is true for all }n\ge n_0
 \]</pre>
 <p>by the Principle of Mathematical Induction(數學歸納法原理)。</p>
-<hr/>
+<hr />
 <h4 id="3-用你剛剛作業第一題來看">3. 用你剛剛作業第一題來看<a class="headerlink" href="#3-用你剛剛作業第一題來看" title="Permanent link"></a></h4>
 <p>你圖片中的第 <span class="arithmatex">\(2\)</span> 題 (a) 是：</p>
 <pre class="arithmatex">\[
@@ -14497,7 +14527,7 @@ S(k)\Rightarrow S(k+1)
 <pre class="arithmatex">\[
 S(n):\quad \sum_{i=1}^{n}2^{i-1}=2^n-1
 \]</pre>
-<hr/>
+<hr />
 <h4 id="4-step-1base-case">4. Step 1：Base Case<a class="headerlink" href="#4-step-1base-case" title="Permanent link"></a></h4>
 <p>題目說：</p>
 <pre class="arithmatex">\[
@@ -14526,7 +14556,7 @@ n\ge1
 <pre class="arithmatex">\[
 \boxed{S(1)\text{ is true}}
 \]</pre>
-<hr/>
+<hr />
 <h4 id="5-step-2induction-hypothesis">5. Step 2：Induction Hypothesis<a class="headerlink" href="#5-step-2induction-hypothesis" title="Permanent link"></a></h4>
 <p>假設對某個 <span class="arithmatex">\(k\ge1\)</span>，</p>
 <pre class="arithmatex">\[
@@ -14539,7 +14569,7 @@ S(k)\text{ is true}
 }
 \]</pre>
 <p>這一行非常重要，後面就是要拿它來代換。</p>
-<hr/>
+<hr />
 <h4 id="6-step-3證明-sk1">6. Step 3：證明 <span class="arithmatex">\(S(k+1)\)</span><a class="headerlink" href="#6-step-3證明-sk1" title="Permanent link"></a></h4>
 <p>我們要證明：</p>
 <pre class="arithmatex">\[
@@ -14575,7 +14605,7 @@ S(k)\text{ is true}
 <pre class="arithmatex">\[
 \boxed{S(k+1)\text{ is true}}
 \]</pre>
-<hr/>
+<hr />
 <h4 id="7-最後結論">7. 最後結論<a class="headerlink" href="#7-最後結論" title="Permanent link"></a></h4>
 <p>我們已經證明：</p>
 <pre class="arithmatex">\[
@@ -14603,7 +14633,7 @@ S(k)\Rightarrow S(k+1)
 0,1,2,\ldots,n-1
 \]</pre>
 <p>所以兩個總和其實是同一串數字。</p>
-<hr/>
+<hr />
 <h4 id="8-你寫作業時可以直接記這個模板">8. 你寫作業時可以直接記這個模板<a class="headerlink" href="#8-你寫作業時可以直接記這個模板" title="Permanent link"></a></h4>
 <pre class="arithmatex">\[
 \boxed{
@@ -14775,7 +14805,7 @@ S(k+1)\text{ is true}
 <p class="admonition-title">數學歸納法證明模板</p>
 <p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="1238" loading="lazy" src="../../../assets/generated/optimized-images/2d/2d3521ebcdb4d5cff24a82949036841654f846188b2016d3d633e73208e30934.webp" width="1593"/></p>
 </div>
-<hr/>
+<hr />
 <div class="admonition danger">
 <p class="admonition-title">常用的 sigma</p>
 <h2 id="sigma">⭐sigma<a class="headerlink" href="#sigma" title="Permanent link"></a></h2>
@@ -14823,7 +14853,7 @@ c \cdot \sum_{k=1}^{n} a_k
 \]</pre>
 </li>
 <li>
-<p>∑ 的後面很多相乘：<br/>
+<p>∑ 的後面很多相乘：<br />
     先乘開，再利用加減可以拆的性質。</p>
 <p>例如：</p>
 <pre class="arithmatex">\[
@@ -14998,7 +15028,7 @@ a(x-y)=0.
 <div class="admonition danger">
 <p class="admonition-title">Danger | Ex 4.4 第 4 題：Bézout's Identity(貝祖等式)</p>
 <p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="1392" loading="lazy" src="../../../assets/generated/optimized-images/10/107d649ee45ac365110c404cb98585175082f89437ca48f67e669573b77442a5.webp" width="1609"/></p>
-<div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 ? 次對話 | PROMPT=1.17.0 | REFRESH=NO | REFRESH_REMINDER=建議手動貼上最新版複習-Prompt 重新刷新規則❗❗❗ | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; KP=Bézout's Identity與Ex4.4#4; TranscriptSpan=L531–L535及L619–L635; TeachingState=TAUGHT_CORE; Reference=課本詳解.pdf §4.4第4題 PDF第119頁已核對; Practice=本題原稿尚待補強; Completion=IN_PROGRESS; NextLegal=補教後重新練習} | PLAN={ThisResponse=從頭教貝祖等式、示範求係數、講解作業證明、輸出考試速記與練習; ExpectedNext=批改理解與證明}
+<div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=第 ? 次對話 | PROMPT=1.17.0 | REFRESH=NO | REFRESH_REMINDER=建議手動貼上最新版複習-Prompt 重新刷新規則❗❗❗ | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03.txt; Session=03; SessionSource=FilenamePrefix; KP=Bézout&#39;s Identity與Ex4.4#4; TranscriptSpan=L531–L535及L619–L635; TeachingState=TAUGHT_CORE; Reference=課本詳解.pdf §4.4第4題 PDF第119頁已核對; Practice=本題原稿尚待補強; Completion=IN_PROGRESS; NextLegal=補教後重新練習} | PLAN={ThisResponse=從頭教貝祖等式、示範求係數、講解作業證明、輸出考試速記與練習; ExpectedNext=批改理解與證明}
 </code></pre></div>
 <h2 id="bézouts-identity貝祖等式--為什麼最大公因數可以寫成兩個數的線性組合">⭐Bézout's Identity(貝祖等式) — 為什麼最大公因數可以寫成兩個數的線性組合？<a class="headerlink" href="#bézouts-identity貝祖等式--為什麼最大公因數可以寫成兩個數的線性組合" title="Permanent link"></a></h2>
 <p>主線位置：Teacher Transcript／<code>逐字稿_03.txt</code>／Session=03／L531–L535、L619–L635。</p>
@@ -15362,7 +15392,7 @@ ng=(na)s+(nb)t.
 \begin{aligned} g&amp;=\gcd(a,b)\\\ h&amp;=\gcd(na,nb) \end{aligned} 
 \]</pre>
 <pre class="arithmatex">\[
-\underbrace{ng\mid h}\_{\text{公因數性質}} \qquad \underbrace{h\mid ng}\_{\text{貝祖等式}} 
+\underbrace{ng\mid h}_{\text{公因數性質}} \qquad \underbrace{h\mid ng}_{\text{貝祖等式}} 
 \]</pre>
 <pre class="arithmatex">\[
 \boxed{h=ng} 
@@ -15399,8 +15429,8 @@ h\mid\ \underline{\qquad\qquad}
 </div>
 <div class="admonition danger">
 <p class="admonition-title">gcd 之證明</p>
-<p>把兩個分別設為 g 和 h，最後用 g|h、h|g 得到 g = h 得證。<br/>
-<img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="1392" loading="lazy" src="../../../assets/generated/optimized-images/10/107d649ee45ac365110c404cb98585175082f89437ca48f67e669573b77442a5.webp" width="1609"/><br/>
+<p>把兩個分別設為 g 和 h，最後用 g|h、h|g 得到 g = h 得證。<br />
+<img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="1392" loading="lazy" src="../../../assets/generated/optimized-images/10/107d649ee45ac365110c404cb98585175082f89437ca48f67e669573b77442a5.webp" width="1609"/><br />
 <img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="1375" loading="lazy" src="../../../assets/generated/optimized-images/5e/5ec56287ca0b0cd08528d85d3441b0caa16cb3016035d233264362a578acf8ee.webp" width="1694"/></p>
 </div>
 <div class="admonition danger">
@@ -15474,7 +15504,7 @@ h\mid\ \underline{\qquad\qquad}
       
       
         <a
-          href="../../114-2/%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html"
+          href="L04.html"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -15483,7 +15513,7 @@ h\mid\ \underline{\qquad\qquad}
               <span class="md-footer__direction">
                 Next
               </span>
-              教材
+              L04
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -15544,7 +15574,7 @@ h\mid\ \underline{\qquad\qquad}
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

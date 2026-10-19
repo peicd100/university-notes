@@ -3858,6 +3858,8 @@
       
         
       
+        
+      
     
     
     
@@ -3915,7 +3917,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -4000,6 +4002,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -10996,7 +11026,7 @@
 <p><strong>Software(軟體)：在告訴處理器「要做哪些指令」。</strong></p>
 <p><strong>HDL：在描述「我要什麼硬體」。</strong></p>
 <p>後面我們會把這個差異講得非常精確；現在先建立這個方向就好。</p>
-<hr/>
+<hr />
 <h3 id="2-verilogvhdllogic-synthesis-分別扮演什麼角色">2. Verilog、VHDL、Logic Synthesis 分別扮演什麼角色？<a class="headerlink" href="#2-verilogvhdllogic-synthesis-分別扮演什麼角色" title="Permanent link"></a></h3>
 <p>講義列出兩種 HDL：</p>
 <ul>
@@ -11009,7 +11039,7 @@
 <p>你用 HDL 寫出較高層次的硬體描述，然後讓工具把它轉換成更低層次的硬體表示。</p>
 </blockquote>
 <p>老師目前用 software 的 <code>compile(編譯)</code> 來做直覺類比；真正 RTL、gate-level(閘級) 的關係會在後面的投影片正式展開，所以這裡先不要超前學細節。</p>
-<hr/>
+<hr />
 <h3 id="3-eda-tools--不需要先背品牌要先知道每一類工具負責什麼">3. EDA Tools — 不需要先背品牌，要先知道「每一類工具負責什麼」<a class="headerlink" href="#3-eda-tools--不需要先背品牌要先知道每一類工具負責什麼" title="Permanent link"></a></h3>
 <p><code>EDA(Electronic Design Automation，電子設計自動化)</code> 就是協助完成數位硬體設計、驗證、合成與實體實作的一整套軟體工具。</p>
 <p>投影片 page 8 給的工具角色可以整理成：</p>
@@ -11075,7 +11105,7 @@
 <p>核心因果關係是：</p>
 <p><strong>你不需要徒手把大量邏輯閘與 layout 全畫出來，而是先把較高層次的 HDL 寫好，再讓 EDA tools 往下轉換。</strong></p>
 <p>老師在逐字稿中也把流程濃縮成兩個大步驟：<code>synthesis(合成)</code> 與後面的 <code>layout(實體佈局)</code>，而且特別提醒中間會反覆做 verification(驗證)。</p>
-<hr/>
+<hr />
 <h3 id="4-teacher-emphasis--為什麼老師一直強調-coding-style">4. Teacher Emphasis — 為什麼老師一直強調 Coding Style？<a class="headerlink" href="#4-teacher-emphasis--為什麼老師一直強調-coding-style" title="Permanent link"></a></h3>
 <p>這是 pages 1～9 裡真正值得你現在就記住的東西。</p>
 <p>老師說，寫 HDL 時「每寫一行 code」要帶著它最後會對應到實際硬體／電路的想法；因此 HDL 不是只追求「模擬結果現在看起來對」，而是要考慮這種寫法最後會描述出什麼硬體。</p>
@@ -11090,7 +11120,7 @@
 <p><strong>What hardware am I describing?</strong></p>
 </blockquote>
 <p>這正是老師說會在整門課反覆強調的方向。</p>
-<hr/>
+<hr />
 <h3 id="5-課程負擔只需要知道這堂課不是只考語法">5. 課程負擔：只需要知道這堂課不是「只考語法」<a class="headerlink" href="#5-課程負擔只需要知道這堂課不是只考語法" title="Permanent link"></a></h3>
 <p>講義評分是：</p>
 <p><strong>Homework 60% + Exams 40%</strong>，共有 5 份主要作業加 1 份 bonus homework；題目一路會做到 pipelined unit、RISC CPU、image edge detection、CNN acceleration。</p>
@@ -11099,7 +11129,7 @@
 <p>「背完 Verilog syntax 就好。」</p>
 <p>而應是：</p>
 <p><strong>能把硬體架構想清楚 → 寫成合理 HDL → 用工具 simulation/debug → 讓後續 design flow 能走下去。</strong></p>
-<hr/>
+<hr />
 <h3 id="6-這-9-頁現在真正要記的最短版本">6. 這 9 頁現在真正要記的最短版本<a class="headerlink" href="#6-這-9-頁現在真正要記的最短版本" title="Permanent link"></a></h3>
 <p>先只留下三個核心印象：</p>
 <p><strong>第一，HDL 是用來描述 hardware(硬體) 的，不要把它當成一般 software programming。</strong></p>
@@ -11177,7 +11207,7 @@
 </tbody>
 </table>
 <p>講義 page 8 確實把 VCS 列為 HDL simulation 工具、Design Compiler 用於 RTL 到 gate netlist：邏輯閘 的 logic synthesis、Verdi 用於 debug，而 Innovus / IC Compiler 用於 P&amp;R。：實體佈局設計</p>
-<hr/>
+<hr />
 <h4 id="2-第-2-題中文修正版">2. 第 2 題中文修正版<a class="headerlink" href="#2-第-2-題中文修正版" title="Permanent link"></a></h4>
 <p>你的回答可以整理成：</p>
 <blockquote>
@@ -11190,7 +11220,7 @@
 <blockquote>
 <p>HDL does not merely describe operations to be executed like a software program. Synthesizable HDL describes hardware that can be mapped to physical circuits, so a designer must consider what hardware structure the code represents, not only whether the simulated output is correct.</p>
 </blockquote>
-<hr/>
+<hr />
 <h4 id="4-考古題檢查結果">4. 考古題檢查結果<a class="headerlink" href="#4-考古題檢查結果" title="Permanent link"></a></h4>
 <p>新提供的考古題已納入來源。其題目索引目前主要是三種 modeling methods、flip-flop、clock-gating、blocking/non-blocking、signed/shift、pipeline、RCA、dot product 與 code tracing，沒有看到直接針對目前 pages 1–9「EDA 工具角色辨識」的題目。</p>
 <p>考古題裡確實有後續會要求你畫 <code>expected synthesis results</code> 的題型，但它綁定的是 Clock-Gating 等後面尚未正式教過的內容，因此現在不能提前拿來考你。</p>
@@ -11209,19 +11239,19 @@
 <p><strong>先在高層只想「功能與架構」，再一步一步轉成更具體的硬體。</strong></p>
 </blockquote>
 <p>這就是 <code>Design Hierarchy(設計階層)</code> 的核心。</p>
-<hr/>
+<hr />
 <h3 id="2-page-11software-與-hardware-都有自己的階層">2. Page 11：Software 與 Hardware 都有自己的階層<a class="headerlink" href="#2-page-11software-與-hardware-都有自己的階層" title="Permanent link"></a></h3>
 <p>Page 11 左邊的圖把 Software(軟體)一路往下：</p>
-<p><strong>Applications</strong><br/>
-→ <code>Higher-Level Language Program</code>，例如 C<br/>
-→ Compiler<br/>
-→ <code>Assembly Language</code><br/>
-→ Assembler<br/>
+<p><strong>Applications</strong><br />
+→ <code>Higher-Level Language Program</code>，例如 C<br />
+→ Compiler<br />
+→ <code>Assembly Language</code><br />
+→ Assembler<br />
 → <code>Machine Language</code></p>
 <p>而到了 SW/HW 的交界，machine language 最終需要由硬體來 <code>Machine Interpretation(機器解讀)</code>。</p>
 <p>圖的硬體部分則有：</p>
-<p><strong>Hardware Architecture Description</strong><br/>
-→ <code>Architecture Implementation(架構實作)</code><br/>
+<p><strong>Hardware Architecture Description</strong><br />
+→ <code>Architecture Implementation(架構實作)</code><br />
 → <strong>Logic Circuit Description</strong></p>
 <p>其中投影片直接舉：</p>
 <ul>
@@ -11234,7 +11264,7 @@
 </blockquote>
 <p>它是在告訴你：</p>
 <p><strong>Software 有自己的抽象階層；Hardware 也有自己的抽象階層。</strong></p>
-<hr/>
+<hr />
 <h3 id="3-block-diagram-和-schematic-到底差在哪">3. Block Diagram 和 Schematic 到底差在哪？<a class="headerlink" href="#3-block-diagram-和-schematic-到底差在哪" title="Permanent link"></a></h3>
 <p>老師對這張圖的口頭解釋很重要。</p>
 <p>老師說 <code>block diagram(方塊圖)</code> 比較 high-level，通常先用它來描述設計，再根據這個架構去寫 HDL；而 <code>schematic diagram(電路原理圖)</code> 則是更低層、比較具體的電路表示。</p>
@@ -11243,7 +11273,7 @@
 </code></pre></div>
 <p>這時你只在意：</p>
 <blockquote>
-<p>有哪些大功能模組？<br/>
+<p>有哪些大功能模組？<br />
 資料怎麼流？</p>
 </blockquote>
 <p>而不是先畫：</p>
@@ -11257,7 +11287,7 @@ Flip-Flop
 <p><strong>Block Diagram：我要哪些大的硬體功能。</strong></p>
 <p><strong>Schematic：這些功能實際由哪些電路元件組成。</strong></p>
 <p>老師甚至把 block diagram 類比成某種 <code>specification(規格)</code>：先知道客戶希望晶片完成什麼，再依架構寫 HDL。</p>
-<hr/>
+<hr />
 <h3 id="4-page-12硬體設計的四個-level">4. Page 12：硬體設計的四個 Level<a class="headerlink" href="#4-page-12硬體設計的四個-level" title="Permanent link"></a></h3>
 <p>Page 12 正式把 Hardware Design 分成四層：</p>
 <table>
@@ -11300,7 +11330,7 @@ Flip-Flop
 <blockquote>
 <p>RTL 就是這堂課要教的層級，Verilog 和 VHDL 都是在這個層級使用。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="5-那我們剛剛問的-synthesis-和-pr-放在哪裡">5. 那我們剛剛問的 Synthesis 和 P&amp;R 放在哪裡？<a class="headerlink" href="#5-那我們剛剛問的-synthesis-和-pr-放在哪裡" title="Permanent link"></a></h3>
 <p>現在你前面問的兩個名詞就全部接起來了：</p>
 <pre class="diagram"><code>flowchart LR
@@ -11325,7 +11355,7 @@ Flip-Flop
 <blockquote>
 <p><strong>Synthesis 決定「要有哪些 gates/cells 與邏輯連線」；P&amp;R 再決定這些元件實際放哪、線實際怎麼走。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="6-front-end-和-back-end-也從這裡分開">6. Front-end 和 Back-end 也從這裡分開<a class="headerlink" href="#6-front-end-和-back-end-也從這裡分開" title="Permanent link"></a></h3>
 <p>老師口頭上把這兩段分成：</p>
 <p><strong>Front-end(前端)：RTL → Gate Level</strong></p>
@@ -11343,7 +11373,7 @@ Flip-Flop
 </blockquote>
 <p>先想到：</p>
 <p><strong>P&amp;R / physical layout</strong></p>
-<hr/>
+<hr />
 <h3 id="7-目前最容易搞混的三件事">7. 目前最容易搞混的三件事<a class="headerlink" href="#7-目前最容易搞混的三件事" title="Permanent link"></a></h3>
 <p>第一個：</p>
 <p><strong>Verilog/VHDL ≠ gate-level。</strong></p>
@@ -11361,7 +11391,7 @@ Flip-Flop
 <p>第三個：</p>
 <p><strong>Block Diagram ≠ Circuit Schematic。</strong></p>
 <p>前者是在描述高階 architecture；後者則更接近具體 logic circuit。</p>
-<hr/>
+<hr />
 <h3 id="8-最短記法">8. 最短記法<a class="headerlink" href="#8-最短記法" title="Permanent link"></a></h3>
 <p>這四個字一定要先熟：</p>
 <blockquote>
@@ -11390,22 +11420,22 @@ Flip-Flop
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
 <h3 id="associated">associated<a class="headerlink" href="#associated" title="Permanent link"></a></h3>
-<p>associated：相關的、有關聯的<br/>
-└─ associate：使產生關聯、聯繫<br/>
-   ├─ as-：朝向、加入（歷史上由 ad- 同化而來）<br/>
-   └─ soci-：同伴、夥伴、聯結<br/>
-      └─ -ate：形成動詞<br/>
+<p>associated：相關的、有關聯的<br />
+└─ associate：使產生關聯、聯繫<br />
+   ├─ as-：朝向、加入（歷史上由 ad- 同化而來）<br />
+   └─ soci-：同伴、夥伴、聯結<br />
+      └─ -ate：形成動詞<br />
          └─ -ed：過去分詞；形成「被聯繫的」概念</p>
 <h3 id="abstraction">abstraction<a class="headerlink" href="#abstraction" title="Permanent link"></a></h3>
-<p>abstraction：抽象化、抽象<br/>
-└─ abstract：抽取、抽象化<br/>
-   ├─ abs-：離開、從……分離<br/>
-   └─ tract：拉、拖<br/>
+<p>abstraction：抽象化、抽象<br />
+└─ abstract：抽取、抽象化<br />
+   ├─ abs-：離開、從……分離<br />
+   └─ tract：拉、拖<br />
       └─ -ion：形成名詞，表示行為、過程或結果</p>
 </div>
 <h4 id="92-question-2">9.2 Question 2<a class="headerlink" href="#92-question-2" title="Permanent link"></a></h4>
-<p>A designer writes a hardware module in Verilog. The design is then processed by Synopsys Design Compiler, producing a gate-level netlist：邏輯閘. After that, Cadence Innovus performs placement and routing.<br/>
-：實體佈局設計<br/>
+<p>A designer writes a hardware module in Verilog. The design is then processed by Synopsys Design Compiler, producing a gate-level netlist：邏輯閘. After that, Cadence Innovus performs placement and routing.<br />
+：實體佈局設計<br />
 Answer the following:</p>
 <ol>
 <li>What design level is the original Verilog description?</li>
@@ -11417,7 +11447,7 @@ Answer the following:</p>
 <p>[Generated: 依據講義 ch00 PDF viewer page 12；Teacher Transcript Overlay：第1堂 Design Hierarchy / design-level 區段]</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文單字</p>
-<p>Synopsys：新思科技<br/>
+<p>Synopsys：新思科技<br />
 Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的旗艦級數位積體電路（IC）實體設計與布線（Place and Route, P&amp;R）軟體工具</p>
 </div>
 <h4 id="93-question-3">9.3 Question 3<a class="headerlink" href="#93-question-3" title="Permanent link"></a></h4>
@@ -11428,21 +11458,21 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文單字</p>
 <h3 id="hardware-block-diagram硬體方塊圖">hardware block diagram：硬體方塊圖<a class="headerlink" href="#hardware-block-diagram硬體方塊圖" title="Permanent link"></a></h3>
-<p>hardware block diagram：硬體方塊圖<br/>
-├─ hardware：硬體<br/>
-├─ block：方塊、功能區塊<br/>
-└─ diagram：圖表、示意圖<br/>
+<p>hardware block diagram：硬體方塊圖<br />
+├─ hardware：硬體<br />
+├─ block：方塊、功能區塊<br />
+└─ diagram：圖表、示意圖<br />
 <img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="495" src="../../../assets/generated/optimized-images/d9/d9d62716b85fb4440bad987565fdf59973de2cb403c223db04a26239542f2d6c.webp" width="791"/></p>
 <h3 id="schematic示意圖">schematic：示意圖<a class="headerlink" href="#schematic示意圖" title="Permanent link"></a></h3>
-<p>schematic：示意圖；示意的<br/>
-└─ schema：圖式、架構、形式<br/>
+<p>schematic：示意圖；示意的<br />
+└─ schema：圖式、架構、形式<br />
    └─ -ic：與……有關的、具有……性質的</p>
 <p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="390" loading="lazy" src="../../../assets/generated/optimized-images/28/28c4986bd05017b544ab7356480aea9bfa4a6baec6b04d233f171e6b7934cb37.webp" width="738"/></p>
 <h3 id="basically基本上">basically：基本上<a class="headerlink" href="#basically基本上" title="Permanent link"></a></h3>
-<p>basically：基本上、大致上<br/>
-└─ basic：基本的、基礎的<br/>
-   ├─ base：基礎、底部<br/>
-   └─ -ic：形成形容詞<br/>
+<p>basically：基本上、大致上<br />
+└─ basic：基本的、基礎的<br />
+   ├─ base：基礎、底部<br />
+   └─ -ic：形成形容詞<br />
       └─ -ally：形成副詞</p>
 </div>
 <p>第 1 次對話</p>
@@ -11477,10 +11507,10 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </blockquote>
 <p>所以：</p>
 <blockquote>
-<p><strong>Analog 在乎「到底是多少」。</strong><br/>
+<p><strong>Analog 在乎「到底是多少」。</strong><br />
 <strong>Digital 在乎「屬於哪個邏輯狀態」。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="2-digital-design-為什麼適合用-hdl">2. Digital Design 為什麼適合用 HDL？<a class="headerlink" href="#2-digital-design-為什麼適合用-hdl" title="Permanent link"></a></h3>
 <p>講義說 Digital IC 通常：</p>
 <blockquote>
@@ -11502,12 +11532,12 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <blockquote>
 <p>這堂課主要是教 Digital IC Design，也就是以 0 和 1 的 logic 為主。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="3-analog-design-在做什麼">3. Analog Design 在做什麼？<a class="headerlink" href="#3-analog-design-在做什麼" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文單字</p>
-<p>analog：類比的；類似物<br/>
-└─ analog：現代英文中不宜再可靠拆解<br/>
+<p>analog：類比的；類似物<br />
+└─ analog：現代英文中不宜再可靠拆解<br />
    └─ 歷史核心：依比例、對應、相似</p>
 </div>
 <p>Analog Design 不把所有訊號簡化成單純的 0 和 1。</p>
@@ -11551,7 +11581,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </tbody>
 </table>
 <p>老師在這裡也是刻意只做 high-level introduction(高階介紹)，沒有要求第一堂就深入 Analog Design 細節。</p>
-<hr/>
+<hr />
 <h3 id="4-digital-和-analog-怎麼互相溝通">4. Digital 和 Analog 怎麼互相溝通？<a class="headerlink" href="#4-digital-和-analog-怎麼互相溝通" title="Permanent link"></a></h3>
 <p>這頁還提到兩個很重要的介面：</p>
 <ul>
@@ -11560,21 +11590,21 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </ul>
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
-<p>converter：轉換器<br/>
-└─ convert：轉換、轉變<br/>
+<p>converter：轉換器<br />
+└─ convert：轉換、轉變<br />
    └─ -er：執行某動作的人或裝置</p>
 </div>
 <p>你可以把它們想成兩個世界的翻譯官。</p>
 <p>例如麥克風收到聲音後，產生的是 Analog signal(類比訊號)：</p>
-<p><strong>聲音</strong><br/>
-→ Analog voltage<br/>
-→ <strong>ADC</strong><br/>
-→ Digital data<br/>
+<p><strong>聲音</strong><br />
+→ Analog voltage<br />
+→ <strong>ADC</strong><br />
+→ Digital data<br />
 → 數位電路處理</p>
 <p>反過來，如果數位晶片算出一組數值，最後要控制喇叭產生真實聲音：</p>
-<p><strong>Digital data</strong><br/>
-→ <strong>DAC</strong><br/>
-→ Analog voltage<br/>
+<p><strong>Digital data</strong><br />
+→ <strong>DAC</strong><br />
+→ Analog voltage<br />
 → 喇叭</p>
 <p>所以：</p>
 <blockquote>
@@ -11582,7 +11612,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p><strong>DAC：Digital → Analog</strong></p>
 </blockquote>
 <p>這兩個方向不要背反。</p>
-<hr/>
+<hr />
 <h3 id="5-為什麼-sensor感測器附近常遇到-analog">5. 為什麼 Sensor(感測器)附近常遇到 Analog？<a class="headerlink" href="#5-為什麼-sensor感測器附近常遇到-analog" title="Permanent link"></a></h3>
 <p>講義特別提到 Analog 常出現在 <code>Input/Output(I/O，輸入輸出)</code> interface，例如 sensors。</p>
 <p>原因很好理解。</p>
@@ -11601,13 +11631,13 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </blockquote>
 <p>所以中間常需要 ADC。</p>
 <p>例如：</p>
-<p><strong>溫度</strong><br/>
-→ sensor<br/>
-→ analog voltage<br/>
-→ ADC<br/>
-→ binary number<br/>
+<p><strong>溫度</strong><br />
+→ sensor<br />
+→ analog voltage<br />
+→ ADC<br />
+→ binary number<br />
 → Digital IC</p>
-<hr/>
+<hr />
 <h3 id="6-一個容易誤會的地方digital-不代表晶片裡真的不存在-analog-physics">6. 一個容易誤會的地方：Digital 不代表晶片裡真的不存在 Analog physics<a class="headerlink" href="#6-一個容易誤會的地方digital-不代表晶片裡真的不存在-analog-physics" title="Permanent link"></a></h3>
 <p>目前課程需要你用「0 / 1」理解 Digital Design。</p>
 <p>但不要誤解成：</p>
@@ -11625,7 +11655,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p><strong>Digital 是把底層連續物理世界抽象成離散的邏輯狀態。</strong></p>
 </blockquote>
 <p>就可以了。</p>
-<hr/>
+<hr />
 <h3 id="7-和你前面學的-system--rtl--gate--physical-怎麼接">7. 和你前面學的 System → RTL → Gate → Physical 怎麼接？<a class="headerlink" href="#7-和你前面學的-system--rtl--gate--physical-怎麼接" title="Permanent link"></a></h3>
 <p>這兩個分類是在回答<strong>不同問題</strong>。</p>
 <p><code>Digital vs. Analog</code> 是在問：</p>
@@ -11648,7 +11678,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>❌ Digital → RTL → Analog → Gate</p>
 </blockquote>
 <p>這完全是兩種不同維度的分類。</p>
-<hr/>
+<hr />
 <h3 id="8-最短記法_1">8. 最短記法<a class="headerlink" href="#8-最短記法_1" title="Permanent link"></a></h3>
 <p>先把這四句背熟：</p>
 <blockquote>
@@ -11669,12 +11699,12 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
 <h3 id="typical">typical<a class="headerlink" href="#typical" title="Permanent link"></a></h3>
-<p>typical：典型的、有代表性的<br/>
-└─ type：類型、典型<br/>
+<p>typical：典型的、有代表性的<br />
+└─ type：類型、典型<br />
    └─ -ical：形成形容詞，表示「與……有關的、具有……特徵的」</p>
 <h3 id="starting">starting<a class="headerlink" href="#starting" title="Permanent link"></a></h3>
-<p>starting：開始的、正在開始<br/>
-└─ start：開始、啟動<br/>
+<p>starting：開始的、正在開始<br />
+└─ start：開始、啟動<br />
    └─ -ing：形成現在分詞、動名詞或形容詞形式</p>
 </div>
 <h4 id="92-question-2_1">9.2 Question 2<a class="headerlink" href="#92-question-2_1" title="Permanent link"></a></h4>
@@ -11683,20 +11713,20 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
 <p>varying voltage</p>
-<p>varying voltage：變化的電壓<br/>
-├─ varying：變化的、變動的<br/>
-│  ├─ vary：改變、變化<br/>
-│  └─ -ing：形成現在分詞／形容詞形式<br/>
+<p>varying voltage：變化的電壓<br />
+├─ varying：變化的、變動的<br />
+│  ├─ vary：改變、變化<br />
+│  └─ -ing：形成現在分詞／形容詞形式<br />
 └─ voltage：電壓</p>
 </div>
 <ol>
 <li>中文或英文皆可</li>
 <li>每題簡短回答＋理由即可</li>
 </ol>
-<p>數位IC是只有0和1<br/>
-類比是連續的數字<br/>
+<p>數位IC是只有0和1<br />
+類比是連續的數字<br />
 數位IC會先設計從RTL開始，類比可能就會先考慮電路和佈局</p>
-<hr/>
+<hr />
 <p>用 ADC，因為要把類比訊號轉換為數位訊號，讓偵測器得到的數值給數位電路</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page13; KP=Digital vs. Analog Design; Boundary=page13 verified，page14已切換新核心問題; Parent=Overview; Source=Lecture+Teacher Transcript+PastExamInventory; SourceInventory=主線講義+第1堂逐字稿+考古題HTML已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=lines157–187附近; Align=HIGH; Coverage=已整合page13重點; Signals=Explanation+Scope; Scope=第一堂只要求high-level impression; Correction=NONE; Conflict=NONE; Residual=局部已核對}; AdjQueue=page13批改→page14 Combinational vs. Sequential Logic; ExerciseDebt=0（page13兩題已輸出且本輪收到作答）; LectureAdjDebt=0 for page13; TeacherTranscriptDebt=0 for page13; PastExamDebt=目前索引未見Digital-vs-Analog直接題; Weakness=NONE confirmed before grading; Coverage=page13 teaching+2 answers received; Completion=PARTIAL（待本則批改）; Evidence=講義page13+逐字稿對齊+Q9.1/Q9.2答案已收到; Blockers=NONE apparent; NextLegal=若批改通過則直接相鄰PDF viewer page14} | PLAN={ThisResponse=先批改page13兩題；若達最低標準則Commit page13完成並正式進入page14 Combinational vs. Sequential Logic；Natural Boundary=page14，page15已切換IC Design Flows；Transcript對齊=HIGH且老師明示本頁只需high-level impression；考古題A-Q4/A-Q6與Sequential相關但需要後續詳細Verilog內容，現在不提前使用；教必要知識包並出2題; ExpectedDebtChange=page13完成，page14產生並同則清償ExerciseDebt; ExpectedNext=批改page14後進page15}
@@ -11728,7 +11758,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <h4 id="2-中文修正版">2. 中文修正版<a class="headerlink" href="#2-中文修正版" title="Permanent link"></a></h4>
 <p>可以寫得更精確一點：</p>
 <blockquote>
-<p><code>Digital IC Design(數位積體電路設計)</code> 主要以 logic 0 與 logic 1 描述訊號，通常由 HDL/RTL 開始設計，再經過 synthesis 與 P&amp;R。<br/>
+<p><code>Digital IC Design(數位積體電路設計)</code> 主要以 logic 0 與 logic 1 描述訊號，通常由 HDL/RTL 開始設計，再經過 synthesis 與 P&amp;R。<br />
 <code>Analog IC Design(類比積體電路設計)</code> 處理連續變化的 voltage/current，通常直接從 circuit 與 layout 層級開始設計。</p>
 <p>當 sensor 產生連續的 analog voltage，而後端是 digital circuit 時，需要使用 <code>ADC</code> 將 analog signal 轉成 digital data。</p>
 </blockquote>
@@ -11743,14 +11773,14 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文單字</p>
 <h3 id="combinational">Combinational<a class="headerlink" href="#combinational" title="Permanent link"></a></h3>
-<p>combinational：組合的<br/>
-└─ combination：組合<br/>
-   └─ combine：結合、組合<br/>
-      └─ -ation：形成名詞，表示組合的行為或結果<br/>
+<p>combinational：組合的<br />
+└─ combination：組合<br />
+   └─ combine：結合、組合<br />
+      └─ -ation：形成名詞，表示組合的行為或結果<br />
          └─ -al：形成形容詞，表示「與……有關的」</p>
 <h3 id="sequential">Sequential<a class="headerlink" href="#sequential" title="Permanent link"></a></h3>
-<p>sequential：循序的、按順序的<br/>
-└─ sequence：順序、序列<br/>
+<p>sequential：循序的、按順序的<br />
+└─ sequence：順序、序列<br />
    └─ -ial：形成形容詞，表示「與……有關的」</p>
 </div>
 <h3 id="1-最核心差別有沒有-storage-element儲存元件">1. 最核心差別：有沒有 Storage Element(儲存元件)<a class="headerlink" href="#1-最核心差別有沒有-storage-element儲存元件" title="Permanent link"></a></h3>
@@ -11761,15 +11791,15 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </ul>
 <p>講義的正式區分是：</p>
 <blockquote>
-<p><code>Combinational Logic</code>：pure feed-forward datapath，而且 <strong>沒有 flip-flop 或 latch</strong>。<br/>
+<p><code>Combinational Logic</code>：pure feed-forward datapath，而且 <strong>沒有 flip-flop 或 latch</strong>。<br />
 <code>Sequential Logic</code>：含有 <code>latch</code> 或 <code>flip-flop</code> 等 storage elements。</p>
 </blockquote>
 <p>因此第一個最重要的判斷方式就是：</p>
 <blockquote>
-<p><strong>Combinational：沒有記憶。</strong><br/>
+<p><strong>Combinational：沒有記憶。</strong><br />
 <strong>Sequential：有記憶。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="2-combinational-logic現在輸入什麼現在就算什麼">2. Combinational Logic：現在輸入什麼，現在就算什麼<a class="headerlink" href="#2-combinational-logic現在輸入什麼現在就算什麼" title="Permanent link"></a></h3>
 <p>例如一個 adder：</p>
 <div class="highlight"><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
@@ -11810,7 +11840,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <li>multiplexer</li>
 </ul>
 <p>這些都很常屬於 combinational logic。</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼叫-combinational">3. 為什麼叫 Combinational？<a class="headerlink" href="#3-為什麼叫-combinational" title="Permanent link"></a></h3>
 <p>因為 output 是由「目前 input 的 combination(組合)」決定。</p>
 <p>例如：</p>
@@ -11851,7 +11881,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>「上個 clock 是什麼？」</p>
 </blockquote>
 <p>所以它<strong>沒有 history(歷史狀態)</strong>。</p>
-<hr/>
+<hr />
 <h3 id="4-sequential-logic除了現在輸入還跟之前記住的東西有關">4. Sequential Logic：除了現在輸入，還跟「之前記住的東西」有關<a class="headerlink" href="#4-sequential-logic除了現在輸入還跟之前記住的東西有關" title="Permanent link"></a></h3>
 <p>Sequential Logic 裡面有：</p>
 <ul>
@@ -11887,7 +11917,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>Flip-Flop 把 <code>5</code> 記住。</p>
 <p>即使後來 <code>D</code> 改成 <code>9</code>，只要還沒到下一個指定的 clock event，裡面的 stored value 仍可能維持 <code>5</code>。</p>
 <p>這就是「記憶」。</p>
-<hr/>
+<hr />
 <h3 id="5-clock-在-sequential-logic-裡為什麼重要">5. Clock 在 Sequential Logic 裡為什麼重要？<a class="headerlink" href="#5-clock-在-sequential-logic-裡為什麼重要" title="Permanent link"></a></h3>
 <p>講義的 sequential 範例使用：</p>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
@@ -11909,12 +11939,12 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <li>sequential part 主要與 timing(時序)相關。</li>
 </ul>
 <p>老師同時明確說這一頁目前只是 introduction，細節後面還會再講，所以現在不要求你深入 blocking/non-blocking、flip-flop coding 等語法。</p>
-<hr/>
+<hr />
 <h3 id="6-用計算機筆記本類比">6. 用「計算機＋筆記本」類比<a class="headerlink" href="#6-用計算機筆記本類比" title="Permanent link"></a></h3>
 <p>想像你正在算數學。</p>
 <p><code>Combinational Logic</code> 像計算機：</p>
 <blockquote>
-<p>輸入 <code>3 + 4</code><br/>
+<p>輸入 <code>3 + 4</code><br />
 → 顯示 <code>7</code></p>
 </blockquote>
 <p>它不需要記住你上一次算 <code>10 + 20</code>。</p>
@@ -11925,10 +11955,10 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>除了做計算之外，它還能把某個結果保存下來，之後再使用。</p>
 <p>所以大型 digital system 通常兩種都需要：</p>
 <blockquote>
-<p><strong>Combinational Logic 負責算。</strong><br/>
+<p><strong>Combinational Logic 負責算。</strong><br />
 <strong>Sequential Logic 負責存／控制資料何時往下一步走。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="7-feed-forward-是什麼意思">7. Feed-forward 是什麼意思？<a class="headerlink" href="#7-feed-forward-是什麼意思" title="Permanent link"></a></h3>
 <p>講義說 Combinational Logic 是：</p>
 <blockquote>
@@ -11964,7 +11994,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </code></pre></div>
 <p>訊號一路：</p>
 <blockquote>
-<p>左 → 右<br/>
+<p>左 → 右<br />
 前面 → 後面</p>
 </blockquote>
 <p>沒有把後面的結果再存起來，回頭影響下一次運算。</p>
@@ -11981,7 +12011,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <blockquote>
 <p><strong>沒有 Flip-Flop / Latch 去保存 state。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="8-一個很重要的精確化">8. 一個很重要的精確化<a class="headerlink" href="#8-一個很重要的精確化" title="Permanent link"></a></h3>
 <p>不要背成：</p>
 <blockquote>
@@ -11997,7 +12027,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p><strong>有 storage elements，因此能保存 state。</strong></p>
 </blockquote>
 <p>這跟你前面老師講的 timing analysis 也相容：實際的 gate signal 傳輸本來就需要時間。</p>
-<hr/>
+<hr />
 <h3 id="9-目前最短記法">9. 目前最短記法<a class="headerlink" href="#9-目前最短記法" title="Permanent link"></a></h3>
 <p>直接背這組：</p>
 <blockquote>
@@ -12034,7 +12064,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <li>每題簡短回答＋理由即可</li>
 </ol>
 <p>combinational ，因為他沒有記憶裝置</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>A 是combinational ，B是sequential，因為前者沒有用記憶裝置，後者有</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page14; KP=Combinational vs. Sequential Logic; Boundary=page14 verified，page15切換IC Design Flows; Parent=Overview; Source=Lecture+Teacher Transcript+PastExamInventory; SourceInventory=主線講義+第1堂逐字稿+考古題HTML已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=對應page14之combinational/sequential區段; Align=HIGH; Coverage=已整合; Signals=Explanation+Scope; Scope=第一堂僅要求high-level impression，細節後續再教; Correction=NONE; Conflict=NONE; Residual=無高優先殘留}; AdjQueue=page14批改→page15 IC Design Flows; ExerciseDebt=0（page14兩題已輸出，本輪收到答案）; LectureAdjDebt=0; TeacherTranscriptDebt=0 for page14; PastExamDebt=考古題A-Q4/A-Q6涉及後續FF與blocking/nonblocking細節，現階段不提前清償; Weakness=NONE apparent; Coverage=page14教學+兩題答案已收到; Completion=PARTIAL待本則批改; Evidence=講義page14+逐字稿對齊+Q10.1/Q10.2答案; Blockers=NONE apparent; NextLegal=若批改通過則PDF viewer page15} | PLAN={ThisResponse=批改page14；若達最低標準則正式進入page15 IC Design Flows；Natural Boundary=page15，page16為新divider；Transcript Align=HIGH，老師重點為full-custom vs cell-based ASIC vs FPGA且本課主要cell-based/FPGA；PastExam Quick Check=目前索引未見直接IC-design-flow題；教必要知識包並出3題; ExpectedDebtChange=page14完成，page15產生並同則清償ExerciseDebt; ExpectedNext=批改page15後進page16/17}
@@ -12064,7 +12094,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>你的核心判斷已經對了。講義 page 14 正是用「Combinational 沒有 flip-flops/latches；Sequential 有 storage elements」來區分兩者。</p>
 <h4 id="2-中文修正版_1">2. 中文修正版<a class="headerlink" href="#2-中文修正版_1" title="Permanent link"></a></h4>
 <blockquote>
-<p><code>Combinational Logic(組合邏輯)</code> 沒有記憶元件，output 主要由目前 input 決定。<br/>
+<p><code>Combinational Logic(組合邏輯)</code> 沒有記憶元件，output 主要由目前 input 決定。<br />
 <code>Sequential Logic(循序邏輯)</code> 含有 Flip-Flop 或 Latch 等記憶元件，因此可以保存 state，之後的行為會受到先前狀態影響。</p>
 </blockquote>
 <h4 id="3-英文考試版_2">3. 英文考試版<a class="headerlink" href="#3-英文考試版_2" title="Permanent link"></a></h4>
@@ -12089,7 +12119,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <blockquote>
 <p><strong>「你打算用哪一種方法把設計做出來？」</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="2-full-custom幾乎每個細節自己畫">2. Full-custom：幾乎每個細節自己畫<a class="headerlink" href="#2-full-custom幾乎每個細節自己畫" title="Permanent link"></a></h3>
 <p><code>Full-custom(全客製化)</code> 可以想成：</p>
 <blockquote>
@@ -12110,7 +12140,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <blockquote>
 <p>不是用現成 LEGO，而是連每一塊磚頭的形狀都自己做。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="3-cell-based-asic用現成-cells-拼大型數位晶片">3. Cell-based ASIC：用現成 cells 拼大型數位晶片<a class="headerlink" href="#3-cell-based-asic用現成-cells-拼大型數位晶片" title="Permanent link"></a></h3>
 <p>這是你前面一直在學的主流程。</p>
 <p>講義說：</p>
@@ -12121,11 +12151,11 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </ul>
 <p>大概就是：</p>
 <blockquote>
-<p>Verilog / VHDL<br/>
-→ RTL<br/>
-→ Synthesis<br/>
-→ Gate-level netlist：邏輯閘<br/>
-→ P&amp;R<br/>
+<p>Verilog / VHDL<br />
+→ RTL<br />
+→ Synthesis<br />
+→ Gate-level netlist：邏輯閘<br />
+→ P&amp;R<br />
 → Physical layout：實體佈局設計</p>
 </blockquote>
 <p>為什麼叫 <code>cell-based</code>？</p>
@@ -12138,7 +12168,7 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 </ul>
 <p>讓 EDA tools 幫你組合。</p>
 <p>老師說大型 IC 可能有 millions/billions of gates，不可能全部用 full-custom 手畫，因此大型數位系統需要這種自動化方法。</p>
-<hr/>
+<hr />
 <h3 id="4-asic-到底是什麼">4. ASIC 到底是什麼？<a class="headerlink" href="#4-asic-到底是什麼" title="Permanent link"></a></h3>
 <p><code>ASIC = Application-Specific Integrated Circuit(特殊應用積體電路)</code>。</p>
 <p>這頁講的是：</p>
@@ -12155,12 +12185,12 @@ Cadence Innovus：Cadence Innovus 是一款由 Cadence Design Systems 推出的�
 <p>晶片完成 fabrication(製造)之後，內部硬體基本上就是固定的。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文</p>
-<p>fabrication<br/>
-fabrication：製造、製作<br/>
-└─ fabricate：製造、製作<br/>
+<p>fabrication<br />
+fabrication：製造、製作<br />
+└─ fabricate：製造、製作<br />
    └─ -ion：形成名詞，表示動作、過程或結果</p>
 </div>
-<hr/>
+<hr />
 <h3 id="5-fpga晶片已經先做好你再設定它">5. FPGA：晶片已經先做好，你再「設定」它<a class="headerlink" href="#5-fpga晶片已經先做好你再設定它" title="Permanent link"></a></h3>
 <p>FPGA 最大不同：</p>
 <blockquote>
@@ -12168,7 +12198,7 @@ fabrication：製造、製作<br/>
 </blockquote>
 <p>講義直接寫：</p>
 <blockquote>
-<p><code>FPGA (on pre-fabricated chip)</code><br/>
+<p><code>FPGA (on pre-fabricated chip)</code><br />
 <code>re-programmable</code></p>
 </blockquote>
 <p>而且適合：</p>
@@ -12187,7 +12217,7 @@ fabrication：製造、製作<br/>
 <blockquote>
 <p>寫好 HDL → 用 FPGA vendor 的 EDA tool compile → 燒到 FPGA board 上，就可以執行。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="6-asic-跟-fpga-最大差別">6. ASIC 跟 FPGA 最大差別<a class="headerlink" href="#6-asic-跟-fpga-最大差別" title="Permanent link"></a></h3>
 <p>可以先這樣記：</p>
 <table>
@@ -12222,7 +12252,7 @@ fabrication：製造、製作<br/>
 <p><strong>你不用像 ASIC 一樣自己完成晶片 physical layout 再送 foundry 製造。</strong></p>
 </blockquote>
 <p>目前先這樣理解即可，不延伸進 FPGA 內部 implementation 細節。</p>
-<hr/>
+<hr />
 <h3 id="7-三者最重要的-trade-off">7. 三者最重要的 trade-off<a class="headerlink" href="#7-三者最重要的-trade-off" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
@@ -12231,20 +12261,20 @@ fabrication：製造、製作<br/>
 <p>把它們想成三種「蓋房子」方式：</p>
 <p><strong>Full-custom：</strong></p>
 <blockquote>
-<p>每個零件都自己訂做。<br/>
+<p>每個零件都自己訂做。<br />
 自由度最高，但最慢、最麻煩。</p>
 </blockquote>
 <p><strong>Cell-based ASIC：</strong></p>
 <blockquote>
-<p>使用標準化零件，自動化組合。<br/>
+<p>使用標準化零件，自動化組合。<br />
 適合大型數位 IC。</p>
 </blockquote>
 <p><strong>FPGA：</strong></p>
 <blockquote>
-<p>房子本體已經蓋好了，你重新配置房間用途。<br/>
+<p>房子本體已經蓋好了，你重新配置房間用途。<br />
 最快、可重設，但不是完全自由地重新製造晶片。</p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="8-本課在哪裡">8. 本課在哪裡？<a class="headerlink" href="#8-本課在哪裡" title="Permanent link"></a></h3>
 <p>講義 page 15 把：</p>
 <blockquote>
@@ -12256,8 +12286,8 @@ fabrication：製造、製作<br/>
 </blockquote>
 <p>所以這一頁真正要你建立的是：</p>
 <blockquote>
-<p><strong>Full-custom：手刻</strong><br/>
-<strong>ASIC：HDL → synthesis → P&amp;R → 做成晶片</strong><br/>
+<p><strong>Full-custom：手刻</strong><br />
+<strong>ASIC：HDL → synthesis → P&amp;R → 做成晶片</strong><br />
 <strong>FPGA：HDL → 配置到現成可程式化晶片</strong></p>
 </blockquote>
 <h3 id="9-open-ended-questions開放式練習_2">9. Open-ended Questions(開放式練習)<a class="headerlink" href="#9-open-ended-questions開放式練習_2" title="Permanent link"></a></h3>
@@ -12269,17 +12299,17 @@ fabrication：製造、製作<br/>
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 15]</p>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
-<p>appropriate：適當的、合適的<br/>
-└─ 歷史來源 Latin appropriare：使成為自己的、使適合<br/>
-   ├─ ad-：朝向<br/>
-   └─ propri-：自己的、特有的<br/>
+<p>appropriate：適當的、合適的<br />
+└─ 歷史來源 Latin appropriare：使成為自己的、使適合<br />
+   ├─ ad-：朝向<br />
+   └─ propri-：自己的、特有的<br />
       └─ -ate：形成動詞／形容詞形式</p>
-<p>in terms of：就……而言、在……方面<br/>
-├─ in：在……之中／以……方式<br/>
-├─ terms：表達或衡量某事的面向、方式<br/>
+<p>in terms of：就……而言、在……方面<br />
+├─ in：在……之中／以……方式<br />
+├─ terms：表達或衡量某事的面向、方式<br />
 └─ of：關於、屬於</p>
-<p>suitable：合適的、適合的<br/>
-└─ suit：適合、符合需要<br/>
+<p>suitable：合適的、適合的<br />
+└─ suit：適合、符合需要<br />
    └─ -able：能夠……的、適合……的</p>
 <p>design entry(設計起點／設計輸入)</p>
 </div>
@@ -12287,7 +12317,7 @@ fabrication：製造、製作<br/>
 <p>A team needs to test a new digital design quickly and expects to modify the hardware implementation many times. Why might an FPGA be more suitable than manufacturing an ASIC at this stage?</p>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
-<p>implementation：實作 <br/>
+<p>implementation：實作 <br />
 expects：預期</p>
 </div>
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 15]</p>
@@ -12296,10 +12326,10 @@ expects：預期</p>
 <li>每題簡短回答＋理由即可</li>
 </ol>
 <p>cell-based ASIC</p>
-<p>–</p>
-<p>full-custom 從 layout 開始設計<br/>
+<p>&ndash;</p>
+<p>full-custom 從 layout 開始設計<br />
 asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適合大電路</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>FPGA 比較適合，因為他晶片是做好的，只要輸入電路就好，適合一直修改。</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page15; KP=IC Design Flows; Boundary=page15 verified，page16為Design on Different Levels分隔頁; Parent=Overview; Source=Lecture+Teacher Transcript+PastExamInventory; SourceInventory=主線講義+第1堂逐字稿+考古題HTML已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=lines200–227附近; Align=HIGH; Coverage=page15主要訊號已整合; Signals=Explanation+Scope; Scope=本課主要cell-based與FPGA，full-custom為高階介紹; Correction=NONE; Conflict=NONE; Residual=無高優先殘留}; AdjQueue=page15批改→page16分隔頁核對→pages17–18 Typical Cell-Based Design Flow; ExerciseDebt=0（page15三題已輸出並收到作答）; LectureAdjDebt=0 for page15; TeacherTranscriptDebt=0 for page15; PastExamDebt=目前未見直接IC-design-flow題; Weakness=Q9.1理由略省略但Q9.2/Q9.3顯示核心概念穩定; Coverage=page15 lecture+transcript+3 answers; Completion=PARTIAL待本則批改; Evidence=講義page15+逐字稿+Q9.1–Q9.3答案; Blockers=NONE apparent; NextLegal=page16 divider後pages17–18} | PLAN={ThisResponse=批改page15；達最低標準後核對page16分隔頁並正式進入pages17–18 Typical Cell-Based Design Flow；Natural Boundary=pages17–18，page19切換Hardware vs Software；Transcript Align=HIGH，整合RTL→gate→physical→fabrication/package；出3題; ExpectedDebtChange=page15完成，pages17–18 ExerciseDebt同則清償; ExpectedNext=批改pages17–18後進page19}
@@ -12339,7 +12369,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </blockquote>
 <p>Q2：</p>
 <blockquote>
-<p><code>Full-custom Design(全客製化設計)</code> 從 circuit schematic 與 transistor W/L、layout 等低階細節開始，主要適合小型且需要高度最佳化的電路或 analog circuits。<br/>
+<p><code>Full-custom Design(全客製化設計)</code> 從 circuit schematic 與 transistor W/L、layout 等低階細節開始，主要適合小型且需要高度最佳化的電路或 analog circuits。<br />
 <code>Cell-based ASIC Design</code> 則從 Verilog/VHDL 開始，主要適合大型數位系統。</p>
 </blockquote>
 <p>Q3：</p>
@@ -12375,7 +12405,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 <p><code>RTL --Synthesis--&gt; Gate</code></p>
 </blockquote>
 <p>完全正確。</p>
-<hr/>
+<hr />
 <h3 id="2-rtl-到底是什麼">2. <code>RTL</code> 到底是什麼？<a class="headerlink" href="#2-rtl-到底是什麼" title="Permanent link"></a></h3>
 <p>在這堂課裡，你主要會寫：</p>
 <ul>
@@ -12389,13 +12419,13 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </blockquote>
 <p>還不是在手動畫每一顆 transistor。</p>
 <p>老師也再次說，這門課主要就是 RTL level，而 RTL 經過 Design Compiler 後會變成 gate-level code。</p>
-<hr/>
+<hr />
 <h3 id="3-synthesis-做什麼">3. <code>Synthesis</code> 做什麼？<a class="headerlink" href="#3-synthesis-做什麼" title="Permanent link"></a></h3>
 <p>你剛剛問過這個，「Synthesis 是動作嗎？」答案就是 <strong>是</strong>。</p>
 <p>可以記成：</p>
 <blockquote>
-<p><strong>Input：RTL code</strong><br/>
-<strong>動作：Synthesis</strong><br/>
+<p><strong>Input：RTL code</strong><br />
+<strong>動作：Synthesis</strong><br />
 <strong>Output：Gate-level netlist：邏輯閘</strong></p>
 </blockquote>
 <p>例如：：實體佈局設計</p>
@@ -12407,7 +12437,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 <blockquote>
 <p><code>RTL --Synthesis--&gt; Gate-level netlist：邏輯閘</code></p>
 </blockquote>
-<p>—：實體佈局設計</p>
+<p>&mdash;：實體佈局設計</p>
 <h3 id="4-page-18gate-有了還要決定放哪裡線怎麼走">4. Page 18：Gate 有了，還要決定「放哪裡、線怎麼走」<a class="headerlink" href="#4-page-18gate-有了還要決定放哪裡線怎麼走" title="Permanent link"></a></h3>
 <p>Page 18 接著講：</p>
 <blockquote>
@@ -12433,11 +12463,11 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </blockquote>
 <p>但它還沒有完整回答：</p>
 <blockquote>
-<p>這顆 cell 在晶片左上還是右下？<br/>
+<p>這顆 cell 在晶片左上還是右下？<br />
 實際 metal wire 怎麼繞？</p>
 </blockquote>
 <p>這些是 P&amp;R 要處理的。</p>
-<hr/>
+<hr />
 <h3 id="5-placement-和-routing-分別是什麼">5. <code>Placement</code> 和 <code>Routing</code> 分別是什麼？<a class="headerlink" href="#5-placement-和-routing-分別是什麼" title="Permanent link"></a></h3>
 <p><code>Placement(擺放)</code>：</p>
 <blockquote>
@@ -12449,7 +12479,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </blockquote>
 <p>所以：</p>
 <blockquote>
-<p><strong>Placement = 元件放哪裡</strong><br/>
+<p><strong>Placement = 元件放哪裡</strong><br />
 <strong>Routing = 線怎麼走</strong></p>
 </blockquote>
 <p>最後得到：</p>
@@ -12457,7 +12487,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 <p><code>Physical layout(實體佈局)</code></p>
 </blockquote>
 <p>老師也把 physical layout 類比成晶片的 blueprint(藍圖)。</p>
-<hr/>
+<hr />
 <h3 id="6-有-layout-還不是實體晶片">6. 有 Layout 還不是實體晶片<a class="headerlink" href="#6-有-layout-還不是實體晶片" title="Permanent link"></a></h3>
 <p>這裡很容易混：</p>
 <blockquote>
@@ -12474,7 +12504,7 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 <p>台積電 TSMC</p>
 </blockquote>
 <p>老師也說，把 layout 送給 fabrication factory，例如 TSMC，工廠才會真的把它製造成 chip。</p>
-<hr/>
+<hr />
 <h3 id="7-chip-做出來之後還有-packaging">7. Chip 做出來之後還有 <code>Packaging</code><a class="headerlink" href="#7-chip-做出來之後還有-packaging" title="Permanent link"></a></h3>
 <p>裸晶片做出來後，還需要：</p>
 <blockquote>
@@ -12489,18 +12519,18 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 <p class="admonition-title">重要</p>
 <p>所以完整的 high-level flow 可以串成：</p>
 <blockquote>
-<p><strong>RTL</strong><br/>
-→ <code>Synthesis</code><br/>
-→ <strong>Gate-level netlist：邏輯閘</strong><br/>
-→ <code>P&amp;R</code><br/>
-→ <strong>Physical layout</strong>：實體佈局設計<br/>
-→ <code>Fabrication</code><br/>
-→ <strong>Chip</strong><br/>
-→ <code>Packaging</code><br/>
+<p><strong>RTL</strong><br />
+→ <code>Synthesis</code><br />
+→ <strong>Gate-level netlist：邏輯閘</strong><br />
+→ <code>P&amp;R</code><br />
+→ <strong>Physical layout</strong>：實體佈局設計<br />
+→ <code>Fabrication</code><br />
+→ <strong>Chip</strong><br />
+→ <code>Packaging</code><br />
 → <strong>Packaged chip</strong></p>
 </blockquote>
 </div>
-<hr/>
+<hr />
 <h3 id="8-哪些是設計狀態哪些是動作">8. 哪些是「設計狀態」，哪些是「動作」？<a class="headerlink" href="#8-哪些是設計狀態哪些是動作" title="Permanent link"></a></h3>
 <p>這個你前面已經抓到重點了：</p>
 <table>
@@ -12551,13 +12581,13 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </table>
 <p>最值得背的是：</p>
 <blockquote>
-<p><strong>RTL –Synthesis→ Gate –P&amp;R→ Physical –Fabrication→ Chip</strong></p>
+<p><strong>RTL &ndash;Synthesis→ Gate &ndash;P&amp;R→ Physical &ndash;Fabrication→ Chip</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="9-front-end--back-end-對回來">9. Front-end / Back-end 對回來<a class="headerlink" href="#9-front-end--back-end-對回來" title="Permanent link"></a></h3>
 <p>老師前面已經用這堂課的 high-level 語境區分：</p>
 <blockquote>
-<p><code>RTL → Gate</code>：front-end<br/>
+<p><code>RTL → Gate</code>：front-end<br />
 <code>Gate → Physical</code>：back-end</p>
 </blockquote>
 <p>尤其 back-end 主要對應 P&amp;R。</p>
@@ -12568,8 +12598,8 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </blockquote>
 <h3 id="10-open-ended-questions開放式練習_1">10. Open-ended Questions(開放式練習)<a class="headerlink" href="#10-open-ended-questions開放式練習_1" title="Permanent link"></a></h3>
 <h4 id="101-question-1_1">10.1 Question 1<a class="headerlink" href="#101-question-1_1" title="Permanent link"></a></h4>
-<p>A digital design is currently described in RTL Verilog. What process converts it into a gate-level netlist：邏輯閘, and what type of information does the resulting netlist：邏輯閘 mainly describe?<br/>
-：實體佈局設計<br/>
+<p>A digital design is currently described in RTL Verilog. What process converts it into a gate-level netlist：邏輯閘, and what type of information does the resulting netlist：邏輯閘 mainly describe?<br />
+：實體佈局設計<br />
 [Generated: 依據講義_ch00：實體佈局設計_introduction.pdf／PDF viewer page 17]</p>
 <h4 id="102-question-2_1">10.2 Question 2<a class="headerlink" href="#102-question-2_1" title="Permanent link"></a></h4>
 <p>A gate-level netlist：邏輯閘 already specifies the cells and their logical connections. What additional work is performed during pla：實體佈局設計cement and routing, and what is the main output of this process?</p>
@@ -12583,22 +12613,22 @@ asic 從 rtl 開始設計，前者適合小電路追求極致效能，後者適�
 </code></pre></div>
 <p>現代英文學習上，直接以 <strong>specify</strong> 為核心最可靠。</p>
 <p>它與你在工程中很常看到的：</p>
-<p><strong>specific</strong> → 明確的、特定的<br/>
-<strong>specification</strong> → 規格、規格說明<br/>
-<strong>spec / specs</strong> → 規格<br/>
+<p><strong>specific</strong> → 明確的、特定的<br />
+<strong>specification</strong> → 規格、規格說明<br />
+<strong>spec / specs</strong> → 規格<br />
 <strong>specify</strong> → 指定、明確說明</p>
 <h3 id="connections">connections<a class="headerlink" href="#connections" title="Permanent link"></a></h3>
-<p>connections：連接、連接關係<br/>
-└─ connection：連接、關聯<br/>
-   └─ connect：連接<br/>
-      └─ -ion：形成名詞，表示動作、狀態或結果<br/>
+<p>connections：連接、連接關係<br />
+└─ connection：連接、關聯<br />
+   └─ connect：連接<br />
+      └─ -ion：形成名詞，表示動作、狀態或結果<br />
          └─ -s：複數</p>
 <p>最實用的是直接記這條：</p>
-<p>connect → 動詞：連接<br/>
-connection → 名詞：連接<br/>
+<p>connect → 動詞：連接<br />
+connection → 名詞：連接<br />
 connections → 複數：多個連接</p>
 <p>例如：</p>
-<p>Connect A to B.<br/>
+<p>Connect A to B.<br />
 → 把 A 接到 B。</p>
 </div>
 <h4 id="103-question-3">10.3 Question 3<a class="headerlink" href="#103-question-3" title="Permanent link"></a></h4>
@@ -12609,15 +12639,15 @@ connections → 複數：多個連接</p>
 <li>每題簡短回答＋理由即可</li>
 </ol>
 <p>合成，主要描述邏輯閘如何接。</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>在繞線佈局的期間會決定位置和如何拉線，繞線佈局完之後會形成 physical layout</p>
-<p>–</p>
-<p>RTL<br/>
-synthesis<br/>
-gate-level netlist：邏輯閘<br/>
-P&amp;R<br/>
-physical layout：實體佈局設計<br/>
-fabrication<br/>
+<p>&ndash;</p>
+<p>RTL<br />
+synthesis<br />
+gate-level netlist：邏輯閘<br />
+P&amp;R<br />
+physical layout：實體佈局設計<br />
+fabrication<br />
 chip</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer pages17–18; KP=Typical Cell-Based Design Flow; Boundary=pages17–18 verified，page19切換Hardware vs. Software; Parent=Design on Different Levels; Source=Lecture+Teacher Transcript+PastExamInventory; SourceInventory=主線講義+第1堂逐字稿+考古題HTML已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=對應RTL→gate→physical→fabrication之區段; Align=HIGH; Coverage=主要流程已整合; Signals=Explanation+Scope; Scope=high-level introduction; Correction=NONE; Conflict=NONE; Residual=無高優先殘留}; AdjQueue=pages17–18批改→page19 Hardware vs. Software; ExerciseDebt=0（3題已輸出且本輪收到答案）; LectureAdjDebt=0; TeacherTranscriptDebt=0 for pages17–18; PastExamDebt=目前未見此流程直接題; Weakness=NONE apparent; Coverage=pages17–18 lecture+transcript+3 answers; Completion=PARTIAL待本則批改; Evidence=講義pages17–18+逐字稿+Q10.1–Q10.3答案; Blockers=NONE apparent; NextLegal=page19 Hardware vs. Software} | PLAN={ThisResponse=批改pages17–18；若通過則正式進入page19 Hardware vs. Software；Boundary=page19，page20切換HDL；Teacher Scope=本頁老師僅快速比較、不深入；重點為abstraction hierarchy、compiler vs synthesizer、CPU execution vs chip implementation，以及Always think hardware architecture；出3題; ExpectedDebtChange=pages17–18完成，page19 ExerciseDebt同則清償; ExpectedNext=批改page19後進page20}
@@ -12653,8 +12683,8 @@ chip</p>
 <h4 id="2-中文修正版_3">2. 中文修正版<a class="headerlink" href="#2-中文修正版_3" title="Permanent link"></a></h4>
 <p>你第三題可以整理成這個非常值得背的版本：</p>
 <blockquote>
-<p><code>RTL --Synthesis→ Gate-level netlist：邏輯閘 --P&amp;R→ Physical layout --Fabrication→ Chip</code><br/>
-：實體佈局設計<br/>
+<p><code>RTL --Synthesis→ Gate-level netlist：邏輯閘 --P&amp;R→ Physical layout --Fabrication→ Chip</code><br />
+：實體佈局設計<br />
 其中：</p>
 </blockquote>
 <ul>
@@ -12676,7 +12706,7 @@ chip</p>
 <h3 id="1-這一頁真正想告訴你什麼">1. 這一頁真正想告訴你什麼？<a class="headerlink" href="#1-這一頁真正想告訴你什麼" title="Permanent link"></a></h3>
 <p>Page 19 表面上是一張 Software 與 Hardware 的比較表，但最重要的是最下面紅字：</p>
 <blockquote>
-<p><strong>Always think of hardware architecture when writing HDL codes!!!</strong><br/>
+<p><strong>Always think of hardware architecture when writing HDL codes!!!</strong><br />
 <strong>Better to have an architecture diagram before coding.</strong></p>
 </blockquote>
 <p>也就是：</p>
@@ -12684,24 +12714,24 @@ chip</p>
 <p><strong>寫 HDL 時，你不是單純在「寫一串指令」，而是在描述一個硬體架構。</strong></p>
 </blockquote>
 <p>這是整堂 HDL 很重要的 mental model(心智模型)。</p>
-<hr/>
+<hr />
 <h3 id="2-software-和-hardware-都有不同-abstraction-level抽象層級">2. Software 和 Hardware 都有不同 Abstraction Level(抽象層級)<a class="headerlink" href="#2-software-和-hardware-都有不同-abstraction-level抽象層級" title="Permanent link"></a></h3>
 <p>講義把兩邊放在一起比較。</p>
 <p>Software 大致是：</p>
 <blockquote>
-<p>Application program<br/>
-→ flow chart<br/>
-→ C<br/>
-→ assembly<br/>
+<p>Application program<br />
+→ flow chart<br />
+→ C<br />
+→ assembly<br />
 → binary machine code</p>
 </blockquote>
 <p>Hardware 大致是：</p>
 <blockquote>
-<p>Digital system design<br/>
-→ function block diagram<br/>
-→ Verilog<br/>
-→ logic<br/>
-→ circuit<br/>
+<p>Digital system design<br />
+→ function block diagram<br />
+→ Verilog<br />
+→ logic<br />
+→ circuit<br />
 → layout</p>
 </blockquote>
 <p>越往下：</p>
@@ -12713,11 +12743,11 @@ chip</p>
 <p>System → RTL → Gate → Physical</p>
 </blockquote>
 <p>其實是同一種「從抽象到具體」的觀念。</p>
-<hr/>
+<hr />
 <h3 id="3-c-和-verilog-最不能混在一起的地方">3. C 和 Verilog 最不能混在一起的地方<a class="headerlink" href="#3-c-和-verilog-最不能混在一起的地方" title="Permanent link"></a></h3>
 <p>講義直接放：</p>
 <blockquote>
-<p><code>C (sequential)</code><br/>
+<p><code>C (sequential)</code><br />
 <code>Verilog (parallel)</code></p>
 </blockquote>
 <p>這裡目前先建立一個 high-level 印象：</p>
@@ -12735,11 +12765,11 @@ chip</p>
 </blockquote>
 <p><strong>這個 parallel(平行)的細節，講義 page 27 才會正式展開；目前不要提前把所有 Verilog 語法都套成同一規則。</strong></p>
 <p>老師後面也特別強調，hardware coding 與 software 最大的差異之一就是 parallel behavior，而且這在 homework 很容易造成 bug。 </p>
-<hr/>
+<hr />
 <h3 id="4-compiler-跟-logic-synthesizer-不一樣">4. Compiler 跟 Logic Synthesizer 不一樣<a class="headerlink" href="#4-compiler-跟-logic-synthesizer-不一樣" title="Permanent link"></a></h3>
 <p>Software 這邊：</p>
 <blockquote>
-<p>C –Compiler→ machine code</p>
+<p>C &ndash;Compiler→ machine code</p>
 </blockquote>
 <p>講義工具例子：</p>
 <blockquote>
@@ -12747,7 +12777,7 @@ chip</p>
 </blockquote>
 <p>Hardware 這邊：</p>
 <blockquote>
-<p>RTL/Verilog –Logic Synthesizer→ hardware implementation / gate-level design</p>
+<p>RTL/Verilog &ndash;Logic Synthesizer→ hardware implementation / gate-level design</p>
 </blockquote>
 <p>工具例子：</p>
 <blockquote>
@@ -12763,7 +12793,7 @@ chip</p>
 <p>把 HDL 描述轉成 <strong>實際要建出的硬體結構</strong>。</p>
 </blockquote>
 <p>這個差別非常重要。</p>
-<hr/>
+<hr />
 <h3 id="5-software-最後在哪裡執行">5. Software 最後「在哪裡執行」？<a class="headerlink" href="#5-software-最後在哪裡執行" title="Permanent link"></a></h3>
 <p>講義 Software 的 execution 寫：</p>
 <blockquote>
@@ -12778,7 +12808,7 @@ chip</p>
 <p>C code → compiler → machine code → CPU 執行</p>
 </blockquote>
 <p>CPU 本身早就存在。</p>
-<hr/>
+<hr />
 <h3 id="6-hardware-則是在做出硬體本身">6. Hardware 則是在「做出硬體本身」<a class="headerlink" href="#6-hardware-則是在做出硬體本身" title="Permanent link"></a></h3>
 <p>Hardware 這邊不是：</p>
 <blockquote>
@@ -12795,7 +12825,7 @@ chip</p>
 <p><strong>HDL：描述你想要的硬體，最後形成 ASIC 或配置進 FPGA。</strong></p>
 </blockquote>
 <p>這就是為什麼 HDL 雖然「看起來像程式語言」，思考方式卻不能完全照 C。</p>
-<hr/>
+<hr />
 <h3 id="7-為什麼寫-hdl-前最好畫-architecture-diagram">7. 為什麼寫 HDL 前最好畫 Architecture Diagram？<a class="headerlink" href="#7-為什麼寫-hdl-前最好畫-architecture-diagram" title="Permanent link"></a></h3>
 <p>假設你想做：</p>
 <blockquote>
@@ -12807,9 +12837,9 @@ chip</p>
 </blockquote>
 <p>但寫 HDL 時更重要的是先想：</p>
 <blockquote>
-<p>我要幾個 adder？<br/>
-我要 multiplier 嗎？<br/>
-中間需要 register 嗎？<br/>
+<p>我要幾個 adder？<br />
+我要 multiplier 嗎？<br />
+中間需要 register 嗎？<br />
 資料從哪裡流到哪裡？</p>
 </blockquote>
 <p>例如先在腦中有：</p>
@@ -12823,7 +12853,7 @@ b ──┘            ↑
 <blockquote>
 <p><strong>Better to have an architecture diagram before coding.</strong> </p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="8-ppa-也會影響硬體怎麼被做出來">8. PPA 也會影響硬體怎麼被做出來<a class="headerlink" href="#8-ppa-也會影響硬體怎麼被做出來" title="Permanent link"></a></h3>
 <p>Page 19 在 Hardware tool 那列還提到 synthesizer 的 constraints：</p>
 <ul>
@@ -12842,7 +12872,7 @@ b ──┘            ↑
 <li><code>Area(面積)</code></li>
 </ul>
 <p>這也是硬體設計和一般 software programming 思考方式很不一樣的地方。</p>
-<hr/>
+<hr />
 <h3 id="9-最短記法">9. 最短記法<a class="headerlink" href="#9-最短記法" title="Permanent link"></a></h3>
 <p>這頁最值得記四句：</p>
 <blockquote>
@@ -12858,13 +12888,13 @@ b ──┘            ↑
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 19]</p>
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
-<p>conceptual<br/>
-conceptual：概念上的、概念性的<br/>
-└─ concept：概念、想法<br/>
+<p>conceptual<br />
+conceptual：概念上的、概念性的<br />
+└─ concept：概念、想法<br />
    └─ -ual：形成形容詞，表示「與……有關的」</p>
-<p>ultimately<br/>
-ultimately：最終、終究<br/>
-└─ ultimate：最終的、最後的<br/>
+<p>ultimately<br />
+ultimately：最終、終究<br />
+└─ ultimate：最終的、最後的<br />
    └─ -ly：形成副詞，表示「以……方式／在……意義上」</p>
 </div>
 <h4 id="102-question-2_2">10.2 Question 2<a class="headerlink" href="#102-question-2_2" title="Permanent link"></a></h4>
@@ -12877,8 +12907,8 @@ ultimately：最終、終究<br/>
 <div class="admonition danger">
 <p class="admonition-title">英文單字</p>
 <p>mental model</p>
-<p>最常用譯義：心智模型<br/>
-簡短定義：你在腦中建立的一套「某個東西是怎麼運作的」簡化理解。<br/>
+<p>最常用譯義：心智模型<br />
+簡短定義：你在腦中建立的一套「某個東西是怎麼運作的」簡化理解。<br />
 使用時機：當你學習硬體、軟體、數學或其他複雜概念時，大腦通常不會記住所有細節，而會建立一個簡化的內部模型，幫助你理解、預測與推理。例如學習 combinational 與 sequential logic 時，你可以建立「combinational 不記狀態；sequential 會保存狀態」的 mental model。Cognitive science（認知科學）本身就關注人如何在心中表示事實與可能性；HCI / UX 領域也常用 mental model 描述使用者對系統運作方式的內在理解。</p>
 </div>
 <ol>
@@ -12886,9 +12916,9 @@ ultimately：最終、終究<br/>
 <li>每題簡短回答＋理由即可</li>
 </ol>
 <p>前者是編譯成多個指令，後者是合成邏輯閘。</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為電路可以看成很多個模組，如果畫好電路架構可以更清楚的實作</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>錯，HDl有些部分是平行的，不能單純像是C一樣看成循序的指令</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page19; KP=Hardware vs. Software; Boundary=page19 verified，page20切換Hardware Description Language; Parent=Overview; Source=Lecture+Teacher Transcript+PastExamInventory; SourceInventory=主線講義+第1堂逐字稿+考古題HTML已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=lines215–259附近; Align=HIGH; Coverage=page19老師明確因時間僅快速帶過，page20起進入HDL/Verilog/VHDL; Signals=Explanation+Scope; Scope=page19不深入，page20為概觀; Correction=NONE; Conflict=NONE; Residual=目前無高優先殘留}; AdjQueue=page19批改→page20 Hardware Description Language; ExerciseDebt=0（page19三題已實際輸出並收到作答）; LectureAdjDebt=0; TeacherTranscriptDebt=0 for page19; PastExamDebt=目前索引未見page19直接題; Weakness=NONE; Coverage=page19 lecture+transcript+3 answers; Completion=PARTIAL待本則批改; Evidence=page19講義+逐字稿+Q10.1–Q10.3作答; Blockers=NONE; NextLegal=PDF viewer page20 Hardware Description Language} | PLAN={ThisResponse=批改page19三題；答案若通過則正式進入page20；Boundary=page20，page21已切換Quick History of HDLs；整合逐字稿對Verilog/VHDL用途與地域差異之說明；講清HDL由simulation發展到synthesizable design、higher abstraction、RTL simulation、logic synthesis、Verilog/VHDL標準；出2題; ExpectedDebtChange=page19完成，page20 ExerciseDebt同則產生並清償; ExpectedNext=批改page20後進page21}
@@ -12955,11 +12985,11 @@ ultimately：最終、終究<br/>
 </blockquote>
 <p>所以：</p>
 <p><strong>HDL ≠ 一開始就是 synthesis language(合成語言)。</strong></p>
-<hr/>
+<hr />
 <h3 id="2-後來才出現-synthesizable-hdl">2. 後來才出現 synthesizable HDL<a class="headerlink" href="#2-後來才出現-synthesizable-hdl" title="Permanent link"></a></h3>
 <p>講義接著寫：</p>
 <blockquote>
-<p>later for design<br/>
+<p>later for design<br />
 only synthesizable subset of HDL</p>
 </blockquote>
 <p>這句非常重要。</p>
@@ -12977,7 +13007,7 @@ only synthesizable subset of HDL</p>
 <li><code>Non-synthesizable(不可合成)</code>：可用於模擬，但不能直接實現成硬體。</li>
 </ul>
 <p>這個差別後面學 Verilog 時會一直遇到。</p>
-<hr/>
+<hr />
 <h3 id="3-為什麼-hdl-很有用因為不用從-transistor-開始畫">3. 為什麼 HDL 很有用？因為不用從 transistor 開始畫<a class="headerlink" href="#3-為什麼-hdl-很有用因為不用從-transistor-開始畫" title="Permanent link"></a></h3>
 <p>講義說 HDL：</p>
 <blockquote>
@@ -12991,11 +13021,11 @@ only synthesizable subset of HDL</p>
 <p>「我要這顆電路做什麼？」</p>
 </blockquote>
 <p>之後再交給 synthesis tool(合成工具)把高階描述往下轉。</p>
-<hr/>
+<hr />
 <h3 id="4-可以很早做-functional-verification功能驗證">4. 可以很早做 Functional Verification(功能驗證)<a class="headerlink" href="#4-可以很早做-functional-verification功能驗證" title="Permanent link"></a></h3>
 <p>講義寫：</p>
 <blockquote>
-<p>functional verification can be done early in the design cycle<br/>
+<p>functional verification can be done early in the design cycle<br />
 <code>(RTL simulation)</code></p>
 </blockquote>
 <p>也就是晶片甚至還沒：</p>
@@ -13013,7 +13043,7 @@ only synthesizable subset of HDL</p>
 <p>這個設計的邏輯功能是不是我想要的？</p>
 </blockquote>
 <p>這樣如果設計錯誤，可以很早發現。</p>
-<hr/>
+<hr />
 <h3 id="5-hdl-怎麼真的變成-gate-level">5. HDL 怎麼真的變成 Gate Level？<a class="headerlink" href="#5-hdl-怎麼真的變成-gate-level" title="Permanent link"></a></h3>
 <p>講義直接寫：</p>
 <blockquote>
@@ -13034,7 +13064,7 @@ only synthesizable subset of HDL</p>
 <li><code>Synthesis</code>：在<strong>產生硬體結構</strong>。</li>
 </ul>
 <p>兩個不是同一件事。</p>
-<hr/>
+<hr />
 <h3 id="6-verilog-與-vhdl">6. Verilog 與 VHDL<a class="headerlink" href="#6-verilog-與-vhdl" title="Permanent link"></a></h3>
 <p>這堂課主要會看到兩種 HDL：</p>
 <ul>
@@ -13053,7 +13083,7 @@ only synthesizable subset of HDL</p>
 <li>因此課程兩種都介紹。</li>
 </ul>
 <p>老師另外提到 SystemVerilog，但說本課主要仍以 Verilog 為核心；這是 <code>Teacher-only Oral Supplement(老師口頭補充)</code>，不是 page 20 投影片原文。</p>
-<hr/>
+<hr />
 <h3 id="7-一個最重要的流程區分">7. 一個最重要的流程區分<a class="headerlink" href="#7-一個最重要的流程區分" title="Permanent link"></a></h3>
 <p>現在你要很清楚這兩條：</p>
 <p><strong>只模擬：</strong></p>
@@ -13066,7 +13096,7 @@ only synthesizable subset of HDL</p>
 <p><strong>Synthesis 才會。</strong></p>
 </blockquote>
 <p>這是很常混的地方。</p>
-<hr/>
+<hr />
 <h3 id="8-最短記法_2">8. 最短記法<a class="headerlink" href="#8-最短記法_2" title="Permanent link"></a></h3>
 <p>Page 20 背這五句就夠：</p>
 <blockquote>
@@ -13133,8 +13163,8 @@ only synthesizable subset of HDL</p>
 <h4 id="3-中文修正版">3. 中文修正版<a class="headerlink" href="#3-中文修正版" title="Permanent link"></a></h4>
 <p>第一題：</p>
 <blockquote>
-<p><code>RTL simulation(RTL模擬)</code> 的目的是檢查 RTL 的功能是否正確，本身不會產生邏輯閘；<code>Logic synthesis(邏輯合成)</code> 則把可合成的 RTL 描述轉換成 <code>gate-level netlist：邏輯閘(閘級網表)</code>。<br/>
-：實體佈局設計<br/>
+<p><code>RTL simulation(RTL模擬)</code> 的目的是檢查 RTL 的功能是否正確，本身不會產生邏輯閘；<code>Logic synthesis(邏輯合成)</code> 則把可合成的 RTL 描述轉換成 <code>gate-level netlist：邏輯閘(閘級網表)</code>。<br />
+：實體佈局設計<br />
 第二題：</p>
 <p>HDL 只有其中的 <code>synthesizable subset(可合成子集)</code> 能用來實現硬體，因為這些程式碼可以經過 synthesis 映射成實際的邏輯電路。<code>Non-synthesizable code(不可合成程式碼)</code> 則通常只用於 simulation 或 testing，不能直接變成實體硬體。</p>
 </blockquote>
@@ -13160,7 +13190,7 @@ only synthesizable subset of HDL</p>
 <blockquote>
 <p><strong>Verilog 與 VHDL 都是標準化 HDL，都能做 simulation 與 synthesis；只是語言風格與歷史使用環境不同。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="2-hdl-是逐漸從只能模擬走向可以拿來設計">2. HDL 是逐漸從「只能模擬」走向「可以拿來設計」<a class="headerlink" href="#2-hdl-是逐漸從只能模擬走向可以拿來設計" title="Permanent link"></a></h3>
 <p>早期的 ISP 約在 1977 年，投影片特別寫：</p>
 <blockquote>
@@ -13174,7 +13204,7 @@ only synthesizable subset of HDL</p>
 <p><strong>後來：</strong></p>
 <p>Simulation + Synthesis</p>
 <p>這也是 HDL 從「描述電路行為」進一步變成「拿來設計硬體」的重要發展。</p>
-<hr/>
+<hr />
 <h3 id="3-verilog-的特性">3. Verilog 的特性<a class="headerlink" href="#3-verilog-的特性" title="Permanent link"></a></h3>
 <p>講義描述 Verilog：</p>
 <ul>
@@ -13195,7 +13225,7 @@ only synthesizable subset of HDL</p>
 <p><strong>像 C 的是 syntax(語法外觀)，不代表 execution model(執行模型) 也像 C。</strong></p>
 </blockquote>
 <p>HDL 描述的是硬體，不能因此把它想成普通 C 程式。</p>
-<hr/>
+<hr />
 <h3 id="4-vhdl-的特性">4. VHDL 的特性<a class="headerlink" href="#4-vhdl-的特性" title="Permanent link"></a></h3>
 <p>講義說 VHDL：</p>
 <ul>
@@ -13236,7 +13266,7 @@ only synthesizable subset of HDL</p>
 <p>「Verilog 不能設計大型系統。」</p>
 </blockquote>
 <p>講義不是這個意思；它只是在做兩種語言風格的相對比較。</p>
-<hr/>
+<hr />
 <h3 id="5-兩種語言都是-ieee-standard-hdl">5. 兩種語言都是 IEEE standard HDL<a class="headerlink" href="#5-兩種語言都是-ieee-standard-hdl" title="Permanent link"></a></h3>
 <p>講義 page 24 很明確：</p>
 <blockquote>
@@ -13256,7 +13286,7 @@ only synthesizable subset of HDL</p>
 <blockquote>
 <p><strong>兩者都可以作為數位硬體設計 HDL。</strong></p>
 </blockquote>
-<hr/>
+<hr />
 <h3 id="6-為什麼兩個都還存在legacy-code-與地域差異">6. 為什麼兩個都還存在？Legacy code 與地域差異<a class="headerlink" href="#6-為什麼兩個都還存在legacy-code-與地域差異" title="Permanent link"></a></h3>
 <p>講義 page 25 給的使用分布是：</p>
 <ul>
@@ -13285,7 +13315,7 @@ only synthesizable subset of HDL</p>
 <p>IP block(Intellectual Property block，智慧財產模組) 可以先理解成：</p>
 <p>別人已經設計好、驗證好的硬體功能模組，你可以直接拿來放進自己的晶片設計裡，不必從零開始寫。</p>
 </div>
-<hr/>
+<hr />
 <h3 id="7-一個-transcript-conflict逐字稿衝突-要特別記錄">7. 一個 Transcript Conflict(逐字稿衝突) 要特別記錄<a class="headerlink" href="#7-一個-transcript-conflict逐字稿衝突-要特別記錄" title="Permanent link"></a></h3>
 <p>這裡有一個小衝突。</p>
 <p>逐字稿中老師口頭說：</p>
@@ -13307,7 +13337,7 @@ only synthesizable subset of HDL</p>
 <p>「VHDL 一定比 Verilog 老。」</p>
 </blockquote>
 <p>在這份教材中，應依投影片的正式年代資料。</p>
-<hr/>
+<hr />
 <h3 id="8-最短記法_3">8. 最短記法<a class="headerlink" href="#8-最短記法_3" title="Permanent link"></a></h3>
 <p>這五句最值得記：</p>
 <blockquote>
@@ -13325,8 +13355,8 @@ only synthesizable subset of HDL</p>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
 <p>characteristic </p>
-<p>characteristic：特性、特徵；典型的<br/>
-├─ character：特徵、性質（此字族的核心）<br/>
+<p>characteristic：特性、特徵；典型的<br />
+├─ character：特徵、性質（此字族的核心）<br />
 └─ -istic：形成表示「具有……特徵」的形容詞／名詞形式</p>
 </div>
 <h4 id="92-question-2_4">9.2 Question 2<a class="headerlink" href="#92-question-2_4" title="Permanent link"></a></h4>
@@ -13337,7 +13367,7 @@ only synthesizable subset of HDL</p>
 <li>每題簡短回答＋理由即可。</li>
 </ol>
 <p>較模組化/較簡潔，因為已經寫好可重復用的程式可能是 VHDL，但是公司現在用 Verilog，然後可能也會因為不同國家而用不同語言</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為公司裡面可能存在寫好可重復用的程式可能是 VHDL，但是公司現在用 Verilog</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=YES（最新訊息含完整Prompt；僅重置提醒計數，學習State不重置） | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer pages21–25; KP=History and Comparison of Verilog and VHDL; Boundary=pages21–25已核對; Parent=Overview; Source=Lecture+Teacher Transcript; SourceInventory=主線講義+第1堂逐字稿+考古題來源已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=對應VHDL/Verilog比較與後續parallel coding; Align=HIGH; Coverage=pages21–25重要訊號已整合; Signals=Explanation; Scope=概觀; Correction=NONE; Conflict=NONE; Residual=目前無高優先殘留}; AdjQueue=pages21–25兩題待本輪批改→page26 divider→page27 Parallel Coding; ExerciseDebt=0（pages21–25題目已輸出）; LectureAdjDebt=0; TeacherTranscriptDebt=0; PastExamDebt=pages21–25目前未見直接考古題; Weakness=NONE; Coverage=pages21–25已教待作答驗證; Completion=PARTIAL; Evidence=講義pages24–25+前輪正式題已輸出; Blockers=待本輪批改; NextLegal=若全對則page26→page27} | PLAN={ThisResponse=批改兩題；若達最低標準，完成pages21–25並進入相鄰page26 divider與page27 Parallel Coding，教完後出正式題; ExpectedDebtChange=pages21–25完成、page27產生並同輪清償ExerciseDebt; ExpectedNext=等待page27題目作答}
@@ -13482,13 +13512,13 @@ only synthesizable subset of HDL</p>
 <p>If the two <code>assign</code> statements are exchanged in textual order, does the described hardware change? Explain your reasoning in terms of hardware structure rather than software execution order.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文</p>
-<p>exchanged <br/>
-exchanged：交換了、被交換的<br/>
-└─ exchange：交換、互換<br/>
+<p>exchanged <br />
+exchanged：交換了、被交換的<br />
+└─ exchange：交換、互換<br />
    └─ -ed：過去式／過去分詞</p>
-<p>rather than<br/>
-rather than：而不是、而非<br/>
-├─ rather：在此帶有「更傾向於前者」的概念<br/>
+<p>rather than<br />
+rather than：而不是、而非<br />
+├─ rather：在此帶有「更傾向於前者」的概念<br />
 └─ than：引出另一個被比較的選項</p>
 </div>
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 27]</p>
@@ -13505,9 +13535,9 @@ rather than：而不是、而非<br/>
 <p>Explain why the statement order can change the value computed for <code>y</code> in software, and contrast this with the concurrent Verilog <code>assign</code> statements discussed above.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 英文</p>
-<p>contrast<br/>
-contrast：對比、差異；形成對比<br/>
-└─ contrast：現代英文中不宜再可靠拆解<br/>
+<p>contrast<br />
+contrast：對比、差異；形成對比<br />
+└─ contrast：現代英文中不宜再可靠拆解<br />
    └─ 歷史核心：彼此相對、站在另一邊</p>
 </div>
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 27]</p>
@@ -13516,7 +13546,7 @@ contrast：對比、差異；形成對比<br/>
 <li>請說明理由，不只回答「會／不會」。</li>
 </ol>
 <p>不會，因為他們在硬體上是平行的，這兩個指令是描述硬體不是循序的指令。</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為這指令是循序的，並非描述電路，不是平行的。和 assign 不一樣</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=YES（最新訊息含完整Prompt且同時包含page27作答；僅重置提醒計數，不重置學習State） | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page27; KP=Parallel Coding in Hardware Coding; Boundary=page27已核對且page28切換至Simulation; Parent=Different Modeling Techniques; Source=Lecture+Teacher Transcript; SourceInventory=主線講義+第1堂逐字稿+考古題來源已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=parallel coding與simulation相關區段; Align=HIGH; Coverage=page27重要Explanation+Homework Signal已整合; Signals=Explanation+Homework Emphasis; Scope=後續coding style再細教; Correction=NONE; Conflict=NONE; Residual=page27目前無高優先殘留}; AdjQueue=page27待本輪批改→page28 Simulation→page29 divider; ExerciseDebt=0（page27正式題已輸出）; LectureAdjDebt=0; TeacherTranscriptDebt=0; PastExamDebt=page27目前未見直接考古題; Weakness=NONE; Coverage=page27已教待作答驗證; Completion=PARTIAL; Evidence=講義page27+逐字稿對齊+正式題7.1~7.2已輸出; Blockers=待本輪批改; NextLegal=若通過則page28} | PLAN={ThisResponse=批改page27兩題；若達最低標準則完成page27並正式教page28 Simulation，整合synthesizable design block與non-synthesizable stimulus/testbench，最後出題; ExpectedDebtChange=page27完成，page28 ExerciseDebt同輪產生並清償; ExpectedNext=等待page28題目作答}
@@ -13597,7 +13627,7 @@ contrast：對比、差異；形成對比<br/>
 <p>這是真正電路功能，所以最後應該能透過 synthesis(合成)變成硬體。</p>
 <p>但 testbench 可能會做：</p>
 <div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
-<span class="nb">$display</span><span class="p">(</span><span class="s">"sum = %d"</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
+<span class="nb">$display</span><span class="p">(</span><span class="s">&quot;sum = %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
 </code></pre></div>
 <p><code>#10</code> 代表模擬時等待，<code>$display</code> 代表在模擬器裡印東西。</p>
 <p>這些東西是拿來<strong>測試</strong>的，不代表晶片裡真的有「等待 10 ns 的指令」或「螢幕列印器」。</p>
@@ -13634,7 +13664,7 @@ contrast：對比、差異；形成對比<br/>
 <span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
 <span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
 <span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
-<span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">"y = %b"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;y = %b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
 <span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
@@ -13681,7 +13711,7 @@ contrast：對比、差異；形成對比<br/>
 </code></pre></div>
 <p>and</p>
 <div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
-<span class="nb">$display</span><span class="p">(</span><span class="s">"y = %b"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="nb">$display</span><span class="p">(</span><span class="s">&quot;y = %b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
 </code></pre></div>
 <p>Which part must be synthesizable, and which part may be non-synthesizable? Explain why.</p>
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 28]</p>
@@ -13778,8 +13808,8 @@ contrast：對比、差異；形成對比<br/>
 <p>講義稱它為 <code>post-synthesis simulation(合成後模擬)</code>。</p>
 <h3 id="4-第三階段asic-的-pr">4. 第三階段：ASIC 的 P&amp;R<a class="headerlink" href="#4-第三階段asic-的-pr" title="Permanent link"></a></h3>
 <p>如果走 <code>ASIC</code>：</p>
-<p><code>Gate-level netlist：邏輯閘 → Place and Route(P&amp;R) → Physical layout</code><br/>
-：實體佈局設計<br/>
+<p><code>Gate-level netlist：邏輯閘 → Place and Route(P&amp;R) → Physical layout</code><br />
+：實體佈局設計<br />
 其中：</p>
 <ul>
 <li><code>Place(擺放)</code>：決定 standard cells 放在哪裡</li>
@@ -13793,10 +13823,10 @@ contrast：對比、差異；形成對比<br/>
 <h3 id="5-所以為什麼要測不只一次">5. 所以為什麼要測不只一次？<a class="headerlink" href="#5-所以為什麼要測不只一次" title="Permanent link"></a></h3>
 <p>這是這頁最值得理解的地方。</p>
 <p>因為設計一直在被轉換：</p>
-<p><code>RTL</code><br/>
-↓ synthesis<br/>
-<code>Gate-level netlist：邏輯閘</code><br/>
-↓ P&amp;R<br/>
+<p><code>RTL</code><br />
+↓ synthesis<br />
+<code>Gate-level netlist：邏輯閘</code><br />
+↓ P&amp;R<br />
 <code>Layout</code>：實體佈局設計</p>
 <p>所以每轉換一次，都想確認：</p>
 <blockquote>
@@ -13850,17 +13880,17 @@ contrast：對比、差異；形成對比<br/>
 <li>Tapeout</li>
 <li>Logic synthesis</li>
 <li>Gate-level netlist：邏輯閘</li>
-<li>Physical layout<br/>
-：實體佈局設計<br/>
+<li>Physical layout<br />
+：實體佈局設計<br />
 [Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 30]</li>
 </ul>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
-<p>transformation<br/>
-transformation：轉變、轉換<br/>
-└─ transform：使轉變、轉換<br/>
-   ├─ trans-：跨越、從一邊到另一邊<br/>
-   └─ form：形式、形態<br/>
+<p>transformation<br />
+transformation：轉變、轉換<br />
+└─ transform：使轉變、轉換<br />
+   ├─ trans-：跨越、從一邊到另一邊<br />
+   └─ form：形式、形態<br />
       └─ -ation：形成名詞，表示動作、過程或結果</p>
 </div>
 <h4 id="82-question-2">8.2 Question 2<a class="headerlink" href="#82-question-2" title="Permanent link"></a></h4>
@@ -13873,19 +13903,19 @@ transformation：轉變、轉換<br/>
 <li>中文或英文作答皆可。</li>
 <li>第 1 題直接寫順序＋每一步作用即可。</li>
 </ol>
-<p>RTL coding：寫verilog<br/>
-Logic synthesis：轉換成邏輯閘<br/>
-Gate-level netlist：邏輯閘<br/>
-Place and Route：決定擺放和接線<br/>
-Physical layout：實體佈局設計<br/>
+<p>RTL coding：寫verilog<br />
+Logic synthesis：轉換成邏輯閘<br />
+Gate-level netlist：邏輯閘<br />
+Place and Route：決定擺放和接線<br />
+Physical layout：實體佈局設計<br />
 Tapeout：送去製造</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為每一次轉換可能都會讓功能出問題，所以需要再模擬驗證</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>前者需要設計好之後送去製造，後者是已經製造好的，所以不需要製造及佈局</p>
 <p>transformation </p>
-<p>–</p>
-<p>–</p>
+<p>&ndash;</p>
+<p>&ndash;</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=YES | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page30; KP=Typical Design Flow; Boundary=page30已核對; Parent=Design Flows and Logic Synthesis; Source=Lecture+Teacher Transcript; SourceInventory=主線講義+第1堂逐字稿+考古題來源已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=design flow與多階段verification區段; Align=HIGH; Coverage=已核對; Signals=Explanation; Scope=high-level; Correction=NONE; Conflict=NONE; Residual=無高優先殘留}; AdjQueue=page30答案待批改→page31~34; ExerciseDebt=0; LectureAdjDebt=0; TeacherTranscriptDebt=0; PastExamDebt=page30目前未找到直接對應; Weakness=NONE; Coverage=page30已教學且正式題已輸出; Completion=PARTIAL; Evidence=講義page30+逐字稿+正式Questions已輸出; Blockers=使用者答案待批改; NextLegal=批改後若通過則page31~34} | PLAN={ThisResponse=批改page30三題；若達最低標準則完成page30並依主線進入page31~34 RTL Logic Synthesis自然邊界、教學後出正式題; ExpectedDebtChange=page30完成，建立並同則清償page31~34 Exercise Debt; ExpectedNext=等待page31~34作答}
 </code></pre></div>
@@ -13920,22 +13950,22 @@ Tapeout：送去製造</p>
 <p>你的 Question 2 也符合老師實際授課：老師明確說 RTL、gate-level、layout level 都要做 simulation；若 verification 出錯，通常要回 RTL 找 bug 再重走流程。</p>
 <h4 id="2-中文修正版_8">2. 中文修正版<a class="headerlink" href="#2-中文修正版_8" title="Permanent link"></a></h4>
 <p><strong>Question 1</strong></p>
-<p><code>RTL coding(暫存器傳輸層撰寫)</code>：用 Verilog/VHDL 描述硬體。<br/>
-<code>Logic synthesis(邏輯合成)</code>：將 RTL 轉成 <code>gate-level netlist(閘級網表)</code>。<br/>
-<code>Gate-level netlist</code>：描述有哪些邏輯閘／standard cells，以及它們如何互相連接。<br/>
-<code>Place and Route(P&amp;R，擺放與繞線)</code>：決定元件實際放置位置及其連線。<br/>
-<code>Physical layout(實體佈局)</code>：完成晶片的實體幾何佈局。<br/>
+<p><code>RTL coding(暫存器傳輸層撰寫)</code>：用 Verilog/VHDL 描述硬體。<br />
+<code>Logic synthesis(邏輯合成)</code>：將 RTL 轉成 <code>gate-level netlist(閘級網表)</code>。<br />
+<code>Gate-level netlist</code>：描述有哪些邏輯閘／standard cells，以及它們如何互相連接。<br />
+<code>Place and Route(P&amp;R，擺放與繞線)</code>：決定元件實際放置位置及其連線。<br />
+<code>Physical layout(實體佈局)</code>：完成晶片的實體幾何佈局。<br />
 <code>Tapeout(下線)</code>：將完成的設計交給 foundry(晶圓代工廠)製造。</p>
 <p><strong>Question 2</strong></p>
 <p>不同設計階段加入的資訊不同，因此每一階段都必須重新驗證。例如 RTL simulation 主要確認功能，而 gate-level／post-layout simulation 還能檢查實作後的行為與 timing 是否符合要求。</p>
 <p><strong>Question 3</strong></p>
 <p>ASIC 必須完成 P&amp;R、physical layout，最後 tapeout 給 foundry 製造；FPGA 本身已經製造完成，因此不需要進行客製晶片的 tapeout 與 fabrication，而是將 HDL 設計 mapping／implementation 到 FPGA 既有資源上。</p>
 <h4 id="3-英文考試版_9">3. 英文考試版<a class="headerlink" href="#3-英文考試版_9" title="Permanent link"></a></h4>
-<p><strong>Question 1:</strong><br/>
+<p><strong>Question 1:</strong><br />
 RTL coding describes the hardware in Verilog or VHDL. Logic synthesis converts RTL into a gate-level netlist, which contains logic gates or cells and their interconnections. Place-and-route determines the physical locations and routing of the cells. The resulting physical layout is then taped out to a foundry for fabrication.</p>
-<p><strong>Question 2:</strong><br/>
+<p><strong>Question 2:</strong><br />
 Verification is performed at multiple stages because each implementation stage introduces additional design information. RTL simulation mainly verifies functionality, while gate-level and post-layout simulations can further verify the implemented design and its timing behavior.</p>
-<p><strong>Question 3:</strong><br/>
+<p><strong>Question 3:</strong><br />
 An ASIC requires physical implementation, tapeout, and fabrication by a foundry. An FPGA is already fabricated, so the HDL design is mapped and implemented onto the existing programmable resources instead of manufacturing a new chip.</p>
 <p>三題都達到最低通過標準，所以 page 30 可以完成；下一個相鄰主線是 page 31。</p>
 <h2 id="rtl-logic-synthesis--為什麼我們寫-rtl而不是自己一顆一顆接邏輯閘">⭐RTL Logic Synthesis — 為什麼我們寫 RTL，而不是自己一顆一顆接邏輯閘？<a class="headerlink" href="#rtl-logic-synthesis--為什麼我們寫-rtl而不是自己一顆一顆接邏輯閘" title="Permanent link"></a></h2>
@@ -14017,9 +14047,9 @@ An ASIC requires physical implementation, tapeout, and fabrication by a foundry.
 <p>[Generated: 依據講義_ch00_introduction.pdf／PDF viewer page 34]</p>
 <div class="admonition danger">
 <p class="admonition-title">英文</p>
-<p>emphasizes <br/>
-emphasizes：強調、著重<br/>
-└─ emphasize：強調、使突出<br/>
+<p>emphasizes <br />
+emphasizes：強調、著重<br />
+└─ emphasize：強調、使突出<br />
    └─ -s：第三人稱單數現在式</p>
 </div>
 <ol>
@@ -14028,9 +14058,9 @@ emphasizes：強調、著重<br/>
 <li>中文或英文短答</li>
 </ol>
 <p>因為寫出所有的gate太難了，所以用高層次抽象畫的 RTL 來寫比較快、簡單，低階的事情交給電腦就好。</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為功能驗證完了還會需要驗證 timing</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>可能會不一樣，因為高速可能就會大面積，小面積的話速度可能就會變慢。</p>
 <p>第 1 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=1 | PROMPT=v1.13.0 | REFRESH=ACCEPTED | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page31~34; KP=RTL Logic Synthesis; Boundary=page31~34已核對，page35切換ASIC vs. FPGA Design Flows; Parent=Design Flows and Logic Synthesis; Source=Lecture+Teacher Transcript; SourceInventory=主線講義+第1堂逐字稿+考古題來源已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=lines365~412附近; Align=HIGH; Coverage=RTL abstraction、synthesis、constraints已整合; Signals=Explanation; Scope=high-level; Correction=NONE; Conflict=NONE; Residual=目前無高優先殘留}; AdjQueue=page31~34批改→page35 ASIC vs. FPGA Design Flows→page36 RTL coding vs. synthesized results; ExerciseDebt=0（page31~34三題已輸出並收到作答）; LectureAdjDebt=0 for page31~34; TeacherTranscriptDebt=0 for page31~34; PastExamDebt=目前未建立直接債務; Weakness=NONE apparent; Coverage=page31~34 lecture+transcript+Q7.1~Q7.3答案; Completion=PARTIAL待本則批改; Evidence=講義page31~34+逐字稿+使用者三題答案; Blockers=NONE apparent; NextLegal=批改後若通過則page35} | PLAN={ThisResponse=批改page31~34；達最低標準後正式進入page35 ASIC vs. FPGA Design Flows；自然邊界=page35，page36切換coding對硬體結果；整合FPGA mapping與老師Scope；出3題; ExpectedDebtChange=page31~34完成，page35 Exercise Debt同則清償; ExpectedNext=等待page35作答}
@@ -14064,19 +14094,19 @@ emphasizes：強調、著重<br/>
 </table>
 <p>page 33 明確區分 RTL simulation 的功能驗證與 gate-level simulation 的 timing verification；page 34 則指出，同一 RTL 可能因 area/speed constraints 產生不同 gate-level 結果。</p>
 <h4 id="2-中文修正版_9">2. 中文修正版<a class="headerlink" href="#2-中文修正版_9" title="Permanent link"></a></h4>
-<p><strong>Question 1：</strong><br/>
+<p><strong>Question 1：</strong><br />
 因為大型數位電路包含大量邏輯閘，如果逐顆描述 gates 與連線會非常複雜。因此設計者使用較高抽象層級的 RTL 描述硬體功能，再由 <code>logic synthesizer(邏輯合成器)</code> 自動產生較低階的 gate-level implementation。</p>
-<p><strong>Question 2：</strong><br/>
+<p><strong>Question 2：</strong><br />
 RTL simulation 確認功能是否正確，但 synthesis 後產生實際 gate-level implementation，因此仍需要進一步確認 timing 是否符合要求。</p>
-<p><strong>Question 3：</strong><br/>
+<p><strong>Question 3：</strong><br />
 可以。同一份 RTL 在不同 <code>constraints(限制條件)</code> 下可能被最佳化成不同硬體。例如追求較高速度可能使用較多硬體資源，而追求較小面積可能接受較低的速度。</p>
 <p>老師也強調 synthesis 可以根據速度、面積等 constraints 做 optimization(最佳化)。</p>
 <h4 id="3-英文考試版_10">3. 英文考試版<a class="headerlink" href="#3-英文考試版_10" title="Permanent link"></a></h4>
-<p><strong>Question 1:</strong><br/>
+<p><strong>Question 1:</strong><br />
 Designers use RTL because manually describing every gate and interconnection in a large circuit is too complicated. RTL provides a higher level of abstraction, while synthesis tools automatically generate the lower-level gate implementation.</p>
-<p><strong>Question 2:</strong><br/>
+<p><strong>Question 2:</strong><br />
 RTL simulation mainly verifies functionality. After synthesis, gate-level verification is still required to check the timing behavior of the synthesized hardware.</p>
-<p><strong>Question 3:</strong><br/>
+<p><strong>Question 3:</strong><br />
 Yes. The same RTL code may be synthesized into different gate-level circuits under different area and speed constraints because the synthesis tool optimizes the implementation according to those constraints.</p>
 <p>三題都達最低通過標準，因此 PDF viewer page 31～34 可以完成。接下來是直接相鄰的 page 35。</p>
 <h2 id="asic-vs-fpga-design-flows--同樣寫-hdl最後到底差在哪">⭐ASIC vs. FPGA Design Flows — 同樣寫 HDL，最後到底差在哪？<a class="headerlink" href="#asic-vs-fpga-design-flows--同樣寫-hdl最後到底差在哪" title="Permanent link"></a></h2>
@@ -14241,9 +14271,9 @@ Yes. The same RTL code may be synthesized into different gate-level circuits und
 <li>中文或英文短答</li>
 </ol>
 <p>前者是為了客製化，後者是為了大量測試</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>mapping 是把我需要的電路對應到FPGA已經有的資源上，所以不需要再做新的晶片。</p>
-<p>–</p>
+<p>&ndash;</p>
 <p>因為FPGA的晶片是已經製做好的，只要改設定就好，但是ASIC是每次都要做新晶片，所以不容易更改</p>
 <p>第 2 次對話</p>
 <div class="highlight"><pre><span></span><code>Phase A — Internal Control Surface（控制面輸出） | TURN=2 | PROMPT=v1.13.0 | REFRESH=NO（最新訊息主要意圖為作答，完整Prompt不觸發刷新） | STATE={Mainline=講義_ch00_introduction.pdf; Locator=PDF viewer page35; KP=ASIC vs. FPGA Design Flows; Boundary=page35已核對，page36切換新核心問題; Parent=Design Flows and Logic Synthesis; Source=Lecture+Teacher Transcript; SourceInventory=主線講義+第1堂逐字稿+考古題來源已發現; Transcript={File=逐字稿_第1堂_0908_範圍ch00_introduction.txt; Session=第1堂; Span=lines395–434; Align=HIGH; Coverage=ASIC/FPGA差異與FPGA mapping已整合; Signals=Explanation+Scope; Scope=本課主要ASIC，FPGA為高階介紹; Correction=NONE; Conflict=NONE; Residual=無高優先殘留}; AdjQueue=page35三題待批改→page36 RTL coding vs. synthesized results; ExerciseDebt=0（page35三題已實際輸出）; LectureAdjDebt=0 for page35; TeacherTranscriptDebt=0 for page35; PastExamDebt=目前未建立page35直接債務; Weakness=NONE; Coverage=page35已教且題目已出，使用者本輪已作答待批改; Completion=PARTIAL; Evidence=講義page35+逐字稿+三題作答; Blockers=本輪批改結果; NextLegal=若page35通過則page36} | PLAN={ThisResponse=批改page35三題；若全數通過則正式處理相鄰page36，依老師Scope Signal只教高階核心並出1題; ExpectedDebtChange=page35完成、page36 Exercise Debt以本輪題目清償; ExpectedNext=等待page36題目作答}
@@ -14279,15 +14309,15 @@ Yes. The same RTL code may be synthesized into different gate-level circuits und
 <h4 id="2-中文修正版_10">2. 中文修正版<a class="headerlink" href="#2-中文修正版_10" title="Permanent link"></a></h4>
 <ol>
 <li>
-<p><strong>ASIC vs. FPGA：</strong><br/>
+<p><strong>ASIC vs. FPGA：</strong><br />
     ASIC 適合需要高度客製化的硬體設計；FPGA 使用已製造好的可程式化晶片，因此適合快速原型驗證，也能透過重新設定實作不同硬體功能。</p>
 </li>
 <li>
-<p><strong>FPGA mapping：</strong><br/>
+<p><strong>FPGA mapping：</strong><br />
 <code>Mapping(映射)</code> 是把 HDL 描述的硬體功能配置到 FPGA 內既有的 logic resources(邏輯資源) 上，因此不需要為每個設計重新製造晶片。</p>
 </li>
 <li>
-<p><strong>修改能力：</strong><br/>
+<p><strong>修改能力：</strong><br />
     FPGA 可以重新設定內部資源，因此修改設計相對容易；ASIC 一旦 tape-out 並製造成晶片，實體電路結構就固定，若有重大修改通常需要重新製造。</p>
 </li>
 </ol>
@@ -14509,7 +14539,7 @@ Yes. The same RTL code may be synthesized into different gate-level circuits und
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

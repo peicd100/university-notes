@@ -1175,6 +1175,8 @@
       
         
       
+        
+      
     
     
     
@@ -1232,7 +1234,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1317,6 +1319,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5623,7 +5653,7 @@
 <div class="highlight"><pre><span></span><code>TEXT HANDOFF | STATE={GOAL=依實際授課主線複習HDL; COMPLETED=Session02 Reset含Async/Sync差異之Generated練習依使用者明確要求視為全對且無Weakness; CURRENT=Session03 FSM入門; NEXT=Testbench; BLOCKER=NONE} | PLAN={THIS_RESPONSE=依Session03實際授課深度教FSM高階概念並安排2題輕量練習; EXPECTED_NEXT=Testbench} | Phase A — Internal Control Surface（控制面輸出） | TURN=第 1 次對話 | PROMPT=1.16.1 | REFRESH=MANUAL_PROMPT_REFRESH | REFRESH_REMINDER=NONE | STATE={MainlineMode=Transcript; MainlineSource=逐字稿_03_0922.txt; Locator=Session03/L8-L15; KP=Finite_State_Machine_Intro; Boundary=已核對，L15切換Testbench; Transcript={File=逐字稿_03_0922.txt; Session=03; SessionSource=FilenamePrefix; Span=L8-L15; Coverage=FULL_FOR_CURRENT_SPAN; TeachingState=TAUGHT_BRIEF; Signals=Explanation+Scope; Scope=FSM用途、state隨clock cycle變化、S0/S1/S2例子、traffic-light直覺; Residual=Testbench}; Reference={Aligned=ch01 PDF viewer p31; PrecisionStatus=HIGH_FOR_TOPIC}; Practice={LearningObjective=理解FSM解決控制問題及state/cycle關係; Modality=ConceptClassification+SimpleStateTrace; RequiredModality=NO; TaskOrigin=Generated; AssessmentFidelity=Learning}; TeachingMainlineDebt=後續Session03; AssessmentRequirementDebt=NONE_NEW; ReferenceResolutionDebt=NONE; Weakness=NONE; NextLegal=FSM練習→Testbench} | PLAN={ThisResponse=FSM入門＋2題Generated Practice; ExpectedNext=Testbench}
 </code></pre></div>
 <h2 id="finite-state-machinefsm有限狀態機--為什麼電路需要現在處於哪個狀態">⭐Finite State Machine(FSM，有限狀態機) — 為什麼電路需要「現在處於哪個狀態」？<a class="headerlink" href="#finite-state-machinefsm有限狀態機--為什麼電路需要現在處於哪個狀態" title="Permanent link"></a></h2>
-<p>主線位置：Teacher Transcript／<code>逐字稿_03_0922.txt</code>／Session=03／L8–L15<br/>
+<p>主線位置：Teacher Transcript／<code>逐字稿_03_0922.txt</code>／Session=03／L8–L15<br />
 對齊參考：<code>講義_ch01_Verilog structural and dataflow modeling</code>／PDF viewer page 31</p>
 <p>上一堂老師只預告 FSM，這一堂才正式開始講。不過老師也明確說<strong>現在不會深入</strong>，所以這裡先掌握用途與 State(狀態)的概念，不超前講完整 FSM coding architecture。</p>
 <h3 id="1-fsm-在解決什麼問題">1. FSM 在解決什麼問題？<a class="headerlink" href="#1-fsm-在解決什麼問題" title="Permanent link"></a></h3>
@@ -5647,7 +5677,7 @@
 <pre class="arithmatex">\[
 \boxed{\text{FSM = 用「狀態」管理電路現在應該做什麼}}
 \]</pre>
-<hr/>
+<hr />
 <h3 id="2-state狀態是什麼">2. State(狀態)是什麼？<a class="headerlink" href="#2-state狀態是什麼" title="Permanent link"></a></h3>
 <p>老師舉了一個三個狀態的例子：</p>
 <div class="highlight"><pre><span></span><code>S0 → S1 → S2
@@ -5663,7 +5693,7 @@
 <p>FSM 必須「記得自己目前在哪個 state」。</p>
 </blockquote>
 <p>所以 FSM 本質上屬於 Sequential Logic(循序邏輯)的應用。</p>
-<hr/>
+<hr />
 <h3 id="3-traffic-light紅綠燈直覺">3. Traffic Light(紅綠燈)直覺<a class="headerlink" href="#3-traffic-light紅綠燈直覺" title="Permanent link"></a></h3>
 <p>老師用紅綠燈當直覺例子。</p>
 <p>可以想像：</p>
@@ -5680,7 +5710,7 @@ S2 = 紅燈
 什麼時候切換到下一階段
 </code></pre></div>
 <p>老師就是用 traffic light 說明這是一種很基本的 Verilog design pattern。</p>
-<hr/>
+<hr />
 <h3 id="4-目前先不要超前學什麼">4. 目前先不要超前學什麼？<a class="headerlink" href="#4-目前先不要超前學什麼" title="Permanent link"></a></h3>
 <p>這堂此處老師沒有深入展開：</p>
 <ul>
@@ -5702,9 +5732,9 @@ S2 = 紅燈
 <h3 id="5-practice-tasks練習任務">5. Practice Tasks(練習任務)<a class="headerlink" href="#5-practice-tasks練習任務" title="Permanent link"></a></h3>
 <h4 id="51-task-1">5.1 Task 1<a class="headerlink" href="#51-task-1" title="Permanent link"></a></h4>
 <p><strong>Which description best matches the purpose of an FSM?</strong></p>
-<p>A. It only performs arithmetic addition.<br/>
-B. It controls system behavior according to the current state.<br/>
-C. It converts every <code>reg</code> into a physical register.<br/>
+<p>A. It only performs arithmetic addition.<br />
+B. It controls system behavior according to the current state.<br />
+C. It converts every <code>reg</code> into a physical register.<br />
 D. It removes the need for a clock.</p>
 <p>[Generated: FSM concept check]</p>
 <h4 id="52-task-2">5.2 Task 2<a class="headerlink" href="#52-task-2" title="Permanent link"></a></h4>
@@ -5849,7 +5879,7 @@ Cycle 3 → S2
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

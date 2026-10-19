@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5699,7 +5729,7 @@
 <h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
 <h3 id="組合邏輯">組合邏輯<a class="headerlink" href="#組合邏輯" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
 <span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
@@ -5721,16 +5751,16 @@
 <h3 id="非同步-reset">非同步 reset<a class="headerlink" href="#非同步-reset" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">negedge</span><span class="w"> </span><span class="n">rst_n</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">rst_n</span><span class="p">)</span>
-<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">else</span>
 <span class="w">        </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <h3 id="initial"><code>initial</code><a class="headerlink" href="#initial" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">rst_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
-<span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">rst_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rst_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">rst_n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="k">end</span>
 </code></pre></div>
 <ul>
@@ -5751,7 +5781,7 @@
 <li><code>always @(posedge clk)</code> / <code>@(negedge clk)</code>：時序邏輯</li>
 <li><code>initial</code>：模擬初始化或 testbench 流程</li>
 </ul>
-<p>如果你的輸出必須記住上一拍狀態，那通常是時序邏輯。<br/>
+<p>如果你的輸出必須記住上一拍狀態，那通常是時序邏輯。<br />
 如果你的輸出只看現在輸入，那通常是組合邏輯。</p>
 <h2 id="常見地雷">常見地雷<a class="headerlink" href="#常見地雷" title="Permanent link"></a></h2>
 <ul>
@@ -5899,7 +5929,7 @@
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

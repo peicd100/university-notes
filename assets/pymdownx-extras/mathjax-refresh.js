@@ -208,6 +208,11 @@
     let state = states.get(target);
     if (!state) {
       const nodes = Array.from(target.querySelectorAll(".arithmatex"));
+      // MathJax replaces the text with visual glyphs; retain the delimited TeX
+      // before either the independent or semantic conversion path runs.
+      nodes.forEach((node) => {
+        if (!node.querySelector("mjx-container")) node.dataset.peicdTex = node.textContent.trim();
+      });
       state = { target, nodes, urlKey: location.pathname + location.search,
         semantic: nodes.some((node) => SEMANTIC_TEX.test(node.textContent)),
         done: new WeakSet(), queue: new Set(), priority: new Set(), waiters: [], initialized: false, observer: null };
@@ -226,6 +231,63 @@
     scheduleBackground();
     prepareHash();
   }
+
+  function copyText(node) {
+    if (node.nodeType === 3) {
+      const text = node.nodeValue;
+      // Ignore HTML indentation between blocks, but retain literal code spaces.
+      return /\n/.test(text) && !text.trim() && !node.parentElement?.closest("pre, code") ? "\n" : text;
+    }
+    if (node.nodeType !== 1 && node.nodeType !== 11) return "";
+    if (/^(SCRIPT|STYLE)$/.test(node.nodeName)) return "";
+    if (node.nodeName === "BR") return "\n";
+    const text = Array.from(node.childNodes, copyText).join("");
+    if (/^(P|DIV|PRE|H[1-6]|LI|UL|OL|BLOCKQUOTE|TABLE|TR)$/.test(node.nodeName)) return "\n" + text + "\n";
+    return /^(TD|TH)$/.test(node.nodeName) ? text + "\t" : text;
+  }
+
+  function formulaAt(node) {
+    return (node.nodeType === 1 ? node : node.parentElement)?.closest(".arithmatex[data-peicd-tex]");
+  }
+
+  document.addEventListener("copy", (event) => {
+    if (event.defaultPrevented || !event.clipboardData || !current) return;
+    const editable = "input, textarea, [contenteditable]:not([contenteditable='false'])";
+    if (document.activeElement?.closest(editable)) return;
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed || !selection.rangeCount) return;
+    const article = current.target;
+    const texts = [];
+    let hasMath = false;
+    for (let index = 0; index < selection.rangeCount; index += 1) {
+      const range = selection.getRangeAt(index).cloneRange();
+      if (!article.contains(range.commonAncestorContainer)) return;
+      const ancestor = range.commonAncestorContainer.nodeType === 1
+        ? range.commonAncestorContainer : range.commonAncestorContainer.parentElement;
+      if (ancestor?.closest(editable)) return;
+      // A partial selection of MathJax's glyph DOM must still yield one whole
+      // formula. Expanding just these endpoints also preserves adjacent prose.
+      const first = formulaAt(range.startContainer);
+      const last = formulaAt(range.endContainer);
+      if (first) range.setStartBefore(first);
+      if (last) range.setEndAfter(last);
+      const fragment = range.cloneContents();
+      if (fragment.querySelector(editable)) return;
+      fragment.querySelectorAll(".arithmatex[data-peicd-tex]").forEach((node) => {
+        const tex = node.dataset.peicdTex;
+        const block = tex.startsWith("\\[");
+        node.replaceWith(document.createTextNode(block ? "\n\n" + tex + "\n\n" : tex));
+        hasMath = true;
+      });
+      texts.push(copyText(fragment));
+    }
+    if (!hasMath) return; // Do not override ordinary browser text/code copying.
+    const text = texts.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+    try {
+      event.clipboardData.setData("text/plain", text);
+      event.preventDefault();
+    } catch (error) { console.warn("TeX selection copy failed; using native copy", error); }
+  });
 
   function prioritize(nodes) {
     scan();

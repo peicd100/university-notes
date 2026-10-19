@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5627,25 +5657,25 @@
   <h1>四則運算</h1>
 
 <h2 id="四則運算">四則運算<a class="headerlink" href="#四則運算" title="Permanent link"></a></h2>
-<p>進行四則運算時，結果位寬是 max(L(i), L(j))<br/>
+<p>進行四則運算時，結果位寬是 max(L(i), L(j))<br />
 如果是指派給某個變數時，根據左邊來算。</p>
 <p>實際上真正影響的有：</p>
-<p>值(value)<br/>
+<p>值(value)<br />
 「這題數學答案是多少？」</p>
-<p>位寬(bit width)<br/>
+<p>位寬(bit width)<br />
 「我有幾個 bit 的空間可以裝答案？」</p>
-<p>signed/unsigned<br/>
+<p>signed/unsigned<br />
 「我拿到這串 bit 後，要把它看成可正可負，還是只能當正數？」</p>
 <h3 id="值">值<a class="headerlink" href="#值" title="Permanent link"></a></h3>
 <p>這個式子在十進位會算出什麼？</p>
-<p>1 + 1 = 2<br/>
-5 - 8 = -3<br/>
+<p>1 + 1 = 2<br />
+5 - 8 = -3<br />
 5 / 2 = 1.5</p>
 <h3 id="位寬">位寬<a class="headerlink" href="#位寬" title="Permanent link"></a></h3>
 <p>位寬是 max(L(i), L(j)) ，如果是很多運算符號串在一起，就是看運算符號中 L(max_element()) 。</p>
-<p>當<br/>
+<p>當<br />
 <div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span>
-</code></pre></div><br/>
+</code></pre></div><br />
 時</p>
 <p>如果運算 a + b ，此時 a + b 是 4 bit。</p>
 <p>如果有給左邊，就是根據左邊：</p>
@@ -5657,15 +5687,15 @@
 </code></pre></div>
 <p>也就是說，位寬不是永遠只看右邊，還要看你最後把它塞進哪個盒子。</p>
 <h3 id="signed--unsigned">signed / unsigned<a class="headerlink" href="#signed--unsigned" title="Permanent link"></a></h3>
-<p>如果任何 operand 是 real，結果就是 real。<br/>
-否則只要任何 operand 是 unsigned，結果就是 unsigned。<br/>
+<p>如果任何 operand 是 real，結果就是 real。<br />
+否則只要任何 operand 是 unsigned，結果就是 unsigned。<br />
 只有當所有 operands 都是 signed，結果才是 signed。</p>
 <p>resl &gt;= unsigned &gt;= signed</p>
 <h4 id="real">real<a class="headerlink" href="#real" title="Permanent link"></a></h4>
-<p>這個值本身就是 real number(實數)。<br/>
-real 轉 integer 是四捨五入到最近整數；剛好 .5 時，遠離 0。例如：<br/>
-35.5 -&gt; 36<br/>
-1.5 -&gt; 2<br/>
+<p>這個值本身就是 real number(實數)。<br />
+real 轉 integer 是四捨五入到最近整數；剛好 .5 時，遠離 0。例如：<br />
+35.5 -&gt; 36<br />
+1.5 -&gt; 2<br />
 -1.5 -&gt; -2</p>
 <h4 id="unsigned">unsigned<a class="headerlink" href="#unsigned" title="Permanent link"></a></h4>
 <p>無號數</p>
@@ -5805,7 +5835,7 @@ real 轉 integer 是四捨五入到最近整數；剛好 .5 時，遠離 0。例
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

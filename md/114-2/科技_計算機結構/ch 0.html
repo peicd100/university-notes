@@ -1031,6 +1031,8 @@
       
         
       
+        
+      
     
     
     
@@ -1088,7 +1090,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1173,6 +1175,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -9998,13 +10028,13 @@
 </tr>
 </tbody>
 </table>
-<hr/>
+<hr />
 <h3 id="先宣告變數">先宣告變數<a class="headerlink" href="#先宣告變數" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
 <span class="c1">// 先定義一個簡化版指令格式</span>
 <span class="c1">// =========================</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">Instruction</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">op</span><span class="p">;</span><span class="w">   </span><span class="c1">// 指令名稱，例如 "LOAD_R1", "LOAD_ACC", "ADD", "STORE"</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">op</span><span class="p">;</span><span class="w">   </span><span class="c1">// 指令名稱，例如 &quot;LOAD_R1&quot;, &quot;LOAD_ACC&quot;, &quot;ADD&quot;, &quot;STORE&quot;</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">addr</span><span class="p">;</span><span class="w">    </span><span class="c1">// 指令中提到的記憶體位址，例如 100, 104, 108</span>
 <span class="p">};</span>
 
@@ -10035,7 +10065,7 @@
 <span class="c1">// 資料記憶體：放數值</span>
 <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DataMem</span><span class="p">;</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h3 id="把記憶體內容先放好">把記憶體內容先放好<a class="headerlink" href="#把記憶體內容先放好" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
 <span class="c1">// 初始化資料記憶體</span>
@@ -10047,12 +10077,12 @@
 <span class="c1">// =========================</span>
 <span class="c1">// 初始化指令記憶體</span>
 <span class="c1">// =========================</span>
-<span class="n">InstrMem</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"LOAD_R1"</span><span class="p">,</span><span class="w">    </span><span class="mi">100</span><span class="p">};</span><span class="w">   </span><span class="c1">// R1  = M[100]</span>
-<span class="n">InstrMem</span><span class="p">[</span><span class="mi">204</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"LOAD_ACC"</span><span class="p">,</span><span class="w">   </span><span class="mi">104</span><span class="p">};</span><span class="w">   </span><span class="c1">// ACC = M[104]</span>
-<span class="n">InstrMem</span><span class="p">[</span><span class="mi">208</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"ADD_ACC_R1"</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">};</span><span class="w">   </span><span class="c1">// ACC = ACC + R1</span>
-<span class="n">InstrMem</span><span class="p">[</span><span class="mi">212</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"STORE_ACC"</span><span class="p">,</span><span class="w">  </span><span class="mi">108</span><span class="p">};</span><span class="w">   </span><span class="c1">// M[108] = ACC</span>
+<span class="n">InstrMem</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;LOAD_R1&quot;</span><span class="p">,</span><span class="w">    </span><span class="mi">100</span><span class="p">};</span><span class="w">   </span><span class="c1">// R1  = M[100]</span>
+<span class="n">InstrMem</span><span class="p">[</span><span class="mi">204</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;LOAD_ACC&quot;</span><span class="p">,</span><span class="w">   </span><span class="mi">104</span><span class="p">};</span><span class="w">   </span><span class="c1">// ACC = M[104]</span>
+<span class="n">InstrMem</span><span class="p">[</span><span class="mi">208</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADD_ACC_R1&quot;</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">};</span><span class="w">   </span><span class="c1">// ACC = ACC + R1</span>
+<span class="n">InstrMem</span><span class="p">[</span><span class="mi">212</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;STORE_ACC&quot;</span><span class="p">,</span><span class="w">  </span><span class="mi">108</span><span class="p">};</span><span class="w">   </span><span class="c1">// M[108] = ACC</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h3 id="開始模擬執行流程">開始模擬執行流程<a class="headerlink" href="#開始模擬執行流程" title="Permanent link"></a></h3>
 <h4 id="第-1-條指令load_r1-100">第 1 條指令：<code>LOAD_R1, 100</code><a class="headerlink" href="#第-1-條指令load_r1-100" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
@@ -10065,7 +10095,7 @@
 <span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// 把位址 200 的指令抓進 IR</span>
 <span class="n">PC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">             </span><span class="c1">// 下一條指令在 204</span>
 
-<span class="c1">// 現在：IR = {"LOAD_R1", 100}</span>
+<span class="c1">// 現在：IR = {&quot;LOAD_R1&quot;, 100}</span>
 
 <span class="c1">// ---- Decode + Execute（解碼 + 執行）----</span>
 <span class="c1">// 這條指令要去資料記憶體位址 100 讀資料</span>
@@ -10079,9 +10109,9 @@
 <span class="c1">// R3  = 0</span>
 <span class="c1">// AR  = 100</span>
 <span class="c1">// PC  = 204</span>
-<span class="c1">// IR  = {"LOAD_R1", 100}</span>
+<span class="c1">// IR  = {&quot;LOAD_R1&quot;, 100}</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="第-2-條指令load_acc-104">第 2 條指令：<code>LOAD_ACC, 104</code><a class="headerlink" href="#第-2-條指令load_acc-104" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
 <span class="c1">// 第 2 條指令：LOAD_ACC, 104</span>
@@ -10089,7 +10119,7 @@
 
 <span class="c1">// ---- Fetch（抓指令）----</span>
 <span class="n">AR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="p">;</span><span class="w">                 </span><span class="c1">// AR = 204，先去抓下一條指令</span>
-<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {"LOAD_ACC", 104}</span>
+<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {&quot;LOAD_ACC&quot;, 104}</span>
 <span class="n">PC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">             </span><span class="c1">// PC = 208</span>
 
 <span class="c1">// ---- Decode + Execute（解碼 + 執行）----</span>
@@ -10103,11 +10133,11 @@
 <span class="c1">// R3  = 0</span>
 <span class="c1">// AR  = 104</span>
 <span class="c1">// PC  = 208</span>
-<span class="c1">// IR  = {"LOAD_ACC", 104}</span>
+<span class="c1">// IR  = {&quot;LOAD_ACC&quot;, 104}</span>
 </code></pre></div>
-<p>備註：IR.addr是啥<br/>
+<p>備註：IR.addr是啥<br />
 IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器）這個結構加的一個欄位名稱。  </p>
-<hr/>
+<hr />
 <h4 id="第-3-條指令add_acc_r1">第 3 條指令：<code>ADD_ACC_R1</code><a class="headerlink" href="#第-3-條指令add_acc_r1" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
 <span class="c1">// 第 3 條指令：ADD_ACC_R1</span>
@@ -10115,7 +10145,7 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 
 <span class="c1">// ---- Fetch（抓指令）----</span>
 <span class="n">AR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="p">;</span><span class="w">                 </span><span class="c1">// AR = 208，抓位址 208 的指令</span>
-<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {"ADD_ACC_R1", 0}</span>
+<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {&quot;ADD_ACC_R1&quot;, 0}</span>
 <span class="n">PC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">             </span><span class="c1">// PC = 212</span>
 
 <span class="c1">// ---- Execute（執行）----</span>
@@ -10132,11 +10162,11 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <span class="c1">// R2  = 0</span>
 <span class="c1">// R3  = 0</span>
 <span class="c1">// PC  = 212</span>
-<span class="c1">// IR  = {"ADD_ACC_R1", 0}</span>
+<span class="c1">// IR  = {&quot;ADD_ACC_R1&quot;, 0}</span>
 <span class="c1">// ZF  = false</span>
 <span class="c1">// CF  = false</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="第-4-條指令store_acc-108">第 4 條指令：<code>STORE_ACC, 108</code><a class="headerlink" href="#第-4-條指令store_acc-108" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="c1">// =========================</span>
 <span class="c1">// 第 4 條指令：STORE_ACC, 108</span>
@@ -10144,7 +10174,7 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 
 <span class="c1">// ---- Fetch（抓指令）----</span>
 <span class="n">AR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="p">;</span><span class="w">                 </span><span class="c1">// AR = 212，先抓位址 212 的指令</span>
-<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {"STORE_ACC", 108}</span>
+<span class="n">IR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InstrMem</span><span class="p">[</span><span class="n">AR</span><span class="p">];</span><span class="w">       </span><span class="c1">// IR = {&quot;STORE_ACC&quot;, 108}</span>
 <span class="n">PC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">             </span><span class="c1">// PC = 216</span>
 
 <span class="c1">// ---- Decode + Execute（解碼 + 執行）----</span>
@@ -10156,7 +10186,7 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <span class="c1">// DataMem[104] = 5</span>
 <span class="c1">// DataMem[108] = 12</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h3 id="整段完整版本">整段完整版本<a class="headerlink" href="#整段完整版本" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;map&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
@@ -10197,10 +10227,10 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <span class="w">    </span><span class="n">DataMem</span><span class="p">[</span><span class="mi">108</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// 指令記憶體*</span>
-<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"LOAD_R1"</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">};</span>
-<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">204</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"LOAD_ACC"</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">};</span>
-<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">208</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"ADD_ACC_R1"</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
-<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">212</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"STORE_ACC"</span><span class="p">,</span><span class="w"> </span><span class="mi">108</span><span class="p">};</span>
+<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">200</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;LOAD_R1&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">};</span>
+<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">204</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;LOAD_ACC&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">};</span>
+<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">208</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;ADD_ACC_R1&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<span class="w">    </span><span class="n">InstrMem</span><span class="p">[</span><span class="mi">212</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;STORE_ACC&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">108</span><span class="p">};</span>
 
 <span class="w">    </span><span class="c1">// =========================*</span>
 <span class="w">    </span><span class="c1">// 1) LOAD_R1, 100*</span>
@@ -10246,12 +10276,12 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<hr/>
+<hr />
 <h3 id="你這次最該看到的重點">你這次最該看到的重點<a class="headerlink" href="#你這次最該看到的重點" title="Permanent link"></a></h3>
 <ol>
-<li><strong>GPR 不是只有一個 <code>R1</code>，而是一組像 <code>R1/R2/R3/...</code> 的通用暫存器。</strong> </li>
-<li><strong>這份流程雖然只用 <code>R1</code>，但 <code>R2</code>、<code>R3</code> 已經明確表達：GPRs 是多個暫存器的集合。</strong> </li>
-<li><strong>ACC 還是偏向「結果盒」；GPRs 則是「一排萬用小格子」。</strong> </li>
+<li><strong>GPR 不是只有一個 <code>R1</code>，而是一組像 <code>R1/R2/R3/...</code> 的通用暫存器。</strong>  </li>
+<li><strong>這份流程雖然只用 <code>R1</code>，但 <code>R2</code>、<code>R3</code> 已經明確表達：GPRs 是多個暫存器的集合。</strong>  </li>
+<li><strong>ACC 還是偏向「結果盒」；GPRs 則是「一排萬用小格子」。</strong>  </li>
 <li><strong>AR 仍然只有一個，因為它代表「這一次要送去記憶體的位址」；PC 管下一條指令，IR 管目前這條指令。</strong> 這些分工就是標準的 instruction cycle 教學模型。(<a href="https://www.geeksforgeeks.org/computer-organization-architecture/general-purpose-registers/">GeeksforGeeks</a>)</li>
 </ol>
 <h3 id="為何需要-fr">為何需要 FR<a class="headerlink" href="#為何需要-fr" title="Permanent link"></a></h3>
@@ -10270,7 +10300,7 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <p>這時：</p>
 <div class="highlight"><pre><span></span><code>ZF = 1
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="2-結果是不是負數">2. 結果是不是負數<a class="headerlink" href="#2-結果是不是負數" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>這叫 **N / SF（Negative Flag / Sign Flag，負號／符號旗標）**。 Arm 的 `N` 代表結果是否為負，實際上就是看結果的符號位。x86 也有 `SF` 來表示 signed result 的符號。([Arm Community](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/condition-codes-1-condition-flags-and-codes?utm_source=chatgpt.com))
 </code></pre></div>
@@ -10280,38 +10310,38 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <p>這時可能會看到：</p>
 <div class="highlight"><pre><span></span><code>SF = 1
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="3-有沒有進位">3. 有沒有進位<a class="headerlink" href="#3-有沒有進位" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="err">這叫</span><span class="w"> </span><span class="o">**</span><span class="n">CF</span><span class="err">（</span><span class="n">Carry</span><span class="w"> </span><span class="n">Flag</span><span class="err">，進位旗標）</span><span class="o">**</span><span class="err">。</span><span class="w"> </span><span class="err">它通常用在</span><span class="o">**</span><span class="err">無號整數（</span><span class="k">unsigned</span><span class="w"> </span><span class="k">integer</span><span class="err">）</span><span class="o">**</span><span class="err">的加減法，表示有沒有產生進位或借位相關資訊。</span><span class="n">Arm</span><span class="w"> </span><span class="err">說</span><span class="w"> </span><span class="no">`C</span><span class="err">`</span><span class="w"> </span><span class="err">可表示</span><span class="w"> </span><span class="k">unsigned</span><span class="w"> </span><span class="n">overflow</span><span class="err">；</span><span class="n">x86</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="no">`ADD</span><span class="o">/</span><span class="n">ADC</span><span class="err">`</span><span class="w"> </span><span class="err">也會設定</span><span class="w"> </span><span class="no">`CF</span><span class="err">`。</span><span class="p">([</span><span class="n">Arm</span><span class="w"> </span><span class="n">Community</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/condition-codes-1-condition-flags-and-codes?utm_source=chatgpt.com))</span>
 </code></pre></div>
 <p>例子： 如果位元數固定，很大的兩個無號數相加超過可表示範圍，就會：</p>
 <div class="highlight"><pre><span></span><code>CF = 1
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="4-有沒有溢位">4. 有沒有溢位<a class="headerlink" href="#4-有沒有溢位" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code><span class="err">這叫</span><span class="w"> </span><span class="o">**</span><span class="n">OF</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">V</span><span class="err">（</span><span class="n">Overflow</span><span class="w"> </span><span class="n">Flag</span><span class="err">，溢位旗標）</span><span class="o">**</span><span class="err">。</span><span class="w"> </span><span class="err">它通常用在</span><span class="o">**</span><span class="err">有號整數（</span><span class="k">signed</span><span class="w"> </span><span class="k">integer</span><span class="err">）</span><span class="o">**</span><span class="err">，表示結果是否超出該位數可表示的正負範圍。</span><span class="n">Arm</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="no">`V</span><span class="err">`</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="n">overflow</span><span class="err">；</span><span class="n">x86</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="no">`OF</span><span class="err">`</span><span class="w"> </span><span class="err">也是這個角色。</span><span class="p">([</span><span class="n">Arm</span><span class="w"> </span><span class="n">Community</span><span class="p">](</span><span class="nl">https:</span><span class="c1">//community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/condition-codes-1-condition-flags-and-codes?utm_source=chatgpt.com))</span>
 </code></pre></div>
 <p>例子： 如果用有限位元表示整數，兩個很大的正數相加，結果變成負的，那通常就是：</p>
 <div class="highlight"><pre><span></span><code>OF = 1
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="5-某些架構還會記其他狀態">5. 某些架構還會記其他狀態<a class="headerlink" href="#5-某些架構還會記其他狀態" title="Permanent link"></a></h4>
 <p>像 x86 還有：</p>
 <ul>
-<li><strong>PF（Parity Flag，奇偶旗標）</strong> </li>
+<li><strong>PF（Parity Flag，奇偶旗標）</strong>  </li>
 <li><strong>AF（Auxiliary Carry Flag，輔助進位旗標）</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>例如 `ADD` 和 `ADC` 都會影響 `OF, SF, ZF, AF, CF, PF`。([Félix Cloutier](https://www.felixcloutier.com/x86/adc?utm_source=chatgpt.com))
 </code></pre></div>
 <p>不過你現在這門課先把重點放在：</p>
 <ul>
-<li><strong>Zero</strong> </li>
-<li><strong>Sign / Negative</strong> </li>
-<li><strong>Carry</strong> </li>
+<li><strong>Zero</strong>  </li>
+<li><strong>Sign / Negative</strong>  </li>
+<li><strong>Carry</strong>  </li>
 <li><strong>Overflow</strong></li>
 </ul>
 <p>這四個最重要。</p>
-<hr/>
+<hr />
 <h4 id="你可以把-fr-想成結果摘要">你可以把 FR 想成「結果摘要」<a class="headerlink" href="#你可以把-fr-想成結果摘要" title="Permanent link"></a></h4>
 <p>不是記下「結果值本身」，而是記下：</p>
 <ul>
@@ -10325,7 +10355,7 @@ IR.addr 是為了教學方便，幫 IR（Instruction Register，指令暫存器�
 <li><strong>ACC / GPR</strong>：記「值是多少」  </li>
 <li><strong>FR</strong>：記「這個值有什麼狀態」</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="用一個小例子看">用一個小例子看<a class="headerlink" href="#用一個小例子看" title="Permanent link"></a></h4>
 <p>假設：</p>
 <div class="highlight"><pre><span></span><code>ACC = 5
@@ -10346,7 +10376,7 @@ CF = 0   // 沒有進位
 
 OF = 0   // 沒有溢位
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="一句話背法">一句話背法<a class="headerlink" href="#一句話背法" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>**FR 記的不是數值本身，而是「這次運算結果的狀態」：像 0、負號、進位、溢位。** ([Arm Community](https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/condition-codes-1-condition-flags-and-codes?utm_source=chatgpt.com))
 </code></pre></div>
@@ -10363,12 +10393,12 @@ OF = 0   // 沒有溢位
 <p><strong>CPU 執行一條指令時，到底會經過哪些步驟？</strong></p>
 <p>答案就是圖上寫的 <strong>機器週期（machine cycle）</strong>，也常叫 <strong>指令週期（instruction cycle）</strong>。這個簡化版通常拆成四步：</p>
 <ol>
-<li><strong>擷取（Fetch）</strong> </li>
-<li><strong>解碼（Decode）</strong> </li>
-<li><strong>執行（Execute）</strong> </li>
+<li><strong>擷取（Fetch）</strong>  </li>
+<li><strong>解碼（Decode）</strong>  </li>
+<li><strong>執行（Execute）</strong>  </li>
 <li><strong>儲存（Store）</strong></li>
 </ol>
-<hr/>
+<hr />
 <h4 id="先把這張圖翻成人話">先把這張圖翻成人話<a class="headerlink" href="#先把這張圖翻成人話" title="Permanent link"></a></h4>
 <p>你可以把 CPU 想成餐廳廚房：</p>
 <ul>
@@ -10385,7 +10415,7 @@ OF = 0   // 沒有溢位
 <li>把結果放回盤子或櫃子</li>
 </ul>
 <p>這就是圖上的四步。</p>
-<hr/>
+<hr />
 <h4 id="1-擷取fetch">1. 擷取（Fetch）<a class="headerlink" href="#1-擷取fetch" title="Permanent link"></a></h4>
 <p>圖上第 1 步在講：</p>
 <p><strong>控制單元從記憶體中擷取指令及資料</strong></p>
@@ -10405,7 +10435,7 @@ OF = 0   // 沒有溢位
 IR = InstrMem[AR];
 PC = PC + 4;      // 指向下一條
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="2-解碼decode">2. 解碼（Decode）<a class="headerlink" href="#2-解碼decode" title="Permanent link"></a></h4>
 <p>圖上第 2 步寫的是：</p>
 <p><strong>控制單元將指令解碼並將運算所需的資料，傳送到算術/邏輯單元</strong></p>
@@ -10415,21 +10445,21 @@ PC = PC + 4;      // 指向下一條
 <p>ADD R1, R2</p>
 <p>解碼後 CPU 才知道：</p>
 <ul>
-<li>這是 <strong>ADD（加法）</strong> </li>
-<li>要拿 <strong>R1</strong> 和 <strong>R2</strong> </li>
+<li>這是 <strong>ADD（加法）</strong>  </li>
+<li>要拿 <strong>R1</strong> 和 <strong>R2</strong>  </li>
 <li>接下來要交給 <strong>ALU</strong> 去算</li>
 </ul>
 <p>所以 <strong>解碼（decode）</strong> 的本質就是：</p>
 <p><strong>把「指令內容」翻譯成 CPU 內部各部件該做的動作。</strong></p>
-<p>也就是把<br/>
-「ADD R1, R2」<br/>
+<p>也就是把<br />
+「ADD R1, R2」<br />
 變成</p>
-<p>「這是 ADD<br/>
-要讀 R1<br/>
-要讀 R2<br/>
-要叫 ALU 做加法<br/>
+<p>「這是 ADD<br />
+要讀 R1<br />
+要讀 R2<br />
+要叫 ALU 做加法<br />
 結果要寫回哪裡」</p>
-<hr/>
+<hr />
 <h4 id="3-執行execute">3. 執行（Execute）<a class="headerlink" href="#3-執行execute" title="Permanent link"></a></h4>
 <p>圖上第 3 步寫的是：</p>
 <p><strong>算術/邏輯單元進行資料的運算</strong></p>
@@ -10437,7 +10467,7 @@ PC = PC + 4;      // 指向下一條
 <p>例如：</p>
 <div class="highlight"><pre><span></span><code>5 + 7
 </code></pre></div>
-<p>如果前面已經把 <code>5</code> 和 <code>7</code> 準備好，ALU 在這一步就真的把結果算出來。<br/>
+<p>如果前面已經把 <code>5</code> 和 <code>7</code> 準備好，ALU 在這一步就真的把結果算出來。<br />
 不只加法，像：</p>
 <ul>
 <li>減法  </li>
@@ -10449,20 +10479,20 @@ PC = PC + 4;      // 指向下一條
 <p>很多也都屬於這一步。</p>
 <p>你可以把這一步理解成：</p>
 <p><strong>前兩步是在準備，這一步才是真正動手做。</strong></p>
-<hr/>
+<hr />
 <h4 id="4-儲存store">4. 儲存（Store）<a class="headerlink" href="#4-儲存store" title="Permanent link"></a></h4>
 <p>圖上第 4 步寫的是：</p>
 <p><strong>控制單元將運算或處理結果存至暫存器或記憶體</strong></p>
 <p>這一步就是把剛剛算好的結果放好。</p>
 <p>例如：</p>
 <ul>
-<li>先放回 <strong>ACC（累加器）</strong> </li>
-<li>或放進某個 <strong>GPR（一般用途暫存器）</strong> </li>
+<li>先放回 <strong>ACC（累加器）</strong>  </li>
+<li>或放進某個 <strong>GPR（一般用途暫存器）</strong>  </li>
 <li>如果需要，也可能再寫回主記憶體</li>
 </ul>
 <p>所以整個流程就變成：</p>
 <p>抓指令 → 看懂指令 → 做運算 → 放好結果</p>
-<hr/>
+<hr />
 <h4 id="用一個完整例子串一次">用一個完整例子串一次<a class="headerlink" href="#用一個完整例子串一次" title="Permanent link"></a></h4>
 <p>假設記憶體裡有：</p>
 <div class="highlight"><pre><span></span><code>M[100] = 7
@@ -10500,7 +10530,7 @@ M[104] = 5
 <ul>
 <li>把 <code>12</code> 先放到暫存器，或直接寫回 <code>M[108]</code></li>
 </ul>
-<hr/>
+<hr />
 <h4 id="這張圖和你前面問的各種暫存器怎麼接起來">這張圖和你前面問的各種暫存器怎麼接起來？<a class="headerlink" href="#這張圖和你前面問的各種暫存器怎麼接起來" title="Permanent link"></a></h4>
 <p>這是這張圖最重要的地方。</p>
 <h5 id="在擷取時常用到">在「擷取」時常用到<a class="headerlink" href="#在擷取時常用到" title="Permanent link"></a></h5>
@@ -10516,17 +10546,17 @@ M[104] = 5
 </ul>
 <h5 id="在執行時常用到">在「執行」時常用到<a class="headerlink" href="#在執行時常用到" title="Permanent link"></a></h5>
 <ul>
-<li><strong>ALU</strong> </li>
-<li><strong>ACC</strong> </li>
-<li><strong>GPR</strong> </li>
+<li><strong>ALU</strong>  </li>
+<li><strong>ACC</strong>  </li>
+<li><strong>GPR</strong>  </li>
 <li><strong>FR（Flag Register，旗標暫存器）</strong>：記錄結果狀態，例如是不是 0、是否進位。條件跳躍也常看 flag register。</li>
 </ul>
 <h5 id="在儲存時常用到">在「儲存」時常用到<a class="headerlink" href="#在儲存時常用到" title="Permanent link"></a></h5>
 <ul>
-<li><strong>ACC / GPR</strong> </li>
+<li><strong>ACC / GPR</strong>  </li>
 <li>或再寫回主記憶體</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="你前面最容易混的點這張圖其實都能解掉">你前面最容易混的點，這張圖其實都能解掉<a class="headerlink" href="#你前面最容易混的點這張圖其實都能解掉" title="Permanent link"></a></h4>
 <h5 id="1-為什麼-pc-和-ir-要分開">1. 為什麼 PC 和 IR 要分開？<a class="headerlink" href="#1-為什麼-pc-和-ir-要分開" title="Permanent link"></a></h5>
 <p>因為在機器週期裡：</p>
@@ -10535,9 +10565,9 @@ M[104] = 5
 <li><strong>IR</strong> 一直在管「這一條」</li>
 </ul>
 <p>如果不分開，CPU 很難同時知道「現在正在做什麼」和「下一步去哪裡」。</p>
-<hr/>
+<hr />
 <h5 id="2-為什麼-ar--mar-會重複用">2. 為什麼 AR / MAR 會重複用？<a class="headerlink" href="#2-為什麼-ar--mar-會重複用" title="Permanent link"></a></h5>
-<p>因為在這四步裡，CPU 可能先要去抓指令，再去抓資料。<br/>
+<p>因為在這四步裡，CPU 可能先要去抓指令，再去抓資料。<br />
 所以同一個 AR / MAR 會先後裝不同位址：</p>
 <ul>
 <li>抓指令時放指令位址  </li>
@@ -10545,7 +10575,7 @@ M[104] = 5
 </ul>
 <p>所以它不是在記「永久位置」，而是在記：</p>
 <p><strong>這一次記憶體存取要去哪裡。</strong></p>
-<hr/>
+<hr />
 <h5 id="3-為什麼需要-fr">3. 為什麼需要 FR？<a class="headerlink" href="#3-為什麼需要-fr" title="Permanent link"></a></h5>
 <p>因為執行完之後，不只要知道「結果是多少」，還要知道：</p>
 <ul>
@@ -10554,26 +10584,26 @@ M[104] = 5
 <li>是不是負數</li>
 </ul>
 <p>後面如果有 branch / jump，就可能直接看 flag register 來決定要不要跳。</p>
-<hr/>
+<hr />
 <h4 id="這張圖其實是簡化版">這張圖其實是「簡化版」<a class="headerlink" href="#這張圖其實是簡化版" title="Permanent link"></a></h4>
 <p>這裡我也要幫你補一個很重要的觀念：</p>
 <p><strong>這張圖是教學簡化版，不是現代 CPU 實體內部真的只有這 4 步、而且完全照順序慢慢做。</strong></p>
 <p>現代 CPU 常常會：</p>
 <ul>
-<li><strong>pipeline（流水線）</strong> </li>
+<li><strong>pipeline（流水線）</strong>  </li>
 <li>多個步驟重疊進行  </li>
 <li>一邊 fetch 新指令，一邊 decode 舊指令，一邊 execute 更前面的指令</li>
 </ul>
 <p>所以這張圖比較像是在教你：</p>
-<p><strong>「一條指令在邏輯上會經過哪些階段」</strong><br/>
+<p><strong>「一條指令在邏輯上會經過哪些階段」</strong><br />
 而不是說 CPU 現實中永遠只會一次做一個圈圈。</p>
-<hr/>
+<hr />
 <h4 id="你可以怎麼背這張圖">你可以怎麼背這張圖？<a class="headerlink" href="#你可以怎麼背這張圖" title="Permanent link"></a></h4>
 <p>我建議你直接背這句：</p>
 <p><strong>Fetch 抓進來，Decode 看懂它，Execute 做出來，Store 放回去。</strong></p>
 <p>或中文更口語一點：</p>
 <p><strong>拿指令 → 看指令 → 做事情 → 放結果</strong></p>
-<hr/>
+<hr />
 <h4 id="跟整堂課的關係">跟整堂課的關係<a class="headerlink" href="#跟整堂課的關係" title="Permanent link"></a></h4>
 <p>這張圖其實就是你整門課後面很多主題的起點：</p>
 <ul>
@@ -10585,14 +10615,14 @@ M[104] = 5
 </ul>
 <p>所以這張圖不是單純背四個名詞而已，而是在告訴你：</p>
 <p><strong>CPU 執行一條指令時，內部其實是有流程的。</strong></p>
-<hr/>
+<hr />
 <p>如果你要，我下一步可以直接把這張圖改寫成你最熟的形式：</p>
 <p><strong>用 <code>PC / IR / AR / ACC / R1 / FR</code> 寫成一段一步一步的偽程式碼流程。</strong></p>
 <h3 id="為何指令不直接給解碼後的東西要給一個指令後再解碼">為何指令不直接給解碼後的東西，要給一個指令後再解碼<a class="headerlink" href="#為何指令不直接給解碼後的東西要給一個指令後再解碼" title="Permanent link"></a></h3>
 <p><strong>既然 CPU 最後真正要用的是「解碼後的控制資訊 / 微操作」，那為什麼不在記憶體裡直接存那些解碼後的東西？為什麼還要先存一條指令，再進 CPU 內部解碼一次？</strong></p>
 <p>答案是：</p>
 <p><strong>因為「原始指令編碼」比較小、比較標準、比較容易儲存與傳輸；而「解碼後的東西」通常比較大、比較依賴 CPU 內部設計，而且不同 CPU 內部格式可能不一樣。</strong> 所以主記憶體 / 執行檔通常存的是 <strong>ISA 層級的 machine code（機器指令編碼）</strong>，不是 CPU 內部的 decoded form（解碼後形式）。現代 CPU 為了省時間，會在晶片內部另外做 <strong>uop cache / decoded i-cache</strong>，把「已解碼結果」暫存起來，下次重用。Intel 的文件明確提到，core 既可以從 decoded instruction cache 取 uOps，也可以從記憶體取原始 instructions 再 decode。</p>
-<hr/>
+<hr />
 <h4 id="先講最核心的-3-個原因">先講最核心的 3 個原因<a class="headerlink" href="#先講最核心的-3-個原因" title="Permanent link"></a></h4>
 <h5 id="1-原始指令比較省空間">1. 原始指令比較省空間<a class="headerlink" href="#1-原始指令比較省空間" title="Permanent link"></a></h5>
 <p>機器指令的 encoding（編碼）本來就是為了用較少 bit 表達一個操作。 如果你直接把「解碼後的控制訊號 / 微操作」存進記憶體，通常會更大。這也是為什麼很多架構很重視 <strong>code density（程式碼密度）</strong>；compressed instruction set 的目的之一，就是用更緊湊的格式減少記憶體占用。</p>
@@ -10602,24 +10632,24 @@ M[104] = 5
 <li><strong>解碼後內容</strong>：像解壓後的工作資料</li>
 </ul>
 <p>如果你硬要把所有程式都存成「解壓後版本」，主記憶體、快取、執行檔都會變大很多。</p>
-<hr/>
+<hr />
 <h5 id="2-解碼後的格式不是-isa-標準而是-cpu-內部格式">2. 解碼後的格式不是 ISA 標準，而是 CPU 內部格式<a class="headerlink" href="#2-解碼後的格式不是-isa-標準而是-cpu-內部格式" title="Permanent link"></a></h5>
 <p>程式對外遵守的是 <strong>ISA（Instruction Set Architecture，指令集架構）</strong>，例如 x86、ARM、MIPS。 但 CPU 內部怎麼把這條指令拆成控制訊號、甚至拆成幾個 <strong>micro-ops（微操作）</strong>，那是 <strong>微架構（microarchitecture）</strong> 自己的事，不同 CPU 可以完全不同。Intel 明確說過，x86 指令會被 decode 成 μops，而且有些是一對一，有些會變成一串 μops。</p>
 <p>這代表：</p>
 <p><strong>同一條 ISA 指令，在不同 CPU 裡的「解碼後長相」可能不同。</strong></p>
 <p>所以你不能把某顆 CPU 內部的 decoded form，當成全世界通用的程式儲存格式。</p>
-<hr/>
+<hr />
 <h5 id="3-cpu-其實已經在做你說的事了只是不是存在主記憶體">3. CPU 其實已經在做你說的事了，只是不是存在主記憶體<a class="headerlink" href="#3-cpu-其實已經在做你說的事了只是不是存在主記憶體" title="Permanent link"></a></h5>
 <p>你問的想法其實很合理，而且現代 CPU 真的有做：</p>
 <ul>
-<li><strong>Decoded ICache / Decoded Stream Buffer（DSB）</strong> </li>
-<li><strong>uop cache</strong> </li>
+<li><strong>Decoded ICache / Decoded Stream Buffer（DSB）</strong>  </li>
+<li><strong>uop cache</strong>  </li>
 <li>早期 Intel Pentium 4 的 <strong>trace cache</strong></li>
 </ul>
 <p>Intel 的文件直接說：DSB cache stores uOps that have already been decoded，可避免再走 legacy decode pipeline。Pentium 4 的 trace cache 也是存 decoded micro-ops，下次就不用重新 decode。</p>
 <p>也就是說：</p>
 <p><strong>CPU 不是沒想到「直接存解碼後的東西」；而是把它放在晶片內部快取，而不是拿來取代主記憶體裡的原始指令格式。</strong></p>
-<hr/>
+<hr />
 <h4 id="為什麼不能乾脆程式檔裡就直接存解碼後的東西">為什麼不能乾脆「程式檔裡就直接存解碼後的東西」？<a class="headerlink" href="#為什麼不能乾脆程式檔裡就直接存解碼後的東西" title="Permanent link"></a></h4>
 <p>因為這會有 4 個大問題。</p>
 <h5 id="a-不可攜">A. 不可攜<a class="headerlink" href="#a-不可攜" title="Permanent link"></a></h5>
@@ -10636,7 +10666,7 @@ M[104] = 5
 <p>所以 decode 不只是「翻譯」，而是會把 ISA 指令映射到這顆 CPU 的內部執行模型。這種映射不適合提前固化成外部檔案格式。</p>
 <h5 id="d-安全--模式--狀態會影響解碼結果">D. 安全 / 模式 / 狀態會影響解碼結果<a class="headerlink" href="#d-安全--模式--狀態會影響解碼結果" title="Permanent link"></a></h5>
 <p>某些模式、權限、prefix、控制位元改變時，decode 行為可能不同。Intel 也提到 decoded i-cache 會因為控制狀態改變而 flush 或 disable。</p>
-<hr/>
+<hr />
 <h4 id="用生活例子講最直白">用生活例子講最直白<a class="headerlink" href="#用生活例子講最直白" title="Permanent link"></a></h4>
 <p>你可以把它想成：</p>
 <ul>
@@ -10656,7 +10686,7 @@ M[104] = 5
 <li>外部存 machine code  </li>
 <li>CPU 內部快取 decoded uops</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="所以-decode-真正的角色是什麼">所以 decode 真正的角色是什麼？<a class="headerlink" href="#所以-decode-真正的角色是什麼" title="Permanent link"></a></h4>
 <p>decode 其實是：</p>
 <p><strong>把「對外標準格式」轉成「本 CPU 內部可執行格式」</strong></p>
@@ -10667,7 +10697,7 @@ M[104] = 5
 <li>可以針對熱區在 CPU 內部快取已解碼結果</li>
 </ul>
 <p>這就是為什麼 instruction stream 和 decoded stream 通常分開存在。</p>
-<hr/>
+<hr />
 <h4 id="那你的想法在哪些地方其實是對的">那你的想法在哪些地方其實是對的？<a class="headerlink" href="#那你的想法在哪些地方其實是對的" title="Permanent link"></a></h4>
 <p>你想說：</p>
 <p>既然 decode 很花工，為什麼不直接存 decode 後？</p>
@@ -10675,7 +10705,7 @@ M[104] = 5
 <p>「主記憶體直接存解碼後格式」</p>
 <p>而是：</p>
 <p><strong>「主記憶體存標準 machine code；CPU 內部對熱指令快取解碼後結果」</strong>。</p>
-<hr/>
+<hr />
 <h4 id="一句話收斂">一句話收斂<a class="headerlink" href="#一句話收斂" title="Permanent link"></a></h4>
 <p><strong>不直接把程式存成解碼後格式，是因為原始指令更小、更通用、與 CPU 內部實作解耦；而現代 CPU 為了省去重複解碼，會在晶片內部另外快取已解碼的 uops。</strong></p>
 <p>⭐ 我下一步最適合幫你做的是：畫一張 <strong>「主記憶體存 instruction bytes」vs「CPU 內部存 decoded uops」</strong> 的對照圖，這題你就會完全通。</p>
@@ -10690,9 +10720,9 @@ M[104] = 5
 <li><strong>執行週期</strong> = 執行(execute) + 儲存(store)</li>
 </ul>
 <p>這和課堂教材前面那張「CPU執行指令的步驟示意圖」一致，都是在用入門版本說明 CPU 如何完成一條指令。</p>
-<p>第二，投影片想介紹 <strong>MIPS(Million Instructions Per Second，每秒百萬個指令)</strong> 這個「很初階的速度指標」：意思是 CPU 一秒大約能執行多少百萬條指令。<br/>
-<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="703" loading="lazy" src="../../../assets/generated/optimized-images/81/81ea3a38101dce69dbe0e1a58040634faef1b709b70aecb5cfdb6efd89204b6b.webp" width="1381"/> </p>
-<hr/>
+<p>第二，投影片想介紹 <strong>MIPS(Million Instructions Per Second，每秒百萬個指令)</strong> 這個「很初階的速度指標」：意思是 CPU 一秒大約能執行多少百萬條指令。<br />
+<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="703" loading="lazy" src="../../../assets/generated/optimized-images/81/81ea3a38101dce69dbe0e1a58040634faef1b709b70aecb5cfdb6efd89204b6b.webp" width="1381"/>  </p>
+<hr />
 <h4 id="machine-cycle機器週期-到底是什麼">machine cycle(機器週期) 到底是什麼？<a class="headerlink" href="#machine-cycle機器週期-到底是什麼" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>你可以把它想成：**CPU 完整處理一條指令的流程**。這個概念和常見的 **fetch-decode-execute cycle(擷取－解碼－執行循環)** 是同一路的說法。Britannica 也把 CPU 的基本運作描述為這種循環，而且現代 CPU 還會用 pipeline(管線化) 讓多條指令在不同階段重疊進行。([Encyclopedia Britannica](https://www.britannica.com/technology/computer?utm_source=chatgpt.com))
 </code></pre></div>
@@ -10713,7 +10743,7 @@ M[104] = 5
 <p><strong>儲存(store / write back)</strong> 把結果放回某處。 可能放回 <strong>register(暫存器)</strong>，也可能寫回 <strong>memory(記憶體)</strong>。</p>
 </li>
 </ol>
-<hr/>
+<hr />
 <h4 id="為什麼投影片把它拆成指令週期和執行週期">為什麼投影片把它拆成「指令週期」和「執行週期」？<a class="headerlink" href="#為什麼投影片把它拆成指令週期和執行週期" title="Permanent link"></a></h4>
 <p>這是教學上常見的簡化拆法。</p>
 <p>因為前兩步：</p>
@@ -10740,7 +10770,7 @@ M[104] = 5
 <li>執行：開始做餐  </li>
 <li>儲存：把餐裝好、交出去</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="這裡有一個你要特別注意的地方">這裡有一個你要特別注意的地方<a class="headerlink" href="#這裡有一個你要特別注意的地方" title="Permanent link"></a></h4>
 <p>投影片這樣講對入門很有幫助，但<strong>不是所有指令都一定會「存回主記憶體」</strong>。</p>
 <p>有些指令執行完，只是把結果留在：</p>
@@ -10756,7 +10786,7 @@ M[104] = 5
 <li>算術指令常常只是把結果寫回某個暫存器。</li>
 </ul>
 <p>所以這張圖中的「儲存」比較適合理解成 <strong>write back(寫回結果)</strong>，不一定每次都是寫到主記憶體。這是我們在後面學單週期(single-cycle)、多週期(multi-cycle)、管線(pipeline)時會慢慢看得更精細的地方。這張投影片屬於入門簡化版。</p>
-<hr/>
+<hr />
 <h4 id="mips-是什麼">MIPS 是什麼？<a class="headerlink" href="#mips-是什麼" title="Permanent link"></a></h4>
 <p><strong>MIPS = Million Instructions Per Second</strong>，就是：</p>
 <p>每秒執行多少「百萬條指令」。</p>
@@ -10766,7 +10796,7 @@ M[104] = 5
 <li>5 MIPS = 每秒 500 萬條指令。</li>
 </ul>
 <p>投影片寫「MIPS 值越高，表示 CPU 執行速度越快」，這句話在<strong>入門直覺上可以先這樣記</strong>。</p>
-<hr/>
+<hr />
 <h4 id="但嚴格來說mips-不能直接代表誰比較快">但嚴格來說，MIPS 不能直接代表「誰比較快」<a class="headerlink" href="#但嚴格來說mips-不能直接代表誰比較快" title="Permanent link"></a></h4>
 <p>這裡我要明確幫你修正一下： <strong>「MIPS 高 = CPU 一定比較強」這句話不夠精確。</strong></p>
 <p>原因有幾個：</p>
@@ -10789,7 +10819,7 @@ M[104] = 5
 <p>所以更精確的說法應該是：</p>
 <div class="highlight"><pre><span></span><code>**MIPS 可以當作很粗略的入門指標，但不能單獨拿來判斷不同 CPU 的真實效能。** ([維基百科](https://en.wikipedia.org/wiki/Instructions_per_second))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="你可以怎麼記這一張">你可以怎麼記這一張？<a class="headerlink" href="#你可以怎麼記這一張" title="Permanent link"></a></h4>
 <p>我建議你記這個最核心版本：</p>
 <p><strong>一條指令的生命週期：</strong></p>
@@ -10801,7 +10831,7 @@ M[104] = 5
 </ol>
 <p>而 <strong>MIPS</strong> 就先記成：</p>
 <p>「每秒幾百萬條指令」的初階速度概念。 但考試前期可以這樣背，實務上不能只看它。</p>
-<hr/>
+<hr />
 <h4 id="這張圖和整門課的關係">這張圖和整門課的關係<a class="headerlink" href="#這張圖和整門課的關係" title="Permanent link"></a></h4>
 <p>這張其實是在幫你建立後面整門課最重要的主線：</p>
 <ul>
@@ -10809,7 +10839,7 @@ M[104] = 5
 <p>現在先知道 CPU 執行指令有幾個階段  </p>
 </li>
 <li>
-<p>之後會學每個階段用了哪些元件 例如 <strong>PC(程式計數器)</strong>、<strong>IR(指令暫存器)</strong>、<strong>AR(Address Register，位址暫存器)</strong>、<strong>ALU</strong> </p>
+<p>之後會學每個階段用了哪些元件 例如 <strong>PC(程式計數器)</strong>、<strong>IR(指令暫存器)</strong>、<strong>AR(Address Register，位址暫存器)</strong>、<strong>ALU</strong>  </p>
 </li>
 <li>
 <p>再往後會學：  </p>
@@ -10823,15 +10853,15 @@ M[104] = 5
 <li>performance(效能)</li>
 </ul>
 <p>所以這張不是在講細節，而是在建立「<strong>CPU 不是瞬間完成指令，而是分階段完成</strong>」這個大觀念。</p>
-<hr/>
+<hr />
 <h4 id="一句話總結">一句話總結<a class="headerlink" href="#一句話總結" title="Permanent link"></a></h4>
 <p>這張圖的核心就是：</p>
 <p><strong>CPU 執行一條指令，通常可先想成 擷取 → 解碼 → 執行 → 儲存；而 MIPS 只是粗略描述每秒能做多少條指令的入門指標，不是完整效能答案。</strong></p>
 <h2 id="四核心">四核心<a class="headerlink" href="#四核心" title="Permanent link"></a></h2>
-<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="655" loading="lazy" src="../../../assets/generated/optimized-images/ba/baea747c3366a2a7998b6bff7f1d9c13f9e119d32538b265fb05ba8dce5f7727.webp" width="880"/><br/>
+<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="655" loading="lazy" src="../../../assets/generated/optimized-images/ba/baea747c3366a2a7998b6bff7f1d9c13f9e119d32538b265fb05ba8dce5f7727.webp" width="880"/><br />
 多核心比較快</p>
 <h2 id="cpu-規格">CPU 規格<a class="headerlink" href="#cpu-規格" title="Permanent link"></a></h2>
-<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="595" loading="lazy" src="../../../assets/generated/optimized-images/94/94f2d6064774e893775263e64ec450c6c52587415138f9fc13ab0b0b8363131a.webp" width="875"/><br/>
+<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="595" loading="lazy" src="../../../assets/generated/optimized-images/94/94f2d6064774e893775263e64ec450c6c52587415138f9fc13ab0b0b8363131a.webp" width="875"/><br />
 <img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="666" loading="lazy" src="../../../assets/generated/optimized-images/8a/8a2799aee1b72f30a069108cb4bef1844445f5c8fb616ab7d9b55bc9f6d40e34.webp" width="888"/></p>
 <h3 id="講解">講解<a class="headerlink" href="#講解" title="Permanent link"></a></h3>
 <h4 id="先看這張圖在回答什麼">先看這張圖在回答什麼<a class="headerlink" href="#先看這張圖在回答什麼" title="Permanent link"></a></h4>
@@ -10849,7 +10879,7 @@ M[104] = 5
 <div class="highlight"><pre><span></span><code>但要注意一個很重要的觀念：**型號名稱不是直接等於效能名次**。尤其跨不同世代、不同架構時，不能只看數字大小就說誰一定比較快。Intel 也明講，**processor numbers(處理器型號編號)** 主要是用來區分同家族產品特性，不是拿來當跨家族、跨世代的直接效能尺。([英特爾](https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/core-i7-900-ee-and-desktop-processor-series-spec-update.pdf?utm_source=chatgpt.com))
 </code></pre></div>
 <p>所以，<strong>名稱最主要的功能是辨識身分</strong>，不是單獨用來判斷強弱。</p>
-<hr/>
+<hr />
 <h4 id="2-速率-clock-rate工作頻率時脈內頻-core-frequency工作頻率-clock-frequency">2. 速率 Clock rate(工作頻率／時脈)(內頻 core frequency)(工作頻率 clock frequency)<a class="headerlink" href="#2-速率-clock-rate工作頻率時脈內頻-core-frequency工作頻率-clock-frequency" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>圖上的 **3.33 GHz**，意思是這顆 CPU 每秒大約有 **33.3 億個 cycles(時脈週期)**。Intel 的說法也是：**clock speed(時脈速度)** 是 CPU 每秒執行多少個 cycle，單位用 **GHz**。([英特爾](https://www.intel.com/content/www/us/en/gaming/resources/cpu-clock-speed.html))
 </code></pre></div>
@@ -10871,7 +10901,7 @@ M[104] = 5
 <p><strong>速率 = 做事節奏，不等於最終成績。</strong></p>
 <div class="highlight"><pre><span></span><code>因為最終成績還會受到架構、核心數、快取、功耗限制、散熱等因素影響。Intel 也說 clock speed 是重要規格之一，但不是唯一因素。([英特爾](https://www.intel.com/content/www/us/en/gaming/resources/cpu-clock-speed.html?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="3-快取記憶體容量-cache-size快取記憶體容量">3. 快取記憶體容量 Cache size(快取記憶體容量)<a class="headerlink" href="#3-快取記憶體容量-cache-size快取記憶體容量" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>圖上的 **12MB Cache**，意思是這顆 CPU 內部有 **12MB 的快取記憶體(cache)** 可用來放常用資料。Intel 將這類共享的最後一級快取稱為 **Intel Smart Cache / Last Level Cache(最後一級快取，常可視為 L3)**。([Intel](https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/009/intel-smart-cache-technology/))
 </code></pre></div>
@@ -10884,7 +10914,7 @@ M[104] = 5
 <p>如果你常常要用同一份資料，放桌上就比一直跑去書櫃拿快很多。 所以快取的作用就是：</p>
 <ul>
 <li>把 <strong>常用資料／指令</strong> 先放在離 CPU 很近的地方  </li>
-<li>讓 CPU <strong>少等主記憶體</strong> </li>
+<li>讓 CPU <strong>少等主記憶體</strong>  </li>
 <li>減少資料搬運延遲</li>
 </ul>
 <div class="highlight"><pre><span></span><code>Intel 的產品資料指出，較大的共享快取能讓系統在較大資料集上工作更快；AMD 也指出，更大的 L3 cache(三級快取) 能提高 **cache hit ratio(快取命中率)**、減少資料掉回主記憶體，進而提升某些技術運算工作負載的效能。([Intel CDRD](https://cdrdv2-public.intel.com/787136/Intel%20Core%20Desktop%2014th%20gen%20Product%20Brief%20full%20stack%205.0.pdf))
@@ -10893,7 +10923,7 @@ M[104] = 5
 <p><strong>不是快取越大就對所有程式都一樣有感。</strong></p>
 <div class="highlight"><pre><span></span><code>社群上很常見的經驗是： 較大的 L3 cache 在 **遊戲、影像編輯、3D rendering(算圖)** 這類常重複存取資料的工作上，常會比較有感；但如果你的工作本來就不太吃 cache，差異可能沒有想像中大。這種說法和官方文件的方向是一致的，但社群經驗仍應視工作負載而定。([Reddit](https://www.reddit.com/r/Amd/comments/13j96ey/difference_between_low_l3_cache_and_high_l3_cache/))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="你可以怎麼記這三個規格">你可以怎麼記這三個規格<a class="headerlink" href="#你可以怎麼記這三個規格" title="Permanent link"></a></h4>
 <p>最簡單的記法是：</p>
 <ul>
@@ -10907,16 +10937,16 @@ M[104] = 5
 <li><strong>速率</strong> = 這位員工手腳快不快  </li>
 <li><strong>快取</strong> = 這位員工桌上能攤開多少常用資料</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="補一個現在比較新的觀念">補一個現在比較新的觀念<a class="headerlink" href="#補一個現在比較新的觀念" title="Permanent link"></a></h4>
 <p>你投影片上寫「市售 CPU 通常內建 512KB～12MB 快取」，這個範圍對早期教材範例是合理的，但<strong>以現在的 CPU 來看，這個範圍已經偏舊</strong>。例如：</p>
 <ul>
-<li>Intel Core Ultra 9 285K 官方規格列出 <strong>36M Cache</strong> </li>
+<li>Intel Core Ultra 9 285K 官方規格列出 <strong>36M Cache</strong>  </li>
 <li>AMD Ryzen 7 9800X3D 官方規格列出 <strong>96MB L3 Cache</strong> (<a href="https://www.intel.com/content/www/us/en/products/sku/241060/intel-core-ultra-9-processor-285k-36m-cache-up-to-5-70-ghz/specifications.html?utm_source=chatgpt.com">英特爾</a>)</li>
 </ul>
 <p>所以你上課時可以把它理解成：</p>
 <p><strong>這張投影片是在講「規格種類」沒錯，但裡面的「數值範圍」是舊教材時代的常見值。</strong></p>
-<hr/>
+<hr />
 <h4 id="一句話總結_1">一句話總結<a class="headerlink" href="#一句話總結_1" title="Permanent link"></a></h4>
 <p>這三個規格裡：</p>
 <ul>
@@ -10944,7 +10974,7 @@ M[104] = 5
 <h4 id="為什麼通常也不是-l2">為什麼通常也不是 L2？<a class="headerlink" href="#為什麼通常也不是-l2" title="Permanent link"></a></h4>
 <p>因為 <strong>L2 cache(二級快取)</strong> 也常常帶有「每核心」或「每叢集」的屬性，不像 L3 那麼適合用一個簡單的大數字代表整顆 CPU。Intel 的資料就直接區分成：</p>
 <ul>
-<li><strong>Cache = Intel Smart Cache = L3/LLC</strong> </li>
+<li><strong>Cache = Intel Smart Cache = L3/LLC</strong>  </li>
 <li><strong>Total L2 Cache = 另外列出</strong> (<a href="https://www.intel.com/content/www/us/en/products/sku/236773/intel-core-i9-processor-14900k-36m-cache-up-to-6-00-ghz/specifications.html">英特爾</a>)</li>
 </ul>
 <p>這代表在 Intel 的規格語言裡，當它單獨寫 <strong>Cache</strong> 時，通常不是在指 L2。</p>
@@ -10952,8 +10982,8 @@ M[104] = 5
 <p>這裡要很小心，<strong>不同廠商的 marketing term(行銷用語) 不完全一樣</strong>。</p>
 <p>AMD 很常寫的是 <strong>Total Cache(總快取)</strong>，而且官方文件會直接註明 <strong>Total Cache = L2 + L3</strong>。例如 AMD Ryzen 7 9800X3D 的官方規格頁會分開列：</p>
 <ul>
-<li><strong>L1 Cache = 640 KB</strong> </li>
-<li><strong>L2 Cache = 8 MB</strong> </li>
+<li><strong>L1 Cache = 640 KB</strong>  </li>
+<li><strong>L2 Cache = 8 MB</strong>  </li>
 <li><strong>L3 Cache = 96 MB</strong> (<a href="https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-7-9800x3d.html">AMD</a>)</li>
 </ul>
 <div class="highlight"><pre><span></span><code>而 AMD 的銷售文件又會把它寫成 **104 MB Total Cache = L2 + L3**。([AMD](https://www.amd.com/content/dam/amd/en/documents/partner-hub/ryzen/amd-ryzen-7-9800x3d-how-to-sell-guide-competitive.pdf?utm_source=chatgpt.com))
@@ -11042,7 +11072,7 @@ B \--\&gt; E\[詳細規格頁\&lt;br\&gt;才會分開列 L1 / L2 / L3\]
 <h4 id="公式怎麼看">公式怎麼看<a class="headerlink" href="#公式怎麼看" title="Permanent link"></a></h4>
 <p>例如：</p>
 <ul>
-<li>外頻 = <strong>100 MHz</strong> </li>
+<li>外頻 = <strong>100 MHz</strong>  </li>
 <li>倍頻係數 = <strong>33</strong></li>
 </ul>
 <p>那麼：</p>
@@ -11058,7 +11088,7 @@ B \--\&gt; E\[詳細規格頁\&lt;br\&gt;才會分開列 L1 / L2 / L3\]
 </code></pre></div>
 <p>但如果用<strong>現在比較精準</strong>的講法，我們通常會說：</p>
 <ul>
-<li>外頻比較接近 <strong>BCLK / Base Clock(基礎時脈、基準時脈)</strong> </li>
+<li>外頻比較接近 <strong>BCLK / Base Clock(基礎時脈、基準時脈)</strong>  </li>
 <li>不是單純把它當成「CPU 和晶片組傳資料的速度」而已</li>
 </ul>
 <div class="highlight"><pre><span></span><code>因為現代 CPU 架構已經不像早年那樣完全依賴傳統 FSB；Intel 與 AMD 後來都改成其他互連設計，所以教材這句比較像是**歷史教材的簡化版本**。([維基百科](https://en.wikipedia.org/wiki/Front-side_bus?utm_source=chatgpt.com))
@@ -11090,7 +11120,7 @@ B \--\&gt; E\[詳細規格頁\&lt;br\&gt;才會分開列 L1 / L2 / L3\]
 <p>你這裡把 <strong>石英振盪器 crystal clock(石英時鐘)</strong> 和 <strong>內頻 core frequency(核心頻率)</strong> 混在一起了。</p>
 <p>更正確地說：</p>
 <ul>
-<li><strong>石英的頻率</strong>：是比較底層的 <strong>固定參考時脈 reference clock</strong> </li>
+<li><strong>石英的頻率</strong>：是比較底層的 <strong>固定參考時脈 reference clock</strong>  </li>
 <li><strong>內頻</strong>：是 CPU 核心最後真正工作的頻率</li>
 </ul>
 <div class="highlight"><pre><span></span><code>Intel 官方文件明講：**處理器裡有 PLL(Phase-Locked Loop，鎖相迴路)，會從 fixed crystal clock(固定石英時鐘) 產生 processor reference clock；這個 reference clock 也叫 BCLK(Base Clock，基準時脈)**。也就是說，**石英先提供一個較低、穩定的基準，再由 PLL 產生 BCLK／並進一步讓核心得到更高的工作時脈**，不是「石英頻率 = 內頻」。([Intel](https://edc.intel.com/content/www/us/en/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com))
@@ -11144,7 +11174,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Intel 官方資料明確指出，處理器內有 **PLL(Phase-Locked Loop，鎖相迴路)**，會從 **fixed crystal clock(固定石英時鐘)** 產生 **processor reference clock**，而這個 reference clock 也叫 **BCLK(Base Clock)**；另外 Intel 也明講 **CPU Core Frequency = BCLK × Multiplier**。([Intel](https://edc.intel.com/content/www/tw/zh/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="1-時脈clock-是怎麼產生的">1. 時脈(clock) 是怎麼產生的？<a class="headerlink" href="#1-時脈clock-是怎麼產生的" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>最底層通常先有 **crystal clock(石英振盪器時脈)**。 石英振盪器的工作重點是：它能提供一個**穩定、固定**的週期訊號，當作整個系統的時間參考。Intel 官方在處理器資料裡直接把它稱為 **fixed crystal clock**，並說處理器用 PLL 從它產生參考時脈。([Intel](https://edc.intel.com/content/www/tw/zh/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com))
 </code></pre></div>
@@ -11160,7 +11190,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li>提供 PLL / clock generator 的輸入  </li>
 <li>讓後續時脈能穩定、可控制地被產生出來。(<a href="https://edc.intel.com/content/www/tw/zh/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com">Intel</a>)</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="2-外頻bclk-是怎麼產生的">2. 外頻(BCLK) 是怎麼產生的？<a class="headerlink" href="#2-外頻bclk-是怎麼產生的" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>外頻在你這堂課裡，可以先把它理解成 **BCLK(Base Clock，基準時脈)**。 Intel 官方原文很清楚：**processor reference clock is also referred to as Base Clock or BCLK**。也就是說，BCLK 是 CPU 的**參考時脈**。而它是由前面那個 **fixed crystal clock** 經過處理器內部的 **PLL** 產生的。([Intel](https://edc.intel.com/content/www/tw/zh/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com))
 </code></pre></div>
@@ -11175,7 +11205,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 
 第二，它不只影響 CPU。 Intel 官方特別指出，**BCLK 不只決定 CPU，也會影響 memory、PCIe bus、CPU cache 等**。所以外頻比較像整個平台共同參考的拍子，而不只是 CPU 自己單獨用。([Intel](https://www.intel.com/content/www/us/en/gaming/resources/cpu-clock-speed.html?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="3-內頻core-frequency-是怎麼產生的">3. 內頻(core frequency) 是怎麼產生的？<a class="headerlink" href="#3-內頻core-frequency-是怎麼產生的" title="Permanent link"></a></h4>
 <p>內頻就是 <strong>CPU Core Frequency(核心頻率)</strong>。 Intel 官方給的公式非常直接：</p>
 <div class="highlight"><pre><span></span><code>**BCLK × Multiplier = CPU Core Frequency**。([Intel](https://www.intel.com/content/www/us/en/gaming/resources/how-to-overclock.html?utm_source=chatgpt.com))
@@ -11199,7 +11229,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li>是你平常看到 CPU 規格上幾 GHz 的主要來源  </li>
 <li>用來表示 CPU 核心的工作速度。(<a href="https://www.intel.com/content/www/us/en/gaming/resources/how-to-overclock.html?utm_source=chatgpt.com">Intel</a>)</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="4-時脈和內頻外頻的差異是什麼">4. 「時脈」和「內頻、外頻」的差異是什麼？<a class="headerlink" href="#4-時脈和內頻外頻的差異是什麼" title="Permanent link"></a></h4>
 <p>這裡最容易混，所以我直接分清楚：</p>
 <h5 id="時脈clock">時脈(clock)<a class="headerlink" href="#時脈clock" title="Permanent link"></a></h5>
@@ -11219,7 +11249,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li><strong>外頻</strong>：全班一起聽的原始節拍  </li>
 <li><strong>內頻</strong>：CPU 核心自己最後實際工作的節奏</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="5-為什麼一顆-cpu-裡不只一種時脈">5. 為什麼一顆 CPU 裡不只一種時脈？<a class="headerlink" href="#5-為什麼一顆-cpu-裡不只一種時脈" title="Permanent link"></a></h4>
 <p>因為現代處理器不是只有 CPU 核心。 它還有很多模組，例如：</p>
 <ul>
@@ -11238,7 +11268,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li>比較容易做效能調整  </li>
 <li>避免整顆晶片所有地方都被迫跑同一個高頻。(<a href="https://docs.amd.com/r/en-US/ug585-zynq-7000-SoC-TRM/Interconnect-Clock-Domains?utm_source=chatgpt.com">AMD 文件</a>)</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="6-為什麼改倍頻通常比改外頻常見">6. 為什麼改倍頻通常比改外頻常見？<a class="headerlink" href="#6-為什麼改倍頻通常比改外頻常見" title="Permanent link"></a></h4>
 <p>這是理論和實務連在一起的地方。</p>
 <div class="highlight"><pre><span></span><code>Intel 官方直接說： **BCLK 不只影響 CPU，也會影響 memory、PCIe bus、CPU cache 等**，所以調 BCLK 很容易一次牽動很多元件；相對地，調 **CPU multiplier(倍頻)** 比較直接。([Intel](https://www.intel.com/content/www/us/en/gaming/resources/cpu-clock-speed.html?utm_source=chatgpt.com))
@@ -11250,7 +11280,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li><strong>改倍頻</strong>：主要改 CPU 核心速度  </li>
 <li><strong>改 BCLK</strong>：可能連很多周邊一起被動到，穩定性更麻煩。(<a href="https://www.intel.com/content/www/us/en/gaming/resources/cpu-clock-speed.html?utm_source=chatgpt.com">Intel</a>)</li>
 </ul>
-<hr/>
+<hr />
 <h4 id="7-你可以怎麼把這三者串起來背">7. 你可以怎麼把這三者串起來背<a class="headerlink" href="#7-你可以怎麼把這三者串起來背" title="Permanent link"></a></h4>
 <p>最推薦背這個版本：</p>
 <h5 id="時脈clock_1">時脈(clock)<a class="headerlink" href="#時脈clock_1" title="Permanent link"></a></h5>
@@ -11262,7 +11292,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h5 id="內頻core-frequency_1">內頻(core frequency)<a class="headerlink" href="#內頻core-frequency_1" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code>是由 **BCLK × 倍頻** 形成的**核心工作時脈**。 **用途**：決定 CPU 核心實際跑多快。([Intel](https://www.intel.com/content/www/us/en/gaming/resources/how-to-overclock.html?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="8-一句話超濃縮版">8. 一句話超濃縮版<a class="headerlink" href="#8-一句話超濃縮版" title="Permanent link"></a></h4>
 <div class="highlight"><pre><span></span><code>**先有石英振盪器提供原始時脈，再由 PLL 產生 BCLK(外頻) 作為基準，最後經倍頻形成 CPU 核心真正使用的內頻；時脈是總稱，外頻和內頻是其中兩種具體時脈。** ([Intel](https://edc.intel.com/content/www/tw/zh/design/ipla/software-development-platforms/client/platforms/alder-lake-desktop/12th-generation-intel-core-processors-datasheet-volume-1-of-2/010/integrated-reference-clock-pll/?utm_source=chatgpt.com))
 </code></pre></div>
@@ -11275,12 +11305,12 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <div class="highlight"><pre><span></span><code>對於很多現代 CPU 來說，**當成入門理解是可以的**。因為 Intel 文件確實把 **fixed crystal clock(固定石英時鐘)** 和 **BCLK(base clock，基準時脈/常被教材叫外頻)** 分開，並說處理器內有 **PLL** 會從 fixed crystal clock 產生 BCLK；而 BCLK 又驅動 core(核心) 等時脈領域。Intel 也列出常見數字：**crystal clock = 38.4 MHz，BCLK = 100 MHz**。([Intel CDRD](https://cdrdv2-public.intel.com/631121/631121_TGL%20Datasheet%20Volume1of2%20rev012_PUBLIC.pdf?utm_source=chatgpt.com))
 </code></pre></div>
 <h4 id="最簡單的數字例子">最簡單的數字例子<a class="headerlink" href="#最簡單的數字例子" title="Permanent link"></a></h4>
-<p>我們用一個很常見的概念圖來看：<br/>
+<p>我們用一個很常見的概念圖來看：<br />
 <img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="1063" loading="lazy" src="../../../assets/generated/optimized-images/ec/ec42f3238ed058cb88d262e650f79685a149c4c6c54ddf8135b090cde26bcc50.webp" width="326"/></p>
 <h4 id="數字怎麼變">數字怎麼變？<a class="headerlink" href="#數字怎麼變" title="Permanent link"></a></h4>
 <h5 id="第一步石英震盪器--外頻bclk">第一步：石英震盪器 → 外頻(BCLK)<a class="headerlink" href="#第一步石英震盪器--外頻bclk" title="Permanent link"></a></h5>
 <ul>
-<li>石英震盪器：<strong>38.4 MHz</strong> </li>
+<li>石英震盪器：<strong>38.4 MHz</strong>  </li>
 <li>經過 PLL 後  </li>
 <li>變成 BCLK：<strong>100 MHz</strong></li>
 </ul>
@@ -11293,7 +11323,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </ul>
 <p>所以：</p>
 <ul>
-<li><strong>外頻 / BCLK = 100 MHz</strong> </li>
+<li><strong>外頻 / BCLK = 100 MHz</strong>  </li>
 <li><strong>內頻 = 4.0 GHz</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>這也是常見的 CPU 頻率表示方式： **CPU frequency = BCLK × ratio(倍率)**。ASUS 的 overclocking guide 也明講 base BCLK frequency 是 100 MHz，而 CPU core frequency 由 Turbo Ratio 相乘得到。([@ROG](https://rog.asus.com/articles/overclocking/maximus-v-formula-overclocking-guide/?utm_source=chatgpt.com))
@@ -11308,8 +11338,8 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h4 id="一個完整例子">一個完整例子<a class="headerlink" href="#一個完整例子" title="Permanent link"></a></h4>
 <p>假設：</p>
 <ul>
-<li>石英震盪器 = <strong>38.4 MHz</strong> </li>
-<li>經 PLL 變成 BCLK = <strong>100 MHz</strong> </li>
+<li>石英震盪器 = <strong>38.4 MHz</strong>  </li>
+<li>經 PLL 變成 BCLK = <strong>100 MHz</strong>  </li>
 <li>CPU 倍率 = <strong>33</strong></li>
 </ul>
 <p>那麼：</p>
@@ -11356,7 +11386,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h3 id="所以一個-cpu-有不同的內頻嗎是不是用相同的bclk乘上不同的倍頻">所以一個 CPU 有不同的內頻嗎，是不是用相同的BCLK乘上不同的倍頻<a class="headerlink" href="#所以一個-cpu-有不同的內頻嗎是不是用相同的bclk乘上不同的倍頻" title="Permanent link"></a></h3>
 <p>對，<strong>有可能</strong>，但要分清楚你說的是：</p>
 <ol>
-<li><strong>整顆 CPU/SoC</strong> </li>
+<li><strong>整顆 CPU/SoC</strong>  </li>
 <li><strong>單一核心(core)</strong></li>
 </ol>
 <h4 id="結論先講_1">結論先講<a class="headerlink" href="#結論先講_1" title="Permanent link"></a></h4>
@@ -11382,8 +11412,8 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </code></pre></div>
 <p>而且 BIOS 超頻文件也說，<strong>CPU core ratio / multiplier 通常可以 per core(每核心) 或 all cores(全核心) 設定</strong>。這代表：</p>
 <ul>
-<li>同一個 <strong>BCLK</strong> </li>
-<li>不同核心可以用<strong>不同 multiplier</strong> </li>
+<li>同一個 <strong>BCLK</strong>  </li>
+<li>不同核心可以用<strong>不同 multiplier</strong>  </li>
 <li>所以不同核心<strong>可以有不同 core frequency</strong>。(<a href="https://www.intel.com/content/www/us/en/gaming/resources/bios-overclocking.html?utm_source=chatgpt.com">Intel</a>)</li>
 </ul>
 <h4 id="最白話的理解">最白話的理解<a class="headerlink" href="#最白話的理解" title="Permanent link"></a></h4>
@@ -11422,7 +11452,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h4 id="但有一個重要修正">但有一個重要修正<a class="headerlink" href="#但有一個重要修正" title="Permanent link"></a></h4>
 <p><strong>不要講成「整顆 CPU 裡所有頻率都一定只是同一個 BCLK × 不同倍頻」</strong>。 原因是 Intel 官方也明講，除了 <strong>BCLK</strong> 外，還有：</p>
 <ul>
-<li><strong>PCIe reference clock (PCTGLK) = 100 MHz</strong> </li>
+<li><strong>PCIe reference clock (PCTGLK) = 100 MHz</strong>  </li>
 <li><strong>Fixed clock / crystal clock = 38.4 MHz</strong>。(<a href="https://edc.intel.com/content/www/us/en/design/products/platforms/details/raptor-lake-s/13th-generation-core-processors-datasheet-volume-1-of-2/002/002/clock-topology/?utm_source=chatgpt.com">Intel</a>)</li>
 </ul>
 <p>所以更精準是：</p>
@@ -11444,21 +11474,21 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </code></pre></div>
 <p>⭐ 下一步最適合的是：我幫你把 <strong>「單一核心的內頻」</strong> 和 <strong>「整顆 CPU 的多個 clock domains」</strong> 畫成兩張對照圖。</p>
 <h2 id="影響-cpu-效能的因素">影響 CPU 效能的因素<a class="headerlink" href="#影響-cpu-效能的因素" title="Permanent link"></a></h2>
-<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="563" loading="lazy" src="../../../assets/generated/optimized-images/a5/a50f017bbeaa93142f36cae2691b5e5c5c054724aed85bf6dbcbf683cff23b44.webp" width="711"/><br/>
+<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="563" loading="lazy" src="../../../assets/generated/optimized-images/a5/a50f017bbeaa93142f36cae2691b5e5c5c054724aed85bf6dbcbf683cff23b44.webp" width="711"/><br />
 <img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="640" loading="lazy" src="../../../assets/generated/optimized-images/aa/aaa0f2780cc0a444a01ec54bac20405fd1f945db453c0eaf57269127ea2efeb1.webp" width="874"/></p>
 <h4 id="這兩張投影片在講什麼">這兩張投影片在講什麼<a class="headerlink" href="#這兩張投影片在講什麼" title="Permanent link"></a></h4>
 <p>這兩張其實是在講：<strong>影響 CPU 效能 (performance) 的幾個主要因素</strong>。 第一張講的是：</p>
 <ol>
-<li><strong>工作頻率 (clock rate / 時脈頻率)</strong> </li>
+<li><strong>工作頻率 (clock rate / 時脈頻率)</strong>  </li>
 <li><strong>字組大小 (word size / 字長)</strong></li>
 </ol>
 <p>第二張補上：</p>
 <ol>
-<li><strong>快取記憶體大小 (cache size)</strong> </li>
+<li><strong>快取記憶體大小 (cache size)</strong>  </li>
 <li><strong>指令集設計 (instruction set / ISA)</strong></li>
 </ol>
 <p>這些內容都出現在你這份課程投影片裡。</p>
-<hr/>
+<hr />
 <h4 id="第一張工作頻率為什麼會影響效能">第一張：工作頻率為什麼會影響效能？<a class="headerlink" href="#第一張工作頻率為什麼會影響效能" title="Permanent link"></a></h4>
 <p>投影片寫的是：<strong>頻率越高，電腦執行速度越快</strong>。 這句話在入門課可以先這樣記，但要補一個更精確的版本：</p>
 <p><strong>頻率高，代表每秒能提供更多 clock cycles(時脈週期)</strong>，所以在其他條件相近時，通常能做更多事；但不代表一定比較快。</p>
@@ -11478,7 +11508,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </ul>
 <div class="highlight"><pre><span></span><code>這也是為什麼現在 CPU 不再只靠拉高 GHz 來提升效能，而是靠快取、核心數、分支預測、管線化、亂序執行等設計一起提升。Intel 文件也明確把 cache 與核心層級設計列為影響整體處理器表現的重要部分。([Intel CDRD](https://cdrdv2-public.intel.com/655258/655258-011.pdf?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="第一張字組大小-word-是什麼">第一張：字組大小 word 是什麼？<a class="headerlink" href="#第一張字組大小-word-是什麼" title="Permanent link"></a></h4>
 <p>投影片說：</p>
 <p>字組 (word) 即一般用途暫存器的位元數 64 位元電腦，就是指 CPU 的字組大小為 64 位元</p>
@@ -11500,8 +11530,8 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h4 id="64-位元不等於所有程式都自動變快">64 位元不等於所有程式都自動變快<a class="headerlink" href="#64-位元不等於所有程式都自動變快" title="Permanent link"></a></h4>
 <p>它通常代表：</p>
 <ol>
-<li><strong>通用暫存器 (general-purpose registers) 寬度更大</strong> </li>
-<li><strong>可處理更大的整數</strong> </li>
+<li><strong>通用暫存器 (general-purpose registers) 寬度更大</strong>  </li>
+<li><strong>可處理更大的整數</strong>  </li>
 <li><strong>可支援更大的位址空間 (address space)</strong></li>
 </ol>
 <p>所以它對：</p>
@@ -11512,7 +11542,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </ul>
 <div class="highlight"><pre><span></span><code>常常有幫助。 但若只是很簡單的小程式，未必因為「64 位元」就明顯更快。x86 架構從 16、32 到 64 位元一路演進，現在的 x86-64 也明確是 64-bit 架構。([維基百科](https://en.wikipedia.org/wiki/X86?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="第二張快取記憶體-cache-為什麼重要">第二張：快取記憶體 cache 為什麼重要？<a class="headerlink" href="#第二張快取記憶體-cache-為什麼重要" title="Permanent link"></a></h4>
 <p>投影片寫：</p>
 <p>存放常被 CPU 使用的資料或指令，容量越大，CPU 的執行效能越高。</p>
@@ -11539,7 +11569,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </ul>
 <div class="highlight"><pre><span></span><code>Intel 官方文件也列出現代處理器的 L1/L2/LLC 配置，顯示 cache 是 CPU 架構的重要部分。([Intel CDRD](https://cdrdv2-public.intel.com/655258/655258-011.pdf?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="第二張cisc-與-risc-在講什麼">第二張：CISC 與 RISC 在講什麼？<a class="headerlink" href="#第二張cisc-與-risc-在講什麼" title="Permanent link"></a></h4>
 <p>投影片表格大意是：</p>
 <ul>
@@ -11552,7 +11582,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </ul>
 <div class="highlight"><pre><span></span><code>這個方向是對的。Arm 官方文件指出，**A64 指令集是 fixed-length 32-bit instruction set(固定 32 位元長度指令集)**；而 x86 則是典型 **variable-length instruction encoding(可變長度編碼)**。([developer.arm.com](https://developer.arm.com/documentation/ddi0487/maa/-Part-C-The-AArch64-Instruction-Set/-Chapter-C1-The-A64-Instruction-Set/-C1-1-About-the-A64-instruction-set?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="但這張表有一個你要特別知道的地方它有點過度簡化">但這張表有一個你要特別知道的地方：它有點過度簡化<a class="headerlink" href="#但這張表有一個你要特別知道的地方它有點過度簡化" title="Permanent link"></a></h4>
 <p>投影片上寫：</p>
 <ul>
@@ -11572,7 +11602,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <h5 id="3-apple-powerpc-已經不是現在-apple-主流-cpu">3. Apple PowerPC 已經不是現在 Apple 主流 CPU<a class="headerlink" href="#3-apple-powerpc-已經不是現在-apple-主流-cpu" title="Permanent link"></a></h5>
 <div class="highlight"><pre><span></span><code>這張投影片用 **Apple PowerPC** 當 RISC 代表，是早期教材常見例子，但現在 Apple 主流已是 **Apple Silicon(M 系列，基於 Arm 架構)**，不是 PowerPC。這點你在讀投影片時要知道它是**歷史例子**，不是現在最新現況。([developer.arm.com](https://developer.arm.com/documentation/102374/latest/Instruction-sets-in-the-Arm-architecture?utm_source=chatgpt.com))
 </code></pre></div>
-<hr/>
+<hr />
 <h4 id="你可以把第二張表格改記成這個版本">你可以把第二張表格改記成這個版本<a class="headerlink" href="#你可以把第二張表格改記成這個版本" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -11593,7 +11623,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 </tbody>
 </table>
 <p>這樣會比「CISC 慢、RISC 快」更準。</p>
-<hr/>
+<hr />
 <h4 id="這兩張你考試可以怎麼背">這兩張你考試可以怎麼背？<a class="headerlink" href="#這兩張你考試可以怎麼背" title="Permanent link"></a></h4>
 <p>先背成 4 個關鍵字：</p>
 <ol>
@@ -11602,7 +11632,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <li><strong>Cache size(快取容量)</strong>：常用資料放近一點，減少等主記憶體  </li>
 <li><strong>ISA / Instruction set(指令集)</strong>：影響解碼、管線、硬體設計效率</li>
 </ol>
-<hr/>
+<hr />
 <h4 id="一張圖幫你整理">一張圖幫你整理<a class="headerlink" href="#一張圖幫你整理" title="Permanent link"></a></h4>
 <h2 id="_1"><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="618" loading="lazy" src="../../../assets/generated/optimized-images/b0/b0fe7e51bc2b52334a6a703aefe2e924afea4f6ccc4a624ae31a19554382ae3a.webp" width="2048"/><a class="headerlink" href="#_1" title="Permanent link"></a></h2>
 <h4 id="你這兩張最容易搞混的點">你這兩張最容易搞混的點<a class="headerlink" href="#你這兩張最容易搞混的點" title="Permanent link"></a></h4>
@@ -11614,20 +11644,20 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
 <p>還要看架構、IPC(instructions per cycle，每週期指令數)、cache、核心數。</p>
 <h5 id="4-ciscrisc-是架構哲學不是簡單的快慢二分法">4. CISC/RISC 是架構哲學，不是簡單的快慢二分法<a class="headerlink" href="#4-ciscrisc-是架構哲學不是簡單的快慢二分法" title="Permanent link"></a></h5>
 <p>現代 CPU 很多都已經把兩邊概念混得很深。</p>
-<hr/>
+<hr />
 <h4 id="這段如果你要用一句話記">這段如果你要用一句話記<a class="headerlink" href="#這段如果你要用一句話記" title="Permanent link"></a></h4>
 <p>CPU 效能不只看 GHz，還要看字長、快取與指令集設計；而 CISC/RISC 的差別重點在指令設計哲學，不是單純誰一定快。</p>
-<hr/>
+<hr />
 <p>你如果要，我下一則可以直接幫你把這兩張整理成「考試版筆記」，用 5 分鐘能背完的格式。</p>
 <h2 id="記憶體">記憶體<a class="headerlink" href="#記憶體" title="Permanent link"></a></h2>
-<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="515" loading="lazy" src="../../../assets/generated/optimized-images/9f/9f5bfcca233821a1157393f01310eb7a369f74ca1435a3b5906cc0bbb8fbd5d3.webp" width="833"/><br/>
-<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="599" loading="lazy" src="../../../assets/generated/optimized-images/19/19a3ccc6a9339ae97c54a318bc22a3314869192e5e9bb5afbc91a34e82157745.webp" width="741"/><br/>
-<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="627" loading="lazy" src="../../../assets/generated/optimized-images/5b/5ba9250d1aa81612f0d08de38f829ed17e62807d78582c24db07e7ac3afea707.webp" width="708"/><br/>
-<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="613" loading="lazy" src="../../../assets/generated/optimized-images/8f/8fb62ab07d591fdad58d101f6ae2191abfbf96552c6d19287d3c169b8787fed4.webp" width="747"/><br/>
-<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="637" loading="lazy" src="../../../assets/generated/optimized-images/af/af0e6e3cb239b010e6d7aec44f0b40f746ad4cbf8abd9980d785da784f99677a.webp" width="719"/><br/>
+<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="515" loading="lazy" src="../../../assets/generated/optimized-images/9f/9f5bfcca233821a1157393f01310eb7a369f74ca1435a3b5906cc0bbb8fbd5d3.webp" width="833"/><br />
+<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="599" loading="lazy" src="../../../assets/generated/optimized-images/19/19a3ccc6a9339ae97c54a318bc22a3314869192e5e9bb5afbc91a34e82157745.webp" width="741"/><br />
+<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="627" loading="lazy" src="../../../assets/generated/optimized-images/5b/5ba9250d1aa81612f0d08de38f829ed17e62807d78582c24db07e7ac3afea707.webp" width="708"/><br />
+<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="613" loading="lazy" src="../../../assets/generated/optimized-images/8f/8fb62ab07d591fdad58d101f6ae2191abfbf96552c6d19287d3c169b8787fed4.webp" width="747"/><br />
+<img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="637" loading="lazy" src="../../../assets/generated/optimized-images/af/af0e6e3cb239b010e6d7aec44f0b40f746ad4cbf8abd9980d785da784f99677a.webp" width="719"/><br />
 <img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="638" loading="lazy" src="../../../assets/generated/optimized-images/6f/6f763e74f6f8090147ff004323f1ef575efeab9ae5cb7ee4638b3b2110730721.webp" width="768"/><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="642" loading="lazy" src="../../../assets/generated/optimized-images/58/587deac430bb59a8c283c4537375971715e8bf82053f97817d5cbab6153c4c1f.webp" width="864"/></p>
 <h3 id="重點_1">重點<a class="headerlink" href="#重點_1" title="Permanent link"></a></h3>
-<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="301" loading="lazy" src="../../../assets/generated/optimized-images/8b/8b10f33cfc508b43336f0ea4cdad233b02bc80c00f5c2e133dcb0edb1193a59d.webp" width="367"/><br/>
+<p><img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="301" loading="lazy" src="../../../assets/generated/optimized-images/8b/8b10f33cfc508b43336f0ea4cdad233b02bc80c00f5c2e133dcb0edb1193a59d.webp" width="367"/><br />
 <img alt="" data-peicd-externalized-image="true" data-peicd-optimized-image="lossless" decoding="async" height="325" loading="lazy" src="../../../assets/generated/optimized-images/85/851851890e4e6f8b1cf95906d389d399a225fb9efe5bac1f08aeb7f418760ba9.webp" width="367"/></p>
 
 
@@ -11762,7 +11792,7 @@ C \--\&gt; F\[其他 clock domains\&lt;br\&gt;記憶體 / PCIe / 內顯 / 互連
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

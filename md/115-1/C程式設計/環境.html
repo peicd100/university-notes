@@ -1123,6 +1123,8 @@
       
         
       
+        
+      
     
     
     
@@ -1180,7 +1182,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1265,6 +1267,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5530,16 +5560,16 @@
 <span class="w">	</span>rm<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>t<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ob<span class="k">)</span>
 </code></pre></div>
 <ol>
-<li>為何是寫<code>$(ob): %.o: %.cpp</code>？<br/>
+<li>為何是寫<code>$(ob): %.o: %.cpp</code>？<br />
     因為整句其實在說：對 Q1.o Q2.o Q3.o Q4.o 這四個 target，凡是符合 %.o 的，就去找同名的 %.cpp 當 prerequisite。<mark>所以 $(ob): 對應 %.o</mark></li>
-<li>為何是寫<code>$(t): %: %.o</code>？<br/>
+<li>為何是寫<code>$(t): %: %.o</code>？<br />
     對 TARGETS 裡的每一個 target，都去找「同名的 .o 檔」當作它的 prerequisite。<mark>所以 $(t): 對應  %</mark></li>
 </ol>
 <h2 id="指令">指令<a class="headerlink" href="#指令" title="Permanent link"></a></h2>
 <ul>
 <li>記事本：<code>nano &lt;檔名&gt;</code></li>
-<li>記事本快捷鍵：<br/>
-    復原： <code>Alt + U</code><br/>
+<li>記事本快捷鍵：<br />
+    復原： <code>Alt + U</code><br />
     重做： <code>Alt + E</code></li>
 <li>編譯與執行： <code>make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;</code></li>
 <li>複製貼上：滑鼠選取按右鍵</li>
@@ -5625,7 +5655,7 @@ make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;      # 編譯和執行
               <span class="md-footer__direction">
                 Next
               </span>
-              打星星
+              老師打星星的重點
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -5686,7 +5716,7 @@ make clean &amp;&amp; make &amp;&amp; ./&lt;檔名&gt;      # 編譯和執行
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

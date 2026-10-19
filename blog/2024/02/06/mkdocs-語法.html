@@ -1032,6 +1032,8 @@
       
         
       
+        
+      
     
     
     
@@ -1089,7 +1091,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1174,6 +1176,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../md/115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5554,6 +5584,7 @@
 
 <h1 id="mkdocs-語法">mkdocs 語法<a class="headerlink" href="#mkdocs-語法" title="Permanent link"></a></h1>
 <!-- more -->
+
 <h2 id="螢光筆">螢光筆<a class="headerlink" href="#螢光筆" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code>哈哈哈 ==重點== 哈哈哈
 </code></pre></div>
@@ -5583,7 +5614,7 @@
 <p>hl_lines 中與順序無關，像是 27 可以放最前面</p>
 </blockquote>
 <div class="highlight"><span class="filename">程式塊</span><pre><span></span><code>/// collapse-code  
-``` cpp linenums="1" hl<span class="nb">_</span>lines="27 6-8 13-13 16"  title="code"
+``` cpp linenums=&quot;1&quot; hl<span class="nb">_</span>lines=&quot;27 6-8 13-13 16&quot;  title=&quot;code&quot;
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 
@@ -5616,7 +5647,7 @@ signed main() <span class="nb">{</span>
 ///
 </code></pre></div>
 <div class="result">
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox"/><div class="highlight"><span class="filename">code</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="highlight"><span class="filename">code</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
 <span class="linenos" data-linenos=" 3 "></span>
 <span class="linenos" data-linenos=" 4 "></span><span class="cp">#define int long long</span>
@@ -5674,7 +5705,7 @@ signed main() <span class="nb">{</span>
 </details>
 </div>
 <h2 id="變更圖片大小">變更圖片大小<a class="headerlink" href="#變更圖片大小" title="Permanent link"></a></h2>
-<div class="highlight"><pre><span></span><code>![alt text](&lt;images/mkdocs 語法.png&gt;){width="60%"}
+<div class="highlight"><pre><span></span><code>![alt text](&lt;images/mkdocs 語法.png&gt;){width=&quot;60%&quot;}
 </code></pre></div>
 <div class="result">
 <p><img alt="alt text" decoding="async" src="../../../images/mkdocs%20%E8%AA%9E%E6%B3%95.png" width="60%"/></p>
@@ -5688,15 +5719,17 @@ signed main() <span class="nb">{</span>
 ### 哈哈
 </code></pre></div>
 <h2 id="嵌入網頁pdf">嵌入網頁/PDF<a class="headerlink" href="#嵌入網頁pdf" title="Permanent link"></a></h2>
-<div class="highlight"><span class="filename">雲端 PDF</span><pre><span></span><code>&lt;iframe src="https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview" width="100<span class="c">%" height="300px"&gt;&lt;/iframe&gt;</span>
+<div class="highlight"><span class="filename">雲端 PDF</span><pre><span></span><code>&lt;iframe src=&quot;https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview&quot; width=&quot;100<span class="c">%&quot; height=&quot;300px&quot;&gt;&lt;/iframe&gt;</span>
 </code></pre></div>
 <div class="result">
-<iframe height="300px" src="https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview" width="100%"></iframe>
+<iframe src="https://drive.google.com/file/d/1oO0sJSXeb9vxLrz9AjAvrsnqDtLMqWKz/preview" width="100%" height="300px"></iframe>
+
 </div>
-<div class="highlight"><span class="filename">docs/ 中的 PDF</span><pre><span></span><code>&lt;iframe src="<span class="k">\筆</span>記素材<span class="k">\Dijkstra</span>.pdf" width="100<span class="c">%" height="550px"&gt;&lt;/iframe&gt;</span>
+<div class="highlight"><span class="filename">docs/ 中的 PDF</span><pre><span></span><code>&lt;iframe src=&quot;<span class="k">\筆</span>記素材<span class="k">\Dijkstra</span>.pdf&quot; width=&quot;100<span class="c">%&quot; height=&quot;550px&quot;&gt;&lt;/iframe&gt;</span>
 </code></pre></div>
 <div class="result">
-<iframe height="550px" src="\筆記素材\Dijkstra.pdf" width="100%"></iframe>
+<iframe src="\筆記素材\Dijkstra.pdf" width="100%" height="550px"></iframe>
+
 </div>
 
 
@@ -5815,7 +5848,7 @@ signed main() <span class="nb">{</span>
   
       <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5471,7 +5501,7 @@
   <h1>不會被刪除的變數</h1>
 
 <h2 id="結論">結論<a class="headerlink" href="#結論" title="Permanent link"></a></h2>
-<p>變數要在 always 裡面初始化(等於0)。<br/>
+<p>變數要在 always 裡面初始化(等於0)。<br />
 變數如下：</p>
 <h2 id="問題">問題<a class="headerlink" href="#問題" title="Permanent link"></a></h2>
 <p>請看以下程式碼(<a href="https://hdlbits.01xz.net/wiki/Popcount3">題目網址</a>)。</p>
@@ -5488,7 +5518,7 @@
 <span class="w">    </span><span class="k">end</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<p>這個電路目的是計算 in 有多少 bit 是 1 ，但是其實電路會有問題，會有 bug 。<br/>
+<p>這個電路目的是計算 in 有多少 bit 是 1 ，但是其實電路會有問題，會有 bug 。<br />
 因為第一次宣告 integer j=0; 時，他之後就不會再變成 0 了，因為 verilog 的變數不像是 C++ 出了函數之後就會被丟棄。也就是說會像是 C++ 的靜態(static)變數。</p>
 <p>所以在 always 中要用到時，等於左邊的 reg(output reg) 或是 integer 盡量都先初始化(等於0)，這樣也可以<a href="%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html#組合邏輯電路變成-latch-的問題">防止變成 latch</a>。</p>
 
@@ -5624,7 +5654,7 @@
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

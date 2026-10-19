@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5790,7 +5820,7 @@
 <p>看到上面程式碼，取單一位置時可以這樣做，但是要切片時就不行了，切片時有另外的方法，我們看到下一章。</p>
 <h4 id="indexed-part-select索引式區段選取">indexed part-select(索引式區段選取)<a class="headerlink" href="#indexed-part-select索引式區段選取" title="Permanent link"></a></h4>
 <p>它的用途就是：起點可以是變數，但取出的寬度必須是常數。</p>
-<p>看到代碼：<br/>
+<p>看到代碼：<br />
 <div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">top_module</span><span class="p">(</span><span class="w"> </span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in</span><span class="p">,</span>
 <span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sel</span><span class="p">,</span>
@@ -5806,7 +5836,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">vector</span><span class="p">[</span><span class="n">base</span><span class="w"> </span><span class="o">+:</span><span class="w"> </span><span class="n">width</span><span class="p">]</span>
 <span class="n">vector</span><span class="p">[</span><span class="n">base</span><span class="w"> </span><span class="o">-:</span><span class="w"> </span><span class="n">width</span><span class="p">]</span>
 </code></pre></div>
-<p>base +: width：從 base 開始，往較高 bit 編號取 width 個 bit<br/>
+<p>base +: width：從 base 開始，往較高 bit 編號取 width 個 bit<br />
 base -: width：從 base 開始，往較低 bit 編號取 width 個 bit。</p>
 <h3 id="位寬延伸與截斷">位寬延伸與截斷<a class="headerlink" href="#位寬延伸與截斷" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
@@ -5828,7 +5858,7 @@ base -: width：從 base 開始，往較低 bit 編號取 width 個 bit。</p>
 <span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out2</span><span class="p">;</span>
 
 <span class="k">assign</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">};</span>
-<span class="k">assign</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">2</span><span class="p">{</span><span class="mh">4</span><span class="mb">'b1010</span><span class="p">}};</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">2</span><span class="p">{</span><span class="mh">4</span><span class="mb">&#39;b1010</span><span class="p">}};</span>
 </code></pre></div>
 <ul>
 <li><code>{a, b}</code> 把兩段 vector 接在一起。</li>
@@ -5992,7 +6022,7 @@ base -: width：從 base 開始，往較低 bit 編號取 width 個 bit。</p>
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5543,7 +5573,7 @@
 <h1 id="testbench-寫-clk">Testbench 寫 clk<a class="headerlink" href="#testbench-寫-clk" title="Permanent link"></a></h1>
 <h2 id="repeat">repeat<a class="headerlink" href="#repeat" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">repeat</span><span class="w"> </span><span class="p">(</span><span class="mh">30</span><span class="p">)</span>
 <span class="w">        </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clock</span><span class="p">;</span>
 <span class="k">end</span>
@@ -5551,7 +5581,7 @@
 <h2 id="always">always<a class="headerlink" href="#always" title="Permanent link"></a></h2>
 <p>always 不用放在 initial 裡面。</p>
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="k">end</span>
 
 <span class="k">initial</span><span class="w"> </span><span class="p">#</span><span class="mh">300</span><span class="w"> </span><span class="nb">$finish</span><span class="p">;</span>
@@ -5573,13 +5603,13 @@
 <span class="w">    </span><span class="kt">reg</span><span class="w"> </span><span class="n">reset</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="w">        </span><span class="k">forever</span><span class="w"> </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clock</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
 
 <span class="w">    </span><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
-<span class="w">        </span><span class="p">#</span><span class="mh">25</span><span class="w"> </span><span class="n">reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">#</span><span class="mh">25</span><span class="w"> </span><span class="n">reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">        </span><span class="p">#</span><span class="mh">300</span><span class="w"> </span><span class="nb">$finish</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
@@ -5588,17 +5618,17 @@
 </code></pre></div>
 <h2 id="題外話">題外話<a class="headerlink" href="#題外話" title="Permanent link"></a></h2>
 <p>這三種都可以用 begin 和 end 包起來。</p>
-<hr/>
-<p>然後<br/>
+<hr />
+<p>然後<br />
 <div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clock</span><span class="p">;</span>
-</code></pre></div><br/>
-和<br/>
+</code></pre></div><br />
+和<br />
 <div class="highlight"><pre><span></span><code><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
 <span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">clock</span><span class="p">;</span>
-</code></pre></div><br/>
-是一樣的但是兩行就要用 begin 、 end。<br/>
+</code></pre></div><br />
+是一樣的但是兩行就要用 begin 、 end。<br />
 <div class="highlight"><pre><span></span><code><span class="k">initial</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">forever</span><span class="w"> </span><span class="k">begin</span>
 <span class="w">        </span><span class="p">#</span><span class="mh">10</span><span class="p">;</span>
@@ -5739,7 +5769,7 @@
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 

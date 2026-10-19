@@ -1029,6 +1029,8 @@
       
         
       
+        
+      
     
     
     
@@ -1086,7 +1088,7 @@
   <span class="md-ellipsis">
     
   
-    打星星
+    老師打星星的重點
   
 
     
@@ -1171,6 +1173,34 @@
     
   
     L03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L04
   
 
     
@@ -5620,7 +5650,7 @@
 
 <h1 id="priority-encoder">Priority Encoder<a class="headerlink" href="#priority-encoder" title="Permanent link"></a></h1>
 <h2 id="一句話先懂">一句話先懂<a class="headerlink" href="#一句話先懂" title="Permanent link"></a></h2>
-<p>Priority encoder 的重點不是只有「把多個輸入編成編號」，而是：<br/>
+<p>Priority encoder 的重點不是只有「把多個輸入編成編號」，而是：<br />
 當多個 bit 同時為 <code>1</code> 時，你到底要保留哪一個優先順序最高的 bit。</p>
 <h2 id="核心規則">核心規則<a class="headerlink" href="#核心規則" title="Permanent link"></a></h2>
 <ul>
@@ -5633,17 +5663,17 @@
 <h2 id="常用模板或例子">常用模板或例子<a class="headerlink" href="#常用模板或例子" title="Permanent link"></a></h2>
 <h3 id="lsb-優先">LSB 優先<a class="headerlink" href="#lsb-優先" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
-<span class="w">        </span><span class="mh">4</span><span class="p">'</span><span class="n">b</span><span class="o">???</span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="p">'</span><span class="n">b</span><span class="o">??</span><span class="mh">10</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d1</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="p">'</span><span class="n">b</span><span class="o">?</span><span class="mh">100</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d2</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b1000</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d3</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="p">&#39;</span><span class="n">b</span><span class="o">???</span><span class="mh">1</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="p">&#39;</span><span class="n">b</span><span class="o">??</span><span class="mh">10</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="p">&#39;</span><span class="n">b</span><span class="o">?</span><span class="mh">100</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1000</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">            </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">            </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 <span class="w">        </span><span class="k">end</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
@@ -5654,50 +5684,50 @@
 </ul>
 <h3 id="msb-優先">MSB 優先<a class="headerlink" href="#msb-優先" title="Permanent link"></a></h3>
 <div class="highlight"><span class="filename">使用?</span><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">'b00</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b1</span><span class="o">???:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d3</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b01</span><span class="o">??:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d2</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b001</span><span class="o">?:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d1</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1</span><span class="o">???:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b01</span><span class="o">??:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b001</span><span class="o">?:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
 </code></pre></div>
 <p><div class="highlight"><span class="filename">使用z</span><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">'b00</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">casez</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b1</span><span class="nl">zzz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d3</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b01</span><span class="nl">zz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d2</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b001</span><span class="nl">z:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d1</span><span class="p">;</span>
-<span class="w">        </span><span class="mh">4</span><span class="mb">'b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b1</span><span class="nl">zzz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b01</span><span class="nl">zz:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b001</span><span class="nl">z:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="mh">4</span><span class="mb">&#39;b0001</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
 <span class="w">    </span><span class="k">endcase</span>
 <span class="k">end</span>
-</code></pre></div><br/>
+</code></pre></div><br />
 用 z 和 ? 是相同意思。</p>
 <h3 id="if--else-if-版本"><code>if / else if</code> 版本<a class="headerlink" href="#if--else-if-版本" title="Permanent link"></a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mh">3</span><span class="p">])</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d3</span><span class="p">;</span>
-<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mh">2</span><span class="p">])</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d2</span><span class="p">;</span>
-<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mh">1</span><span class="p">])</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d1</span><span class="p">;</span>
-<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">[</span><span class="mh">0</span><span class="p">])</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">'d0</span><span class="p">;</span>
-<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
@@ -5846,7 +5876,7 @@
   
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1"></script>
+        <script src="../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
       
     
 
