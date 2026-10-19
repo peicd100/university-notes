@@ -10,6 +10,20 @@ _DISPLAY_DELIMITERS = {"[": "]", r"\[": r"\]", r"\\[": r"\\]", "$$": "$$"}
 _LIST_MARKER_RE = re.compile(r"^(?:[-+*]|\d+[.)])[ \t]+(?:\S|$)")
 _MATH_TOKEN_RE = re.compile(r"(?<!\\)(?P<slashes>\\{1,2})(?P<delimiter>[\(\)\[\]])")
 _CODE_SPAN_RE = re.compile(r"(?<![\\`])(?P<ticks>`+)(?!`)(?P<code>.*?)(?<!`)(?P=ticks)(?!`)", re.S)
+# GPT sometimes Markdown-escapes an operator's braced lower limit. Do not
+# unescape general TeX: x\_i, \text{file\_name} and row breaks are intentional.
+_OPERATOR_SUBSCRIPT_RE = re.compile(r"(?<!\\)(\\(?:prod|sum|coprod))\\_(?=\{)")
+# Escaped '<' is a copied Markdown artifact, unlike valid TeX '\>' spacing.
+_ESCAPED_LESS_THAN_RE = re.compile(r"(?<!\\)\\<")
+# In math, a literal hash requires \#: GPT may Markdown-escape it again.
+# Repair exactly two slashes regardless of the following label. Three slashes
+# mean a real TeX row break followed by \# and must remain untouched.
+_PASTED_COUNT_HASH_RE = re.compile(r"(?<!\\)\\\\#")
+_UNDERBRACE_RE = re.compile(r"(?<!\\)\\underbrace\{")
+_TEX_GROUP_TOKEN_RE = re.compile(r"\\.|[{}]")
+# Repair paired Markdown-escaped set braces only, not arbitrary doubled
+# backslashes: TeX row breaks (including a row followed by a group) must survive.
+_PASTED_SET_BRACE_RE = re.compile(r"(?<!\\)\\\\(?P<brace>[{}])")
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
@@ -240,10 +254,49 @@ def _inline_code_spans(lines: list[str]) -> list[list[tuple[int, int]]]:
     return spans
 
 
+def _normalize_underbrace_subscripts(tex: str) -> str:
+    """Repair escaped annotation subscripts only after a balanced underbrace.
+
+    Skip escaped braces/commands while counting groups; nested text and nested
+    underbraces must not make us mistake an inner closing brace for the end.
+    """
+    remove = set()
+    for opening in _UNDERBRACE_RE.finditer(tex):
+        depth = 1
+        for token in _TEX_GROUP_TOKEN_RE.finditer(tex, opening.end()):
+            if token.group() == "{":
+                depth += 1
+            elif token.group() == "}":
+                depth -= 1
+            if depth == 0:
+                suffix = re.match(r"\s*\\_(?=\{)", tex[token.end():])
+                if suffix:
+                    remove.add(token.end() + suffix.end() - 2)
+                break
+    return "".join(char for index, char in enumerate(tex) if index not in remove)
+
+
+def _normalize_pasted_set_braces(tex: str) -> str:
+    """Repair only fully balanced escaped braces, including nested sets.
+
+    A flat pair regex consumes the outer opening and the first inner closing,
+    leaving malformed braces behind. Validate the entire token stream first;
+    unmatched braces may instead be a real row break followed by a TeX group.
+    """
+    depth = 0
+    for match in _PASTED_SET_BRACE_RE.finditer(tex):
+        depth += 1 if match["brace"] == "{" else -1
+        if depth < 0:
+            return tex
+    if depth:
+        return tex
+    return _PASTED_SET_BRACE_RE.sub(lambda match: "\\" + match["brace"], tex)
+
+
 def _normalize_math_line(
     body: str, prefix: str, newline: str, protected: list[tuple[int, int]], continuation: str, fallback_eol: str
 ) -> list[str]:
-    """Canonicalize paired delimiters only; treat the enclosed TeX as opaque.
+    """Canonicalize paired delimiters and narrowly repair pasted TeX artifacts.
 
     Display math embedded in prose is emitted as its own paragraph, including
     repeated expressions in quotes/list items. Literal code stays byte-for-byte.
@@ -264,6 +317,11 @@ def _normalize_math_line(
         tex = body[match.end():end.start()]
         if not tex.strip():
             continue
+        tex = _normalize_pasted_set_braces(tex)
+        tex = _normalize_underbrace_subscripts(tex)
+        tex = _OPERATOR_SUBSCRIPT_RE.sub(r"\1_", tex)
+        tex = _ESCAPED_LESS_THAN_RE.sub("<", tex)
+        tex = _PASTED_COUNT_HASH_RE.sub(lambda _: r"\#", tex)
         parts.append(("text", body[offset:match.start()]))
         if opening == "(":
             parts.append(("text", "\\(" + tex + "\\)"))

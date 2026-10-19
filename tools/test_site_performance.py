@@ -123,6 +123,21 @@ class ImageDerivativeTests(unittest.TestCase):
 
 
 class CSSBundleTests(unittest.TestCase):
+    def test_bundle_cache_uses_content_and_invalidates_with_same_size_edit(self):
+        asset_bundle_hook._cached_bundle.cache_clear()
+        try:
+            with patch.object(asset_bundle_hook, "compact_css", wraps=asset_bundle_hook.compact_css) as compact:
+                first = asset_bundle_hook._cached_bundle(".x {color:red}")
+                self.assertEqual(asset_bundle_hook._cached_bundle(".x {color:red}"), first)
+                self.assertEqual(compact.call_count, 1)
+                changed = asset_bundle_hook._cached_bundle(".x {color:tan}")
+                self.assertNotEqual(changed[0], first[0])
+                self.assertIn("tan", changed[1])
+                self.assertEqual(compact.call_count, 2)
+                self.assertEqual(asset_bundle_hook._cached_bundle.cache_info().currsize, 1)
+        finally:
+            asset_bundle_hook._cached_bundle.cache_clear()
+
     def test_safe_compaction_preserves_calc_strings_and_scopes(self):
         css='/*comment*/ .x { width: calc(100% - 2px); content:"a  b"; }\n.x { width: calc(100% - 2px); content:"a  b"; }\n@media (max-width: 400px) { .x { color:red; } } .x { color:blue; }'
         result=asset_bundle_hook.compact_css(css)
@@ -177,6 +192,8 @@ class SourceIndexCacheTests(unittest.TestCase):
 
     def test_production_does_not_index_and_removed_files_are_pruned(self):
         source_jump_hook.on_files([self.file],config={})
+        self.assertFalse(source_jump_hook._SOURCE_INDEX_CACHE)
+        source_jump_hook._lookup_page_record("a.html")
         self.assertTrue(source_jump_hook._SOURCE_INDEX_CACHE)
         source_jump_hook.on_files([],config={})
         self.assertFalse(source_jump_hook._SOURCE_INDEX_CACHE)
@@ -185,6 +202,7 @@ class SourceIndexCacheTests(unittest.TestCase):
             source_jump_hook.on_files([self.file],config={})
             self.assertEqual(source_jump_hook.on_page_markdown("rendered",page=SimpleNamespace(file=self.file),config={},files=None),"rendered")
         self.assertFalse(source_jump_hook._PAGE_INDEX)
+        self.assertFalse(source_jump_hook._PAGE_SOURCES)
 
 
 if __name__ == "__main__":

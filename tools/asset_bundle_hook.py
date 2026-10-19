@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -66,6 +67,14 @@ def compact_css(source: str) -> str:
     return process(rules)
 
 
+@lru_cache(maxsize=1)
+def _cached_bundle(source: str) -> tuple[str, str]:
+    """Reuse only identical source content; keep just the latest bundle in RAM."""
+    bundled = compact_css(source)
+    digest = hashlib.sha256(bundled.encode("utf-8")).hexdigest()[:20]
+    return f"assets/pymdownx-extras/peicd-site.{digest}.css", bundled
+
+
 def on_config(config: Any) -> Any:
     global _BUNDLE, _ORIGINAL_EXTRAS
     extras = list(config["extra_css"])
@@ -90,10 +99,8 @@ def on_config(config: Any) -> Any:
     if not all(path.is_file() for path in paths):
         return config
     source = "\n".join(path.read_text(encoding="utf-8") for path in paths)
-    bundled = compact_css(source)
-    digest = hashlib.sha256(bundled.encode("utf-8")).hexdigest()[:20]
     # Same directory preserves relative URLs embedded in either stylesheet.
-    name = f"assets/pymdownx-extras/peicd-site.{digest}.css"
+    name, bundled = _cached_bundle(source)
     config["extra_css"] = extras[:matches[0][0]] + [name] + extras[matches[1][0]+1:]
     _BUNDLE = (name, bundled)
     _ORIGINAL_EXTRAS = extras

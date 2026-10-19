@@ -96,7 +96,7 @@ extra_css:
   - assets/pymdownx-extras/自定義.css?v=20260614-2  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js?v=20261009-follow-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
+  - assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
 
 hooks:
   - tools/asset_bundle_hook.py
@@ -170,6 +170,7 @@ markdown_extensions:
   - pymdownx.tilde:  # Tilde 擴展，支持刪除線
   - pymdownx.caret:  # Caret 擴展，支持插入符號
   - pymdownx.smartsymbols:  # 支持智能符號轉換
+      copyright: false  # 保留題號 (c)/(C)，不自動轉成 ©
 
   - pymdownx.emoji:  # Emoji 擴展
       emoji_index: !!python/name:material.extensions.emoji.twemoji  # 使用 Twemoji 作為 Emoji 索引

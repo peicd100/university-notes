@@ -7,7 +7,7 @@ const source = fs.readFileSync('theme/assets/pymdownx-extras/mathjax-refresh.js'
 function fixture(tex = ['x=1','y=2','z=3','w=4'], semantic = false, convert = false, initialMathJax = {}) {
   const calls = [], events = {}, subscriptions = [], notifications = [];
   const nodes = tex.map((textContent,index) => ({
-    textContent, isConnected:true, rendered:false,
+    textContent, dataset:{}, isConnected:true, rendered:false,
     getClientRects:()=>[{}], getBoundingClientRect:()=>({top:index*1600,bottom:index*1600+20}),
     replaceChildren(output){this.rendered=true;this.output=output;},
     querySelector(){return this.rendered ? {} : null;}
@@ -86,6 +86,18 @@ test('stateless math uses independent conversion rather than global rescans',asy
   assert(f.nodes.every(n=>n.rendered));
   assert.deepEqual(f.calls.filter(x=>typeof x==='string'&&x.startsWith('convert:')),['convert:x=1','convert:y=2']);
   assert.equal(f.calls.filter(Array.isArray).length,0);
+});
+
+test('delimited source is retained before independent and semantic rendering',async()=>{
+  for(const semantic of [false,true]){
+    const f=fixture([String.raw`\(x=1\)`,String.raw`\[y=2\]`],semantic,!semantic);
+    const original=f.nodes.map(n=>n.textContent.trim());
+    await f.window.__PEICD_MATH__.renderAll();
+    assert.deepEqual(f.nodes.map(n=>n.dataset.peicdTex),original);
+    f.subscriptions.forEach(fn=>fn());
+    assert.deepEqual(f.nodes.map(n=>n.dataset.peicdTex),original);
+    assert.equal(typeof f.events['document-copy'],'function');
+  }
 });
 
 test('same-page document/hash events do not re-typeset or reset',async()=>{

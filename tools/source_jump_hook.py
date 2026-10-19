@@ -8,6 +8,7 @@ import posixpath
 import re
 import shutil
 import subprocess
+import threading
 import urllib.parse
 from dataclasses import dataclass
 from difflib import SequenceMatcher
@@ -23,9 +24,18 @@ log = logging.getLogger("mkdocs.hooks.source_jump")
 
 _LOCAL_ENDPOINT_SUFFIX = "/__peicd/source-jump"
 _CONTEXT_FALLBACK_MIN_SCORE = 2500.0
+_MATH_SOURCE_PATTERNS = (
+    re.compile(r"(?<!\\)(?P<slashes>\\{1,2})\[(?P<body>.*?)(?P=slashes)\]", re.S),
+    re.compile(r"(?<!\\)(?P<slashes>\\{1,2})\((?P<body>.*?)(?P=slashes)\)", re.S),
+    re.compile(r"(?<![\\$])\$\$(?P<body>.*?)\$\$(?!\$)", re.S),
+    re.compile(r"(?<![\\$])\$(?!\$)(?P<body>[^\n]*?)(?<!\\)\$(?!\$)"),
+)
+_INLINE_CODE_SOURCE_RE = re.compile(r"(?P<ticks>`+).*?(?P=ticks)", re.S)
 _VSCODE_OPEN_TIMEOUT_SECONDS = 8
 _MARKDOWN = MarkdownIt("commonmark", {"html": True}).enable("table")
 _PAGE_INDEX: dict[str, "PageRecord"] = {}
+_PAGE_SOURCES: dict[str, Any] = {}
+_INDEX_LOCK = threading.RLock()
 _SOURCE_INDEX_CACHE: dict[tuple[str, str, str], tuple[str, "PageRecord"]] = {}
 _INDEX_ENABLED = True  # Standalone tests index by default; CLI startup sets the mode.
 _VSCODE_COMMAND: str | None = None
@@ -106,41 +116,38 @@ def on_startup(*, command: str, dirty: bool) -> None:
     _INDEX_ENABLED = command == "serve"
     _SOURCE_INDEX_CACHE.clear()
     _PAGE_INDEX.clear()
+    _PAGE_SOURCES.clear()
 
 
 def on_config(config: Any) -> Any:
     if not _INDEX_ENABLED:
         _PAGE_INDEX.clear()
+        _PAGE_SOURCES.clear()
     return config
 
 
 @event_priority(-100)
 def on_files(files: Any, /, *, config: Any) -> Any:
-    global _PAGE_INDEX
+    global _PAGE_INDEX, _PAGE_SOURCES
     if not _INDEX_ENABLED:
         _PAGE_INDEX = {}
+        _PAGE_SOURCES = {}
         return files
 
     active_keys = set()
-    next_index = {}
+    next_sources = {}
     for file_obj in _iter_documentation_files(files):
         active_keys.add(_source_cache_key(file_obj))
-        markdown = _read_markdown_content(file_obj)
-        if markdown is None:
-            continue
-        try:
-            record = _cached_page_record(markdown, file_obj)
-            next_index[record.dest_uri] = record
-        except Exception:
-            _SOURCE_INDEX_CACHE.pop(_source_cache_key(file_obj), None)
-            log.exception("Failed to index page source for %s", getattr(file_obj, "src_uri", "<unknown>"))
+        dest = str(getattr(file_obj, "dest_uri", "")).replace("\\", "/")
+        next_sources[dest] = file_obj
 
-    # Publish atomically: lookups during a rebuild see the last complete map,
-    # never a temporarily empty index. Removed pages/cache keys are then pruned.
-    _PAGE_INDEX = next_index
-    for key in list(_SOURCE_INDEX_CACHE):
-        if key not in active_keys:
-            del _SOURCE_INDEX_CACHE[key]
+    # Register all pages cheaply. Parse original source only on a real lookup.
+    with _INDEX_LOCK:
+        _PAGE_SOURCES = next_sources
+        _PAGE_INDEX = {key: value for key, value in _PAGE_INDEX.items() if key in next_sources}
+        for key in list(_SOURCE_INDEX_CACHE):
+            if key not in active_keys:
+                del _SOURCE_INDEX_CACHE[key]
     return files
 
 
@@ -151,8 +158,8 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
     if file_obj is None:
         return markdown
 
-    source_markdown = _read_source_markdown_content(file_obj, markdown)
-    _index_page_markdown(source_markdown, file_obj)
+    with _INDEX_LOCK:
+        _PAGE_SOURCES[str(getattr(file_obj, "dest_uri", "")).replace("\\", "/")] = file_obj
 
     return markdown
 
@@ -195,6 +202,19 @@ def _handle_lookup_request(environ, start_response, server):
     section_index_raw = params.get("section_index", [""])[0]
     block_progress_raw = params.get("block_progress", [""])[0]
     action = params.get("action", ["lookup"])[0].strip().lower()
+    math_source = params.get("math_source", [""])[0][:16000]
+    try:
+        point_prefix_length = max(0, int(params.get("point_prefix_length", [""])[0]))
+    except (TypeError, ValueError):
+        point_prefix_length = None
+    try:
+        caret_offset = int(params.get("caret_offset", [""])[0])
+    except (TypeError, ValueError):
+        caret_offset = None
+    try:
+        math_index = int(params.get("math_index", [""])[0])
+    except (TypeError, ValueError):
+        math_index = None
     try:
         block_index = int(block_index_raw)
     except (TypeError, ValueError):
@@ -223,7 +243,7 @@ def _handle_lookup_request(environ, start_response, server):
         )
 
     page_key = _normalize_page_key(page_param, getattr(server, "mount_path", "/"))
-    record = _PAGE_INDEX.get(page_key)
+    record = _lookup_page_record(page_key)
     if record is None:
         return _json_response(
             start_response,
@@ -243,6 +263,10 @@ def _handle_lookup_request(environ, start_response, server):
         block_index,
         section_index,
         block_progress,
+        caret_offset=caret_offset,
+        point_prefix_length=point_prefix_length,
+        math_source=math_source,
+        math_index=math_index,
     )
     if result.get("ok") and action == "open":
         opened, message = _open_in_vscode(
@@ -338,6 +362,24 @@ def _read_source_markdown_content(file_obj: Any, fallback: str) -> str:
 def _source_cache_key(file_obj: Any) -> tuple[str, str, str]:
     return (str(getattr(file_obj, "abs_src_path", "")),
             str(getattr(file_obj, "src_uri", "")), str(getattr(file_obj, "dest_uri", "")))
+
+
+def _lookup_page_record(page_key: str) -> PageRecord | None:
+    # MarkdownIt and the source cache are shared across request threads.
+    with _INDEX_LOCK:
+        file_obj = _PAGE_SOURCES.get(page_key)
+        if file_obj is None:
+            return _PAGE_INDEX.get(page_key)
+        try:
+            source = _read_source_markdown_content(file_obj, "")
+            record = _cached_page_record(source, file_obj)
+            _PAGE_INDEX[page_key] = record
+            return record
+        except Exception:
+            _PAGE_INDEX.pop(page_key, None)
+            _SOURCE_INDEX_CACHE.pop(_source_cache_key(file_obj), None)
+            log.exception("Failed to index source for %s", getattr(file_obj, "src_uri", "<unknown>"))
+            return None
 
 
 def _cached_page_record(markdown: str, file_obj: Any) -> PageRecord:
@@ -993,6 +1035,63 @@ def _normalize_text_with_offsets(text: str, offsets: list[int]) -> tuple[str, li
     return "".join(output_chars), output_offsets
 
 
+def _math_key(source: str) -> str:
+    source = source.strip()
+    for pattern in _MATH_SOURCE_PATTERNS:
+        match = pattern.fullmatch(source)
+        if match:
+            source = match['body']
+            break
+    # Rendering repairs change escape multiplicity, not formula tokens. This
+    # comparison is only used to locate the formula start, never a glyph offset.
+    return re.sub(r"[\s\\]", "", source)
+
+
+def _source_block_slice(record: PageRecord, block: BlockRecord) -> tuple[int, str]:
+    start = record.line_starts[block.start_line - 1]
+    end = record.line_starts[block.end_line] if block.end_line < len(record.line_starts) else len(record.markdown)
+    return start, record.markdown[start:end]
+
+
+def _locate_math_source(record: PageRecord, source: str, math_index: int | None, score_block: Any) -> int | None:
+    key = _math_key(source)
+    if not key:
+        return None
+    candidates = []
+    for block in record.blocks:
+        if block.kind == 'code':
+            continue
+        start, raw = _source_block_slice(record, block)
+        code_ranges = [(m.start(), m.end()) for m in _INLINE_CODE_SOURCE_RE.finditer(raw)]
+        spans = sorted({(m.start(), m.end(), m['body']) for pattern in _MATH_SOURCE_PATTERNS
+                        for m in pattern.finditer(raw)
+                        if not any(a <= m.start() < b for a, b in code_ranges)})
+        matches = [(ordinal, start + offset) for ordinal, (offset, _, body) in enumerate(spans)
+                   if _math_key(body) == key]
+        if matches:
+            selected = next((offset for ordinal, offset in matches if ordinal == math_index), matches[0][1])
+            candidates.append((score_block(block), selected))
+    return max(candidates, key=lambda item: item[0])[1] if candidates else None
+
+
+def _point_source_offset(record: PageRecord, block: BlockRecord, selection: str, match_index: int, caret: int) -> int:
+    caret = min(max(caret, 0), len(selection))
+    _, selection_offsets = _normalize_text_with_offsets(selection, list(range(len(selection))))
+    start_offset = block.normalized_source_offsets[match_index]
+    start, raw = _source_block_slice(record, block)
+    # Prefer the literal text-node anchor: this skips Markdown link destinations
+    # and formatting syntax that a greedy visible-character alignment can cross.
+    raw_positions = _find_all(raw, selection)
+    if raw_positions:
+        hit = min(raw_positions, key=lambda pos: abs(start + pos - start_offset))
+        return start + hit + caret
+    relative = next((i for i, offset in enumerate(selection_offsets) if offset >= caret), len(selection_offsets))
+    if relative < len(selection_offsets) and match_index + relative < len(block.normalized_source_offsets):
+        return block.normalized_source_offsets[match_index + relative]
+    last = min(match_index + max(len(selection_offsets) - 1, 0), len(block.normalized_source_offsets) - 1)
+    return block.normalized_source_offsets[last] + 1
+
+
 def _locate_selection(
     record: PageRecord,
     selection: str,
@@ -1005,6 +1104,11 @@ def _locate_selection(
     block_index: int | None,
     section_index: int | None,
     block_progress: float | None,
+    *,
+    caret_offset: int | None = None,
+    point_prefix_length: int | None = None,
+    math_source: str = "",
+    math_index: int | None = None,
 ) -> dict[str, Any]:
     selection_norm = _normalize_text(selection)
     container_norm = _normalize_text(container)
@@ -1016,6 +1120,14 @@ def _locate_selection(
 
     if not selection_norm and not container_norm:
         return {"ok": False, "message": "selection and container both became empty after normalization"}
+
+    if math_source:
+        offset = _locate_math_source(record, math_source, math_index, lambda block: _container_only_score(
+            block, container_norm, heading_path_norm, prev_block_norm, next_block_norm,
+            block_tag_norm, block_index, section_index, block_progress, len(record.blocks),
+        ))
+        if offset is not None:
+            return _success_payload(record, *_offset_to_line_column(record.line_starts, offset), precision="formula")
 
     if not selection_norm:
         if not record.blocks:
@@ -1041,7 +1153,7 @@ def _locate_selection(
             ),
         )
         line, column = _block_start_line_column(record, best_block)
-        return _success_payload(record, line, column)
+        return _success_payload(record, line, column, precision="block")
 
     candidates = [block for block in record.blocks if selection_norm in block.normalized_text]
     if not candidates:
@@ -1058,7 +1170,7 @@ def _locate_selection(
         )
         if contextual_match is not None:
             line, column = _block_start_line_column(record, contextual_match)
-            return _success_payload(record, line, column)
+            return _success_payload(record, line, column, precision="block")
 
         raw_match_offset = record.markdown.find(selection)
         if raw_match_offset == -1:
@@ -1067,8 +1179,10 @@ def _locate_selection(
                 "message": "no matching block found",
                 "src_uri": record.src_uri,
             }
+        if caret_offset is not None:
+            raw_match_offset += min(max(caret_offset, 0), len(selection))
         line, column = _offset_to_line_column(record.line_starts, raw_match_offset)
-        return _success_payload(record, line, column)
+        return _success_payload(record, line, column, precision="caret" if caret_offset is not None else "selection")
 
     best_block = max(
         candidates,
@@ -1087,13 +1201,16 @@ def _locate_selection(
             len(record.blocks),
         ),
     )
-    match_index = _choose_match_index(best_block.normalized_text, selection_norm, prefix_norm)
+    match_index = _choose_match_index(best_block.normalized_text, selection_norm, prefix_norm,
+                                     desired_index=point_prefix_length if caret_offset is not None else None)
     if match_index < 0 or match_index >= len(best_block.normalized_source_offsets):
         match_index = 0
 
     source_offset = best_block.normalized_source_offsets[match_index]
+    if caret_offset is not None:
+        source_offset = _point_source_offset(record, best_block, selection, match_index, caret_offset)
     line, column = _offset_to_line_column(record.line_starts, source_offset)
-    return _success_payload(record, line, column)
+    return _success_payload(record, line, column, precision="caret" if caret_offset is not None else "selection")
 
 
 def _contextual_fallback_match(
@@ -1153,13 +1270,17 @@ def _block_start_line_column(record: PageRecord, block: BlockRecord) -> tuple[in
     return block.start_line, 1
 
 
-def _success_payload(record: PageRecord, line: int, column: int) -> dict[str, Any]:
+def _success_payload(record: PageRecord, line: int, column: int, *, precision: str = "selection") -> dict[str, Any]:
+    # VS Code columns are UTF-16 code units, unlike Python string offsets.
+    start = record.line_starts[line - 1]
+    column = len(record.markdown[start:start + column - 1].encode("utf-16-le")) // 2 + 1
     return {
         "ok": True,
         "src_uri": record.src_uri,
         "abs_path": record.abs_src_path,
         "line": line,
         "column": column,
+        "precision": precision,
         "uri": _make_vscode_uri(record.abs_src_path, line, column),
     }
 
@@ -1367,14 +1488,14 @@ def _block_progress_score(order_index: int, total_blocks: int, observed_progress
     return max(0.0, 900.0 - delta * 3600.0)
 
 
-def _choose_match_index(text: str, needle: str, prefix_norm: str) -> int:
+def _choose_match_index(text: str, needle: str, prefix_norm: str, *, desired_index: int | None = None) -> int:
     positions = _find_all(text, needle)
     if not positions:
         return -1
-    if not prefix_norm:
-        return positions[0]
-
-    desired_index = len(prefix_norm)
+    if desired_index is None:
+        if not prefix_norm:
+            return positions[0]
+        desired_index = len(prefix_norm)
     return min(positions, key=lambda position: abs(position - desired_index))
 
 

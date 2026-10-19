@@ -193,6 +193,170 @@ class PastedDisplayMathTests(unittest.TestCase):
         self.assertEqual(len(soup.select("span.arithmatex")), 1)
         self.assertIn(r"\\(literal\\)", soup.select_one("code").get_text())
 
+    def test_gpt_escaped_product_lower_limit(self):
+        tex = r"\boxed{p\mid\prod\_{i=1}^{n}a_i\implies\exists i,\ p\mid a_i}"
+        expected = tex.replace(r"\prod\_", r"\prod_")
+        for opening, closing in ((r"\[", r"\]"), (r"\\[", r"\\]"), (r"\(", r"\)")):
+            source = opening + tex + closing
+            with self.subTest(opening=opening):
+                self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+                self.assertEqual(normalize(normalize(source)), normalize(source))
+
+    def test_operator_repair_does_not_unescape_other_tex_or_code(self):
+        for source in (r"`\\[\prod\_{i=1}^n a_i\\]`",
+                       "```tex\n" + r"\prod\_{i=1}^n a_i" + "\n```\n",
+                       r"outside \prod\_{i=1}^n", r"\[x\_i+\text{file\_name}\]",
+                       r"\[\prod_{i=1}^n a_i\]", r"\[\\prod\_{i=1}^n\]"):
+            with self.subTest(source=source):
+                if source.startswith(r"\["):
+                    self.assertIn(source[2:-2], render(source).select_one(".arithmatex").get_text())
+                else:
+                    self.assertEqual(normalize(source), source)
+        for operator in ("prod", "sum", "coprod"):
+            source = r"\[" + "\\" + operator + r"\_{i=1}^n a_i\]"
+            self.assertIn("\\" + operator + "_{i=1}", normalize(source))
+
+    def test_pasted_escaped_less_than_in_inline_and_display_math(self):
+        source = r"這裡 \\(p_1\<p_2<\cdots\<p_k\\)，各 \\(a_i\\) 為正整數。"
+        soup = render(source)
+        self.assertEqual(len(soup.select("span.arithmatex")), 2)
+        self.assertIn(r"p_1<p_2<\cdots<p_k", soup.select_one(".arithmatex").get_text())
+        self.assertIn("為正整數。", soup.get_text())
+        for tex in (r"m=ab,\qquad 1\<a\<m,\quad1\<b\<m",
+                    r"a\>b\quad x\leq y\quad p\mid n"):
+            for opening, closing in ((r"\[", r"\]"), (r"\\[", r"\\]")):
+                expression = opening + tex + closing
+                self.assertIn(tex.replace(r"\<", "<"), render(expression).select_one(".arithmatex").get_text())
+                self.assertEqual(normalize(normalize(expression)), normalize(expression))
+
+    def test_escaped_less_than_preserves_code_and_row_breaks(self):
+        for source in (r"`\\(p_1\<p_2\\)`", "```tex\n" + r"\(a\<b\)" + "\n```\n",
+                       r"outside a\<b", "    " + r"\(a\<b\)"):
+            self.assertEqual(normalize(source), source)
+        tex = r"\begin{matrix}a\\<b\end{matrix}"
+        self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+
+    def test_pasted_boxed_aligned_cartesian_sets(self):
+        ab = r"\boxed{ \begin{aligned} A\times B=\\{&(2,4),(2,5),\\\ &(3,4),(3,5),\\\ &(4,4),(4,5)\\} \end{aligned} }"
+        ba = r"\boxed{ \begin{aligned} B\times A=\\{&(4,2),(4,3),(4,4),\\\ &(5,2),(5,3),(5,4)\\} \end{aligned} }"
+        source = r"我們先算 \\(A\times B\\)：\\[ " + ab + r" \\]再將順序顛倒，計算 \\(B\times A\\)：\\[ " + ba + r" \\]"
+        soup = render(source)
+        formulas = soup.select("pre.arithmatex")
+        self.assertEqual(len(formulas), 2)
+        self.assertEqual(len(soup.select("span.arithmatex")), 2)
+        for node, tex in zip(formulas, (ab, ba)):
+            expected = tex.replace(r"\\{", r"\{").replace(r"\\}", r"\}")
+            self.assertIn(expected, node.get_text())
+            self.assertEqual(node.get_text().count(r"\\\ &"), tex.count(r"\\\ &"))
+        self.assertEqual(normalize(normalize(source)), normalize(source))
+        self.assertIn("再將順序顛倒", soup.get_text())
+
+    def test_pasted_set_braces_preserve_code_and_real_row_breaks(self):
+        for source in (r"`\\[A=\\{1,2\\}\\]`", "```tex\n" + r"A=\\{1,2\\}" + "\n```\n",
+                       r"outside \\{1,2\\}", "    " + r"\(A=\\{1,2\\}\)"):
+            self.assertEqual(normalize(source), source)
+        for tex in (r"\begin{matrix}a\\{b}&c\end{matrix}", r"A=\{1,2\}",
+                    r"\begin{matrix}a&b\\c&d\end{matrix}", r"\\\{literal\\\}"):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        source = r"\(A=\\{1,2\\}, B=\\{3,4\\}\)"
+        self.assertIn(r"A=\{1,2\}, B=\{3,4\}", render(source).select_one(".arithmatex").get_text())
+
+    def test_nested_pasted_power_set_braces(self):
+        tex = r"A=\mathcal P(B) =\\{\varnothing,\\{1\\},\\{2\\},\\{1,2\\}\\}"
+        expected = r"A=\mathcal P(B) =\{\varnothing,\{1\},\{2\},\{1,2\}\}"
+        for opening, closing in ((r"\\[", r"\\]"), (r"\[", r"\]"), (r"\\(", r"\\)")):
+            source = opening + tex + closing
+            self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+            self.assertEqual(normalize(normalize(source)), normalize(source))
+        deep = r"S=\\{\\{\\{1\\}\\},\\{2\\}\\}"
+        self.assertIn(deep.replace(r"\\{", r"\{").replace(r"\\}", r"\}"),
+                      render(r"\[" + deep + r"\]").select_one(".arithmatex").get_text())
+
+    def test_unbalanced_nested_braces_and_code_remain_literal(self):
+        for tex in (r"\\{1,\\{2\\}", r"\\}\\{1\\}", r"\\{1\\}\\}",
+                    r"\begin{matrix}a\\{b}&c\end{matrix}"):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        source = "```tex\n" + r"\\{\varnothing,\\{1\\}\\}" + "\n```\n"
+        self.assertEqual(normalize(source), source)
+
+    def test_pasted_function_count_hash(self):
+        for tex, expected in (
+            (r"\\#(A\to B)=4^3=64", r"\#(A\to B)=4^3=64"),
+            (r"\\#(B\to A)=3^4=81", r"\#(B\to A)=3^4=81"),
+            (r"\\# (A\to B)", r"\# (A\to B)"),
+        ):
+            self.assertTrue(tex.startswith(chr(92) * 2 + "#"))
+            for opening, closing in ((r"\\[", r"\\]"), (r"\[", r"\]"), (r"\\(", r"\\)")):
+                source = opening + tex + closing
+                self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+                self.assertNotIn(chr(92) * 2 + "#", normalize(source))
+                self.assertEqual(normalize(normalize(source)), normalize(source))
+
+    def test_count_hash_preserves_code_and_real_row_breaks(self):
+        for tex in (r"\#(A\to B)", r"\\\#(A\to B)",
+                    r"\begin{aligned}x&=1\\\#(A\to B)&=64\end{aligned}"):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        for source in (r"`\\[\\#(A\to B)\\]`", "```tex\n" + r"\\#(A\to B)" + "\n```\n",
+                       "    " + r"\(\\#(A\to B)\)", r"outside \\#(A to B)"):
+            self.assertEqual(normalize(source), source)
+
+    def test_underbrace_escaped_annotation_subscript(self):
+        for tex, expected in (
+            (r"\underbrace{n\times n\times\cdots\times n}\_{m\text{ 次}} =\boxed{n^m}",
+             r"\underbrace{n\times n\times\cdots\times n}_{m\text{ 次}} =\boxed{n^m}"),
+            (r"\underbrace{\text{a\_b}+\{x\}} \_{m}",
+             r"\underbrace{\text{a\_b}+\{x\}} _{m}"),
+            (r"\underbrace{\underbrace{x}\_{i}+y}\_{m}",
+             r"\underbrace{\underbrace{x}_{i}+y}_{m}"),
+        ):
+            source = r"\\[" + tex + r"\\]"
+            self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+            self.assertEqual(normalize(normalize(source)), normalize(source))
+        for tex in (r"x\_{i}", r"\text{file\_name}", r"\underbrace{x}_{i}",
+                    r"\underbrace{x}\\\_{i}", r"\underbrace{x\_{i}"):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+
+    def test_labeled_count_hash_and_literal_code(self):
+        for label, power in (("Functions", "n^m"), ("Relations", "2^{mn}"),
+                             ("Injective Functions", r"\frac{2!}{0!}"), ("All Functions", "2^2"),
+                             ("Injective", "0"), ("Other", "1")):
+            tex = r"\boxed{\\#\text{ " + label + r"}(A\to B)=" + power + "}"
+            expected = tex.replace(chr(92) * 2 + "#", chr(92) + "#")
+            for opening, closing in ((r"\\[", r"\\]"), (r"\(", r"\)")):
+                self.assertIn(expected, render(opening + tex + closing).select_one(".arithmatex").get_text())
+        for tex in (r"\\\#\text{ Functions}(A\to B)",
+                    r"\#\text{ Relations}(A\to B)"):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        for tex in (r"\underbrace{x}\_{m}", r"\\#\text{ Functions}(A\to B)"):
+            for source in ("`" + tex + "`", "```tex\n" + tex + "\n```\n", "    " + tex):
+                self.assertEqual(normalize(source), source)
+
+    def test_hash_repair_without_label_or_argument_whitelist(self):
+        for tex in (r"\\#x", r"\\#\text{Injective Functions}=0",
+                    r"\\#\text{All Functions}=2^2=4", r"\\#\text{未來的新標籤}", r"\\#"):
+            expected = tex.replace(chr(92) * 2 + "#", chr(92) + "#")
+            for opening, closing in ((r"\\[", r"\\]"), (r"\\(", r"\\)")):
+                source = opening + tex + closing
+                self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+                self.assertEqual(normalize(normalize(source)), normalize(source))
+        for slashes in (1, 3, 4, 5):
+            tex = chr(92) * slashes + r"#\text{Injective Functions}"
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+
+    def test_injective_aligned_and_cases_preserve_row_breaks(self):
+        texes = (
+            r"\begin{aligned} \\#\text{Injective Functions} &=n(n-1)(n-2)\cdots(n-m+1)\\\ &=\boxed{\frac{n!}{(n-m)!}}\\\ &=P(n,m) \end{aligned}",
+            r"\boxed{ \\#\text{Injective}(A\to B)= \begin{cases} \dfrac{n!}{(n-m)!},&m\le n\\\ 0,&m>n \end{cases} }",
+        )
+        for tex in texes:
+            expected = tex.replace(chr(92) * 2 + "#", chr(92) + "#")
+            source = r"\\[" + tex + r"\\]"
+            self.assertIn(expected, render(source).select_one(".arithmatex").get_text())
+            self.assertEqual(normalize(normalize(source)), normalize(source))
+        for source in (r"`\\#\text{Injective}`", "```tex\n" + texes[0] + "\n```\n",
+                       "    " + texes[1], r"outside \\#\text{All Functions}"):
+            self.assertEqual(normalize(source), source)
+
     def test_tex_body_row_breaks_and_paths_not_unescaped(self):
         tex = r"\begin{matrix}1&2\\3&4\end{matrix}"
         source = r"\\[" + tex + r"\\]"

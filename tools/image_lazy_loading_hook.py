@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+from html.parser import HTMLParser
 import posixpath
 import re
 from pathlib import Path
@@ -231,7 +232,8 @@ def _set_page_flags(page: Any, soup: BeautifulSoup, images: list[Any], externali
     meta["peicd_externalized_images"] = externalized_count
 
 
-def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
+def _soup_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
+    """Compatibility fallback for HTML the streaming parser cannot read."""
     soup = BeautifulSoup(html, "html.parser")
     images = [img for img in soup.find_all("img") if _is_article_image(img)]
     externalized_count = 0
@@ -250,3 +252,95 @@ def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
 
     _set_page_flags(page, soup, images, externalized_count)
     return str(soup)
+
+
+class _ArticleImages(HTMLParser):
+    """Inspect tags once; keep the rest of the document out of an HTML tree."""
+
+    _VOID = frozenset("area base br col embed hr img input link meta param source track wbr".split())
+
+    def __init__(self, html: str):
+        super().__init__(convert_charrefs=True)
+        self.offsets = [0] + [m.end() for m in re.finditer("\n", html)]
+        self.stack: list[tuple[str, set[str]]] = []
+        self.images: list[tuple[int, str]] = []
+        self.voids: list[tuple[int, str]] = []
+        self.needs_tree = False
+        self.flags = {"peicd_has_markdown_embed": False, "peicd_has_math": False,
+                      "peicd_has_mermaid": False}
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        self.flags["peicd_has_markdown_embed"] |= "data-peicd-markdown-embed" in values
+        self.flags["peicd_has_math"] |= "arithmatex" in classes
+        self.flags["peicd_has_mermaid"] |= (
+            (tag == "pre" and "diagram" in classes) or "peicd-mermaid-host" in classes)
+        parent_classes = self.stack[-1][1] if self.stack else set()
+        if (tag == "img" and values.get("src") and "twemoji" not in parent_classes
+                and not classes.intersection({"twemoji", "peicd-image-viewer__img", "peicd-mermaid-viewer__svg"})):
+            line, column = self.getpos()
+            self.images.append((self.offsets[line - 1] + column, self.get_starttag_text()))
+        elif tag in self._VOID and not self.get_starttag_text().endswith("/>"):
+            # Keep void-tag serialization consistent with the old soup output.
+            # Some downstream parsers mishandle mixed <img> and <img/> forms.
+            line, column = self.getpos()
+            self.voids.append((self.offsets[line - 1] + column, self.get_starttag_text()))
+        if tag not in self._VOID:
+            self.stack.append((tag, classes))
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in self._VOID:
+            self.stack.pop()
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in self._VOID:
+            return
+        for index in range(len(self.stack) - 1, -1, -1):
+            if self.stack[index][0] == tag:
+                self.needs_tree |= index != len(self.stack) - 1
+                del self.stack[index:]
+                return
+        self.needs_tree = True
+
+
+def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
+    parser = _ArticleImages(html)
+    try:
+        parser.feed(html)
+        parser.close()
+    except (AssertionError, ValueError):
+        return _soup_page_content(html, page=page, config=config, files=files)
+    if parser.needs_tree or parser.stack:
+        # Legacy raw HTML can rely on soup inserting missing closing tags.
+        # Retain that repair before search and other downstream HTML consumers.
+        return _soup_page_content(html, page=page, config=config, files=files)
+
+    replacements = [(offset, raw, raw[:-1] + "/>") for offset, raw in parser.voids]
+    cursor = externalized = 0
+    legacy_width = False
+    for index, (offset, raw) in enumerate(parser.images):
+        # Only individual image tags need BeautifulSoup's attribute handling.
+        img = BeautifulSoup(raw, "html.parser").img
+        if _externalize_base64_image(img, page, config):
+            externalized += 1
+        _optimize_image(img, page, config)
+        img["decoding"] = "async"
+        if index == 0 and img.get("loading") == "lazy":
+            del img["loading"]
+        elif index > 0 and not img.get("loading"):
+            img["loading"] = "lazy"
+        legacy_width |= bool(re.search(r"=\d+%x$", str(img.get("src") or "")))
+        replacements.append((offset, raw, str(img)))
+    pieces: list[str] = []
+    for offset, raw, replacement in sorted(replacements):
+        pieces.extend((html[cursor:offset], replacement))
+        cursor = offset + len(raw)
+    pieces.append(html[cursor:])
+    if isinstance(getattr(page, "meta", None), dict):
+        page.meta.update(parser.flags)
+        page.meta.update(peicd_has_article_images=bool(parser.images),
+                         peicd_has_legacy_image_width=legacy_width,
+                         peicd_externalized_images=externalized)
+    return "".join(pieces)
