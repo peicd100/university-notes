@@ -101,6 +101,8 @@ extra_javascript:
 hooks:
   - tools/asset_bundle_hook.py
   - tools/fence_id_cleanup_hook.py
+  - tools/verilog_fence_hook.py
+  - tools/table_code_pipe_hook.py
   - tools/latex_bracket_math_hook.py
   - tools/markdown_embed_hook.py
   - tools/source_jump_hook.py

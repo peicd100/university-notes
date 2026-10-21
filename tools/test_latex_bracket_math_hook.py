@@ -22,6 +22,31 @@ def render(source: str) -> BeautifulSoup:
 
 
 class PastedDisplayMathTests(unittest.TestCase):
+    def test_indented_aligned_rows_preserve_dollar_boundaries(self):
+        formula = (
+            "$$\n\\begin{aligned}\n"
+            "1&=28-27\\\\\n"
+            " &=28-[111-3(28)]\\\\\n"
+            " &=4(28)-111\\\\\n"
+            " &=4[250-2(111)]-111\\\\\n"
+            " &=4(250)-9(111).\n"
+            "\\end{aligned}\n$$"
+        )
+        source = formula + "\n\nVerification.\n\n$$\n7a-5b=1\n$$\n"
+        self.assertEqual(normalize(source), source)
+        blocks = render(source).select('pre.arithmatex')
+        self.assertEqual(len(blocks), 2)
+        self.assertIn('4[250-2(111)]', blocks[0].get_text())
+        self.assertEqual(blocks[0].get_text().count('\\\\'), 4)
+        self.assertIn('7a-5b=1', blocks[1].get_text())
+        self.assertEqual(normalize(normalize(source)), normalize(source))
+
+    def test_aligned_indentation_stays_within_quote_container(self):
+        source = "> $$\n> \\begin{aligned}\n> x&=1\\\\\n>     &=2\n> \\end{aligned}\n> $$\n"
+        self.assertEqual(len(render(source).select('blockquote pre.arithmatex')), 1)
+        crossed = "> $$\n> \\begin{aligned}\n  &=2\n> \\end{aligned}\n> $$\n"
+        self.assertEqual(normalize(crossed), crossed)
+
     def test_gpt_quote_without_blank_lines(self):
         source = "> 前文  \n> \\[\n> \\boxed{0,1,2,\\ldots,b-1}\n> \\]\n> 之中。\n"
         soup = render(source)
@@ -365,6 +390,73 @@ class PastedDisplayMathTests(unittest.TestCase):
         for source in (r"C:\\notes\\folder", r"\\server\share", r"\\\(x\\\)", r"\\(x\)", r"\\[ \\]", r"\\(x"):
             self.assertEqual(normalize(source), source)
 
+    def test_pasted_aligned_equivalence_spacing(self):
+        for left, middle, right in (
+            (r"(x,y)\in A\times(B\cap C)", r"x\in A\land y\in B\land y\in C", r"(x,y)\in(A\times B)\cap(A\times C)"),
+            (r"(x,y)\in A\times(B\cup C)", r"x\in A\land(y\in B\lor y\in C)", r"(x,y)\in(A\times B)\cup(A\times C)"),
+            (r"(x,y)\in(A\cap B)\times C", r"x\in A\land x\in B\land y\in C", r"(x,y)\in(A\times C)\cap(B\times C)"),
+            (r"(x,y)\in(A\cup B)\times C", r"(x\in A\lor x\in B)\land y\in C", r"(x,y)\in(A\times C)\cup(B\times C)"),
+        ):
+            tex = r"\begin{aligned} &" + left + r"\\\ \iff\\;&" + middle + r"\\\ \iff\\;&" + right + r". \end{aligned}"
+            expected = tex.replace(r"\iff\\;", r"\iff\;")
+            for opening, closing in ((r"\\[", r"\\]"), (r"\[", r"\]"), (r"\\(", r"\\)")):
+                source = opening + tex + closing
+                actual = render(source).select_one(".arithmatex").get_text()
+                self.assertIn(expected, actual)
+                self.assertEqual(actual.count(r"\\\ "), 2)
+                self.assertEqual(normalize(normalize(source)), normalize(source))
+
+    def test_equivalence_spacing_preserves_other_tex_and_code(self):
+        for tex in (
+            r"\begin{aligned}&A\\\ \iff\;&B\end{aligned}",
+            r"\begin{aligned}&A\\[6pt]\iff\;&B\end{aligned}",
+            r"\begin{aligned}&A\\\ \iff\\\;&B\end{aligned}",
+            r"\begin{aligned}&A\\\ \iff\\;B\end{aligned}",
+            r"\begin{aligned}&A\iff\\;&B\end{aligned}",
+            r"\begin{aligned}&A\\; &B\end{aligned}",
+            r"\begin{aligned}&A\\\ \iff\\;&B",
+            r"\begin{matrix}&A\\\ \iff\\;&B\end{matrix}",
+            r"A\\\ \iff\\;&B",
+        ):
+            self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        tex = r"\begin{aligned}&A\\\ \iff\\;&B\end{aligned}"
+        for source in ("`" + r"\\[" + tex + r"\\]`", "```tex\n" + tex + "\n```\n",
+                       "    " + r"\[" + tex + r"\]", "outside " + tex):
+            self.assertEqual(normalize(source), source)
+
+    def test_pasted_aligned_numeric_row_gaps(self):
+        for gap in ("5pt", "6pt", ".5em", "-1ex", "+2mm"):
+            tex = (r"\begin{aligned}&A\\\\[" + gap + r"] \iff\\;&B"
+                   + r"\\\ &\quad C\\\\[" + gap + r"]\iff\\;&D\end{aligned}")
+            expected = tex.replace(r"\\\\[", r"\\[").replace(r"\iff\\;", r"\iff\;")
+            for opening, closing in ((r"\\[", r"\\]"), (r"\\(", r"\\)")):
+                source = opening + tex + closing
+                actual = render(source).select_one(".arithmatex").get_text()
+                self.assertIn(expected, actual)
+                self.assertEqual(actual.count("[" + gap + "]"), 2)
+                self.assertIn(r"\\\ &\quad C", actual)
+                self.assertEqual(normalize(normalize(source)), normalize(source))
+        tex = r"\begin{aligned}&A\\[5pt] \iff\\;&B\end{aligned}"
+        self.assertIn(tex.replace(r"\iff\\;", r"\iff\;"),
+                      render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+
+    def test_row_gap_repair_is_scoped_to_pasted_aligned_math(self):
+        for tex in (
+            r"\begin{matrix}A\\\\[5pt]B\end{matrix}",
+            r"\begin{aligned}A\\\\[unknown]B\end{aligned}",
+            r"\begin{aligned}A\\\\[5]B\end{aligned}",
+            r"\begin{aligned}A\\\\[5pt]B",
+        ):
+            self.assertIn(tex, render(r"\\[" + tex + r"\\]").select_one(".arithmatex").get_text())
+        for count in (2, 3, 5, 6):
+            tex = r"\begin{aligned}A" + chr(92) * count + r"[5pt]B\end{aligned}"
+            self.assertIn(tex, render(r"\\[" + tex + r"\\]").select_one(".arithmatex").get_text())
+        tex = r"\begin{aligned}A\\\\[5pt]B\end{aligned}"
+        self.assertIn(tex, render(r"\[" + tex + r"\]").select_one(".arithmatex").get_text())
+        for source in (r"`\\[" + tex + r"\\]`", "```tex\n" + tex + "\n```\n",
+                       "    " + r"\\[" + tex + r"\\]", "outside " + tex):
+            self.assertEqual(normalize(source), source)
+
     def test_escaped_math_in_list_continuations_and_marker_line(self):
         for source in (
             "1. 項目\n\n   " + r"\\[x=y\\]" + "\n\n   後文 " + r"\\(x\\)",
@@ -400,7 +492,7 @@ class PastedDisplayMathTests(unittest.TestCase):
                                  extensions=["admonition","nl2br","pymdownx.superfences","pymdownx.arithmatex"],
                                  extension_configs={"pymdownx.arithmatex":{"generic":True,"block_tag":"pre"}})
         danger = BeautifulSoup(html,"html.parser").select_one(".admonition.danger")
-        self.assertIsNotNone(danger.select_one("h2 span.arithmatex"))
+        self.assertIsNotNone(danger.select_one("h2 span.arithmatex, h3 span.arithmatex"))
         self.assertEqual(len(danger.select("pre.arithmatex")),13)
         self.assertEqual(len(danger.select("blockquote pre.arithmatex")),2)
         self.assertEqual(len(danger.select("span.arithmatex")),19)

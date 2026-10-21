@@ -24,6 +24,13 @@ _TEX_GROUP_TOKEN_RE = re.compile(r"\\.|[{}]")
 # Repair paired Markdown-escaped set braces only, not arbitrary doubled
 # backslashes: TeX row breaks (including a row followed by a group) must survive.
 _PASTED_SET_BRACE_RE = re.compile(r"(?<!\\)\\\\(?P<brace>[{}])")
+_ALIGNED_ENVIRONMENT_RE = re.compile(r"(?<!\\)\\begin\{aligned\}.*?(?<!\\)\\end\{aligned\}")
+_TEX_ROW_GAP = r"\[[ \t]*[+-]?(?:\d+(?:\.\d*)?|\.\d+)[ \t]*(?:pt|pc|in|bp|cm|mm|dd|cc|sp|em|ex|mu|px)[ \t]*\]"
+_PASTED_ALIGNED_GAP_RE = re.compile(r"(?<!\\)\\\\\\\\(?=" + _TEX_ROW_GAP + r")")
+_PASTED_IFF_ROW_RE = re.compile(
+    r"(?<!\\)(?P<row>\\\\(?:" + _TEX_ROW_GAP
+    + r")?(?:\\[ \t]|[ \t])*)(?P<relation>\\iff[ \t]*)\\\\;(?=[ \t]*&)"
+)
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
@@ -293,6 +300,26 @@ def _normalize_pasted_set_braces(tex: str) -> str:
     return _PASTED_SET_BRACE_RE.sub(lambda match: "\\" + match["brace"], tex)
 
 
+def _normalize_pasted_aligned_spacing(tex: str, *, pasted_delimiters: bool = False) -> str:
+    """Keep a pasted equivalence and its statement on the same aligned row.
+
+    Only repair the exact row-start ``\\iff`` + doubled ``\\;`` + alignment
+    pattern inside a complete aligned environment, allowing an explicit row
+    gap. With double-escaped outer delimiters, also repair exactly four
+    backslashes before a numeric TeX row gap. Preserve other row breaks and
+    the author's gap values, control spaces and continuation rows.
+    """
+    def normalize_block(block: re.Match[str]) -> str:
+        body = block[0]
+        if pasted_delimiters:
+            body = _PASTED_ALIGNED_GAP_RE.sub(lambda _: r"\\", body)
+        return _PASTED_IFF_ROW_RE.sub(
+            lambda match: match["row"] + match["relation"] + r"\;", body
+        )
+
+    return _ALIGNED_ENVIRONMENT_RE.sub(normalize_block, tex)
+
+
 def _normalize_math_line(
     body: str, prefix: str, newline: str, protected: list[tuple[int, int]], continuation: str, fallback_eol: str
 ) -> list[str]:
@@ -319,6 +346,7 @@ def _normalize_math_line(
             continue
         tex = _normalize_pasted_set_braces(tex)
         tex = _normalize_underbrace_subscripts(tex)
+        tex = _normalize_pasted_aligned_spacing(tex, pasted_delimiters=len(match["slashes"]) == 2)
         tex = _OPERATOR_SUBSCRIPT_RE.sub(r"\1_", tex)
         tex = _ESCAPED_LESS_THAN_RE.sub("<", tex)
         tex = _PASTED_COUNT_HASH_RE.sub(lambda _: r"\#", tex)
@@ -406,12 +434,17 @@ def _find_closing_delimiter(
 ) -> int | None:
     saw_non_empty_content = False
     key = _container_key(prefix)
+    aligned_depth = 0
 
     for index in range(start_index, len(lines)):
         content, _ = _split_line_ending(lines[index])
         inner_prefix, body = _split_container(content)
+        inner_key = _container_key(inner_prefix)
         # Never pair a delimiter across another quote/list/code container.
-        if body.strip() and _container_key(inner_prefix) != key:
+        # Whitespace before a row inside aligned is TeX formatting, not a new
+        # Markdown container. Keep quote boundaries and outer indentation strict.
+        aligned_continuation = aligned_depth > 0 and inner_key[0] == key[0] and inner_key[1] >= key[1]
+        if body.strip() and inner_key != key and not aligned_continuation:
             return None
         stripped = body.strip()
         if stripped == closing_token:
@@ -422,5 +455,7 @@ def _find_closing_delimiter(
             return None
         if stripped:
             saw_non_empty_content = True
+            for token in re.finditer(r"(?<!\\)\\(?P<kind>begin|end)\{aligned\}", body):
+                aligned_depth += 1 if token['kind'] == 'begin' else -1
 
     return None
