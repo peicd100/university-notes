@@ -471,35 +471,98 @@ always @(posedge GCLK)
 
     always @(posedge gclk)
         Q &lt;= D;
-endmodule</code></pre></div></div><details class="learning-note" id="ans-a-5-3-learning"><summary><strong>學習講解</strong><span class="learning-hint">推導、補充與提醒｜不必照抄</span></summary><div class="learning-body"><figure class="technical-figure"><div class="svg-scroll"><svg aria-labelledby="title-robust" role="img" viewbox="0 0 970 275" xmlns="http://www.w3.org/2000/svg"><title id="title-robust">Low-level latch 加 AND 的無毛刺時脈閘控電路</title><defs><marker id="arrow-robust" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path class="arrow-fill" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs><rect class="node" height="95" rx="5" width="165" x="170" y="75"></rect><text class="" font-size="17" text-anchor="middle" x="252.5" y="116.5">Low-level LT</text><text class="" font-size="17" text-anchor="middle" x="252.5" y="140.5">CLK=0 透明</text><text class="" font-size="17" text-anchor="middle" x="55" y="111">EN</text><path class="wire" d="M85,105 H170" marker-end="url(#arrow-robust)"></path><path class="node" d="M460,90 H495.0 A35.0,40.0 0 0 1 495.0,170 H460 Z"></path><text class="" font-size="20" text-anchor="middle" x="493.0" y="136.0">&amp;</text><path class="wire" d="M335,105 H400 V110 H460" marker-end="url(#arrow-robust)"></path><text class="" font-size="14" text-anchor="middle" x="393" y="88">en_latched</text><rect class="node" height="100" rx="5" width="155" x="715" y="70"></rect><text class="" font-size="17" text-anchor="middle" x="792.5" y="126.0">D flip-flop</text><path class="wire" d="M530,130 H715" marker-end="url(#arrow-robust)"></path><text class="" font-size="15" text-anchor="middle" x="620" y="114">GCLK</text><path class="wire" d="M715,122 L725,130 L715,138"></path><text class="" font-size="17" text-anchor="middle" x="792" y="25">D</text><path class="wire" d="M792,34 L792,70" marker-end="url(#arrow-robust)"></path><path class="wire" d="M870,105 H915" marker-end="url(#arrow-robust)"></path><text class="" font-size="16" text-anchor="middle" x="942" y="111">Q</text><text class="" font-size="17" text-anchor="middle" x="55" y="227">CLK</text><path class="wire" d="M88,220 H415 V150 H460" marker-end="url(#arrow-robust)"></path><circle class="junction" cx="252" cy="220" r="4"></circle><path class="wire" d="M252,220 L252,180"></path><circle class="node" cx="252" cy="175" r="5"></circle><text class="" font-size="16" text-anchor="middle" x="550" y="253">Latch 的控制端有反相泡泡：低電位有效</text></svg></div><figcaption>CLK=0 時更新 en_latched；CLK=1 時 Latch 關閉，讓 AND 的 Enable 保持穩定。這個 Latch 是刻意設計，不是誤推導。</figcaption></figure><p>Latch 讓 EN 在 CLK 高電位期間無法改變 AND 的控制值，避免 EN 在 High Phase 中途切換形成額外邊緣或窄脈波。這不代表可以忽略 Latch 關閉邊緣的 Setup/Hold 要求。題目沒有要求 Reset，因此未加 Reset。</p></div></details></section><section aria-labelledby="ans-a-5-4" class="answer-unit"><h4 id="ans-a-5-4">A-5.4　兩級 (a+b)×c：閘控乘法器輸入，對齊零值輸出</h4><div aria-labelledby="ans-a-5-4-exam" class="exam-answer" role="region"><div class="zone-heading"><strong class="zone-title" id="ans-a-5-4-exam">考試作答</strong><span class="zone-kind">寫程式</span></div><div class="exam-content"><p class="exam-condition">時序前提：EN 在 clk 上升緣前已穩定，並在整個 High Phase 保持不變。</p><pre class="verilog" data-code-id="a54"><code>module pipeline
+endmodule</code></pre></div></div><details class="learning-note" id="ans-a-5-3-learning"><summary><strong>學習講解</strong><span class="learning-hint">推導、補充與提醒｜不必照抄</span></summary><div class="learning-body"><figure class="technical-figure"><div class="svg-scroll"><svg aria-labelledby="title-robust" role="img" viewbox="0 0 970 275" xmlns="http://www.w3.org/2000/svg"><title id="title-robust">Low-level latch 加 AND 的無毛刺時脈閘控電路</title><defs><marker id="arrow-robust" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path class="arrow-fill" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs><rect class="node" height="95" rx="5" width="165" x="170" y="75"></rect><text class="" font-size="17" text-anchor="middle" x="252.5" y="116.5">Low-level LT</text><text class="" font-size="17" text-anchor="middle" x="252.5" y="140.5">CLK=0 透明</text><text class="" font-size="17" text-anchor="middle" x="55" y="111">EN</text><path class="wire" d="M85,105 H170" marker-end="url(#arrow-robust)"></path><path class="node" d="M460,90 H495.0 A35.0,40.0 0 0 1 495.0,170 H460 Z"></path><text class="" font-size="20" text-anchor="middle" x="493.0" y="136.0">&amp;</text><path class="wire" d="M335,105 H400 V110 H460" marker-end="url(#arrow-robust)"></path><text class="" font-size="14" text-anchor="middle" x="393" y="88">en_latched</text><rect class="node" height="100" rx="5" width="155" x="715" y="70"></rect><text class="" font-size="17" text-anchor="middle" x="792.5" y="126.0">D flip-flop</text><path class="wire" d="M530,130 H715" marker-end="url(#arrow-robust)"></path><text class="" font-size="15" text-anchor="middle" x="620" y="114">GCLK</text><path class="wire" d="M715,122 L725,130 L715,138"></path><text class="" font-size="17" text-anchor="middle" x="792" y="25">D</text><path class="wire" d="M792,34 L792,70" marker-end="url(#arrow-robust)"></path><path class="wire" d="M870,105 H915" marker-end="url(#arrow-robust)"></path><text class="" font-size="16" text-anchor="middle" x="942" y="111">Q</text><text class="" font-size="17" text-anchor="middle" x="55" y="227">CLK</text><path class="wire" d="M88,220 H415 V150 H460" marker-end="url(#arrow-robust)"></path><circle class="junction" cx="252" cy="220" r="4"></circle><path class="wire" d="M252,220 L252,180"></path><circle class="node" cx="252" cy="175" r="5"></circle><text class="" font-size="16" text-anchor="middle" x="550" y="253">Latch 的控制端有反相泡泡：低電位有效</text></svg></div><figcaption>CLK=0 時更新 en_latched；CLK=1 時 Latch 關閉，讓 AND 的 Enable 保持穩定。這個 Latch 是刻意設計，不是誤推導。</figcaption></figure><p>Latch 讓 EN 在 CLK 高電位期間無法改變 AND 的控制值，避免 EN 在 High Phase 中途切換形成額外邊緣或窄脈波。這不代表可以忽略 Latch 關閉邊緣的 Setup/Hold 要求。題目沒有要求 Reset，因此未加 Reset。</p></div></details></section><section aria-labelledby="ans-a-5-4" class="answer-unit"><h4 id="ans-a-5-4">A-5.4　兩級 (a+b)×c：Stage 2 乘積暫存器閘控（老師複習版）</h4><div aria-labelledby="ans-a-5-4-exam" class="exam-answer" role="region"><div class="zone-heading"><strong class="zone-title" id="ans-a-5-4-exam">考試作答</strong><span class="zone-kind">寫程式</span></div><div class="exam-content"><pre class="verilog" data-code-id="a54"><code>module pipeline
 (
     input  [7:0] a, b, c,
     input        clk,
-    output reg [15:0] d
+    output [15:0] d
 );
-    wire EN;
-    wire gclk;
-    reg  [8:0] sum_q;
-    reg  [7:0] c_q;
-    reg        nonzero_q;
-    wire [16:0] product;
+    reg [8:0]  sum_reg;
+    reg [7:0]  c_reg;
+    reg [15:0] product_reg;
+    reg        en_latched, zero_out;
+    wire       gclk;
 
-    assign EN      = |c;
-    assign gclk    = clk &amp; EN;
-    assign product = sum_q * c_q;
-
-    // Stage 1：只有 c 非零時才更新乘法器的兩個運算元。
-    always @(posedge gclk) begin
-        sum_q &lt;= {1'b0, a} + {1'b0, b};
-        c_q   &lt;= c;
-    end
-
-    // 旗標及輸出不可一起停鐘：零值交易仍必須產生輸出 0。
+    // Stage 1: addition and pipeline registers
     always @(posedge clk) begin
-        nonzero_q &lt;= EN;
-        d &lt;= nonzero_q ? product[15:0] : 16'd0;
+        sum_reg  &lt;= {1&#x27;b0, a} + {1&#x27;b0, b};
+        c_reg    &lt;= c;
+        zero_out &lt;= (c_reg == 0);
     end
-endmodule</code></pre></div></div><details class="learning-note" id="ans-a-5-4-learning"><summary><strong>學習講解</strong><span class="learning-hint">推導、補充與提醒｜不必照抄</span></summary><div class="learning-body"><div class="warning"><b>依題目指定：</b>使用 5.1 的 <code>gclk = clk &amp; EN</code>。本解的必要前提是 EN 在 clk 上升緣前已穩定，且整個 High Phase 不變；例如於 Low Phase 更新並穩定輸入。直接 AND 不具任意 EN 切換下的無毛刺保證，不能把此限制隱藏起來。</div><figure class="technical-figure"><div class="svg-scroll"><svg aria-labelledby="title-gated-pipeline" role="img" viewbox="0 0 1040 390" xmlns="http://www.w3.org/2000/svg"><title id="title-gated-pipeline">兩級加乘管線：閘控乘法器的輸入暫存器，另以一位元旗標對齊零結果</title><defs><marker id="arrow-gated-pipeline" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path class="arrow-fill" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs><text class="" font-size="18" text-anchor="middle" x="310" y="25">Stage 1：加法、保存乘法運算元</text><text class="" font-size="18" text-anchor="middle" x="805" y="25">Stage 2：乘法、輸出</text><text class="" font-size="16" text-anchor="middle" x="32" y="78">a, b</text><path class="wire" d="M65,72 H105" marker-end="url(#arrow-gated-pipeline)"></path><rect class="node" height="60" rx="5" width="90" x="105" y="43"></rect><text class="" font-size="17" text-anchor="middle" x="150.0" y="79.0">ADD</text><rect class="node" height="130" rx="5" width="190" x="275" y="43"></rect><text class="" font-size="17" text-anchor="middle" x="370.0" y="90.0">sum_q [8:0]</text><text class="" font-size="17" text-anchor="middle" x="370.0" y="114.0">c_q [7:0]</text><text class="" font-size="17" text-anchor="middle" x="370.0" y="138.0">Clock = gclk</text><path class="wire" d="M195,72 H275" marker-end="url(#arrow-gated-pipeline)"></path><text class="" font-size="14" text-anchor="middle" x="233" y="59">9-bit</text><text class="" font-size="16" text-anchor="middle" x="35" y="143">c</text><path class="wire" d="M65,137 H275" marker-end="url(#arrow-gated-pipeline)"></path><circle class="junction" cx="85" cy="137" r="4"></circle><rect class="node" height="110" rx="5" width="90" x="535" y="53"></rect><text class="" font-size="17" text-anchor="middle" x="580.0" y="102.0">MUL</text><text class="" font-size="17" text-anchor="middle" x="580.0" y="126.0">9 × 8</text><path class="wire" d="M465,72 H535" marker-end="url(#arrow-gated-pipeline)"></path><path class="wire" d="M465,137 H535" marker-end="url(#arrow-gated-pipeline)"></path><rect class="node" height="135" rx="5" width="105" x="710" y="50"></rect><text class="" font-size="17" text-anchor="middle" x="762.5" y="99.5">MUX</text><text class="" font-size="17" text-anchor="middle" x="762.5" y="123.5">1: product</text><text class="" font-size="17" text-anchor="middle" x="762.5" y="147.5">0: 0</text><path class="wire" d="M625,105 H710" marker-end="url(#arrow-gated-pipeline)"></path><text class="" font-size="14" text-anchor="middle" x="670" y="86">低 16 位</text><rect class="node" height="100" rx="5" width="120" x="870" y="70"></rect><text class="" font-size="17" text-anchor="middle" x="930.0" y="114.0">d [15:0]</text><text class="" font-size="17" text-anchor="middle" x="930.0" y="138.0">FF / clk</text><path class="wire" d="M815,105 H870" marker-end="url(#arrow-gated-pipeline)"></path><path class="wire" d="M990,105 H1020" marker-end="url(#arrow-gated-pipeline)"></path><rect class="node" height="70" rx="5" width="190" x="275" y="275"></rect><text class="" font-size="17" text-anchor="middle" x="370.0" y="304.0">nonzero_q</text><text class="" font-size="17" text-anchor="middle" x="370.0" y="328.0">FF / clk</text><path class="wire" d="M465,310 H762 V185" marker-end="url(#arrow-gated-pipeline)"></path><text class="" font-size="15" text-anchor="middle" x="640" y="292">select（前一筆 c 是否非零）</text><rect class="node" height="70" rx="5" width="160" x="30" y="224"></rect><text class="" font-size="17" text-anchor="middle" x="110.0" y="253.0">EN = |c</text><text class="" font-size="17" text-anchor="middle" x="110.0" y="277.0">gclk = clk &amp; EN</text><path class="wire" d="M85,137 V224" marker-end="url(#arrow-gated-pipeline)"></path><path class="wire" d="M190,250 H230 V195 H370 V173" marker-end="url(#arrow-gated-pipeline)"></path><text class="" font-size="14" text-anchor="middle" x="263" y="212">gclk</text><path class="wire" d="M190,273 H230 V310 H275" marker-end="url(#arrow-gated-pipeline)"></path><text class="" font-size="14" text-anchor="middle" x="251" y="301">EN</text><text class="" font-size="17" text-anchor="middle" x="530" y="375">c=0：sum_q、c_q 保持；下一個輸出邊緣仍會寫入 0。</text></svg></div><figcaption>圖中的 FF/clk 表示使用原始 clk；只有 sum_q、c_q 使用 gclk。乘法器兩個運算元同時保持，才可抑制零輸入週期的不必要資料切換。</figcaption></figure><p><b>為什麼不是只停 d 的 Clock？</b>乘法器是組合邏輯；只停輸出 FF，輸入仍變動時乘法器仍可能切換。本解在 c=0 時凍結 sum_q 與 c_q，並以正常 clk 保存該筆是否為零的旗標。第二級使用的是上一拍的 nonzero_q、sum_q、c_q，所以資料彼此對齊。</p><div class="table-scroll"><table><thead><tr><th>邊緣</th><th>此拍輸入 (a,b,c)</th><th>Stage 1 邊緣後狀態</th><th>此拍 d（前一筆）</th></tr></thead><tbody><tr><td>E1</td><td>(1,2,2)</td><td>sum_q=3，c_q=2，nonzero_q=1</td><td>啟動填管線，尚無有效前一筆</td></tr><tr><td>E2</td><td>(9,1,0)</td><td>sum_q、c_q 保持；nonzero_q=0</td><td>6</td></tr><tr><td>E3</td><td>(4,1,3)</td><td>sum_q=5，c_q=3，nonzero_q=1</td><td>0</td></tr><tr><td>E4</td><td>(7,8,0)</td><td>sum_q、c_q 保持；nonzero_q=0</td><td>15</td></tr><tr><td>E5</td><td>(0,0,0)</td><td>運算元保持；nonzero_q=0</td><td>0</td></tr></tbody></table></div><p><b>位寬：</b>a+b 最大為 510，須 9 bits；510×255=130050，完整乘積須 17 bits。題目指定 d 為 16 bits，故輸出低 16 位，即對 65536 取模，不能擅自改成 17-bit Port。E<sub>k</sub> 接收的輸入在 E<sub>k+1</sub> 後輸出；兩級各有暫存器，非憑空多等兩個完整週期。題目未指定 Reset，因此啟動時的未填滿管線輸出不當作有效結果。</p></div></details></section></div></details>
+
+    // Clock gating: latch is transparent when clk = 0
+    always @(*) begin
+        if (!clk)
+            en_latched = (c_reg != 0);
+    end
+    assign gclk = clk &amp; en_latched;
+
+    // Stage 2: gated product register
+    always @(posedge gclk)
+        product_reg &lt;= sum_reg * c_reg;
+
+    assign d = zero_out ? 16&#x27;d0 : product_reg;
+endmodule</code></pre></div></div><details class="learning-note" id="ans-a-5-4-learning"><summary><strong>學習講解</strong><span class="learning-hint">推導、補充與提醒｜不必照抄</span></summary><div class="learning-body"><p><b>依據：</b>老師《2026f HDL Midterm Review EN v4》第 33–35 頁。Stage 1 的 <code>sum_reg</code>、<code>c_reg</code> 使用原始 <code>clk</code>；Stage 2 的 <code>product_reg</code> 才使用 <code>gclk</code>。這是老師的 Latch-based Clock Gating 架構，而不是原先凍結 Stage 1 運算元的版本。</p><figure class="technical-figure"><div class="svg-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 485" role="img" aria-labelledby="title-gated-pipeline-teacher desc-gated-pipeline-teacher">
+<title id="title-gated-pipeline-teacher">老師版本的兩級加乘 Pipeline：只有 Stage 2 的 Product Register 使用 GCLK</title>
+<desc id="desc-gated-pipeline-teacher">a、b 經加法進入 sum_reg，c 進入 c_reg；兩者由原始 clk 驅動。Stage 2 乘積儲存在由 latch-based clock gating 控制的 product_reg；zero_out 由 c_reg 的零值判斷而來，控制輸出 MUX。</desc>
+<defs><marker id="arrow-gated-pipeline-teacher" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="arrow-fill"/></marker></defs>
+<text x="270" y="30" text-anchor="middle" font-size="20">Stage 1（原始 clk）</text>
+<text x="780" y="30" text-anchor="middle" font-size="20">Stage 2（gclk）</text>
+<text x="40" y="105" font-size="18">a, b</text>
+<path class="wire" d="M84 98 H115" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="115" y="63" width="115" height="74" rx="7"/>
+<text x="172" y="108" font-size="19" text-anchor="middle">ADD</text>
+<path class="wire" d="M230 98 H305" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="305" y="57" width="150" height="86" rx="7"/>
+<text x="380" y="92" font-size="18" text-anchor="middle">sum_reg [8:0]</text>
+<text x="380" y="119" font-size="16" text-anchor="middle">FF / clk</text>
+<text x="40" y="219" font-size="18">c</text>
+<path class="wire" d="M70 211 H305" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="305" y="172" width="150" height="85" rx="7"/>
+<text x="380" y="207" font-size="18" text-anchor="middle">c_reg [7:0]</text>
+<text x="380" y="234" font-size="16" text-anchor="middle">FF / clk</text>
+<path class="wire" d="M455 100 H540" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<path class="wire" d="M455 213 H510 V178 H540" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="540" y="93" width="110" height="112" rx="7"/>
+<text x="595" y="139" font-size="19" text-anchor="middle">MUL</text>
+<text x="595" y="168" font-size="16" text-anchor="middle">9 × 8</text>
+<path class="wire" d="M650 150 H710" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="710" y="106" width="167" height="100" rx="7"/>
+<text x="794" y="145" font-size="18" text-anchor="middle">product_reg</text>
+<text x="794" y="173" font-size="16" text-anchor="middle">FF / gclk</text>
+<path class="wire" d="M877 158 H938" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="938" y="118" width="99" height="94" rx="7"/>
+<text x="988" y="153" text-anchor="middle" font-size="19">MUX</text>
+<text x="988" y="181" text-anchor="middle" font-size="16">0 / product</text>
+<path class="wire" d="M1037 162 H1085" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<text x="1090" y="167" font-size="19">d</text>
+<!-- lower clock-gating and zero-detection controls -->
+<rect class="node" x="521" y="268" width="148" height="58" rx="7"/>
+<text x="595" y="291" text-anchor="middle" font-size="17">c_reg != 0</text>
+<text x="595" y="313" text-anchor="middle" font-size="14">Enable</text>
+<path class="wire" d="M456 211 H484 V296 H521" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="710" y="268" width="167" height="58" rx="7"/>
+<text x="794" y="291" text-anchor="middle" font-size="17">en_latched</text>
+<text x="794" y="313" text-anchor="middle" font-size="14">Low-level latch</text>
+<path class="wire" d="M669 296 H710" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="942" y="268" width="92" height="58" rx="7"/>
+<text x="988" y="303" font-size="20" text-anchor="middle">AND</text>
+<path class="wire" d="M877 296 H942" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<path class="wire" d="M1034 297 H1074 V252 H794 V206" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<text x="1078" y="239" font-size="15" text-anchor="middle">gclk</text>
+<text x="715" y="356" font-size="15">clk → latch、AND</text>
+<rect class="node" x="521" y="370" width="148" height="63" rx="7"/>
+<text x="595" y="396" text-anchor="middle" font-size="17">c_reg == 0</text>
+<text x="595" y="418" text-anchor="middle" font-size="14">Zero detection</text>
+<path class="wire" d="M484 296 V402 H521" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<rect class="node" x="710" y="371" width="167" height="63" rx="7"/>
+<text x="794" y="397" text-anchor="middle" font-size="18">zero_out</text>
+<text x="794" y="419" text-anchor="middle" font-size="15">FF / clk</text>
+<path class="wire" d="M669 402 H710" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<path class="wire" d="M877 402 H913 V229 H988 V212" marker-end="url(#arrow-gated-pipeline-teacher)"/>
+<text x="927" y="423" font-size="15">MUX select</text>
+<text x="90" y="457" font-size="16">同一筆資料：sum_reg、c_reg → product_reg；c_reg → zero_out → MUX</text>
+</svg></div><figcaption>Stage 1 持續擷取加法結果與 c；只有 Stage 2 的 product_reg 使用 Gated Clock。zero_out 以原始 clk 更新，並由輸出 MUX 選擇零或乘積。</figcaption></figure><p><b>為何要用 <code>zero_out &lt;= (c_reg == 0)</code>？</b>Non-blocking Assignment 在當次上升緣讀取前一拍的 <code>c_reg</code>；同一時刻的 Stage 2 也處理這筆前一拍的資料。因此 Zero Flag 和 Product 對齊。當 <code>c_reg=0</code>，<code>product_reg</code> 停鐘並保留舊值，但 MUX 讓輸出仍然是 0。</p><div class="table-scroll"><table><thead><tr><th>clk 上升緣</th><th>當拍輸入 (a,b,c)</th><th>Stage 1（邊緣後）</th><th>Stage 2 product_reg</th><th>zero_out</th><th>輸出 d（前一筆）</th></tr></thead><tbody><tr><td>E1</td><td>(1,2,2)</td><td>sum_reg=3，c_reg=2</td><td>尚未有效</td><td>尚未有效</td><td>尚未有效</td></tr><tr><td>E2</td><td>(9,1,0)</td><td>sum_reg=10，c_reg=0</td><td>更新為 3×2=6</td><td>0</td><td>6</td></tr><tr><td>E3</td><td>(4,1,3)</td><td>sum_reg=5，c_reg=3</td><td>停鐘，保留 6</td><td>1</td><td>0</td></tr><tr><td>E4</td><td>(7,8,0)</td><td>sum_reg=15，c_reg=0</td><td>更新為 5×3=15</td><td>0</td><td>15</td></tr><tr><td>E5</td><td>(0,0,0)</td><td>sum_reg=0，c_reg=0</td><td>停鐘，保留 15</td><td>1</td><td>0</td></tr></tbody></table></div><p><b>Latch 的用途：</b><code>clk=0</code> 時透明，更新 <code>en_latched</code>；<code>clk=1</code> 時保持 Enable，避免在 High Phase 中途產生額外的 Gated Clock 邊緣。實體電路仍須符合 Latch 的 Setup/Hold 時序條件。</p><p><b>位寬與功耗：</b>8-bit a+b 最多 510，故 <code>sum_reg</code> 用 9 bits；9×8-bit 最大乘積需要 17 bits，但題目指定輸出 16 bits，所以 <code>product_reg</code> 保留低 16 bits。停掉乘積暫存器的 Clock 不保證乘法組合邏輯完全停止切換。沒有 Reset，請從管線填滿後才判讀輸出。</p></div></details></section></div></details>
 </article>
 <article class="question" id="a-q6">
 <div class="qhead"><h3>6. (15%) Non-blocking / Blocking / Generic Shift Registers</h3></div>
