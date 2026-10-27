@@ -72,8 +72,10 @@ class LauncherTests(unittest.TestCase):
             bin_dir = root / "bin"
             bin_dir.mkdir(parents=True)
             shutil.copyfile(ROOT / "g.bat", root / "g.bat")
+            (root / "tools").mkdir()
+            shutil.copyfile(ROOT / "tools/activate_mkdocs.bat", root / "tools/activate_mkdocs.bat")
             scripts = {
-                "activate.cmd": '@echo off\necho activate %*>>"%CALL_LOG%"\nif "%FAIL_STEP%"=="activate" exit /b %FAIL_CODE%\nexit /b 0\n',
+                "conda.bat": '@echo off\necho %*>>"%CALL_LOG%"\nif "%FAIL_STEP%"=="activate" exit /b %FAIL_CODE%\nexit /b 0\n',
                 "python.cmd": '@echo off\necho python %*>>"%CALL_LOG%"\nif "%~2"=="mkdocs" (\n if "%FAIL_STEP%"=="build" exit /b %FAIL_CODE%\n) else (\n if "%FAIL_STEP%"=="deploy" exit /b %FAIL_CODE%\n)\nexit /b 0\n',
                 "git.cmd": '@echo off\necho git %*>>"%CALL_LOG%"\nif "%~1"=="branch" (\n echo %MOCK_BRANCH%\n exit /b 0\n)\nif "%~1"=="diff" (\n if "%~4"=="--" exit /b %PRIVATE_STAGED%\n exit /b %DIFF_EXIT%\n)\nif "%FAIL_STEP%"=="%~1" exit /b %FAIL_CODE%\nexit /b 0\n',
             }
@@ -82,6 +84,7 @@ class LauncherTests(unittest.TestCase):
             log = root / "calls.log"
             env = {**os.environ, "PATH": str(bin_dir) + os.pathsep + os.environ["PATH"],
                    "CALL_LOG": str(log), "FAIL_STEP": "", "FAIL_CODE": "7", "MOCK_BRANCH": "main",
+                   "CONDA_BAT": str(bin_dir / "conda.bat"),
                    "PRIVATE_STAGED": "0", "DIFF_EXIT": "1", **overrides}
             result = subprocess.run(f'cmd.exe /d /c call "{root / "g.bat"}" {option}',
                                     cwd=root, env=env, capture_output=True, text=True,

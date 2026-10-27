@@ -11,7 +11,7 @@ if not "%~2"=="" exit /b 2
 pushd "%~dp0"
 if errorlevel 1 exit /b 1
 set "G_STEP=activate mkdocs_desk"
-call activate mkdocs_desk
+call "%~dp0tools\activate_mkdocs.bat"
 if errorlevel 1 goto :failed
 set "PYTHONUTF8=1"
 set "PYTHONIOENCODING=utf-8"
