@@ -10029,7 +10029,7 @@
 </tr>
 <tr>
 <td><span class="arithmatex">\(x_1+\cdots+x_k=N,\ x_i\ge1\)</span></td>
-<td><span class="arithmatex">\(\binom{N-1}{k-1}\)</span>，須 <span class="arithmatex">\(N\ge k\)</span></td>
+<td><span class="arithmatex">\(\binom{N-1}{k-1}\)</span>，須 <span class="arithmatex">\(N\ge k\)</span> (N+k-1-k = N-1)</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(x_i\ge \ell_i\)</span></td>
@@ -10037,11 +10037,11 @@
 </tr>
 <tr>
 <td><span class="arithmatex">\(N\)</span> 的恰 <span class="arithmatex">\(k\)</span> 項正整數有序 composition</td>
-<td><span class="arithmatex">\(\binom{N-1}{k-1}\)</span></td>
+<td><span class="arithmatex">\(\binom{N-1}{k-1}\)</span>  (N+k-1-k = N-1)</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(N\ge1\)</span> 的任意項數正整數 compositions</td>
-<td><span class="arithmatex">\(2^{N-1}\)</span></td>
+<td><span class="arithmatex">\(2^{N-1}\)</span> (很多 1 中間選要不要隔板)</td>
 </tr>
 <tr>
 <td>至少一個符合條件</td>
@@ -10050,6 +10050,29 @@
 </tbody>
 </table>
 <p><strong>補集、分類加法、分步乘法是方法；不是看到某個英文字就無條件套公式。</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">圓排列</p>
+<p>假設有 4 個不同的人：</p>
+<pre class="arithmatex">\[
+A,\ B,\ C,\ D
+\]</pre>
+<p>1.1 一般直線排列<br />
+如果排成一排：</p>
+<pre class="arithmatex">\[
+4!=4\times3\times2\times1=24
+\]</pre>
+<p>共有 24 種排列。</p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="430" src="../../../assets/generated/optimized-images/83/832adf9485e4248c6186ee35c3ad3f9813d67586f35a89ba9853f0ac652b6ec9.webp" width="809"/></p>
+<p>對 4 個不同物件來說，每種圓排列都會在直線排列中被重複計算 4 次，因此：</p>
+<pre class="arithmatex">\[
+\frac{4!}{4}=3!=6
+\]</pre>
+<p>一般化：</p>
+<pre class="arithmatex">\[
+\boxed{\frac{n!}{n}=(n-1)!}
+\]</pre>
+<p>也可以理解成：固定其中一個人當基準，剩下 <span class="arithmatex">\(n-1\)</span> 個人自由排列，就不用重複計算旋轉的情況。</p>
+</div>
 <h3 id="12-binomial-與-summation">1.2 Binomial 與 Summation<a class="headerlink" href="#12-binomial-與-summation" title="Permanent link"></a></h3>
 <pre class="arithmatex">\[
 (x+y)^n=\sum_{k=0}^n\binom nkx^{n-k}y^k.
