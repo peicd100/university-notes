@@ -45,13 +45,18 @@ if errorlevel 1 (
     exit /b 1
 )
 set "G_STEP=stage source changes"
+echo [g] Staging all source changes, including notes and PDFs. Local memory is excluded.
 call git add --all -- . ":(top,glob,exclude)[.]peicd100/codex/**" ":(top,glob,exclude)[.]peicd100/codex_compressed/**" ":(top,glob,exclude)[.]codex/**" ":(top,glob,exclude)[c]odex/**"
 if errorlevel 1 goto :failed
 set "G_STEP=inspect staged source changes"
 call git diff --cached --quiet
 if errorlevel 2 goto :failed
-if not errorlevel 1 goto :deploy
+if not errorlevel 1 (
+    echo [g] No source changes to commit; continuing deployment.
+    goto :deploy
+)
 set "G_STEP=commit source changes"
+echo [g] Committing staged source changes with message: PEICD100
 call git commit -m "PEICD100"
 if errorlevel 1 goto :failed
 
@@ -61,7 +66,12 @@ echo [g] Deploying the validated build; no second full build is needed.
 call python -m tools.publish_built_site --site-dir "%G_SITE%"
 if errorlevel 1 goto :failed
 set "G_STEP=push main"
+echo [g] Pushing committed source to origin/main.
 call git push -u origin main
+if errorlevel 1 goto :failed
+set "G_STEP=report remaining local changes"
+echo [g] Remaining local Git changes follow. Excluded local memory may still appear here.
+call git status --short
 if errorlevel 1 goto :failed
 echo [g] Deployment and source push completed.
 
@@ -79,4 +89,5 @@ exit /b %G_EXIT%
 :usage
 echo Usage: g [--check]
 echo --check builds locally only. Plain g commits source and publishes after a successful build.
+echo Notes and PDFs are staged automatically; local memory and ignored files are excluded.
 exit /b 0

@@ -102,11 +102,12 @@ class LauncherTests(unittest.TestCase):
 
     def test_failure_stops_later_steps_and_preserves_exit_code(self):
         for stage, forbidden in [("activate", "python "), ("build", "git add"), ("add", "git commit"),
-                                 ("commit", "publish_built_site"), ("deploy", "git push"), ("push", "completed")]:
+                                 ("commit", "publish_built_site"), ("deploy", "git push"),
+                                 ("push", "completed"), ("status", "completed")]:
             with self.subTest(stage=stage):
                 result, calls = self.run_launcher(FAIL_STEP=stage, FAIL_CODE="7")
                 self.assertEqual(result.returncode, 7, result.stdout + result.stderr)
-                if stage == "push":
+                if stage in {"push", "status"}:
                     self.assertNotIn(forbidden, result.stdout)
                 else:
                     self.assertNotIn(forbidden, calls)
@@ -117,6 +118,12 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(calls.count("-m mkdocs build"), 1)
         self.assertLess(calls.index("git commit"), calls.index("publish_built_site"))
         self.assertLess(calls.index("publish_built_site"), calls.index("git push"))
+        self.assertLess(calls.index("git add"), calls.index("git commit"))
+        self.assertLess(calls.index("git push"), calls.index("git status --short"))
+        self.assertIn("Staging all source changes", result.stdout)
+        self.assertIn("Committing staged source changes", result.stdout)
+        self.assertIn("Excluded local memory may still appear", result.stdout)
+        self.assertNotIn("No source changes to commit", result.stdout)
         self.assertNotIn("branch -M", calls)
         self.assertIn("(top,glob,exclude)[.]peicd100/codex/**", calls)
 
@@ -125,6 +132,8 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertNotIn("git commit", calls)
         self.assertIn("publish_built_site", calls)
+        self.assertIn("No source changes to commit", result.stdout)
+        self.assertNotIn("Committing staged source changes", result.stdout)
 
     def test_unexpected_diff_error_is_not_treated_as_changes(self):
         result, calls = self.run_launcher(DIFF_EXIT="2")
