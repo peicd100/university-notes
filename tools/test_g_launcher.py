@@ -15,6 +15,34 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class BuiltSiteTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("git"), "Git required")
+    def test_real_git_allows_untracking_but_blocks_staged_memory_content(self):
+        lines = (ROOT / "g.bat").read_text().splitlines()
+        guard = shlex.split(next(line for line in lines if line.startswith("call git diff --cached --quiet --diff-filter=")))[1:]
+        stage = shlex.split(next(line for line in lines if line.startswith("call git add ")))[1:]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            def git(*args, check=True):
+                return subprocess.run(["git", *args], cwd=root, check=check, capture_output=True, text=True)
+            git("init", "-q")
+            private = root / ".peicd100/codex/CURRENT_STATE.md"
+            private.parent.mkdir(parents=True)
+            private.write_text("original", encoding="utf8")
+            git("add", ".")
+            git("-c", "user.name=Test", "-c", "user.email=test@example.invalid", "-c", "commit.gpgsign=false", "commit", "-qm", "initial")
+            (root / ".gitignore").write_text("/.peicd100/codex/\n", encoding="utf8")
+            private.write_text("local changes", encoding="utf8")
+            git("add", "-u")
+            self.assertEqual(subprocess.run(guard, cwd=root).returncode, 1)
+            git("rm", "--cached", "--", ".peicd100/codex/CURRENT_STATE.md")
+            self.assertEqual(subprocess.run(guard, cwd=root).returncode, 0)
+            result = subprocess.run(stage, cwd=root, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(private.read_text(encoding="utf8"), "local changes")
+            self.assertEqual(git("ls-files", "--", ".peicd100/codex").stdout, "")
+            self.assertIn("D\t.peicd100/codex/CURRENT_STATE.md", git("diff", "--cached", "--name-status").stdout)
+            self.assertEqual(git("check-ignore", "--", str(private)).returncode, 0)
+
+    @unittest.skipUnless(shutil.which("git"), "Git required")
     def test_real_git_excludes_ignored_memory_without_error(self):
         # Literal ignored directory excludes can make git add exit1 even though
         # they are negative pathspecs. Exercise the actual Git parser here.
@@ -77,7 +105,7 @@ class LauncherTests(unittest.TestCase):
             scripts = {
                 "conda.bat": '@echo off\necho %*>>"%CALL_LOG%"\nif "%FAIL_STEP%"=="activate" exit /b %FAIL_CODE%\nexit /b 0\n',
                 "python.cmd": '@echo off\necho python %*>>"%CALL_LOG%"\nif "%~2"=="mkdocs" (\n if "%FAIL_STEP%"=="build" exit /b %FAIL_CODE%\n) else (\n if "%FAIL_STEP%"=="deploy" exit /b %FAIL_CODE%\n)\nexit /b 0\n',
-                "git.cmd": '@echo off\necho git %*>>"%CALL_LOG%"\nif "%~1"=="branch" (\n echo %MOCK_BRANCH%\n exit /b 0\n)\nif "%~1"=="diff" (\n if "%~4"=="--" exit /b %PRIVATE_STAGED%\n exit /b %DIFF_EXIT%\n)\nif "%FAIL_STEP%"=="%~1" exit /b %FAIL_CODE%\nexit /b 0\n',
+                "git.cmd": '@echo off\necho git %*>>"%CALL_LOG%"\nif "%~1"=="branch" (\n echo %MOCK_BRANCH%\n exit /b 0\n)\nif "%~1"=="diff" (\n if "%~4"=="--diff-filter" exit /b %PRIVATE_STAGED%\n exit /b %DIFF_EXIT%\n)\nif "%FAIL_STEP%"=="%~1" exit /b %FAIL_CODE%\nexit /b 0\n',
             }
             for name, text in scripts.items():
                 (bin_dir / name).write_text(text, encoding="ascii", newline="\r\n")

@@ -38,9 +38,10 @@ if defined G_CHECK (
 )
 
 set "G_STEP=check staged private memory"
-call git diff --cached --quiet -- .peicd100/codex .peicd100/codex_compressed .codex codex
+rem Allow index-only removals so ignored local files can stop being tracked.
+call git diff --cached --quiet --diff-filter=ACMRTUXB -- .peicd100/codex .peicd100/codex_compressed .codex codex
 if errorlevel 1 (
-    echo ERROR: memory files are already staged or Git inspection failed. Review the index manually.
+    echo ERROR: memory content is staged or Git inspection failed. Review the index manually.
     popd
     exit /b 1
 )
