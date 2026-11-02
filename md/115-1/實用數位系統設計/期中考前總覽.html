@@ -10610,6 +10610,40 @@ t_{actual}=\operatorname{round}\left(\frac{d\times unit}{precision}\right)\times
 <div class="highlight"><pre><span></span><code><span class="kt">wire</span><span class="w"> </span><span class="p">#</span><span class="mh">10</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in2</span><span class="p">;</span>
 <span class="c1">// 可理解為net declaration assignment帶延遲；本講義用它示範inertial delay。</span>
 </code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">延遲比較</p>
+<table>
+<thead>
+<tr>
+<th>種類</th>
+<th>寫法</th>
+<th>合法性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Net Declaration</td>
+<td><code>wire #10 c = a;</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Continuous Assignment</td>
+<td><code>assign #10 c = a;</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Procedural Assignment</td>
+<td><code>c = #10 a;</code></td>
+<td>✅（在 <code>initial</code>／<code>always</code> 裡）</td>
+</tr>
+<tr>
+<td>Net Declaration</td>
+<td><code>wire c = #10 a;</code></td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>重點：輸入變化會評估新值並安排輸出更新；若新值在該更新完成前又變回，過短脈衝可能被取消。不能用「每個輸入transition原封不動向右平移10」作答。〔V2 p12波形；T4 L153–219〕</p>
 <p>講義波形讀法：</p>
 <table>
@@ -10756,6 +10790,19 @@ t_{actual}=\operatorname{round}\left(\frac{d\times unit}{precision}\right)\times
 </tbody>
 </table>
 <p>來源：V2 pp32–33、37–39。<strong>nonblocking不代表前置<code>#5</code>不用等；delay在assignment左邊或右邊很重要。</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">LHS 和 NBA 是啥</p>
+<p>LHS — Left-Hand Side（左側運算元）<br />
+指的是賦值運算子 = 或 &lt;= 左邊的變數，也就是接收賦值結果的對象。<br />
+a = b + c;</p>
+<ul>
+<li>LHS（Left-Hand Side）：a</li>
+<li>RHS（Right-Hand Side）：b + c</li>
+</ul>
+<p>NBA — Nonblocking Assignment（非阻塞賦值）<br />
+在 Verilog 中，NBA 通常指 Nonblocking Assignment，也可以指模擬器的 Nonblocking Assignment Region（NBA 排程區域）。</p>
+<p>使用 &lt;= 運算子。</p>
+</div>
 <h3 id="74-最小例子兩個變數交換">7.4 最小例子：兩個變數交換<a class="headerlink" href="#74-最小例子兩個變數交換" title="Permanent link"></a></h3>
 <p>初值<code>a=1,b=2</code>（足夠位寬）：</p>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
@@ -11695,10 +11742,13 @@ A-B=A+\overline{B}+1\pmod{2^n}.
 <pre class="arithmatex">\[
 \boxed{V_{sub}=(A_{n-1}\oplus B_{n-1})(A_{n-1}\oplus S_{n-1})}
 \]</pre>
+<div class="admonition danger">
+<p class="admonition-title">為何可以用 v = c(n) ^ c(n-1)</p>
 <p>使用同一個 <span class="arithmatex">\(A+\overline B+1\)</span> 的 carry chain 時，加、減都可用：</p>
 <pre class="arithmatex">\[
 \boxed{V=C_n\oplus C_{n-1}}.
 \]</pre>
+</div>
 <p>〔A4 p.21–22、25；T6 第二部分 00:57:54–01:03:45〕</p>
 <p>老師強調：觀察問題的布林特性，可以用一個 XOR 偵測，不必先想一大段比較數值的程式。但合成工具可能把等價的 <code>if</code> 或比較式化簡成同樣邏輯，不能斷言所有不同寫法一定有固定的面積差。</p>
 <p><strong>8-bit 範例：</strong></p>
@@ -11952,6 +12002,9 @@ C_2&amp;=G_1+P_1C_1\\
   AB --&gt; SUM["各 RFA 計算 Sum"]
   CLG --&gt; SUM
   CIN --&gt; SUM</code></pre>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="663" src="../../../assets/generated/optimized-images/92/92ac6e00f60c357e41fbacbc953baf8326a463c80be3c56465ef1b0a9e3c0145.webp" width="882"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="656" loading="lazy" src="../../../assets/generated/optimized-images/ed/edb9d70b4473435c4f6ce1cbdf66f7a66338da4c917ec1a24e1d74880f7d9fcf.webp" width="880"/></p>
+<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="658" loading="lazy" src="../../../assets/generated/optimized-images/1a/1ad80b54d428df7412f915d2c7d72daeea77c6d67f310ca4cc56d1a1648a8a78.webp" width="876"/></p>
 <p>圖中 A/B→P/G 各位可同時計算；CLG 的輸出分別送到 bit 1、2、3；bit 0 直接使用外部 C0。RFA 裡的 sum 路徑仍要等自己的 carry，省下的是 RCA 原本一級一級等 carry 的過程。</p>
 <h3 id="135-為什麼-clg-是-9-gates4δ">13.5 為什麼 CLG 是 9 gates、4Δ？<a class="headerlink" href="#135-為什麼-clg-是-9-gates4δ" title="Permanent link"></a></h3>
 <p>講義 p.32 的 CLG <strong>只產生 C1、C2、C3</strong>，不是額外產生 C4。〔A4 p.32–33〕</p>
