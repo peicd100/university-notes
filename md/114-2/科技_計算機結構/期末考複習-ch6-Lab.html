@@ -54,7 +54,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.c60135669ce14cc3a5c9.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.0e93254d83a6a6fcdd75.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1337,6 +1337,8 @@
       
         
       
+        
+      
     
     
     
@@ -1675,6 +1677,34 @@
     
   
     離散數學第一次小考：快速複習
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L05.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L05
   
 
     
@@ -7529,7 +7559,7 @@
 
 <h2 id="如果考試問buffer-overflow-是什麼要怎麼回答">⭐如果考試問"buffer overflow 是什麼"，要怎麼回答<a class="headerlink" href="#如果考試問buffer-overflow-是什麼要怎麼回答" title="Permanent link"></a></h2>
 <div class="admonition danger">
-<p class="admonition-title">如果考試問"buffer overflow 是什麼"，要怎麼回答</p>
+<p class="admonition-title">Danger | 如果考試問"buffer overflow 是什麼"，要怎麼回答</p>
 <p>Buffer overflow(緩衝區溢位) 是指程式把超過 buffer(緩衝區) 容量的資料寫進固定大小的記憶體區塊，導致多出來的資料覆蓋到相鄰的記憶體內容。</p>
 </div>
 <h2 id="buffer-overflow-attack--這個-lab-在解決什麼問題">⭐Buffer Overflow Attack — 這個 Lab 在解決什麼問題？<a class="headerlink" href="#buffer-overflow-attack--這個-lab-在解決什麼問題" title="Permanent link"></a></h2>
@@ -7782,7 +7812,7 @@
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">%ebp 到底是啥？</p>
+<p class="admonition-title">Danger | %ebp 到底是啥？</p>
 <p>%ebp 是目前 function 的 frame pointer register，通常指向目前 stack frame 中 Previous Frame Pointer 那個位置；而 Previous Frame Pointer 裡存的是上一層 caller function 的 %ebp 值。</p>
 <hr />
 <p>最直覺圖</p>
@@ -7806,7 +7836,7 @@
 </div>
 <h3 id="為何需要-previous-frame-pointer">為何需要 Previous Frame Pointer<a class="headerlink" href="#為何需要-previous-frame-pointer" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">為何需要 Previous Frame Pointer</p>
+<p class="admonition-title">Danger | 為何需要 Previous Frame Pointer</p>
 <h4 id="1-直接答案">1. 直接答案<a class="headerlink" href="#1-直接答案" title="Permanent link"></a></h4>
 <p>需要 <code>Previous Frame Pointer(前一層框架指標)</code> 的原因是：<strong>現在這個 function 結束時，要能把 <code>%ebp</code> 恢復成 caller(呼叫者) 的 stack frame 基準點</strong>。</p>
 <p>也就是說，<code>Previous Frame Pointer</code> 是「回上一層 function frame 的路標」。</p>
@@ -7870,7 +7900,7 @@
 <p>所以它的用途不是「決定下一條指令去哪裡」，而是「恢復上一層 function 的 stack frame 定位能力」。</p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">用表格比較一下 return address 和 Previous Frame Pointer 用途</p>
+<p class="admonition-title">Danger | 用表格比較一下 return address 和 Previous Frame Pointer 用途</p>
 <table>
 <thead>
 <tr>
@@ -7922,7 +7952,7 @@
 <h3 id="5-多層-function-callmain--foo--bar">5. 多層 function call：<code>main()</code> → <code>foo()</code> → <code>bar()</code><a class="headerlink" href="#5-多層-function-callmain--foo--bar" title="Permanent link"></a></h3>
 <p>PDF viewer page 6 顯示 <code>main()</code> 呼叫 <code>foo()</code>，<code>foo()</code> 再呼叫 <code>bar()</code> 的 stack layout。圖中每一層 function 都有自己的 stack frame，而且 <code>Current Frame Pointer(目前 frame pointer)</code> 指向目前正在執行的那一層。</p>
 <div class="admonition danger">
-<p class="admonition-title"><code>Current Frame Pointer(目前 frame pointer)</code> 用來存現在函數的 %ebp。</p>
+<p class="admonition-title">Danger | <code>Current Frame Pointer(目前 frame pointer)</code> 用來存現在函數的 %ebp。</p>
 </div>
 <pre class="diagram"><code>flowchart TD
     A["main() 的 stack frame&lt;br&gt;較早被建立"] --&gt; B["foo() 的 stack frame&lt;br&gt;main 呼叫 foo 時建立"]
@@ -7945,7 +7975,7 @@
 <p>考試看到 stack 圖時，要先找三個東西：<code>buffer</code>、<code>Previous Frame Pointer</code>、<code>Return Address</code>。只要你能說出它們的相對位置，就能解釋為什麼 overflow 會變成控制流程攻擊。</p>
 <h3 id="function-argumentslocal-variables-有差嗎">function arguments、local variables 有差嗎？<a class="headerlink" href="#function-argumentslocal-variables-有差嗎" title="Permanent link"></a></h3>
 <div class="admonition danger">
-<p class="admonition-title">function arguments、local variables 有差嗎？</p>
+<p class="admonition-title">Danger | function arguments、local variables 有差嗎？</p>
 <table>
 <thead>
 <tr>
@@ -7989,7 +8019,7 @@
 </table>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">這裡指的 Frame 和 page/frame 的 Frame 不一樣對不對，這邊指的 Frame 是整個函數資料的範圍？</p>
+<p class="admonition-title">Danger | 這裡指的 Frame 和 page/frame 的 Frame 不一樣對不對，這邊指的 Frame 是整個函數資料的範圍？</p>
 <p>對，完全不一樣。</p>
 <table>
 <thead>
@@ -8180,7 +8210,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">caller 是啥？</p>
+<p class="admonition-title">Danger | caller 是啥？</p>
 <p>caller(呼叫者) 就是「發出 function call 的那個函式」。</p>
 </div>
 <p>這就是 page 10 的核心：不是「buffer 裡有惡意資料」就會自動執行，而是要讓 <code>Return Address</code> 在 function return 時指到那份資料附近。講義後面會再處理 <code>badfile</code> 的結構、offset、NOP sled 等細節；現在先只掌握高層邏輯。</p>
@@ -8377,7 +8407,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 <h3 id="2-offset-distance-是什麼">2. Offset distance 是什麼？<a class="headerlink" href="#2-offset-distance-是什麼" title="Permanent link"></a></h3>
 <p><code>Offset distance(偏移距離)</code> 可以想成：</p>
 <div class="admonition danger">
-<p class="admonition-title">Offset distance 是什麼？</p>
+<p class="admonition-title">Danger | Offset distance 是什麼？</p>
 <p>從 <code>buffer[0]</code> 開始往後數，數到第幾個 byte 會碰到 <code>Return Address</code> 欄位。</p>
 </div>
 <p>用圖像想像：</p>
@@ -8436,7 +8466,7 @@ Buffer overflow 只是讓你有機會改到 return address；但 return address 
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">108 是不是 buffer 到 %ebp 的距離？</p>
+<p class="admonition-title">Danger | 108 是不是 buffer 到 %ebp 的距離？</p>
 <p>對，<strong>可以這樣理解：<code>108</code> 是從 <code>buffer</code> 起點到 saved <code>%ebp</code> / <code>Previous Frame Pointer(前一個 frame pointer)</code> 起點的距離</strong>。</p>
 <p>但講義真正要找的是：</p>
 <p><code>buffer base address → Return Address</code></p>
@@ -8776,7 +8806,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 <p><strong>有兩種配置思路。講義版是把 shellcode 放在 Return Address 後方的較高位址，Return Address 跳到後方 NOP sled 再滑到 shellcode。另一種常見版是把 shellcode 放在 Return Address 前方的 buffer 區，Return Address 指回前方 NOP sled，再滑到 shellcode。共同規則是：Return Address 裡放 target address，不是 shellcode；target address 要指到 NOP sled，且 NOP sled 後面要接 shellcode。</strong></p>
 </div>
 <div class="admonition danger">
-<p class="admonition-title">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？</p>
+<p class="admonition-title">Danger | 如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？</p>
 <h3 id="如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？<a class="headerlink" href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" title="Permanent link"></a></h3>
 <p>我們先執行指令：</p>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">$ebp</span>

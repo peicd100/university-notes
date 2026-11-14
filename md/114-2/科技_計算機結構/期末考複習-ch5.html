@@ -54,7 +54,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.c60135669ce14cc3a5c9.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.0e93254d83a6a6fcdd75.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1337,6 +1337,8 @@
       
         
       
+        
+      
     
     
     
@@ -1675,6 +1677,34 @@
     
   
     離散數學第一次小考：快速複習
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L05.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L05
   
 
     
@@ -7161,7 +7191,7 @@ CPU 的速度提升是「週期時間變短」。DRAM/Disk 的速度提升是「
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">上面表格容量的意思是同體積的記憶體容量嗎？</p>
+<p class="admonition-title">Danger | 上面表格容量的意思是同體積的記憶體容量嗎？</p>
 <p>這裡的 <code>capacity(容量)</code> 指的是該記憶體層級通常能提供的總儲存量，不是嚴格的同體積容量。若討論同體積或同面積能放多少資料，應稱為 <code>density(密度)</code>。Memory hierarchy 越往上容量小、速度快、單位成本高；越往下容量大、速度慢、單位成本低。</p>
 </div>
 <p>最重要的規則：</p>
@@ -7298,7 +7328,7 @@ CPU 的速度提升是「週期時間變短」。DRAM/Disk 的速度提升是「
 <p>Static 只表示「通電時不用 refresh 就能維持」，不表示「斷電不會消失」。</p>
 </blockquote>
 <div class="admonition danger">
-<p class="admonition-title">DRAM 需要 refresh，refresh 是啥？</p>
+<p class="admonition-title">Danger | DRAM 需要 refresh，refresh 是啥？</p>
 <p>refresh(刷新) 是指 DRAM 定期把原本儲存的 0/1 資料重新恢復／寫回，特別是把快漏電的 1 重新補電，避免資料因電容漏電而消失。</p>
 </div>
 <hr />
@@ -7348,7 +7378,7 @@ CPU 的速度提升是「週期時間變短」。DRAM/Disk 的速度提升是「
 <h3 id="5-dram-為什麼慢但便宜">5. DRAM 為什麼慢但便宜？<a class="headerlink" href="#5-dram-為什麼慢但便宜" title="Permanent link"></a></h3>
 <p>DRAM 的 1 bit 儲存單元比 SRAM 簡單很多，主要靠電容儲存電荷，所以可以做得很密、很大、很便宜；但因為電容漏電，必須 refresh，而且讀寫機制也比較受限制，所以速度較慢。</p>
 <div class="admonition danger">
-<p class="admonition-title">為何 refresh 會使 RAM 速度變慢？</p>
+<p class="admonition-title">Danger | 為何 refresh 會使 RAM 速度變慢？</p>
 <p>refresh(刷新) 會讓 DRAM 變慢，是因為 DRAM 必須定期花時間去維護原本資料；在某些 refresh 時段，記憶體不能正常服務 CPU 的讀寫請求，等於佔用了記憶體頻寬與時間。</p>
 </div>
 <p>講義 page 28 整理 DRAM：優點是集成度高、功耗較低、價格較低；缺點是速度較慢、需要定時刷新；現代 PC 大多採用 DRAM 作為主記憶體。</p>
@@ -7470,7 +7500,7 @@ CPU 的速度提升是「週期時間變短」。DRAM/Disk 的速度提升是「
 <h3 id="sram-結構與原理">SRAM 結構與原理<a class="headerlink" href="#sram-結構與原理" title="Permanent link"></a></h3>
 <p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="346" src="../../../assets/generated/optimized-images/ef/ef9f0f108a2111bfa73ac4b473b2edcc7115ccd8be55e51079e3b4d431def3bd.webp" width="514"/></p>
 <div class="admonition danger">
-<p class="admonition-title">SRAM 結構與原理</p>
+<p class="admonition-title">Danger | SRAM 結構與原理</p>
 <h4 id="1-口語化小整理">1. 口語化小整理<a class="headerlink" href="#1-口語化小整理" title="Permanent link"></a></h4>
 <p>6T SRAM 可以想成一個很小的「雙邊互鎖開關」。</p>
 <p>它裡面有兩個值：</p>
