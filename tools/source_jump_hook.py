@@ -19,6 +19,8 @@ from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 from mkdocs.plugins import event_priority
 
+from tools.admonition_title_hook import parse_slash_admonition_start
+
 
 log = logging.getLogger("mkdocs.hooks.source_jump")
 
@@ -45,11 +47,6 @@ _FENCE_RE = re.compile(r"^(?P<indent>[ \t]{0,3})(?P<fence>`{3,}|~{3,})")
 _ADMONITION_START_RE = re.compile(
     r'^(?P<indent>[ \t]{0,3})(?P<marker>!!!|\?\?\?\+?)\s+'
     r'(?P<type>[A-Za-z0-9_-]+)(?:[ \t]+"(?P<title>[^"]*)")?[ \t]*$'
-)
-_SLASH_ADMONITION_START_RE = re.compile(
-    r'^(?P<indent>[ \t]{0,3})///\s+'
-    r'(?P<type>[A-Za-z0-9_-]+)'
-    r'(?:(?:[ \t]+"(?P<quoted_title>[^"]*)")|(?:[ \t]*\|[ \t]*(?P<pipe_title>.*?)))?[ \t]*$'
 )
 _SLASH_ADMONITION_END_RE = re.compile(r"^[ \t]{0,3}///[ \t]*$")
 _ADMONITION_TYPE_LABELS = {
@@ -555,7 +552,7 @@ def _iter_admonition_spans(markdown: str, line_starts: list[int]) -> list[Admoni
             index += 1
             continue
 
-        slash_match = _SLASH_ADMONITION_START_RE.match(body)
+        slash_match = parse_slash_admonition_start(body)
         if slash_match is not None and _is_known_admonition_type(slash_match.group("type")):
             closing_index = _find_slash_admonition_end(lines, index + 1)
             if closing_index is None:

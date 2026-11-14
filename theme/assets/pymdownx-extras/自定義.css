@@ -1235,6 +1235,11 @@ body {
   line-height: 1.35;
 }
 
+/* 提示框第一個內容是章節標題時，不沿用正文的大段章節上邊距。 */
+.md-typeset .admonition > .admonition-title + :is(h2, h3, h4, h5, h6) {
+  margin-top: 0.8rem;
+}
+
 [data-md-color-scheme="slate"] .md-typeset details:not([class]),
 [data-md-color-scheme="dracula"] .md-typeset details:not([class]) {
   background: #050505;

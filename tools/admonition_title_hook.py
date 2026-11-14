@@ -29,7 +29,7 @@ _ADMONITION_TITLE_RE = re.compile(
     r'(?P<type>[A-Za-z0-9_-]+)(?P<space>[ \t]+)"(?P<title>[^"]*)"(?P<trailing>[ \t]*)$'
 )
 _SLASH_ADMONITION_START_RE = re.compile(
-    r'^(?P<indent>[ \t]{0,3})///\s+'
+    r'^(?P<indent>[ \t]{0,3})///[ \t]*'
     r'(?P<type>[A-Za-z0-9_-]+)'
     r'(?:(?:[ \t]+"(?P<quoted_title>[^"]*)")|(?:[ \t]*\|[ \t]*(?P<pipe_title>.*?)))?[ \t]*$'
 )
@@ -69,7 +69,7 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
             index += 1
             continue
 
-        slash_match = _SLASH_ADMONITION_START_RE.match(body)
+        slash_match = parse_slash_admonition_start(body)
         if slash_match is not None and _is_known_admonition_type(slash_match.group("type")):
             closing_index = _find_slash_admonition_end(lines, index + 1)
             if closing_index is not None:
@@ -96,6 +96,27 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
         index += 1
 
     return "".join(rewritten) if changed else markdown
+
+
+def parse_slash_admonition_start(body: str) -> re.Match[str] | None:
+    """Parse explicit types or a title-only opener; never consume other Blocks syntax."""
+    match = _SLASH_ADMONITION_START_RE.match(body)
+    if match is not None and _is_known_admonition_type(match.group("type")):
+        return match
+
+    shorthand = re.fullmatch(r"(?P<indent>[ \t]{0,3})///[ \t]*(?P<title>\S.*?)[ \t]*", body)
+    if shorthand is None:
+        return None
+    title = shorthand.group("title")
+    # Leave native/custom Blocks declarations intact, including details modifiers.
+    first = re.split(r"[\s|\[{:]+", title, maxsplit=1)[0].lower()
+    if first in {"details", "html", "define", "definition", "tab"} or first.startswith("details-"):
+        return None
+    if "|" in title or title.startswith("/"):
+        return None
+    return _SLASH_ADMONITION_START_RE.fullmatch(
+        f"{shorthand.group('indent')}/// danger|{title}"
+    )
 
 
 def _find_slash_admonition_end(lines: list[str], start_index: int) -> int | None:
