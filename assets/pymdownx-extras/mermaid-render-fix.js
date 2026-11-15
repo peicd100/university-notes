@@ -165,7 +165,16 @@
     host.removeAttribute("tabindex");
     host.setAttribute("role", "status");
     host.setAttribute("aria-label", "Mermaid 圖表載入失敗");
-    host.replaceChildren(makeStatus("圖表載入失敗"));
+    host.replaceChildren(makeStatus("圖表載入失敗；下方保留原始內容。"));
+    const retry = document.createElement("button");
+    retry.type = "button"; retry.className = "peicd-render-retry"; retry.textContent = "重試圖表";
+    retry.addEventListener("click", event => {
+      event.stopPropagation();
+      if (!window.mermaid) { mermaidPromise = null; document.getElementById(MERMAID_SCRIPT_ID)?.remove(); }
+      delete host.dataset.peicdMermaidQueued;
+      enqueueHost(host, renderToken, true);
+    });
+    host.appendChild(retry);
 
     const pre = getSourcePre(host);
     if (pre) pre.hidden = false;

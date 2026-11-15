@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh-TW" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -20,8 +20,8 @@
         
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS 訂閱" href="../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS 訂閱內容已更新" href="../../../feed_rss_updated.xml">
       
       <link rel="icon" href="../../../assets/generated/optimized-images/92/92bbfb3cbbbc39f4311e673ea5e14fd9bf6630386422ff4d78273ed4b8ad76f6.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
@@ -45,8 +45,9 @@
 
       
     
-<script src="../../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
-<script src="../../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+<script>!function () { "use strict"; var e; e = function (e) { "true" === localStorage.getItem("data-md-prefers-color-scheme") && document.querySelector("body").setAttribute("data-md-color-scheme", e.matches ? "dracula" : "default") }, new MutationObserver((function (t) { t.forEach((function (t) { if ("childList" === t.type && t.addedNodes.length) for (var a = 0; a < t.addedNodes.length; a++) { var r = t.addedNodes[a]; if (1 === r.nodeType && "body" === r.tagName.toLowerCase()) { d = r, o = void 0, c = void 0, l = void 0, o = "not all" !== window.matchMedia("(prefers-color-scheme)").media, c = localStorage.getItem("data-md-color-scheme"), l = localStorage.getItem("data-md-prefers-color-scheme"), c || (c = "dracula"), l || (l = "false"), "true" === l && o ? c = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dracula" : "default" : l = "false", d.setAttribute("data-md-prefers-color-scheme", l), d.setAttribute("data-md-color-scheme", c), o && window.matchMedia("(prefers-color-scheme: dark)").addListener(e); break } } var d, o, c, l })) })).observe(document.querySelector("html"), { childList: !0 }), window.toggleScheme = function () { var e = document.querySelector("body"), t = "not all" !== window.matchMedia("(prefers-color-scheme)").media, a = e.getAttribute("data-md-color-scheme"), r = e.getAttribute("data-md-prefers-color-scheme"); t && "default" === a && "true" !== r ? (r = "true", a = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dracula" : "default") : t && "true" === r ? (r = "false", a = "dracula") : "dracula" === a ? (r = "false", a = "default") : (r = "false", a = "dracula"), localStorage.setItem("data-md-prefers-color-scheme", r), e.setAttribute("data-md-prefers-color-scheme", r), e.setAttribute("data-md-color-scheme", a) } }();
+//# sourceMappingURL=material-extra-theme-2ek1P7jT.js.map</script>
+<script defer src="../../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js"></script>
 
 
 
@@ -54,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.0e93254d83a6a6fcdd75.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -80,7 +81,7 @@
       
         
         <a href="#cpu-scheduling--為什麼作業系統需要替-cpu-決定下一個跑誰" class="md-skip">
-          Skip to content
+          跳轉到
         </a>
       
     </div>
@@ -171,21 +172,21 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="搜尋">
         
-          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
             
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
           </a>
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -196,7 +197,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜尋引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -215,7 +216,7 @@
         
           
             
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -429,7 +430,7 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="PEICD100" class="md-nav__button md-logo" aria-label="PEICD100" data-md-component="logo">
       
@@ -466,16 +467,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../blog/index.html" class="md-nav__link ">
-              
+  
+  
+  
+    <a href="../../../blog/index.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -489,310 +493,12 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    首頁
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
       
-        
+        <span class="md-nav__icon md-icon"></span>
       
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Archive
+    </a>
   
 
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Archive
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-    
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/archive/2024.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    2024
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/archive/2023.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    2023
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/archive/2022.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    2022
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Categories
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Categories
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-    
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/category/mkdocs.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    mkdocs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../blog/category/%E6%B8%AC%E8%A9%A6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    測試
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -832,15 +538,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/ch00.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -854,274 +564,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    硬體描述語言
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/ch00.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ch00
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/L02.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L02
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/L03.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L03
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E4%BD%9C%E6%A5%AD%E4%BA%8C.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    作業二
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E8%80%83%E5%8F%A4%E9%A1%8C_%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80_%E8%80%83%E5%8F%A4%E9%A1%8C_%E9%A1%8C%E7%9B%AE%E8%88%87%E7%AD%94%E6%A1%88_v0.0.4.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    考古題複習
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80_%E6%9C%9F%E4%B8%AD%E8%80%83%E8%87%AA%E7%B7%A8%E8%A3%9C%E5%BC%B7%E9%A1%8C_%E9%A1%8C%E7%9B%AE%E8%88%87%E7%AD%94%E6%A1%88.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    硬體描述語言｜期中考自編補強題
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80_%E6%9C%9F%E4%B8%AD%E8%80%83%E7%B8%BD%E8%A4%87%E7%BF%92%E4%BD%9C%E7%AD%94%E5%8D%B7.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考總複習作答卷（PDF）
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80_%E6%9C%9F%E4%B8%AD%E8%80%83%E7%B8%BD%E8%A4%87%E7%BF%92%E4%BD%9C%E7%AD%94%E5%8D%B7_%E5%AF%AB%E5%AE%8C%E7%9A%84.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考總複習作答卷｜寫完的（PDF）
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/%E6%9C%9F%E4%B8%AD%E8%80%83%E8%A4%87%E7%BF%92.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    硬體描述語言期中考前總覽
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1151,15 +599,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E7%92%B0%E5%A2%83.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -1173,134 +625,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    C程式設計
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E7%92%B0%E5%A2%83.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    環境
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/PEICD_CPP_%E6%9C%9F%E4%B8%AD%E7%B7%B4%E7%BF%92%E9%A1%8C%E5%96%AE.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中練習題單
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/PEICD_C%2B%2B_%E6%9C%9F%E4%B8%AD%E8%A4%87%E7%BF%92%E9%A1%8C%E6%9C%AC.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    全部題目 PDF
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    我的精簡筆記 PDF
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1346,15 +676,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E6%89%93%E6%98%9F%E6%98%9F.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -1368,358 +702,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    離散
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E6%89%93%E6%98%9F%E6%98%9F.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    老師打星星的重點
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L01.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L01
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L02.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L02
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L03.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L03
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L04.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L04
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E6%89%80%E6%9C%89%E9%8C%AF%E9%A1%8C.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    所有錯題
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%8F%E8%80%83%E8%A4%87%E7%BF%92%EF%BC%88%E7%B7%B4%E7%BF%92%EF%BC%89.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    第一次小考複習（練習 PDF）
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E9%9B%A2%E6%95%A3%E6%95%B8%E5%AD%B8%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%8F%E8%80%83_%E5%AE%8C%E6%95%B4%E7%B7%B4%E7%BF%92%E5%8D%B7_v0.0.1.pdf" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ⭐離散數學第一次小考_完整練習卷
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%8F%E8%80%83%E8%A4%87%E7%BF%92.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    離散數學小考考前總覽
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E9%9B%A2%E6%95%A3%E5%B0%8F%E8%80%83_%E5%BF%85%E8%83%8C%E8%88%87%E6%98%93%E5%BF%98%E9%87%8D%E9%BB%9E.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    離散數學小考：必背與易忘重點
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/%E9%9B%A2%E6%95%A3%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%8F%E8%80%83_%E5%BF%AB%E9%80%9F%E8%A4%87%E7%BF%92.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    離散數學第一次小考：快速複習
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E9%9B%A2%E6%95%A3/L05.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    L05
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1743,15 +731,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../../115-1/%E5%AF%A6%E7%94%A8%E6%95%B8%E4%BD%8D%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83%E5%89%8D%E7%B8%BD%E8%A6%BD.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -1765,50 +757,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    實用數位系統設計
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../115-1/%E5%AF%A6%E7%94%A8%E6%95%B8%E4%BD%8D%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83%E5%89%8D%E7%B8%BD%E8%A6%BD.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考前總覽
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1836,6 +790,8 @@
       
       
     
+    
+      
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
@@ -1901,6 +857,8 @@
       
     
     
+      
+    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
@@ -1959,15 +917,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_1" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_1" id="__nav_6_1_1_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -1981,106 +943,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    科大_數位邏輯設計實習
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    教材
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/Vivado%20%E5%B0%88%E6%A1%88.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Vivado 專案
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E7%87%92%E9%8C%84%E6%9D%BF%E5%AD%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    燒錄板子
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -2132,6 +1000,8 @@
       
       
     
+    
+      
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
@@ -2413,15 +1283,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2_9" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_2_9" id="__nav_6_1_2_9_label" tabindex="0">
-            
+  
+  
+  
+    <a href="%E6%9C%9F%E4%B8%AD%E8%80%83%E8%8B%B1%E6%96%87.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -2435,78 +1309,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_1_2_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_2_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    期中考整理
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E4%B8%AD%E8%80%83%E8%8B%B1%E6%96%87.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考英文
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考重點
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -2564,14 +1372,14 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
   
   
   
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目錄
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -5033,15 +3841,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_2_14" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_2_14" id="__nav_6_1_2_14_label" tabindex="0">
-            
+  
+  
+  
+    <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch6.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -5055,162 +3867,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_1_2_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_2_14">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    期末考整理
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考重點 ch6
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch7.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考重點 ch7
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考重點 ch8
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch9.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考重點 ch9
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="%E6%9C%9F%E6%9C%AB%E8%80%83%E6%89%80%E6%9C%89%E9%87%8D%E9%BB%9E.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考所有重點
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -5255,15 +3917,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_3" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_3" id="__nav_6_1_3_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -5277,218 +3943,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    機電_數位邏輯實驗
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    首頁
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/Quartus%20%E5%89%B5%E5%BB%BA%E5%B0%88%E6%A1%88.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    創建專案
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E5%AE%89%E8%A3%9D%20usb.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    安裝 usb
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E8%B7%91%20tb.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    跑 tb
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%81%B8%E8%85%B3%E4%BD%8D.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    選腳位
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E4%B8%8A%E5%82%B3%E9%9B%BB%E8%B7%AF%E6%9D%BF.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    上傳電路板
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E6%9C%9F%E4%B8%AD%E8%80%83.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考整理
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -5521,15 +3981,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_4" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_4" id="__nav_6_1_4_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -5543,162 +4007,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    資工_電腦輔助 VLSI 設計
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
   
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    moodle
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%AD%A3%E8%B2%A0%E9%9B%BB%E6%BA%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    正負電源
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/VHDL.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    VHDL
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/Quartus%209.0.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quartus 9.0
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -5747,15 +4061,19 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_5" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_6_1_5" id="__nav_6_1_5_label" tabindex="0">
-            
+  
+  
+  
+    <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -5769,598 +4087,12 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    科技_計算機結構
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SI 前綴表
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E4%BD%9C%E6%A5%AD%201%20%E9%85%8D%E5%B0%8D.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    作業 1 配對
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%200.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 0
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%201.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 1
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期中考重點整理
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/MIPS%20%E6%AC%84%E4%BD%8D%E8%A1%A8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MIPS 欄位表
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%203.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ch 3
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.1.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 4.1
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.2.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 4.2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%205.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch 5
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%206-Lab.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ch 6 Lab
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
       
-        
+        <span class="md-nav__icon md-icon"></span>
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_5_13" >
-        
-          
-          <label class="md-nav__link" for="__nav_6_1_5_13" id="__nav_6_1_5_13_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考整理
+    </a>
   
 
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_1_5_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_1_5_13">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    期末考整理
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習 ch3
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.1.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習 ch4.1
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.2.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習 ch4.2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch5.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習 ch5
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習 ch6 Lab
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92%E7%B8%BD%E6%95%B4%E7%90%86.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    期末考複習總整理
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -6402,15 +4134,23 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-            
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../Verilog/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
+      
   
   
   <span class="md-ellipsis">
@@ -6424,1922 +4164,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Else
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Verilog
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Verilog
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%A6%96%E9%A0%81.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    首頁
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%AD%B8%E7%BF%92%E8%B3%87%E6%BA%90%E6%95%B4%E7%90%86.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    學習資源
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1_3" id="__nav_7_1_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    基礎語法
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    基礎語法
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E6%A8%A1%E7%B5%84%E8%88%87%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    模組與建模方式
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%B8%B8%E8%A6%8B%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    常見資料型別
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E6%95%B8%E5%80%BC.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    數值與 Literal
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%81%8B%E7%AE%97%E5%AD%90.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    運算子
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%81%8B%E7%AE%97%E5%AD%90%E5%84%AA%E5%85%88%E5%BA%A6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    運算子優先度
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/vector.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Vector、MSB 與 LSB
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Generate.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Generate
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    四則運算
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1_4" id="__nav_7_1_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    程序式寫法 / Testbench
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    程序式寫法 / Testbench
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/always%E3%80%81initial%20%E8%88%87%E4%BA%8B%E4%BB%B6%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    always、initial 與事件控制
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/blocking%20%E8%88%87%20non-blocking.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    blocking 與 non-blocking
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%81%B8%E6%93%87%E7%B5%90%E6%A7%8B.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    選擇結構
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E8%BF%B4%E5%9C%88%E8%88%87%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    迴圈與程序控制
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Testbench%20%E5%AF%AB%20clk.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Testbench 寫 clk
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Testbench%20%E7%94%A8%E6%95%B8%E5%AD%B8%E5%BC%8F%E9%A9%97%E8%AD%89.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Testbench 用數學式驗證
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Fork.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fork
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1_5" id="__nav_7_1_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    模擬與常見電路
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    模擬與常見電路
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/system%20tasks.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    模擬控制與 System Tasks
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/priority%20encoder.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Priority Encoder
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/full%20adder.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Full adder
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1_6" id="__nav_7_1_6_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    進階觀念/技巧
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1_6">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    進階觀念/技巧
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%98%B2%E6%AD%A2%E8%AE%8A%E6%88%90%20latch.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    防止變成 latch
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E4%B8%8D%E6%9C%83%E8%A2%AB%E5%88%AA%E9%99%A4%E7%9A%84%E8%AE%8A%E6%95%B8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    不會被刪除的變數
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%A0%86%E5%BA%8F%E7%9B%B8%E5%90%8C%E7%9A%84%E9%80%A3%E7%BA%8C%E9%81%8B%E7%AE%97.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    順序相同的連續運算
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%A4%9A%E5%B7%A5%E5%99%A8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    多工器
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/adder.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    直接相加的 adder
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/half_adder%20%26%20full_adder.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    half_adder 和 full_adder 組成
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%9B%9B%E5%89%87%E9%81%8B%E7%AE%97%E8%88%87%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%9A%84%E4%BD%8D%E5%AF%AC.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    四則運算與邏輯運算的位寬
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/overflow.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    判斷有號數的 Overflow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/instance%20array%28%E5%AF%A6%E4%BE%8B%E9%99%A3%E5%88%97%29.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Instance array(實例陣列)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE%E3%80%81%E9%9D%9E%E5%90%8C%E6%AD%A5%E9%87%8D%E7%BD%AE.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    同步重置、非同步重置
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/dff.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    dff
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E9%9B%99%E9%82%8A%E7%B7%A3%E8%A7%B8%E7%99%BC.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    雙邊緣觸發
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/1000Hz%20to%201Hz%20counter.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    1000Hz to 1Hz counter
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/%E6%8C%89%E9%88%95%E5%8E%BB%E5%BD%88%E8%B7%B3.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    按鈕去彈跳
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Finite%20State%20Machine%28%E6%9C%89%E9%99%90%E7%8B%80%E6%85%8B%E6%A9%9F%29.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Finite State Machine(有限狀態機)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_1_7" id="__nav_7_1_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    HDLBits
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_1_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    HDLBits
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Verilog/Conway%60s%20Game%20of%20Life%2016_16.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Conway`s Game of Life
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
       
+        <span class="md-nav__icon md-icon"></span>
       
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    600
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    600
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/4.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch4 Travel 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/5.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch5 Dining out 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/6.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch6 Entertainment 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/7.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch7 Housing 全文集中區
-  
-
-    
-  </span>
-  
+    </a>
   
 
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/8.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch8 Purchasing 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/9.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch9 Personnel 人事篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/10.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch10 Offices 辦公室篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/11.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch11 Health 健康篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/12.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch12 General Business 一般商務篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/13.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch13 Manufacturing 製造業篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/14.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch14 Corporate Development 企業發展篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/15.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch15 Technical areas 技術層面篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../%E5%A4%9A%E7%9B%8A600/16.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ch16 Financing 財務金融篇 全文集中區
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
   
 
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -8353,2377 +4185,1917 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+              <div class="md-sidebar md-sidebar--secondary peicd-toc-sidebar" data-md-component="sidebar" data-md-type="toc" data-peicd-toc-mode="auto" data-peicd-toc-view="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目錄" class="md-nav md-nav--secondary"><div aria-busy="true" class="peicd-toc-head" data-peicd-toc-shell="server"><div class="peicd-toc-head__row peicd-toc-head__row--titleless"><label aria-hidden="true" class="md-nav__title peicd-toc-title" hidden=""></label><button aria-label="關閉目錄" class="peicd-toc-close" disabled="" type="button">×</button></div><div class="peicd-toc-toolbar"><div aria-label="目錄操作" class="peicd-toc-toolbar__group" role="group"><button class="peicd-toc-control" disabled="" type="button">展開</button><button class="peicd-toc-control" disabled="" type="button">收合</button></div><div aria-label="目錄模式" class="peicd-toc-toolbar__group" role="group"><button aria-pressed="true" class="peicd-toc-control peicd-toc-control--mode" disabled="" type="button">自動</button><button aria-pressed="false" class="peicd-toc-control peicd-toc-control--mode" disabled="" type="button">手動</button></div><button aria-pressed="false" class="peicd-toc-control peicd-toc-control--danger" disabled="" type="button">Danger</button></div></div>
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#cpu-scheduling--為什麼作業系統需要替-cpu-決定下一個跑誰" class="md-nav__link">
-    <span class="md-ellipsis">
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#cpu-scheduling--為什麼作業系統需要替-cpu-決定下一個跑誰">
+<span class="md-ellipsis">
       
         ⭐CPU Scheduling — 為什麼作業系統需要替 CPU 決定下一個跑誰？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐CPU Scheduling — 為什麼作業系統需要替 CPU 決定下一個跑誰？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這章真正處理的問題cpu-不能空著也不能同時跑所有-process" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐CPU Scheduling — 為什麼作業系統需要替 CPU 決定下一個跑誰？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這章真正處理的問題cpu-不能空著也不能同時跑所有-process">
+<span class="md-ellipsis">
       
         1. 這章真正處理的問題：CPU 不能空著，也不能同時跑所有 process
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-為什麼-process-不是一直用-cpu因為會在-cpu-burst-和-io-burst-之間交替" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-為什麼-process-不是一直用-cpu因為會在-cpu-burst-和-io-burst-之間交替">
+<span class="md-ellipsis">
       
         2. 為什麼 process 不是一直用 CPU？因為會在 CPU Burst 和 I/O Burst 之間交替
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-io-bound-和-cpu-bound-的直覺差異" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-io-bound-和-cpu-bound-的直覺差異">
+<span class="md-ellipsis">
       
         3. I/O-bound 和 CPU-bound 的直覺差異
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-cpu-scheduler-的核心任務從-ready-queue-選一個-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-cpu-scheduler-的核心任務從-ready-queue-選一個-process">
+<span class="md-ellipsis">
       
         4. CPU Scheduler 的核心任務：從 Ready Queue 選一個 process
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-本輪最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-本輪最短記法">
+<span class="md-ellipsis">
       
         5. 本輪最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-常見錯法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-常見錯法">
+<span class="md-ellipsis">
       
         6. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#所以-cpu-bound-process-和-io-bound-process-是兩種不同的-process-嗎" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#所以-cpu-bound-process-和-io-bound-process-是兩種不同的-process-嗎">
+<span class="md-ellipsis">
       
         所以 CPU bound process 和 IO bound process 是兩種不同的 process 嗎?
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="所以 CPU bound process 和 IO bound process 是兩種不同的 process 嗎?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-正確理解" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="所以 CPU bound process 和 IO bound process 是兩種不同的 process 嗎?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-正確理解">
+<span class="md-ellipsis">
       
         1. 正確理解
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-它不是永遠固定的" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-它不是永遠固定的">
+<span class="md-ellipsis">
       
         2. 它不是永遠固定的
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-為什麼-os-要分這兩類" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-為什麼-os-要分這兩類">
+<span class="md-ellipsis">
       
         3. 為什麼 OS 要分這兩類？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#所以這兩種-process-和-scheduling-到底有什麼關係" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#所以這兩種-process-和-scheduling-到底有什麼關係">
+<span class="md-ellipsis">
       
         所以這兩種 process 和 scheduling 到底有什麼關係?
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="所以這兩種 process 和 scheduling 到底有什麼關係?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-cpu-scheduler-在做什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="所以這兩種 process 和 scheduling 到底有什麼關係?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-cpu-scheduler-在做什麼">
+<span class="md-ellipsis">
       
         1. CPU Scheduler 在做什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-如果排班排得不好會發生什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-如果排班排得不好會發生什麼">
+<span class="md-ellipsis">
       
         2. 如果排班排得不好，會發生什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-io-bound-通常適合比較快被服務" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-io-bound-通常適合比較快被服務">
+<span class="md-ellipsis">
       
         3. I/O-bound 通常適合比較快被服務
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-cpu-bound-需要避免霸佔-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-cpu-bound-需要避免霸佔-cpu">
+<span class="md-ellipsis">
       
         4. CPU-bound 需要避免「霸佔 CPU」
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-最核心的因果關係" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-最核心的因果關係">
+<span class="md-ellipsis">
       
         5. 最核心的因果關係
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-考試寫法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-考試寫法">
+<span class="md-ellipsis">
       
         6. 考試寫法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#preemptive-scheduling--cpu-什麼時候可以重新決定下一個行程" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#preemptive-scheduling--cpu-什麼時候可以重新決定下一個行程">
+<span class="md-ellipsis">
       
         ⭐Preemptive Scheduling — CPU 什麼時候可以重新決定下一個行程？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Preemptive Scheduling — CPU 什麼時候可以重新決定下一個行程？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Preemptive Scheduling — CPU 什麼時候可以重新決定下一個行程？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-page-7-的四種-cpu-scheduling-decision-時機" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-page-7-的四種-cpu-scheduling-decision-時機">
+<span class="md-ellipsis">
       
         2. Page 7 的四種 CPU scheduling decision 時機
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-nonpreemptive不可搶先cpu-只能等目前-process-自己讓出來" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-nonpreemptive不可搶先cpu-只能等目前-process-自己讓出來">
+<span class="md-ellipsis">
       
         3. Nonpreemptive(不可搶先)：CPU 只能等目前 process 自己讓出來
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-preemptive可搶先os-可以把目前-process-趕回-ready-queue" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-preemptive可搶先os-可以把目前-process-趕回-ready-queue">
+<span class="md-ellipsis">
       
         4. Preemptive(可搶先)：OS 可以把目前 process 趕回 ready queue
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-最容易混淆的地方interrupt-不等於一定換人" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-最容易混淆的地方interrupt-不等於一定換人">
+<span class="md-ellipsis">
       
         5. 最容易混淆的地方：interrupt 不等於一定換人
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-page-8-的-race-condition-提醒" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-page-8-的-race-condition-提醒">
+<span class="md-ellipsis">
       
         6. Page 8 的 race condition 提醒
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧">
+<span class="md-ellipsis">
       
         如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-精準區分直接搶先-vs-觸發重新排班" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-精準區分直接搶先-vs-觸發重新排班">
+<span class="md-ellipsis">
       
         1. 精準區分：直接搶先 vs 觸發重新排班
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-用例子看就很清楚" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-用例子看就很清楚">
+<span class="md-ellipsis">
       
         2. 用例子看就很清楚
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-什麼情況下-waiting--ready-不會真的搶" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-什麼情況下-waiting--ready-不會真的搶">
+<span class="md-ellipsis">
       
         3. 什麼情況下 Waiting → Ready 不會真的搶？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-一句話總結" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-一句話總結">
+<span class="md-ellipsis">
       
         4. 一句話總結
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-">
+<span class="md-ellipsis">
       
         所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-正確因果鏈" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-正確因果鏈">
+<span class="md-ellipsis">
       
         1. 正確因果鏈
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-你可以這樣記" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-你可以這樣記">
+<span class="md-ellipsis">
       
         2. 你可以這樣記
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-考試最安全寫法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-考試最安全寫法">
+<span class="md-ellipsis">
       
         3. 考試最安全寫法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#考古錯題" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#考古錯題">
+<span class="md-ellipsis">
       
         考古錯題
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#dispatcher--scheduler-選完人之後cpu-控制權怎麼真的交出去" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#dispatcher--scheduler-選完人之後cpu-控制權怎麼真的交出去">
+<span class="md-ellipsis">
       
         ⭐Dispatcher — scheduler 選完人之後，CPU 控制權怎麼真的交出去？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Dispatcher — scheduler 選完人之後，CPU 控制權怎麼真的交出去？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-scheduler排班器和-dispatcher分派程式不是同一件事" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Dispatcher — scheduler 選完人之後，CPU 控制權怎麼真的交出去？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-scheduler排班器和-dispatcher分派程式不是同一件事">
+<span class="md-ellipsis">
       
         1. Scheduler(排班器)和 Dispatcher(分派程式)不是同一件事
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-dispatcher-做三件事" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-dispatcher-做三件事">
+<span class="md-ellipsis">
       
         2. Dispatcher 做三件事
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-dispatch-latency分派延遲換人不是免費的" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-dispatch-latency分派延遲換人不是免費的">
+<span class="md-ellipsis">
       
         3. Dispatch Latency(分派延遲)：換人不是免費的
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-常見錯法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-常見錯法">
+<span class="md-ellipsis">
       
         4. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-最短記法">
+<span class="md-ellipsis">
       
         5. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#scheduling-criteria--我們怎麼判斷一個排班演算法好不好" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#scheduling-criteria--我們怎麼判斷一個排班演算法好不好">
+<span class="md-ellipsis">
       
         ⭐Scheduling Criteria — 我們怎麼判斷一個排班演算法好不好？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Scheduling Criteria — 我們怎麼判斷一個排班演算法好不好？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_1" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Scheduling Criteria — 我們怎麼判斷一個排班演算法好不好？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_1">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-cpu-utilizationcpu-使用率cpu-有多忙" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-cpu-utilizationcpu-使用率cpu-有多忙">
+<span class="md-ellipsis">
       
         2. CPU Utilization(CPU 使用率)：CPU 有多忙？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-throughput產量單位時間完成多少-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-throughput產量單位時間完成多少-process">
+<span class="md-ellipsis">
       
         3. Throughput(產量)：單位時間完成多少 process？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-turnaround-time回復時間從提交到完成總共花多久" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#4-turnaround-time回復時間從提交到完成總共花多久">
+<span class="md-ellipsis">
       
         4. Turnaround Time(回復時間)：從提交到完成總共花多久？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Turnaround Time(回復時間)：從提交到完成總共花多久？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#為何-turnaround-time-叫做-turnaround" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="4. Turnaround Time(回復時間)：從提交到完成總共花多久？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#為何-turnaround-time-叫做-turnaround">
+<span class="md-ellipsis">
       
         為何 Turnaround Time 叫做 Turnaround
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-waiting-time等候時間在-ready-queue-裡等-cpu-花多久">
+<span class="md-ellipsis">
       
         5. Waiting Time(等候時間)：在 ready queue 裡等 CPU 花多久？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-response-time反應時間從發出要求到第一次回應多久" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-response-time反應時間從發出要求到第一次回應多久">
+<span class="md-ellipsis">
       
         6. Response Time(反應時間)：從發出要求到第一次回應多久？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-三個綜合版本" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-三個綜合版本">
+<span class="md-ellipsis">
       
         7. 三個綜合版本
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-page-11-的最佳化方向" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-page-11-的最佳化方向">
+<span class="md-ellipsis">
       
         8. Page 11 的最佳化方向
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-考試常見陷阱" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-考試常見陷阱">
+<span class="md-ellipsis">
       
         9. 考試常見陷阱
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#錯題">
+<span class="md-ellipsis">
       
         錯題：
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#fcfs-scheduling--為什麼排班計算題要先從誰先到誰先跑開始" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#fcfs-scheduling--為什麼排班計算題要先從誰先到誰先跑開始">
+<span class="md-ellipsis">
       
         ⭐FCFS Scheduling — 為什麼排班計算題要先從「誰先到誰先跑」開始？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐FCFS Scheduling — 為什麼排班計算題要先從「誰先到誰先跑」開始？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-fcfsfirst-come-first-served先來先服務在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐FCFS Scheduling — 為什麼排班計算題要先從「誰先到誰先跑」開始？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-fcfsfirst-come-first-served先來先服務在解決什麼問題">
+<span class="md-ellipsis">
       
         1. FCFS(First-Come, First-Served，先來先服務)在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-fcfs-的計算題流程" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-fcfs-的計算題流程">
+<span class="md-ellipsis">
       
         2. FCFS 的計算題流程
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-三個時間公式怎麼套" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-三個時間公式怎麼套">
+<span class="md-ellipsis">
       
         3. 三個時間公式怎麼套？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-fcfs-的優點與陷阱" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-fcfs-的優點與陷阱">
+<span class="md-ellipsis">
       
         4. FCFS 的優點與陷阱
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-考試最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-考試最短記法">
+<span class="md-ellipsis">
       
         5. 考試最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#sjf-scheduling--為什麼短工作先做通常能降低平均等待時間" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#sjf-scheduling--為什麼短工作先做通常能降低平均等待時間">
+<span class="md-ellipsis">
       
         ⭐SJF Scheduling — 為什麼「短工作先做」通常能降低平均等待時間？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐SJF Scheduling — 為什麼「短工作先做」通常能降低平均等待時間？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-sjf-在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐SJF Scheduling — 為什麼「短工作先做」通常能降低平均等待時間？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-sjf-在解決什麼問題">
+<span class="md-ellipsis">
       
         1. SJF 在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-nonpreemptive-sjf-怎麼排" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-nonpreemptive-sjf-怎麼排">
+<span class="md-ellipsis">
       
         2. Nonpreemptive SJF 怎麼排？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-用考古題-q2-先示範-sjf" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-用考古題-q2-先示範-sjf">
+<span class="md-ellipsis">
       
         3. 用考古題 Q2 先示範 SJF
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-最容易錯的地方" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-最容易錯的地方">
+<span class="md-ellipsis">
       
         4. 最容易錯的地方
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-最短記法_1">
+<span class="md-ellipsis">
       
         5. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#shortest-remaining-time-first--可搶先版-sjf-到底怎麼決定誰先跑" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#shortest-remaining-time-first--可搶先版-sjf-到底怎麼決定誰先跑">
+<span class="md-ellipsis">
       
         ⭐Shortest-remaining-time-first — 可搶先版 SJF 到底怎麼決定誰先跑？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Shortest-remaining-time-first — 可搶先版 SJF 到底怎麼決定誰先跑？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_2" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Shortest-remaining-time-first — 可搶先版 SJF 到底怎麼決定誰先跑？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_2">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-核心規則永遠選剩餘時間最短的-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-核心規則永遠選剩餘時間最短的-process">
+<span class="md-ellipsis">
       
         2. 核心規則：永遠選「剩餘時間」最短的 process
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-講義例題資料" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-講義例題資料">
+<span class="md-ellipsis">
       
         3. 講義例題資料
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-trace每個時間點誰會搶誰" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-trace每個時間點誰會搶誰">
+<span class="md-ellipsis">
       
         4. Trace：每個時間點誰會搶誰？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-gantt-chart" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-gantt-chart">
+<span class="md-ellipsis">
       
         5. Gantt Chart
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-waiting-time-怎麼算" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-waiting-time-怎麼算">
+<span class="md-ellipsis">
       
         6. Waiting Time 怎麼算？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法_1">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-常見錯法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-常見錯法">
+<span class="md-ellipsis">
       
         8. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#priority-scheduling--cpu-要怎麼根據重要性決定誰先跑" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#priority-scheduling--cpu-要怎麼根據重要性決定誰先跑">
+<span class="md-ellipsis">
       
         ⭐Priority Scheduling — CPU 要怎麼根據「重要性」決定誰先跑？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Priority Scheduling — CPU 要怎麼根據「重要性」決定誰先跑？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-priority-scheduling優先權排班在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Priority Scheduling — CPU 要怎麼根據「重要性」決定誰先跑？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-priority-scheduling優先權排班在解決什麼問題">
+<span class="md-ellipsis">
       
         1. Priority Scheduling(優先權排班)在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-priority-數字越小越高還是越大越高" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-priority-數字越小越高還是越大越高">
+<span class="md-ellipsis">
       
         2. Priority 數字越小越高，還是越大越高？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-如果-priority-一樣怎麼辦" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-如果-priority-一樣怎麼辦">
+<span class="md-ellipsis">
       
         3. 如果 priority 一樣怎麼辦？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-nonpreemptive-priority-和-preemptive-priority-差在哪" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-nonpreemptive-priority-和-preemptive-priority-差在哪">
+<span class="md-ellipsis">
       
         4. Nonpreemptive Priority 和 Preemptive Priority 差在哪？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-priority-scheduling-的最大問題starvation飢餓" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-priority-scheduling-的最大問題starvation飢餓">
+<span class="md-ellipsis">
       
         5. Priority Scheduling 的最大問題：Starvation(飢餓)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-非題目型示範怎麼排-nonpreemptive-priority" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-非題目型示範怎麼排-nonpreemptive-priority">
+<span class="md-ellipsis">
       
         6. 非題目型示範：怎麼排 Nonpreemptive Priority？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_2" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法_2">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#round-robin-scheduling--為什麼每個-process-只能輪流拿一小段-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#round-robin-scheduling--為什麼每個-process-只能輪流拿一小段-cpu">
+<span class="md-ellipsis">
       
         ⭐Round Robin Scheduling — 為什麼每個 process 只能輪流拿一小段 CPU？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Round Robin Scheduling — 為什麼每個 process 只能輪流拿一小段 CPU？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-rrround-robin依序循環排班在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Round Robin Scheduling — 為什麼每個 process 只能輪流拿一小段 CPU？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-rrround-robin依序循環排班在解決什麼問題">
+<span class="md-ellipsis">
       
         1. RR(Round Robin，依序循環排班)在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-rr-的核心規則" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-rr-的核心規則">
+<span class="md-ellipsis">
       
         2. RR 的核心規則
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-非題目型示範rr-quantum--1-怎麼跑" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-非題目型示範rr-quantum--1-怎麼跑">
+<span class="md-ellipsis">
       
         3. 非題目型示範：RR quantum = 1 怎麼跑？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-rr-最容易錯的地方" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-rr-最容易錯的地方">
+<span class="md-ellipsis">
       
         4. RR 最容易錯的地方
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-time-quantum-太大或太小會怎樣" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-time-quantum-太大或太小會怎樣">
+<span class="md-ellipsis">
       
         5. Time quantum 太大或太小會怎樣？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-最短記法">
+<span class="md-ellipsis">
       
         6. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#preemptive-priority--round-robin--當-priority-和-rr-同時出現時誰先決定" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#preemptive-priority--round-robin--當-priority-和-rr-同時出現時誰先決定">
+<span class="md-ellipsis">
       
         ⭐Preemptive Priority + Round Robin — 當 priority 和 RR 同時出現時，誰先決定？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Preemptive Priority + Round Robin — 當 priority 和 RR 同時出現時，誰先決定？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這題在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Preemptive Priority + Round Robin — 當 priority 和 RR 同時出現時，誰先決定？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這題在解決什麼問題">
+<span class="md-ellipsis">
       
         1. 這題在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-這題-priority-方向和-q2-不一樣" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-這題-priority-方向和-q2-不一樣">
+<span class="md-ellipsis">
       
         2. 這題 priority 方向和 Q2 不一樣
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-preemptive-priority-的規則" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-preemptive-priority-的規則">
+<span class="md-ellipsis">
       
         3. Preemptive Priority 的規則
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-rr-在這題只作用於同-priority的-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-rr-在這題只作用於同-priority的-process">
+<span class="md-ellipsis">
       
         4. RR 在這題只作用於「同 priority」的 process
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-idle-task-什麼時候跑" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-idle-task-什麼時候跑">
+<span class="md-ellipsis">
       
         5. Idle task 什麼時候跑？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-非題目型示範混合規則怎麼判斷" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-非題目型示範混合規則怎麼判斷">
+<span class="md-ellipsis">
       
         6. 非題目型示範：混合規則怎麼判斷？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_3" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法_3">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#multilevel-queue-scheduling--為什麼-ready-queue-要拆成好幾條隊伍">
+<span class="md-ellipsis">
       
         ⭐Multilevel Queue Scheduling — 為什麼 ready queue 要拆成好幾條隊伍？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Multilevel Queue Scheduling — 為什麼 ready queue 要拆成好幾條隊伍？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_3" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Multilevel Queue Scheduling — 為什麼 ready queue 要拆成好幾條隊伍？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_3">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-p21-的基本結構ready-queue-被切成多條-queue" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-p21-的基本結構ready-queue-被切成多條-queue">
+<span class="md-ellipsis">
       
         2. p.21 的基本結構：Ready queue 被切成多條 queue
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-每個-queue-可以有自己的-scheduling-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-每個-queue-可以有自己的-scheduling-algorithm">
+<span class="md-ellipsis">
       
         3. 每個 queue 可以有自己的 scheduling algorithm
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-queue-之間也要排班" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-queue-之間也要排班">
+<span class="md-ellipsis">
       
         4. Queue 之間也要排班
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-p22-圖在表達什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-p22-圖在表達什麼">
+<span class="md-ellipsis">
       
         5. p.22 圖在表達什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-最容易混淆multilevel-queue-vs-priority-scheduling" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-最容易混淆multilevel-queue-vs-priority-scheduling">
+<span class="md-ellipsis">
       
         6. 最容易混淆：Multilevel Queue vs Priority Scheduling
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最容易混淆multilevel-queue-vs-multilevel-feedback-queue" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最容易混淆multilevel-queue-vs-multilevel-feedback-queue">
+<span class="md-ellipsis">
       
         7. 最容易混淆：Multilevel Queue vs Multilevel Feedback Queue
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-最短記法">
+<span class="md-ellipsis">
       
         8. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#multilevel-feedback-queue-scheduling--為什麼-process-可以在不同-queue-之間移動">
+<span class="md-ellipsis">
       
         ⭐Multilevel Feedback-Queue Scheduling — 為什麼 process 可以在不同 queue 之間移動？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Multilevel Feedback-Queue Scheduling — 為什麼 process 可以在不同 queue 之間移動？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_4" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Multilevel Feedback-Queue Scheduling — 為什麼 process 可以在不同 queue 之間移動？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_4">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-核心規則process-可以在-queue-之間移動" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-核心規則process-可以在-queue-之間移動">
+<span class="md-ellipsis">
       
         2. 核心規則：process 可以在 queue 之間移動
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-cpu-用太久往低優先-queue-移動" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-cpu-用太久往低優先-queue-移動">
+<span class="md-ellipsis">
       
         3. CPU 用太久：往低優先 queue 移動
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-等太久往高優先-queue-移動" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-等太久往高優先-queue-移動">
+<span class="md-ellipsis">
       
         4. 等太久：往高優先 queue 移動
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-為什麼高優先-queue-常放-io-bound-或-interactive-process" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-為什麼高優先-queue-常放-io-bound-或-interactive-process">
+<span class="md-ellipsis">
       
         5. 為什麼高優先 queue 常放 I/O-bound 或 interactive process？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-和前一頁-multilevel-queue-的最短差別" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-和前一頁-multilevel-queue-的最短差別">
+<span class="md-ellipsis">
       
         6. 和前一頁 Multilevel Queue 的最短差別
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-考試最常見寫法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-考試最常見寫法">
+<span class="md-ellipsis">
       
         7. 考試最常見寫法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-常見錯法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-常見錯法_1">
+<span class="md-ellipsis">
       
         8. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#thread-scheduling--執行緒到底是在跟誰競爭-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#thread-scheduling--執行緒到底是在跟誰競爭-cpu">
+<span class="md-ellipsis">
       
         ⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_5" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_5">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-pcsprocess-contention-scope行程競爭範圍" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-pcsprocess-contention-scope行程競爭範圍">
+<span class="md-ellipsis">
       
         2. PCS(Process-contention scope，行程競爭範圍)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-scssystem-contention-scope系統競爭範圍" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-scssystem-contention-scope系統競爭範圍">
+<span class="md-ellipsis">
       
         3. SCS(System-contention scope，系統競爭範圍)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-pcs-vs-scs-的核心差別" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-pcs-vs-scs-的核心差別">
+<span class="md-ellipsis">
       
         4. PCS vs SCS 的核心差別
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-為什麼這個重要" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-為什麼這個重要">
+<span class="md-ellipsis">
       
         5. 為什麼這個重要？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-常見錯法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-常見錯法_1">
+<span class="md-ellipsis">
       
         6. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_4" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法_4">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#pthread-scheduling-api--pthread-怎麼指定-pcs-或-scs" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#pthread-scheduling-api--pthread-怎麼指定-pcs-或-scs">
+<span class="md-ellipsis">
       
         ⭐Pthread Scheduling API — Pthread 怎麼指定 PCS 或 SCS？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Pthread Scheduling API — Pthread 怎麼指定 PCS 或 SCS？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_6" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Pthread Scheduling API — Pthread 怎麼指定 PCS 或 SCS？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_6">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-p25-的兩個常數" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-p25-的兩個常數">
+<span class="md-ellipsis">
       
         2. p.25 的兩個常數
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-p26--27-程式碼的核心流程" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-p26--27-程式碼的核心流程">
+<span class="md-ellipsis">
       
         3. p.26 ~ 27 程式碼的核心流程
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-最小必要-code-片段" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-最小必要-code-片段">
+<span class="md-ellipsis">
       
         4. 最小必要 code 片段
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-scope-和-policy-不要混在一起" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-scope-和-policy-不要混在一起">
+<span class="md-ellipsis">
       
         5. scope 和 policy 不要混在一起
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-為什麼設定在-pthread_create-前" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-為什麼設定在-pthread_create-前">
+<span class="md-ellipsis">
       
         6. 為什麼設定在 pthread_create() 前？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-常見錯法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-常見錯法">
+<span class="md-ellipsis">
       
         7. 常見錯法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-最短記法_1">
+<span class="md-ellipsis">
       
         8. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-processor-scheduling--cpu-不只一顆時排班多了哪些問題" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#multiple-processor-scheduling--cpu-不只一顆時排班多了哪些問題">
+<span class="md-ellipsis">
       
         ⭐Multiple-Processor Scheduling — CPU 不只一顆時，排班多了哪些問題？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Multiple-Processor Scheduling — CPU 不只一顆時，排班多了哪些問題？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個章節在解決什麼問題" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Multiple-Processor Scheduling — CPU 不只一顆時，排班多了哪些問題？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個章節在解決什麼問題">
+<span class="md-ellipsis">
       
         1. 這個章節在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-amp-vs-smp誰負責排班" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-amp-vs-smp誰負責排班">
+<span class="md-ellipsis">
       
         2. AMP vs SMP：誰負責排班？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-smp-的兩種-queue-設計" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-smp-的兩種-queue-設計">
+<span class="md-ellipsis">
       
         3. SMP 的兩種 queue 設計
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-processor-affinity為什麼-os-不喜歡-process-一直換-cpu" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-processor-affinity為什麼-os-不喜歡-process-一直換-cpu">
+<span class="md-ellipsis">
       
         4. Processor Affinity：為什麼 OS 不喜歡 process 一直換 CPU？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-soft-affinity-vs-hard-affinity" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-soft-affinity-vs-hard-affinity">
+<span class="md-ellipsis">
       
         5. Soft Affinity vs Hard Affinity
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-load-balancing為什麼有時候又必須搬工作" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-load-balancing為什麼有時候又必須搬工作">
+<span class="md-ellipsis">
       
         6. Load Balancing：為什麼有時候又必須搬工作？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-push-migration-vs-pull-migration" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-push-migration-vs-pull-migration">
+<span class="md-ellipsis">
       
         7. Push Migration vs Pull Migration
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-multicore-processor為什麼多核心會讓排班更複雜" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-multicore-processor為什麼多核心會讓排班更複雜">
+<span class="md-ellipsis">
       
         8. Multicore Processor：為什麼多核心會讓排班更複雜？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-四個概念的關係圖" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-四個概念的關係圖">
+<span class="md-ellipsis">
       
         9. 四個概念的關係圖
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-最短記法">
+<span class="md-ellipsis">
       
         10. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#real-time-cpu-scheduling--即時系統最怕什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#real-time-cpu-scheduling--即時系統最怕什麼">
+<span class="md-ellipsis">
       
         ⭐Real-Time CPU Scheduling — 即時系統最怕什麼？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Real-Time CPU Scheduling — 即時系統最怕什麼？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_7" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Real-Time CPU Scheduling — 即時系統最怕什麼？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_7">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-soft-real-time-system軟即時系統" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-soft-real-time-system軟即時系統">
+<span class="md-ellipsis">
       
         2. Soft Real-Time System(軟即時系統)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-hard-real-time-system硬即時系統" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-hard-real-time-system硬即時系統">
+<span class="md-ellipsis">
       
         3. Hard Real-Time System(硬即時系統)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-soft-vs-hard-的最短差別" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-soft-vs-hard-的最短差別">
+<span class="md-ellipsis">
       
         4. Soft vs Hard 的最短差別
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-interrupt-latency中斷延遲" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-interrupt-latency中斷延遲">
+<span class="md-ellipsis">
       
         5. Interrupt Latency(中斷延遲)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-dispatch-latency分派延遲" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-dispatch-latency分派延遲">
+<span class="md-ellipsis">
       
         6. Dispatch Latency(分派延遲)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-conflict-phase-of-dispatch-latency" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-conflict-phase-of-dispatch-latency">
+<span class="md-ellipsis">
       
         7. Conflict Phase of Dispatch Latency
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-main-objective主要目標最小化延遲" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-main-objective主要目標最小化延遲">
+<span class="md-ellipsis">
       
         8. Main Objective(主要目標)：最小化延遲
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-用一條時間線理解" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-用一條時間線理解">
+<span class="md-ellipsis">
       
         9. 用一條時間線理解
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-最短記法_1">
+<span class="md-ellipsis">
       
         10. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#priority-based-scheduling--即時系統為什麼需要優先權可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#priority-based-scheduling--即時系統為什麼需要優先權可搶先">
+<span class="md-ellipsis">
       
         ⭐Priority-based Scheduling — 即時系統為什麼需要「優先權＋可搶先」？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Priority-based Scheduling — 即時系統為什麼需要「優先權＋可搶先」？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_8" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Priority-based Scheduling — 即時系統為什麼需要「優先權＋可搶先」？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_8">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-為什麼一定要可搶先" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-為什麼一定要可搶先">
+<span class="md-ellipsis">
       
         2. 為什麼一定要「可搶先」？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-soft-real-time-os-怎麼做" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-soft-real-time-os-怎麼做">
+<span class="md-ellipsis">
       
         3. Soft Real-Time OS 怎麼做？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-hard-real-time-為什麼更嚴格" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-hard-real-time-為什麼更嚴格">
+<span class="md-ellipsis">
       
         4. Hard Real-Time 為什麼更嚴格？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-periodic-task週期性任務" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-periodic-task週期性任務">
+<span class="md-ellipsis">
       
         5. Periodic Task(週期性任務)
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-tdp-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-tdp-是什麼">
+<span class="md-ellipsis">
       
         6. t、d、p 是什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-為什麼-0--t--d--p" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-為什麼-0--t--d--p">
+<span class="md-ellipsis">
       
         7. 為什麼 0 ≤ t ≤ d ≤ p？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-rate-of-periodic-task-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-rate-of-periodic-task-是什麼">
+<span class="md-ellipsis">
       
         8. Rate of Periodic Task 是什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-最短記法" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-最短記法">
+<span class="md-ellipsis">
       
         9. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題hard-real-time" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#錯題hard-real-time">
+<span class="md-ellipsis">
       
         錯題(hard real-time)：
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#rate-monotonic-scheduling--週期越短為什麼優先權越高" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#rate-monotonic-scheduling--週期越短為什麼優先權越高">
+<span class="md-ellipsis">
       
         ⭐Rate-Monotonic Scheduling — 週期越短，為什麼優先權越高？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Rate-Monotonic Scheduling — 週期越短，為什麼優先權越高？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_9" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Rate-Monotonic Scheduling — 週期越短，為什麼優先權越高？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_9">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-rate-monotonic-的核心規則" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-rate-monotonic-的核心規則">
+<span class="md-ellipsis">
       
         2. Rate-Monotonic 的核心規則
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-為什麼叫-rate-monotonic" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-為什麼叫-rate-monotonic">
+<span class="md-ellipsis">
       
         3. 為什麼叫 Rate-Monotonic？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-p35-成功範例" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-p35-成功範例">
+<span class="md-ellipsis">
       
         4. p.35 成功範例
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-用時間線看-p35" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-用時間線看-p35">
+<span class="md-ellipsis">
       
         5. 用時間線看 p.35
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-p36為什麼-utilization--1-還可能-miss-deadline" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-p36為什麼-utilization--1-還可能-miss-deadline">
+<span class="md-ellipsis">
       
         6. p.36：為什麼 utilization &lt; 1 還可能 miss deadline？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-用-p36-時間線看-p2-怎麼-miss-deadline" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-用-p36-時間線看-p2-怎麼-miss-deadline">
+<span class="md-ellipsis">
       
         7. 用 p.36 時間線看 P2 怎麼 miss deadline
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-這個例子要學到什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-這個例子要學到什麼">
+<span class="md-ellipsis">
       
         8. 這個例子要學到什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-rm-vs-前面-priority-based-的關係" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-rm-vs-前面-priority-based-的關係">
+<span class="md-ellipsis">
       
         9. RM vs 前面 Priority-based 的關係
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法_2" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-最短記法_2">
+<span class="md-ellipsis">
       
         10. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#earliest-deadline-first-scheduling--為什麼-deadline-越早priority-越高" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#earliest-deadline-first-scheduling--為什麼-deadline-越早priority-越高">
+<span class="md-ellipsis">
       
         ⭐Earliest Deadline First Scheduling — 為什麼 deadline 越早，priority 越高？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Earliest Deadline First Scheduling — 為什麼 deadline 越早，priority 越高？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_10" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Earliest Deadline First Scheduling — 為什麼 deadline 越早，priority 越高？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_10">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-edf-的核心規則" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-edf-的核心規則">
+<span class="md-ellipsis">
       
         2. EDF 的核心規則
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-rm-和-edf-最大差別" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-rm-和-edf-最大差別">
+<span class="md-ellipsis">
       
         3. RM 和 EDF 最大差別
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-套講義-p37-的例子" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-套講義-p37-的例子">
+<span class="md-ellipsis">
       
         4. 套講義 p.37 的例子
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-用時間線看-edf-怎麼排" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-用時間線看-edf-怎麼排">
+<span class="md-ellipsis">
       
         5. 用時間線看 EDF 怎麼排
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-為什麼-p36-rm-會-miss但-p37-edf-可以改善" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-為什麼-p36-rm-會-miss但-p37-edf-可以改善">
+<span class="md-ellipsis">
       
         6. 為什麼 p.36 RM 會 miss，但 p.37 EDF 可以改善？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-最短記法_5" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-最短記法_5">
+<span class="md-ellipsis">
       
         7. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
+</ul>
+</nav>
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#algorithm-evaluation--排班演算法到底要怎麼比較" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<a class="md-nav__link" href="#algorithm-evaluation--排班演算法到底要怎麼比較">
+<span class="md-ellipsis">
       
         ⭐Algorithm Evaluation — 排班演算法到底要怎麼比較？
       
     </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="⭐Algorithm Evaluation — 排班演算法到底要怎麼比較？">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-這個概念在解決什麼問題_11" class="md-nav__link">
-    <span class="md-ellipsis">
+</a>
+<nav aria-label="⭐Algorithm Evaluation — 排班演算法到底要怎麼比較？" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-這個概念在解決什麼問題_11">
+<span class="md-ellipsis">
       
         1. 這個概念在解決什麼問題？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2-deterministic-modeling定量模式拿一組固定工作量來比較" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-deterministic-modeling定量模式拿一組固定工作量來比較">
+<span class="md-ellipsis">
       
         2. Deterministic Modeling(定量模式)：拿一組固定工作量來比較
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#3-deterministic-modeling-的優點與限制" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-deterministic-modeling-的優點與限制">
+<span class="md-ellipsis">
       
         3. Deterministic Modeling 的優點與限制
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#4-queueing-model佇列模式不固定某一組-process而是看平均行為" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-queueing-model佇列模式不固定某一組-process而是看平均行為">
+<span class="md-ellipsis">
       
         4. Queueing Model(佇列模式)：不固定某一組 process，而是看平均行為
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#5-littles-formula-是什麼" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-littles-formula-是什麼">
+<span class="md-ellipsis">
       
         5. Little’s Formula 是什麼？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#6-為什麼-n--λ--w-很合理" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-為什麼-n--λ--w-很合理">
+<span class="md-ellipsis">
       
         6. 為什麼 n = λ × W 很合理？
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#7-套講義-p40-的例子" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-套講義-p40-的例子">
+<span class="md-ellipsis">
       
         7. 套講義 p.40 的例子
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#8-deterministic-modeling-vs-queueing-model" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-deterministic-modeling-vs-queueing-model">
+<span class="md-ellipsis">
       
         8. Deterministic Modeling vs Queueing Model
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#9-關係圖" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-關係圖">
+<span class="md-ellipsis">
       
         9. 關係圖
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#10-最短記法_3" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-最短記法_3">
+<span class="md-ellipsis">
       
         10. 最短記法
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#workload-是啥" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-是啥">
+<span class="md-ellipsis">
       
         workload 是啥
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#為何-littles-law-叫做-littles-law" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#為何-littles-law-叫做-littles-law">
+<span class="md-ellipsis">
       
         為何 Little’s Law 叫做 Little’s Law
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#錯題_1" class="md-nav__link">
-    <span class="md-ellipsis">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#錯題_1">
+<span class="md-ellipsis">
       
         錯題
       
     </span>
-  </a>
-  
+</a>
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<noscript><style>.md-sidebar--secondary .peicd-toc-head{display:none}.md-sidebar--secondary .peicd-toc-item--collapsed>nav{display:block!important}</style></noscript></div>
+<div class="md-content" data-md-component="content">
               
               <article class="md-content__inner md-typeset">
                 
                   
 
 
+
+<nav class="peicd-folder-pathbar" aria-label="目前筆記位置" data-peicd-pathbar="server"><span class="peicd-folder-pathbar__prefix">114-2</span><span class="peicd-folder-pathbar__separator" aria-hidden="true">/</span><div class="peicd-folder-pathbar__item" data-peicd-options="[{&quot;label&quot;:&quot;首頁&quot;,&quot;href&quot;:&quot;../../../blog/index.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;硬體描述語言&quot;,&quot;href&quot;:&quot;../../115-1/%E7%A1%AC%E9%AB%94%E6%8F%8F%E8%BF%B0%E8%AA%9E%E8%A8%80/ch00.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;C程式設計&quot;,&quot;href&quot;:&quot;../../115-1/C%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E7%92%B0%E5%A2%83.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;離散&quot;,&quot;href&quot;:&quot;../../115-1/%E9%9B%A2%E6%95%A3/%E6%89%93%E6%98%9F%E6%98%9F.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;實用數位系統設計&quot;,&quot;href&quot;:&quot;../../115-1/%E5%AF%A6%E7%94%A8%E6%95%B8%E4%BD%8D%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83%E5%89%8D%E7%B8%BD%E8%A6%BD.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;其他學期筆記&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html&quot;,&quot;current&quot;:true},{&quot;label&quot;:&quot;Else&quot;,&quot;href&quot;:&quot;../../Verilog/%E9%A6%96%E9%A0%81.html&quot;,&quot;current&quot;:false}]"><button type="button" class="peicd-folder-pathbar__toggle" aria-expanded="false" aria-controls="peicd-path-menu-0" aria-label="切換課程：其他學期筆記"><span class="peicd-folder-pathbar__label">其他學期筆記</span><span class="peicd-folder-pathbar__caret" aria-hidden="true">▾</span></button><div class="peicd-folder-pathbar__menu" id="peicd-path-menu-0" hidden data-caption="切換課程"></div></div><span class="peicd-folder-pathbar__separator" aria-hidden="true">/</span><div class="peicd-folder-pathbar__item" data-peicd-options="[{&quot;label&quot;:&quot;114-2 / 科大_數位邏輯設計實習 / 教材&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E6%95%99%E6%9D%90.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科大_數位邏輯設計實習 / Vivado 專案&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/Vivado%20%E5%B0%88%E6%A1%88.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科大_數位邏輯設計實習 / 燒錄板子&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E5%A4%A7_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E8%A8%AD%E8%A8%88%E5%AF%A6%E7%BF%92/%E7%87%92%E9%8C%84%E6%9D%BF%E5%AD%90.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 相關資訊&quot;,&quot;href&quot;:&quot;%E9%A6%96%E9%A0%81.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / windows CLI 指令&quot;,&quot;href&quot;:&quot;windows%20CLI%20%E6%8C%87%E4%BB%A4.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Linux CLI 指令&quot;,&quot;href&quot;:&quot;Linux%20CLI%20%E6%8C%87%E4%BB%A4.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Vim&quot;,&quot;href&quot;:&quot;vim.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 1&quot;,&quot;href&quot;:&quot;ch%201.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 3&quot;,&quot;href&quot;:&quot;ch%203.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 4&quot;,&quot;href&quot;:&quot;ch%204.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / ch 5&quot;,&quot;href&quot;:&quot;ch%205.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期中考整理 / 期中考英文&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E4%B8%AD%E8%80%83%E8%8B%B1%E6%96%87.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期中考整理 / 期中考重點&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 6&quot;,&quot;href&quot;:&quot;ch%206.html&quot;,&quot;current&quot;:true},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 7&quot;,&quot;href&quot;:&quot;ch%207.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 8&quot;,&quot;href&quot;:&quot;ch%208.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / Ch 9&quot;,&quot;href&quot;:&quot;ch%209.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期末考整理 / 期末考重點 ch6&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch6.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期末考整理 / 期末考重點 ch7&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch7.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期末考整理 / 期末考重點 ch8&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch8.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期末考整理 / 期末考重點 ch9&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E6%9C%AB%E8%80%83%E9%87%8D%E9%BB%9E-ch9.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 電機_作業系統 / 期末考整理 / 期末考所有重點&quot;,&quot;href&quot;:&quot;%E6%9C%9F%E6%9C%AB%E8%80%83%E6%89%80%E6%9C%89%E9%87%8D%E9%BB%9E.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 首頁&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%A6%96%E9%A0%81.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 創建專案&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/Quartus%20%E5%89%B5%E5%BB%BA%E5%B0%88%E6%A1%88.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 安裝 usb&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E5%AE%89%E8%A3%9D%20usb.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 跑 tb&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E8%B7%91%20tb.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 選腳位&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E9%81%B8%E8%85%B3%E4%BD%8D.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 上傳電路板&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E4%B8%8A%E5%82%B3%E9%9B%BB%E8%B7%AF%E6%9D%BF.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 機電_數位邏輯實驗 / 期中考整理&quot;,&quot;href&quot;:&quot;../%E6%A9%9F%E9%9B%BB_%E6%95%B8%E4%BD%8D%E9%82%8F%E8%BC%AF%E5%AF%A6%E9%A9%97/%E6%9C%9F%E4%B8%AD%E8%80%83.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 資工_電腦輔助 VLSI 設計 / moodle&quot;,&quot;href&quot;:&quot;../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%95%99%E6%9D%90.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 資工_電腦輔助 VLSI 設計 / 正負電源&quot;,&quot;href&quot;:&quot;../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%AD%A3%E8%B2%A0%E9%9B%BB%E6%BA%90.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 資工_電腦輔助 VLSI 設計 / VHDL&quot;,&quot;href&quot;:&quot;../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/VHDL.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 資工_電腦輔助 VLSI 設計 / Quartus 9.0&quot;,&quot;href&quot;:&quot;../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/Quartus%209.0.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 資工_電腦輔助 VLSI 設計 / 期中考&quot;,&quot;href&quot;:&quot;../%E8%B3%87%E5%B7%A5_%E9%9B%BB%E8%85%A6%E8%BC%94%E5%8A%A9%20VLSI%20%E8%A8%AD%E8%A8%88/%E6%9C%9F%E4%B8%AD%E8%80%83.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / SI 前綴表&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/SI%20%E5%89%8D%E7%B6%B4%E8%A1%A8.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 作業 1 配對&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E4%BD%9C%E6%A5%AD%201%20%E9%85%8D%E5%B0%8D.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 0&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%200.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 1&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%201.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 2&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%202.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期中考重點整理&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E4%B8%AD%E8%80%83%E9%87%8D%E9%BB%9E%E6%95%B4%E7%90%86.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / MIPS 欄位表&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/MIPS%20%E6%AC%84%E4%BD%8D%E8%A1%A8.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / ch 3&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%203.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 4.1&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.1.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 4.2&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%204.2.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / Ch 5&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%205.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / ch 6 Lab&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/ch%206-Lab.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習 ch3&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch3.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習 ch4.1&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.1.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習 ch4.2&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch4.2.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習 ch5&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch5.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習 ch6 Lab&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92-ch6-Lab.html&quot;,&quot;current&quot;:false},{&quot;label&quot;:&quot;114-2 / 科技_計算機結構 / 期末考整理 / 期末考複習總整理&quot;,&quot;href&quot;:&quot;../%E7%A7%91%E6%8A%80_%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B/%E6%9C%9F%E6%9C%AB%E8%80%83%E8%A4%87%E7%BF%92%E7%B8%BD%E6%95%B4%E7%90%86.html&quot;,&quot;current&quot;:false}]"><button type="button" class="peicd-folder-pathbar__toggle" aria-expanded="false" aria-controls="peicd-path-menu-1" aria-label="切換頁面：114-2 / 電機_作業系統 / Ch 6"><span class="peicd-folder-pathbar__label">114-2 / 電機_作業系統 / Ch 6</span><span class="peicd-folder-pathbar__caret" aria-hidden="true">▾</span></button><div class="peicd-folder-pathbar__menu" id="peicd-path-menu-1" hidden data-caption="切換頁面"></div></div></nav>
 
   <h1>Ch 6</h1>
 
@@ -12811,7 +8183,7 @@ CPU 用太久 → 降到低優先 queue。<br />
 MLFQ 不是只給每個 process 一個 priority number，而是用多層 queue 加上動態移動。</p>
 <h2 id="thread-scheduling--執行緒到底是在跟誰競爭-cpu">⭐Thread Scheduling — 執行緒到底是在跟誰競爭 CPU？<a class="headerlink" href="#thread-scheduling--執行緒到底是在跟誰競爭-cpu" title="Permanent link"></a></h2>
 <p>講義位置：PDF viewer page 24</p>
-<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="348" loading="lazy" src="../../../assets/generated/optimized-images/70/704beb5ebf360607940c44288003516e623f2451b232157151fdba58882b18a3.webp" width="656"/></p>
+<p><img alt="alt text" data-peicd-full-src="../../../assets/generated/optimized-images/70/704beb5ebf360607940c44288003516e623f2451b232157151fdba58882b18a3.webp" data-peicd-optimized-image="lossless" data-peicd-original-src="images/ch%206-2.png" decoding="async" height="348" loading="lazy" sizes="(max-width: 959px) calc(100vw - 48px), (max-width: 1219px) calc(70vw - 210px), 500px" src="../../../assets/generated/optimized-images/70/704beb5ebf360607940c44288003516e623f2451b232157151fdba58882b18a3.webp" srcset="../../../assets/generated/optimized-images/2c/2cd8b25584e0eb6b2db2c4647c8e1a7ac8124e24e5a220ee359c65baa746e7a2.webp 480w, ../../../assets/generated/optimized-images/70/704beb5ebf360607940c44288003516e623f2451b232157151fdba58882b18a3.webp 656w" width="656"/></p>
 <h3 id="1-這個概念在解決什麼問題_5">1. 這個概念在解決什麼問題？<a class="headerlink" href="#1-這個概念在解決什麼問題_5" title="Permanent link"></a></h3>
 <p>前面我們都在講 <code>Process Scheduling(行程排班)</code>，也就是 OS 從 ready queue 裡選 process 來用 CPU。</p>
 <p>但 p.24 開始講 <code>Thread Scheduling(執行緒排班)</code>。</p>
@@ -13210,7 +8582,7 @@ p.24 的核心是：user-level thread 的排班可能由 thread library 管理�
 <p><strong>CPU 不一定一直在算，有時候它在等 memory。</strong></p>
 <p>如果一個 thread 正在等 memory 資料，CPU core 其實有一段時間沒有真正做 compute。<br />
 如果系統能在這段 memory stall cycle 裡用其他 core 去執行其他 thread，就能提高資源利用率。</p>
-<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="349" loading="lazy" src="../../../assets/generated/optimized-images/86/86f22851adb1ee5947b05b47a1e34aae3748d06b9edb2c3fb85244680e773471.webp" width="654"/></p>
+<p><img alt="alt text" data-peicd-full-src="../../../assets/generated/optimized-images/86/86f22851adb1ee5947b05b47a1e34aae3748d06b9edb2c3fb85244680e773471.webp" data-peicd-optimized-image="lossless" data-peicd-original-src="images/ch%206-3.png" decoding="async" height="349" loading="lazy" sizes="(max-width: 959px) calc(100vw - 48px), (max-width: 1219px) calc(70vw - 210px), 500px" src="../../../assets/generated/optimized-images/86/86f22851adb1ee5947b05b47a1e34aae3748d06b9edb2c3fb85244680e773471.webp" srcset="../../../assets/generated/optimized-images/ea/eae961c32f86f0cd9765e06fd8d95ed1aa321ba1311cfb8617adb740f5e30f50.webp 480w, ../../../assets/generated/optimized-images/86/86f22851adb1ee5947b05b47a1e34aae3748d06b9edb2c3fb85244680e773471.webp 654w" width="654"/></p>
 <p>講義 p.31 的圖也在表達 <code>compute cycle</code> 和 <code>memory stall cycle</code> 交錯出現：當一個 thread 卡在 memory stall 時，可以讓其他 thread 接著使用執行資源。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -14083,7 +9455,7 @@ P2 需要 35 單位 CPU time。</p>
 <li><code>@80</code>，P1 繼續執行，因為 P1 的 deadline 是 100，P2 的 deadline 是 160。</li>
 <li><code>@100</code>，P1 取代 P2，因為 P1 的 deadline 是 150，P2 的 deadline 是 160。</li>
 </ul>
-<p><img alt="alt text" data-peicd-optimized-image="lossless" decoding="async" height="146" loading="lazy" src="../../../assets/generated/optimized-images/cd/cd25154d4af547329c09d7e6adca403544a0665c3fe8ff36214d0e82f2ffeaf5.webp" width="683"/></p>
+<p><img alt="alt text" data-peicd-full-src="../../../assets/generated/optimized-images/cd/cd25154d4af547329c09d7e6adca403544a0665c3fe8ff36214d0e82f2ffeaf5.webp" data-peicd-optimized-image="lossless" data-peicd-original-src="images/ch%206-6.png" decoding="async" height="146" loading="lazy" sizes="(max-width: 959px) calc(100vw - 48px), (max-width: 1219px) calc(70vw - 210px), 500px" src="../../../assets/generated/optimized-images/cd/cd25154d4af547329c09d7e6adca403544a0665c3fe8ff36214d0e82f2ffeaf5.webp" srcset="../../../assets/generated/optimized-images/38/387da9a7981ffcb1636b089bfe510457aa7b5215a0e653f98d5b31b5bf64bd0a.webp 480w, ../../../assets/generated/optimized-images/cd/cd25154d4af547329c09d7e6adca403544a0665c3fe8ff36214d0e82f2ffeaf5.webp 683w" width="683"/></p>
 <hr />
 <h3 id="5-用時間線看-edf-怎麼排">5. 用時間線看 EDF 怎麼排<a class="headerlink" href="#5-用時間線看-edf-怎麼排" title="Permanent link"></a></h3>
 <p>先假設每個 task 的 deadline = period。</p>
@@ -14462,7 +9834,7 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  回到頂端
 </button>
         
       </main>
@@ -14488,7 +9860,7 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Previous
+                上一頁
               </span>
               期中考重點
             </div>
@@ -14504,7 +9876,7 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
-                Next
+                下一頁
               </span>
               Ch 7
             </div>
@@ -14560,14 +9932,141 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.top", "announce.dismiss", "content.tabs.link", "search.share", "content.code.copy", "content.code.annotations", "content.action.edit", "content.action.view", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.footer", "navigation.prune", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.top", "announce.dismiss", "content.tabs.link", "search.share", "content.lazy", "content.code.copy", "content.code.annotations", "content.action.edit", "content.action.view", "content.tooltips"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
     
     
-  <script src="../../../assets/pymdownx-extras/search-lazy-guard.js?v=20261009-search-1"></script>
+  <script src="../../../assets/pymdownx-extras/search-lazy-guard.js?v=20261115-ux-1"></script>
+  <script id="__peicd_eager_routes" type="application/json">[]</script>
+  <script>/* Must run before Material reads __config. Content stays in the initial HTML. */
+(function () {
+  "use strict";
+  const config = document.getElementById("__config");
+  let eagerBoot = false, lazyActive = false;
+  const eagerRoutes = new Set();
+  try {
+    JSON.parse(document.getElementById("__peicd_eager_routes")?.textContent || "[]")
+      .forEach(url => eagerRoutes.add(new URL(url, document.baseURI).pathname));
+  } catch (_) { /* A missing optional manifest must not block the page. */ }
+  // Material 9.7.1 warns that lazy annotations cannot resolve initial anchors.
+  // Keep those pages, and direct code/annotation deep links, on its eager path.
+  const anchoredCode = /^#(?:__code|__codelineno|annotation)/.test(location.hash);
+  if (config) {
+    try {
+      const data = JSON.parse(config.textContent), features = data.features || [];
+      lazyActive = features.includes("content.lazy");
+      const nativeSelection = features.includes("content.code.select") || features.includes("content.code.annotate");
+      if (anchoredCode || nativeSelection || document.querySelector(".highlight.annotate, .codehilite.annotate, .highlight.select, .codehilite.select, .md-annotation")) {
+        eagerBoot = features.includes("content.lazy");
+        data.features = features.filter(name => name !== "content.lazy");
+        config.textContent = JSON.stringify(data);
+      }
+    } catch (_) { /* Material retains responsibility for configuration errors. */ }
+  }
+
+  document.addEventListener("click", event => {
+    if (event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.("a[href]");
+    if (!link || link.target || link.hasAttribute("download")) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin) return;
+    const codeHash = /^#(?:__code|__codelineno|annotation)/.test(url.hash);
+    if (codeHash && url.pathname === location.pathname && lazyActive && !eagerBoot) {
+      // Numeric code ids are assigned at mount time. Reload conservatively for
+      // a legacy deep link instead of sending it to a different lazy block.
+      event.preventDefault(); event.stopPropagation();
+      history.replaceState(history.state, "", url.href); location.reload(); return;
+    }
+    if (codeHash || eagerRoutes.has(url.pathname) || (eagerBoot && url.pathname !== location.pathname)) {
+      link.target = "_self"; // Material 9.7.1 respects explicit targets; normal pages stay instant.
+    }
+  }, true);
+
+  function revealHash() {
+    let target;
+    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch (_) { return; }
+    if (!target) return;
+    let changed = false;
+    for (let parent = target.parentElement; parent; parent = parent.parentElement) {
+      if (parent.tagName === "DETAILS" && !parent.open) { parent.open = true; changed = true; }
+      if (parent.classList.contains("tabbed-block")) {
+        const set = parent.closest(".tabbed-set"), blocks = set?.querySelector(".tabbed-content");
+        const index = blocks ? Array.from(blocks.children).indexOf(parent) : -1;
+        const input = index >= 0 ? set.querySelectorAll(":scope > input")[index] : null;
+        if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); changed = true; }
+      }
+    }
+    if (changed) requestAnimationFrame(() => target.isConnected && target.scrollIntoView({ block: "start" }));
+  }
+  function highlightLanding() {
+    const landing = window.__PEICD_SEARCH_TARGET__;
+    if (!landing || landing.path !== location.pathname) return;
+    window.__PEICD_SEARCH_TARGET__ = null;
+    let target;
+    try { target = document.getElementById(decodeURIComponent(landing.hash.slice(1))); } catch (_) { return; }
+    const root = document.querySelector(".md-content__inner");
+    if (!target || !root?.contains(target)) return;
+    const terms = [...String(landing.query).normalize("NFKC").toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)]
+      .map(match => match[1] || match[2]).filter(term => term.length > 1 && !/[~*:^]/.test(term));
+    if (!terms.length) return;
+    root.querySelectorAll("mark.peicd-search-hit").forEach(mark => mark.replaceWith(document.createTextNode(mark.textContent)));
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    walker.currentNode = target;
+    const nodes = [], level = /^H[1-6]$/.test(target.tagName) ? Number(target.tagName[1]) : 0;
+    let node;
+    while ((node = walker.nextNode()) && nodes.length < 500) {
+      const heading = node.parentElement.closest("h1,h2,h3,h4,h5,h6");
+      if (level && heading && heading !== target && Number(heading.tagName[1]) <= level) break;
+      if (!node.parentElement.closest("script,style,.arithmatex,mjx-container,button,.md-code__nav")) nodes.push(node);
+    }
+    let index = 0, marked = 0;
+    function chunk() {
+      const end = Math.min(index + 40, nodes.length);
+      for (; index < end && marked < 30; index++) {
+        const text = nodes[index].nodeValue, folded = text.normalize("NFKC").toLowerCase();
+        if (!nodes[index].isConnected || folded.length !== text.length) continue;
+        const ranges = [];
+        for (const term of terms) {
+          let at = folded.indexOf(term);
+          while (at >= 0 && ranges.length < 30) { ranges.push([at, at + term.length]); at = folded.indexOf(term, at + term.length); }
+        }
+        ranges.sort((a, b) => a[0] - b[0]);
+        const merged = [];
+        for (const range of ranges) {
+          const last = merged.at(-1);
+          if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]); else merged.push(range);
+        }
+        if (!merged.length) continue;
+        const fragment = document.createDocumentFragment();
+        let position = 0;
+        for (const [from, to] of merged) {
+          fragment.append(document.createTextNode(text.slice(position, from)));
+          const mark = document.createElement("mark"); mark.className = "peicd-search-hit"; mark.textContent = text.slice(from, to);
+          fragment.append(mark); position = to; marked++;
+        }
+        fragment.append(document.createTextNode(text.slice(position)));
+        nodes[index].replaceWith(fragment);
+      }
+      if (index < nodes.length && marked < 30 && root.isConnected) requestAnimationFrame(chunk);
+    }
+    requestAnimationFrame(chunk);
+  }
+  function onPage() { revealHash(); highlightLanding(); }
+  document.addEventListener("DOMContentLoaded", () => {
+    onPage();
+    window.document$?.subscribe(onPage);
+  }, { once: true });
+  window.addEventListener("hashchange", () => {
+    if (lazyActive && !eagerBoot && /^#(?:__code|__codelineno|annotation)/.test(location.hash)) {
+      location.reload(); return;
+    }
+    revealHash();
+  });
+})();</script>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-ux-1"></script>
       
     
 

@@ -324,7 +324,7 @@
     const key = entry?.link?.getAttribute("href") ?? "";
     const changed = key !== state.activeKey;
 
-    applyCurrent(entry);
+    if (changed || force) applyCurrent(entry);
 
     if (state.mode === "auto" && !state.sidebarManualLocked && (changed || force)) {
       state.sidebar.classList.add(CLASS.syncing);
@@ -335,7 +335,7 @@
 
     state.activeKey = key;
     if (entry && (changed || force)) syncHash(entry);
-    if (state.mode === "auto") followCurrent(entry);
+    if (state.mode === "auto" && (changed || force)) followCurrent(entry);
   }
 
   function createToolbarGroup(label) {
@@ -641,10 +641,8 @@
     let previous = null;
     let next = null;
 
-    for (const heading of headings) {
-      if (block.contains(heading) || !getHeadingText(heading)) continue;
-
-      const headingTop = getElementTop(heading);
+    for (const { heading, title, top: headingTop } of headings) {
+      if (block.contains(heading) || !title) continue;
       const candidate = {
         heading,
         distance: Math.abs(blockTop - headingTop),
@@ -652,9 +650,9 @@
       };
 
       if (headingTop <= blockTop) {
-        if (!previous || headingTop >= getElementTop(previous.heading)) previous = candidate;
-      } else if (!next || headingTop < getElementTop(next.heading)) {
-        next = candidate;
+        if (!previous || headingTop >= previous.top) previous = { ...candidate, top: headingTop };
+      } else if (!next || headingTop < next.top) {
+        next = { ...candidate, top: headingTop };
       }
     }
 
@@ -733,7 +731,8 @@
   function buildDangerEntries() {
     const article = getArticleRoot();
     const blocks = article ? Array.from(article.querySelectorAll(".admonition.danger, details.danger")) : [];
-    const headings = article ? Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6")) : [];
+    const headings = article ? Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6"))
+      .map(heading => ({ heading, title: getHeadingText(heading), top: getElementTop(heading) })) : [];
 
     state.dangerEntries = blocks.map((block, index) => {
       const customTitle = getDangerTitle(block);
@@ -966,6 +965,7 @@
     if (!state) return;
 
     if (state.observer) state.observer.disconnect();
+    if (state.syncRaf) cancelAnimationFrame(state.syncRaf);
     state.mathObserver?.disconnect();
     state.cleanups.forEach((cleanup) => {
       try {

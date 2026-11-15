@@ -5,18 +5,19 @@
   const assetBase = new URL(".", currentScript?.src || document.baseURI);
   const loaded = new Map();
   const ASSETS = {
-    folderPath: "folder-path-bar.js?v=20260614-2",
-    imageZoom: "image-zoom.js?v=20260614-2",
+    folderPath: "folder-path-bar.js?v=20261115-ux-1",
+    searchUI: "search-ux.js?v=20261115-ux-1",
+    imageZoom: "image-zoom.js?v=20261115-ux-1",
     legacyImageWidth: "legacy-image-width.js?v=20260614-2",
     markdownEmbed: "markdown-embed.js?v=20260516-1",
-    mathjaxRefresh: "mathjax-refresh.js?v=20261017-copy-1",
+    mathjaxRefresh: "mathjax-refresh.js?v=20261115-ux-1",
     mermaidConfig: "mermaid-config-override.js?v=20260523-1",
     mermaidLegacy: "mermaid-legacy-flowchart-compat.js?v=20260614-1",
-    mermaidRender: "mermaid-render-fix.js?v=20260614-1",
-    mermaidZoom: "mermaid-zoom.js?v=20260404-1",
+    mermaidRender: "mermaid-render-fix.js?v=20261115-ux-1",
+    mermaidZoom: "mermaid-zoom.js?v=20261115-ux-1",
     scrollBottom: "scroll-bottom.js?v=20260424-3",
     sourceJump: "source-jump.js?v=20261018-direct-1",
-    tocFold: "toc-fold.js?v=20261009-follow-1"
+    tocFold: "toc-fold.js?v=20261115-ux-1"
   };
 
   const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);
@@ -55,8 +56,17 @@
       script.addEventListener("error", reject, { once: true });
       document.head.appendChild(script);
     }).catch((error) => {
-      loaded.delete(src);
+      // Keep a failed attempt settled. Never retry automatically on every scan.
       console.warn("[peicd-loader] failed to load", name, error);
+      if (!document.querySelector(".peicd-load-error")) {
+        const notice = document.createElement("div");
+        notice.className = "peicd-load-error"; notice.setAttribute("role", "alert");
+        notice.append(document.createTextNode("部分互動工具載入失敗，內容仍可閱讀。 "));
+        const retry = document.createElement("button");
+        retry.type = "button"; retry.textContent = "重新載入";
+        retry.addEventListener("click", () => location.reload());
+        notice.appendChild(retry); document.body.appendChild(notice);
+      }
     });
 
     loaded.set(src, promise);
@@ -119,6 +129,7 @@
     scanQueued = false;
 
     if (hasTocOrDangerUi()) loadScriptOnce(ASSETS.tocFold);
+    if (document.querySelector("[data-md-component='search-query']")) loadScriptOnce(ASSETS.searchUI);
     if (hasArticleRoot()) loadScriptOnce(ASSETS.folderPath);
     if (document.querySelector("[data-peicd-scroll-bottom]")) loadScriptOnce(ASSETS.scrollBottom);
     if (hasMath()) loadScriptOnce(ASSETS.mathjaxRefresh);

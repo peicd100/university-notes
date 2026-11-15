@@ -15,7 +15,7 @@
     baseWidth: 1,
     baseHeight: 1,
     scale: 1,
-    minScale: 0.35,
+    minScale: 0.05,
     maxScale: 5,
     fitScale: 1,
     translateX: 0,
@@ -26,6 +26,9 @@
     dragOriginX: 0,
     dragOriginY: 0
   };
+
+  let transformFrame = 0, stageBounds = null;
+  function bounds() { return stageBounds ||= STATE.stage.getBoundingClientRect(); }
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -131,20 +134,20 @@
   }
 
   function updateTransform() {
-    if (!STATE.media || !STATE.canvas) return;
-    const renderedWidth = Math.max(STATE.baseWidth * STATE.scale, 1);
-    const renderedHeight = Math.max(STATE.baseHeight * STATE.scale, 1);
-    STATE.media.style.width = renderedWidth + "px";
-    STATE.media.style.height = renderedHeight + "px";
-    STATE.canvas.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0)";
-    STATE.media.classList.toggle("is-draggable", STATE.scale > STATE.fitScale * 1.02);
-    if (STATE.zoomValue) STATE.zoomValue.textContent = Math.round(STATE.scale * 100) + "%";
+    if (transformFrame) return;
+    transformFrame = requestAnimationFrame(() => {
+      transformFrame = 0;
+      if (!STATE.media || !STATE.canvas || !STATE.dialog?.open) return;
+      STATE.canvas.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0) scale(" + STATE.scale + ")";
+      STATE.media.classList.toggle("is-draggable", STATE.scale > STATE.fitScale * 1.02);
+      if (STATE.zoomValue) STATE.zoomValue.textContent = Math.round(STATE.scale * 100) + "%";
+    });
   }
 
   function constrainPan() {
     if (!STATE.stage || !STATE.media) return;
 
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const renderedWidth = STATE.baseWidth * STATE.scale;
     const renderedHeight = STATE.baseHeight * STATE.scale;
     const overflowX = Math.max(0, (renderedWidth - stageRect.width) / 2);
@@ -156,7 +159,7 @@
 
   function computeFitScale() {
     if (!STATE.stage || !STATE.media) return 1;
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const fitX = (stageRect.width * 0.92) / STATE.baseWidth;
     const fitY = (stageRect.height * 0.88) / STATE.baseHeight;
     return clamp(Math.min(fitX, fitY, 1.6), STATE.minScale, 1.6);
@@ -178,7 +181,7 @@
     const nextScale = clamp(previousScale * factor, STATE.minScale, STATE.maxScale);
     if (Math.abs(nextScale - previousScale) < 0.001) return;
 
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const pointerX = clientX ?? stageRect.left + stageRect.width / 2;
     const pointerY = clientY ?? stageRect.top + stageRect.height / 2;
     const offsetX = pointerX - (stageRect.left + stageRect.width / 2) - STATE.translateX;
@@ -267,7 +270,7 @@
     sourceSvg.style.transformOrigin = "center center";
     sourceSvg.style.touchAction = "none";
     sourceSvg.style.userSelect = "none";
-    sourceSvg.style.willChange = "width, height";
+    sourceSvg.style.willChange = "auto";
     if (!sourceSvg.getAttribute("preserveAspectRatio")) {
       sourceSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     }
@@ -281,6 +284,7 @@
     bindMediaEvents();
 
     STATE.dialog.showModal();
+    stageBounds = null;
     document.documentElement.classList.add("peicd-image-viewer-open", "peicd-mermaid-viewer-open");
 
     requestAnimationFrame(() => {
@@ -295,6 +299,8 @@
   }
 
   function resetViewerState() {
+    if (transformFrame) cancelAnimationFrame(transformFrame);
+    transformFrame = 0; stageBounds = null;
     document.documentElement.classList.remove("peicd-image-viewer-open", "peicd-mermaid-viewer-open");
 
     if (STATE.media) {
@@ -354,6 +360,7 @@
 
   window.addEventListener("resize", () => {
     if (!STATE.dialog?.open) return;
+    stageBounds = null;
     STATE.fitScale = computeFitScale();
     constrainPan();
     updateTransform();

@@ -173,6 +173,17 @@
       }
     } catch (error) {
       console.warn("MathJax incremental render failed", error);
+      if (document.body?.appendChild && !document.querySelector(".peicd-math-error")) {
+        const notice = document.createElement("div");
+        notice.className = "peicd-load-error peicd-math-error";
+        notice.setAttribute("role", "alert");
+        notice.append(document.createTextNode("公式載入失敗；原始 TeX 仍保留。 "));
+        const retry = document.createElement("button");
+        retry.type = "button"; retry.textContent = "重新載入公式";
+        // A fresh page is safer than replaying a partially initialized semantic registry.
+        retry.addEventListener("click", () => location.reload());
+        notice.appendChild(retry); document.body.appendChild(notice);
+      }
       // Keep original TeX visible on failure. Never silently hide a formula.
       if (current) {
         current.failed = true;
