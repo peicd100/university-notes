@@ -100,6 +100,7 @@ Thumbs.db
 /AGENTS.md
 # 公開 Repository：新版 PEICD 記憶與驗證產物不新增至 Git。
 /.peicd100/codex/
+/.peicd100/memory/
 /.peicd100/codex_compressed/
 /.peicd100/codex_tmp/
 /codex/
