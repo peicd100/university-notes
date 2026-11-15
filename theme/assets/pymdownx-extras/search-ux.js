@@ -95,12 +95,6 @@
       });
     } else status.textContent = "輸入文字搜尋全部筆記。";
   }
-  result.addEventListener("click", event => {
-    const link = event.target.closest("a[href]");
-    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    const url = new URL(link.href, location.href);
-    window.__PEICD_SEARCH_TARGET__ = { path: url.pathname, hash: url.hash, query: input.value };
-  }, true);
   window.addEventListener("peicd:search-state", update);
   document.addEventListener("change", event => { if (event.target.id === "__search") update(); });
   input.addEventListener("focus", () => queueMicrotask(update));

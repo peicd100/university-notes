@@ -117,6 +117,25 @@ test('local anchor clicks bypass DOM-replacing instant navigation',async()=>{
   assert(prevented&&stopped);assert.equal(f.calls.length,before);
 });
 
+test('local math anchor delegates positioning without a competing scroll',async()=>{
+  const f=fixture();await f.window.__PEICD_MATH__.renderAll();
+  let positioned=null,scrolls=0;
+  f.window.__PEICD_PAGE_UX__={isRestoring:()=>false,navigateToHash:hash=>{positioned=hash;return true;}};
+  f.window.scrollTo=()=>scrolls++;
+  const link={href:'http://localhost/a.html#node2',target:'',hasAttribute:()=>false,classList:{contains:()=>false}};
+  f.events['document-click']({button:0,target:{closest:()=>link},preventDefault(){},stopPropagation(){}});
+  assert.equal(positioned,'#node2');assert.equal(scrolls,0);
+});
+
+test('history offset restoration is not replaced by math hash scrolling',async()=>{
+  const f=fixture();await f.window.__PEICD_MATH__.renderAll();
+  let stopped=false,scrolls=0;
+  f.window.__PEICD_PAGE_UX__={isRestoring:()=>true,navigateToHash:()=>{throw Error('must retain history offset');}};
+  f.window.scrollTo=()=>scrolls++;
+  for(const event of ['popstate','hashchange'])f.events[event]({stopImmediatePropagation(){stopped=true;}});
+  assert.equal(stopped,false);assert.equal(scrolls,0);
+});
+
 test('semantic TeX batches maintain document order',async()=>{
   const f=fixture(['x','y','z','w'],true);await f.window.__PEICD_MATH__.renderAll();
   assert.deepEqual(f.calls.filter(Array.isArray).flat(),[0,1,2,3]);

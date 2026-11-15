@@ -25,7 +25,12 @@ async function serve(directory) {
         if (/^peicd-site\..*\.css$/.test(name)) file = path.resolve('theme/assets/pymdownx-extras/自定義.css');
       }
       res.writeHead(200, { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream' });
-      if (path.basename(file) === 'sitemap.xml') res.end(fs.readFileSync(file, 'utf8').replaceAll('https://peicd100.github.io/university-notes/', `http://${req.headers.host}${prefix}`));
+      if (process.env.UX_SOURCE_OVERLAY === '1' && path.extname(file) === '.html') {
+        const bootstrap = fs.readFileSync(path.resolve('theme/assets/pymdownx-extras/page-ux.js'), 'utf8');
+        const html = fs.readFileSync(file, 'utf8').replace(/(<script(?:\s[^>]*)?>)([\s\S]*?)(<\/script>)/g,
+          (whole, open, code, close) => code.includes('Must run before Material reads __config') ? open + bootstrap + close : whole);
+        res.end(html);
+      } else if (path.basename(file) === 'sitemap.xml') res.end(fs.readFileSync(file, 'utf8').replaceAll('https://peicd100.github.io/university-notes/', `http://${req.headers.host}${prefix}`));
       else fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
     } catch (_) { res.writeHead(404).end(); }
   });

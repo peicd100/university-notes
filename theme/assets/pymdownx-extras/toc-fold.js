@@ -223,6 +223,7 @@
   }
 
   function syncHash(entry) {
+    if (window.__PEICD_PAGE_UX__?.isAnchoring()) return;
     const nextHash = getEntryHash(entry);
     if (!nextHash) return;
     if (window.location.hash === nextHash) return;

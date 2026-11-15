@@ -331,6 +331,13 @@
 
   function scrollToHash() {
     if (!current || current.urlKey !== location.pathname + location.search) return false;
+    const positioning = window.__PEICD_PAGE_UX__;
+    if (positioning?.isRestoring()) return false;
+    if (positioning?.navigateToHash(location.hash)) {
+      prepareHash();
+      window.dispatchEvent(new CustomEvent("peicd:math-anchor"));
+      return true;
+    }
     let target;
     try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (_) { return false; }
     if (location.hash && !target) return false;
@@ -342,9 +349,9 @@
     return true;
   }
 
-  // Material instant navigation can replace even a same-page hash document.
-  // Keep its current DOM (and math registry) for local anchors; real page changes
-  // still use Material. Respect modified clicks, downloads and Danger's own handler.
+  // Keep the current math registry for local anchors, coordinating viewport
+  // positioning with page-ux. Search selection/closing runs earlier in capture.
+  // Real page changes, modified clicks and Danger retain their existing owners.
   document.addEventListener("click", (event) => {
     if (!current || event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.("a[href]");
