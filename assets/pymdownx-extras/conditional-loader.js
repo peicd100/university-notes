@@ -6,18 +6,18 @@
   const loaded = new Map();
   const ASSETS = {
     folderPath: "folder-path-bar.js?v=20261115-ux-1",
-    searchUI: "search-ux.js?v=20261115-ux-1",
+    searchUI: "search-ux.js?v=20261115-nav-1",
     imageZoom: "image-zoom.js?v=20261115-ux-1",
     legacyImageWidth: "legacy-image-width.js?v=20260614-2",
     markdownEmbed: "markdown-embed.js?v=20260516-1",
-    mathjaxRefresh: "mathjax-refresh.js?v=20261115-ux-1",
+    mathjaxRefresh: "mathjax-refresh.js?v=20261115-nav-1",
     mermaidConfig: "mermaid-config-override.js?v=20260523-1",
     mermaidLegacy: "mermaid-legacy-flowchart-compat.js?v=20260614-1",
     mermaidRender: "mermaid-render-fix.js?v=20261115-ux-1",
     mermaidZoom: "mermaid-zoom.js?v=20261115-ux-1",
     scrollBottom: "scroll-bottom.js?v=20260424-3",
     sourceJump: "source-jump.js?v=20261018-direct-1",
-    tocFold: "toc-fold.js?v=20261115-ux-1"
+    tocFold: "toc-fold.js?v=20261115-nav-1"
   };
 
   const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);

@@ -4772,12 +4772,106 @@ DRAM：慢、便宜、大、要 refresh，所以適合 main memory。(<a href="h
     } catch (_) { /* Material retains responsibility for configuration errors. */ }
   }
 
+  let navigation = null, alignmentFrame = 0, lastRoot = null, lastPath = null, restoredURL = null;
+  const pathKey = () => location.pathname + location.search;
+  function cancelNavigation() {
+    navigation?.observer?.disconnect();
+    navigation = null; restoredURL = null;
+    if (alignmentFrame) cancelAnimationFrame(alignmentFrame);
+    alignmentFrame = 0;
+  }
+  function alignNavigation() {
+    if (alignmentFrame) cancelAnimationFrame(alignmentFrame);
+    alignmentFrame = 0;
+    const current = navigation;
+    if (!current?.root?.isConnected || !current.target?.isConnected) return;
+    const offset = (document.querySelector(".md-header")?.offsetHeight || 56) + 12;
+    const delta = current.target.getBoundingClientRect().top - offset;
+    // No polling, animation or scroll lock: only react to real layout changes.
+    if (Math.abs(delta) > 1.5) window.scrollTo({ top: Math.max(0, scrollY + delta), behavior: "instant" });
+  }
+  function requestAlignment() {
+    if (navigation?.root?.isConnected && !alignmentFrame) alignmentFrame = requestAnimationFrame(alignNavigation);
+  }
+  function bindNavigation(root) {
+    if (!navigation || navigation.path !== pathKey()) return false;
+    if (navigation.replaceRoot && root === navigation.sourceRoot) return false;
+    const target = revealHash(navigation.hash);
+    if (!target || !root?.contains(target)) { cancelNavigation(); return false; }
+    navigation.observer?.disconnect();
+    navigation.root = root; navigation.target = target;
+    navigation.sourceRoot = null; navigation.replaceRoot = false; // Release the detached previous article.
+    if ("ResizeObserver" in window) {
+      // ResizeObserver is already batched before paint. Correct here rather than
+      // one frame later; scrolling does not resize the observed article.
+      navigation.observer = new ResizeObserver(alignNavigation);
+      navigation.observer.observe(root);
+    }
+    requestAlignment();
+    return true;
+  }
+  function beginNavigation(url) {
+    cancelNavigation();
+    if (!url.hash) return false;
+    const root = document.querySelector(".md-content__inner");
+    navigation = { path: url.pathname + url.search, hash: url.hash, sourceRoot: root,
+      replaceRoot: url.pathname !== location.pathname, root: null, target: null };
+    if (!navigation.replaceRoot) return bindNavigation(root);
+    return true;
+  }
+  window.__PEICD_PAGE_UX__ = {
+    navigateToHash(hash) {
+      if (restoredURL === location.href) return false;
+      const url = new URL(location.href); url.hash = hash;
+      const bound = navigation?.path === pathKey() && navigation.hash === url.hash
+        ? bindNavigation(document.querySelector(".md-content__inner")) : beginNavigation(url);
+      if (bound) highlightLanding();
+      return bound;
+    },
+    isAnchoring: () => Boolean(navigation || restoredURL === location.href),
+    isRestoring: () => restoredURL === location.href
+  };
+  function userScrollIntent(event) {
+    if (event.target?.closest?.(".md-sidebar,.md-search,[role='dialog']")) return;
+    cancelNavigation();
+  }
+  window.addEventListener("wheel", userScrollIntent, { capture: true, passive: true });
+  window.addEventListener("touchmove", userScrollIntent, { capture: true, passive: true });
+  window.addEventListener("pointerdown", userScrollIntent, { capture: true, passive: true });
+  window.addEventListener("keydown", event => {
+    if (!["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) return;
+    if (event.target?.closest?.("input,textarea,select,[contenteditable='true']")) return;
+    userScrollIntent(event);
+  }, true);
+  window.addEventListener("popstate", () => {
+    cancelNavigation();
+    if (typeof history.state?.y === "number") {
+      restoredURL = location.href;
+      // Math-local history can be ahead of Material's deduplicated location$.
+      if (lastRoot?.isConnected && lastPath === pathKey()) window.scrollTo({ top: history.state.y, behavior: "instant" });
+    }
+  }, true);
+  for (const name of ["resize", "peicd:math-rendered", "peicd:mermaid-updated"]) window.addEventListener(name, requestAlignment);
+  document.addEventListener("load", event => { if (event.target?.tagName === "IMG") requestAlignment(); }, true);
+  document.fonts?.addEventListener("loadingdone", requestAlignment);
+
   document.addEventListener("click", event => {
     if (event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest?.("a[href]");
     if (!link || link.target || link.hasAttribute("download")) return;
-    const url = new URL(link.href, location.href);
+    let url;
+    try { url = new URL(link.href, location.href); } catch (_) { return; }
     if (url.origin !== location.origin) return;
+    if (link.classList.contains("peicd-danger-link")) { cancelNavigation(); return; }
+    if (link.closest('[data-md-component="search-result"]')) {
+      // Run before document-capture Math anchors can stop Material's close listener.
+      window.__PEICD_SEARCH_TARGET__ = { path: url.pathname, hash: url.hash,
+        query: document.querySelector('[data-md-component="search-query"]')?.value || "" };
+      const toggle = document.getElementById("__search");
+      if (toggle?.checked) { toggle.checked = false; toggle.dispatchEvent(new Event("change", { bubbles: true })); }
+      if (document.activeElement?.closest?.('[data-md-component="search"]')) document.activeElement.blur();
+    }
+    beginNavigation(url);
     const codeHash = /^#(?:__code|__codelineno|annotation)/.test(url.hash);
     if (codeHash && url.pathname === location.pathname && lazyActive && !eagerBoot) {
       // Numeric code ids are assigned at mount time. Reload conservatively for
@@ -4790,22 +4884,21 @@ DRAM：慢、便宜、大、要 refresh，所以適合 main memory。(<a href="h
     }
   }, true);
 
-  function revealHash() {
+  function revealHash(hash = location.hash) {
     let target;
-    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); }
     catch (_) { return; }
     if (!target) return;
-    let changed = false;
     for (let parent = target.parentElement; parent; parent = parent.parentElement) {
-      if (parent.tagName === "DETAILS" && !parent.open) { parent.open = true; changed = true; }
+      if (parent.tagName === "DETAILS" && !parent.open) parent.open = true;
       if (parent.classList.contains("tabbed-block")) {
         const set = parent.closest(".tabbed-set"), blocks = set?.querySelector(".tabbed-content");
         const index = blocks ? Array.from(blocks.children).indexOf(parent) : -1;
         const input = index >= 0 ? set.querySelectorAll(":scope > input")[index] : null;
-        if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); changed = true; }
+        if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); }
       }
     }
-    if (changed) requestAnimationFrame(() => target.isConnected && target.scrollIntoView({ block: "start" }));
+    return target;
   }
   function highlightLanding() {
     const landing = window.__PEICD_SEARCH_TARGET__;
@@ -4860,7 +4953,13 @@ DRAM：慢、便宜、大、要 refresh，所以適合 main memory。(<a href="h
     }
     requestAnimationFrame(chunk);
   }
-  function onPage() { revealHash(); highlightLanding(); }
+  function onPage() {
+    const root = document.querySelector(".md-content__inner");
+    if (navigation) bindNavigation(root);
+    else if (root !== lastRoot && location.hash && restoredURL !== location.href) beginNavigation(new URL(location.href));
+    lastRoot = root; lastPath = pathKey();
+    highlightLanding();
+  }
   document.addEventListener("DOMContentLoaded", () => {
     onPage();
     window.document$?.subscribe(onPage);
@@ -4869,13 +4968,15 @@ DRAM：慢、便宜、大、要 refresh，所以適合 main memory。(<a href="h
     if (lazyActive && !eagerBoot && /^#(?:__code|__codelineno|annotation)/.test(location.hash)) {
       location.reload(); return;
     }
-    revealHash();
+    if (restoredURL === location.href) return;
+    window.__PEICD_PAGE_UX__.navigateToHash(location.hash);
+    highlightLanding();
   });
 })();</script>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-ux-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
       
     
 
