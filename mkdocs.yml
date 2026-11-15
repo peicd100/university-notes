@@ -13,12 +13,14 @@ theme:
   logo: 'logo/logo.png'  # 設置網站的 LOGO
   favicon: 'logo/logo.png'  # 設置瀏覽器標籤上的圖標
   font: false  # 自訂 CSS 已使用 Cascadia Mono；不要額外請求未使用的 Google Fonts
+  language: zh-TW
   palette:
     scheme: slate  # 使用 dracula 色彩方案，提供深色背景 slate
     primary: cyan  # 設置主色調為深紫色
     accent: cyan  # 設置輔助色調為深紫色
   features:
     - navigation.footer
+    - navigation.prune  # 路徑選項由 build-time nav 產生，不依賴被裁剪的側欄 DOM
     - navigation.indexes
     - navigation.instant
     # - navigation.instant.prefetch  # 2026-06-14: disabled to keep first-page network quieter
@@ -37,6 +39,7 @@ theme:
     - content.tabs.link  # 允許內容中的標籤鏈接
     - search.share  # 啟用搜索結果共享功能
              # - search.suggest  # 搜索時提供自動建議
+    - content.lazy  # 可見時才初始化程式碼工具；深連結與 annotation 頁面由 page-ux 保留 eager
     - content.code.copy  # 代碼塊中顯示“複製”按鈕
     - content.code.annotations  # 啟用代碼註解功能
     - content.action.edit
@@ -63,6 +66,7 @@ plugins:
   # - offline  # 2026-06-14: disabled so search_index/sitemap are not prefetched on first page load
   - tags
   - search:
+      lang: [en]  # 保留既有 Lunr fallback pipeline；中文由 literal worker 處理，UI 語言獨立
       # lang:
       #   - en
       #   - zh
@@ -93,10 +97,10 @@ plugins:
 
 extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css  # 自定義 CSS 文件
-  - assets/pymdownx-extras/自定義.css?v=20261109-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
+  - assets/pymdownx-extras/自定義.css?v=20261115-ux-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js?v=20261018-direct-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
+  - assets/pymdownx-extras/conditional-loader.js?v=20261115-ux-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
 
 hooks:
   - tools/asset_bundle_hook.py
@@ -108,6 +112,7 @@ hooks:
   - tools/source_jump_hook.py
   - tools/admonition_title_hook.py
   - tools/image_lazy_loading_hook.py
+  - tools/site_ux_hook.py
 
 # Markdown 擴展設置
 markdown_extensions:

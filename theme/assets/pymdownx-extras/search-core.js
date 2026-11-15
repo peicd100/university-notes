@@ -120,6 +120,21 @@
     ).join(" … ") + "</p>";
   }
 
+  function pathInfo(location) {
+    let path = String(location).split("#")[0];
+    try { path = decodeURIComponent(path); } catch (_) { /* retain a malformed public URL */ }
+    const parts = path.split("/").filter(Boolean);
+    if (parts[0] === "md") parts.shift();
+    parts.pop();
+    return { scope: parts.length ? parts.join("/") + "/" : "", label: parts.join(" / ") };
+  }
+
+  function limits(options = {}) {
+    return { offset: Math.max(0, Math.floor(Number(options.offset) || 0)),
+      size: Math.min(20, Math.max(1, Math.floor(Number(options.limit) || 10))),
+      sections: Math.min(5, Math.max(1, Math.floor(Number(options.sections) || 3))) };
+  }
+
   class LiteralSearch {
     constructor(docs) {
       this.pages = new Map();
@@ -127,6 +142,7 @@
         const record = {
           location: doc.location,
           page: doc.location.split("#")[0],
+          ...pathInfo(doc.location),
           title: field(doc.title, true),
           text: field(doc.text, true),
           tags: Array.isArray(doc.tags) ? doc.tags.map(tag => field(tag)) : [],
@@ -145,24 +161,28 @@
         }
         record.articleTitle = this.pages.get(record.page).title;
       }
+      this.facets = [...new Map(this.records.filter(r => r.scope).map(r =>
+        [r.scope, { value: r.scope, label: r.label }])).values()].sort((a, b) => a.label.localeCompare(b.label, "zh-TW"));
     }
 
     item(record, terms, score) {
       return {
         location: record.location,
         title: highlight(record.title, terms),
-        text: score ? snippet(record.text, terms) : "",
+        text: score ? (record.label ? '<p class="peicd-search-path">' + escapeHTML(record.label) + '</p>' : '') + snippet(record.text, terms) : "",
         ...(record.tags.length && { tags: record.tags.map(tag => highlight(tag, terms)) }),
         score,
         terms: score ? Object.fromEntries(terms.map(term => [term, true])) : {}
       };
     }
 
-    search(query) {
+    search(query, options = {}) {
       const parsed = parseQuery(query), { terms, phrase } = parsed;
       if (!terms.length || parsed.advanced) return { items: [] };
       const matches = [];
       for (const record of this.records) {
+        if (options.scope && !record.scope.startsWith(options.scope)) continue;
+        if (options.page && record.page !== options.page) continue;
         const fields = [[record.title, 8], [record.articleTitle, 4],
           ...record.tags.map(tag => [tag, 6]), [record.text, 1]];
         let score = 100, found = true;
@@ -175,6 +195,10 @@
           score += weight * 10;
         }
         if (!found) continue;
+        // An article-title-only hit is one article, not every child section.
+        if (record.location.includes("#") && !terms.some(term =>
+          record.title.folded.includes(term) || record.text.folded.includes(term) ||
+          record.tags.some(tag => tag.folded.includes(term)))) continue;
         // Contiguous phrases outrank scattered keywords; title > tag > body.
         for (const [value, weight] of fields) {
           if (value.folded.includes(phrase)) score += weight * 20;
@@ -189,14 +213,27 @@
       }
       matches.sort((a, b) => b.score - a.score || (a.record.location < b.record.location ? -1 : 1));
       const groups = new Map();
-      for (const { record, score } of matches) {
-        if (!groups.has(record.page)) groups.set(record.page, []);
-        groups.get(record.page).push(this.item(record, terms, score));
+      for (const match of matches) {
+        if (!groups.has(match.record.page)) groups.set(match.record.page, []);
+        groups.get(match.record.page).push(match);
       }
-      for (const [page, items] of groups) {
-        if (!items.some(item => item.location === page)) items.push(this.item(this.pages.get(page), [], 0));
-      }
-      return { items: [...groups.values()] };
+      const { offset, size, sections } = limits(options);
+      const entries = [...groups.entries()];
+      const selected = options.page ? entries : entries.slice(offset, offset + size);
+      const details = [];
+      const items = selected.map(([page, hits]) => {
+        const childHits = hits.filter(hit => hit.record.location.includes("#"));
+        const chosen = options.page ? childHits.slice(offset, offset + size) : childHits.slice(0, sections);
+        const parentHit = hits.find(hit => hit.record.location === page);
+        const output = chosen.map(hit => this.item(hit.record, terms, hit.score));
+        output.push(this.item(parentHit?.record || this.pages.get(page), parentHit ? terms : [], parentHit?.score || 0));
+        details.push({ page, sections: childHits.length, shown: chosen.length });
+        return output;
+      });
+      const total = options.page ? (details[0]?.sections || 0) : entries.length;
+      return { items, peicd: { query, scope: options.scope || "", page: options.page || "",
+        totalPages: entries.length, totalSections: matches.length, total,
+        offset, pageSize: size, more: offset + size < total, groups: details, facets: this.facets } };
     }
   }
 

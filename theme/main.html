@@ -13,7 +13,9 @@
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ 'assets/pymdownx-extras/search-lazy-guard.js?v=20261009-search-1' | url }}"></script>
+  <script src="{{ 'assets/pymdownx-extras/search-lazy-guard.js?v=20261115-ux-1' | url }}"></script>
+  <script id="__peicd_eager_routes" type="application/json">{{ peicd_eager_links | default("[]") | safe }}</script>
+  <script>{% include "assets/pymdownx-extras/page-ux.js" %}</script>
   {{ super() }}
 {% endblock %}
 

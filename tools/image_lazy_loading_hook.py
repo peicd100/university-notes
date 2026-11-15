@@ -94,10 +94,24 @@ def _optimize_image(img: Any, page: Any, config: Any) -> None:
     if derived:
         img["src"] = _relative_asset_url(page, derived["url"])
         img["data-peicd-optimized-image"] = "lossless"
-    if not img.get("width") and not img.get("height"):
-        dimensions = (derived["width"], derived["height"]) if derived else _intrinsic_dimensions(source)
-        if dimensions:
-            img["width"], img["height"] = map(str, dimensions)
+    dimensions = (derived["width"], derived["height"]) if derived else _intrinsic_dimensions(source)
+    if not img.get("width") and not img.get("height") and dimensions:
+        img["width"], img["height"] = map(str, dimensions)
+    if dimensions and dimensions[0] > 640 and not img.get("srcset"):
+        variants = []
+        for size in (480, 960, 1440):
+            if size >= dimensions[0]:
+                continue
+            small = derive_image(source, config, max_width=size)
+            if small:
+                variants.append(f'{_relative_asset_url(page, small["url"])} {small["width"]}w')
+        if variants:
+            full = str(img["src"])
+            variants.append(f'{full} {dimensions[0]}w')
+            img["srcset"] = ", ".join(variants)
+            img["sizes"] = "(max-width: 959px) calc(100vw - 48px), (max-width: 1219px) calc(70vw - 210px), 500px"
+            img["data-peicd-full-src"] = full
+            img["data-peicd-original-src"] = src
 
 
 def on_page_context(context: dict[str, Any], /, *, page: Any, config: Any, nav: Any) -> dict[str, Any]:

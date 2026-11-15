@@ -179,7 +179,7 @@ test('input/paste and IME commits update search once without intercepting normal
   assert.equal(signals.length, 2, 'unrelated input is untouched');
 });
 
-function workerContext() {
+function workerContext({ failUpstream = false } = {}) {
   const messages = [], upstream = [], listeners = {};
   class MaterialWorker {
     constructor(url) { this.url = url; this.listeners = {}; this.messages = []; upstream.push(this); }
@@ -188,6 +188,10 @@ function workerContext() {
     terminate() { this.terminated = true; }
     postMessage(message) {
       this.messages.push(message);
+      if (failUpstream) {
+        setTimeout(() => { for (const fn of [...(this.listeners.error || [])]) fn({ type: 'error' }); }, 1);
+        return;
+      }
       setTimeout(() => {
         const data = message.type === 0 ? { type: 1 } : { type: 3, data: { items: [[
           { location: 'fallback.html#section', title: message.data, text: 'fallback', score: 3, terms: { first: true, second: true } },
@@ -235,4 +239,49 @@ test('on-demand Lunr fallback preserves advanced syntax and reply ordering under
   assert.equal(context.messages[3].data.items[0].length, 2, 'plain English fallback requires every term');
   assert.equal(context.upstream.length, 1);
   assert.deepEqual(context.upstream[0].messages.map(message => message.type), [0, 2, 2]);
+});
+
+test('broad queries bound snippets and response size while all pages and sections remain reachable', () => {
+  const docs = [];
+  for (let page = 0; page < 23; page++) {
+    const location = `md/115-1/course/p${page}.html`;
+    docs.push({ location, title: `Page ${page}`, text: 'common' });
+    for (let section = 0; section < 12; section++) docs.push({ location: `${location}#s${section}`, title: `Section ${section}`, text: 'common ' + 'body '.repeat(40) });
+  }
+  const engine = new LiteralSearch(docs), first = engine.search('common');
+  assert.equal(first.peicd.totalPages, 23);
+  assert.equal(first.items.length, 10);
+  assert.ok(first.items.every(group => group.length <= 4));
+  assert.ok(JSON.stringify(first).length < 30000);
+  const second = engine.search('common', { offset: 10 });
+  assert.equal(second.items.length, 10);
+  assert.ok(!second.items.some(group => group.at(-1).location === first.items[0].at(-1).location));
+  const page = first.items[0].at(-1).location;
+  const expanded = engine.search('common', { page });
+  assert.equal(expanded.peicd.total, 12); assert.equal(expanded.peicd.more, true);
+  assert.equal(expanded.items[0].length, 11);
+  assert.equal(engine.search('common', { page, offset: 10 }).items[0].length, 3);
+});
+
+test('course scopes filter public records, and inherited-title-only matches collapse to one article', () => {
+  const engine = new LiteralSearch([
+    { location: 'md/115-1/離散/a.html', title: '離散課程', text: '' },
+    { location: 'md/115-1/離散/a.html#s1', title: 'Chapter', text: 'different' },
+    { location: 'md/115-1/離散/sub/b.html', title: 'Other', text: 'common' },
+    { location: 'md/115-1/硬體/c.html', title: 'Hardware', text: 'common' }
+  ]);
+  assert.equal(engine.search('離散課程').items[0].length, 1);
+  assert.equal(engine.search('common', { scope: '115-1/離散/' }).peicd.totalPages, 1);
+  assert.ok(engine.facets.some(facet => facet.label === '115-1 / 離散'));
+});
+
+test('fallback failures are explicit and do not break later literal queries', async () => {
+  const context = workerContext({ failUpstream: true });
+  context.send({ type: 0, data: { docs: fixture, options: {} } });
+  context.send({ type: 2, data: { query: 'title:broken', requestId: 1 } });
+  context.send({ type: 2, data: { query: '會第一直覺用一', requestId: 2 } });
+  await wait();
+  assert.match(context.messages[1].data.peicd.error, /重試/);
+  assert.equal(best(context.messages[2].data).location, location + '#解題');
+  assert.equal(context.messages[2].data.peicd.requestId, 2);
 });

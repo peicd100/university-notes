@@ -14,7 +14,7 @@
     sourceLink: null,
     activeImage: null,
     scale: 1,
-    minScale: 0.35,
+    minScale: 0.05,
     maxScale: 4,
     fitScale: 1,
     translateX: 0,
@@ -25,6 +25,9 @@
     dragOriginX: 0,
     dragOriginY: 0
   };
+
+  let transformFrame = 0, stageBounds = null;
+  function bounds() { return stageBounds ||= STATE.stage.getBoundingClientRect(); }
 
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -38,7 +41,7 @@
   }
 
   function getSourceUrl(img) {
-    const explicit = img.currentSrc || img.getAttribute("src") || "";
+    const explicit = img.getAttribute("data-peicd-full-src") || img.currentSrc || img.getAttribute("src") || "";
     if (!explicit) return "";
     return new URL(explicit, window.location.href).href;
   }
@@ -71,6 +74,10 @@
     STATE.image = dialog.querySelector(".peicd-image-viewer__img");
     STATE.zoomValue = dialog.querySelector(".peicd-image-viewer__zoom-value");
     STATE.sourceLink = dialog.querySelector(".peicd-image-viewer__source");
+    STATE.image.addEventListener("load", () => { if (STATE.dialog.open) { stageBounds = null; resetZoom(true); } });
+    STATE.image.addEventListener("error", () => {
+      if (STATE.dialog.open && STATE.zoomValue) STATE.zoomValue.textContent = "載入失敗，請開啟原圖";
+    });
 
     dialog.querySelector(".peicd-image-viewer__close").addEventListener("click", closeViewer);
 
@@ -112,16 +119,20 @@
   }
 
   function updateTransform() {
-    if (!STATE.image) return;
-    STATE.image.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0) scale(" + STATE.scale + ")";
-    STATE.image.classList.toggle("is-draggable", STATE.scale > STATE.fitScale * 1.02);
-    if (STATE.zoomValue) STATE.zoomValue.textContent = Math.round(STATE.scale * 100) + "%";
+    if (transformFrame) return;
+    transformFrame = requestAnimationFrame(() => {
+      transformFrame = 0;
+      if (!STATE.image || !STATE.dialog?.open) return;
+      STATE.image.style.transform = "translate3d(" + STATE.translateX + "px, " + STATE.translateY + "px, 0) scale(" + STATE.scale + ")";
+      STATE.image.classList.toggle("is-draggable", STATE.scale > STATE.fitScale * 1.02);
+      if (STATE.zoomValue) STATE.zoomValue.textContent = Math.round(STATE.scale * 100) + "%";
+    });
   }
 
   function constrainPan() {
     if (!STATE.stage || !STATE.image) return;
 
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const natural = getNaturalSize(STATE.image);
     const renderedWidth = natural.width * STATE.scale;
     const renderedHeight = natural.height * STATE.scale;
@@ -134,7 +145,7 @@
 
   function computeFitScale() {
     if (!STATE.stage || !STATE.image) return 1;
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const natural = getNaturalSize(STATE.image);
     const fitX = (stageRect.width * 0.92) / natural.width;
     const fitY = (stageRect.height * 0.88) / natural.height;
@@ -157,7 +168,7 @@
     const nextScale = clamp(previousScale * factor, STATE.minScale, STATE.maxScale);
     if (Math.abs(nextScale - previousScale) < 0.001) return;
 
-    const stageRect = STATE.stage.getBoundingClientRect();
+    const stageRect = bounds();
     const pointerX = clientX ?? stageRect.left + stageRect.width / 2;
     const pointerY = clientY ?? stageRect.top + stageRect.height / 2;
     const offsetX = pointerX - (stageRect.left + stageRect.width / 2) - STATE.translateX;
@@ -210,8 +221,9 @@
     STATE.activeImage = img;
     STATE.image.src = src;
     STATE.image.alt = img.getAttribute("alt") || "";
-    STATE.sourceLink.href = src;
+    STATE.sourceLink.href = new URL(img.getAttribute("data-peicd-original-src") || src, location.href).href;
     STATE.dialog.showModal();
+    stageBounds = null;
     document.documentElement.classList.add("peicd-image-viewer-open");
 
     requestAnimationFrame(() => {
@@ -226,6 +238,8 @@
   }
 
   function resetViewerState() {
+    if (transformFrame) cancelAnimationFrame(transformFrame);
+    transformFrame = 0; stageBounds = null;
     document.documentElement.classList.remove("peicd-image-viewer-open");
     STATE.activeImage = null;
     STATE.dragPointerId = null;
@@ -244,6 +258,13 @@
     if (img.dataset.peicdZoomBound === "true") return;
     img.dataset.peicdZoomBound = "true";
     img.classList.add("peicd-zoomable-image");
+    if (!img.closest("a[href]")) {
+      img.tabIndex = 0; img.setAttribute("role", "button");
+      img.setAttribute("aria-label", "放大圖片：" + (img.getAttribute("alt") || "筆記圖片"));
+      img.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openViewerForImage(img); }
+      });
+    }
 
     img.addEventListener("click", (event) => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -258,6 +279,7 @@
 
   window.addEventListener("resize", () => {
     if (!STATE.dialog?.open) return;
+    stageBounds = null;
     STATE.fitScale = computeFitScale();
     constrainPan();
     updateTransform();

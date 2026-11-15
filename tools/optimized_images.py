@@ -21,7 +21,8 @@ def _atomic_bytes(path: Path, data: bytes) -> None:
     os.replace(tmp, path)
 
 
-def derive_image(source: Path, config: Any, *, logo: bool = False, favicon: bool = False) -> dict[str, Any] | None:
+def derive_image(source: Path, config: Any, *, logo: bool = False, favicon: bool = False,
+                 max_width: int | None = None) -> dict[str, Any] | None:
     """Return a site URL and dimensions, or None to retain the original.
 
     Cache identity includes input bytes, Pillow/encoder version and policy. Each
@@ -39,7 +40,8 @@ def derive_image(source: Path, config: Any, *, logo: bool = False, favicon: bool
         return None
     raw = source.read_bytes()
     encoder = features.version("webp")
-    identity = hashlib.sha256(raw + f"{POLICY_VERSION}/{PIL.__version__}/{encoder}/logo={logo}/favicon={favicon}".encode()).hexdigest()
+    identity = hashlib.sha256(raw + (f"{POLICY_VERSION}/{PIL.__version__}/{encoder}/logo={logo}/favicon={favicon}" +
+                                  (f"/width={max_width}" if max_width else "")).encode()).hexdigest()
     config_path = config.get("config_file_path") if hasattr(config, "get") else None
     project = Path(config_path).resolve().parent if config_path else Path(config["docs_dir"]).resolve().parent
     cache = project / ".cache/site-images" / identity[:2]
@@ -72,6 +74,9 @@ def derive_image(source: Path, config: Any, *, logo: bool = False, favicon: bool
                 if logo or favicon:
                     size = 32 if favicon else 96
                     image.thumbnail((size, size), Image.Resampling.LANCZOS)
+                elif max_width and image.width > max_width:
+                    image = image.resize((max_width, max(1, round(image.height * max_width / image.width))),
+                                         Image.Resampling.LANCZOS)
                 out = io.BytesIO()
                 if favicon:
                     image.save(out, format="PNG", optimize=True)
