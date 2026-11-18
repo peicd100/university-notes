@@ -2,7 +2,7 @@
   "use strict";
   if (window.__PEICD_SEARCH_LAZY_GUARD__) return;
   const NativeXHR = window.XMLHttpRequest, NativeWorker = window.Worker;
-  const SEARCH_VERSION = "20261115-ux-1";
+  const SEARCH_VERSION = "20261118-logic-1";
   const pendingSearchRequests = [], pendingWorkers = [], searchWorkers = new Set();
   let activated = false, query = "", sequence = 0;
   let view = { scope: "", page: "", offset: 0 };

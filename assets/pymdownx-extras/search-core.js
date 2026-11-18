@@ -40,12 +40,25 @@
     const value = clean(query);
     const outsideQuotes = value.replace(/"[^"]*"/g, "");
     // Explicit Lunr syntax is handled by the original worker, not approximated.
-    const advanced = /(?:^|\s)[+-]\S|\b(?:title|text|tags):|\S\*|\*\S|\S~\d|\S\^\d/.test(outsideQuotes);
-    const tokens = [...value.matchAll(/"([^"]+)"|(\S+)/g)].map(match => clean(match[1] || match[2]));
+    const advanced = /\b(?:title|text|tags):|\S\*|\*\S|\S~\d|\S\^\d/.test(outsideQuotes);
+    const groups = [[]], excluded = new Set();
+    let logic = false;
+    for (const match of value.matchAll(/([+-]?)(?:"([^"]*)"|([^\s"]+))/g)) {
+      const [, sign, quoted, word] = match;
+      if (!sign && (word === 'OR' || word === '|')) {
+        logic = true;
+        if (groups.at(-1).length) groups.push([]);
+        continue;
+      }
+      const term = clean(quoted ?? word).toLowerCase();
+      if (!term) continue;
+      if (sign) logic = true;
+      if (sign === '-') excluded.add(term);
+      else if (!groups.at(-1).includes(term)) groups.at(-1).push(term);
+    }
+    const terms = [...new Set(groups.flat())];
     return {
-      terms: [...new Set(tokens.map(token => token.toLowerCase()))],
-      phrase: tokens.join(" ").toLowerCase(),
-      advanced,
+      terms, groups: groups.filter(group => group.length), excluded: [...excluded], logic, advanced,
       quoted: value.includes('"'),
       chinese: /\p{Script=Han}/u.test(value)
     };
@@ -177,39 +190,45 @@
     }
 
     search(query, options = {}) {
-      const parsed = parseQuery(query), { terms, phrase } = parsed;
-      if (!terms.length || parsed.advanced) return { items: [] };
+      const parsed = parseQuery(query), { terms, excluded } = parsed;
+      if ((!terms.length && !excluded.length) || parsed.advanced) return { items: [] };
       const matches = [];
       for (const record of this.records) {
         if (options.scope && !record.scope.startsWith(options.scope)) continue;
         if (options.page && record.page !== options.page) continue;
         const fields = [[record.title, 8], [record.articleTitle, 4],
           ...record.tags.map(tag => [tag, 6]), [record.text, 1]];
-        let score = 100, found = true;
+        if (excluded.some(term => fields.some(([value]) => value.folded.includes(term)))) continue;
+        const weights = new Map();
         for (const term of terms) {
           let weight = 0;
           for (const [value, boost] of fields) {
             if (value.folded.includes(term)) weight = Math.max(weight, boost);
           }
-          if (!weight) { found = false; break; }
-          score += weight * 10;
+          weights.set(term, weight);
         }
-        if (!found) continue;
+        const matched = parsed.groups.filter(group => group.every(term => weights.get(term)));
+        if (terms.length && !matched.length) continue;
+        const hits = [...new Set(matched.flat())];
+        let score = 100 + hits.reduce((sum, term) => sum + weights.get(term) * 10, 0);
         // An article-title-only hit is one article, not every child section.
-        if (record.location.includes("#") && !terms.some(term =>
+        if (hits.length && record.location.includes("#") && !hits.some(term =>
           record.title.folded.includes(term) || record.text.folded.includes(term) ||
           record.tags.some(tag => tag.folded.includes(term)))) continue;
         // Contiguous phrases outrank scattered keywords; title > tag > body.
-        for (const [value, weight] of fields) {
-          if (value.folded.includes(phrase)) score += weight * 20;
-          if (value.folded === phrase) score += weight * 20;
+        for (const group of matched) {
+          const phrase = group.join(" ");
+          for (const [value, weight] of fields) {
+            if (value.folded.includes(phrase)) score += weight * 20;
+            if (value.folded === phrase) score += weight * 20;
+          }
         }
-        const positions = terms.map(term => record.text.folded.indexOf(term)).filter(at => at >= 0);
-        if (positions.length === terms.length) {
+        const positions = hits.map(term => record.text.folded.indexOf(term)).filter(at => at >= 0);
+        if (positions.length && positions.length === hits.length) {
           const span = Math.max(...positions) - Math.min(...positions);
           score += 20 / (1 + span / 100);
         }
-        matches.push({ record, score: score * record.boost });
+        matches.push({ record, terms: hits, score: score * record.boost });
       }
       matches.sort((a, b) => b.score - a.score || (a.record.location < b.record.location ? -1 : 1));
       const groups = new Map();
@@ -225,8 +244,8 @@
         const childHits = hits.filter(hit => hit.record.location.includes("#"));
         const chosen = options.page ? childHits.slice(offset, offset + size) : childHits.slice(0, sections);
         const parentHit = hits.find(hit => hit.record.location === page);
-        const output = chosen.map(hit => this.item(hit.record, terms, hit.score));
-        output.push(this.item(parentHit?.record || this.pages.get(page), parentHit ? terms : [], parentHit?.score || 0));
+        const output = chosen.map(hit => this.item(hit.record, hit.terms, hit.score));
+        output.push(this.item(parentHit?.record || this.pages.get(page), parentHit?.terms || [], parentHit?.score || 0));
         details.push({ page, sections: childHits.length, shown: chosen.length });
         return output;
       });

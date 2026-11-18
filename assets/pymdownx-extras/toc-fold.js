@@ -272,9 +272,9 @@
     return current;
   }
 
-  function followCurrent(entry) {
+  function followCurrent(entry, opening = false) {
     if (!state?.scrollWrap || !entry) return;
-    if (state.sidebarManualLocked) return;
+    if (state.sidebarManualLocked && !opening) return;
 
     const target = getVisibleLink(entry.link);
     if (!target) return;
@@ -301,7 +301,7 @@
 
     wrap.scrollTo({
       top: nextTop,
-      behavior: prefersReducedMotion() ? "auto" : "smooth"
+      behavior: opening || prefersReducedMotion() ? "instant" : "smooth"
     });
   }
 
@@ -800,6 +800,9 @@
     if (open) holdManual(); // Opening the panel means choosing, before the first touch.
     state.sidebar.classList.toggle(CLASS.mobileVisible, open);
     document.documentElement.classList.toggle(CLASS.mobileOpen, open);
+    if (open && state.view === "toc" && state.mode === "auto") {
+      followCurrent(state.entries.find(entry => entry.link.classList.contains(CLASS.currentLink)), true);
+    }
 
     if (state.mobileButton) {
       state.mobileButton.setAttribute("aria-expanded", String(open));

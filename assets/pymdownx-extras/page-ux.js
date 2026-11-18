@@ -25,6 +25,12 @@
   }
 
   let navigation = null, alignmentFrame = 0, lastRoot = null, lastPath = null, restoredURL = null;
+  const hitKey = "peicd-pending-hit";
+  try {
+    const pending = JSON.parse(sessionStorage.getItem(hitKey));
+    if (pending?.href === location.href) window.__PEICD_SEARCH_TARGET__ = pending;
+    sessionStorage.removeItem(hitKey);
+  } catch (_) { /* Storage may be disabled. */ }
   const pathKey = () => location.pathname + location.search;
   function cancelNavigation() {
     navigation?.observer?.disconnect();
@@ -38,7 +44,7 @@
     const current = navigation;
     if (!current?.root?.isConnected || !current.target?.isConnected) return;
     const offset = (document.querySelector(".md-header")?.offsetHeight || 56) + 12;
-    const delta = current.target.getBoundingClientRect().top - offset;
+    const delta = (current.target.getClientRects()[0]?.top ?? current.target.getBoundingClientRect().top) - offset;
     // No polling, animation or scroll lock: only react to real layout changes.
     if (Math.abs(delta) > 1.5) window.scrollTo({ top: Math.max(0, scrollY + delta), behavior: "instant" });
   }
@@ -48,10 +54,16 @@
   function bindNavigation(root) {
     if (!navigation || navigation.path !== pathKey()) return false;
     if (navigation.replaceRoot && root === navigation.sourceRoot) return false;
-    const target = revealHash(navigation.hash);
+    const target = navigation.hash ? revealHash(navigation.hash) : root;
     if (!target || !root?.contains(target)) { cancelNavigation(); return false; }
     navigation.observer?.disconnect();
-    navigation.root = root; navigation.target = target;
+    const landing = window.__PEICD_SEARCH_TARGET__;
+    if (landing?.path === location.pathname && landing.hash === navigation.hash) {
+      navigation.hit = highlightLanding(root, target, landing);
+      window.__PEICD_SEARCH_TARGET__ = null;
+      try { sessionStorage.removeItem(hitKey); } catch (_) {}
+    }
+    navigation.root = root; navigation.target = navigation.hit?.isConnected ? navigation.hit : target;
     navigation.sourceRoot = null; navigation.replaceRoot = false; // Release the detached previous article.
     if ("ResizeObserver" in window) {
       // ResizeObserver is already batched before paint. Correct here rather than
@@ -64,7 +76,7 @@
   }
   function beginNavigation(url) {
     cancelNavigation();
-    if (!url.hash) return false;
+    if (!url.hash && window.__PEICD_SEARCH_TARGET__?.href !== url.href) return false;
     const root = document.querySelector(".md-content__inner");
     navigation = { path: url.pathname + url.search, hash: url.hash, sourceRoot: root,
       replaceRoot: url.pathname !== location.pathname, root: null, target: null };
@@ -77,7 +89,6 @@
       const url = new URL(location.href); url.hash = hash;
       const bound = navigation?.path === pathKey() && navigation.hash === url.hash
         ? bindNavigation(document.querySelector(".md-content__inner")) : beginNavigation(url);
-      if (bound) highlightLanding();
       return bound;
     },
     isAnchoring: () => Boolean(navigation || restoredURL === location.href),
@@ -87,6 +98,21 @@
     if (event.target?.closest?.(".md-sidebar,.md-search,[role='dialog']")) return;
     cancelNavigation();
   }
+  function openSearch() {
+    const toggle = document.getElementById("__search");
+    const input = document.querySelector('[data-md-component="search-query"]');
+    if (!toggle || !input) return;
+    if (!toggle.checked) toggle.click();
+    input.focus({ preventScroll: true });
+  }
+  document.addEventListener("click", event => {
+    if (event.target.closest?.("[data-library-search]")) openSearch();
+    const focus = event.target.closest?.(".reading-focus");
+    if (focus) {
+      const active = document.documentElement.classList.toggle("reading-focused");
+      focus.setAttribute("aria-pressed", String(active));
+    }
+  });
   window.addEventListener("wheel", userScrollIntent, { capture: true, passive: true });
   window.addEventListener("touchmove", userScrollIntent, { capture: true, passive: true });
   window.addEventListener("pointerdown", userScrollIntent, { capture: true, passive: true });
@@ -116,9 +142,12 @@
     if (url.origin !== location.origin) return;
     if (link.classList.contains("peicd-danger-link")) { cancelNavigation(); return; }
     if (link.closest('[data-md-component="search-result"]')) {
+      window.dispatchEvent(new CustomEvent("peicd:search-select", { detail: url.href }));
       // Run before document-capture Math anchors can stop Material's close listener.
-      window.__PEICD_SEARCH_TARGET__ = { path: url.pathname, hash: url.hash,
-        query: document.querySelector('[data-md-component="search-query"]')?.value || "" };
+      const hit = link.querySelector("mark");
+      window.__PEICD_SEARCH_TARGET__ = { href: url.href, path: url.pathname, hash: url.hash,
+        needle: hit?.textContent || "", bodyHit: Boolean(hit?.closest(".md-search-result__teaser")) };
+      try { sessionStorage.setItem(hitKey, JSON.stringify(window.__PEICD_SEARCH_TARGET__)); } catch (_) {}
       const toggle = document.getElementById("__search");
       if (toggle?.checked) { toggle.checked = false; toggle.dispatchEvent(new Event("change", { bubbles: true })); }
       if (document.activeElement?.closest?.('[data-md-component="search"]')) document.activeElement.blur();
@@ -140,7 +169,10 @@
     let target;
     try { target = document.getElementById(decodeURIComponent(hash.slice(1))); }
     catch (_) { return; }
-    if (!target) return;
+    if (target) revealElement(target);
+    return target;
+  }
+  function revealElement(target) {
     for (let parent = target.parentElement; parent; parent = parent.parentElement) {
       if (parent.tagName === "DETAILS" && !parent.open) parent.open = true;
       if (parent.classList.contains("tabbed-block")) {
@@ -150,67 +182,78 @@
         if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); }
       }
     }
-    return target;
   }
-  function highlightLanding() {
-    const landing = window.__PEICD_SEARCH_TARGET__;
-    if (!landing || landing.path !== location.pathname) return;
-    window.__PEICD_SEARCH_TARGET__ = null;
-    let target;
-    try { target = document.getElementById(decodeURIComponent(landing.hash.slice(1))); } catch (_) { return; }
-    const root = document.querySelector(".md-content__inner");
-    if (!target || !root?.contains(target)) return;
-    const terms = [...String(landing.query).normalize("NFKC").toLowerCase().matchAll(/"([^"]+)"|(\S+)/g)]
-      .map(match => match[1] || match[2]).filter(term => term.length > 1 && !/[~*:^]/.test(term));
-    if (!terms.length) return;
-    root.querySelectorAll("mark.peicd-search-hit").forEach(mark => mark.replaceWith(document.createTextNode(mark.textContent)));
+  function highlightLanding(root, heading, landing) {
+    // Take the term from the clicked result. OR alternatives and excluded words
+    // that did not produce this snippet must not determine the landing.
+    const normalize = value => value.normalize("NFKC").toLowerCase().replace(/[\u200b\ufeff]/g, "").replace(/\s+/gu, " ");
+    const needle = normalize(landing.needle ?? landing.query ?? "").trim();
+    root.querySelectorAll("mark.peicd-search-hit").forEach(mark => mark.replaceWith(...mark.childNodes));
+    if (!needle) return null;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    walker.currentNode = target;
-    const nodes = [], level = /^H[1-6]$/.test(target.tagName) ? Number(target.tagName[1]) : 0;
-    let node;
-    while ((node = walker.nextNode()) && nodes.length < 500) {
-      const heading = node.parentElement.closest("h1,h2,h3,h4,h5,h6");
-      if (level && heading && heading !== target && Number(heading.tagName[1]) <= level) break;
-      if (!node.parentElement.closest("script,style,.arithmatex,mjx-container,button,.md-code__nav")) nodes.push(node);
-    }
-    let index = 0, marked = 0;
-    function chunk() {
-      const end = Math.min(index + 40, nodes.length);
-      for (; index < end && marked < 30; index++) {
-        const text = nodes[index].nodeValue, folded = text.normalize("NFKC").toLowerCase();
-        if (!nodes[index].isConnected || folded.length !== text.length) continue;
-        const ranges = [];
-        for (const term of terms) {
-          let at = folded.indexOf(term);
-          while (at >= 0 && ranges.length < 30) { ranges.push([at, at + term.length]); at = folded.indexOf(term, at + term.length); }
+    walker.currentNode = heading;
+    const level = /^H[1-6]$/.test(heading.tagName) ? Number(heading.tagName[1]) : 0;
+    let block = null, nodes = [];
+    function markBlock() {
+      if (!nodes.length || !normalize(nodes.map(node => node.data).join("")).includes(needle)) return null;
+      // Map normalized characters back to the original UTF-16 offsets. This
+      // preserves emphasis, links, full-width glyphs and split inline phrases.
+      let text = "";
+      const positions = [];
+      for (const node of nodes) {
+        let start = 0;
+        for (const char of node.data) {
+          const value = normalize(char);
+          const end = start + char.length;
+          if (value && !(value === " " && text.endsWith(" "))) {
+            text += value;
+            for (let i = 0; i < value.length; i++) positions.push({ node, start, end });
+          }
+          start = end;
         }
-        ranges.sort((a, b) => a[0] - b[0]);
-        const merged = [];
-        for (const range of ranges) {
-          const last = merged.at(-1);
-          if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]); else merged.push(range);
-        }
-        if (!merged.length) continue;
-        const fragment = document.createDocumentFragment();
-        let position = 0;
-        for (const [from, to] of merged) {
-          fragment.append(document.createTextNode(text.slice(position, from)));
-          const mark = document.createElement("mark"); mark.className = "peicd-search-hit"; mark.textContent = text.slice(from, to);
-          fragment.append(mark); position = to; marked++;
-        }
-        fragment.append(document.createTextNode(text.slice(position)));
-        nodes[index].replaceWith(fragment);
       }
-      if (index < nodes.length && marked < 30 && root.isConnected) requestAnimationFrame(chunk);
+      const at = text.indexOf(needle);
+      if (at < 0) return null;
+      const spans = new Map();
+      for (const pos of positions.slice(at, at + needle.length)) {
+        const span = spans.get(pos.node);
+        if (span) span.end = pos.end; else spans.set(pos.node, { start: pos.start, end: pos.end });
+      }
+      let first;
+      for (const [node, span] of spans) {
+        const math = node.parentElement.closest(".arithmatex, mjx-container");
+        if (math) { first ||= math.closest(".arithmatex") || math; continue; }
+        const range = document.createRange();
+        range.setStart(node, span.start); range.setEnd(node, span.end);
+        const mark = document.createElement("mark"); mark.className = "peicd-search-hit";
+        range.surroundContents(mark); first ||= mark;
+      }
+      if (first) revealElement(first);
+      return first;
     }
-    requestAnimationFrame(chunk);
+    let node;
+    while ((node = walker.nextNode())) {
+      const parent = node.parentElement;
+      const title = parent.closest("h1,h2,h3,h4,h5,h6");
+      if (level && title && title !== heading && Number(title.tagName[1]) <= level) break;
+      if ((landing.bodyHit && title === heading) || parent.closest("script,style,button,.headerlink,.peicd-folder-pathbar,.md-code__nav")) continue;
+      const nextBlock = parent.closest("p,li,td,th,dt,dd,pre,h1,h2,h3,h4,h5,h6,summary") || parent;
+      if (nextBlock !== block) {
+        const hit = markBlock();
+        if (hit) return hit;
+        nodes = []; block = nextBlock;
+      }
+      nodes.push(node);
+    }
+    return markBlock();
   }
   function onPage() {
     const root = document.querySelector(".md-content__inner");
+    document.querySelector(".reading-focus")?.setAttribute("aria-pressed",
+      String(document.documentElement.classList.contains("reading-focused")));
     if (navigation) bindNavigation(root);
-    else if (root !== lastRoot && location.hash && restoredURL !== location.href) beginNavigation(new URL(location.href));
+    else if (root !== lastRoot && (location.hash || window.__PEICD_SEARCH_TARGET__) && restoredURL !== location.href) beginNavigation(new URL(location.href));
     lastRoot = root; lastPath = pathKey();
-    highlightLanding();
   }
   document.addEventListener("DOMContentLoaded", () => {
     onPage();
@@ -222,6 +265,5 @@
     }
     if (restoredURL === location.href) return;
     window.__PEICD_PAGE_UX__.navigateToHash(location.hash);
-    highlightLanding();
   });
 })();

@@ -104,11 +104,11 @@
       const options = typeof message.data === "object" && message.data ? message.data : {};
       const query = String(options.query ?? message.data ?? ""), parsed = self.PeicdSearch.parseQuery(query);
       let data = { items: [], peicd: { query, facets: engine?.facets || [] } };
-      if (parsed.terms.length && engine) {
+      if ((parsed.terms.length || parsed.excluded.length) && engine) {
         if (parsed.advanced) data = capFallback(await queryMaterial(query), query, options);
         else {
           data = engine.search(query, options);
-          if (!data.peicd.totalPages && !parsed.chinese && !parsed.quoted) {
+          if (!data.peicd.totalPages && !parsed.chinese && !parsed.quoted && !parsed.logic) {
             data = capFallback(completeEnglishMatches(await queryMaterial(query)), query, options);
           }
           if (setup.options?.suggest) data.suggest = (await queryMaterial(query)).suggest || [];
