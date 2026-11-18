@@ -16,9 +16,9 @@
     mermaidLegacy: "mermaid-legacy-flowchart-compat.js?v=20260614-1",
     mermaidRender: "mermaid-render-fix.js?v=20261115-ux-1",
     mermaidZoom: "mermaid-zoom.js?v=20261115-ux-1",
-    scrollBottom: "scroll-bottom.js?v=20261116-sections-2",
+    scrollBottom: "scroll-bottom.js?v=20261118-scroll-1",
     sourceJump: "source-jump.js?v=20261018-direct-1",
-    tocFold: "toc-fold.js?v=20261118-reading-1"
+    tocFold: "toc-fold.js?v=20261118-scroll-1"
   };
 
   const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);

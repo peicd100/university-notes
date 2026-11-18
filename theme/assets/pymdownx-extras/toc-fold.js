@@ -325,15 +325,13 @@
     const key = entry?.link?.getAttribute("href") ?? "";
     const changed = key !== state.activeKey;
 
-    if (changed || force) applyCurrent(entry);
-
     if (state.mode === "auto" && !state.sidebarManualLocked && (changed || force)) {
       state.sidebar.classList.add(CLASS.syncing);
       collapseToCurrent(entry);
-      applyCurrent(entry);
       requestAnimationFrame(() => state?.sidebar?.classList.remove(CLASS.syncing));
     }
 
+    if (changed || force) applyCurrent(entry);
     state.activeKey = key;
     if (entry && (changed || force)) syncHash(entry);
     if (state.mode === "auto" && (changed || force)) followCurrent(entry);
