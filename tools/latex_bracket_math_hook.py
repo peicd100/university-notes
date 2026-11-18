@@ -45,6 +45,14 @@ _SPLIT_DUPLICATED_STRONG_RE = re.compile(
 )
 _DOUBLE_STRONG_RE = re.compile(r"(?<![\\*])\*{2}(?!\*)")
 _DOLLAR_MATH_RE = re.compile(r"(?<!\\)(?P<dollars>\${1,2})(?!\$)(?:\\.|[^$\\\n])+?(?P=dollars)(?!\$)")
+_INLINE_DOLLAR_RE = re.compile(r"(?<![\\$])\$(?![\s$])(?P<tex>(?:\\.|[^$\\\n])+?)\$(?!\$)")
+_TEX_COMMAND_RE = re.compile(r"(?<!\\)\\[A-Za-z]+")
+_SIMPLE_DOLLAR_TEX_RE = re.compile(
+    r"[A-Za-z]|(?:[A-Za-z]|\d+(?:\.\d+)?)(?:[ \t]*[=+*/^_<>-][ \t]*(?:[A-Za-z]|\d+(?:\.\d+)?))+"
+)
+_HTML_LITERAL_RE = re.compile(
+    r'''<!--.*?-->|</?[A-Za-z][A-Za-z0-9:-]*(?:[^<>"']|"[^"]*"|'[^']*')*>'''
+)
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
@@ -146,9 +154,7 @@ def _normalize_duplicated_strong(body: str, protected: list[tuple[int, int]]) ->
             cursor = end.end()
     ranges.extend(match.span() for match in _DOLLAR_MATH_RE.finditer(body))
     # Keep embedded HTML attributes (including iframe srcdoc) byte-for-byte.
-    ranges.extend(match.span() for match in re.finditer(
-        r'''<!--.*?-->|</?[A-Za-z][A-Za-z0-9:-]*(?:[^<>"']|"[^"]*"|'[^']*')*>''', body
-    ))
+    ranges.extend(match.span() for match in _HTML_LITERAL_RE.finditer(body))
     merged: list[tuple[int, int]] = []
     for start, end in sorted(ranges):
         if merged and start <= merged[-1][1]:
@@ -184,7 +190,7 @@ def _normalize_duplicated_strong(body: str, protected: list[tuple[int, int]]) ->
 
 
 def _literal_html_lines(lines: list[str], code_spans: list[list[tuple[int, int]]]) -> set[int]:
-    """Protect literal HTML containers from the narrow pasted-bold repair."""
+    """Identify lines whose literal HTML content must be preserved."""
     protected: set[int] = set()
     tag: str | None = None
     fence: tuple[str, int] | None = None
@@ -232,6 +238,7 @@ def _normalize_list_continuations(lines: list[str]) -> list[str]:
     """
     result: list[str] = []
     code_spans = _inline_code_spans(lines)
+    literal_html_lines = _literal_html_lines(lines, code_spans)
     stack: list[tuple[int, int]] = []  # source item indent, render item indent
     depth = 0
     fence: tuple[str, int] | None = None
@@ -324,7 +331,10 @@ def _normalize_list_continuations(lines: list[str]) -> list[str]:
         if not opening_fence and not is_code:
             protected = [(max(0, a - len(prefix)), b - len(prefix)) for a, b in code_spans[index]]
             continuation = _with_indent(render_prefix, stack[-1][1] + 4) if marker and stack else render_prefix
-            result.extend(_normalize_math_line(body, render_prefix, newline, protected, continuation, last_eol))
+            result.extend(_normalize_math_line(
+                body, render_prefix, newline, protected, continuation, last_eol,
+                repair_dollar_padding=index not in literal_html_lines,
+            ))
         else:
             result.append(render_prefix + body + newline)
         index += 1
@@ -430,14 +440,51 @@ def _normalize_pasted_aligned_spacing(tex: str, *, pasted_delimiters: bool = Fal
     return _ALIGNED_ENVIRONMENT_RE.sub(normalize_block, tex)
 
 
+def _normalize_inline_dollar_padding(text: str, protected: list[tuple[int, int]]) -> str:
+    """Remove pasted trailing padding only when a single-dollar span looks like TeX."""
+    if not re.search(r"[ \t]\$", text):
+        return text
+    protected = [*protected, *(match.span() for match in _HTML_LITERAL_RE.finditer(text))]
+    parts: list[str] = []
+    cursor = offset = 0
+    while match := _INLINE_DOLLAR_RE.search(text, cursor):
+        cursor = match.end()
+        if any(a < match.end() and b > match.start() for a, b in protected):
+            cursor = match.start() + 1
+            continue
+        tex = match["tex"]
+        trimmed = tex.rstrip(" \t")
+        if tex == trimmed:
+            continue
+        # The tentative closing dollar may instead open a formula or price.
+        if (trimmed.endswith("\\") or text[cursor:cursor + 1].isdigit()
+                or not (_TEX_COMMAND_RE.search(trimmed) or _SIMPLE_DOLLAR_TEX_RE.fullmatch(trimmed))):
+            cursor -= 1
+            continue
+        parts.append(text[offset:match.start("tex")] + trimmed + "$")
+        offset = match.end()
+    parts.append(text[offset:])
+    return "".join(parts)
+
+
 def _normalize_math_line(
-    body: str, prefix: str, newline: str, protected: list[tuple[int, int]], continuation: str, fallback_eol: str
+    body: str, prefix: str, newline: str, protected: list[tuple[int, int]], continuation: str,
+    fallback_eol: str, *, repair_dollar_padding: bool,
 ) -> list[str]:
     """Canonicalize paired delimiters and narrowly repair pasted TeX artifacts.
 
     Display math embedded in prose is emitted as its own paragraph, including
     repeated expressions in quotes/list items. Literal code stays byte-for-byte.
     """
+    stripped = body.strip()
+    repair_dollar_padding = repair_dollar_padding and not (stripped.startswith("$$") and stripped.endswith("$$"))
+
+    def normalize_prose(start: int, end: int) -> str:
+        text = body[start:end]
+        if not repair_dollar_padding:
+            return text
+        return _normalize_inline_dollar_padding(text, [(a - start, b - start) for a, b in protected])
+
     parts: list[tuple[str, str]] = []
     offset = 0
     cursor = 0
@@ -460,13 +507,13 @@ def _normalize_math_line(
         tex = _OPERATOR_SUBSCRIPT_RE.sub(r"\1_", tex)
         tex = _ESCAPED_LESS_THAN_RE.sub("<", tex)
         tex = _PASTED_COUNT_HASH_RE.sub(lambda _: r"\#", tex)
-        parts.append(("text", body[offset:match.start()]))
+        parts.append(("text", normalize_prose(offset, match.start())))
         if opening == "(":
             parts.append(("text", "\\(" + tex + "\\)"))
         else:
             parts.append(("display", tex))
         offset = cursor = end.end()
-    parts.append(("text", body[offset:]))
+    parts.append(("text", normalize_prose(offset, len(body))))
     if not any(kind == "display" for kind, _ in parts):
         return [prefix + "".join(text for _, text in parts) + newline]
 

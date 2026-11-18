@@ -139,6 +139,52 @@ class PastedDisplayMathTests(unittest.TestCase):
         ):
             self.assertEqual(normalize(source), source)
 
+    def test_padded_dollar_inline_math_with_neighboring_formulas(self):
+        source = (
+            r"Let $\lambda$ denote the empty string. Determine $\lvert \{\lambda\}\rvert $"
+            r" and $\lVert\lambda\rVert$. Explain why $\{\lambda\}\ne\varnothing$."
+        )
+        expected = source.replace(r"\rvert $", r"\rvert$")
+        self.assertEqual(normalize(source), expected)
+        self.assertEqual(normalize(expected), expected)
+        self.assertEqual(
+            [span.get_text() for span in render(source).select("span.arithmatex")],
+            [r"\(\lambda\)", r"\(\lvert \{\lambda\}\rvert\)",
+             r"\(\lVert\lambda\rVert\)", r"\(\{\lambda\}\ne\varnothing\)"],
+        )
+
+    def test_padded_dollar_inline_math_in_lists_and_after_currency(self):
+        source = "1. Item\r\n\r\n   Price $5 to $10. Values $x + 1 \t$，再算 $2^3 $ 和 $y $。\r\n"
+        actual = normalize(source)
+        self.assertIn("Price $5 to $10. Values $x + 1$，再算 $2^3$ 和 $y$。\r\n", actual)
+        self.assertEqual(normalize(actual), actual)
+        item = render(source).select_one("li")
+        self.assertIn("Price $5 to $10.", item.get_text())
+        self.assertEqual([span.get_text() for span in item.select("span.arithmatex")],
+                         [r"\(x + 1\)", r"\(2^3\)", r"\(y\)"])
+        mixed = r"Price $5 and value $\alpha $."
+        self.assertEqual(normalize(mixed), r"Price $5 and value $\alpha$.")
+
+    def test_padded_dollar_inline_math_preserves_literal_spans(self):
+        formula = r"$\lvert A\rvert $"
+        for source in (
+            r"Prices $5 and $10",
+            r"Escaped \$x \$",
+            r"$\alpha\  $",
+            r"\(\text{$x $}\)",
+            r"$$\text{$x $}$$",
+            "$$\n" + formula + "\n$$",
+            "`" + formula + "`",
+            "    " + formula,
+            "~~~tex\n" + formula + "\n~~~",
+            "<pre>\n" + formula + "\n</pre>",
+            f'<span title="{formula}">attribute</span>',
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(normalize(source), source)
+        mixed = f"`{formula}` and {formula}"
+        self.assertEqual(normalize(mixed), f"`{formula}` and {formula.replace(' $', '$')}")
+
     def test_code_fences_unchanged(self):
         for prefix in ("", "> ", "> > ", "    "):
             for fence in ("```", "~~~~"):
