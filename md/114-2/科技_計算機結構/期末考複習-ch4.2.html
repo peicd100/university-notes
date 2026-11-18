@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -2247,7 +2249,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="7. 最短記法">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#錯題" class="md-nav__link">
@@ -2257,6 +2260,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3031,7 +3039,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#7-最短記法_2">
 <span class="md-ellipsis">
       
@@ -3039,7 +3047,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="7. 最短記法" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#錯題">
 <span class="md-ellipsis">
@@ -3048,6 +3057,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -4392,7 +4404,7 @@ Pipeline adjustment(管道化調整) 的核心是把慢 stage 拆開，讓各 st
 <p>Super pipelining increases the pipeline depth by dividing the datapath into more stages. This can reduce the clock cycle time and improve throughput. However, deeper pipelines increase the relative overhead of pipeline register delay, and the latency of a single instruction may increase. Therefore, more pipeline stages are not always better.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h3>
+<h4 id="錯題">錯題<a class="headerlink" href="#錯題" title="Permanent link"></a></h4>
 <p><mark>Q:</mark><br />
 A student says: “A processor should always use as many pipeline stages as possible, because more stages always means better performance.” Diagnose this statement and rewrite it correctly.</p>
 <p><mark>ME:</mark><br />
@@ -4835,10 +4847,14 @@ Pipeline 理想 CPI 約 1，但遇到 hazard、stall、bubble 時 CPI 可能大�
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -4913,7 +4929,15 @@ Pipeline 理想 CPI 約 1，但遇到 hazard、stall、bubble 時 CPI 可能大�
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -5171,7 +5195,7 @@ Pipeline 理想 CPI 約 1，但遇到 hazard、stall、bubble 時 CPI 可能大�
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

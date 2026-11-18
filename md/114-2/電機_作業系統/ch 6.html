@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -1686,7 +1688,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="7. 最短記法">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧" class="md-nav__link">
@@ -1697,8 +1700,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#1-精準區分直接搶先-vs-觸發重新排班" class="md-nav__link">
@@ -1742,12 +1744,8 @@
     </span>
   </a>
   
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
+    <nav class="md-nav" aria-label="4. 一句話總結">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-" class="md-nav__link">
@@ -1758,8 +1756,12 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？">
-      <ul class="md-nav__list">
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#1-正確因果鏈" class="md-nav__link">
@@ -4429,7 +4431,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#7-最短記法">
 <span class="md-ellipsis">
       
@@ -4437,8 +4439,9 @@
       
     </span>
 </a>
-</li>
-<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<nav aria-label="7. 最短記法" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
 <a class="md-nav__link" href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧">
 <span class="md-ellipsis">
       
@@ -4446,8 +4449,7 @@
       
     </span>
 </a>
-<nav aria-label="如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。" class="md-nav">
-<ul class="md-nav__list">
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#1-精準區分直接搶先-vs-觸發重新排班">
 <span class="md-ellipsis">
@@ -4475,7 +4477,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#4-一句話總結">
 <span class="md-ellipsis">
       
@@ -4483,11 +4485,9 @@
       
     </span>
 </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
+<nav aria-label="4. 一句話總結" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
 <a class="md-nav__link" href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-">
 <span class="md-ellipsis">
       
@@ -4495,8 +4495,10 @@
       
     </span>
 </a>
-<nav aria-label="所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？" class="md-nav">
-<ul class="md-nav__list">
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#1-正確因果鏈">
 <span class="md-ellipsis">
@@ -6513,7 +6515,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 </table>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧">如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。<a class="headerlink" href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧" title="Permanent link"></a></h3>
+<h4 id="如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧">如果說 Running → Ready 是Preemptive，他可以強制正在core 的 process 出來我可以理解，但是 Waiting → Ready 完全不影響 core 內的 process 吧。<a class="headerlink" href="#如果說-running--ready-是preemptive他可以強制正在core-的-process-出來我可以理解但是-waiting--ready-完全不影響-core-內的-process-吧" title="Permanent link"></a></h4>
 <p>你這個疑問是對的：<strong><code>Waiting → Ready</code> 本身確實沒有直接把正在 core 上跑的 process 拉出來。</strong></p>
 <p>但它會造成一件關鍵事情：</p>
 <p><strong>ready queue 的內容改變了，所以 OS 有機會重新比較「現在誰最該用 CPU」。</strong></p>
@@ -6590,7 +6592,7 @@ process 結束了，所以 CPU 當然空出來。</p>
 <p>第 4 次對話</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-">所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？<a class="headerlink" href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-" title="Permanent link"></a></h3>
+<h5 id="所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-">所以 Waiting → Ready 可能會造成 Running → Ready 所以是 preemptive 嗎 ？<a class="headerlink" href="#所以-waiting--ready-可能會造成-running--ready-所以是-preemptive-嗎-" title="Permanent link"></a></h5>
 <p>對，<strong>但要加一個精準限制</strong>：</p>
 <p><strong><code>Waiting → Ready</code> 之所以被歸到 preemptive 的情境，是因為它「可能導致」目前正在跑的 process 發生 <code>Running → Ready</code>；不是因為 <code>Waiting → Ready</code> 這個轉換本身就直接搶 CPU。</strong></p>
 <p>==也就是說真正的 preemption(搶先本體) 是 <code>Running → Ready</code> ， <code>Waiting → Ready</code> 是觸發重新排班的事件，不是搶先本體。</p>
@@ -9831,10 +9833,14 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -9909,7 +9915,15 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -10167,7 +10181,7 @@ Explain how average turnaround time and maximum waiting time can conflict in CPU
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -2396,7 +2398,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="8. 英文考試版">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#考古題" class="md-nav__link">
@@ -2418,6 +2421,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2557,7 +2565,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="1. Thrashing 在解決什麼問題？">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#2-global-replacement-為什麼會讓-thrashing-擴散" class="md-nav__link">
@@ -2567,6 +2576,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3598,7 +3612,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#8-英文考試版">
 <span class="md-ellipsis">
       
@@ -3606,7 +3620,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="8. 英文考試版" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#考古題">
 <span class="md-ellipsis">
@@ -3625,6 +3640,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -3727,7 +3745,7 @@
 </a>
 <nav aria-label="⭐Thrashing(輾轉現象) — 為什麼所有 process 都在忙，但 CPU 反而閒著？" class="md-nav">
 <ul class="md-nav__list">
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#1-thrashing-在解決什麼問題">
 <span class="md-ellipsis">
       
@@ -3735,7 +3753,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="1. Thrashing 在解決什麼問題？" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#2-global-replacement-為什麼會讓-thrashing-擴散">
 <span class="md-ellipsis">
@@ -3744,6 +3763,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#3-第一個解法降低-multiprogramming-degree">
@@ -5044,8 +5066,8 @@ Second-Chance 說：等一下，如果這個 page 最近被使用過，就先不
 <p>LRU approximation tries to approximate true LRU without maintaining exact recency information. Additional reference bits periodically record the reference bit into a shift register to estimate recent usage history. Second-Chance page replacement is based on FIFO plus a reference bit: if the reference bit is 1, the page is given a second chance and the bit is cleared; if the reference bit is 0, the page is selected as the victim. Enhanced Second-Chance uses both the reference bit and the modification bit, preferring pages in lower classes such as <code>(0,0)</code> because they have not been used recently and do not need to be written back to disk.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="考古題">考古題<a class="headerlink" href="#考古題" title="Permanent link"></a></h3>
-<h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
+<h4 id="考古題">考古題<a class="headerlink" href="#考古題" title="Permanent link"></a></h4>
+<h5 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h5>
 <p>(Q1)<br />
 A page-replacement algorithm should reduce the number of page faults by distributing heavily used pages evenly over memory. Suppose each page frame has a counter that records the number of pages associated with that frame. When replacement is needed, the system searches for the page frame with the smallest counter.</p>
 <p>Define a page-replacement algorithm based on this idea. Your answer must specify:</p>
@@ -5530,7 +5552,7 @@ For the same reference string and four page frames, what is the minimum number o
 <p>講義的核心因果鏈是：process 分到 frames 不足 → page fault 很頻繁 → 必須 page replacement → 若使用 global replacement，process 可能搶走其他 process 的 pages → 其他 process 也開始 page fault → 大家都在 swap in/out → CPU idle。</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="2-global-replacement-為什麼會讓-thrashing-擴散">2. Global Replacement 為什麼會讓 Thrashing 擴散？<a class="headerlink" href="#2-global-replacement-為什麼會讓-thrashing-擴散" title="Permanent link"></a></h3>
+<h4 id="2-global-replacement-為什麼會讓-thrashing-擴散">2. Global Replacement 為什麼會讓 Thrashing 擴散？<a class="headerlink" href="#2-global-replacement-為什麼會讓-thrashing-擴散" title="Permanent link"></a></h4>
 <p>Global replacement policy(全域替換策略) 的意思是：</p>
 <p><strong>當某個 process page fault，需要找 victim page 時，可以從所有 processes 的 pages 裡面挑 victim。</strong></p>
 <p>這很危險。假設 P1 frame 不夠，P1 發生 page fault。OS 為了幫 P1 空出 frame，可能把 P2 的 page 換出去。接著 P2 執行時也 page fault，P2 又可能搶 P3 的 page。最後變成：</p>
@@ -5672,10 +5694,14 @@ WSS 越大，process 目前越需要更多 frames。</p>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -5750,7 +5776,15 @@ WSS 越大，process 目前越需要更多 frames。</p>
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -6008,7 +6042,7 @@ WSS 越大，process 目前越需要更多 frames。</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

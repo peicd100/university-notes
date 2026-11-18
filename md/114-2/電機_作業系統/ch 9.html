@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -1853,7 +1855,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="5. 最短記法">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" class="md-nav__link">
@@ -1885,6 +1888,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1947,7 +1955,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="4. FIFO 最短記法">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#referenced-page-是啥" class="md-nav__link">
@@ -1957,6 +1966,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2290,7 +2304,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="5. Enhanced Second Chance(加強第二次機會替換法)">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#6-三個方法的關係" class="md-nav__link">
@@ -2300,6 +2315,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3385,7 +3405,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#5-最短記法">
 <span class="md-ellipsis">
       
@@ -3393,7 +3413,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="5. 最短記法" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的">
 <span class="md-ellipsis">
@@ -3420,6 +3441,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -3461,7 +3485,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#4-fifo-最短記法">
 <span class="md-ellipsis">
       
@@ -3469,7 +3493,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="4. FIFO 最短記法" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#referenced-page-是啥">
 <span class="md-ellipsis">
@@ -3478,6 +3503,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -3738,7 +3766,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#5-enhanced-second-chance加強第二次機會替換法">
 <span class="md-ellipsis">
       
@@ -3746,7 +3774,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="5. Enhanced Second Chance(加強第二次機會替換法)" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#6-三個方法的關係">
 <span class="md-ellipsis">
@@ -3755,6 +3784,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#7-最短記法">
@@ -4653,15 +4685,15 @@ OS 收到 page fault 之後，會執行 page swap，<mark>找 free frame(空頁�
 </table>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的">所以這邊指的 page in 、page out 指的是把 frame n 裡面的(對應到的)page 換成其他的？<a class="headerlink" href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" title="Permanent link"></a></h3>
+<h4 id="所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的">所以這邊指的 page in 、page out 指的是把 frame n 裡面的(對應到的)page 換成其他的？<a class="headerlink" href="#所以這邊指的-page-in-page-out-指的是把-frame-n-裡面的對應到的page-換成其他的" title="Permanent link"></a></h4>
 <p>對，<strong>在 Page Replacement(分頁替換) 的情境下，最後效果可以理解成：把某個 frame n 裡原本放的 page 換成另一個 needed page。</strong></p>
 <p>但術語要更精準一點：</p>
 <p><strong>page in / page out 指的是 page 資料在 disk(磁碟) 和 RAM frame(實體頁框) 之間搬移，不是 frame 本身被搬移。</strong></p>
-<h3 id="所以-victim-page-指的是在-frame-裡面的-page-對不對">所以 victim page 指的是在 frame 裡面的 page 對不對？<a class="headerlink" href="#所以-victim-page-指的是在-frame-裡面的-page-對不對" title="Permanent link"></a></h3>
+<h4 id="所以-victim-page-指的是在-frame-裡面的-page-對不對">所以 victim page 指的是在 frame 裡面的 page 對不對？<a class="headerlink" href="#所以-victim-page-指的是在-frame-裡面的-page-對不對" title="Permanent link"></a></h4>
 <p>對，<strong>victim page(犧牲頁) 指的是「目前已經在某個 frame(頁框) 裡面的 page(頁)」</strong>。</p>
 <p>更精準地說：</p>
 <p><strong>victim page = OS 在 page replacement(分頁替換) 時，從 RAM 的某個 frame 中選出來、準備移除的 resident page(駐留頁)。</strong></p>
-<h3 id="lost-page-是啥">lost page 是啥<a class="headerlink" href="#lost-page-是啥" title="Permanent link"></a></h3>
+<h4 id="lost-page-是啥">lost page 是啥<a class="headerlink" href="#lost-page-是啥" title="Permanent link"></a></h4>
 <p><code>lost page</code> 在這份講義的語境裡，就是：</p>
 <p><strong>造成 page fault(分頁錯誤) 的那個「目前不在 RAM，但 process 現在需要的 page」。</strong></p>
 <p>比較常見、比較標準的說法會是：</p>
@@ -4806,7 +4838,7 @@ FIFO 不管最近有沒有用過，只管誰最早載入。</p>
 </table>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="referenced-page-是啥">referenced page 是啥<a class="headerlink" href="#referenced-page-是啥" title="Permanent link"></a></h3>
+<h4 id="referenced-page-是啥">referenced page 是啥<a class="headerlink" href="#referenced-page-是啥" title="Permanent link"></a></h4>
 <p><code>referenced page</code> 就是：</p>
 <p><strong>process(行程) 這一次正在存取／要求使用的 page(頁)。</strong></p>
 </div>
@@ -5480,7 +5512,7 @@ time 是使用的時間點，不是多久前，所以越小是越久之前。</p
 <hr />
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="6-三個方法的關係">6. 三個方法的關係<a class="headerlink" href="#6-三個方法的關係" title="Permanent link"></a></h3>
+<h4 id="6-三個方法的關係">6. 三個方法的關係<a class="headerlink" href="#6-三個方法的關係" title="Permanent link"></a></h4>
 <table>
 <thead>
 <tr>
@@ -6184,10 +6216,14 @@ process 跑到不同階段，working set 會變。例如一開始跑初始化 co
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -6262,7 +6298,15 @@ process 跑到不同階段，working set 會變。例如一開始跑初始化 co
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -6520,7 +6564,7 @@ process 跑到不同階段，working set 會變。例如一開始跑初始化 co
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

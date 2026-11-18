@@ -10,12 +10,13 @@
     imageZoom: "image-zoom.js?v=20261115-ux-1",
     legacyImageWidth: "legacy-image-width.js?v=20260614-2",
     markdownEmbed: "markdown-embed.js?v=20260516-1",
+    sourceNote: "source-note.js?v=20261116-fidelity-1",
     mathjaxRefresh: "mathjax-refresh.js?v=20261115-nav-1",
     mermaidConfig: "mermaid-config-override.js?v=20260523-1",
     mermaidLegacy: "mermaid-legacy-flowchart-compat.js?v=20260614-1",
     mermaidRender: "mermaid-render-fix.js?v=20261115-ux-1",
     mermaidZoom: "mermaid-zoom.js?v=20261115-ux-1",
-    scrollBottom: "scroll-bottom.js?v=20260424-3",
+    scrollBottom: "scroll-bottom.js?v=20261116-sections-2",
     sourceJump: "source-jump.js?v=20261018-direct-1",
     tocFold: "toc-fold.js?v=20261115-nav-1"
   };
@@ -93,7 +94,9 @@
   }
 
   function hasMath() {
-    return Boolean(document.querySelector(".arithmatex"));
+    return Array.from(document.querySelectorAll(".arithmatex")).some((node) =>
+      !node.closest("details.peicd-note-markdown:not([open])")
+    );
   }
 
   function hasMarkdownEmbed() {
@@ -131,12 +134,13 @@
     if (hasTocOrDangerUi()) loadScriptOnce(ASSETS.tocFold);
     if (document.querySelector("[data-md-component='search-query']")) loadScriptOnce(ASSETS.searchUI);
     if (hasArticleRoot()) loadScriptOnce(ASSETS.folderPath);
-    if (document.querySelector("[data-peicd-scroll-bottom]")) loadScriptOnce(ASSETS.scrollBottom);
+    if (document.querySelector("[data-peicd-scroll-top], [data-peicd-scroll-bottom]")) loadScriptOnce(ASSETS.scrollBottom);
     if (hasMath()) loadScriptOnce(ASSETS.mathjaxRefresh);
     if (hasMermaid()) loadMermaidTools();
     if (hasArticleImages()) loadScriptOnce(ASSETS.imageZoom);
     if (hasLegacyImageWidth()) loadScriptOnce(ASSETS.legacyImageWidth);
     if (hasMarkdownEmbed()) loadScriptOnce(ASSETS.markdownEmbed);
+    if (document.querySelector("iframe[data-peicd-note-frame][srcdoc]")) loadScriptOnce(ASSETS.sourceNote);
     if (shouldLoadSourceJump()) loadScriptOnce(ASSETS.sourceJump);
   }
 
@@ -153,6 +157,9 @@
   }
 
   window.addEventListener("load", scheduleScan, { once: true });
+  document.addEventListener("toggle", (event) => {
+    if (event.target.matches?.("details.peicd-note-markdown[open]")) scheduleScan();
+  }, true);
   if (window.document$?.subscribe) {
     window.document$.subscribe(scheduleScan);
   }

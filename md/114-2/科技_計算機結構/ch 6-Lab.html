@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -2229,7 +2231,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="3. 為什麼是 +8，不是 +4？">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#4-用這張圖的數字完整串一次" class="md-nav__link">
@@ -2239,6 +2242,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2984,7 +2992,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#3-為什麼是-8不是-4">
 <span class="md-ellipsis">
       
@@ -2992,7 +3000,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="3. 為什麼是 +8，不是 +4？" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#4-用這張圖的數字完整串一次">
 <span class="md-ellipsis">
@@ -3001,6 +3010,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#5-最短記法">
@@ -3577,7 +3589,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
 <p><img alt="alt text" data-peicd-full-src="../../../assets/generated/optimized-images/1d/1d40c80d1db6f0bc735ab65273d68a328b0747f1837a5cc302ce161153b86323.webp" data-peicd-optimized-image="lossless" data-peicd-original-src="images/ch%205-5.png" decoding="async" height="888" loading="lazy" sizes="(max-width: 959px) calc(100vw - 48px), (max-width: 1219px) calc(70vw - 210px), 500px" src="../../../assets/generated/optimized-images/1d/1d40c80d1db6f0bc735ab65273d68a328b0747f1837a5cc302ce161153b86323.webp" srcset="../../../assets/generated/optimized-images/fb/fb1c417c40fddfac7026647dd56b2eaaeceb14d1d75c6465de074b8046db2332.webp 480w, ../../../assets/generated/optimized-images/f4/f42f690bab79a8b15cf3499a5ab3ad7e0e4920981bb31d73936fcc5dd4198edf.webp 960w, ../../../assets/generated/optimized-images/1c/1c94856f6ab5ae6e172ca4dcae8ce610b40a99fa5ce0f89da3b0caed6ce95f97.webp 1440w, ../../../assets/generated/optimized-images/1d/1d40c80d1db6f0bc735ab65273d68a328b0747f1837a5cc302ce161153b86323.webp 1554w" width="1554"/></p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h4 id="4-用這張圖的數字完整串一次">4. 用這張圖的數字完整串一次<a class="headerlink" href="#4-用這張圖的數字完整串一次" title="Permanent link"></a></h4>
+<h5 id="4-用這張圖的數字完整串一次">4. 用這張圖的數字完整串一次<a class="headerlink" href="#4-用這張圖的數字完整串一次" title="Permanent link"></a></h5>
 <p>已知：</p>
 <p><code>buffer start = 0xbfffea8c</code><br />
 <code>ebp = 0xbfffeaf8</code></p>
@@ -3690,10 +3702,14 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -3768,7 +3784,15 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -4026,7 +4050,7 @@ PDF viewer page 8 的 <code>foo(char *str)</code> 裡有：</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

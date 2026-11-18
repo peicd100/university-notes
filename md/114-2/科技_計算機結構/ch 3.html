@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -2849,7 +2851,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="一般來說要如何呼叫 hi，是寫 $hi 嗎還是只能用 mfhi 來呼叫">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎" class="md-nav__link">
@@ -2859,6 +2862,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -6195,7 +6203,7 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#一般來說要如何呼叫-hi是寫-hi-嗎還是只能用-mfhi-來呼叫">
 <span class="md-ellipsis">
       
@@ -6203,7 +6211,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="一般來說要如何呼叫 hi，是寫 $hi 嗎還是只能用 mfhi 來呼叫" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎">
 <span class="md-ellipsis">
@@ -6212,6 +6221,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#那超過-64-bit-被截斷為-64-bit-的-overflow-會怎樣">
@@ -9721,7 +9733,7 @@ mflo  $t0     # $t0 = Lo
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎">所以這邊講的 overflow 不是指計算有沒有錯誤，而是指計算有沒有超過 32 bit 嗎<a class="headerlink" href="#所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎" title="Permanent link"></a></h3>
+<h4 id="所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎">所以這邊講的 overflow 不是指計算有沒有錯誤，而是指計算有沒有超過 32 bit 嗎<a class="headerlink" href="#所以這邊講的-overflow-不是指計算有沒有錯誤而是指計算有沒有超過-32-bit-嗎" title="Permanent link"></a></h4>
 <p>對，這裡講的 overflow(滿溢) 不是指乘法硬體算錯，而是指：</p>
 <p>完整 64-bit product 能不能被正確縮成一個 32-bit result。</p>
 <p>講義 page 87 說 MIPS 用 Hi 和 Lo 放 64-bit 乘積，mult / multu 兩道乘法指令都不理會 overflow；是否檢查乘積能否放進 32 bits，要由軟體決定。對 multu，如果 Hi = 0 就沒有 overflow；對 signed mult，如果 Hi 是 Lo 的符號延伸，就沒有 overflow。</p>
@@ -13283,10 +13295,14 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -13361,7 +13377,15 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -13619,7 +13643,7 @@ Normalize 後，因為 fraction field 長度固定，所以還要 round。</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

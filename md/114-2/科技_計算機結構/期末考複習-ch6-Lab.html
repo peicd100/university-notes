@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -2522,11 +2524,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" class="md-nav__link">
     <span class="md-ellipsis">
@@ -2569,6 +2566,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3288,9 +3290,6 @@
     </span>
 </a>
 </li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file">
 <span class="md-ellipsis">
@@ -3327,6 +3326,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -4601,7 +4603,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 </div>
 <div class="admonition danger">
 <p class="admonition-title">Danger | 如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？</p>
-<h3 id="如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？<a class="headerlink" href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" title="Permanent link"></a></h3>
+<h4 id="如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file">如何確定 Return Address 欄位的位置、確定 RT 內容，以及到底如何寫出 Bad file？<a class="headerlink" href="#如何確定-return-address-欄位的位置確定-rt-內容以及到底如何寫出-bad-file" title="Permanent link"></a></h4>
 <p>我們先執行指令：</p>
 <div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">gdb</span><span class="p">)</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">$ebp</span>
 <span class="n">$1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="mh">0xbffeaf8</span>
@@ -4622,7 +4624,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 </ul>
 <p>此時就可以知道，在這份程式、這次編譯與這個 stack layout 下，<code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>。<br />
 注意：不是所有 <code>buffer[100]</code> 都一定會得到 <code>108</code>，因為 compiler 可能會加入 padding / alignment。</p>
-<h4 id="1-如何確定-return-address-欄位的位置">1. 如何確定 Return Address 欄位的位置<a class="headerlink" href="#1-如何確定-return-address-欄位的位置" title="Permanent link"></a></h4>
+<h5 id="1-如何確定-return-address-欄位的位置">1. 如何確定 Return Address 欄位的位置<a class="headerlink" href="#1-如何確定-return-address-欄位的位置" title="Permanent link"></a></h5>
 <p>因為 <code>buffer begin</code> 和 <code>$ebp</code> 之間的距離是 <code>108</code>，而 Return Address 欄位在 <code>$ebp + 4</code>，所以：</p>
 <div class="highlight"><pre><span></span><code>Return Address offset from buffer begin
 = 108 + 4
@@ -4638,7 +4640,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 <div class="highlight"><pre><span></span><code>112       = 從 buffer begin 開始算的 input offset
 0xbffeafc = Return Address 欄位本身的實際記憶體位址
 </code></pre></div>
-<h4 id="2-如何確定-rt-內容">2. 如何確定 RT 內容<a class="headerlink" href="#2-如何確定-rt-內容" title="Permanent link"></a></h4>
+<h5 id="2-如何確定-rt-內容">2. 如何確定 RT 內容<a class="headerlink" href="#2-如何確定-rt-內容" title="Permanent link"></a></h5>
 <p>因為 Return Address 欄位的位置會在 <code>$ebp + 4</code>，如果要跳到後面的 NOP sled，並且講義圖中 RT 後面接著 NOP，那就可以讓 RT 指到 <code>$ebp + 8</code> 附近。</p>
 <div class="highlight"><pre><span></span><code>$ebp + 8
 = 0xbffeaf8 + 8
@@ -4652,7 +4654,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 <div class="highlight"><pre><span></span><code>RT 是要寫進 Return Address 欄位的 target address，
 而這個 target address 應該落在 NOP sled 裡。
 </code></pre></div>
-<h4 id="3-到底如何寫出-bad-file">3. 到底如何寫出 Bad file：<a class="headerlink" href="#3-到底如何寫出-bad-file" title="Permanent link"></a></h4>
+<h5 id="3-到底如何寫出-bad-file">3. 到底如何寫出 Bad file：<a class="headerlink" href="#3-到底如何寫出-bad-file" title="Permanent link"></a></h5>
 <p>其實 Bad file 自己做就好。</p>
 <p>先做全部的 NOP：</p>
 <div class="highlight"><pre><span></span><code>0     300
@@ -4701,10 +4703,14 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -4779,7 +4785,15 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -5037,7 +5051,7 @@ CPU 落在 NOP sled 後，才會一路往較高位址滑到 shellcode。</p>
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 

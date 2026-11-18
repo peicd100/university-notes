@@ -55,7 +55,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.416f2484b0638162211a.css">
+      <link rel="stylesheet" href="../../../assets/pymdownx-extras/peicd-site.d72ad76f930862c9fbc5.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -644,6 +644,8 @@
   
     
     
+      
+        
       
         
       
@@ -1704,7 +1706,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="考古">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#q" class="md-nav__link">
@@ -1748,6 +1751,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2310,7 +2318,7 @@
 </a>
 <nav aria-label="Little’s Formula 怎麼算？" class="md-nav">
 <ul class="md-nav__list">
-<li class="md-nav__item">
+<li class="md-nav__item peicd-toc-item--nested peicd-toc-item--collapsed">
 <a class="md-nav__link" href="#考古">
 <span class="md-ellipsis">
       
@@ -2318,7 +2326,8 @@
       
     </span>
 </a>
-</li>
+<nav aria-label="考古" class="md-nav">
+<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#q">
 <span class="md-ellipsis">
@@ -2355,6 +2364,9 @@
       
     </span>
 </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -2745,7 +2757,7 @@ p3:11-4=7,7,8</p>
 <h3 id="考古">考古<a class="headerlink" href="#考古" title="Permanent link"></a></h3>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<h3 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h3>
+<h4 id="q"><mark>Q:</mark><a class="headerlink" href="#q" title="Permanent link"></a></h4>
 <p>Draw the Gantt charts and compute the turnaround time and waiting time for each process under the four scheduling algorithms below.</p>
 <p>Process data:</p>
 <table>
@@ -2848,7 +2860,7 @@ p5:17,12</p>
 <hr />
 <p>Minimum average waiting time: SJF and nonpreemptive priority scheduling， average waiting time = 4.6</p>
 <hr />
-<h3 id="q_1"><mark>Q:</mark><a class="headerlink" href="#q_1" title="Permanent link"></a></h3>
+<h4 id="q_1"><mark>Q:</mark><a class="headerlink" href="#q_1" title="Permanent link"></a></h4>
 <p>Using the following preemptive priority round-robin scheduling rule, draw the Gantt chart, then compute the turnaround time, waiting time, and CPU utilization rate.</p>
 <p>Rules:</p>
 <table>
@@ -2955,7 +2967,7 @@ p5:17,12</p>
 <p>time 60：P4 到達，priority 35 &gt; P2/P3 的 30，所以<strong>立刻搶先</strong>。<br />
 time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</strong>。</p>
 <hr />
-<h4 id="3-正確-completion--turnaround--waiting-time">3. 正確 Completion / Turnaround / Waiting time<a class="headerlink" href="#3-正確-completion--turnaround--waiting-time" title="Permanent link"></a></h4>
+<h5 id="3-正確-completion--turnaround--waiting-time">3. 正確 Completion / Turnaround / Waiting time<a class="headerlink" href="#3-正確-completion--turnaround--waiting-time" title="Permanent link"></a></h5>
 <table>
 <thead>
 <tr>
@@ -3023,7 +3035,7 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
 <p>Turnaround time：P1=20, P2=55, P3=60, P4=15, P5=20, P6=10</p>
 <p>Waiting time：P1=0, P2=30, P3=35, P4=0, P5=10, P6=0</p>
 <hr />
-<h4 id="4-cpu-utilization-rate">4. CPU utilization rate<a class="headerlink" href="#4-cpu-utilization-rate" title="Permanent link"></a></h4>
+<h5 id="4-cpu-utilization-rate">4. CPU utilization rate<a class="headerlink" href="#4-cpu-utilization-rate" title="Permanent link"></a></h5>
 <p>Idle time 有兩段：</p>
 <p>20–25：5 units<br />
 90–100：10 units</p>
@@ -3056,10 +3068,14 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
+          <button
+  type="button"
+  class="peicd-scroll-top md-icon"
+  data-peicd-scroll-top
+  aria-label="Back to top"
+  title="回到頂部"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  回到頂端
 </button>
         
       </main>
@@ -3134,7 +3150,15 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
   </div>
 </footer>
       
-  <button
+  <nav class="peicd-section-jump" data-peicd-section-jump aria-label="章節快速跳轉" hidden>
+  <button type="button" data-peicd-section-direction="up" aria-label="上一個 H2" title="上一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  </button>
+  <button type="button" data-peicd-section-direction="down" aria-label="下一個 H2" title="下一個二級標題" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 4h2v12l5.5-5.5 1.42 1.42L12 19.84l-7.92-7.92L5.5 10.5 11 16z"/></svg>
+  </button>
+</nav>
+<button
   type="button"
   class="peicd-scroll-bottom md-icon is-hidden"
   data-peicd-scroll-bottom
@@ -3392,7 +3416,7 @@ time 105：P6 到達，priority 10 &gt; P5 的 5，所以<strong>立刻搶先</s
   
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1"></script>
+        <script src="../../../assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2"></script>
       
     
 
