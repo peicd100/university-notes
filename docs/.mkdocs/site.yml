@@ -51,11 +51,10 @@ exclude_docs: |
   /md/多益600/note.txt
   /md/多益600/指令.txt
 
-not_in_nav: /index.md #忽略index.md，不會跳出警告
-
 nav:
   - '首頁':
-      - 'blog/index.md'
+      - '課程筆記': 'index.md'
+      - '網誌': 'blog/index.md'
       
       
   - '硬體描述語言':

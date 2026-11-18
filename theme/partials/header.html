@@ -1,5 +1,5 @@
 
-{% set site_url = config.site_url | d(nav.homepage.url, true) | url %}
+{% set site_url = 'index.html' | url %}
 {% if not config.use_directory_urls and site_url[0] == site_url[-1] == "." %}
   {% set site_url = site_url ~ "/index.html" %}
 {% endif %}
@@ -37,6 +37,14 @@
         </div>
       </div>
     </div>
+    <button type="button" class="reading-focus" aria-pressed="false" title="專注閱讀，收合兩側導覽">
+      <span class="md-icon">{% include ".icons/material/book-open-page-variant.svg" %}</span>專注閱讀
+    </button>
+    {% if "material/search" in config.plugins %}
+      <button type="button" class="search-return" title="返回搜尋結果" aria-label="返回搜尋結果" hidden>
+        <span aria-hidden="true">↶</span> 搜尋結果
+      </button>
+    {% endif %}
     <div class="md-header__options">
       <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
           <a

@@ -33,6 +33,10 @@ async function openSearch(page, query) {
       });
       await context.addInitScript(() => {
         window.__viewportCalls = []; window.__navigationSelections = [];
+        window.addEventListener('wheel', event => {
+          window.__wheelTarget = { tag: event.target.tagName, class: event.target.className,
+            search: document.getElementById('__search')?.checked };
+        }, { capture: true, passive: true });
         document.addEventListener('click', event => {
           if (event.target.closest?.('[data-md-component="search-result"] a[href]')) {
             __navigationSelections.push({ y: scrollY, stateY: history.state?.y, hash: location.hash });
@@ -85,7 +89,9 @@ async function openSearch(page, query) {
         const priorY = latest.beforeClick.stateY;
         const forwardY = await page.evaluate(() => history.state?.y);
         await page.goBack(); await page.waitForTimeout(250);
-        const back = await page.evaluate(() => ({ y: scrollY, stateY: history.state?.y, restoring: window.__PEICD_PAGE_UX__?.isRestoring() }));
+        const back = await page.evaluate(() => ({ y: scrollY, stateY: history.state?.y,
+          restoring: window.__PEICD_PAGE_UX__?.isRestoring(), searchOpen: document.getElementById('__search')?.checked,
+          bodyPosition: getComputedStyle(document.body).position, bodyTop: document.body.style.top }));
         result.history.push({ width, direction: 'back', expected: priorY, ...back });
         assert(Math.abs(back.y - priorY) <= 2, 'Back retains Material saved scroll offset');
         await page.goForward(); await page.waitForTimeout(250);
@@ -139,6 +145,8 @@ async function openSearch(page, query) {
         await page.evaluate(() => { document.getElementById('late-layout-fixture').style.height = '240px'; });
         await page.waitForTimeout(220);
         const after = await page.evaluate(() => ({ y: scrollY, calls: __viewportCalls.length }));
+        result.shifts.push({ width, manual, after,
+          intent: await page.evaluate(() => ({ wheel: __wheelTarget, anchoring: __PEICD_PAGE_UX__.isAnchoring() })) });
         assert(Math.abs(after.y - manual.y) <= 2, 'do not pull reader back after manual scrolling');
         assert.equal(after.calls, manual.calls, 'no viewport correction after user intent');
         result.shifts.push({ width, manualScrollRespected: true });

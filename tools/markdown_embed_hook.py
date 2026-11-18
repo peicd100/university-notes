@@ -132,6 +132,8 @@ def on_files(files: Any, /, *, config: Any) -> Any:
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
+    if "!embed" not in markdown and "![[" not in markdown:
+        return markdown
     file_obj = getattr(page, "file", None)
     if file_obj is None:
         return markdown
@@ -345,6 +347,8 @@ def _strip_front_matter(source_text: str) -> str:
 
 
 def _iter_embed_requests(markdown: str) -> list[EmbedRequest]:
+    if "!embed" not in markdown and "![[" not in markdown:
+        return []
     requests: list[EmbedRequest] = []
     open_fence: tuple[str, int] | None = None
 

@@ -5,7 +5,7 @@ reading, metadata, hooks, templates, index assembly and encryption still run.
 """
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from collections.abc import Mapping
 from functools import partial
 import hashlib
@@ -14,6 +14,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import re
 import sys
 from typing import Any
 import uuid
@@ -22,9 +23,11 @@ import mkdocs
 import yaml
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import get_toc
+from tools.preview_stages import preview_stages
 
 log = logging.getLogger("mkdocs.preview_cache")
 SCHEMA = 1
+_CSS_BUNDLE = re.compile(r"assets/pymdownx-extras/peicd-site\.[0-9a-f]{20}\.css\Z")
 
 
 def _json(value: Any) -> str:
@@ -100,7 +103,10 @@ class RenderCache:
         custom = getattr(config["theme"], "custom_dir", None)
         if custom:
             theme = (project / custom).resolve()
-            paths.extend(p for p in theme.rglob("*") if p.is_file())
+            # Browser assets are copied/rendered later by MkDocs. They do not
+            # change Markdown HTML, TOC or anchor validation in Page.render.
+            paths.extend(p for p in theme.rglob("*") if p.suffix.lower() not in {".css", ".js", ".map"}
+                         and p.is_file())
         paths.extend(p for p in (project / "requirements.txt", project / "pyproject.toml") if p.is_file())
         dependencies.update({str(p.resolve()): _hash(p.read_bytes()) for p in paths})
         signature = {"schema": SCHEMA, "dependencies": dependencies,
@@ -109,7 +115,8 @@ class RenderCache:
                      "extension_options": _stable(config["mdx_configs"]),
                      "site_url": config["site_url"],
                      "directory_urls": config["use_directory_urls"],
-                     "catalog": sorted((f.src_uri, f.dest_uri, f.inclusion.value) for f in files)}
+                     "catalog": sorted((f.src_uri, f.dest_uri, f.inclusion.value) for f in files
+                                       if not (getattr(f, "generated_by", None) and _CSS_BUNDLE.fullmatch(f.src_uri)))}
         self.scope = _hash(_json(signature).encode())
         self.directory = project / ".cache/preview-render"
         return self.scope
@@ -119,6 +126,7 @@ class RenderCache:
         # Includes can read arbitrary nested/local/remote dependencies. Re-run them
         # rather than claiming that the parent Markdown hash validates those inputs.
         if (not self.enabled or self.bypassed or type(page) is not Page or "--8<" in text or "{!" in text
+                or "peicd-site." in text
                 or config["strict"] or log.getEffectiveLevel() <= logging.DEBUG):
             self.skipped += 1
             return original(page, config, files)
@@ -268,7 +276,12 @@ def cached_preview(enabled: bool = True):
         cache.begin_build()
         if search:
             search.begin_build()
-        result = original_build(config, **kwargs)
+        stages = nullcontext()
+        if cache.enabled and not config["strict"] and log.getEffectiveLevel() > logging.DEBUG:
+            directory = Path(config["config_file_path"]).resolve().parent / ".cache/preview-stages"
+            stages = preview_stages(directory, cache.versions)
+        with stages:
+            result = original_build(config, **kwargs)
         log.info("Preview render cache: %d reused, %d rebuilt, %d bypassed",
                  cache.hits, cache.misses, cache.skipped)
         if search:

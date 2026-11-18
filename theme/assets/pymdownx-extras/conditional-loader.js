@@ -6,7 +6,7 @@
   const loaded = new Map();
   const ASSETS = {
     folderPath: "folder-path-bar.js?v=20261115-ux-1",
-    searchUI: "search-ux.js?v=20261115-nav-1",
+    searchUI: "search-ux.js?v=20261118-logic-1",
     imageZoom: "image-zoom.js?v=20261115-ux-1",
     legacyImageWidth: "legacy-image-width.js?v=20260614-2",
     markdownEmbed: "markdown-embed.js?v=20260516-1",
@@ -18,7 +18,7 @@
     mermaidZoom: "mermaid-zoom.js?v=20261115-ux-1",
     scrollBottom: "scroll-bottom.js?v=20261116-sections-2",
     sourceJump: "source-jump.js?v=20261018-direct-1",
-    tocFold: "toc-fold.js?v=20261115-nav-1"
+    tocFold: "toc-fold.js?v=20261118-reading-1"
   };
 
   const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1"]);

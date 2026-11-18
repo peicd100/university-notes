@@ -81,12 +81,16 @@ class SiteUXTests(unittest.TestCase):
         html = '<span class="md-author"><img src="https://example.test/avatar.png"></span>'
         self.assertEqual(site_ux_hook.on_post_page(html, page=self.page, config=self.config), html)
 
-    def test_root_redirect_preserves_shared_query_and_hash_without_source_edit(self):
-        self.page.file.src_uri = 'index.md'
-        html = 'window.location.replace(new URL("blog/index.html", window.location.href).toString());'
-        output = site_ux_hook.on_post_page(html, page=self.page, config=self.config)
-        self.assertIn('next.search = window.location.search', output)
-        self.assertIn('next.hash = window.location.hash', output)
+    def test_library_keeps_course_and_handout_links_and_excludes_non_course_pages(self):
+        def link(title, url):
+            return Obj(title=title, url=url, is_link=True)
+        nav = Obj(items=[Obj(title='學期', children=[link('講義', 'md/115-1/離散/L06.html'),
+                          link('練習卷', 'md/115-1/離散/練習.pdf')]),
+                         link('電路', 'md/Verilog/電路.html'), link('網誌', 'blog/index.html')])
+        terms = site_ux_hook._library_terms(nav, 'index.html')
+        self.assertEqual(list(terms), ['115-1', '專題'])
+        self.assertEqual(terms['115-1']['離散'][1], {'title': '練習卷', 'href': 'md/115-1/離散/練習.pdf'})
+        self.assertEqual(terms['專題']['Verilog'][0]['title'], '電路')
 
     def test_responsive_derivatives_preserve_full_size_target_and_alpha(self):
         src = self.docs / 'large.png'

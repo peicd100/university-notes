@@ -85,6 +85,15 @@ class RenderCacheTests(unittest.TestCase):
             source.write_text(marker,encoding='utf8')
             self.assertEqual(self.render()[0].skipped,1)
 
+    def test_browser_asset_edits_reuse_markdown_and_generated_asset_links_are_checked(self):
+        script = self.root / 'theme/controls.js'
+        script.write_text('first', encoding='utf8')
+        self.render()
+        script.write_text('second', encoding='utf8')
+        self.assertEqual(self.render()[0].hits, 1)
+        (self.root/'docs/a.md').write_text('[CSS](assets/peicd-site.old.css)', encoding='utf8')
+        self.assertEqual(self.render()[0].skipped, 1)
+
     def test_corrupt_or_partial_cache_rebuilds(self):
         for corruption in ['{','{}','sha']:
             self.render()

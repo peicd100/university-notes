@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from mkdocs.utils import get_relative_url
 from bs4 import BeautifulSoup
 from tools.optimized_images import derive_image
+from tools.preview_stages import transform_text
 
 
 _PAGES = []
@@ -28,19 +29,32 @@ def _label(value):
     return ' '.join(unescape(re.sub(r'<[^>]*>', '', str(value or ''))).split())
 
 
-def _options(nodes, page_url, parents=()):
-    result = []
+def _iter_options(nodes, page_url, parents=()):
     for node in nodes:
         title = _label(node.title)
         if getattr(node, 'is_page', False) or getattr(node, 'is_link', False):
             url = str(getattr(node, 'url', '') or '')
             if url and urlsplit(url).scheme not in ('javascript', 'data'):
                 href = url if urlsplit(url).scheme or url.startswith('/') else get_relative_url(url, page_url)
-                result.append({'label': ' / '.join((*parents, title)), 'href': href,
-                               'current': bool(getattr(node, 'active', False))})
+                yield {'label': ' / '.join((*parents, title)), 'href': href,
+                       'current': bool(getattr(node, 'active', False))}
         elif getattr(node, 'children', None):
-            result.extend(_options(node.children, page_url, (*parents, title)))
-    return result
+            yield from _iter_options(node.children, page_url, (*parents, title))
+
+
+def _library_terms(nav, page_url):
+    """Group only published navigation entries, including handouts and PDF links."""
+    terms = {}
+    for item in _iter_options(nav.items, page_url):
+        href = item['href'].replace('\\', '/')
+        parts = unquote(href).split('/')
+        if len(parts) < 3 or parts[0] != 'md':
+            continue
+        has_term = re.fullmatch(r'\d{3}-[12]', parts[1]) and len(parts) >= 4
+        term, course = (parts[1], parts[2]) if has_term else ('專題', parts[1])
+        notes = terms.setdefault(term, {}).setdefault(course, [])
+        notes.append({'href': href, 'title': item['label'].rsplit(' / ', 1)[-1]})
+    return terms
 
 
 def on_page_context(context, /, *, page, config, nav):
@@ -52,19 +66,21 @@ def on_page_context(context, /, *, page, config, nav):
                         (eager_global and '<pre' in str(item.content or '')) or
                         re.search(r'class=["\x27][^"\x27]*\b(?:annotate|select)\b', str(item.content or ''))]
     context['peicd_eager_links'] = json.dumps([get_relative_url(url, page.url) for url in _EAGER_PAGES], ensure_ascii=False).replace('<', '\\u003c')
+    if page.file.src_uri == 'index.md':
+        context['library_terms'] = _library_terms(nav, page.url)
     # The shell exists before the first paint. Option lists are built on demand.
     top = next((item for item in nav.items if getattr(item, 'active', False)), None)
     if top is None:
         return context
-    pages = _options(getattr(top, 'children', None) or [top], page.url)
+    pages = list(_iter_options(getattr(top, 'children', None) or [top], page.url))
     current = next((item for item in pages if item['current']), None)
     if current is None:
         return context
     courses = []
     for item in nav.items:
-        links = _options(getattr(item, 'children', None) or [item], page.url)
-        if links:
-            courses.append({'label': _label(item.title), 'href': links[0]['href'], 'current': item is top})
+        first = next(_iter_options(getattr(item, 'children', None) or [item], page.url), None)
+        if first:
+            courses.append({'label': _label(item.title), 'href': first['href'], 'current': item is top})
     groups = [(_label(top.title), courses, '切換課程'), (current['label'], pages, '切換頁面')]
     src = str(getattr(page.file, 'src_uri', ''))
     semester = re.search(r'(?:^|/)(\d{3}-[12])/', src)
@@ -82,17 +98,22 @@ def on_page_context(context, /, *, page, config, nav):
 _AUTHOR_IMAGE = re.compile(r'(<(?:a|span)\b[^>]*\bclass="[^"]*\bmd-author\b[^"]*"[^>]*>\s*)(<img\b[^>]*>)', re.I)
 
 
-def _stable_toc(output):
+def _stable_toc(output, page_key=''):
     # Only parse the sidebar fragment, never the large article/code body.
     start = output.find('<div class="md-sidebar md-sidebar--secondary"')
     end = output.find('<div class="md-content"', start) if start >= 0 else -1
     if end < 0:
         return output
-    soup = BeautifulSoup(output[start:end], 'html.parser')
+    sidebar = transform_text(_toc_fragment, output[start:end], page_key)
+    return output[:start] + sidebar + output[end:]
+
+
+def _toc_fragment(fragment):
+    soup = BeautifulSoup(fragment, 'html.parser')
     sidebar = soup.select_one('.md-sidebar--secondary')
     nav = sidebar.select_one('.md-nav--secondary') if sidebar else None
     if nav is None or nav.select_one('[data-md-component="toc"]') is None:
-        return output
+        return fragment
     sidebar['class'] = list(dict.fromkeys([*sidebar.get('class', []), 'peicd-toc-sidebar']))
     sidebar['data-peicd-toc-mode'] = 'auto'
     sidebar['data-peicd-toc-view'] = 'toc'
@@ -133,11 +154,11 @@ def _stable_toc(output):
     # Existing resetSidebar adopts the title and replaces this disabled shell.
     fallback = BeautifulSoup('<noscript><style>.md-sidebar--secondary .peicd-toc-head{display:none}.md-sidebar--secondary .peicd-toc-item--collapsed>nav{display:block!important}</style></noscript>', 'html.parser')
     sidebar.append(fallback)
-    return output[:start] + str(soup) + output[end:]
+    return str(soup)
 
 
 def on_post_page(output, /, *, page, config):
-    output = _stable_toc(output)
+    output = _stable_toc(output, page.file.src_uri)
     docs = Path(config['docs_dir']).resolve()
     def avatar(match):
         image = BeautifulSoup(match[2], 'html.parser').img
@@ -156,9 +177,4 @@ def on_post_page(output, /, *, page, config):
         image['loading'] = 'lazy'
         return match[1] + str(image)
     output = _AUTHOR_IMAGE.sub(avatar, output)
-    if str(getattr(page.file, 'src_uri', '')) == 'index.md':
-        output = output.replace('window.location.replace(new URL("blog/index.html", window.location.href).toString());',
-                                'const next = new URL("blog/index.html", window.location.href); '
-                                'next.search = window.location.search; next.hash = window.location.hash; '
-                                'window.location.replace(next.toString());')
     return output

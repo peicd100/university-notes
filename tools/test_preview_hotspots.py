@@ -17,6 +17,27 @@ from mkdocs.structure.files import get_files
 from mkdocs.structure.toc import get_toc
 from tools import image_lazy_loading_hook as images
 from tools.serve_site import RenderCache, SearchCache, _stable
+from tools.preview_stages import preview_stages, transform_text
+
+
+class PreviewStageTests(unittest.TestCase):
+    def test_same_input_reuses_stage_and_changed_input_or_corruption_recomputes(self):
+        calls = []
+
+        def transform(text):
+            calls.append(text)
+            return text.upper()
+
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for text in ['one', 'one', 'two']:
+                with preview_stages(root, []):
+                    self.assertEqual(transform_text(transform, text, 'page.md'), text.upper())
+            self.assertEqual(calls, ['one', 'two'])
+            next(root.rglob('*.json')).write_text('invalid', encoding='utf-8')
+            with preview_stages(root, []):
+                self.assertEqual(transform_text(transform, 'two', 'page.md'), 'TWO')
+            self.assertEqual(calls, ['one', 'two', 'two'])
 
 
 class StreamingImagesTests(unittest.TestCase):

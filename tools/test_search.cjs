@@ -100,8 +100,18 @@ test('empty queries and overlapping highlights are safe; advanced Lunr syntax st
   const item = best(engine.search('第一直覺 直覺'));
   assert.match(item.text, /<mark>第一直覺<\/mark>/);
   assert.ok(!item.text.includes('<mark><mark>'));
-  for (const query of ['title:hello', '+foo -bar', 'always*', 'verlog~1', 'term^2']) assert.equal(parseQuery(query).advanced, true, query);
+  for (const query of ['title:hello', 'always*', 'verlog~1', 'term^2']) assert.equal(parseQuery(query).advanced, true, query);
   assert.equal(parseQuery('"a * b"').advanced, false);
+});
+
+test('boolean groups require all positive terms in one branch and apply exclusions to every branch', () => {
+  const engine = new LiteralSearch(fixture);
+  assert.equal(best(engine.search('+雙邊緣 +posedge -不存在')).location, location + '#解題');
+  assert.equal(engine.search('posedge OR "第一直覺" -"另一個關鍵字" -negedge').items.length, 0);
+  assert.equal(engine.search('posedge OR "另一篇"').items.length, 2);
+  assert.equal(engine.search('-negedge').items.some(group => group.some(item => item.location.endsWith('#解題'))), false);
+  assert.equal(engine.search('posedge -posedge').items.length, 0);
+  assert.deepEqual(parseQuery('C++ foo-bar "-1"').terms, ['c++', 'foo-bar', '-1']);
 });
 
 function guardContext(search = '') {

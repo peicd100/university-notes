@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block container %}
+  <div class="md-content" data-md-component="content"><article class="md-content__inner">
+  <div class="note-library">
+    <div class="library-hero">
+      <div class="library-intro">
+        <h1>大學課程筆記</h1>
+        <p>按學期瀏覽課堂講義與練習，或直接搜尋筆記裡的觀念。</p>
+        {% if "material/search" in config.plugins %}
+          <button class="library-search" type="button" data-library-search>
+            <span class="md-icon">{% include ".icons/material/magnify.svg" %}</span>
+            搜尋課程、觀念或題目
+            <kbd>/</kbd>
+          </button>
+        {% endif %}
+        <a href="#courses" class="library-browse">依課程瀏覽 <span aria-hidden="true">↓</span></a>
+      </div>
+      {% set featured = namespace(notes=[]) %}
+      {% for courses in library_terms.values() %}
+        {% if not featured.notes and courses.get('硬體描述語言') %}
+          {% set featured.notes = courses['硬體描述語言'] %}
+        {% endif %}
+      {% endfor %}
+      {% if featured.notes %}
+        <a class="library-feature" href="{{ featured.notes[0].href | e }}">
+          <div class="library-wave" aria-hidden="true">
+            <div><small>CLK</small><span>{% for i in range(6) %}<i></i>{% endfor %}</span></div>
+            <div><small>Q</small><span>{% for i in range(3) %}<i></i>{% endfor %}</span></div>
+          </div>
+          <div class="library-feature-caption"><span>硬體描述語言</span><span aria-hidden="true">↗</span></div>
+        </a>
+      {% endif %}
+    </div>
+    <section class="library-catalog" id="courses" aria-labelledby="library-title">
+      <h2 id="library-title">課程目錄</h2>
+      {% for term, courses in library_terms.items() %}
+        <section class="library-term" aria-label="{{ term | e }}">
+          <h3>{{ term | e }}{% if term != '專題' %}<small>學期</small>{% endif %}</h3>
+          <div class="library-rows">
+            {% for course, notes in courses.items() %}
+              <details class="library-course">
+                <summary>
+                  <span>{{ course.replace('_', ' · ') | e }}</span>
+                  <small>{{ notes | length }} 份筆記</small>
+                  <span class="library-plus" aria-hidden="true"></span>
+                </summary>
+                <ul>
+                  {% for note in notes %}<li><a href="{{ note.href | e }}">{{ note.title | e }}</a></li>{% endfor %}
+                </ul>
+              </details>
+            {% endfor %}
+          </div>
+        </section>
+      {% endfor %}
+    </section>
+    <div class="library-contact">{{ page.content }}</div>
+  </div>
+  </article></div>
+{% endblock %}

@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 
 from bs4 import BeautifulSoup
 from tools.optimized_images import derive_image
+from tools.preview_stages import transform_text
 
 DATA_IMAGE_RE = re.compile(r"^data:(image/[A-Za-z0-9.+-]+)(;[^,]*)?,(.*)$", re.DOTALL)
 EXTENSION_BY_MIME = {
@@ -319,22 +320,29 @@ class _ArticleImages(HTMLParser):
         self.needs_tree = True
 
 
-def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
+def _scan_image_tags(html: str):
     parser = _ArticleImages(html)
     try:
         parser.feed(html)
         parser.close()
     except (AssertionError, ValueError):
-        return _soup_page_content(html, page=page, config=config, files=files)
+        return None
     if parser.needs_tree or parser.stack:
         # Legacy raw HTML can rely on soup inserting missing closing tags.
         # Retain that repair before search and other downstream HTML consumers.
-        return _soup_page_content(html, page=page, config=config, files=files)
+        return None
+    return parser.images, parser.voids, parser.flags
 
-    replacements = [(offset, raw, raw[:-1] + "/>") for offset, raw in parser.voids]
+
+def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
+    scan = transform_text(_scan_image_tags, html, getattr(getattr(page, 'file', None), 'src_uri', ''))
+    if scan is None:
+        return _soup_page_content(html, page=page, config=config, files=files)
+    images, voids, flags = scan
+    replacements = [(offset, raw, raw[:-1] + "/>") for offset, raw in voids]
     cursor = externalized = 0
     legacy_width = False
-    for index, (offset, raw) in enumerate(parser.images):
+    for index, (offset, raw) in enumerate(images):
         # Only individual image tags need BeautifulSoup's attribute handling.
         img = BeautifulSoup(raw, "html.parser").img
         if _externalize_base64_image(img, page, config):
@@ -353,8 +361,8 @@ def on_page_content(html: str, /, *, page: Any, config: Any, files: Any) -> str:
         cursor = offset + len(raw)
     pieces.append(html[cursor:])
     if isinstance(getattr(page, "meta", None), dict):
-        page.meta.update(parser.flags)
-        page.meta.update(peicd_has_article_images=bool(parser.images),
+        page.meta.update(flags)
+        page.meta.update(peicd_has_article_images=bool(images),
                          peicd_has_legacy_image_width=legacy_width,
                          peicd_externalized_images=externalized)
     return "".join(pieces)

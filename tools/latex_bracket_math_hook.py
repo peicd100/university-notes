@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from typing import Any
+from tools.preview_stages import transform_text
 
 
 _FENCE_RE = re.compile(r"^(?P<fence>`{3,}|~{3,})(?P<rest>.*)$")
@@ -56,6 +57,10 @@ _HTML_LITERAL_RE = re.compile(
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
+    return transform_text(_normalize_math_markdown, markdown, getattr(getattr(page, 'file', None), 'src_uri', ''))
+
+
+def _normalize_math_markdown(markdown: str) -> str:
     """Isolate pasted display math for Arithmatex, without editing source files.
 
     Python-Markdown requires block math to start a separate paragraph. GPT
