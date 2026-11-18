@@ -9,10 +9,31 @@
   let documentSubscribed = false;
   let lastSectionTarget = null;
 
-  function sectionTargets() {
+  function sectionTargets(availabilityOnly = false) {
     const article = document.querySelector("article.md-content__inner, .md-content__inner.md-typeset");
-    const headings = Array.from(article?.querySelectorAll("h2") || []).filter(heading => heading.getClientRects().length);
+    const all = article?.getElementsByTagName("h2") || [];
     const currentY = getScrollTop();
+    if (lastSectionTarget && Math.abs(lastSectionTarget.y - currentY) > 2) lastSectionTarget = null;
+    if (availabilityOnly && !lastSectionTarget) {
+      // A scroll frame only needs to know whether either button is usable.
+      // Stop at the first qualifying heading in each direction.
+      let first, up = false, down = false;
+      let offset;
+      for (let i = 0; i < all.length; i++) {
+        const rect = all[i].getClientRects()[0];
+        if (!rect) continue;
+        if (!first) { first = all[i]; offset = sectionOffset(first); }
+        if (rect.top < offset - 2) { up = true; break; }
+        if (rect.top > offset + 2) down = true;
+        if (down) break;
+      }
+      for (let i = all.length - 1; first && !down && i >= 0; i--) {
+        const rect = all[i].getClientRects()[0];
+        if (rect && rect.top > offset + 2) down = true;
+      }
+      return { headings: first ? [first] : [], up, down };
+    }
+    const headings = Array.from(all).filter(heading => heading.getClientRects().length);
     if (lastSectionTarget && Math.abs(lastSectionTarget.y - currentY) <= 2) {
       const index = headings.indexOf(lastSectionTarget.heading);
       if (index >= 0) return { headings, up: headings[index - 1], down: headings[index + 1] };
@@ -36,7 +57,7 @@
   function syncSectionNavigation() {
     const navigation = document.querySelector("[data-peicd-section-jump]");
     if (!navigation) return;
-    const targets = sectionTargets();
+    const targets = sectionTargets(true);
     navigation.hidden = targets.headings.length === 0;
     for (const button of navigation.querySelectorAll("[data-peicd-section-direction]")) {
       button.disabled = !targets[button.dataset.peicdSectionDirection];
