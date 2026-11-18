@@ -31,6 +31,20 @@ _PASTED_IFF_ROW_RE = re.compile(
     r"(?<!\\)(?P<row>\\\\(?:" + _TEX_ROW_GAP
     + r")?(?:\\[ \t]|[ \t])*)(?P<relation>\\iff[ \t]*)\\\\;(?=[ \t]*&)"
 )
+# A copied bold sentence can be split around math, with an invalid space before
+# the first closing **. Join only that complete-line artifact, not valid spans.
+_PASTED_BOLD_MATH_RE = re.compile(
+    r"^\*\*(?P<before>[^*`\n]+[ \t]+)\*\*"
+    r"(?P<math>\\{1,2}\([^\n]*?\\{1,2}\))"
+    r"\*\*(?P<after>[^*`\n]+)\*\*(?P<trailing>[ \t]*)$"
+)
+_DUPLICATED_STRONG_RE = re.compile(r"(?<![\\*])\*{4}(?!\*)(?P<inner>\S(?:[^\n]*?\S)?)(?<!\*)\*{4}(?!\*)")
+_SPLIT_DUPLICATED_STRONG_RE = re.compile(
+    r"(?<![\\*])\*{4}(?!\*)(?P<before>[^*\n]*\S)\*{2}(?!\*)"
+    r"(?P<after>[^*\n]*\S)\*{2}(?!\*)"
+)
+_DOUBLE_STRONG_RE = re.compile(r"(?<![\\*])\*{2}(?!\*)")
+_DOLLAR_MATH_RE = re.compile(r"(?<!\\)(?P<dollars>\${1,2})(?!\$)(?:\\.|[^$\\\n])+?(?P=dollars)(?!\$)")
 
 
 def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) -> str:
@@ -45,6 +59,7 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
     """
     lines = _normalize_list_continuations(markdown.splitlines(keepends=True))
     code_spans = _inline_code_spans(lines)
+    literal_html_lines = _literal_html_lines(lines, code_spans)
     converted_lines: list[str] = []
     index = 0
     open_fence: tuple[str, int] | None = None
@@ -81,7 +96,15 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
             closing_index = _find_closing_delimiter(lines, index + 1, prefix, closing_token)
 
         if closing_index is None:
-            converted_lines.append(lines[index])
+            pasted_bold = _PASTED_BOLD_MATH_RE.fullmatch(body) if (
+                not is_code and not code_spans[index] and index not in literal_html_lines
+            ) else None
+            if pasted_bold:
+                body = "**" + pasted_bold["before"] + pasted_bold["math"] + pasted_bold["after"] + "**" + pasted_bold["trailing"]
+            if not is_code and index not in literal_html_lines:
+                protected = [(max(0, a - len(prefix)), b - len(prefix)) for a, b in code_spans[index] if b > len(prefix)]
+                body = _normalize_duplicated_strong(body, protected)
+            converted_lines.append(prefix + body + newline)
             index += 1
             continue
 
@@ -103,6 +126,93 @@ def on_page_markdown(markdown: str, /, *, page: Any, config: Any, files: Any) ->
         index = closing_index + 1
 
     return "".join(converted_lines)
+
+
+def _normalize_duplicated_strong(body: str, protected: list[tuple[int, int]]) -> str:
+    """Collapse nested bold from pasted rich text, preserving code and TeX."""
+    if "****" not in body:
+        return body
+    ranges = list(protected)
+    cursor = 0
+    while opening := _MATH_TOKEN_RE.search(body, cursor):
+        cursor = opening.end()
+        if opening['delimiter'] not in ('(', '[') or any(a <= opening.start() < b for a, b in protected):
+            continue
+        closing = ')' if opening['delimiter'] == '(' else ']'
+        end = next((token for token in _MATH_TOKEN_RE.finditer(body, cursor)
+                    if token['delimiter'] == closing and token['slashes'] == opening['slashes']), None)
+        if end:
+            ranges.append((opening.start(), end.end()))
+            cursor = end.end()
+    ranges.extend(match.span() for match in _DOLLAR_MATH_RE.finditer(body))
+    # Keep embedded HTML attributes (including iframe srcdoc) byte-for-byte.
+    ranges.extend(match.span() for match in re.finditer(
+        r'''<!--.*?-->|</?[A-Za-z][A-Za-z0-9:-]*(?:[^<>"']|"[^"]*"|'[^']*')*>''', body
+    ))
+    merged: list[tuple[int, int]] = []
+    for start, end in sorted(ranges):
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(end, merged[-1][1]))
+        else:
+            merged.append((start, end))
+    token_prefix = '\ue000pasted-strong-'
+    while token_prefix in body:
+        token_prefix += '-'
+    literals = []
+    parts = []
+    cursor = 0
+    for start, end in merged:
+        token = token_prefix + str(len(literals)) + '\ue001'
+        literals.append((token, body[start:end]))
+        parts.extend((body[cursor:start], token))
+        cursor = end
+    parts.append(body[cursor:])
+    masked = ''.join(parts)
+
+    def collapse(match: re.Match[str]) -> str:
+        inner = match['inner']
+        # Balanced inner ** pairs are redundant under the outer bold span.
+        if len(_DOUBLE_STRONG_RE.findall(inner)) % 2:
+            return match[0]
+        return '**' + _DOUBLE_STRONG_RE.sub('', inner) + '**'
+
+    masked = _DUPLICATED_STRONG_RE.sub(collapse, masked)
+    masked = _SPLIT_DUPLICATED_STRONG_RE.sub(lambda match: '**' + match['before'] + match['after'] + '**', masked)
+    for token, literal in literals:
+        masked = masked.replace(token, literal)
+    return masked
+
+
+def _literal_html_lines(lines: list[str], code_spans: list[list[tuple[int, int]]]) -> set[int]:
+    """Protect literal HTML containers from the narrow pasted-bold repair."""
+    protected: set[int] = set()
+    tag: str | None = None
+    fence: tuple[str, int] | None = None
+    fence_depth = 0
+    for index, line in enumerate(lines):
+        content, _ = _split_line_ending(line)
+        prefix, body = _split_container(content)
+        depth = prefix.count(">")
+        if fence and body.strip() and depth < fence_depth:
+            fence = None
+        if fence:
+            if depth == fence_depth and _is_closing_fence(body, *fence):
+                fence = None
+            continue
+        opening_fence = _parse_opening_fence(body) if tag is None else None
+        if opening_fence:
+            fence, fence_depth = opening_fence, depth
+            continue
+        opening = next((match for match in re.finditer(r"<(pre|code|script|style|textarea)\b[^>]*>", line, re.I)
+                        if not any(a <= match.start() < b for a, b in code_spans[index])), None) if tag is None else None
+        if opening:
+            tag = opening[1]
+        if tag:
+            protected.add(index)
+            tail = line[opening.end():] if opening else line
+            if re.search(rf"</{tag}\s*>", tail, re.I):
+                tag = None
+    return protected
 
 
 def _with_indent(prefix: str, indent: int) -> str:

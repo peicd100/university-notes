@@ -22,6 +22,72 @@ def render(source: str) -> BeautifulSoup:
 
 
 class PastedDisplayMathTests(unittest.TestCase):
+    def test_duplicated_bold_from_rich_text(self):
+        for source, expected in (
+            ('意思是：****可以改變括號，不能交換順序。****', '意思是：**可以改變括號，不能交換順序。**'),
+            ('****左邊：****', '**左邊：**'),
+            ('甲****粗體****乙與****另一段****。', '甲**粗體**乙與**另一段**。'),
+            (r'****方法一：先組合** \(g\circ f\)**', r'**方法一：先組合 \(g\circ f\)**'),
+            (r'****只驗證** \(x=3\)**，不能證明相等。****', r'**只驗證 \(x=3\)，不能證明相等。**'),
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(normalize(source), expected)
+                self.assertEqual(normalize(expected), expected)
+                soup = render(source)
+                self.assertIsNotNone(soup.select_one('strong'))
+                self.assertNotIn('*', soup.get_text())
+
+    def test_duplicated_bold_preserves_literals_and_normal_markdown(self):
+        for source in (
+            '****', '**** ****', '**粗體**', '***粗斜體***', '******其他強調******',
+            '****不配對******', '<iframe srcdoc="****literal****"></iframe>',
+            r'\****保留跳脫****', '`****程式碼****`',
+            '```text\n****程式碼****\n```', '    ****程式碼****',
+            '<pre>\n****程式碼****\n</pre>', '<textarea>\n****內容****\n</textarea>',
+            r'\(a****b****c\)', r'$a****b****c$', r'$$a****b****c$$',
+            '\\[\na****b****c\n\\]', '$$\na****b****c\n$$',
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(normalize(source), source)
+        source = '> ****文字 `a****b****` 與 \\(x****y****\\)****\r\n'
+        self.assertEqual(normalize(source), '> **文字 `a****b****` 與 \\(x****y****\\)**\r\n')
+
+    def test_pasted_bold_sentence_split_around_inline_math(self):
+        for source in (
+            r"**步驟一：任取一個 **\(z\in C\)**。**",
+            r"**步驟二：利用 **\(f\)** 也是滿射。**",
+            r"> **步驟二：利用 **\(f\)** 也是滿射。**",
+        ):
+            with self.subTest(source=source):
+                normalized = normalize(source)
+                self.assertEqual(normalize(normalized), normalized)
+                strong = render(source).select_one("strong")
+                self.assertIsNotNone(strong.select_one(".arithmatex"))
+                self.assertNotIn("**", render(source).get_text())
+                self.assertTrue(strong.get_text().endswith("。"))
+
+    def test_pasted_bold_repair_preserves_code_and_valid_emphasis(self):
+        artifact = r"**步驟一：任取一個 **\(z\in C\)**。**"
+        for source in (
+            "```text\n" + artifact + "\n```\n",
+            "    " + artifact,
+            "`" + artifact + "`",
+            "`multiline\n" + artifact + "\ncode`",
+            "<pre>\n" + artifact + "\n</pre>",
+            "<textarea>\n" + artifact + "\n</textarea>",
+            r"**甲**\(x\)**乙**",
+            r"**步驟一：任取一個 \(z\in C\)。**",
+            r"**只有文字 **其他內容**。**",
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(normalize(source), source)
+        source = "> " + artifact + "\r\n"
+        self.assertTrue(normalize(source).endswith("\r\n"))
+        for literal in ("```html\n<pre>\n```", "`<pre>`"):
+            source = literal + "\n\n" + artifact
+            self.assertTrue(normalize(source).startswith(literal))
+            self.assertEqual(len(render(source).select('strong > .arithmatex')), 1)
+
     def test_indented_aligned_rows_preserve_dollar_boundaries(self):
         formula = (
             "$$\n\\begin{aligned}\n"

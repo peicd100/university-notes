@@ -27,7 +27,7 @@ theme:
     - navigation.instant.progress
     # - navigation.sections
     - navigation.tabs  # 啟用標籤式導航
-    - navigation.top  # 當使用者向下捲動後開始再次向上捲動時，可以顯示返回頂部按鈕。
+    - navigation.top  # 透過自訂 partial 常態顯示右上方回頂部箭頭。
     # - navigation.tracking  # 目前網址 fragment 改由自訂 toc-fold.js 與 current 同步，避免和自訂 scrollspy 雙來源衝突
     - announce.dismiss  # 添加通知的關閉功能
 
@@ -97,10 +97,10 @@ plugins:
 
 extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css  # 自定義 CSS 文件
-  - assets/pymdownx-extras/自定義.css?v=20261115-ux-1  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
+  - assets/pymdownx-extras/自定義.css?v=20261116-sections-4  # 自定義 CSS 文件（加版本參數避免手機快取吃舊版）
 
 extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js?v=20261115-nav-1  # 依頁面內容動態載入 MathJax / Mermaid / 圖片工具 / preview 工具
+  - assets/pymdownx-extras/conditional-loader.js?v=20261116-sections-2  # 依頁面內容動態載入公式／圖表／原貌筆記工具
 
 hooks:
   - tools/asset_bundle_hook.py
@@ -116,6 +116,7 @@ hooks:
 
 # Markdown 擴展設置
 markdown_extensions:
+  - tools.block_headings  # 區塊內標題依外層標題自動往下一級
   - pymdownx.snippets:
       check_paths: true
   - markdown_include.include: #include其他的.md
