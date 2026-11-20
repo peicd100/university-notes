@@ -1322,38 +1322,31 @@ body {
   margin-top: 0.8rem;
 }
 
+/* Same reading surface for callouts, collapsible blocks, and custom note boxes. */
+:is([data-md-color-scheme="slate"], [data-md-color-scheme="dracula"]) .md-typeset :is(.admonition, details:not(.library-course), .i) {
+  background: var(--md-default-bg-color);
+  box-shadow: none;
+}
+
+:is([data-md-color-scheme="slate"], [data-md-color-scheme="dracula"]) .md-typeset :is(.admonition, details):not(.library-course) > :is(.admonition-title, summary) {
+  background: rgba(255, 255, 255, 0.04);
+}
+
 [data-md-color-scheme="slate"] .md-typeset details:not([class]),
 [data-md-color-scheme="dracula"] .md-typeset details:not([class]) {
-  background: #050505;
-  border: 1px solid rgba(122, 211, 255, 0.2);
-  border-left: 2px solid rgba(122, 211, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
-  box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.32),
-    0 0 0 1px rgba(122, 211, 255, 0.07) inset;
   color: var(--md-default-fg-color);
   margin: 1.05em 0;
   overflow: hidden;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
-}
-
-[data-md-color-scheme="slate"] .md-typeset details:not([class]):hover,
-[data-md-color-scheme="slate"] .md-typeset details:not([class]):focus-within,
-[data-md-color-scheme="dracula"] .md-typeset details:not([class]):hover,
-[data-md-color-scheme="dracula"] .md-typeset details:not([class]):focus-within {
-  border-color: rgba(122, 211, 255, 0.4);
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.36),
-    0 0 0 1px rgba(122, 211, 255, 0.16) inset;
 }
 
 [data-md-color-scheme="slate"] .md-typeset details:not([class]) > summary,
 [data-md-color-scheme="dracula"] .md-typeset details:not([class]) > summary {
   align-items: center;
-  background: #0b0d10;
   border-bottom: 1px solid transparent;
   border-radius: 0 !important;
-  color: #e7fbff;
+  color: var(--md-default-fg-color);
   cursor: pointer;
   display: flex;
   gap: 0.55rem;
@@ -1361,14 +1354,22 @@ body {
   font-weight: 700 !important;
   line-height: 1.35;
   min-height: 2.35rem;
-  outline: none;
   padding: 0.62rem 0.82rem 0.62rem 0.95rem !important;
   user-select: none;
 }
 
+:is([data-md-color-scheme="slate"], [data-md-color-scheme="dracula"]) .md-typeset details:not(.library-course) > summary:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+:is([data-md-color-scheme="slate"], [data-md-color-scheme="dracula"]) .md-typeset details:not(.library-course) > summary:focus-visible {
+  outline: 2px solid var(--md-typeset-a-color);
+  outline-offset: -3px;
+}
+
 [data-md-color-scheme="slate"] .md-typeset details:not([class])[open] > summary,
 [data-md-color-scheme="dracula"] .md-typeset details:not([class])[open] > summary {
-  border-bottom-color: rgba(122, 211, 255, 0.16);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 [data-md-color-scheme="slate"] .md-typeset details:not([class]) > summary::before,
